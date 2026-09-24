@@ -1,0 +1,12 @@
+/local/
+/build/
+/out/
+/.gradle/
+.idea/
+*.img
+*.GEL
+*.apk
+*.so
+*.ko
+*.bit
+*.bin

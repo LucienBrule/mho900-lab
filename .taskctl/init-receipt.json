@@ -1,0 +1,1 @@
+{"contract":"taskctl.init/alpha1","repository_id":"brule.mho900-lab","plan_digest":"sha256:7e88143d772a9aa2168dc9bcfd183df8400f9d875b31a9f0d3fb2668bb0c5fa6","files":[".agents/.gitignore",".agents/config.toml",".agents/history/heads.json",".agents/policy.toml",".taskctl/.gitignore",".taskctl/toolchain.lock","AGENTS.md","taskctl","taskctl.bat","taskctl.ps1"]}

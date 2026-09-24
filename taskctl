@@ -1,0 +1,111 @@
+#!/bin/sh
+set -eu
+fail() { printf '%s\n' "$*" >&2; exit 2; }
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+lock="$script_dir/.taskctl/toolchain.lock"
+case "$(uname -s)/$(uname -m)" in
+    Linux/x86_64) target=linux-x86_64;;
+    Darwin/arm64) target=macos-aarch64;;
+    *) fail 'Supported: Linux x86_64, macOS arm64, Windows x86_64 (taskctl.bat)';;
+esac
+hash() { if command -v sha256sum >/dev/null 2>&1; then sha256sum "$@"; else shasum -a 256 "$@"; fi; }
+lock_format= wrapper_version= tool_version= artifact_url= artifact_sha= seen='|'
+while IFS= read -r line || [ -n "$line" ]; do
+    case "$line" in ''|'#'*) continue;; esac
+    case "$line" in *=*) key=${line%%=*}; value=${line#*=};; *) fail 'Malformed taskctl lock';; esac
+    case "$seen" in *"|$key|"*) fail "Duplicate lock key: $key";; esac
+    seen="$seen$key|"
+    case "$key" in
+        lockFormat) lock_format=$value;;
+        wrapperVersion) wrapper_version=$value;;
+        toolVersion) tool_version=$value;;
+        "$target.url") artifact_url=$value;;
+        "$target.sha256") artifact_sha=$value;;
+        linux-x86_64.url|linux-x86_64.sha256|windows-x86_64.url|windows-x86_64.sha256|macos-aarch64.url|macos-aarch64.sha256) :;;
+        *) fail "Unknown lock key: $key";;
+    esac
+done < "$lock"
+case "$lock_format/$wrapper_version" in 2/2|2/3) :;; *) fail 'Unsupported taskctl lock or wrapper version';; esac
+case "$tool_version" in ''|*[!A-Za-z0-9.-]*) fail 'Invalid tool version';; esac
+# Report the committed pin before any cache, acquisition or ledger access.
+case "${1:-}" in
+    --version|-V|version)
+        if [ "$#" -eq 1 ]; then printf 'taskctl %s\n' "$tool_version"; exit 0; fi
+        if [ "$1" = version ] && [ "$#" -eq 3 ] && [ "$2" = --format ]; then
+            case "$3" in
+                json) printf '{"api":"taskctl.cli/alpha1","command":"version","result":{"tool":"taskctl","version":"%s"}}\n' "$tool_version"; exit 0;;
+                text) printf 'taskctl %s\n' "$tool_version"; exit 0;;
+            esac
+        fi
+        fail 'usage: taskctl --version | -V | version [--format json|text]';;
+esac
+case "$artifact_sha" in ''|*[!0-9a-f]*) fail 'Missing platform or invalid locked checksum';; esac
+[ "${#artifact_sha}" -eq 64 ] || fail 'Invalid locked checksum'
+case "$artifact_url" in file:///*|https://*) :;; *) fail 'Only file or HTTPS artifact locations are accepted';; esac
+cache_base=${TASKCTL_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/taskctl}
+case "$cache_base" in /*) :;; *) fail 'TASKCTL_CACHE must be absolute';; esac
+cache="$cache_base/$artifact_sha"
+mkdir -p "$cache"
+archive="$cache/archive.tar.gz"
+if [ ! -f "$archive" ]; then
+    [ "${TASKCTL_OFFLINE:-0}" != 1 ] || fail 'Locked taskctl distribution is not cached (offline)'
+    download=$(mktemp "$cache/download.XXXXXX")
+    trap 'rm -f -- "$download"' EXIT HUP INT TERM
+    # Credentials go only to the explicit GitHub API origin. curl strips them on
+    # cross-origin redirects; never use --location-trusted.
+    token=${TASKCTL_GITHUB_TOKEN:-${GH_TOKEN:-}}
+    case "$artifact_url" in
+        https://api.github.com/*)
+            if [ -n "$token" ]; then
+                printf 'header = "Authorization: Bearer %s"\n' "$token" | curl --config - --fail --silent --show-error --location --proto '=https' --proto-redir '=https' -H 'Accept: application/octet-stream' -o "$download" "$artifact_url"
+            else
+                curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' -H 'Accept: application/octet-stream' -o "$download" "$artifact_url"
+            fi;;
+        *) curl --fail --silent --show-error --location --proto '=https,file' --proto-redir '=https' -o "$download" "$artifact_url";;
+    esac
+    actual=$(hash "$download"); actual=${actual%% *}
+    [ "$actual" = "$artifact_sha" ] || fail 'taskctl distribution checksum mismatch'
+    mv -f -- "$download" "$archive"
+    trap - EXIT HUP INT TERM
+fi
+actual=$(hash "$archive"); actual=${actual%% *}
+[ "$actual" = "$artifact_sha" ] || fail 'Cached taskctl distribution checksum mismatch'
+install="$cache/home"
+if [ ! -d "$install" ]; then
+    tries=0
+    until mkdir "$cache/install.lock" 2>/dev/null; do
+        tries=$((tries + 1)); [ "$tries" -lt 60 ] || fail 'Cache install lock held; inspect cache/install.lock before retrying'
+        sleep 1
+    done
+    staging=
+    trap '[ -z "$staging" ] || rm -rf -- "$staging"; rmdir "$cache/install.lock"' EXIT HUP INT TERM
+    if [ ! -d "$install" ]; then
+        tar -tzf "$archive" | while IFS= read -r member; do
+            case "$member" in /*|../*|*/../*|*/..|*[!A-Za-z0-9_./+-]*) exit 2;; esac
+        done || fail 'Unsafe archive path'
+        staging=$(mktemp -d "$cache/install.XXXXXX")
+        tar -xzf "$archive" -C "$staging"
+        mv -- "$staging" "$install"
+        staging=
+    fi
+    rmdir "$cache/install.lock"
+    trap - EXIT HUP INT TERM
+fi
+manifest=$(tar -xOf "$archive" files.sha256) || fail 'Distribution file manifest missing'
+(cd "$install" && printf '%s\n' "$manifest" | hash --check --status -) || fail 'Cached taskctl file checksum mismatch'
+grep -Fx "toolVersion=$tool_version" "$install/distribution.properties" >/dev/null || fail 'Locked version does not match distribution'
+if grep -Fx 'launcherContract=taskctl.launcher/1' "$install/distribution.properties" >/dev/null; then
+    entrypoint=$(sed -n 's/^entrypoint=//p' "$install/distribution.properties")
+    [ "$entrypoint" = taskctl ] || fail 'Unsupported artifact entry point'
+    export TASKCTL_DISTRIBUTION="$install" TASKCTL_REPOSITORY="$script_dir"
+    exec "$install/$entrypoint" "$@"
+fi
+# Compatibility for the published JVM alpha. New archives own their execution.
+classpath=
+libraries=$(printf '%s\n' "$manifest" | sed -n 's/^[0-9a-f]*  \(lib\/.*\.jar\)$/\1/p')
+while IFS= read -r library; do
+    classpath="${classpath:+$classpath:}$install/$library"
+done <<EOF
+$libraries
+EOF
+exec "$install/runtime/bin/java" "-Dtaskctl.distribution=$install" "-Dtaskctl.repository=$script_dir" -cp "$classpath" io.brule.tasking.cli.MainKt "$@"

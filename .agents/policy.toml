@@ -1,0 +1,2 @@
+contract = "taskctl.policy/alpha1"
+profile = "minimal/alpha1"
