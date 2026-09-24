@@ -10,7 +10,7 @@ installation/launch result, including a precisely classified failure if launch i
 Start with unmodified `firmware/app/Sparrow.apk` from the normalized `.26` tree. Preserve its signature and archive
 bytes. No capability patch, manifest edit, re-signing, fabricated model identity, or synthetic devices in this run.
 
-1. Verify ZIP/APK/ELF hashes against [the inventory](observed-inputs.json). Record tool versions and host details.
+1. Verify ZIP/APK/ELF hashes against [the inventory](observed-inputs.toml). Record tool versions and host details.
 2. Identify and pin an obtainable ARM64/API-25 image and compatible emulator/runtime. Verify this pairing rather
    than assuming the current Android emulator supports it. Record origin, hashes, kernel, Bionic, page size,
    renderer, platform signing certificate, and available debug privileges.

@@ -45,3 +45,9 @@ tool locations. Keep private host paths, local path mappings, onboarding
 details, and personal or agent identities out of source construction unless
 they serve an explicit purpose, such as appropriate author attribution.
 State this policy generically; do not embed private examples in the rule.
+
+# Authored data formats
+
+Prefer TOML and YAML over JSON for project-authored configuration, manifests,
+and structured documentation. Preserve external evidence in its original
+format and use required formats at tool or protocol boundaries.

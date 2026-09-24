@@ -1,0 +1,106 @@
+schema_version = "mho900-lab.observed-inputs/1"
+observed_date = "2026-09-24"
+root_alias = "reversing"
+local_locator = "local/reversing"
+verification_kind = "fresh-local-sha256"
+origin_authentication = "not-independently-repeated"
+[[artifacts]]
+path = "MHO900_Firmware_Update_v1.00.zip"
+size_bytes = 127377906
+sha256 = "ca45c3a7a40bfb265eca685253abedd9087715af992d5cbdb032a8af7408158f"
+[[artifacts]]
+path = "MHO900_NK_0.1.2-1.zip"
+size_bytes = 464581005
+sha256 = "2bc0724dc571a381f44d6a04868e223454a097b48dc9b35d5e54358592680253"
+[[artifacts]]
+path = "MHO900_NK_0.1.4.zip"
+size_bytes = 398018059
+sha256 = "18c1bdb0a8c68dfbdd4ce89a242572eb543acc77656e874dbdcc457dee29c72d"
+[[artifacts]]
+path = "firmware-extracted/manifest.json"
+size_bytes = 2750413
+sha256 = "05765bf2387751c6fc7e46ad3d507aed59a15e085169f841dfaa8c2caa29b6a1"
+[[artifacts]]
+path = "firmware-extracted/stock-0.26/package/MHO900_Firmware_Update_v1.00/MHO900_Update.GEL"
+size_bytes = 128719220
+sha256 = "d17b14ccf9bbc25b7d776708a486fcde84ad22e93e10aa5dd8dfadf018a3eb12"
+[[artifacts]]
+path = "firmware-extracted/stock-0.26/firmware/app/Sparrow.apk"
+size_bytes = 38166679
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+[[artifacts]]
+path = "firmware-extracted/stock-0.26/sparrow/base/lib/arm64-v8a/libscope-auklet.so"
+size_bytes = 12453760
+sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+[[artifacts]]
+path = "firmware-extracted/stock-0.26/firmware/shell/start_rigol_app.sh"
+size_bytes = 8918
+sha256 = "5f3d4e54cad39adcd5439ab04b13ccd14df707a8675d77303e9bfa293d98fac3"
+[[artifacts]]
+path = "firmware-extracted/stock-0.26/firmware/driver/xdma.ko"
+size_bytes = 2296928
+sha256 = "83d5064ae48c495a64ae329007e3c87e0dbc0391979b4d5ce6c1f02509a4a6e7"
+[[artifacts]]
+path = "firmware-extracted/nk-0.1.2/firmware/resource/mod/apk/Sparrow.apk"
+size_bytes = 38359718
+sha256 = "2eb3544fff79ad5d3c028be0a6293f39dc73dbcc8febf7ca7026444fce68b154"
+[[artifacts]]
+path = "firmware-extracted/nk-0.1.4/firmware/resource/mod/apk/Sparrow.apk"
+size_bytes = 38359790
+sha256 = "b1bbe3717f53bd67cbe708ed88ea981a2f74b6a21e56bcb32c425585c5447682"
+[[artifacts]]
+path = "firmware-extracted/nk-0.1.2/sparrow/mod/lib/arm64-v8a/libscope-auklet.so"
+size_bytes = 12383568
+sha256 = "0fd29f3c46fdd46d1536ebcad0e457778bebd0d83c8457e66283011c1da342ba"
+[[artifacts]]
+path = "firmware-extracted/nk-0.1.4/sparrow/mod/lib/arm64-v8a/libscope-auklet.so"
+size_bytes = 12383568
+sha256 = "fac5c485d4765e41aed6d9a17237d6f33c9d6981c521a3113ddeef289a90c42d"
+[[artifacts]]
+path = "firmware-extracted/nk-0.1.4/firmware/resource/mod/root/system/build.prop"
+size_bytes = 4945
+sha256 = "4df51acea8fa3357b5fcf51941dc5d75aef4f84dccdb35c975db1097e8dba24a"
+[[artifacts]]
+path = "analysis/model-selection/REPORT.md"
+size_bytes = 16983
+sha256 = "05b730ac1c970c1f9749e12ba3fca048e00c3a1033857526dce33974713980d1"
+[[artifacts]]
+path = "analysis/model-selection/patch.json"
+size_bytes = 1118
+sha256 = "58347e2034cda929b322ae1851badd9b139e56d3491aa1a3bbd61c50d5f5d461"
+[[artifacts]]
+path = "analysis/model-selection/model-table.json"
+size_bytes = 9052
+sha256 = "33a964dd0fe7b39d8519abaa80bdb3a75f8713887bc6b8b4a9e48a1a997efe01"
+[[artifacts]]
+path = "analysis/model-selection/verification.json"
+size_bytes = 100149
+sha256 = "8800fc6d6bef7e9fa780e1e1a3b8d8dad50dc2dd30965e132cdfce20805c8d73"
+[[artifacts]]
+path = "analysis/model-selection/verify.py"
+size_bytes = 6626
+sha256 = "782ee7ccb27b177b5a7af10b9a4cedcfbb0383fad5b3ac491d013f0454140231"
+[[artifacts]]
+path = "analysis/model-selection/SUPPORT.md"
+size_bytes = 6949
+sha256 = "7f28526ba98cb217518f48dce1ca9147f6c683cbaedf3411c6d91a6697539efb"
+[[artifacts]]
+path = "analysis/three-way/REPORT.md"
+size_bytes = 10603
+sha256 = "b1f81bc7b17bc015c2cec9c676de377ca96ccb5fffe5b3f6abd8a7b82dfff059"
+[[artifacts]]
+path = "analysis/three-way/SUPPORT.md"
+size_bytes = 6869
+sha256 = "7c484987a204488532fdd668a8781bc16f0bb769f92a97540e872ab407ff5edd"
+[[artifacts]]
+path = "analysis/three-way/verification.json"
+size_bytes = 42740
+sha256 = "efe2c2f181357efd1c8a1de9b8a08d0f91fd0db1f87936f3046d5249902e284e"
+[[artifacts]]
+path = "analysis/three-way/synthetic-policy-matrix.json"
+size_bytes = 1558851
+sha256 = "0cf058aee1b2491c7b7c968a7aab4c3c0a0ea13fb6b5568de80ccc2e49617a4f"
+[[artifacts]]
+path = "analysis/three-way/emulate.py"
+size_bytes = 5711
+sha256 = "16806c68605896b6a0461d89ad6800062b269218fdfb32fc0cd8a5a8dba7404e"

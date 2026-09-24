@@ -1,7 +1,7 @@
 # External inputs and provenance design
 
 Inspected 2026-09-24. This document defines a proposed manifest contract and a bounded inventory, not a completed
-artifact-ingestion tool. [Observed inputs](observed-inputs.json) records fresh sizes and SHA-256 values for selected
+artifact-ingestion tool. [Observed inputs](observed-inputs.toml) records fresh sizes and SHA-256 values for selected
 files. No proprietary payload is copied into the tracked source tree.
 
 ## Source hierarchy and useful entry points
@@ -51,7 +51,7 @@ archive to independently authenticated origin on that basis; recover the receipt
 
 ## Proposed versioned manifest
 
-Use UTF-8 JSON with a documented schema version. Separate content identity, source attribution, transformation,
+Use UTF-8 TOML with a documented schema version. Separate content identity, source attribution, transformation,
 claims, and local resolution. A digest proves byte identity, not authorship or correctness.
 
 | Record | Required fields and meaning |

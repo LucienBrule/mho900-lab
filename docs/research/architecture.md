@@ -141,8 +141,9 @@ ready-made MHO984 Android emulator.
 The associated [4.4.179 kernel][kernel] is derived from OrangePiRK3399 work and also reports DHO924S testing.
 At commit `d23adbd11626f12abaf4bc742e250204fe2b9f8a`, its tree includes `rk3399-rigol.dts`, SPI/AFE drivers, and
 XDMA sources; `cdev_bypass.c` binds `.mmap` to `bridge_mmap`. This provides testable ABI leads, not proof of an
-exact match to stock MHO900 modules. No `dma_auklet`-named path was found in that recursive tree search; that does
-not exclude equivalent code under another name.
+exact match to stock MHO900 modules. `rk3399-rigol.dts` contains a `dma_auklet` node with
+`compatible = "rigol,dma_auklet"`. The recursive file-path search found no driver/source-file path named
+`dma_auklet`; it did not establish whether a driver under another filename implements that binding.
 
 The [U-Boot fork][uboot] reports RK3399/DHO924S use; retain it for future boot-chain questions. The linked
 [5.10 kernel work][kernel510] is a separate reference. Neither is a prerequisite for the first APK experiment.
