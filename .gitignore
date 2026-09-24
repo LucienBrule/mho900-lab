@@ -1,12 +1,27 @@
+# Local evidence / proprietary inputs
 /local/
+
+# Generated artifacts
 /build/
 /out/
-/.gradle/
-.idea/
-*.img
+/dist/
+/tmp/
+
+# Firmware / binaries
 *.GEL
 *.apk
 *.so
 *.ko
 *.bit
 *.bin
+*.img
+
+# Android / Gradle
+.gradle/
+.idea/
+local.properties
+*.iml
+
+# macOS
+.DS_Store
+

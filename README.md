@@ -1,4 +1,4 @@
-# MH0-900 LAB
+# MHO-900 LAB
 
 mho900-lab
 
