@@ -36,3 +36,12 @@ Commit the generated launchers and state (preserve the POSIX executable bit).
 Set `TASKCTL_OFFLINE=1` to require cached operation. Private GitHub release
 acquisition accepts `TASKCTL_GITHUB_TOKEN` or `GH_TOKEN` with contents read.
 Native alpha contracts are not v1; upgrades never silently rewrite records.
+
+# Source disclosure boundary
+
+Source and documentation describe mho900-lab and what a project reader needs
+to understand or reproduce it. Use project-relative paths and configurable
+tool locations. Keep private host paths, local path mappings, onboarding
+details, and personal or agent identities out of source construction unless
+they serve an explicit purpose, such as appropriate author attribution.
+State this policy generically; do not embed private examples in the rule.
