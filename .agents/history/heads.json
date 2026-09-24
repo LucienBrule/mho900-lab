@@ -1,1 +1,1 @@
-{"protocol":"taskctl.history/1","origin_ledger_revision":"sha256:c94962984de6191393622d46f63754a1a65d4b34a9acb39cc0abd1221d7c2ceb","heads":{}}
+{"protocol":"taskctl.history/1","origin_ledger_revision":"sha256:c94962984de6191393622d46f63754a1a65d4b34a9acb39cc0abd1221d7c2ceb","heads":{"TASK.guest.baseline":"sha256:c2237ecfad3b6a5e198d68300dbada73484a1c7e5d44c03d673da59c3544e347","TASK.guest.decision":"sha256:0607d0bba22d62246dee9cb33ffb4c2b4fc823e1cf718e6c9ddacafd378cba00","TASK.guest.inputs":"sha256:44ae88cadc00f713efc9f8f26700e9b171968435fa1e0a6841276e968cf0ec37"}}

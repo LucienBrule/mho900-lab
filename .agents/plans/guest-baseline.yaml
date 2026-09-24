@@ -1,0 +1,72 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.inputs
+    title: Acquire and pin the ARM64 API-25 baseline inputs
+    state: open
+    intent: Establish an immutable guest image and runtime identity with a reproducible isolated launch procedure.
+    requires: []
+    requirements:
+      - Use the official plain Android ARM64 API-25 image as the first candidate.
+      - Keep proprietary inputs and guest images in ignored local storage; leave the reversing corpus unchanged.
+      - Use TOML or YAML for authored manifests and project-relative locators in source.
+      - Preserve the stock Sparrow APK byte-for-byte, including its signature.
+    acceptance:
+      - Record image origin, archive digest, catalog checksum verification, and extracted guest file digests.
+      - Identify the exact Android release/API/ABI from image evidence or explicitly record why a field is unresolved.
+      - Record emulator version and executable digest plus relevant host architecture and runtime configuration.
+      - Record stock APK/ELF digests and APK signer identity against the reconnaissance inventory.
+      - Provide an isolated reproducible launch and evidence-capture procedure with explicit time bounds.
+    verification: [input-integrity, environment-manifest, launch-procedure]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.baseline
+    title: Capture the stock APK baseline result on the pinned guest
+    state: open
+    intent: Produce repeated clean-state boot and APK admission evidence, capturing the earliest reached failure.
+    requires: [TASK.guest.inputs]
+    requirements:
+      - Use disposable guest state, the pinned runtime and image, and the byte-identical stock APK.
+      - Do not alter the APK, guest signing policy, identity data, or hardware behavior to bypass a baseline failure.
+      - No physical device access, host restart, invasive host configuration, or unrelated task work.
+      - Preserve raw local logs and publish only reviewed evidence with private paths and identifiers removed.
+    acceptance:
+      - Attempt two runs from separate clean writable states with recorded commands, bounds, and timestamps.
+      - Record emulator exit or timeout, ADB reachability, boot completion, API/ABI and graphics where reached.
+      - If boot succeeds, capture ordinary APK installation; if admitted, attempt the declared launch activity.
+      - Record signing identity, package-manager errors, logs, process state and screenshots where accessible.
+      - Classify each phase as reached, failed, timed out, or not reached with evidence locators and digests.
+      - Explain reproducibility or any divergent outcomes; an unexplained failure alone does not satisfy closure.
+      - A reproducible negative result satisfies the investigation but never constitutes application readiness.
+    verification: [run-one, run-two, outcome-classification, input-preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.decision
+    title: Evaluate the baseline and propose the next bounded task set
+    state: open
+    intent: Select an evidence-backed next experiment without automatically authorizing implementation beyond this gate.
+    requires: [TASK.guest.baseline]
+    requirements:
+      - Distinguish runtime compatibility, APK admission, application startup, and hardware dependencies.
+      - Evaluate negative outcomes without converting them into successful boot, launch, or hardware claims.
+      - Do not admit or execute the proposed successor tasks as part of this task.
+    acceptance:
+      - Review both baseline runs, their input identity, evidence quality and repeatability.
+      - State confirmed findings, unresolved questions, candidate responses and the reason for the selected response.
+      - Propose a small bounded successor task set with explicit prerequisites and acceptance criteria.
+      - State the authorization boundary and whether evidence is sufficient to begin the proposed experiment.
+    verification: [decision-review, successor-proposal]
+    required_extensions: []
+    extensions: {}
+roadmaps:
+  - protocol: tasking/planning-draft-1
+    kind: roadmap
+    id: ROADMAP.guest-baseline
+    title: Stock Sparrow guest feasibility
+    intent: Resolve guest boot and stock APK admission before expanding emulation scope.
+    tasks: [TASK.guest.inputs, TASK.guest.baseline, TASK.guest.decision]
+    required_extensions: []
+    extensions: {}
+epics: []

@@ -1,0 +1,1 @@
+{"kind":"roadmap","id":"ROADMAP.guest-baseline","intent":"Resolve guest boot and stock APK admission before expanding emulation scope.","protocol":"tasking/planning-draft-1","title":"Stock Sparrow guest feasibility","tasks":["TASK.guest.inputs","TASK.guest.baseline","TASK.guest.decision"],"required_extensions":[],"extensions":{}}
