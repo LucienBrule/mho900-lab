@@ -1,8 +1,9 @@
 # Staged emulation plan
 
-2026-09-24. Proposed work only; the first engineering task has not been executed.
+2026-09-24. The first bounded investigation is tracked by `ROADMAP.guest-baseline`.
+See the [baseline report](guest-baseline.md) for execution evidence and the decision gate.
 
-## First executable task: capture the stock APK's first failure
+## Initial investigation: capture the stock APK's first failure
 
 **Transition:** from a hash-identified stock APK with no runtime witness to a reproducible ARM64 Android 7.1/API-25
 installation/launch result, including a precisely classified failure if launch is blocked.
@@ -28,15 +29,15 @@ evidence-backed blocker. If no compatible guest can be obtained, deliver a concr
 blocker with tested availability/runtime constraints; do not present that as a completed application launch.
 A working UI requires responsiveness and sustained useful state, not merely a screenshot or a surviving process.
 
-**Current host observation:** macOS ARM64; Kotlin/Gradle commands, Android SDK build-tools, platform-tools and
-emulator files are present. The only installed system-image directory is API 37.0, ARM64, Google Play, 16 KiB.
-No API-25 guest was found in that SDK inventory. No guest was booted and no additional tools were installed.
-This inventory does not establish that the available commands or images are suitable for the target experiment.
+**Initial reconnaissance inventory:** macOS ARM64; Kotlin/Gradle commands, Android SDK build-tools, platform-tools
+and emulator files were present. The SDK contained only an API-37.0 ARM64 Google Play image with 16 KiB pages.
+No API-25 guest had been installed or booted at that point. The subsequent [baseline experiment](guest-baseline.md)
+acquired the API-25 image separately and established guest boot and the first APK-admission failure.
 
-The initial task should include a small reproducible runner and evidence capture, preferably Gradle/Kotlin for
+The initial investigation includes a small reproducible runner and evidence capture. Prefer Gradle/Kotlin for
 semantic operations with shell only where host integration is clearer. Add a fast documentation/manifest check
-when build tooling is introduced; keep CI independent of private inputs. Admit an atomic taskctl contract after
-authorization, with explicit acceptance and receipt evidence. Do not seed the entire speculative roadmap now.
+when build tooling is introduced; keep CI independent of private inputs. The admitted task set separates input
+pinning, the repeated baseline experiment, and an evidence-based decision gate. Later stages remain proposals.
 
 ## Escalation by observed dependency
 

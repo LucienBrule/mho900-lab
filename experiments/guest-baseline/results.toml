@@ -1,0 +1,160 @@
+schema_version = "mho900-lab.guest-baseline-results/1"
+classification = "observed-guest-experiment"
+image_manifest = "experiments/guest-baseline/inputs.toml"
+runner = "tools/guest/run-baseline.sh"
+repeatability = "same boot and admission outcome in two independent writable states"
+android_release = "7.1.1"
+api_level = 25
+abi = "arm64-v8a"
+kernel = "3.18.91+ aarch64"
+guest_platform_signer_sha256 = "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
+apk_signer_sha256 = "f48e7189aac174df7fd19acf58b6d15832760fcf25ac0a6d4bcd5fc1974d4c03"
+first_failure = "INSTALL_FAILED_SHARED_USER_INCOMPATIBLE"
+first_failure_stage = "ordinary APK installation"
+application_launched = false
+hardware_interfaces_exercised_by_application = false
+source_inputs_preserved = true
+screenshots_reviewed = true
+
+runner_sha256 = "519a9ad0a8dcce83ef4d607365b3c31ec569f154713eb9080bc01b2ef8373eca"
+preliminary_runs = ["run-01", "run-02"]
+
+[[runs]]
+id = "run-03"
+started_at = "2026-09-24T18:51:15Z"
+finished_at = "2026-09-24T18:51:28Z"
+boot = "completed"
+graphics = "screenshot_captured"
+install = "failed"
+launch = "not_reached"
+emulator_exit = "not_observed"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/result.toml"
+sha256 = "7e9b624c14f4e904edcab1ee2922d684a1c7ac658b3d7d18610cf3c7646f419a"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/input-sha256.txt"
+sha256 = "04d6f2d7a563263db0259e731bd39975865cffbaa44f122a458b898ec6c7138b"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/emulator-argv.txt"
+sha256 = "076fb84b247485f437a6bff6370a373bf38f77ef2429dc053a2851b4283b4e92"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/emulator.log"
+sha256 = "8546ebfbb9abac1e7e429062e0bf38b91f6ebc4672e93ddf5a7070ec8bc8c7c4"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/adb-devices.txt"
+sha256 = "26fdb20932cd95de591fda73b83e61a569af0a24e7b429edd0ee460bf6774da1"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/getprop.txt"
+sha256 = "e4c588fe38b396be4db360368bf702b2547e5fb7f3ac44951db49bc7ef822101"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/guest-kernel.txt"
+sha256 = "94c11991c831c13bae81db24c95c407e754832c824710c8518cff8d9a376d477"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/surfaceflinger.txt"
+sha256 = "e5bff5f88a3c5bafe2ae8caf1dca17c25bd99613fd6b9ae5bb5e4f1f4348be4e"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/boot.png"
+sha256 = "3449f0026a05220b94b1a17feb823e1f92a129b31f1aedadeb0971dd32397855"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/platform-signature.txt"
+sha256 = "e066d0f3df80e6b5541d2782703efc7274d52c76b171fc3825a1e8b342784211"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/framework-res.apk"
+sha256 = "5f5edf2d270bb50a8245b3ea2f437da36556ab6958b70e1b3b6030bca0afb6eb"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/install.txt"
+sha256 = "c73760ea258405a39dfa5270c0acff81adf55e4453fddb713e655aeee4272ad0"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/logcat-final.txt"
+sha256 = "37b54f70717d720d135a8ac132badb09baf3fe46f9680af89c36b90c170ae68c"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-03/evidence-sha256.txt"
+sha256 = "649b0e1f4c1dd829d19767a1aa1be0b57c70f27ffd4fc20a50bdd71995c099f3"
+
+[[runs]]
+id = "run-04"
+started_at = "2026-09-24T18:52:07Z"
+finished_at = "2026-09-24T18:52:15Z"
+boot = "completed"
+graphics = "screenshot_captured"
+install = "failed"
+launch = "not_reached"
+emulator_exit = "not_observed"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/result.toml"
+sha256 = "a8083376163c3170146e1302b29857537f3ddf88c88c7caf8b1a4db57bb96abb"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/input-sha256.txt"
+sha256 = "04d6f2d7a563263db0259e731bd39975865cffbaa44f122a458b898ec6c7138b"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/emulator-argv.txt"
+sha256 = "6d900726e9865a6fdfea9ae8983ad2c4508187a42c28fe6f5b9520b5afdd9774"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/emulator.log"
+sha256 = "e3f7845eca625e88288b608d94d16be29290ea597c028b874799ac53d5900b50"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/adb-devices.txt"
+sha256 = "26fdb20932cd95de591fda73b83e61a569af0a24e7b429edd0ee460bf6774da1"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/getprop.txt"
+sha256 = "eaa7d8ffd0da59c4e2218e78167f52e0cfec1fddac4ebe712b51f5036a821953"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/guest-kernel.txt"
+sha256 = "94c11991c831c13bae81db24c95c407e754832c824710c8518cff8d9a376d477"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/surfaceflinger.txt"
+sha256 = "b3ebbfebe05b0f2a590129a958f410ca101256f4713ac87a141d0f451de8a7c2"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/boot.png"
+sha256 = "4aa96000995d43f88dfc70077fdf8902184319cb4303f1be09ddbc0a55db79dc"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/platform-signature.txt"
+sha256 = "e066d0f3df80e6b5541d2782703efc7274d52c76b171fc3825a1e8b342784211"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/framework-res.apk"
+sha256 = "5f5edf2d270bb50a8245b3ea2f437da36556ab6958b70e1b3b6030bca0afb6eb"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/install.txt"
+sha256 = "c73760ea258405a39dfa5270c0acff81adf55e4453fddb713e655aeee4272ad0"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/logcat-final.txt"
+sha256 = "5e48e681bb62956bf74d7d55b38703d4423bca856f7e3b0bcbb8fea4665f4c7b"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[runs.evidence]]
+path = "out/guest-baseline/run-04/evidence-sha256.txt"
+sha256 = "91b5916dbeb9a5a3b117c4419098fb609c02c03dfcf12e26a80efaf2f82bb675"

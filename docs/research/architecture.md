@@ -2,6 +2,8 @@
 
 Inspected 2026-09-24. This is a research architecture proposal, not an implementation contract.
 See [provenance](provenance.md) for input locations and [the experiment plan](emulation-plan.md) for progression gates.
+The later [guest baseline](guest-baseline.md) establishes generic API-25 guest boot and an APK signing rejection;
+the reconnaissance observations below retain their original scope.
 
 ## Result
 

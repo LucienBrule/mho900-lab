@@ -1,0 +1,21 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.inputs
+contract: sha256:170bb7afb0a3245e832a6084ca59932343dd1c1f81c757de30f147f85e897107
+actor: mho900-lab-investigation
+recorded_at: "2026-09-24T18:47:59Z"
+evidence:
+  input-integrity: >-
+    Downloaded official archive; published SHA-1 matches b39d359623323a1b4906c071dec396040016ea73.
+    Archive SHA-256 and all nine extracted file hashes are recorded in experiments/guest-baseline/inputs.toml.
+    Stock APK copy and extracted ELF match the reconnaissance hashes; apksigner verification succeeds with the
+    recorded RIGOL certificate. Raw verification evidence is local under out/guest-baseline/inputs/.
+  environment-manifest: >-
+    experiments/guest-baseline/inputs.toml SHA-256 74bf7d1c840e524bcd058b606ef929e49af085f7014c51311ac0b9a372a911ca records extracted Android 7.1.1,
+    API 25, ARM64, userdebug metadata, emulator 37.1.11.0 and executable hashes, ADB version/hash, and run bounds.
+    Emulator acceleration check reports Hypervisor.Framework available; no boot claim is made.
+  launch-procedure: >-
+    docs/research/guest-baseline.md documents acquisition, isolation, phase meanings and command bounds.
+    tools/guest/run-baseline.sh SHA-256 55a07d486f7249f48662ced6a2153d4c38426e962e28d258732a942939987bef passes sh -n and verifies pinned inputs before launching.
+    Each run requires a fresh output directory, private ADB server and writable guest state. Documentation wrapping
+    and git diff --check pass. Runtime behavior is the next task, not evidence asserted here.

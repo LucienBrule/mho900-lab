@@ -1,0 +1,96 @@
+schema_version = "mho900-lab.guest-inputs/1"
+observed_date = "2026-09-24"
+archive_url = "https://dl.google.com/android/repository/sys-img/android/arm64-v8a-25_r02.zip"
+catalog_url = "https://dl.google.com/android/repository/sys-img/android/sys-img2-1.xml"
+archive_size_bytes = 308416103
+archive_sha1 = "b39d359623323a1b4906c071dec396040016ea73"
+archive_sha256 = "1d38666f6e64f983e0d3ad86ef5c42d213685fcd6932a0f2dfbcee0e79767cc2"
+android_release = "7.1.1"
+api_level = 25
+abi = "arm64-v8a"
+build_id = "NYC"
+build_incremental = "8695018"
+build_type = "userdebug"
+security_patch = "2018-01-01"
+host_os = "Darwin"
+host_release = "25.5.0"
+host_architecture = "arm64"
+emulator_version = "37.1.11.0"
+emulator_build = "15917651"
+adb_version = "37.0.1-15733141"
+android_build_tools = "35.0.0"
+yq_version = "4.52.5"
+coreutils_version = "9.10"
+cpus = 2
+memory_mib = 2048
+renderer = "swiftshader"
+display = "1280x800@160dpi"
+boot_timeout_seconds = 180
+emulator_timeout_seconds = 330
+install_timeout_seconds = 30
+adb_command_timeout_seconds = 15
+post_launch_observation_seconds = 15
+
+[[guest_files]]
+path = "advancedFeatures.ini"
+sha256 = "abb55e3ed0873d8a9846a1b08010b414d19802c799f17c416bfc9179e2f417b3"
+
+[[guest_files]]
+path = "build.prop"
+sha256 = "fd8da6646e55ae1cd96aa8fd6944a3eaa4d4aefd75509bd7fdefe90431667fc4"
+
+[[guest_files]]
+path = "kernel-qemu"
+sha256 = "3112e2210d65c276b067e6cfdd1c26caa95e45061cb08893cccd03f82f76407b"
+
+[[guest_files]]
+path = "kernel-ranchu"
+sha256 = "3112e2210d65c276b067e6cfdd1c26caa95e45061cb08893cccd03f82f76407b"
+
+[[guest_files]]
+path = "NOTICE.txt"
+sha256 = "73cb53299e0670943adbcf6349d397683af90ac23b4a121f65858fd67b706d6a"
+
+[[guest_files]]
+path = "ramdisk.img"
+sha256 = "100d85ff3ddfd78d04830f0c9508ca387c36baf4a612fa9ba2d9c41fd6327300"
+
+[[guest_files]]
+path = "source.properties"
+sha256 = "4e8f60f5b12696fcd93cd241d2f3f1bf1fba1ddfa5641e664220ce8def151572"
+
+[[guest_files]]
+path = "system.img"
+sha256 = "8501b327b24bcc8f24a030a13a0d8637653dc9876145d50c6110b1aef534a3b3"
+
+[[guest_files]]
+path = "userdata.img"
+sha256 = "effba4cc839206b25dee05455f6c49b9fad0ca90d524812fd4bbc5d3c02636d2"
+
+[[runtime_files]]
+path = "emulator/emulator"
+sha256 = "b3b8fc0dcedcf6e15b54b41f3e5156319029aa00b88a59fd489f80abdd8fc133"
+
+[[runtime_files]]
+path = "emulator/qemu/darwin-aarch64/qemu-system-aarch64"
+sha256 = "eaa97a970b81f81640db73ed79e19ee173323653a0a1203217e1199d078011f3"
+
+[[runtime_files]]
+path = "emulator/qemu/darwin-aarch64/qemu-system-aarch64-headless"
+sha256 = "ff5a697873a495b59f1676fd757c3c81dfb76aacaa3e11c02b004635b5fadc6b"
+
+[[runtime_files]]
+path = "platform-tools/adb"
+sha256 = "1811e253b21b12cbfda7201ebaf86c10e7ddcb5c606a7a81f7c82b4c429c2d3b"
+
+[apk]
+path = "local/guest-inputs/Sparrow.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+signer_sha256 = "f48e7189aac174df7fd19acf58b6d15832760fcf25ac0a6d4bcd5fc1974d4c03"
+package = "com.rigol.scope"
+activity = "com.rigol.scope.SplashActivity"
+shared_uid = "android.uid.system"
+
+[native_library]
+member = "lib/arm64-v8a/libscope-auklet.so"
+sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"

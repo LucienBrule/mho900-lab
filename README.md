@@ -1,11 +1,12 @@
 # MHO900 Lab
 
 Research harness for the RIGOL MHO900 platform, initially the MHO984.
-The project is in reconnaissance; no complete emulator or physical validation is claimed.
+The project is running initial guest experiments; no complete emulator or physical validation is claimed.
 
 - [System boundary and reconnaissance](docs/research/architecture.md)
 - [External input inventory and provenance design](docs/research/provenance.md)
-- [Staged emulation plan and proposed first task](docs/research/emulation-plan.md)
+- [Staged emulation plan](docs/research/emulation-plan.md)
+- [API-25 guest baseline and decision gate](docs/research/guest-baseline.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

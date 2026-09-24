@@ -1,0 +1,43 @@
+# Proposal only. Not admitted or authorized for execution by the baseline task set.
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.admission-design
+    title: Design a narrowly scoped stock APK admission experiment
+    state: open
+    intent: Identify an auditable guest-only mechanism for admitting the exact stock APK without changing its bytes.
+    requires: [TASK.guest.decision]
+    requirements:
+      - Confine investigation to disposable research guests and preserve the stock APK and reference corpus.
+      - Preserve baseline evidence; do not silently substitute a newer Android image or different APK.
+      - Reject global signature-check disabling and any changes to physical instrument or host security policy.
+    acceptance:
+      - Identify the pinned guest framework build and the shared-UID admission checks relevant to the observed error.
+      - Inspect available guest debug mechanisms and document the chosen implementation boundary and rollback.
+      - Specify admission matching the exact APK digest, package, signer, and requested shared UID.
+      - Define negative controls for unrelated packages, different signers, and changed APK bytes.
+      - Produce an implementable bounded design, or retain this task open with a concrete feasibility blocker.
+    verification: [framework-evidence, scoped-design, negative-control-plan]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.admission-probe
+    title: Probe stock Sparrow startup with the scoped research-guest exception
+    state: open
+    intent: Test APK admission under the documented guest change and record the next observed startup boundary.
+    requires: [TASK.guest.admission-design]
+    requirements:
+      - Use the selected scoped design and keep original and modified guest configurations distinctly identified.
+      - No changes to Sparrow, model identity, calibration, native hardware interfaces, or physical devices.
+      - Do not add further substitutions to progress beyond the first newly observed failure.
+    acceptance:
+      - Record guest modification source, hashes, reproducible application procedure, and rollback.
+      - Verify exact APK preservation and run the specified negative controls against the admission exception.
+      - Repeat the bounded install and startup attempt from clean modified-guest states.
+      - Record UID and certificate behavior plus logs, process state, screenshot and crash evidence where reached.
+      - Explain the result and recommend the next evidence-backed step without admitting successor work.
+    verification: [guest-change, exception-controls, repeated-probe, next-boundary]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
