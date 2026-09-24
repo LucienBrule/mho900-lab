@@ -100,7 +100,7 @@ and whether a bounded exception can retain normal rejection for unrelated packag
 The baseline provides sufficient evidence to begin designing that exception; it does not establish its feasibility
 or authorize an unbounded patch. If a narrow mechanism is unavailable, return an evidenced blocker to review.
 
-The [proposed successor plan](../../.agents/plans/guest-admission-proposed.yaml) separates admission design from
-the controlled probe. It is not admitted to taskctl and has not been executed. The probe must independently
-validate exception scope, preserve the APK digest, and capture the next actual startup failure.
+The [successor plan](../../.agents/plans/guest-admission-proposed.yaml) separates admission design from the controlled
+probe. It was subsequently authorized and admitted; see the [admission experiment](guest-admission.md).
+The probe independently validates exception scope, preserves the APK digest, and captures the next startup failure.
 Android 7.1.1 versus the reported 7.1.2 remains a documented fidelity limit rather than an explanation for the mismatch.

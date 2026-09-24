@@ -1,0 +1,38 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.admission-probe
+contract: sha256:27496d583b4ca944d68c13115f8a373ee67da8da3c1a023e8c755fcdae486d92
+actor: mho900-lab-investigation
+recorded_at: "2026-09-24T19:23:42Z"
+evidence:
+  guest-change: >-
+    experiments/guest-admission/inputs.toml SHA-256 097f3195c2d0a4197ac7d0326b029770ef2d1ae6299c8606cf7dde54ccd70dd3
+    pins the added tools, framework and fixture inputs. experiments/guest-admission/results.toml SHA-256
+    79a921116620c964d84867adde03e67575887045c956dd7dd29c1b4ae2bba94d indexes source and raw evidence.
+    The original image, stock APK copy, reference APK and reference native library remain unchanged. Each run
+    uses fresh userdata and a per-run source snapshot. The report documents guest SELinux changes from Frida,
+    in-memory admission scope, loopback transport, reproduction and discard-based rollback. No host policy or
+    physical device was modified. The experiment applies no additional SELinux application-context mapping.
+  exception-controls: >-
+    In probe-06 and probe-07, the original unhooked install rejected stock; the hook rejected unrelated package,
+    different signer and changed-byte same-signer fixtures for their intended guards; only exact stock was admitted.
+    The changed-byte fixture passes v2 verification with the stock signer. Pulled installed bytes retain SHA-256
+    6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b. Independent Kotlin verification checks
+    actual packages.xml certificates: stock package signer preserved, system shared-UID platform signer preserved,
+    and UID 1000 assigned. Reinstallation after hook detach again rejects stock under original signature policy.
+  repeated-probe: >-
+    Fresh probe-06 (19:19:12Z to 19:21:11Z) and probe-07 (19:21:33Z to 19:23:27Z) on 2026-09-24 both pass
+    tools/guest/VerifyAdmission.main.kts and all indexed raw checksums. Normal CLI deadline completion replaces
+    signaled hook teardown. system_server PID remains 1067 throughout the first run and 1086 throughout the second,
+    including after detach and post-launch observation; no server crash appears in the captured crash evidence.
+    Frida preload and crash integration are disabled, its server is stopped before launch, and Zygote maps contain
+    no Frida mapping. The failed probe-05 teardown is retained and explicitly excluded from the successful pair.
+    Screenshots were visually reviewed: the first has a crash dialog, the second a black screen. Neither is app UI
+    success. Private ADB, emulator and forwarding ports were verified closed after cleanup.
+  next-boundary: >-
+    Both final runs record no SELinux context match for uid 1000, seinfo default, com.rigol.scope, followed by the
+    Zygote child aborting with SIGABRT. Native tombstones and logs identify selinux_android_setcontext failure
+    before application initialization. docs/research/guest-admission.md SHA-256
+    a31e830694685a658cf31dc2a098d8add696020f0cc5da03ab408f4a634c786a distinguishes this from instrument native
+    execution and documents the preliminary harness failures and bounded stability claim. It recommends evaluating
+    a scoped signer/package-to-seinfo assignment without implementing it or admitting successor tasks.

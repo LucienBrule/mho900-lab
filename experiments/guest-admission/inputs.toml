@@ -1,0 +1,64 @@
+schema_version = "mho900-lab.guest-admission-inputs/1"
+baseline_manifest = "experiments/guest-baseline/inputs.toml"
+framework_fingerprint = "Android/sdk_phone_arm64/generic_arm64:7.1.1/NYC/8695018:userdebug/test-keys"
+services_odex_sha256 = "8f6019912e6a22f220a222fdde2d553f688e81b5a09587caab1623c9e25d0bc9"
+services_jar_sha256 = "f3138919ea6814497788528caba50f8d9ec3033f9f217f433dd171fa51c0cede"
+kotlin_version = "2.3.21"
+jdk_version = "23.0.2+7-jvmci-b01"
+
+[frida]
+version = "16.7.19"
+tools_version = "13.7.1"
+server_url = "https://github.com/frida/frida/releases/download/16.7.19/frida-server-16.7.19-android-arm64.xz"
+archive_sha256 = "36ec3d7474b1ac69c4e7ec985612fae771d37ffb71cb94858bc6978f69f5e581"
+server_sha256 = "4eebf1fbc66ff54aba9a9124c2ef8b32b566616388c60e2caa65148a529d826a"
+python_version = "3.12.2"
+packages = ["frida==16.7.19", "frida-tools==13.7.1", "colorama==0.4.6", "prompt-toolkit==3.0.53",
+    "pygments==2.21.0", "wcwidth==0.9.1", "websockets==13.1"]
+
+[guest_policy]
+before_sha256 = "d42d4591e6a44551d969db387403b751aef0bb1bb0654f8e05ae7c9a10d224bc"
+after_sha256 = "9fc3a821a681116e425f87b9a4eeb73f62b1e299e025709e6f566236761b2181"
+enforcement_before = "Enforcing"
+enforcement_after = "Enforcing"
+interpretation = "Frida changes guest SELinux policy; enforcing mode alone does not preserve baseline policy."
+
+[controls]
+directory = "local/guest-inputs/admission-controls"
+changed_bytes_sha256 = "ec8a628447420e7d72bc5b4dfada3a3aa0dfe65d5d878dd3f934fe07dc768367"
+changed_bytes_added = 4096
+changed_bytes_signer = "f48e7189aac174df7fd19acf58b6d15832760fcf25ac0a6d4bcd5fc1974d4c03"
+generated_signer = "986f3036a092fee0ba26f3353eeee976ea0833646f902f4301b1679662d13093"
+different_signer_apk_sha256 = "eee32ddce437e09019e9b4c9c395e7514b559bd0c38b7a11a41c09396b6ce125"
+unrelated_apk_sha256 = "cbc35493668681d849f451b454eff061878edb136f013eee5fff8ab0498c1a91"
+reproduction = "A freshly generated control key changes two fixture hashes; record them for each reproduction."
+
+[[sdk_files]]
+path = "build-tools/35.0.0/aapt"
+sha256 = "c0b5427aeabbbe05023ee2a55e3a9877c99ce57245bb15c21d4802326b86d099"
+
+[[sdk_files]]
+path = "build-tools/35.0.0/lib/apksigner.jar"
+sha256 = "00ef9948f843fe395d2440ae3ef41405b8040a6d5d46493bd1902ac0ee6deae7"
+
+[[sdk_files]]
+path = "platforms/android-35/android.jar"
+sha256 = "4566663c3876e022b4fa4ced8c8697c4ab1688267f090114fd92d027b32e619b"
+
+[[inspection_evidence]]
+path = "out/guest-admission/inspect-03/verify-signatures-oatdump.txt"
+sha256 = "f6f89e825c284412747ef08fefae654dd74d156597bfed5e9519253a3bebcb29"
+
+[[inspection_evidence]]
+path = "out/guest-admission/inspect-03/frida-inspection.txt"
+sha256 = "bc802d39290ec41a06cf9c47b9705ce8d19a03ad99a687b050a1c8e5c686203f"
+
+[[references]]
+url = "https://android.googlesource.com/platform/frameworks/base/+/android-7.1.1_r13/services/core/java/com/android/server/pm/PackageManagerService.java"
+path = "out/guest-admission/reference/PackageManagerService.java"
+sha256 = "c67f88fb26664e428593267725e5f41eb9c96c5ca512c93ee544c8ad9a3bd7ab"
+
+[[references]]
+url = "https://github.com/frida/frida-core/blob/16.7.19/lib/selinux/patch.c"
+path = "out/guest-admission/reference/frida-selinux-patch.c"
+sha256 = "eb8bc7e912508e8c4ca4535fbc684062c606293e940fa4a43e9896152aab8e37"

@@ -7,6 +7,7 @@ The project is running initial guest experiments; no complete emulator or physic
 - [External input inventory and provenance design](docs/research/provenance.md)
 - [Staged emulation plan](docs/research/emulation-plan.md)
 - [API-25 guest baseline and decision gate](docs/research/guest-baseline.md)
+- [Scoped APK admission and startup boundary](docs/research/guest-admission.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

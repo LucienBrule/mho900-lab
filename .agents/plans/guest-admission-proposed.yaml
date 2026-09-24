@@ -1,4 +1,4 @@
-# Proposal only. Not admitted or authorized for execution by the baseline task set.
+# Proposed at the baseline gate; subsequently authorized and admitted without contract changes.
 contract: taskctl.seed/alpha1
 tasks:
   - protocol: tasking/core-draft-2

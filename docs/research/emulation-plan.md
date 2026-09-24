@@ -2,6 +2,7 @@
 
 2026-09-24. The first bounded investigation is tracked by `ROADMAP.guest-baseline`.
 See the [baseline report](guest-baseline.md) for execution evidence and the decision gate.
+The subsequent [admission experiment](guest-admission.md) records the scoped guest change and next startup boundary.
 
 ## Initial investigation: capture the stock APK's first failure
 

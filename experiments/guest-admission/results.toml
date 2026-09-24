@@ -1,0 +1,342 @@
+schema_version = "mho900-lab.guest-admission-results/1"
+classification = "observed-disposable-guest-experiment"
+input_manifest = "experiments/guest-admission/inputs.toml"
+runner = "tools/guest/run-admission.sh"
+verifier = "tools/guest/VerifyAdmission.main.kts"
+android_release = "7.1.1"
+api_level = 25
+abi = "arm64-v8a"
+stock_apk_preserved = true
+installed_uid = 1000
+shared_uid_certificate_preserved = true
+negative_controls_rejected_per_run = 3
+first_launch_failure = "SELinux context lookup: uid 1000, seinfo default, com.rigol.scope"
+failure_stage = "Zygote child before application initialization"
+application_initialized = false
+instrument_native_library_execution_observed = false
+physical_device_access = false
+host_security_policy_modified = false
+selinux_guest_policy_modified_by_frida = true
+selinux_context_mapping_modified = false
+normal_frida_lifetime_seconds = 45
+normal_frida_teardown = "CLI deadline, script unload, session detach; no SIGTERM on success"
+system_server_stability = "same PID before hook, after detach, and after observation; no recorded server crash"
+screenshots_reviewed = true
+preliminary_runs = ["inspect-01", "inspect-02", "inspect-03", "probe-01", "probe-02", "probe-03", "probe-04"]
+failed_repeat = "probe-05"
+failed_repeat_reason = "system_server native crash during signaled instrumentation teardown; launch not reached"
+next_step = "Evaluate exact-APK-scoped signer/package-to-seinfo assignment; no successor admitted."
+
+[[source]]
+path = "tools/guest/admission-exception.js"
+sha256 = "abb4d1f6a4103dc34bb66895bbb13fa3ebc0473057d439462225c05f43987ad9"
+
+[[source]]
+path = "tools/guest/admission-inspect.sh"
+sha256 = "1f4287362ea52cec47862096935fa85a61bec1a42d161162096810cf31712097"
+
+[[source]]
+path = "tools/guest/admission-probe.sh"
+sha256 = "2944239f3ffa64c4f795128e03d52121f7a5673d20dc83e409627ca25bc29070"
+
+[[source]]
+path = "tools/guest/run-admission.sh"
+sha256 = "e504eeb56a0dd4047d4b4dcf72bac2b8e6780b3963e06e4a45c0a53cbcb4b00a"
+
+[[source]]
+path = "tools/guest/inspect-framework.js"
+sha256 = "dbbb539676f2a35c2f24b8117f1eb0700120c368319883b1d4ae35ea83a13fa7"
+
+[[source]]
+path = "tools/guest/build-admission-controls.sh"
+sha256 = "bcbdd2c218a7f2bb900ebbee62ed78aabe81dae5c82b5351c926d7f56dc12e5e"
+
+[[source]]
+path = "tools/guest/prepare-admission.sh"
+sha256 = "a449c3b8cb2fd48d5abe39f961b73c23b34dfc39cb989fe32424376b50ad93f0"
+
+[[source]]
+path = "tools/guest/ChangedApkControl.main.kts"
+sha256 = "d2b97a968074e586f56c4a26f212b47466b59bcf641cd741eb1b87145f8d2b74"
+
+[[source]]
+path = "tools/guest/VerifyAdmission.main.kts"
+sha256 = "b925b2e4007e04b996e597bc043abd3de018f5794d1d358be5320d939fcab408"
+
+[[failed_repeat_evidence]]
+path = "out/guest-admission/probe-05/result.toml"
+sha256 = "35a40f47601f2585a9fd90b0f07b08b18b68936193d4bd4f21b62b54696a0c52"
+
+[[failed_repeat_evidence]]
+path = "out/guest-admission/probe-05/logcat-final.txt"
+sha256 = "81f71c8764b1f71bdad331f9d3b30f43be9b2b3bb1e98418ae37538783aeb725"
+
+[[failed_repeat_evidence]]
+path = "out/guest-admission/probe-05/admission-hook.txt"
+sha256 = "bc384ebe986f198a7faec267472328036cc07304474d42bb503bad976455273a"
+
+[[failed_repeat_evidence]]
+path = "out/guest-admission/probe-05/detached-stock-update.txt"
+sha256 = "8d7fafe8e9da082d944c1f5847170c957e5e96cf8adfa8377fcc96ff32061bb0"
+
+[[failed_repeat_evidence]]
+path = "out/guest-admission/probe-05/evidence-sha256.txt"
+sha256 = "3c44d5562c7a2ed499d52bc2267df69931b246cc7b8468d977627b844e263af0"
+
+[[runs]]
+id = "probe-06"
+started_at = "2026-09-24T19:19:12Z"
+finished_at = "2026-09-24T19:21:11Z"
+boot = "completed"
+install = "admitted"
+launch = "attempted"
+inspection = "completed"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/result.toml"
+sha256 = "685692c6e2bb88e2d7ab001504140868ef7f55237a14888050190acf3d85652b"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/evidence-sha256.txt"
+sha256 = "35a42ece42e73d9bdcd58002ee895d99c629766edca0b271103dc2942329a252"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/admission-hook.txt"
+sha256 = "bc384ebe986f198a7faec267472328036cc07304474d42bb503bad976455273a"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/unhooked-stock.txt"
+sha256 = "c73760ea258405a39dfa5270c0acff81adf55e4453fddb713e655aeee4272ad0"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/control-unrelated.txt"
+sha256 = "c8a0c456a3961d5bec15814f8cf33668239f1677ff6cb4bcf12ddff4b39fed48"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/control-different-signer.txt"
+sha256 = "4f16a081495cc11d9fe84c8a45dc7e3d2227c0455725ad1f1d9b481b369b99db"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/control-changed-bytes.txt"
+sha256 = "978dc97b7cfc69adf77a7bc70249446045b8eedcd8c3007f8a26add1e782ff7d"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/control-changed-bytes-signature.txt"
+sha256 = "4b600042f11b46305b696de579373ad418dde54a65d066aa54f7713260d52b79"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/install.txt"
+sha256 = "781a31c82430c97897af612ece5e0ca2205e301cb5ff121ce2660541ea5182c7"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/frida-detach-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/system-server-pid.toml"
+sha256 = "829c0ea0a408825291f70eda29aa13355804108da03c8197167d83447486acab"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/detached-stock-update.txt"
+sha256 = "144a3911de4982390a002a29480753ea94bc3d4834fe93676255eb29604685d0"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/installed.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/installed-signature.txt"
+sha256 = "746dfbadd8b241c3c4ecd3177492383118313ae9ce94d5dbc36bee0e46ad6c33"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/packages.xml"
+sha256 = "eaeb45f545d2f5fc176919b77d7ecae4bbf08f21dfe22724bb7be6750a5ddfb1"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/package-state.txt"
+sha256 = "023b293d6e02a5df6596e00b34b0240d9dd2c276411657ef9e9cccab584244fb"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/zygote-maps.txt"
+sha256 = "9682473d3792c19c0dc765f776881fae17884c4a6d09031031d5c9249b99f870"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/seapp_contexts"
+sha256 = "2d439d3d0978e952b9bfbd75dae360953932826fd4a43aae5ba92914d6a6186b"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/mac_permissions.xml"
+sha256 = "94cc111b69bcd66871cb20d5405a4ada011d01e829a91c2b000e6eb580cea7cc"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/selinux-before.policy"
+sha256 = "d42d4591e6a44551d969db387403b751aef0bb1bb0654f8e05ae7c9a10d224bc"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/selinux-after.policy"
+sha256 = "9fc3a821a681116e425f87b9a4eeb73f62b1e299e025709e6f566236761b2181"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/launch.txt"
+sha256 = "cfe7061c938193778a5c7405b5bb83c9cebf3d5d35b5e66aeb50dcf8640e33c4"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/launch-status.toml"
+sha256 = "7028fb7acf94cd5443e681f0f48b3f784bdf4caedadf339470a80bf832576fa9"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/app-pid.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/application-logcat.txt"
+sha256 = "04815e111bd7a1a54c6091881b4bea38fcf81b4a9d0b5b9f05d422006ae4804c"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/crash-logcat.txt"
+sha256 = "260cb0eb4be43dacac4bf51e8621b8c677f220503e8c656e24402ff1a4b79864"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/logcat-final.txt"
+sha256 = "04815e111bd7a1a54c6091881b4bea38fcf81b4a9d0b5b9f05d422006ae4804c"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/application.png"
+sha256 = "007c74c920a6fa1115da2aae7f89a381ffdae4e012ac02ef5b1efa0c4369ac64"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/tombstones/tombstone_00"
+sha256 = "3d2e60cf5e93f5e222a1be804352e7e3575e82f39e5536158db5d1593730bcc2"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-06/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[runs]]
+id = "probe-07"
+started_at = "2026-09-24T19:21:33Z"
+finished_at = "2026-09-24T19:23:27Z"
+boot = "completed"
+install = "admitted"
+launch = "attempted"
+inspection = "completed"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/result.toml"
+sha256 = "1e537184d1941f2fd4501f31e002c34047779a7e779825869f2de9ca9445be09"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/evidence-sha256.txt"
+sha256 = "9fd2e0939bc4fd8f314322052ab8bf2e134745fc58638c36d1b10046540dabcc"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/admission-hook.txt"
+sha256 = "bc384ebe986f198a7faec267472328036cc07304474d42bb503bad976455273a"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/unhooked-stock.txt"
+sha256 = "c73760ea258405a39dfa5270c0acff81adf55e4453fddb713e655aeee4272ad0"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/control-unrelated.txt"
+sha256 = "c8a0c456a3961d5bec15814f8cf33668239f1677ff6cb4bcf12ddff4b39fed48"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/control-different-signer.txt"
+sha256 = "4f16a081495cc11d9fe84c8a45dc7e3d2227c0455725ad1f1d9b481b369b99db"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/control-changed-bytes.txt"
+sha256 = "978dc97b7cfc69adf77a7bc70249446045b8eedcd8c3007f8a26add1e782ff7d"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/control-changed-bytes-signature.txt"
+sha256 = "4b600042f11b46305b696de579373ad418dde54a65d066aa54f7713260d52b79"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/install.txt"
+sha256 = "781a31c82430c97897af612ece5e0ca2205e301cb5ff121ce2660541ea5182c7"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/frida-detach-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/system-server-pid.toml"
+sha256 = "2fed407453ac493b5eabe06c88bb586b71e77ecdb53c1c4b490462abfe43673e"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/detached-stock-update.txt"
+sha256 = "144a3911de4982390a002a29480753ea94bc3d4834fe93676255eb29604685d0"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/installed.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/installed-signature.txt"
+sha256 = "746dfbadd8b241c3c4ecd3177492383118313ae9ce94d5dbc36bee0e46ad6c33"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/packages.xml"
+sha256 = "aba6ddc9cf619a2271118a29153a6b706bf8b530496adac59081ae8c2b923fcc"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/package-state.txt"
+sha256 = "b1331a3b25fc3052d583cd0e5113e889afde568aee86c1c2f982499e423441b8"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/zygote-maps.txt"
+sha256 = "df0923233c6ada446e74093e3125908cd4bf31eaa8bcfcebae9806056abfb0b9"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/seapp_contexts"
+sha256 = "2d439d3d0978e952b9bfbd75dae360953932826fd4a43aae5ba92914d6a6186b"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/mac_permissions.xml"
+sha256 = "94cc111b69bcd66871cb20d5405a4ada011d01e829a91c2b000e6eb580cea7cc"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/selinux-before.policy"
+sha256 = "d42d4591e6a44551d969db387403b751aef0bb1bb0654f8e05ae7c9a10d224bc"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/selinux-after.policy"
+sha256 = "9fc3a821a681116e425f87b9a4eeb73f62b1e299e025709e6f566236761b2181"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/launch.txt"
+sha256 = "cfe7061c938193778a5c7405b5bb83c9cebf3d5d35b5e66aeb50dcf8640e33c4"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/launch-status.toml"
+sha256 = "7028fb7acf94cd5443e681f0f48b3f784bdf4caedadf339470a80bf832576fa9"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/app-pid.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/application-logcat.txt"
+sha256 = "5d855fd2c175324665fb08c3ac3ae3c4a57789cddd032fbb081d5d12ef6520be"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/crash-logcat.txt"
+sha256 = "343b8a1bb0c9cefff0fc9a03ef8a591048daa1c6a3f6be338d4aefea24f208c8"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/logcat-final.txt"
+sha256 = "5d855fd2c175324665fb08c3ac3ae3c4a57789cddd032fbb081d5d12ef6520be"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/application.png"
+sha256 = "007c74c920a6fa1115da2aae7f89a381ffdae4e012ac02ef5b1efa0c4369ac64"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/tombstones/tombstone_00"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[runs.evidence]]
+path = "out/guest-admission/probe-07/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
