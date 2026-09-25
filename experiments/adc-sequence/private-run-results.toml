@@ -1,0 +1,49 @@
+schema_version = "mho900-lab.adc-sequence-private-result/1"
+result = "preflight-failed-before-guest"
+run_id = "private-adc-sequence-01"
+task = "TASK.guest.adc-sequence-private-run"
+freeze_commit = "99c4c9d"
+runner_exit = 1
+failure_phase = "shared-frida-cli-version-check"
+failure = "local launcher rejected with bad-interpreter error"
+staged_frozen_inputs_verified = 140
+guest_launches = 0
+private_arms_executed = 0
+stock_installed = false
+observer_result = "not-observed"
+system_server_health = "not-applicable-no-guest-started"
+final_health_helper_reached = false
+runner_final_index_created = false
+separate_staged_input_audit = true
+required_local_ports_idle_after_attempt = true
+rerun_performed = false
+stock_artifacts_changed = false
+physical_access = false
+
+[[evidence]]
+path = "experiments/adc-sequence/control-inputs.toml"
+sha256 = "cd75cdcfdc6f2bde8c1a1b52bbb92e8b35c00908518370f203726dcb269568f5"
+
+[[evidence]]
+path = "out/adc-sequence-profile/private-run.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[evidence]]
+path = "out/adc-sequence-profile/private-run.stderr"
+sha256 = "9538a563e3bc6cfd120d3e626b1ede1ad65e4a6d4f6a2d16950a9066981f9e34"
+
+[[evidence]]
+path = "out/adc-sequence-profile/stock-preservation-before-run.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[evidence]]
+path = "out/adc-sequence-preflight-review/staged-inputs-sha256.txt"
+sha256 = "c3f53b155a3e3892feeb07e1a1447a6076279b5f4907890be48e5c8ade46af90"
+
+[[evidence]]
+path = "out/adc-sequence-preflight-review/ports.toml"
+sha256 = "ab33e6b146b73a1bf309facffd7b59ed7cf590a439c157a90c8f68dc8916a1a4"
+
+[[evidence]]
+path = "out/adc-sequence-preflight-review/stock-preservation-after.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
