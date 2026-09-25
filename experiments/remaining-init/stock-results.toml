@@ -1,0 +1,123 @@
+schema_version = "mho900-lab.stock-remaining-init/1"
+task = "TASK.hardware.stock-remaining-init"
+run = "out/guest-admission/stock-remaining-init-01"
+started_at = "2026-09-25T09:44:25Z"
+finished_at = "2026-09-25T09:46:10Z"
+conclusion = "complete-predicted-missing-device-branch"
+native_sha256 = "8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+synthetic_reads = 2
+new_device_responses = 0
+accepted_adc_writes = 452
+accepted_spu_writes = 8
+accepted_scu_writes = 2
+accepted_la_writes = 2
+accepted_writes = 464
+remaining_native_checkpoints = 10
+initial_threads = 21
+prefix_clones = 1
+region_clones = 0
+reaped_threads = 22
+system_server_pid = 1055
+system_server_samples = 3
+enforcement_preserved = true
+stock_artifacts_unchanged = true
+guest_services_stopped = true
+frozen_independent_verifier_passed = true
+indexed_artifacts_verified = 182
+process_wide_transport_trace = false
+fpga_behavior_established = false
+useful_ui_established = false
+
+[transport]
+board_open = "negative"
+board_init = -1
+initialization_bool = false
+initial_cached_descriptor = "negative"
+gpio_open = "negative"
+gpio_helper = -3
+reopen = -7
+command = -3
+reset = -1
+terminal_cached_descriptor = -7
+
+[boundary]
+thread = "main"
+access = "R32"
+offset = 0x4
+relative_pc = 0x270604
+opcode = 0xb9400109
+completed = false
+
+[terminal_shadows]
+scu = 0
+la = 0
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "3e4e2930791c453e301c4192c0b1196d744416604bfb1a30e80b6690a304ca40"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "56e474012656cf983c799c83918409dd914ca9079186ffc06d0907186e1e9b4a"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "e2a5e25f117fb7395634b3237004c519d7d540b45cd27bb88841d4f342f05947"
+
+[[artifacts]]
+path = "tools/guest/VerifyRemainingObserver.main.kts"
+sha256 = "799005905c06cd255afebd4a9eab12df2d6764a6097a938f886726134e36d7af"
+
+[[artifacts]]
+path = "docs/research/stock-remaining-initialization.md"
+sha256 = "6c1e455cbfe7a2122de9f046bad5ff041b906c7a012c46d3fca00a613982cfaa"
+
+[[artifacts]]
+path = "out/guest-admission/stock-remaining-init-01/evidence-sha256.txt"
+sha256 = "102a67428fbbe77e609862cd647f44a4b42e7b6074428d62e321e4d5d960c3f7"
+
+[[artifacts]]
+path = "out/guest-admission/stock-remaining-init-01/result.toml"
+sha256 = "b85ecbde1067d4bff96cd0939c1f0e9a316d7b9865316d21498e9206cb81c70b"
+
+[[artifacts]]
+path = "out/guest-admission/stock-remaining-init-01/native-events.toml"
+sha256 = "85c1524a31f1725ed6637fa8d48935f05f469c5f5c9bcfe42ad735a423f05257"
+
+[[artifacts]]
+path = "out/guest-admission/stock-remaining-init-01/native-status.toml"
+sha256 = "56f847c1c1e37c158a9b0a64e6680d3f533d15d605743dd92b5d776c59b70cec"
+
+[[artifacts]]
+path = "out/guest-admission/stock-remaining-init-01/source/VerifyRemainingObserver.main.kts"
+sha256 = "799005905c06cd255afebd4a9eab12df2d6764a6097a938f886726134e36d7af"
+
+[[artifacts]]
+path = "out/remaining-init/stock-run-01-verification.toml"
+sha256 = "7a7c416725b14b1e06181ed3d3c006b7f2c05d0bea58b40b90ae6822c6ab5b3f"
+
+[[artifacts]]
+path = "out/remaining-init/stock-run-01-verification.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/stock-preservation-01.toml"
+sha256 = "d66233c979c53fbebacd65e5438aacb20c4501ad7d8ae45aed64a13138d208db"
+
+[[artifacts]]
+path = "out/remaining-init/stock-preservation-01.md"
+sha256 = "e4fcf5178fc0b0ba370bac2af0fc042b575bf380a0e352bba2ddff60046f98ed"
+
+[[artifacts]]
+path = "out/remaining-init/stock-preflight-review-01.md"
+sha256 = "60ac5bd28bf251098f87178cbd8b6444a3fe40e9e246a6233e02b42a58795bb6"
+
+[[artifacts]]
+path = "out/remaining-init/stock-verifier-prefix-regression-01.toml"
+sha256 = "a37c8e62e1976de2f3cb61280d6df49dcfb173adbb6ab26b80aa8775779ae9f6"
+
+[[artifacts]]
+path = "out/remaining-init/prior-stock-admission-recheck-01.toml"
+sha256 = "fca50d6bfc388c0b77d598ebc5e7a896328186cd63b9dbccbe593d56ce40a920"

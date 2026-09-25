@@ -17,6 +17,8 @@ trap final_sample EXIT
 
 transcript=false
 spu=false
+remaining=false
+if [ "${ADMISSION_MODE:-groupmodel}" = remainingmodel ]; then remaining=true; spu=true; fi
 [ "${ADMISSION_MODE:-groupmodel}" != spumodel ] || spu=true
 if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ] || [ "$spu" = true ]; then
     transcript=true
@@ -41,7 +43,13 @@ if [ "$transcript" = true ]; then
     actual=$(shasum -a 256 "$run/group-control.elf"); actual=${actual%% *}
     expected_binary=00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a
     [ "$spu" != true ] || expected_binary=ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae
+    [ "$remaining" != true ] || expected_binary=8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d
     [ "$actual" = "$expected_binary" ]
+fi
+if [ "$remaining" = true ]; then
+    cp "$repo/experiments/remaining-init/stock-gate.toml" "$run/remaining-stock-gate.toml"
+    cp "$repo/experiments/remaining-init/rearm-profile.toml" "$run/remaining-rearm-profile.toml"
+    cp "$repo/experiments/remaining-init/grammar.toml" "$run/remaining-grammar.toml"
 fi
 cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
@@ -100,6 +108,7 @@ if [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
     command=stock-pair-write
     cp "$repo/experiments/group-observer/two-writes.toml" "$run/pair-write-fixture.toml"
 fi
+[ "$remaining" != true ] || command=stock-remaining
 command_args="$pid $base"
 if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
 if [ "$spu" = true ]; then command_args="$command_args /data/local/tmp/spu-stock.bin"; fi

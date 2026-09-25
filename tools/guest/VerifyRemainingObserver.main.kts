@@ -1,4 +1,5 @@
-// Independent evidence verification for ADC plus the complete SPU candidate.
+// Independent evidence verification for the bounded ADC/SPU/remaining-init candidate.
+// Unrecognized stock divergences fail closed and need explicit captured-evidence adjudication.
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.file.Files
@@ -57,6 +58,7 @@ fun regs(e:E)=R(e.u("tid"),e.u("pc"),e.u("relative_pc"),e.u("sp"),e.u("pstate"),
 data class T(var stopped:Boolean,var confirmed:Boolean,var live:Boolean=true)
 val binary=Files.readAllBytes(run.resolve("group-control.elf")); val binaryHash=hash(binary)
 require(binaryHash==text("binary-sha256.txt").take(64)); val control=Elf(binary)
+if(stock) require(binaryHash=="8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d")
 val oracle=Files.readAllLines(run.resolve("reference.tsv")).drop(1).mapIndexed { i,line ->
     val fields=line.split('\t'); require(fields.size==7 && fields[0].toInt()==i); fields[6].removePrefix("0x").toULong(16)
 }
@@ -693,6 +695,9 @@ for(arm in arms) {
 if(args.size==1 || stock) {
     for(line in Files.readAllLines(run.resolve("evidence-sha256.txt"))) { require(line.length>66); val file=Path.of(line.substring(66)).normalize(); require(file.startsWith(run) && hash(file)==line.take(64)) }
     if(stock) {
+        require(hash(run.resolve("remaining-grammar.toml"))=="986d04385cfbc7a27ea83d4fd05bfe0563c28d122dfead1ee3a8c6fe6a0a8161")
+        require(hash(run.resolve("remaining-stock-gate.toml"))=="13119de46c78d7b15770177de5acbc368be066bd03b303369d7bdb5a62efd4a6")
+        require(hash(run.resolve("remaining-rearm-profile.toml"))=="3481d6991f6fa000fb2dbce292e17ceca5b2c2cd039cd44c4037548c29c7ba4e")
         require(text("result.toml").contains("mode = \"remainingmodel\""))
         for(script in listOf("VerifySnapshot.main.kts","VerifyNative.main.kts")) {
             val verifier=if(script=="VerifyNative.main.kts" && args.size==3) Path.of(args[2]).toAbsolutePath().normalize() else run.resolve("source/$script")
