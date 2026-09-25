@@ -1,0 +1,49 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.calibration-static-contract
+    title: Recover the calibration initialization subsystem and its environment contract
+    state: open
+    intent: Replace access-by-access discovery with a typed static graph of calibration loaders algorithms and thread startup.
+    requires: [TASK.hardware.init-tail-model-decision]
+    requirements:
+      - Pin unchanged stock ELF and existing initialization-tail evidence; begin at the unexecuted GetScope to GetCalibration to CCalibration initialization path.
+      - Recover the complete calibration initialization dispatcher and reachable loader sequencing selectors defaults error propagation and thread startup; expand directly relevant helpers through their first environment or hardware boundary.
+      - Enumerate file paths formats sizes properties Android dependencies mapped reads and writes ioctl DMA and asynchronous interfaces where reached; correlate driver plumbing only with pinned reference or stock-module evidence and label provenance.
+      - Emit a reproducible typed TOML graph with addresses instruction witnesses call edges tables loops branch conditions and operation classes STATIC-DETERMINED RUNTIME-SELECTED HARDWARE-RETURNED ASYNCHRONOUS or UNKNOWN.
+      - Keep unresolved indirect calls and deeper algorithms explicit; do not claim complete transitive recovery without coverage evidence and do not infer FPGA behavior from software plumbing.
+      - Do not execute a guest or introduce new modeled responses in this static task; preserve official artifacts byte-for-byte.
+    acceptance: [Commit and push the recovered contract and unresolved boundaries.]
+    verification: [inputs, recovery, graph, scope]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.calibration-static-review
+    title: Independently verify the calibration contract and isolate true decision points
+    state: open
+    intent: Check the static graph against pinned bytes and distinguish deterministic software operations from unknown environment behavior.
+    requires: [TASK.hardware.calibration-static-contract]
+    requirements:
+      - Independently verify symbol ranges instruction words direct targets table extraction loop bounds output widths and loader branches against the pinned ELF; test the graph verifier with isolated altered evidence.
+      - Account for dispatcher paths callees and unresolved edges; distinguish exact recovered operations from symbolic runtime parameters and genuinely hardware-returned or asynchronous behavior.
+      - Identify the next externally unsatisfied dependency and the smallest coherent candidate fixture or observation needed to distinguish plausible paths, including thread coverage limits.
+    acceptance: [Commit and push the review and bounded candidate recommendation without running a guest.]
+    verification: [independence, coverage, decisions]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.calibration-model-decision
+    title: Choose a bounded calibration environment hypothesis from static evidence
+    state: open
+    intent: Admit selective dynamic validation only for unresolved behavior that matters to stock initialization.
+    requires: [TASK.hardware.calibration-static-review]
+    requirements:
+      - Evaluate the verified graph and select a complete bounded region with explicit predictions divergence stops and synthetic-state limitations; do not rediscover deterministic stores individually.
+      - Prefer reconstruction of witnessed file or Android dependencies when justified and treat hardware-returned state DMA interrupts and thread effects as separate modeled hypotheses.
+      - Draft plan inspect admit and commit any successor before execution; reconcile material architecture changes and preserve stock inputs and the no-physical-instrument boundary.
+    acceptance: [Commit and push the decision and any admitted successor before execution.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

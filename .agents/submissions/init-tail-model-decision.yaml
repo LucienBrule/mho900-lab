@@ -1,0 +1,18 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.init-tail-model-decision
+contract: sha256:8f10cebd8aa99dce57984f085155926c61c6553ace811e63332279a434dfa86b
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T10:56:00Z"
+evidence:
+  evaluation: >-
+    docs/research/calibration-static-decision.md evaluates stock result committed and pushed in4a97bcb.
+    Exact ten-read two-write three-checkpoint sequence and all parent outputs matched through the
+    unexecuted0x2e57f8 boundary. This confirms stock propagation under synthetic state only; physical
+    semantics remain unknown. Static subsystem recovery with selective dynamic falsification is retained.
+  continuation: >-
+    .agents/plans/calibration-static.yaml drafts three bounded tasks for calibration dispatcher/loaders/
+    algorithms/thread-start contract recovery independent verification and a decision. The seed plan was
+    inspected at revision53031b5fc577b424d148d681d51e31b06f2725e2a400f279346ad6efe9cb5b22 and creates
+    only three tasks with immutable history. Admission and this decision are committed/pushed before
+    execution. No additional guest effects are admitted by the static recovery or review tasks.
