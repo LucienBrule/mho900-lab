@@ -1,0 +1,39 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.exclusive-control
+    title: Compare private exclusive operations with and without instruction stepping
+    state: open
+    intent: Isolate observer-induced retries before changing the stock application observation boundary.
+    requires: [TASK.hardware.two-word-profile-decision]
+    requirements:
+      - Fresh disposable pinned guest; no Sparrow installation, launch or device responses in this experiment.
+      - Use the same private single-thread program and binary with fixed inputs for both observation modes.
+      - No stock artifact, host policy, physical instrument or guest enforcement changes.
+      - Bound the atomic loop to eight attempts and the observer to 128 single steps plus a terminal stop.
+      - Preserve unexpected outcomes; do not extend bounds to obtain a desired result.
+    acceptance:
+      - Pin source, binary, guest inputs and uninterrupted versus stepped arm order.
+      - Capture initial and terminal word, attempts, exclusive-store status, PC and signal metadata.
+      - Independently verify instruction traces, control flow, finite bounds and same code across arms.
+      - Verify stable system_server, guest enforcement and teardown.
+    verification: [controls, comparison, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.exclusive-control-decision
+    title: Evaluate exclusive-operation observer effects and select the next observation question
+    state: open
+    intent: Decide whether instruction stepping explains the retry behavior in the scoped guest control.
+    requires: [TASK.guest.exclusive-control]
+    requirements:
+      - Separate controlled guest evidence from stock inference and physical hardware semantics.
+    acceptance:
+      - State what the differential supports and which causal mechanisms remain unresolved.
+      - Propose the smallest next observation boundary without modifying stock synchronization behavior.
+      - Commit and push conclusions before another experiment.
+    verification: [evaluation, next-question]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
