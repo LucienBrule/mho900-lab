@@ -1,0 +1,84 @@
+schema_version = "mho900-lab.adc-sequence-private-result/2"
+result = "partial-private-suite-verifier-opcode-mismatch"
+run_id = "private-adc-sequence-02"
+task = "TASK.guest.adc-sequence-private-run-02"
+freeze_commit = "0ccea4d"
+freeze_sha256 = "50aefb8dd10c8207a9a811591349b0e3d374d7099568623f390375fadb9c262b"
+runner_exit = 1
+guest_launches = 1
+private_arms_executed = 8
+private_arms_accepted = [101, 102, 103, 104, 105, 106, 107]
+first_unexpected_arm = 108
+unexecuted_arms = [109, 110, 111, 112]
+actual_worker_opcode = "0xb9400109"
+frozen_checker_expected_worker_opcode = "0xf9400109"
+compiled_elf_matches_trace = true
+worker_access_rejected_before_modeling = true
+complete_arm_operations = 99
+complete_arm_writes = 97
+complete_arm_reads = 2
+complete_arm_atomic = 1
+complete_arm_worker_ack = 1
+complete_arm_final_shadows = 33
+complete_arm_terminal_instruction_executed = false
+system_server_pid = 1054
+system_server_continuity = true
+enforcing = true
+final_health_commands_succeeded = true
+cleanup_succeeded = true
+indexed_artifacts_verified = 492
+suite_audit_exit = 3
+suite_audit_accepted = false
+stock_installed = false
+stock_artifacts_changed = false
+physical_access = false
+rerun_performed = false
+stock_validation_admitted = false
+
+[[evidence]]
+path = "out/guest-admission/private-adc-sequence-02/evidence-sha256.txt"
+sha256 = "d8461a777746f5819700a18bb55550f205f06a2dba46ec975f3053f98bd7af5b"
+
+[[evidence]]
+path = "out/guest-admission/private-adc-sequence-02/result.toml"
+sha256 = "2837c22a018a17b4b95fa8a87e3a1504b06e93f0f74a75f65f9c19a321f10383"
+
+[[evidence]]
+path = "out/guest-admission/private-adc-sequence-02/adcseq-108.toml"
+sha256 = "2825f236f7f10ed2b17b4ab4e7cc3c55de8f4ac820eebfe48e4b160f3103916e"
+
+[[evidence]]
+path = "out/guest-admission/private-adc-sequence-02/adcseq-108-verification.stderr"
+sha256 = "c9cc144a1bf5a602e3db46cf297a16850e8cb03bf6ce4976e072cdcabaa85617"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/run02-index-audit.txt"
+sha256 = "51ced450f3239da67f1018164fcbeac22391477d9b207b5cb5351d7d21db2ec4"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/worker-disassembly.txt"
+sha256 = "9973baebf67a4d35e91d2232fe53734de2b1316013b10b90f5962a4398431656"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/run02-suite-audit.stderr"
+sha256 = "11f79082f5439469682bda27b312bf66884df393b96359e3ab26a4cea06d5bd7"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/run02-ports.toml"
+sha256 = "76e88f83900f58fd7125657884193421ef16c80ebc7db45515da37d92cdea5ca"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/stock-before-run02.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/stock-after-run02.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/run02.stdout"
+sha256 = "2837c22a018a17b4b95fa8a87e3a1504b06e93f0f74a75f65f9c19a321f10383"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/run02.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
