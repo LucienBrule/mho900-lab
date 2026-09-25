@@ -1,0 +1,36 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.native-capture
+    title: Capture the first stock mapped access with an external native supervisor
+    state: open
+    intent: Test a callback-free transport at the existing mapped-access boundary.
+    requires: [TASK.hardware.syscall-decision]
+    requirements:
+      - Preserve stock APK, library and executable instructions; never complete an unknown hardware access.
+      - Restrict syscall argument changes to the observed main-thread mapping tuple on the selected bypass descriptor.
+      - Keep guest SELinux enforcing and do not alter host policy or access instruments.
+    acceptance:
+      - Pin compiler, native helper and Linux ABI reference inputs; document the narrow native-tooling exception.
+      - Validate syscall entry/exit and protected-memory fault capture with deterministic private 32/64-bit read/write controls.
+      - Capture stock original mapping arguments, substituted protection, kernel return, first signal, registers and opcode or explicit negative.
+      - Preserve full evidence, stock hashes and system_server stability through bounded teardown.
+    verification: [controls, stock-capture, integrity]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.native-decision
+    title: Evaluate external native capture and bound the third experiment
+    state: open
+    intent: Decide whether observation is reliable enough for the next bounded test.
+    requires: [TASK.hardware.native-capture]
+    requirements:
+      - Distinguish a working observer from a faithful register model.
+    acceptance:
+      - Explain the evidence and fidelity limits and select a third bounded hypothesis or stop.
+      - Close and commit the conclusion before successor execution.
+    verification: [evaluation, next-question]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
