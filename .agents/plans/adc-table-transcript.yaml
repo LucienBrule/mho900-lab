@@ -1,0 +1,73 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.adc-transcript
+    title: Derive and pin the finite stock ADC table-loop transcript
+    state: open
+    intent: Turn the conditional static loop analysis into an independently checkable immutable experiment input.
+    requires: [TASK.hardware.two-write-decision]
+    requirements:
+      - Use Kotlin tooling to read the pinned stock ELF without modifying it and validate table symbols, relocations, loop bound and command-construction instruction assumptions.
+      - Derive exactly 440 ordered words from the first110 entries of the two111-entry tables, both modes and both writes per call.
+      - Exclude post-loop and writable-state operations; distinguish software predictions from runtime observations and hardware semantics.
+      - Document a bounded versioned guest transcript protocol and emit deterministic stock and private-control fixtures with hashes.
+      - Validate independent agreement with captured static transcript evidence and retain the original index self-reference failure separately.
+    acceptance:
+      - Reproducible derivation, exact bounds and input integrity are independently verified; no guest run or new modeled response in this task.
+      - Commit and push derived-input tooling and evidence before implementing the guest consumer.
+    verification: [provenance, derivation, protocol, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.transcript-control
+    title: Validate a bounded ordered-write transcript consumer
+    state: open
+    intent: Execute only a predeclared finite command transcript while retaining complete access and thread observation.
+    requires: [TASK.hardware.adc-transcript]
+    requirements:
+      - Load a bounded versioned immutable transcript with exact size/count checks before tracing; reject malformed, oversized or trailing input.
+      - Retain the existing two reads and continuous group observer; accept only exact ordered main-thread32-bit stores at the known PC/opcode and offset0x3000.
+      - Record every accepted operand and all pre/post registers; only PC may advance and no memory backing or peripheral effect may be introduced.
+      - Private controls cover complete transcript followed by main/worker access, changed value/offset, count exhaustion, a worker attempting the expected store and a wider store.
+      - Re-run existing controls with the rebuilt executable and validate malformed-input rejection before target creation.
+      - Preserve explicit thread/event/count/wall-clock bounds, checking the runtime deadline even during a nonempty event stream.
+    acceptance:
+      - Independent checks prove transcript ordering, exact response counts, register preservation, negative guards, thread attribution and complete successful cleanup.
+      - Preserve enforcement/system_server and commit and push controls before stock execution.
+    verification: [controls, transcript-contract, coverage, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.adc-table-loop
+    title: Test the finite 440-store stock table-loop transcript
+    state: open
+    intent: Follow the actual stock software command loop under explicitly synthetic write acceptance.
+    requires: [TASK.guest.transcript-control]
+    requirements:
+      - Use the controlled executable, pinned transcript, fresh guest and unchanged stock artifacts.
+      - Verify live GOT targets and all111 words of each source table against the pinned input before completing the first modeled write.
+      - Permit only the existing two read responses and exact440-word ordered main-thread store transcript at the witnessed instruction and offset.
+      - Stop immediately on mismatch, other access, signal or bound; after440 stores stop at the following access without answering it.
+      - Capture runtime thread events, terminal state and exact cleanup or preserve an explicit negative outcome and partial evidence.
+    acceptance:
+      - Verify the completed prefix against independently derived stock data and report the next boundary without adaptive transcript growth.
+      - Make no physical ADC, device-ready, timing, DMA or acquisition claim; commit and push the result.
+    verification: [stock-binding, transcript, boundary, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.adc-loop-decision
+    title: Evaluate the finite ADC command-loop experiment
+    state: open
+    intent: Choose the next smallest environment hypothesis from the observed boundary or mismatch.
+    requires: [TASK.hardware.adc-table-loop]
+    requirements:
+      - Distinguish static predictions, live bindings, completed synthetic transactions and uncompleted accesses.
+      - Treat any mismatch as a conclusion requiring deliberate re-planning rather than changing the current fixture.
+    acceptance:
+      - Select and justify the next bounded batch or concrete blocker, with all conclusions committed and pushed before another experiment.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
