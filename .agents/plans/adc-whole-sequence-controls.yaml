@@ -1,0 +1,67 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-capacity
+    title: Preserve two finalized raw backings through verified lossless archives
+    state: open
+    intent: Recover bounded guest headroom while retaining exact evidence and overlay restoration paths.
+    requires: [TASK.guest.adc-whole-sequence-gate]
+    requirements:
+      - Restrict replacement to the two raw userdata backings pinned in experiments/adc-input-capture/capacity-review.toml. Preserve dependent overlays, every indexed artifact and reference inputs unchanged. Reject changed candidates or active image users.
+      - Implement a bounded lossless archival tool with a project-relative restoration manifest, original mode size and SHA-256, archive SHA-256, dependent overlay SHA-256 and original restoration location. Test exact restoration into fresh independent regular files before any source replacement or removal.
+      - Validate archive creation and restored byte identity, close the restoration stream and retain a complete recoverable archive before removing a redundant raw backing. Recheck source and overlay hashes and open users immediately before removal. Do not use hardlinks or alter original indexes.
+      - Exercise positive restoration and negative changed-source, corrupt-archive and active-user controls on independent small fixtures. Record actual free-space changes and any COW limitation. Stop on mismatch or failure; preserve transaction state for recovery.
+      - Keep the 2097152KiB preboot gate unchanged; no guest launch or host policy change. Commit and push the archival conclusion before any guest run. Restore the exact raw to its original location before dependent overlay reuse.
+    acceptance: [Exact restoration is demonstrated and capacity is recorded, or a precise preservation or capacity blocker is committed and pushed.]
+    verification: [controls, preservation, capacity]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-control-freeze
+    title: Build and freeze a whole ADC sequence observer with private controls
+    state: open
+    intent: Validate complete predicted access sequences with normal execution between device accesses and a post-routine stop.
+    requires: [TASK.guest.adc-whole-sequence-gate]
+    requirements:
+      - Preserve existing completed experiments and stock artifacts. Add a distinct observer mode and new output binaries; bind the whole ADC candidate and reviewed static provenance. Do not repin or rerun old frozen profiles.
+      - Before continuation require matching relocation bindings and relevant typed entry state. Do not compare relocated pointer bytes as if stable across process instances. Log and reject unexpected entry values before executing the ADC routine.
+      - At the mapped boundary check every predicted W32 offset and value and both R32 positions. Use two explicitly synthetic logging readbacks, chip0 ready-bit set with low16 0x1234 and chip1 ready-bit clear with zero. These are software protocol controls and carry no actual FPGA claim.
+      - Run stock instructions normally between mapped accesses. Stop on first mismatch, unsupported access, unexpected signal, deadline or unsupported thread transition. Preserve normal exclusive sequences and place the final precise stop at the confirmed caller PC0x333bac before its instruction executes.
+      - Make thread scheduling and coverage explicit. Track the whole thread group and new threads, reject unsupported mapped access from other threads, and demonstrate in a private control that an ordinary worker dependency can complete. Do not silently obtain progress by freezing a needed worker.
+      - Design a bounded private control set that independently checks complete sequence, changed operand, reordered or omitted access, unknown read, wrong terminal PC, entry mismatch, helper readback branches, second-thread access, clone coverage, deadline and uninterrupted atomic progress before the final breakpoint.
+      - Freeze sources binary profiles runner indexing final-health behavior and independent verifiers before any guest control run. Exercise actual production indexing with all newly declared nested inputs. Commit and push implementation and freeze before execution.
+    acceptance: [A complete independently checked observer and frozen private suite or a precise architecture limitation is committed and pushed.]
+    verification: [observer, entry, threads, controls, freeze]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-private-run
+    title: Execute one frozen private whole-sequence ADC control suite
+    state: open
+    intent: Falsify observer sequencing and thread coverage before admitting any new stock continuation.
+    requires: [TASK.guest.adc-sequence-capacity, TASK.guest.adc-sequence-control-freeze]
+    requirements:
+      - Recheck stock preservation capacity and frozen source/binary/profile pins before one disposable guest suite. Install no stock application in this private control experiment.
+      - Run only the frozen control set and independent verifiers. Preserve unexpected outcomes as conclusions without editing the run or adapting its model. Do not rerun merely to obtain a desired result.
+      - Verify normal atomic progress then final precise stop, worker dependency completion, full thread convergence, modeled read/write counts and fail-closed divergence arms. Retain raw outputs indexes and status records.
+      - Verify system_server stability enforcing policy final health and complete cleanup. Commit and push the conclusion before any successor experiment.
+    acceptance: [The frozen suite has a reproducible positive or negative conclusion with health and cleanup evidence committed and pushed.]
+    verification: [execution, controls, health, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-stock-admission
+    title: Evaluate whole-sequence controls and admit a bounded stock validation
+    state: open
+    intent: Choose one stock sequence-validation run or an evidence-led observer correction.
+    requires: [TASK.guest.adc-sequence-private-run]
+    requirements:
+      - Evaluate the frozen private results without reclassifying negatives. Identify whether whole-sequence observation preserves synchronization, catches divergence and covers required threads.
+      - If supported admit exactly one stock whole-sequence validation with entry checks, explicit synthetic logging readbacks and the unexecuted post-return PC0x333bac. Stop at divergence or that boundary; no next-subsystem response is included.
+      - If unsupported identify the smallest bounded correction or architecture decision. Draft plan inspect admit against the expected revision and commit and push tasking before execution.
+    acceptance: [A supported bounded successor or exact unresolved limitation is committed and pushed.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
