@@ -20,7 +20,9 @@ spu=false
 remaining=false
 tail=false
 loaders=false
-if [ "${ADMISSION_MODE:-groupmodel}" = loadermodel ]; then loaders=true; tail=true; remaining=true; spu=true; fi
+adcinputs=false
+if [ "${ADMISSION_MODE:-groupmodel}" = adcinputmodel ]; then adcinputs=true; fi
+if [ "${ADMISSION_MODE:-groupmodel}" = loadermodel ] || [ "$adcinputs" = true ]; then loaders=true; tail=true; remaining=true; spu=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = tailmodel ]; then tail=true; remaining=true; spu=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = remainingmodel ]; then remaining=true; spu=true; fi
 [ "${ADMISSION_MODE:-groupmodel}" != spumodel ] || spu=true
@@ -41,8 +43,13 @@ if [ "$spu" = true ]; then
     actual=$(shasum -a 256 "$run/spu-stock.bin"); actual=${actual%% *}
     [ "$actual" = 34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6 ]
 fi
-cp "$repo/local/guest-tools/group-observer/"*.txt "$run/"
-cp "$repo/local/guest-tools/group-observer/group-observer" "$run/group-control.elf"
+native_dir="$repo/local/guest-tools/group-observer"
+if [ "$adcinputs" = true ]; then
+    native_path=$(yq -p toml -o yaml -r '.native.path' "$run/source/adc-input-capture-inputs.toml")
+    native_dir=$(dirname "$repo/$native_path")
+fi
+cp "$native_dir/"*.txt "$run/"
+cp "$native_dir/group-observer" "$run/group-control.elf"
 if [ "$transcript" = true ]; then
     actual=$(shasum -a 256 "$run/group-control.elf"); actual=${actual%% *}
     expected_binary=00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a
@@ -50,6 +57,7 @@ if [ "$transcript" = true ]; then
     [ "$remaining" != true ] || expected_binary=8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d
     [ "$tail" != true ] || expected_binary=fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182
     [ "$loaders" != true ] || expected_binary=3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa
+    [ "$adcinputs" != true ] || expected_binary=$(yq -p toml -o yaml -r '.native.sha256' "$run/source/adc-input-capture-inputs.toml")
     [ "$actual" = "$expected_binary" ]
 fi
 if [ "$remaining" = true ]; then
@@ -124,6 +132,7 @@ fi
 [ "$remaining" != true ] || command=stock-remaining
 [ "$tail" != true ] || command=stock-tail
 [ "$loaders" != true ] || command=stock-loaders
+[ "$adcinputs" != true ] || command=stock-adc-inputs
 command_args="$pid $base"
 if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
 if [ "$spu" = true ]; then command_args="$command_args /data/local/tmp/spu-stock.bin"; fi
@@ -162,6 +171,20 @@ if [ "$loaders" = true ]; then
         adb pull "/data/local/tmp/stock-loader-captures/loader-$capture.bin" \
             "$run/native-loader-$capture.bin" > "$run/native-loader-$capture-pull.txt" 2>&1 || pull_rc=$?
         printf '%s = %s\n' "$capture" "$pull_rc" >> "$run/native-loader-pulls.toml"
+        [ "$pull_rc" = 0 ] || pulls_failed=true
+    done
+    [ "$pulls_failed" = false ] || exit 1
+fi
+if [ "$adcinputs" = true ]; then
+    pulls_failed=false
+    for capture in matrix setting drvparam series config sample-entry shadow-low shadow-high global-inputs maps; do
+        suffix=bin
+        [ "$capture" != maps ] || suffix=txt
+        capture_file="adc-input-$capture.$suffix"
+        pull_rc=0
+        adb pull "/data/local/tmp/stock-loader-captures/$capture_file" "$run/$capture_file" \
+            > "$run/$capture_file-pull.txt" 2>&1 || pull_rc=$?
+        printf '%s = %s\n' "$capture" "$pull_rc" >> "$run/adc-input-pulls.toml"
         [ "$pull_rc" = 0 ] || pulls_failed=true
     done
     [ "$pulls_failed" = false ] || exit 1

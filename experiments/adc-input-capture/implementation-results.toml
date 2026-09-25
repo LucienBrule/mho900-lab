@@ -1,0 +1,102 @@
+schema_version = "mho900-lab.adc-input-capture-implementation/1"
+result = "ready-for-frozen-private-controls"
+new_guest_runs = 0
+new_modeled_reads = 0
+new_modeled_writes = 0
+stock_artifacts_modified = false
+physical_instrument_access = false
+native_build_warnings_as_errors = true
+capture_raw_files = 9
+capture_raw_bytes = 11565
+capture_terminal_relative_pc = 0x333ba8
+terminal_instruction_executes = false
+capture_phase_host_positive_cases = 5
+capture_phase_host_negative_cases = 12
+capture_phase_all_expected = true
+full_profile_host_positive_cases = 1
+full_profile_host_negative_cases = 8
+full_profile_all_expected = true
+full_profile_fixture_is_synthetic = true
+original_evidence_index_verified_before_and_after = true
+independent_copies_only = true
+userdata_staging_positive_cases = 1
+userdata_staging_negative_cases = 4
+userdata_source_unchanged = true
+existing_runtime_host_cases = 7
+old_stock_verifier_sha256 = "bd4d8a5fae6b9ab48da6c296e8b45b53dbfe260fdaa53c45769587fb5b4d6c64"
+old_frozen_native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+limitations = "Host fixtures validate evidence interpretation, not guest execution. Private arm97 deliberately truncates capture; arm98 must identify its exact canonical byte divergence. Stock capture remains conditional on all private results and preboot free space."
+
+[[artifacts]]
+path = "experiments/adc-input-capture/control-inputs.toml"
+sha256 = "54dadfd31d8856ba6d30533094d385c3ea0239e0e2bbe4862aded9920ceda4f9"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/stock-inputs.toml"
+sha256 = "c3df69feece32dabc7c566cae7569ec5f363dc4f897c316436333627d6261879"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/decision.toml"
+sha256 = "49554ca20c721623d947b42c211948a2ba2f91d32d9b1c27a36c06fb3f617a9f"
+
+[[artifacts]]
+path = "docs/research/adc-input-capture.md"
+sha256 = "a506935636374bcf17c8c9f17e591a71f820bca09b279248481a2ca6129a7fc1"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "f04e3bedadbecdba54a4e3ab590b748ff88d3d1c421f06315e868b51a6dbe261"
+
+[[artifacts]]
+path = "tools/guest/adc-parameter-capture.h"
+sha256 = "086b2f0bb35bf340a7b4fb37e112d3b648c618e85043795c00014508b4b77b82"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcInputCapture.main.kts"
+sha256 = "cc6fbe8e2e0bab9c78b6908e7d014ca100be078d9481a36f76baee76c38d9401"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockAdcInputs.main.kts"
+sha256 = "fde0a2c891b32ef215b2e58634d65c7f8f97d5a6c18c3441c092d2b72ccd4dfa"
+
+[[artifacts]]
+path = "tools/guest/stage-userdata.sh"
+sha256 = "91e27fa3deeebd30e5535409527e04b8603ea8dd1bd426b941b11e1ec36ed47c"
+
+[[artifacts]]
+path = "out/adc-input-capture/native-build03/group-observer"
+sha256 = "c30ebe79fcc31512231c2c0a5d3a4b5795fba7179af70a22acb412db49bf0dbf"
+
+[[artifacts]]
+path = "out/adc-input-capture/native-build03/build-inputs.txt"
+sha256 = "00011d0abd0029121c903b5b093b5d0df956f54e6ef258c93649069f17b4e8ed"
+
+[[artifacts]]
+path = "out/adc-input-capture/capture-controls02/results.toml"
+sha256 = "b1819cf3c085d625be922bfd661ecb8a9e5bf0b4502b985fca915a916276d494"
+
+[[artifacts]]
+path = "out/adc-input-capture/full-controls01/positive.toml"
+sha256 = "30cf42f93333ce5c8bc4f2adc1bdf1741aef4ba9a13b6bd9351c7a34ae062669"
+
+[[artifacts]]
+path = "out/adc-input-capture/full-controls01/preparation.toml"
+sha256 = "cb47f9c97a1a58d1776628e47acdf66cfb36b9775a8b192d3c61e176f859b844"
+
+[[artifacts]]
+path = "out/adc-input-capture/full-controls01/negative/results.toml"
+sha256 = "a810335489cbc0a066924e7b8f9dbc27f9678ab3a19e0ddb77a4fb0a0ac0bed1"
+
+[[artifacts]]
+path = "out/adc-input-capture/full-controls01/negative/preservation.toml"
+sha256 = "5e535c388d964e30857ba57fe93da0323de2c71d886ad35b7e8b5b5a055cf80b"
+
+[[artifacts]]
+path = "out/adc-input-capture/staging-controls04/summary.toml"
+sha256 = "f7320f710717acf63d998d1b8820b13108759716cb3bea909e9a67576cc022dc"
+
+[[artifacts]]
+path = "out/adc-input-capture/runtime-controls01/results.toml"
+sha256 = "7ef4eff814eaea43c9097b9ba1b75d802c478d34bda7ba936bc6023f2eac8f54"

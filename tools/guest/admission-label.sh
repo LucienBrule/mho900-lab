@@ -141,7 +141,7 @@ if [ "${ADMISSION_MODE:-label}" = coverage ]; then
     "$run/source/coverage-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"
 fi
-if [ "${ADMISSION_MODE:-label}" = groupmodel ] || [ "${ADMISSION_MODE:-label}" = nextmodel ] || [ "${ADMISSION_MODE:-label}" = writemodel ] || [ "${ADMISSION_MODE:-label}" = pairmodel ] || [ "${ADMISSION_MODE:-label}" = transcriptmodel ] || [ "${ADMISSION_MODE:-label}" = spumodel ] || [ "${ADMISSION_MODE:-label}" = remainingmodel ] || [ "${ADMISSION_MODE:-label}" = tailmodel ] || [ "${ADMISSION_MODE:-label}" = loadermodel ]; then
+if [ "${ADMISSION_MODE:-label}" = groupmodel ] || [ "${ADMISSION_MODE:-label}" = nextmodel ] || [ "${ADMISSION_MODE:-label}" = writemodel ] || [ "${ADMISSION_MODE:-label}" = pairmodel ] || [ "${ADMISSION_MODE:-label}" = transcriptmodel ] || [ "${ADMISSION_MODE:-label}" = spumodel ] || [ "${ADMISSION_MODE:-label}" = remainingmodel ] || [ "${ADMISSION_MODE:-label}" = tailmodel ] || [ "${ADMISSION_MODE:-label}" = loadermodel ] || [ "${ADMISSION_MODE:-label}" = adcinputmodel ]; then
     native_rc=0
     "$run/source/group-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"

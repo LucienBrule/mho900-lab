@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -26,7 +26,26 @@ mkdir -p "$run"
 mkdir "$run/source"
 cp "$repo"/tools/guest/* "$run/source/"
 cp "$admission_manifest" "$run/source/admission-inputs.toml"
-if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ]; then
+if [ "$mode" = adcinputcontrol ] || [ "$mode" = adcinputmodel ]; then
+    capture_manifest="$repo/experiments/adc-input-capture/stock-inputs.toml"
+    capture_copy=adc-input-capture-inputs.toml
+    if [ "$mode" = adcinputcontrol ]; then
+        capture_manifest="$repo/experiments/adc-input-capture/control-inputs.toml"
+        capture_copy=adc-input-capture-control-inputs.toml
+    fi
+    [ "$(yq -p toml -o yaml -r '.run_id' "$capture_manifest")" = "$run_id" ]
+    [ "$(yq -p toml -o yaml -r '.mode' "$capture_manifest")" = "$mode" ]
+    cp "$capture_manifest" "$run/source/$capture_copy"
+    cp "$repo/experiments/adc-input-capture/decision.toml" "$run/source/adc-input-capture-decision.toml"
+    mkdir "$run/adc-parameter-static"
+    cp "$repo/experiments/adc-parameter-static/"*.toml "$run/adc-parameter-static/"
+    yq -p toml -o yaml -r '.artifacts[] | [.path, .sha256] | @tsv' "$capture_manifest" |
+    while IFS="$(printf '\t')" read -r artifact_path expected; do
+        actual=$(shasum -a 256 "$repo/$artifact_path"); actual=${actual%% *}
+        [ "$actual" = "$expected" ] || { echo "Capture input mismatch: $artifact_path" >&2; exit 2; }
+    done
+fi
+if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ] || [ "$mode" = adcinputmodel ]; then
     fixture_manifest="$repo/experiments/calibration-filesystem/inputs.toml"
     fixture_copy=calibration-filesystem-inputs.toml
     if [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ]; then
@@ -36,8 +55,9 @@ if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel
             fixture_manifest="$repo/experiments/calibration-access/label-inputs.toml"
         fi
     fi
-    if [ "$mode" = loadermodel ]; then
+    if [ "$mode" = loadermodel ] || [ "$mode" = adcinputmodel ]; then
         fixture_manifest=${ADMISSION_LOADER_INPUTS:-"$repo/experiments/calibration-loaders/stock-inputs.toml"}
+        [ "$mode" != adcinputmodel ] || fixture_manifest="$capture_manifest"
         fixture_copy=calibration-stock-runtime-inputs.toml
         [ "$(yq -p toml -o yaml -r '.run_id' "$fixture_manifest")" = "$run_id" ] || { echo 'Loader run identity mismatch' >&2; exit 2; }
         # Keep the original prediction identity for its frozen verifier. The
@@ -108,7 +128,11 @@ image.sysdir.1=$image/
 tag.id=default
 tag.display=Default
 EOF
-cp "$image/userdata.img" "$run/userdata.img"
+if [ "$mode" = adcinputcontrol ] || [ "$mode" = adcinputmodel ]; then
+    "$run/source/stage-userdata.sh" "$image/userdata.img" "$run/userdata.img" "$run/userdata-staging.toml" 2097152
+else
+    cp "$image/userdata.img" "$run/userdata.img"
+fi
 adb() { "$timeout_bin" -k 2 15 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
 emulator_pid=
 logcat_pid=
@@ -150,7 +174,7 @@ set -- "$sdk/emulator/emulator" -avd baseline-api25 -sysdir "$image" \
     -data "$run/userdata.img" -cache "$run/cache.img" -port 5580 \
     -no-window -no-snapshot -no-boot-anim -no-audio -no-metrics \
     -gpu swiftshader -memory 2048 -cores 2 -verbose -show-kernel
-if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ]; then
+if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ] || [ "$mode" = adcinputmodel ]; then
     set -- "$@" -ramdisk "$run/fixture-ramdisk.img"
 fi
 printf '%s\n' "$@" > "$run/emulator-argv.txt"
@@ -186,6 +210,7 @@ if [ "$boot" = completed ]; then
     inspection=completed
     helper_mode=$mode
     case "$mode" in filelabel) helper_mode=fileaccess;; esac
+    case "$mode" in adcinputmodel) helper_mode=loadermodel;; esac
     case "$mode" in nextcontrol|writecontrol|paircontrol) helper_mode=groupcontrol;; esac
     case "$mode" in transcriptcontrol) helper_mode=transcriptcontrol;; esac
     case "$mode" in spucontrol) helper_mode=spucontrol;; remainingcontrol) helper_mode=remainingcontrol;; esac

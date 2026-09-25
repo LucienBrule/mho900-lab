@@ -3,6 +3,9 @@
 Research harness for the RIGOL MHO900 platform, initially the MHO984.
 The project is running initial guest experiments; no complete emulator or physical validation is claimed.
 
+- [Whole-subsystem ADC software contract](docs/research/adc-parameter-static.md)
+- [Independent ADC contract review](docs/research/adc-parameter-review.md)
+- [Bulk software input capture decision](docs/research/adc-input-capture-decision.md)
 - [System boundary and reconnaissance](docs/research/architecture.md)
 - [External input inventory and provenance design](docs/research/provenance.md)
 - [Staged emulation plan](docs/research/emulation-plan.md)

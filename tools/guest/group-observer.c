@@ -8,6 +8,7 @@
 #include "remaining-init.h"
 #include "init-tail.h"
 #include "calibration-loaders.h"
+#include "adc-parameter-capture.h"
 struct GmShared {
     unsigned ready,release,worker_go,worker_ack,mapped,hold;
     U worker,new_worker,mapping,output,arm;
@@ -22,6 +23,7 @@ struct GmShared {
     unsigned it_dac,it_control,it_config,it_status,it_packed,it_hw; U it_taps[6]; unsigned it_ready,it_atomic,it_calibration,it_old; U it_slots[IT_BINDINGS];
     U cl_lsb,cl_vertical,cl_adc,cl_slots[CL_BINDINGS];
     unsigned cl_lengths[3],cl_atomic,cl_clone,cl_ready,cl_old;
+    U adci_arena,adci_matrix,adci_setting,adci_drvparam,adci_series,adci_config,adci_table,adci_shadow_low,adci_shadow_high,adci_global,adci_slots[ADCI_BINDINGS];unsigned adci_clone_ready;
 };
 _Static_assert(__builtin_offsetof(struct GmShared,st_slots)==1080,"st_slots offset");
 _Static_assert(__builtin_offsetof(struct GmShared,st_globals)==1200,"st_globals offset");
@@ -38,6 +40,10 @@ _Static_assert(__builtin_offsetof(struct GmShared,it_dac)==2984,"it_dac offset")
 _Static_assert(__builtin_offsetof(struct GmShared,it_taps)==3008,"it_taps offset");
 _Static_assert(__builtin_offsetof(struct GmShared,it_slots)==3072,"it_slots offset");
 _Static_assert(__builtin_offsetof(struct GmShared,cl_lsb)==3200,"loader shared append");
+_Static_assert(__builtin_offsetof(struct GmShared,adci_arena)==3304,"adc input shared append");
+_Static_assert(__builtin_offsetof(struct GmShared,adci_slots)==3384,"adc input slot append");
+_Static_assert(__builtin_offsetof(struct GmShared,adci_clone_ready)==3512,"adc input clone append");
+_Static_assert(sizeof(struct GmShared)==3520,"adc input shared size");
 static struct GmShared *gm;
 static unsigned char gm_stack1[16384] __attribute__((aligned(16)));
 static unsigned char gm_stack2[16384] __attribute__((aligned(16)));
@@ -80,7 +86,7 @@ __attribute__((naked)) static S gm_cl_bad_site(S status __attribute__((unused)))
 extern char gm_cl_bad_cp[];
 static unsigned char gm_at_bytes[AT_MAX_BYTES+1];
 static struct AtInput gm_at;
-static int gm_transcript,gm_spu,gm_remaining,gm_tail,gm_loaders;
+static int gm_transcript,gm_spu,gm_remaining,gm_tail,gm_loaders,gm_adci;
 static unsigned gm_cl_checkpoint,gm_cl_captures;
 static U gm_cl_requested;
 static const char *gm_cl_outdir;
@@ -180,6 +186,7 @@ static void gm_st_private_before_write(unsigned i) {
 static void gm_publish(unsigned *p);
 static void gm_wait_flag(unsigned *p);
 static void gm_worker2(void);
+static void gm_adci_clone_worker(void);
 static void gm_tail_private(U mapping);
 static void gm_loader_private(U mapping);
 static void gm_loader_prepare(void);
@@ -245,13 +252,23 @@ static void gm_tail_private(U mapping) {
 }
 static void gm_cl_fill(unsigned char *p,U n,unsigned mul,unsigned add) { for(U i=0;i<n;i++)p[i]=(unsigned char)(i*mul+add); }
 static void gm_cl_atomic_step(void) { __atomic_add_fetch(&gm->cl_atomic,1,__ATOMIC_SEQ_CST); }
+static void gm_adci_u32(U p,unsigned v){unsigned char *q=(unsigned char *)p;q[0]=v;q[1]=v>>8;q[2]=v>>16;q[3]=v>>24;}
+static void gm_adci_u64(U p,U v){gm_adci_u32(p,(unsigned)v);gm_adci_u32(p+4,(unsigned)(v>>32));}
+static void gm_adci_prepare(void){
+    S m=sys(222,0,0x20000,3,0x21,(U)-1,0);check(m,"adc-input-private-mmap");U p=(U)m;gm->adci_arena=p;gm->adci_matrix=p+0x800;gm->adci_setting=p+0x3000;gm->adci_drvparam=p+0x5000;gm->adci_series=p+0x6000;gm->adci_config=p+0x7000;gm->adci_table=p+0x8000;gm->adci_shadow_low=p+0x9000;gm->adci_shadow_high=p+0xa000;gm->adci_global=p+0xb000;
+    gm_cl_fill((unsigned char *)gm->adci_matrix,0xe60,7,3);gm_cl_fill((unsigned char *)gm->adci_setting,0x1c71,9,5);gm_cl_fill((unsigned char *)gm->adci_drvparam,0x10,11,7);gm_cl_fill((unsigned char *)gm->adci_series,0x12c,13,9);gm_cl_fill((unsigned char *)gm->adci_config,0x3c,15,11);gm_cl_fill((unsigned char *)gm->adci_table,0x100,17,13);gm_cl_fill((unsigned char *)gm->adci_shadow_low,0x3c,19,15);gm_cl_fill((unsigned char *)gm->adci_shadow_high,0x74,21,17);gm_cl_fill((unsigned char *)gm->adci_global,0x2c,23,19);gm_cl_fill((unsigned char *)(p+0xc000),312,25,21);
+    gm_adci_u32(gm->adci_series,8);gm_adci_u32(gm->adci_series+4,900);gm_adci_u32(gm->adci_global+12,0);for(unsigned i=0;i<9;i++){U r=gm->adci_series+12+32*i;gm_adci_u32(r,i==2?8:100+i);gm_adci_u32(r+4,i==2?900:200+i);gm_adci_u64(r+8,gm->adci_table);gm_adci_u32(r+16,16);gm_adci_u64(r+24,gm->adci_config);}
+    for(unsigned i=0;i<4;i++)for(unsigned j=0;j<8;j++)((unsigned char *)gm->adci_setting)[i*0xc0+0xb4+j]=0;((unsigned char *)gm->adci_setting)[0xb4]=1;((unsigned char *)gm->adci_setting)[0x1c70]=0;gm_adci_u64(gm->adci_drvparam+8,2000000000UL);gm_adci_u32(gm->adci_table+16+4,4);gm_adci_u32(gm->adci_config+0x20,31);gm_adci_u32(gm->adci_config+0x38,7);
+    U objects[ADCI_BINDINGS]={p+0xc000,gm->adci_shadow_high+0x40,gm->adci_shadow_high+0x2a,gm->adci_shadow_high,gm->adci_shadow_high+0x3c,gm->adci_shadow_high+0x70,gm->adci_shadow_high+0x5c,gm->adci_shadow_low+0x38,gm->adci_shadow_low,gm->adci_global+0x10,gm->adci_global+0x1c,gm->adci_global+0x14,gm->adci_global+0x20,gm->adci_global+0x18,gm->adci_global+0x24,gm->adci_global+0x28};for(unsigned i=0;i<ADCI_BINDINGS;i++)gm->adci_slots[i]=objects[i];
+    if(gm->arm==91){gm_adci_u32(gm->adci_series,0xdead);gm_adci_u32(gm->adci_series+4,0xbeef);}if(gm->arm==92)gm->adci_slots[3]++;if(gm->arm==93)gm_adci_u64(gm->adci_series+12+2*32+8,gm->adci_table+1);if(gm->arm==94)gm_adci_u64(gm->adci_series+12+2*32+24,gm->adci_config+1);if(gm->arm==95)gm_adci_u32(gm->adci_series+12+2*32+16,17);if(gm->arm==96)gm->adci_matrix=1;if(gm->arm==98)((unsigned char *)gm->adci_matrix)[7]^=1;if(gm->arm==99){gm_adci_u32(gm->adci_config+0x20,32);gm_adci_u32(gm->adci_table+16+4,5);}
+}
 static void gm_loader_prepare(void) {
     S mem=sys(222,0,0x1c4000,3,0x21,(U)-1,0);check(mem,"loader-private-mmap");
     unsigned char *p=(unsigned char *)mem;gm->cl_lsb=(U)p;gm->cl_adc=(U)(p+0x1000);gm->cl_vertical=(U)(p+0x3000);
     gm->cl_lengths[0]=CL_LSB_BYTES;gm->cl_lengths[1]=CL_ADC_BYTES;gm->cl_lengths[2]=CL_VERTICAL_BYTES;
     U f[CL_BINDINGS]={(U)gm_tail_private,(U)gm_loader_private,(U)gm_private_leader,(U)gm_cl_site0,(U)gm_cl_site1,(U)gm_cl_site2};for(unsigned i=0;i<CL_BINDINGS;i++)gm->cl_slots[i]=f[i];
     gm_cl_fill((unsigned char *)gm->cl_lsb,CL_LSB_BYTES,0,0xa5);gm_cl_fill((unsigned char *)gm->cl_adc,CL_ADC_BYTES,0,0x5a);
-    if(gm->arm==81)gm->cl_slots[2]++;if(gm->arm==82)gm->cl_adc++;if(gm->arm==83)gm->cl_lengths[1]--;
+    if(gm_adci)gm_adci_prepare();if(gm->arm==81)gm->cl_slots[2]++;if(gm->arm==82)gm->cl_adc++;if(gm->arm==83)gm->cl_lengths[1]--;
     gm_publish(&gm->cl_ready);
 }
 static void gm_loader_private(U mapping) {
@@ -265,6 +282,7 @@ static void gm_loader_private(U mapping) {
     gm_cl_atomic_step();gm_cl_site1(gm->arm==77?(S)(U)0xfffffffeU:(S)CL_VERTICAL_BYTES);
     gm_cl_atomic_step();gm_cl_site2(gm->arm==77?(S)(U)0xfffffffdU:(S)CL_ADC_BYTES);
     if(gm->arm==84)check(sys(215,(gm->cl_vertical+CL_VERTICAL_BYTES-1)&~4095UL,4096,0,0,0,0),"loader-private-unmap");
+    if(gm_adci&&gm->arm==100){S child=gm_clone(0x10f00,(U)(gm_stack3+sizeof(gm_stack3)),gm_adci_clone_worker);check(child,"adc-input-clone");gm->cl_clone=(unsigned)child;gm_wait_flag(&gm->adci_clone_ready);}
     gm_cl_atomic_step();gm_cl_site3(0);quit(88);
 }
 static unsigned gm_load(unsigned *p) { return __atomic_load_n(p,__ATOMIC_ACQUIRE); }
@@ -273,6 +291,7 @@ static void gm_wait_flag(unsigned *p) {
     while(!gm_load(p)) { S rc=sys(98,(U)p,0,0,0,0,0); if(rc<0 && rc!=-4 && rc!=-11) check(rc,"group-futex-wait"); }
 }
 static void gm_worker2(void) { gm_wait_flag(&gm->hold); quit(88); }
+static void gm_adci_clone_worker(void){gm_publish(&gm->adci_clone_ready);gm_wait_flag(&gm->hold);quit(88);}
 static void gm_worker1(void) {
     gm_wait_flag(&gm->worker_go); gm_publish(&gm->worker_ack);
     if(gm->arm==2 || gm->arm==4 || gm->arm==6 || gm->arm==10 || gm->arm==14 || gm->arm==26) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
@@ -529,6 +548,33 @@ static int gm_cl_capture(unsigned index,const char *phase,const char *name,U add
     while(done<length){U take=length-done;if(take>CL_CHUNK)take=CL_CHUNK;struct Iov local={gm_cl_chunk,take},remote={(void *)(address+done),take};last=sys(270,tg_pid,(U)&local,1,(U)&remote,1,0);if(last<=0)break;U got=(U)last;S wr=sys(64,fd,(U)gm_cl_chunk,got,0,0,0);if(wr!=(S)got){last=wr;break;}if(gm_private)for(U j=0;j<got;j++)if(gm_cl_chunk[j]!=gm_cl_pattern(index,done+j))match=0;done+=got;chunks++;if(got!=take)break;}
     sys(57,fd,0,0,0,0,0);event("loader-capture");hex("index",index);put("phase = \"");put(phase);put("\"\nname = \"");put(name);put("\"\n");hex("address",address);hex("length",length);hex("completed",done);hex("chunks",chunks);hex("result",last);hex("pattern",gm_private?index+1:0);hex("match",done==length&&match);if(done==length&&match){gm_cl_captures++;return 1;}return 0;
 }
+struct GmAdciMap{U start,end;unsigned readable;};
+static struct GmAdciMap gm_adci_maps[ADCI_MAP_MAX];static unsigned gm_adci_map_count,gm_adci_done;static U gm_adci_requested,gm_adci_completed;static char gm_adci_map_bytes[ADCI_MAP_BYTES+1];
+static int gm_adci_digit(char c){if(c>='0'&&c<='9')return c-'0';if(c>='a'&&c<='f')return c-'a'+10;if(c>='A'&&c<='F')return c-'A'+10;return -1;}
+static int gm_adci_maps_load(void){
+    char proc[80]="/proc/";U at=nps_decimal(proc,6,sizeof(proc),tg_pid);const char tail[]="/maps";for(unsigned i=0;i<sizeof(tail);i++)proc[at+i]=tail[i];S fd=sys(56,(U)-100,(U)proc,0,0,0,0);if(fd<0)return 0;U used=0;S last=0;while(used<=ADCI_MAP_BYTES){last=sys(63,fd,(U)(gm_adci_map_bytes+used),ADCI_MAP_BYTES+1-used,0,0,0);if(last<=0)break;used+=(U)last;}sys(57,fd,0,0,0,0,0);if(last<0||used>ADCI_MAP_BYTES)return 0;gm_adci_map_bytes[used]=0;char path[256];if(!gm_cl_path(path,"adc-input-maps.txt"))return 0;S out=sys(56,(U)-100,(U)path,0x241,0600,0,0);if(out<0)return 0;if(sys(64,out,(U)gm_adci_map_bytes,used,0,0,0)!=(S)used){sys(57,out,0,0,0,0,0);return 0;}sys(57,out,0,0,0,0,0);
+    U p=0;gm_adci_map_count=0;while(p<used){if(gm_adci_map_count>=ADCI_MAP_MAX)return 0;U start=0,end=0;int d,count=0;while(p<used&&(d=gm_adci_digit(gm_adci_map_bytes[p]))>=0){if(start>(~0UL-(U)d)/16)return 0;start=start*16+(U)d;p++;count++;}if(!count||p>=used||gm_adci_map_bytes[p++]!='-')return 0;count=0;while(p<used&&(d=gm_adci_digit(gm_adci_map_bytes[p]))>=0){if(end>(~0UL-(U)d)/16)return 0;end=end*16+(U)d;p++;count++;}if(!count||p>=used||gm_adci_map_bytes[p++]!=' ')return 0;unsigned readable=p<used&&gm_adci_map_bytes[p]=='r';while(p<used&&gm_adci_map_bytes[p]!='\n')p++;if(p<used)p++;if(end<=start)return 0;gm_adci_maps[gm_adci_map_count++]=(struct GmAdciMap){start,end,readable};}
+    event("adc-input-maps");hex("bytes",used);hex("records",gm_adci_map_count);hex("maximum_bytes",ADCI_MAP_BYTES);hex("maximum_records",ADCI_MAP_MAX);hex("overflow",0);hex("read_error",0);return 1;
+}
+static int gm_adci_map(U index,const char *category,U address,U length){int match=0;U ms=0,me=0;unsigned rd=0;if(address+length>=address)for(unsigned i=0;i<gm_adci_map_count;i++)if(address>=gm_adci_maps[i].start&&address+length<=gm_adci_maps[i].end){match=gm_adci_maps[i].readable;ms=gm_adci_maps[i].start;me=gm_adci_maps[i].end;rd=gm_adci_maps[i].readable;break;}event("adc-input-map");hex("index",index);put("category = \"");put(category);put("\"\n");hex("address",address);hex("length",length);hex("map_start",ms);hex("map_end",me);hex("readable",rd);hex("match",match);return match;}
+static int gm_adci_contains(U address,U length){if(!length||address+length<address)return 0;for(unsigned i=0;i<gm_adci_map_count;i++)if(gm_adci_maps[i].readable&&address>=gm_adci_maps[i].start&&address+length<=gm_adci_maps[i].end)return 1;return 0;}
+static int gm_adci_read(U address,unsigned width,U *value){if(width!=1&&width!=4&&width!=8)return 0;if(!gm_adci_contains(address,width))return 0;unsigned char b[8]={0};struct Iov local={b,width},remote={(void *)address,width};S n=sys(270,tg_pid,(U)&local,1,(U)&remote,1,0);if(n!=(S)width)return 0;U v=0;for(unsigned i=0;i<width;i++)v|=(U)b[i]<<(8*i);*value=v;return 1;}
+static int gm_adci_capture(unsigned index,U address){U length=adci_length[index];if(length>ADCI_RAW_MAX||gm_adci_requested>ADCI_RAW_MAX-length||address+length<address)return 0;gm_adci_requested+=length;char path[256];if(!gm_cl_path(path,adci_file[index]))return 0;S fd=sys(56,(U)-100,(U)path,0x241,0600,0,0);if(fd<0)return 0;U done=0,chunks=0,hash=14695981039346656037UL;S last=0;while(done<length){U take=length-done;if(take>CL_CHUNK)take=CL_CHUNK;if(gm_private&&gm->arm==97&&index==0&&done==0)take=length/2;struct Iov local={gm_cl_chunk,take},remote={(void *)(address+done),take};last=sys(270,tg_pid,(U)&local,1,(U)&remote,1,0);if(last<=0)break;U got=(U)last;S wr=sys(64,fd,(U)gm_cl_chunk,got,0,0,0);if(wr>0){for(U i=0;i<(U)wr;i++){hash^=(unsigned char)gm_cl_chunk[i];hash*=1099511628211UL;}done+=(U)wr;chunks++;}if(wr!=(S)got){last=wr;break;}if(got!=take||(gm_private&&gm->arm==97&&index==0))break;}sys(57,fd,0,0,0,0,0);gm_adci_completed+=done;event("adc-input-capture");hex("index",index);put("name = \"");put(adci_file[index]);put("\"\n");hex("address",address);hex("length",length);hex("completed",done);hex("chunks",chunks);hex("result",last);hex("hash_fnv1a64",hash);hex("match",done==length);if(done==length){gm_adci_done++;return 1;}return 0;}
+static U gm_adci_private_binding(unsigned i){static const unsigned off[ADCI_BINDINGS]={0xc000,0xa040,0xa02a,0xa000,0xa03c,0xa070,0xa05c,0x9038,0x9000,0xb010,0xb01c,0xb014,0xb020,0xb018,0xb024,0xb028};return gm->adci_arena+off[i];}
+static int gm_adci_plus(U base,U offset,U *out){if(base>~0UL-offset)return 0;*out=base+offset;return 1;}
+static void gm_adci_reject(U tid,const char *reason,const char *stage,U index,U actual,U expected){event("adc-input-rejected");put("reason = \"");put(reason);put("\"\nstage = \"");put(stage);put("\"\n");hex("tid",tid);hex("index",index);hex("actual",actual);hex("expected",expected);hex("captures",gm_adci_done);event("adc-input-summary");hex("captures",gm_adci_done);hex("requested_bytes",gm_adci_requested);hex("completed_bytes",gm_adci_completed);hex("bindings",ADCI_BINDINGS);hex("modeled_reads",0);hex("modeled_writes",0);hex("resumes",0);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",gm_private?gm->cl_atomic:0);hex("old_executed",gm_private?gm->cl_old:0);hex("clone_tid",gm_region_clone);gm_quiesce(tid);quit(78);}
+static void gm_adci_run(U tid){
+    event("adc-input-mode");put("scope = \"");put(gm_private?"private":"stock");put("\"\n");hex("arm",gm_private?gm->arm:0);hex("profile",gm_private?2:1);hex("file_count",ADCI_FILES);hex("binding_count",ADCI_BINDINGS);hex("map_limit",ADCI_MAP_MAX);hex("map_byte_limit",ADCI_MAP_BYTES);hex("raw_max",ADCI_RAW_MAX);hex("no_resume",1);if(!gm_adci_maps_load())gm_adci_reject(tid,"maps","maps",0,0,1);
+    for(unsigned i=0;i<ADCI_BINDINGS;i++){U slot=0,expected=0,actual=0;if(gm_private){slot=(U)&gm->adci_slots[i];expected=gm_adci_private_binding(i);actual=gm->adci_slots[i];}else if(!gm_adci_plus(gm_base,adci_slot[i],&slot)||!gm_adci_plus(gm_base,adci_target[i],&expected)||!gm_adci_map(i,"binding-slot",slot,8)||!gm_adci_read(slot,8,&actual))gm_adci_reject(tid,"read","binding-slot",i,slot,8);event("adc-input-binding");hex("index",i);hex("slot",slot);hex("actual_target",actual);hex("expected_target",expected);hex("target_width",adci_width[i]);hex("relocation_type",0x401);hex("match",actual==expected);if(actual!=expected)gm_adci_reject(tid,"binding","binding",i,actual,expected);if(!gm_adci_map(i,"binding-target",actual,adci_width[i]))gm_adci_reject(tid,"map","binding-target",i,actual,adci_width[i]);}
+    U matrix=0,setting=0,drv=0,series=0,low=0,high=0,global=0;if(gm_private){matrix=gm->adci_matrix;setting=gm->adci_setting;drv=gm->adci_drvparam;series=gm->adci_series;low=gm->adci_shadow_low;high=gm->adci_shadow_high;global=gm->adci_global;}else if(!gm_adci_plus(gm_base,cl_adc+0x4e94,&matrix)||!gm_adci_plus(gm_base,cl_scope+0x18,&setting)||!gm_adci_plus(gm_base,cl_scope+0x5a00,&drv)||!gm_adci_plus(gm_base,0xb8f4e4,&series)||!gm_adci_plus(gm_base,0x3cb44fc,&low)||!gm_adci_plus(gm_base,0x3cb457c,&high)||!gm_adci_plus(gm_base,0xbe1128,&global))gm_adci_reject(tid,"overflow","fixed-address",0,gm_base,1);
+    U fixed[9]={matrix,setting,drv,series,0,0,low,high,global};for(unsigned i=0;i<9;i++)if(i!=4&&i!=5&&!gm_adci_map(i,"fixed",fixed[i],adci_length[i]))gm_adci_reject(tid,"map","fixed",i,fixed[i],adci_length[i]);
+    U v0=0,v1=0,vs=0;if(!gm_adci_read(series,4,&v0)||!gm_adci_read(series+4,4,&v1)||!gm_adci_read(global+12,4,&vs))gm_adci_reject(tid,"read","selector",0,0,1);unsigned s0=(unsigned)v0,s1=(unsigned)v1,special=(unsigned)vs,effective=s1==4000&&special==1?2000:s1,selected=0,fallback=1;for(unsigned i=0;i<9;i++){U r=series+12+32*i,a=0,b=0;if(!gm_adci_read(r,4,&a)||!gm_adci_read(r+4,4,&b))gm_adci_reject(tid,"read","series-row",i,r,8);if((unsigned)a==s0&&(unsigned)b==effective){selected=i;fallback=0;break;}}U record=series+12+32*selected,table=0,config=0;if(!gm_adci_read(record+8,8,&table)||!gm_adci_read(record+24,8,&config))gm_adci_reject(tid,"read","series-pointer",selected,record,32);U expected_table=0,expected_config=0;if(gm_private){expected_table=gm->adci_table;expected_config=gm->adci_config;}else if(!gm_adci_plus(gm_base,adci_table_target[selected],&expected_table)||(adci_config_target[selected]&&!gm_adci_plus(gm_base,adci_config_target[selected],&expected_config)))gm_adci_reject(tid,"overflow","pointer-target",selected,gm_base,1);
+    event("adc-input-selector");hex("selector0",s0);hex("selector1",s1);hex("effective_selector1",effective);hex("special_flag",special);hex("selected_index",selected);hex("fallback",fallback);hex("record",record);
+    event("adc-input-pointer");put("category = \"table\"\n");hex("index",selected);hex("site",record+8);hex("actual",table);hex("expected",expected_table);hex("relocation_type",0x101);hex("match",table==expected_table);if(table!=expected_table)gm_adci_reject(tid,"pointer","table",selected,table,expected_table);
+    event("adc-input-pointer");put("category = \"config\"\n");hex("index",selected);hex("site",record+24);hex("actual",config);hex("expected",expected_config);hex("relocation_type",0x101);hex("match",config==expected_config);if(!config||config!=expected_config)gm_adci_reject(tid,"pointer","config",selected,config,expected_config);
+    U vc=0;if(!gm_adci_read(record+16,4,&vc))gm_adci_reject(tid,"read","sample-count",selected,record+16,4);unsigned count=(unsigned)vc,mask=0;for(unsigned c=0;c<4;c++){int on=0;for(unsigned j=0;j<8;j++){U byte=0;if(!gm_adci_read(setting+c*0xc0+0xb4+j,1,&byte))gm_adci_reject(tid,"read","channel-enable",c,setting,1);if(byte&1)on=1;}if(on)mask|=1U<<c;}U bode=0;if(!gm_adci_read(setting+0x1c70,1,&bode))gm_adci_reject(tid,"read","bode",0,setting+0x1c70,1);if(bode&1)mask=15;if(count<1||count>16)gm_adci_reject(tid,"bound","sample-count",selected,count,16);unsigned normalized=mask>count-1?0:mask;U entry;if(normalized>(~0UL-table)/16)gm_adci_reject(tid,"overflow","sample-entry",selected,table,normalized);entry=table+16U*normalized;if(!gm_adci_map(4,"config",config,adci_length[4]))gm_adci_reject(tid,"map","config",4,config,adci_length[4]);if(!gm_adci_map(5,"sample-entry",entry,adci_length[5]))gm_adci_reject(tid,"map","sample-entry",5,entry,adci_length[5]);U mode=0,adcs=0,point=0,rate=0,mapped=0;if(!gm_adci_read(entry+4,4,&mode)||!gm_adci_read(config+0x20,4,&adcs)||!gm_adci_read(config+0x38,4,&point)||!gm_adci_read(drv+8,8,&rate)||!gm_adci_read(global,8,&mapped))gm_adci_reject(tid,"read","state",0,0,1);event("adc-input-state");hex("sample_count",count);hex("raw_mask",mask);hex("normalized_mask",normalized);hex("mode",mode);hex("config_adcs_delay",adcs);hex("config_point_time",point);hex("sample_rate",rate);hex("mapped_base_value",mapped);
+    fixed[4]=config;fixed[5]=entry;for(unsigned i=0;i<ADCI_FILES;i++)if(!gm_adci_capture(i,fixed[i]))gm_adci_reject(tid,gm_private&&gm->arm==97?"short-read":"capture","raw",i,gm_adci_completed,gm_adci_requested);event("adc-input-summary");hex("captures",gm_adci_done);hex("requested_bytes",gm_adci_requested);hex("completed_bytes",gm_adci_completed);hex("bindings",ADCI_BINDINGS);hex("maps_observed",gm_adci_map_count);hex("selected_index",selected);hex("fallback",fallback);hex("modeled_reads",0);hex("modeled_writes",0);hex("resumes",0);
+}
 static int gm_cl_debug(U tid,int next){
     struct NpsDebugState before={0};struct Iov io={&before,sizeof(before)};S rc=pt(0x4204,tid,0x402,(U)&io);nps_debug_dump("loader-debug-before",rc,&io,&before);if(rc<0||io.size!=sizeof(before)||before.info!=0x0606)return 0;
     U previous=gm_cl_checkpoint? (gm_private?gm_cl_private_pc(gm_cl_checkpoint-1):gm_base+cl_stock_pc[gm_cl_checkpoint-1]):0;
@@ -724,7 +770,7 @@ static void gm_observe(U pid,U base,int private) {
             if(i<3){event("loader-status");hex("index",i);hex("width",4);hex("actual",(U)status_value);hex("expected",(U)expected_status);hex("match",status_value==expected_status);if(status_value!=expected_status)gm_cl_reject(tid,"status","checkpoint",(U)status_value,(U)expected_status);}
             if(i==3&&!private&&(r.x[0]!=base+cl_adc||r.x[1]||status_value!=-1))gm_cl_reject(tid,"terminal-state","checkpoint",r.x[0],base+cl_adc);
             if(private&&gm->cl_atomic!=i+1)gm_cl_reject(tid,"atomic","checkpoint",gm->cl_atomic,i+1);struct Regs before=r;gm_cl_checkpoint++;if(!gm_cl_debug(tid,gm_cl_checkpoint<CL_CHECKPOINTS))gm_cl_reject(tid,"debug-rotation","checkpoint",gm_cl_checkpoint,CL_CHECKPOINTS);struct Regs after={0};registers(tid,&after,0);gm_registers("loader-debug-registers",tid,&after);if(!gm_regs_same(&before,&after))gm_cl_reject(tid,"debug-registers","checkpoint",after.pc,before.pc);
-            if(gm_cl_checkpoint==CL_CHECKPOINTS){gm_cl_converge(tid);U lsb=private?gm->cl_lsb:base+cl_vertical,adc=private?gm->cl_adc:base+cl_adc_record,vertical=private?gm->cl_vertical:base+cl_vertical_record;if(!gm_cl_capture(2,"terminal","loader-terminal-lsb.bin",lsb,CL_LSB_BYTES))gm_cl_reject(tid,"capture","terminal-lsb",0,CL_LSB_BYTES);if(!gm_cl_capture(3,"terminal","loader-terminal-adc.bin",adc,CL_ADC_BYTES))gm_cl_reject(tid,"capture","terminal-adc",0,CL_ADC_BYTES);if(!gm_cl_capture(4,"terminal","loader-terminal-vertical.bin",vertical,CL_VERTICAL_BYTES))gm_cl_reject(tid,private&&gm->arm==84?"short-read":private&&gm->arm==85?"buffer":"capture","terminal-vertical",0,CL_VERTICAL_BYTES);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",private?gm->cl_atomic:0);hex("old_executed",private?gm->cl_old:0);hex("clone_tid",gm_region_clone);gm_quiesce(tid);quit(78);}gm_resume(t);continue;
+            if(gm_cl_checkpoint==CL_CHECKPOINTS){gm_cl_converge(tid);U lsb=private?gm->cl_lsb:base+cl_vertical,adc=private?gm->cl_adc:base+cl_adc_record,vertical=private?gm->cl_vertical:base+cl_vertical_record;if(!gm_cl_capture(2,"terminal","loader-terminal-lsb.bin",lsb,CL_LSB_BYTES))gm_cl_reject(tid,"capture","terminal-lsb",0,CL_LSB_BYTES);if(!gm_cl_capture(3,"terminal","loader-terminal-adc.bin",adc,CL_ADC_BYTES))gm_cl_reject(tid,"capture","terminal-adc",0,CL_ADC_BYTES);if(!gm_cl_capture(4,"terminal","loader-terminal-vertical.bin",vertical,CL_VERTICAL_BYTES))gm_cl_reject(tid,private&&gm->arm==84?"short-read":private&&gm->arm==85?"buffer":"capture","terminal-vertical",0,CL_VERTICAL_BYTES);if(gm_adci)gm_adci_run(tid);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",private?gm->cl_atomic:0);hex("old_executed",private?gm->cl_old:0);hex("clone_tid",gm_region_clone);gm_quiesce(tid);quit(78);}gm_resume(t);continue;
         }
         if(signal==11 || (gm_next && signal==7)) {
             gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
@@ -875,14 +921,15 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
-    int loader_control=argc==6&&equal(argv[1],"control-loaders"),loader_stock=argc==7&&equal(argv[1],"stock-loaders");
+    int adci_control=argc==6&&equal(argv[1],"control-adc-inputs"),adci_stock=argc==7&&equal(argv[1],"stock-adc-inputs");
+    int loader_control=(argc==6&&equal(argv[1],"control-loaders"))||adci_control,loader_stock=(argc==7&&equal(argv[1],"stock-loaders"))||adci_stock;
     if(loader_control||loader_stock){
-        U arm=loader_control?parse(argv[2],10):0;if(loader_control&&(arm<76||arm>89))quit(2);unsigned profile=loader_stock?1:2;
+        U arm=loader_control?parse(argv[2],10):0;if(loader_control&&((adci_control&&(arm<90||arm>100))||(!adci_control&&(arm<76||arm>89))))quit(2);unsigned profile=loader_stock?1:2;
         if(!gm_at_load(argv[loader_stock?4:3],profile,AT_FULL_WRITES))quit(2);if(!gm_st_load(argv[loader_stock?5:4],profile))quit(2);gm_cl_outdir=argv[loader_stock?6:5];
-        gm_transcript=1;gm_spu=1;gm_remaining=1;gm_tail=1;gm_loaders=1;gm_next=1;tg_deadline=tg_now()+10000;
-        if(loader_stock){U pid=parse(argv[2],10),base=parse(argv[3],16);event("model-mode");put("scope = \"stock\"\n");hex("pid",pid);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("profile",1);gm_observe(pid,base,0);quit(2);}
+        gm_transcript=1;gm_spu=1;gm_remaining=1;gm_tail=1;gm_loaders=1;gm_adci=adci_control||adci_stock;gm_next=1;tg_deadline=tg_now()+10000;
+        if(loader_stock){U pid=parse(argv[2],10),base=parse(argv[3],16);event("model-mode");put("scope = \"stock\"\n");hex("pid",pid);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("adc_inputs",gm_adci);hex("profile",1);gm_observe(pid,base,0);quit(2);}
         S memory=sys(222,0,32768,3,0x21,(U)-1,0);check(memory,"model-shared-mmap");gm=(struct GmShared *)memory;gm->arm=arm;gm->output=(U)-1;U observer=sys(172,0,0,0,0,0,0);S pid=sys(220,17,0,0,0,0,0);check(pid,"model-private-clone");if(!pid)gm_private_leader(observer);while(!gm_load(&gm->ready))tg_tick();
-        event("model-mode");put("scope = \"private\"\n");hex("arm",arm);hex("pid",pid);hex("fixture_worker",gm->worker);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("profile",2);gm_observe(pid,0,1);quit(2);
+        event("model-mode");put("scope = \"private\"\n");hex("arm",arm);hex("pid",pid);hex("fixture_worker",gm->worker);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("adc_inputs",gm_adci);hex("profile",2);gm_observe(pid,0,1);quit(2);
     }
     int tail_control=argc==5&&equal(argv[1],"control-tail"),tail_stock=argc==6&&equal(argv[1],"stock-tail");
     if(tail_control||tail_stock) {
