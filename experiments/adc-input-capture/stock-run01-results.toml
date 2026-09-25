@@ -1,0 +1,128 @@
+schema_version = "mho900-lab.adc-input-stock-result/1"
+run_id = "stock-adc-input-capture-01"
+result = "capture-complete-frozen-full-verification-rejected"
+started_at = "2026-09-25T15:14:18Z"
+finished_at = "2026-09-25T15:16:06Z"
+runner_exit = 0
+native_exit = 78
+frozen_full_verifier_exit = 3
+failed_check = "final-consumed-index-coverage"
+frozen_capture_phase_accepted = true
+raw_files = 9
+raw_bytes = 11565
+existing_indexed_files = 325
+all_existing_index_hashes_match = true
+missing_static_contract_entries = 8
+missing_static_files_match_frozen_pins = true
+original_index_unchanged = true
+series_row = 2
+channel_mask = 0
+normalized_mask = 0
+sample_mode = 1
+sample_rate_signed64 = 0
+static_candidate_writes = 97
+static_candidate_readbacks = 2
+static_candidate_requested_sleep_us = 25200
+candidate_executed = false
+terminal_relative_pc = 0x333ba8
+terminal_instruction_executed = false
+threads_reaped = 22
+system_server_pid = 1129
+system_server_stable = true
+final_health_all_zero = true
+cleanup_all_zero = true
+listeners_released = true
+new_modeled_responses = 0
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+physical_instrument_access = false
+adaptive_retry = false
+free_kib_after = 1902684
+next_guest_space_gate_currently_satisfied = false
+
+[[artifacts]]
+path = "docs/research/adc-input-stock-run01.md"
+sha256 = "0b428ef4ee5e849b6d6fe49263b0fa94c255540a92714a5e07a60a47adc4faf9"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/stock-inputs.toml"
+sha256 = "85ed7a716d7ad91adae54b4b07288c8d4fe2e3148fc4ddde124234b042db8117"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/health-gate.toml"
+sha256 = "5bd671e369d782a554d108831f62d8f50c134228cba2a23025814dc5587b296d"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/evidence-sha256.txt"
+sha256 = "3a2bf54e81415e7e7733060d964de14a809c05ae70ec3946505ae454d9d1ffae"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/result.toml"
+sha256 = "7860d8231c005d0cb8c050c635b89cd58467a1b763f1e0893d4c0289bc43bd4d"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/native-events.toml"
+sha256 = "f555b9d6296fdf7c7ef47f7f161ab055c72984de0e1f9bab0b2e94a802870345"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/final-health-status.toml"
+sha256 = "edf937ff07c06eeee07035140479692de6342d260051080d3816fdab6ea9dd4a"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/system-server-pid.toml"
+sha256 = "3e6dc2a86e82c17142609c790fcd012137558bfb323ca49a4324ef2dad535658"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/cleanup-status.toml"
+sha256 = "a09c6552df63fef58b85327bbfb2fa13f7669d0e5caacd78029cc26d7b4d1855"
+
+[[artifacts]]
+path = "out/adc-input-capture/stock-run01-verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/adc-input-capture/stock-run01-verification.stderr"
+sha256 = "07b61faf65ea1dd78f19550256197a7616075cacea62aaf9c0da082bbb9afc9d"
+
+[[artifacts]]
+path = "out/adc-input-capture/stock-run01-verification-status.toml"
+sha256 = "bf9ad266c4fc751e7a6fafb87d566a67de947f55ee0ba244174d9ddd588dcfac"
+
+[[artifacts]]
+path = "out/adc-input-capture/stock-run01-audit.toml"
+sha256 = "75e9345ed0b5d01e340981164aeefe4ce6bed3ce4b28ccb57f0b0dbdfe764eb2"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-matrix.bin"
+sha256 = "5bf20baa8e81253184e83e29702e76687430b972a8233683351fa1a158abdcff"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-setting.bin"
+sha256 = "25c5f2dd1971b65be00855370eed758340c817df08c7744ce055afb749fa4292"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-drvparam.bin"
+sha256 = "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-series.bin"
+sha256 = "4d51d3934cbea95b5523d25a841f67ccbe6e5c210722ebd812fd83082a66c101"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-config.bin"
+sha256 = "5eb791b353732ce48c1f9142c9d0c4bc30c0a35c8b33980c4a3fc8241d22e338"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-sample-entry.bin"
+sha256 = "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-shadow-low.bin"
+sha256 = "f667f4330187003d9a0261d430e1d9bd1370a17a6f35ad2fdcd94a5dc4d3bde7"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-shadow-high.bin"
+sha256 = "0c8b84d1b5a0124b32b6e35a7e3b0080bd872a027033e6dcb629897561938199"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-global-inputs.bin"
+sha256 = "f1569a69ceb6ad2f592ffdd9e5cd439dbadaa593d5edc830bb65fe41de1a5fb2"
