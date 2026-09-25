@@ -1,0 +1,18 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.remaining-init-decision
+contract: sha256:c40cfe4757d777fec27ef4fc70abff87f9dd32b7df21a8728e679bd502375b5c
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T09:56:00Z"
+evidence:
+  evaluation: >-
+    docs/research/remaining-init-next-decision.md SHA-256 7f3854a4257c6cbbd5e6d0defa3f70aeea3b3d20873ba9f2cc329ed8ff707f71
+    evaluates the complete stock missing-device branch and pending R4. Recover the complete remaining Drv_Init
+    version DAC DDR and self-test region before adding returned state. Version identities remain separate;
+    mapped driver plumbing does not establish FPGA reset timing or completion behavior. No guest run admitted.
+  continuation: >-
+    .agents/plans/init-tail-static.yaml SHA-256 59cf88db65c2fdd096fa3c53b4237c97691f44b97cf2190ab56d26b8fb15e2d3
+    admits whole-tail static graph recovery and an explicit region-scale returned-state decision.
+    Inspected seed --plan proposes only two tasks and tasking history; admitted against revisionab48ac848c3705bad06449aa0ba6b63b5fb3938d6b55b8698174fcf61546e9d9.
+    Typed graph provenance independent checks manual semantic review and explicit unknown leaves are required.
+    Commit and push this tasking before execution. No observer implementation or synthetic response yet.

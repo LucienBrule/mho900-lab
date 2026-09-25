@@ -1,0 +1,36 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.init-tail-grammar
+    title: Recover the complete version DAC and DDR initialization tail
+    state: open
+    intent: Replace access-by-access discovery with a reproducible conditional contract through Drv_Init return.
+    requires: [TASK.hardware.remaining-init-decision]
+    requirements:
+      - Pin unchanged stock bytes and recover the remaining Drv_Init control flow through every return including transitive version DAC DDR skip-tap reset and self-test operations.
+      - Recover offsets widths constants tables masks loops delays mutable selectors returned-state predicates and error propagation; identify the immediate upstream success or failure consumer and next subsystem boundary.
+      - Emit a typed TOML operation graph with static-determined runtime-selected hardware-returned asynchronous and unknown classes; preserve branches and provenance rather than an unconditional transcript.
+      - Check byte ranges bindings graph integrity and candidate operations independently of the producer; verify useful damaged inputs fail and distinguish structural verification from manual semantic review.
+      - Correlate newly reached device ABI with existing pinned kernel or reference evidence where relevant without inferring FPGA state from mapped driver plumbing.
+      - Identify the minimum unresolved live inputs and coherent synthetic returned-state hypotheses for a region-scale runtime test; do not implement responses or run a guest in this task.
+    acceptance: [Commit and push the reproducible static conclusion with unknowns before admitting runtime implementation.]
+    verification: [provenance, graph, semantics, boundaries]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.init-tail-decision
+    title: Select a region-scale returned-state falsification from the recovered tail
+    state: open
+    intent: Choose the smallest coherent instrument personality experiment justified by the whole initialization tail.
+    requires: [TASK.hardware.init-tail-grammar]
+    requirements:
+      - Evaluate actual decision points and whole routine predictions; avoid experiments whose only question is another deterministic store.
+      - Select a bounded fixture and terminal checkpoint or further static work; distinguish modeled state from reference behavior and observed stock behavior.
+      - Specify live-selector guards thread coverage observation limits private negative controls deadlines cleanup and exact stock artifact preservation.
+      - Retain mapped-access observation unless a concrete fidelity or observability deficiency supports changing the boundary.
+    acceptance: [Plan inspect admit and commit plus push the bounded successor before execution or record a concrete blocker.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
