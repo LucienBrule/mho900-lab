@@ -4,10 +4,10 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.util.HexFormat
 
-require(args.size in 1..2) { "Usage: VerifyCalibrationFilesystem.main.kts RUN_DIRECTORY [precondition|complete]" }
+require(args.size in 1..2) { "Usage: VerifyCalibrationFilesystem.main.kts RUN_DIRECTORY [precondition|fixture|complete]" }
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 val phase = args.getOrElse(1) { "complete" }
-require(phase == "precondition" || phase == "complete") { "unknown verification phase" }
+require(phase in setOf("precondition", "fixture", "complete")) { "unknown verification phase" }
 fun path(name: String) = run.resolve(name)
 fun text(name: String) = Files.readString(path(name)).replace("\r\n", "\n")
 fun bytes(name: String) = Files.readAllBytes(path(name))
@@ -129,6 +129,10 @@ require(sha256("calibration-loader-candidate.toml") == "6f84cda746319f02b701065b
 val fixture = text("fixture-result.toml")
 require(fixture.contains("result = \"installed-and-roundtrip-matched\"") && fixture.contains("stock_files = 2") &&
     fixture.contains("absent_paths = 4") && fixture.contains("stock_application_access_observed = false"))
+if (phase == "fixture") {
+    println("schema_version = \"mho900-lab.calibration-filesystem-verification/1\"\nresult = \"accepted\"\nphase = \"fixture\"")
+    kotlin.system.exitProcess(0)
+}
 val result = text("result.toml")
 require(result.contains("mode = \"filesystem\"") && result.contains("inspection = \"completed\""))
 val health = exactPairs("final-health-status.toml")

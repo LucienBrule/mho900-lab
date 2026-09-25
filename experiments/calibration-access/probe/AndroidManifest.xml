@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="lab.mho900.calibration.access"
+    android:versionCode="1"
+    android:versionName="1"
+    android:sharedUserId="android.uid.system">
+    <uses-sdk android:minSdkVersion="25" android:targetSdkVersion="25" />
+    <application android:allowBackup="false" android:hasCode="true" android:label="Calibration access probe">
+        <activity android:name=".ProbeActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

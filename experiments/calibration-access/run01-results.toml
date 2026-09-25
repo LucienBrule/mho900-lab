@@ -1,0 +1,106 @@
+schema_version = "mho900-lab.calibration-file-access-results/1"
+result = "complete-observation-file-access-denied"
+run_id = "calibration-file-access-01"
+started_at = "2026-09-25T12:24:24Z"
+finished_at = "2026-09-25T12:24:42Z"
+probe_apk_sha256 = "f1aadc9fefc4278f86a9839a8917a2ce42ee5c1fedbd52562b5187ef2bd2dec0"
+probe_uid = 1000
+probe_pid = 2445
+probe_context = "u:r:system_app:s0"
+directory_metadata_operations_succeeded = 3
+file_metadata_operations_denied = 2
+file_readonly_open_operations_denied = 2
+observed_errno = 13
+observed_errno_name = "EACCES"
+file_read_syscalls_attempted = 0
+file_close_syscalls_attempted = 0
+probe_kernel_audit_records = 4
+kernel_audit_permissions = ["getattr", "read"]
+file_context = "u:object_r:su_tmpfs:s0"
+audit_permissive = 0
+reference_prediction_confirmed_for_observed_accesses = true
+compiled_policy_fully_decoded = false
+probe_uninstalled = true
+helper_command_statuses_zero = 20
+final_health_statuses_zero = 5
+system_server_pid = 1052
+system_server_samples = 3
+stock_files_preserved = 2
+file_labels_unchanged = true
+stock_application_executed = false
+policy_or_label_change = false
+indexed_artifacts = 177
+frozen_aggregate_accepted = true
+host_verifier_cases_passed = 3
+stock_artifacts_unchanged = true
+original_ramdisk_unchanged = true
+dedicated_listeners_absent = true
+
+[public_test_key]
+repository = "https://android.googlesource.com/platform/build"
+commit = "8ed39f49ba645b55f400e736dc3415a9aedec1e8"
+certificate_path = "target/product/security/platform.x509.pem"
+key_path = "target/product/security/platform.pk8"
+certificate_der_sha256 = "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
+certificate_pem_sha256 = "9837de028f460c35cc8d3fa45f14eecce30f6fbfe4b93d399aef1acb80c20d14"
+key_sha256 = "1ad8ef556870edb70f69a9d3c112544c07de5162ba440d84d33f8bb0c5962875"
+
+[[artifacts]]
+path = "experiments/calibration-access/inputs.toml"
+sha256 = "471a46e1edf28c6f9e3dc0f9fabbcac56fcdef5267b77811bd438774d0b15524"
+
+[[artifacts]]
+path = "docs/research/calibration-file-access-results.md"
+sha256 = "4fd049c8e750f953fad7123ad52bc28f4efde4148dc313aa467f874b2aa6f04d"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/result.toml"
+sha256 = "860add458f0e7043a96226d09b4d878ae92740ffcf439b91707e077408794351"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/evidence-sha256.txt"
+sha256 = "6b0c11f5493e8912603d58bebc5d1dfc224b26a971055a0175f1d5018d0a807c"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/access-report.toml"
+sha256 = "1dc6991cc358fd988de3d4d9d6fb0d18a1854a8cd0b08269eb7adc8688f8a482"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/access-command-status.toml"
+sha256 = "3341213d469458e026e0803e581afb951c596b5dd8e5287b5e500aab032c117d"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/access-audit-dmesg.txt"
+sha256 = "65e365d248e1b73b19c86f5c9881c13d55469fdf7468c4d92bef4a372fda8a7b"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/access-proc-status.txt"
+sha256 = "60a98f7fa1ae07202eb6786d4ea7e0c0879c27f4f23cc5dfac4df9b33d24fc60"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/access-proc-label.txt"
+sha256 = "7d24d8d830705d745d64566517342f3e51be6c5a9e4249253eb7f70f3eaecd6e"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-access-01/final-health-status.toml"
+sha256 = "edf937ff07c06eeee07035140479692de6342d260051080d3816fdab6ea9dd4a"
+
+[[artifacts]]
+path = "out/calibration-access/run01-verification.toml"
+sha256 = "ad3dff82b3d6de1b9afab69d1ba496b92d0cb96089263ef7a0d67e1b46f46a42"
+
+[[artifacts]]
+path = "out/calibration-access/run01-review/summary.toml"
+sha256 = "6cdc743f1f5e1515d8a4e72380661b053b97a26c1de06fe81ffe6d33fd1b2588"
+
+[[artifacts]]
+path = "out/calibration-access/run01-review/review.md"
+sha256 = "6daffdeb39350bfe8edf621f946ae46e0f39611a5e3477f0cf4207cb7cdbcd37"
+
+[[artifacts]]
+path = "out/calibration-access/run01-index-check.txt"
+sha256 = "4f2a383deeba91d208740592e9c33bda843479bb135e66dfae592fffd7b6de3d"
+
+[[artifacts]]
+path = "out/calibration-access/run01-preservation-hashes.txt"
+sha256 = "65e2671273a1e617c5066744a1c692db64501f19f5129c1136f61cec406f9944"

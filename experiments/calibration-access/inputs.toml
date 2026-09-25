@@ -1,0 +1,111 @@
+schema_version = "mho900-lab.calibration-access-inputs/1"
+question = "Can the measured system_app process read the unchanged stock calibration defaults?"
+task = "TASK.guest.calibration-file-access"
+task_contract = "sha256:79917431b36c078cf3778b9a729919a6180e0f1b4e54158bd69a1d00e47a90cb"
+mode = "fileaccess"
+run_id = "calibration-file-access-01"
+reference_prediction = "Directory metadata succeeds; su_tmpfs file access is denied."
+exact_compiled_allow_rules_confirmed = false
+stock_application_execution = false
+policy_or_label_change = false
+admission_exception = false
+adaptive_retry = false
+physical_instrument_access = false
+
+[probe]
+apk_path = "out/calibration-access/build-01/calibration-access.apk"
+apk_sha256 = "f1aadc9fefc4278f86a9839a8917a2ce42ee5c1fedbd52562b5187ef2bd2dec0"
+signer_sha256 = "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
+package = "lab.mho900.calibration.access"
+expected_uid = 1000
+expected_context = "u:r:system_app:s0"
+report_schema = "mho900-lab.calibration-access-probe/1"
+requested_permissions = 0
+read_limit = "Each expected stock file size plus one byte; EOF and exact hash required for complete successful read."
+
+[derivative]
+path = "out/calibration-filesystem/build-04/ramdisk.img"
+sha256 = "98b4925f73aa77cd21a6d4e2a3f384056dba8b2d379162ad2c02f55f3a071398"
+
+[fixture]
+mount_command = "mount -t tmpfs -o rw,nosuid,nodev,noexec,size=4m tmpfs /rigol"
+stock_lsb_file_sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+stock_vertical_file_sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+expected_directory_context = "u:object_r:tmpfs:s0"
+expected_file_context = "u:object_r:su_tmpfs:s0"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "77c3a8741a80eed7a47b7a16e1b4ec780b86ba9d9067830d2a40c4ee775610c1"
+
+[[artifacts]]
+path = "tools/guest/admission-fileaccess.sh"
+sha256 = "0b6bb416acc2eba5a9c1354f0d72fb1dd360d9a661500a4d76ab556abc75d97b"
+
+[[artifacts]]
+path = "tools/guest/admission-filesystem.sh"
+sha256 = "9dcee7f2b17ed0286eb940f35639fae092f1ae475920ec423c0e4cf9bf5408ac"
+
+[[artifacts]]
+path = "tools/guest/admission-final-health.sh"
+sha256 = "4709ae90fb20f1cc141a6524c7c67dfcabab9fa3f44cc4949b152e29c5e25809"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationFilesystem.main.kts"
+sha256 = "6247912ee7ac1f9975a6154b8d414c1acaea64b23e1b9ef77b20c78b2d410228"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationAccess.main.kts"
+sha256 = "b510cb42e0c371d19fd77403889724c39b786f93a8bb2b90f8dbd3571e7fa7d4"
+
+[[artifacts]]
+path = "tools/guest/build-calibration-access.sh"
+sha256 = "86e62c0e7378cb82df100acf77b3daf5a3b8fb82e93a90428623bbea4e6b0df4"
+
+[[artifacts]]
+path = "experiments/calibration-access/probe/ProbeActivity.kt"
+sha256 = "3604e60d2512460e2ac291bff02738c140b9f3e8b1d925d971914c9f993008b5"
+
+[[artifacts]]
+path = "experiments/calibration-access/probe/AndroidManifest.xml"
+sha256 = "3525782d8996d9e88bd23622479db69f5391ff0fd27b823f3e6a099b4d2dc16c"
+
+[[artifacts]]
+path = "tools/research/InspectCalibrationAssets.main.kts"
+sha256 = "0187caa8ff62133e8999ab7f52ea5ef1b0b8fb2069a89f1d9d3144dbb50aae14"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "experiments/calibration-access/decision.toml"
+sha256 = "9f38809820c33d7609fc19bda673251dbb47aa7515020fcd338bc2b4fe217964"
+
+[[artifacts]]
+path = "out/calibration-access/key-feasibility.toml"
+sha256 = "fc4e2cad416d346b0037f6d385ff227c9119e01b78864d614c827715446eebfd"
+
+[[artifacts]]
+path = "out/calibration-access/key-feasibility.md"
+sha256 = "549b7e436746a84cbd4641a90f4501889f98b6a2b15aa63dfe7142eb0dc6f412"
+
+[[artifacts]]
+path = "out/calibration-access/toolchain.toml"
+sha256 = "d13bba91425ee07ad2a102a99d8c993f168d9cc6409728f4fc9288fa857e6122"
+
+[[artifacts]]
+path = "out/calibration-access/build-01/manifest.toml"
+sha256 = "4f3c07857beaacde80796dd4f31ec1302f56ee39ab40c89cacca08d7f648c3bc"
+
+[[artifacts]]
+path = "out/calibration-access/build-02/manifest.toml"
+sha256 = "4f3c07857beaacde80796dd4f31ec1302f56ee39ab40c89cacca08d7f648c3bc"
+
+[[artifacts]]
+path = "out/calibration-access/verifier-host-controls/results.toml"
+sha256 = "ac6e08e5cebb71a005ed818068abfa8e32a8e8ae799e8ea6e5e23535ef56b4bf"
+
+[[artifacts]]
+path = "out/calibration-filesystem/stock-access-review.toml"
+sha256 = "3503de177f837e60b766ef38330f5b7650269f74e32bc255cc58af7e3aeb9d4f"
