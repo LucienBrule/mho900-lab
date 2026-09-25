@@ -1,0 +1,16 @@
+#ifndef INIT_TAIL_H
+#define INIT_TAIL_H
+#define IT_READS 10U
+#define IT_WRITES 2U
+#define IT_CHECKPOINTS 3U
+#define IT_BINDINGS 16U
+static const unsigned it_read_offset[IT_READS]={4,0,0x401c,0x14a0,0x14a4,0x1498,0x14ac,0x14b4,0x1008,0x1210};
+static const unsigned it_read_value[IT_READS]={0xa1123456,0xbbaa0078,0x10203040,0xa5a50021,0xb6b61234,0xc7c72345,0xd8d83456,0xe9e94567,0x20000000,62500};
+static const unsigned it_write_offset[IT_WRITES]={0x1428,0x1000};
+static const unsigned it_write_value[IT_WRITES]={0x646e,0};
+static const U it_stock_pc[IT_CHECKPOINTS]={0x2e547c,0x2e55a8,0x2e57f8};
+static const unsigned it_stock_opcode[IT_CHECKPOINTS]={0x340008ea,0x900035a9,0x97fc6696};
+/* Functions and live data used by the bounded region. */
+static const U it_binding_slot[IT_BINDINGS]={0xb78790,0xb7bb08,0xb7fb88,0xb83f18,0xb845c0,0xb86148,0xb86690,0xb86758,0xb86f98,0xb870a0,0xb87630,0xb883b8,0xb89e08,0xb8d288,0xb8de08,0xb8e118};
+static const U it_binding_target[IT_BINDINGS]={0x272844,0x272244,0x27dcf0,0x273484,0x2851b4,0x277d08,0x272c2c,0x27357c,0x285374,0x27d448,0x2e5228,0x272c5c,0x2852c4,0x3cb44fc,0x3cb4540,0x3cb4550};
+#endif

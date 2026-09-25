@@ -1,0 +1,147 @@
+schema_version = "mho900-lab.init-tail-control-results/1"
+task = "TASK.guest.init-tail-control"
+run = "out/guest-admission/group-init-tail-01"
+started_at = "2026-09-25T10:25:44Z"
+finished_at = "2026-09-25T10:27:43Z"
+conclusion = "initial-redundant-clear-readback-negative"
+complete_private_pass = false
+stock_authorized_by_result = false
+native_sha256 = "e56d8a929de3455f5adb0aa14e9fed4d8c65eb2ebca9658b01c8f79216bb4d83"
+executed_new_controls = [59]
+unexecuted_new_controls = [60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]
+prior_runtime_controls_passed = 59
+malformed_input_controls_passed = 30
+prefix_reads = 2
+prefix_writes = 464
+prefix_remaining_checkpoints = 10
+tail_reads = 0
+tail_writes = 0
+tail_checkpoints = 0
+initial_bindings_matched = 16
+initial_states_matched = 8
+clear_before_control = 0x1e5
+clear_requested_control = 0
+clear_set_result = 0
+clear_observed_control = 0x1e5
+clear_predicted_control = 0x1e4
+native_exit = 78
+reaped_threads = 3
+final_wait_result = -10
+system_server_pid = 1050
+system_server_samples = 67
+indexed_artifacts_verified = 549
+stock_application_installed = false
+stock_artifacts_modified = false
+enforcement_preserved = true
+post_teardown_listener_check_at = "2026-09-25T10:30:59Z"
+dedicated_listeners_absent = true
+negative_verifier_accepted_original = true
+altered_negative_evidence_copies_rejected = 4
+
+[[artifacts]]
+path = "docs/research/init-tail-clear-negative.md"
+sha256 = "b478d5afb29ac0e5da5e308a326be0fcb00b2edcef3990ce28282548ab356181"
+
+[[artifacts]]
+path = "docs/research/init-tail-observer-controls.md"
+sha256 = "933b277c64992e6ed6abe80e7e2052e2db4d53ae1bf97d6da9031fcb42217969"
+
+[[artifacts]]
+path = "experiments/init-tail/candidate.toml"
+sha256 = "54554db2ff6e0948fcf4476d54ebde60877503f641c7eaac68e94cf4b1b19666"
+
+[[artifacts]]
+path = "experiments/init-tail/controls.toml"
+sha256 = "7b19975cdec4cdba8e25fbb159b5d6d1ca9206ec5eed4da1fe318c10d9bef608"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "37cc8e204768b8fd182a1e23d8c25c472f9e676952820a01faead9bf45e33e9f"
+
+[[artifacts]]
+path = "tools/guest/init-tail.h"
+sha256 = "bae1bc75a2a6551ba20b63531e160a62744ac9e8ddf34a8b00c66eb50ab7a150"
+
+[[artifacts]]
+path = "tools/guest/VerifyInitTailObserver.main.kts"
+sha256 = "04dc72612cff1802bd25fb419fe74ec51f8cfb5214ed6fffbb5f0bb66b813ae4"
+
+[[artifacts]]
+path = "tools/guest/VerifyInitTailClearNegative.main.kts"
+sha256 = "b022ed479866a26a218913c0b8d1ac79135b72dec75916a860df8982cd95c89d"
+
+[[artifacts]]
+path = "tools/guest/admission-tailcontrol.sh"
+sha256 = "b0f69610e5e9c10216607ec21c9afc7851a0b3cb6326942a150718b1f2282b92"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "b4b960d8ae8a1bd5ac4d3c3cbedbc8e6cf04230542ec7f3650474889c4e115a7"
+
+[[artifacts]]
+path = "out/guest-admission/group-init-tail-01/evidence-sha256.txt"
+sha256 = "3b4d7da7f8b02e91f7d1a42ecae6b0a7c3a5dcead6ff19a0f1670808fa1a166e"
+
+[[artifacts]]
+path = "out/guest-admission/group-init-tail-01/result.toml"
+sha256 = "686d262a86ec97450f0d1031e104ffc544fb47093fa7803ea75b80e8e5671a94"
+
+[[artifacts]]
+path = "out/guest-admission/group-init-tail-01/tail-59.toml"
+sha256 = "6fb4da3a751c9f3d49c6a9064bbef81f82f33a756663645aa22a10788c52804b"
+
+[[artifacts]]
+path = "out/guest-admission/group-init-tail-01/tail-59-verification.stderr"
+sha256 = "7b87632a3f41eedadad421e7fcfb2ddaedb3cbe9f94a936b8311bbd912290a4d"
+
+[[artifacts]]
+path = "out/init-tail/private-negative-verification-02.toml"
+sha256 = "ad7b2516886fa23c0c4201f53bc48ca6dcd22c93285d7136b56d729272aa1a8b"
+
+[[artifacts]]
+path = "out/init-tail/private-negative-audit-01.toml"
+sha256 = "e5c075bdd53b46cd1f9df047db8418f24da638923b590a5c994c0f1a254e005d"
+
+[[artifacts]]
+path = "out/init-tail/private-negative-audit-01.md"
+sha256 = "3d0ef4b60916fa4da163f373e6696663a3d347bc27e659365ac8e6088accac78"
+
+[[artifacts]]
+path = "out/init-tail/negative-clear-analysis-01.toml"
+sha256 = "eab545df0d7f61a2ad909cb594a1cc82f5fd80178f56919c7117fd1bfd8eca7c"
+
+[[artifacts]]
+path = "out/init-tail/negative-clear-analysis-01.md"
+sha256 = "4f64d9ba44eb9768e737301aefaf7146633bfec9101df1af3d44e04bad843f92"
+
+[[artifacts]]
+path = "out/init-tail/negative-verifier-controls-01/results.toml"
+sha256 = "b86b7384a361a469e5ee2f5482061c031797ea6a2a2a03c6fd431a7e5cc76e30"
+
+[[artifacts]]
+path = "out/init-tail/check-negative-verifier-01.main.kts"
+sha256 = "de0eefdf296a9368c6f1dfe2494c01c2848fb36d07772aceb7cf3d833c708857"
+
+[[artifacts]]
+path = "out/init-tail/negative-port-5041.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/negative-port-5580.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/negative-port-5581.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/negative-port-27043.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/negative-stock-sha256.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[artifacts]]
+path = "out/init-tail/negative-post-teardown-time.txt"
+sha256 = "6f4f8ea99b431d225f19355223c49873c0205214efca2cdc38b4f6c790bf3ab3"

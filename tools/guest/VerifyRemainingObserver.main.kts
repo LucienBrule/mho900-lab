@@ -708,7 +708,7 @@ if(args.size==1 || stock) {
         require(text("native-final-enforcing.txt").trim()=="Enforcing")
         val finalPid=text("native-final-system-server.txt").trim().toInt(); require(text("system-server-pid.toml").lineSequence().filter { it.isNotBlank() }.all { it.substringAfter("= ").toInt()==finalPid })
     } else {
-        require(text("result.toml").contains("mode = \"remainingcontrol\"") && text("result.toml").contains("inspection = \"completed\""))
+        require(listOf("remainingcontrol","tailcontrol").any { text("result.toml").contains("mode = \"$it\"") } && text("result.toml").contains("inspection = \"completed\""))
         require(text("group-packages.txt").isBlank() && !text("group-processes-after.txt").contains("group-observer"))
         require(text("group-enforcing.txt").lineSequence().filter { it.isNotBlank() }.toList()==listOf("Enforcing","Enforcing"))
         val pids=text("group-system-server.toml").lineSequence().filter { it.isNotBlank() }.map { it.substringAfter("= ").toInt() }.toList(); require(pids.size==28 && pids.distinct().size==1)

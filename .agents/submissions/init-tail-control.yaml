@@ -1,0 +1,29 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.init-tail-control
+contract: sha256:729c668351c9f04e46f3dfb4750697dadc50a8e60bfced56adebfee207779dd5
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T10:32:54Z"
+evidence:
+  implementation: >-
+    experiments/init-tail/control-results.toml SHA-256 a218ac25dadaf21fac748063ce8f5c9e174e82e88051b392168d333807fa0931
+    pins native executable e56d8a929de3455f5adb0aa14e9fed4d8c65eb2ebca9658b01c8f79216bb4d83 and frozen sources.
+    Implemented fixed ten-read two-write three-checkpoint candidate with16 bindings live configuration guards
+    separate counters and full register captures. Compiled private controls contain exclusive atomic loops
+    before each checkpoint. No stock code or artifacts were changed.
+  controls: >-
+    Fresh group-init-tail-01 passed all59 prior runtime controls and30 malformed inputs. First new arm59
+    completed464 prefix stores and10 transport checkpoints then stopped at initial debug setup. Arms60..74
+    did not execute. This is a closed negative hypothesis, not a complete private pass; stock remains gated.
+  rejection: >-
+    Exact inherited slot address0/control1e5 was observed. SET24 clear0/0 succeeded but GET264 retained1e5
+    instead of predicted1e4. Sixteen bindings and eight live states matched. No tail response write or
+    checkpoint completed. Frozen positive verifier rejected the incomplete region. The explicit negative
+    adjudicator independently verified the raw transition and ledger; original accepted and four isolated
+    altered evidence copies rejected. Pinned upstream reference explains compatible cached-control retention
+    without being claimed as exact guest source. No experiment adaptation or additional run occurred.
+  preservation: >-
+    All549 indexed artifacts verified. All67 system_server samples remained1050 and enforcement was preserved.
+    Exact three registered fixture threads were quiesced/reaped with wait-10. Stock package stayed absent;
+    stock APK/library hashes unchanged. Separate post-teardown listener captures found all four dedicated
+    ports unused. Results and task state are committed/pushed before any successor execution.
