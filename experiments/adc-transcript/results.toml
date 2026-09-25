@@ -1,0 +1,135 @@
+schema_version = "mho900-lab.adc-transcript-results/1"
+task = "TASK.hardware.adc-transcript"
+classification = "conditional-static-software-transcript"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+canonical_output = "out/adc-transcript/derived-01"
+deterministic_repeat = "out/adc-transcript/derived-02"
+write_count = 452
+table_writes = 440
+constant_tail_writes = 4
+initialized_shadow_writes = 8
+binding_count = 11
+table_words = 222
+source_words = 4
+shadow_records = 2
+stock_fixture_bytes = 4912
+maximum_protocol_bytes = 5392
+guest_executed = false
+stock_artifacts_unchanged = true
+runtime_binding_proven = false
+fpga_behavior_established = false
+
+[verification]
+repeat_byte_identical = true
+all_452_prior_values_agree = true
+independent_fixtures_accepted = 3
+independent_negative_inputs_rejected = 15
+negative_input_names = ["magic", "version", "profile", "count", "reserved", "truncated", "trailing", "oversized", "binding", "table", "source", "shadow", "offset", "operand", "order"]
+wire_verifier_scope = "Host verification only; guest consumer controls remain pending"
+verification_input_directory = "out/static-contract/adc-transcript-check-02"
+verification_input_matches_canonical = true
+prior_index_self_reference_failure_preserved = "out/group-observer/adc-table-static/evidence-sha256.txt"
+prior_heap_failure_preserved = "out/static-contract/userspace-index-01"
+
+[reference]
+path = "experiments/adc-transcript/reference.tsv"
+original = "out/group-observer/adc-table-static/conditional-full-transcript.tsv"
+format = "Preserved prior derived evidence TSV"
+sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+
+[[artifacts]]
+path = "tools/research/DeriveAdcTranscript.main.kts"
+sha256 = "44c9387b4beb1a18ec61307d0f50c973f143b21fbc2a29ef35de73e209d66cc0"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcTranscript.main.kts"
+sha256 = "e7c83ce452c05a2ebce95152550fb7af9f1859faa5c036f5325bb47fdda3e508"
+
+[[artifacts]]
+path = "docs/research/adc-transcript.md"
+sha256 = "2a63631d30a3430747ba2d265e724f3e93e30951d50aa993615330fe4b890bf4"
+
+[[artifacts]]
+path = "docs/research/adc-transcript-protocol.md"
+sha256 = "8f1ef358d296c6187d017e2dafbb37755aedd69218d9f5311f01a210596130ae"
+
+[[artifacts]]
+path = "experiments/adc-transcript/derivation.toml"
+sha256 = "492b4e56a77dd10b367238d86c06054654fab54ebc7e49d083226bf4fc4e0534"
+
+[[artifacts]]
+path = "experiments/adc-transcript/reference.tsv"
+sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/adc-stock.bin"
+sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/adc-private.bin"
+sha256 = "28471720179d4bf0e41911c0a4d29e108c89bbb4279d264793efb5f8ff9e866d"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/adc-private-one.bin"
+sha256 = "ff7b60aee0f2cc79c69d8f28b92dd50b12ee8de3f3a6b3df25027e7997376e93"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/adc-transcript.tsv"
+sha256 = "ab98b113346ecf00819c37e5ce73450f43fd8c82ec79da79410e5bd4a75080bb"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/manifest.toml"
+sha256 = "492b4e56a77dd10b367238d86c06054654fab54ebc7e49d083226bf4fc4e0534"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01.stdout"
+sha256 = "0be18e2c9e4bc658f0efb6b8ca633361d8dace85469fd0a186b684c31db5a4bc"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-02.stdout"
+sha256 = "0be18e2c9e4bc658f0efb6b8ca633361d8dace85469fd0a186b684c31db5a4bc"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-02.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/adc-transcript/determinism.diff"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/adc-transcript/verify-stock.toml"
+sha256 = "f114b4474787ad8899be35d493809be24c9e799c5a81b312092b5873211722d1"
+
+[[artifacts]]
+path = "out/adc-transcript/verify-private.toml"
+sha256 = "a7d72aa535c3c306c38d08517683a588818d77a0a08e754ff627a86092a459f7"
+
+[[artifacts]]
+path = "out/adc-transcript/verify-private-one.toml"
+sha256 = "73581261aa8f1b97063359d518890961374a2f836732182ccb777cc0d4429393"
+
+[[artifacts]]
+path = "out/adc-transcript/check-inputs.main.kts"
+sha256 = "248f79549482b8e16fc9ad474489c166ab1313c4947c414d5f1588ac61bd9cd3"
+
+[[artifacts]]
+path = "out/adc-transcript/check-inputs.log"
+sha256 = "bf6cd7dcbb74cc0ac79b1cfbe9c456aca319d64146edfc468ecf18cdbec2171a"
+
+[[artifacts]]
+path = "out/adc-transcript/negative-inputs/results.toml"
+sha256 = "f4308789e3f54b48e73b84f0c08f96536e23e80d084130d5b00dcba69b35edc5"
+
+[[artifacts]]
+path = "out/adc-transcript/independent-review.md"
+sha256 = "17737c8d2e7916950e69bf7cde89614c81a6b228f11f67ddf9200fbc44b47c20"
+
+[[artifacts]]
+path = "out/adc-transcript/implementation-checks.md"
+sha256 = "06a64a6ea94642c4e8ed0cdeba0b6f1d63ee63ca710d94400c6b5c82893f50e9"

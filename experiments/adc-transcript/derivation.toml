@@ -1,0 +1,157 @@
+schema_version = "mho900-lab.adc-transcript-derivation/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+independent_transcript_sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+agreement = "all-452-values"
+write_count = 452
+immutable_table_write_count = 440
+constant_tail_write_count = 4
+writable_shadow_write_count = 8
+table_entries = 111
+table_entries_used = 110
+max_protocol_writes = 512
+
+[protocol]
+magic = "MHOADCT1"
+version = 1
+byte_order = "little-endian"
+full_size = 4912
+maximum_size = 5392
+header_offset = 0
+header_size = 64
+bindings_offset = 64
+binding_count = 11
+binding_size = 24
+address_table_offset = 328
+register_table_offset = 772
+source_words_offset = 1216
+source_words_order = ["init9", "init8", "mask9", "mask8"]
+shadows_offset = 1232
+shadow_count = 2
+shadow_size = 32
+writes_offset = 1296
+write_size = 8
+write_offset = "0x3000"
+write_width = 4
+validation = "exact-size-counts-flags-reserved-bindings-tables-source-shadows-order-no-trailing-bytes"
+
+[[bindings]]
+name = "DevAcquireADC_Init"
+kind = 1
+relocation_type = "0x401"
+slot_relative = "0xb8ddd0"
+expected_relative = "0x27ed3c"
+
+[[bindings]]
+name = "DevAcquireADC_InitGlobalVariable"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb78d30"
+expected_relative = "0x27e9b0"
+
+[[bindings]]
+name = "Dev_AdcWrite"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb82d20"
+expected_relative = "0x2717c8"
+
+[[bindings]]
+name = "DevAcquireADC_SetADCReg"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb88fd0"
+expected_relative = "0x27e8a8"
+
+[[bindings]]
+name = "Dev_WriteRegister"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb79db8"
+expected_relative = "0x2703c8"
+
+[[bindings]]
+name = "addrValue"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8cfa0"
+expected_relative = "0x994a5c"
+
+[[bindings]]
+name = "regValue"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8d0c8"
+expected_relative = "0x994c18"
+
+[[bindings]]
+name = "regInitValue"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8e7a8"
+expected_relative = "0x99471c"
+
+[[bindings]]
+name = "maskValue"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8eea8"
+expected_relative = "0x9948bc"
+
+[[bindings]]
+name = "gInt16DevAcquireADCRT8847IQ_0x09"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8cb08"
+expected_relative = "0x3cb45bc"
+
+[[bindings]]
+name = "gInt16DevAcquireADCRT8847IQ_0x08"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8d1b8"
+expected_relative = "0x3cb45c8"
+
+[[shadows]]
+name = "index9"
+slot_relative = "0xb8cb08"
+object_relative = "0x3cb45bc"
+width = 4
+initial = "0x67216721"
+final = "0x47215721"
+source = "regInitValue+0x24 replicated twice"
+
+[[shadows]]
+name = "index8"
+slot_relative = "0xb8d1b8"
+object_relative = "0x3cb45c8"
+width = 2
+initial = "0x000b"
+final = "0x0000"
+source = "regInitValue+0x20"
+
+[[files]]
+path = "adc-transcript.tsv"
+size = 25146
+sha256 = "ab98b113346ecf00819c37e5ce73450f43fd8c82ec79da79410e5bd4a75080bb"
+
+[[files]]
+path = "adc-stock.bin"
+size = 4912
+sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+
+[[files]]
+path = "adc-private.bin"
+size = 4912
+sha256 = "28471720179d4bf0e41911c0a4d29e108c89bbb4279d264793efb5f8ff9e866d"
+
+[[files]]
+path = "adc-private-one.bin"
+size = 1304
+sha256 = "ff7b60aee0f2cc79c69d8f28b92dd50b12ee8de3f3a6b3df25027e7997376e93"
+
+[limits]
+classification = "conditional-static-software-transcript"
+runtime_bindings_verified = false
+concurrent_shadow_mutation_excluded = false
+hardware_effects_inferred = false
+timing_completion_dma_interrupts_inferred = false
