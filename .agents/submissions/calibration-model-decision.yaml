@@ -1,0 +1,20 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.calibration-model-decision
+contract: sha256:9cd3200b984c7ac736bed9baeefa0e14e2217e291d4b804abe21f2fd4e62515a
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T11:20:00Z"
+evidence:
+  evaluation: >-
+    docs/research/calibration-loader-decision.md SHA-256 1d7a10aaf8cbeb065395b453f4f69faa62fcc334fa4d71d6044a61c0b3914a0e
+    selects exact file reconstruction and complete three-loader observation from the reviewed static contract.
+    Expected statuses192/1794240/-1 and complete buffer comparisons are conditional hypotheses. The ADC record
+    is observed not synthesized. No new MMIO responses kernel facade DMA model or higher native replacement is needed.
+    Existing peer threads remain supervised and terminal simultaneous capture requires group convergence.
+  continuation: >-
+    Plan .agents/plans/calibration-loaders.yaml SHA-256 5416925c5395cc0980f5f6ba0e68dafaaf9b6d8d8a524a2bcb54a3bef4a97e1a
+    was planned against revisiona67b3b86c329c5fe48f3be46a51ca60f9d182c19cffceeb5f60665a6ddf2f3ab.
+    The inspected proposal creates only two tasks and their tasking history. Admission produced
+    revisionb86d190c080db79499b4b52cf7db10d4d38d132b58321418b9c955aad0f52062.
+    Observer private controls precede a gate; stock continuation is not admitted by this batch. Commit and
+    push this decision and tasking before implementation. Stock artifacts remain unchanged and no physical access is authorized.

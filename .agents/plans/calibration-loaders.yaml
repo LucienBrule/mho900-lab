@@ -1,0 +1,35 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-loader-observer
+    title: Prove bounded whole-loader observation and complete destination capture
+    state: open
+    intent: Extend the existing observer through three calibration loaders without adding modeled device responses.
+    requires: [TASK.hardware.calibration-model-decision]
+    requirements:
+      - Freeze a reviewed first-three-loader candidate with exact stock bindings checkpoints signed status locations destination lengths and two byte-identical stock default assets; preserve stock APK and ELF.
+      - Extend existing thread-group and execution-stop supervision through post-call checkpoints 0x333b78, 0x333b84, 0x333b9c and terminal 0x333ba8; preserve all application registers and execute no ADC parameter call.
+      - Demonstrate bounded exact complete remote-buffer capture including the 1794240-byte vertical record with a private control; never substitute sparse samples for full evidence and preserve raw buffers locally.
+      - Maintain zero new mapped responses and fail closed on unexpected access signal clone identity instruction sequence binding length or capture failure; converge the traced group before terminal simultaneous-state capture.
+      - Validate private positive and negative controls including uninterrupted exclusive sequences prior to stops slot handoff status width full-buffer mismatches short capture wrong thread and unexpected access; preserve legacy observer controls and independently verify evidence with altered-copy controls.
+      - Prepare deterministic disposable-guest installation and read-only evidence capture for two pinned defaults at logical paths with primary records and ADC records absent; do not execute stock beyond the existing boundary in this task.
+    acceptance: [Commit and push private-control results and reproducible observer tooling.]
+    verification: [contract, controls, evidence, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-loader-gate
+    title: Evaluate loader controls and freeze or reject a stock observation
+    state: open
+    intent: Require evidence-backed instrumentation before the full stock loader-region experiment.
+    requires: [TASK.guest.calibration-loader-observer]
+    requirements:
+      - Independently review complete private results source and verifier coverage; resolve capture thread or stop failures as their own finding rather than adapting a stock experiment in place.
+      - Freeze exact binary source fixture checkpoint sequence deadline thread coverage expected statuses and destination comparison rules only when controls support them.
+      - Either admit a bounded stock-loader experiment and evaluation with taskctl plan inspection or close with a specific instrumentation successor; commit and push the decision and tasking before execution.
+    acceptance: [Commit and push an explicit go or no-go decision and bounded successor tasking.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
