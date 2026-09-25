@@ -1,0 +1,1697 @@
+schema_version = "mho900-lab.static-call-inventory/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+scope = "Named register wrappers, POSIX device primitives and DMA-named functions; includes non-device file users"
+runtime_binding_verified = false
+owner_confidence = "Nearest preceding LLVM label; not a proven function extent"
+
+[[calls]]
+owner = "std::__ndk1::unique_ptr<std::__ndk1::tuple<std::__ndk1::unique_ptr<std::__ndk1::__thread_struct, std::__ndk1::default_delete<std::__ndk1::__thread_struct>>, std::__ndk1::__bind<void (RQThread::*)(), RQThread*>>, std::__ndk1::default_delete<std::__ndk1::tuple<std::__ndk1::unique_ptr<std::__ndk1::__thread_struct, std::__ndk1::default_delete<std::__ndk1::__thread_struct>>, std::__ndk1::__bind<void (RQThread::*)(), RQThread*>>>>::unique_ptr<true, void>(std::__ndk1::tuple<std::__ndk1::unique_ptr<std::__ndk1::__thread_struct, std::__ndk1::default_delete<std::__ndk1::__thread_struct>>, std::__ndk1::__bind<void (RQThread::*)(), RQThread*>>*)"
+pc = "0x25310c"
+target = "pthread_create"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::open(int)"
+pc = "0x25701c"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::open(int)"
+pc = "0x2570e8"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::open(int)"
+pc = "0x257128"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::open(int)"
+pc = "0x2571b8"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::open(int)"
+pc = "0x257244"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::close()"
+pc = "0x257604"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_PCIeInit"
+pc = "0x2701fc"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_PCIeInit"
+pc = "0x270280"
+target = "mmap"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_PCIeInit"
+pc = "0x2702ac"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Close"
+pc = "0x270348"
+target = "munmap"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Close"
+pc = "0x270364"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Close"
+pc = "0x27039c"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeTrace_Read"
+pc = "0x2706b4"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeWrite"
+pc = "0x2708b8"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeWrite"
+pc = "0x270964"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeWrite"
+pc = "0x2709a8"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRead"
+pc = "0x270a78"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_DacINswVoltage"
+pc = "0x270b30"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_DacWrite"
+pc = "0x270be0"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_LmkWrite"
+pc = "0x270cb0"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_LmkWrite"
+pc = "0x270d6c"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_LmkRead"
+pc = "0x270e3c"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_LmkIoctl"
+pc = "0x270f24"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_LmkIoctl"
+pc = "0x270f40"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_LmkIoctl"
+pc = "0x270f5c"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_DacIoctl"
+pc = "0x271000"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_DacIoctl"
+pc = "0x2710b0"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_TmpRead"
+pc = "0x271158"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_TmpRead"
+pc = "0x271164"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_TmpRead"
+pc = "0x2711a0"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_TmpRead"
+pc = "0x27120c"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_TmpRead"
+pc = "0x271218"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_TmpRead"
+pc = "0x271374"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_FanIoctl"
+pc = "0x271404"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_FanIoctl"
+pc = "0x27141c"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_FanIoctl"
+pc = "0x27148c"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SarAdcRead"
+pc = "0x27152c"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SarAdcRead"
+pc = "0x271548"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SarAdcRead"
+pc = "0x27155c"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SarAdcRead"
+pc = "0x271618"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Adc128Read"
+pc = "0x2716cc"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Adc128Read"
+pc = "0x2716e8"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Adc128Read"
+pc = "0x2716fc"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Adc128Read"
+pc = "0x271794"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AdcWrite"
+pc = "0x271870"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AdcWrite"
+pc = "0x27189c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = "0x271968"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = "0x27199c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = "0x2719c0"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Spi1Config"
+pc = "0x271a78"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Spi1Config"
+pc = "0x271aa0"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Spi1Config"
+pc = "0x271ac8"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Spi1Config"
+pc = "0x271b78"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_FpgaWrite"
+pc = "0x271c0c"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_FpgaClose"
+pc = "0x271c64"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_K7Ioctl"
+pc = "0x271cc8"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_K7Ioctl"
+pc = "0x271cf4"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_K7Ioctl"
+pc = "0x271d20"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_K7Ioctl"
+pc = "0x271d90"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_K7Close"
+pc = "0x271de0"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRmsIoctl"
+pc = "0x271e34"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRmsIoctl"
+pc = "0x271ea4"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRmsIoctl"
+pc = "0x271f74"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRmsIoctl"
+pc = "0x272024"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRmsIoctl"
+pc = "0x272098"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_AfeRmsIoctl"
+pc = "0x2720a4"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Init"
+pc = "0x272904"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_Init"
+pc = "0x272928"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAcquireSpu_WriteRegister"
+pc = "0x272c4c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAcquireSpu_ReadRegister"
+pc = "0x272c7c"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevSystemScu_WriteRegister"
+pc = "0x2851a4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevSystemScu_ReadRegister"
+pc = "0x2851d4"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevSystemTpu_WriteRegister"
+pc = "0x2876b4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevSystemTpu_ReadRegister"
+pc = "0x2876e4"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevLaDisplayWpu_WriteRegister"
+pc = "0x2949f0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevBoardLed_SetColor"
+pc = "0x295540"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "UART_OPen"
+pc = "0x2955b8"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "uartDataSeed"
+pc = "0x295778"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevBoardPower_SetSystemPowerOff"
+pc = "0x2959ac"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevBoard_Power_Led_SetColor"
+pc = "0x295be0"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Uart_Close"
+pc = "0x295d7c"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "uartDataRecv"
+pc = "0x2960c8"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevInOutProbe_WriteRegister"
+pc = "0x29617c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevInOutProbe_ReadRegister"
+pc = "0x2961ac"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevInOutProbe_GetLaProbeInput"
+pc = "0x296ec4"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevInOutProbe_GetLaProbeInput"
+pc = "0x296f30"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevInOutProbe_GetLaProbeInput"
+pc = "0x296f58"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeCnt_WriteRegister"
+pc = "0x296fc0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeCnt_ReadRegister"
+pc = "0x296ff0"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeDvm_WriteRegister"
+pc = "0x297870"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeDvm_ReadRegister"
+pc = "0x2978a0"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevWauTop_BodeChanSel"
+pc = "0x29a30c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevWauTop_Bode_en"
+pc = "0x29a370"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaBasicAmplOffsetSet(unsigned short, int)"
+pc = "0x29a8c4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaBasicAmplOffsetSet(unsigned short, int)"
+pc = "0x29a8d8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29aa94"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29aaac"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29aac0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29aad4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29ab34"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29ab50"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29ab64"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaInit(short*, short*, long long, long long, long long, AfgChanDrvPara)"
+pc = "0x29ab78"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaBasicWaveDataDown(unsigned int, short*, int)"
+pc = "0x29ac68"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaBasicWaveDataDown(unsigned int, short*, int)"
+pc = "0x29acf8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaCompWaveDataDown(unsigned int, short*, int)"
+pc = "0x29ae88"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaCompWaveDataDown(unsigned int, short*, int)"
+pc = "0x29aef0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaCompWaveDataDown(unsigned int, short*, int)"
+pc = "0x29af9c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaCompWaveDataDown(unsigned int, short*, int)"
+pc = "0x29b004"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaModWaveDataDown(unsigned int, short*, int)"
+pc = "0x29b0d8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaModWaveDataDown(unsigned int, short*, int)"
+pc = "0x29b140"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaModWaveDataDown(unsigned int, short*, int)"
+pc = "0x29b1ec"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaModWaveDataDown(unsigned int, short*, int)"
+pc = "0x29b254"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "fpgaModAmSetting(long long, long long, bool, bool, bool, int)"
+pc = "0x29b2e8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetRunFreq"
+pc = "0x2a0704"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetRunFreq"
+pc = "0x2a0738"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitFreq"
+pc = "0x2a0bf8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitFreq"
+pc = "0x2a0c0c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitFreq"
+pc = "0x2a0c20"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitFreq"
+pc = "0x2a0c34"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitPhase"
+pc = "0x2a0e2c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitPhase"
+pc = "0x2a0e40"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitAmpl"
+pc = "0x2a0f84"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetInitAmpl"
+pc = "0x2a0f98"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfgSetCompAndDev"
+pc = "0x2a10a0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfgSetCompAndDev"
+pc = "0x2a10b4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfgSetCompAndDev"
+pc = "0x2a10c8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfgSetCompAndDev"
+pc = "0x2a10dc"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Fun_SetModuDev"
+pc = "0x2a113c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Fun_SetModuDev"
+pc = "0x2a1150"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Fun_SetModuDev"
+pc = "0x2a1164"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Fun_SetModuDev"
+pc = "0x2a1178"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetNoiseEn"
+pc = "0x2a1d0c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetNoiseEn"
+pc = "0x2a1d58"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetModuMode"
+pc = "0x2a2440"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetExtModuEn"
+pc = "0x2a2508"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetModuEn"
+pc = "0x2a2674"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAfg_SetSquaEn"
+pc = "0x2a29c4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a99a0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a99b0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a99c0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a99d0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a99e0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a99f0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a00"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a10"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a20"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a30"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a40"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a50"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a60"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a70"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a80"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9a90"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9aa0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_InitSerdes"
+pc = "0x2a9ab0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_SetChanOutputMode"
+pc = "0x2a9bd0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_SetFpgaAmpl"
+pc = "0x2a9c7c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevJesd_SetLimitLinkEn"
+pc = "0x2a9cd8"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevPeri_SetDacSyncEn"
+pc = "0x2a9e74"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevPeri_SetPwm"
+pc = "0x2aacf4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevPeri_SetPwm"
+pc = "0x2aad08"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetAFGMCUVersion"
+pc = "0x2ad034"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetAFGMCUVersion"
+pc = "0x2ad090"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_WriteCommand"
+pc = "0x2ad198"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_ReadCommand"
+pc = "0x2ad498"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetHardwareVersion"
+pc = "0x2ad574"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetHardwareVersion"
+pc = "0x2ad5ec"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetHardwareVersion"
+pc = "0x2ad60c"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetHardwareVersion"
+pc = "0x2ad624"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevSocu_SetMultiChSync"
+pc = "0x2b3dc0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevSocu_SetMultiChSync"
+pc = "0x2b3de0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevWgu_SetWguEn"
+pc = "0x2b506c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_FgenInit"
+pc = "0x2b7024"
+target = "DevSysctrl_InitCardMask"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SetAmplGainBoundMap"
+pc = "0x2bc264"
+target = "DevAfg_SetAmplGainBoundMap"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::Start(bool)"
+pc = "0x2e5c70"
+target = "DrvDMA_Init()"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::Start(bool)"
+pc = "0x2e5c78"
+target = "DrvDMA_GetSrcPtr()"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::read(char*, unsigned int)"
+pc = "0x2fdc48"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::DeInterleave(std::__ndk1::map<Chan, CScopeWfm*, std::__ndk1::less<Chan>, std::__ndk1::allocator<std::__ndk1::pair<Chan const, CScopeWfm*>>>*, int, int, int, int, unsigned int, bool)"
+pc = "0x31010c"
+target = "DrvDMA_GetDstPtr()"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::DeInterleave(std::__ndk1::map<Chan, CScopeWfm*, std::__ndk1::less<Chan>, std::__ndk1::allocator<std::__ndk1::pair<Chan const, CScopeWfm*>>>*, int, int, int, int, unsigned int, bool)"
+pc = "0x310160"
+target = "DrvDMA_GetDstPtr()"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::DeInterleave(std::__ndk1::map<Chan, CScopeWfm*, std::__ndk1::less<Chan>, std::__ndk1::allocator<std::__ndk1::pair<Chan const, CScopeWfm*>>>*, int, int, int, int, unsigned int, bool)"
+pc = "0x310344"
+target = "DrvDMA_Copy(int, int, int)"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::DeMemInterleave(std::__ndk1::map<Chan, CScopeWfm*, std::__ndk1::less<Chan>, std::__ndk1::allocator<std::__ndk1::pair<Chan const, CScopeWfm*>>>*, int, int)"
+pc = "0x3113b8"
+target = "DrvDMA_GetDstPtr()"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::DeMemInterleave(std::__ndk1::map<Chan, CScopeWfm*, std::__ndk1::less<Chan>, std::__ndk1::allocator<std::__ndk1::pair<Chan const, CScopeWfm*>>>*, int, int)"
+pc = "0x31140c"
+target = "DrvDMA_GetDstPtr()"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CDrvScope::DeMemInterleave(std::__ndk1::map<Chan, CScopeWfm*, std::__ndk1::less<Chan>, std::__ndk1::allocator<std::__ndk1::pair<Chan const, CScopeWfm*>>>*, int, int)"
+pc = "0x3114cc"
+target = "DrvDMA_Copy(int, int, int)"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "connectAndCommunicate(int, char const*, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>>, bool)"
+pc = "0x32130c"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "connectAndCommunicate(int, char const*, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>>, bool)"
+pc = "0x3213dc"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvBeeper_Init"
+pc = "0x37d4d4"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvBeeper_Init"
+pc = "0x37d514"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvBeeper_Init"
+pc = "0x37d544"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvSet_beeper_once"
+pc = "0x37d5d0"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvSet_beeper_once"
+pc = "0x37d608"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvSet_beeper_long"
+pc = "0x37d6a4"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvSet_beeper_long"
+pc = "0x37d6d4"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvPanel_WriteVendor"
+pc = "0x37d7dc"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvPanel_WriteVendor"
+pc = "0x37d900"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvPanel_WriteVendor"
+pc = "0x37d970"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvPanel_GetHardwareGpioVerion"
+pc = "0x37da48"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvPanel_GetHardwareGpioVerion"
+pc = "0x37db40"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvPanel_GetHardwareGpioVerion"
+pc = "0x37dbf4"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvDMA_Init()"
+pc = "0x37dedc"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvDMA_Init()"
+pc = "0x37df30"
+target = "mmap"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvDMA_Copy(int, int, int)"
+pc = "0x37e00c"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DrvDMA_Copy(int, int, int)"
+pc = "0x37e02c"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeBode_WriteRegister"
+pc = "0x37f504"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "DevAnalyzeBode_ReadRegister"
+pc = "0x37f534"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_set_bode_chan"
+pc = "0x37f960"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SetBodeChan"
+pc = "0x37f9b4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SetBodePara"
+pc = "0x37fa9c"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SetBodePara"
+pc = "0x37fab0"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_SetBodePara"
+pc = "0x37fac4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fb70"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fb90"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fbf4"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fc18"
+target = "Dev_WriteRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fc28"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fc58"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fc74"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fc90"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fcac"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fcc8"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fce4"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fd00"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "Dev_GetBode"
+pc = "0x37fd1c"
+target = "Dev_ReadRegister"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CFram::close()"
+pc = "0x3bd5b4"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CFram::open(std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&)"
+pc = "0x3bd69c"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CFram::page_write(int, unsigned char*, int)"
+pc = "0x3be398"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CFram::page_read(int, unsigned char*, int)"
+pc = "0x3be538"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "gzopen"
+pc = "0x3cbf28"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "gzclose_r"
+pc = "0x3ce4e0"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "gzclose_r"
+pc = "0x3ce5e8"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "gzvprintf"
+pc = "0x3cfb0c"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "gzvprintf"
+pc = "0x3cfca0"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "gzclose_w"
+pc = "0x3d0290"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "RFile::write(char const*, unsigned int)"
+pc = "0x3dd094"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CApiUtility::ApiUtility_SaveMac(RString)"
+pc = "0x4297e8"
+target = "open"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CApiUtility::ApiUtility_SaveMac(RString)"
+pc = "0x429974"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CApiUtility::ApiUtility_SaveMac(RString)"
+pc = "0x42999c"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CApiTrigger::ApiTrigger_Set1553bCodeValue(int)"
+pc = "0x4d26f0"
+target = "TriggerUtil::setDataAndMaskOneByCodeInReverseOrder(RBitArray&, RBitArray&, unsigned char, TriggerUtil::EmCodeType, int, int)"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CUltraLabThread::run()"
+pc = "0x64d584"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CUltraLabThread::run()"
+pc = "0x64d7ec"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "SocketConnect::socketOpen(char*)"
+pc = "0x65cce0"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "SocketConnect::socketClose()"
+pc = "0x65d000"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CSocketInterface::run()"
+pc = "0x68b9a4"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CSocketInterface::run()"
+pc = "0x68ba48"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "CSocketInterface::onRequestOut()"
+pc = "0x68be18"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbRead(int, unsigned char*, unsigned int)"
+pc = "0x68cc14"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbWrite(int, unsigned char*, unsigned int)"
+pc = "0x68cca0"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbReadEndpoint(int, unsigned char*, unsigned char)"
+pc = "0x68ccf4"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbControlEndpointWrite(int, unsigned char*, unsigned char)"
+pc = "0x68cddc"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbInterruptWrite(int, unsigned char*)"
+pc = "0x68ceec"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbIoctlWriteRead(int, unsigned char, void*)"
+pc = "0x68cf30"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbIoctlWriteRead(int, unsigned char, void*)"
+pc = "0x68cf44"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usb_tmc_info_init()"
+pc = "0x68dd30"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "create_tmc_thread(int, void* (*)(void*))"
+pc = "0x68e078"
+target = "pthread_create"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbtmc_device_init(unsigned char*, unsigned char*, unsigned short)"
+pc = "0x68e428"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "usbtmc_device_init(unsigned char*, unsigned char*, unsigned short)"
+pc = "0x68e61c"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svctcp_bufcreate"
+pc = "0x696d60"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svctcp_bufcreate"
+pc = "0x696dbc"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svctcp_create"
+pc = "0x697130"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svctcp_create"
+pc = "0x6974d0"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svctcp_create"
+pc = "0x6975dc"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svctcp_create"
+pc = "0x697f94"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svcudp_bufcreate"
+pc = "0x698170"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svcudp_bufcreate"
+pc = "0x6981b8"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "svcudp_bufcreate"
+pc = "0x698288"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "vxiServiceInit"
+pc = "0x69d834"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "vxiServiceInit"
+pc = "0x69d850"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSCPIOpenIO"
+pc = "0x69f214"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSCPIOpenIO"
+pc = "0x69f2a0"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibStartWork"
+pc = "0x69f680"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibInit"
+pc = "0x69f784"
+target = "close"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibInit"
+pc = "0x69f7c4"
+target = "__open_2"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69f8a0"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69fa2c"
+target = "__write_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69fa9c"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69faf4"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69fc38"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69fd60"
+target = "__read_chk"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibSetAddress"
+pc = "0x69fe30"
+target = "ioctl"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibStart"
+pc = "0x69ff78"
+target = "pthread_create"
+edge_kind = "PLT"
+
+[[calls]]
+owner = "halUsbGpibCheckLink"
+pc = "0x6a0058"
+target = "close"
+edge_kind = "PLT"

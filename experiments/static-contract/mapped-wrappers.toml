@@ -1,0 +1,50 @@
+schema_version = "mho900-lab.mapped-wrappers/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+mapped_base_helper = "0x271ec4"
+coverage = "Named access wrappers plus all decoded BL callers of the mapped-base helper; aliases and raw accesses through copied pointers are not exhaustively identified"
+
+[[wrappers]]
+name = "Dev_ReadRegister"
+pc = "0x270604"
+opcode = "0xb9400109"
+access = "R32"
+address = "mapped_base + zero_extend_u32(argument0)"
+
+[[wrappers]]
+name = "Dev_WriteRegister"
+pc = "0x27043c"
+opcode = "0xb9000109"
+access = "W32"
+address = "mapped_base + zero_extend_u32(argument0)"
+
+[[wrappers]]
+name = "Dev_WriteAfgRegister"
+pc = "0x27056c"
+opcode = "0xf9000128"
+access = "W64"
+address = "mapped_base + argument0"
+
+[[wrappers]]
+name = "Dev_WriteWaveDataRegister"
+entry = "0x270464"
+access = "NONE-IN-DECODED-BODY"
+address = "computes mapped_base + 8*argument0; no mapped store before return"
+
+[[base_helper_callers]]
+preceding_label = "Dev_WriteRegister"
+pc = "0x2703fc"
+
+
+[[base_helper_callers]]
+preceding_label = "Dev_WriteWaveDataRegister"
+pc = "0x27049c"
+
+
+[[base_helper_callers]]
+preceding_label = "Dev_WriteAfgRegister"
+pc = "0x270530"
+
+
+[[base_helper_callers]]
+preceding_label = "Dev_ReadRegister"
+pc = "0x2705c8"

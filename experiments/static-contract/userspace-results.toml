@@ -1,0 +1,115 @@
+schema_version = "mho900-lab.static-contract-results/1"
+task = "TASK.hardware.auklet-init-contract"
+method = "read-only-static-recovery"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+complete_index = "out/static-contract/userspace-final-03"
+instruction_words_checked = 1988337
+named_read_sites = 19
+named_write_sites = 95
+boundary_candidate_sites = 282
+conditional_got_edges = 23
+unresolved_indirect_sites = 3466
+unnamed_direct_targets = 68256
+semantic_graph_nodes = 25
+adc_predicted_writes = 452
+adc_table_writes = 440
+adc_constant_tail_writes = 4
+adc_shadow_tail_writes = 8
+spu_predicted_writes = 8
+adc_and_spu_init_device_reads = 0
+live_bindings_verified = false
+full_adc_observed = false
+spu_observed = false
+fpga_behavior_established = false
+guest_run_started = false
+
+[verification]
+all_prior_440_words_agree = true
+changed_disassembly_word_rejected = true
+toml_syntax_valid = true
+stock_hashes_unchanged = true
+graph_node_references_and_pc_witnesses_valid = true
+independent_review = "ELF/GOT arithmetic, word sequence, status propagation, complete ADC tail and selected SPU path"
+review_corrections = [
+  "Nearest-label ownership is not a proven function extent",
+  "Branches to symbols are not automatically tail calls",
+  "64-bit and no-access named wrappers are inventoried separately",
+  "dma_auklet completion behavior is UNKNOWN; async thread activity is separate",
+  "SPU gain and bit-range use separate software mode lookups",
+]
+partial_first_index_preserved = "out/static-contract/userspace-index-01"
+partial_first_index_failure = "JVM heap exhaustion during final whole-file hashing; fixed with streamed hashing and explicit heap"
+toml_parser_check = "One-off host standard-library syntax check; authored analysis and graph generation remain Kotlin"
+
+[[artifacts]]
+path = "tools/research/IndexAuklet.main.kts"
+sha256 = "197b9ef71a70927570c2fa5cf4d04d1baab76171f68d99394af285c9cb7903ed"
+
+[[artifacts]]
+path = "docs/research/static-initialization-contract.md"
+sha256 = "9e46f7257654146679af1568dcf183bfe5a4f29449753814b63b36abc37165c4"
+
+[[artifacts]]
+path = "experiments/static-contract/initialization-graph.toml"
+sha256 = "72e4806673d06ff900781ad5dba7c01c1740ddd7a2337ad8c61d1733dc6924db"
+
+[[artifacts]]
+path = "experiments/static-contract/hardware-callers.toml"
+sha256 = "7b20f69f649c9683574853ad8b43e961c1aff8358f79561bf96d71a86eca8b13"
+
+[[artifacts]]
+path = "experiments/static-contract/mapped-wrappers.toml"
+sha256 = "7a77a29c74dda24ac62dceb8e2182bcc9afa733a8e113d68a36603bdfb535f62"
+
+[[artifacts]]
+path = "out/static-contract/userspace-final-03/summary.toml"
+sha256 = "bc73a72a45bc1ce06322825521af981cdc3674cf315bc290d795b2bbc7b2b35f"
+
+[[artifacts]]
+path = "out/static-contract/userspace-final-03/calls.tsv"
+sha256 = "5214241a95090720a5796ab856a3f2a07153baf73fd79bdf4daf56832881575b"
+
+[[artifacts]]
+path = "out/static-contract/userspace-final-03/adc-routines.txt"
+sha256 = "b3f47b0b4ad8c8ff6d1f03df9da9289e2eae9a60816b2ccecf7542ee806c8a67"
+
+[[artifacts]]
+path = "out/static-contract/userspace-final-03/adc-loop.tsv"
+sha256 = "a85887f9ddf800cf65fc1d3c10ad712dcce275052d5d4373dcfa48736467aceb"
+
+[[artifacts]]
+path = "out/static-contract/verification/loop-comparison.txt"
+sha256 = "1aeb8b6de15b8d5ff29063a408c00056bd1422e6caa75b80b1f17b8bf78198c0"
+
+[[artifacts]]
+path = "out/static-contract/verification/changed-instruction.txt"
+sha256 = "7fb3dbb7669e6fa1b12951ac622df614d2f65951b43985d09c458d205170043b"
+
+[[artifacts]]
+path = "out/static-contract/verification/changed-instruction.log"
+sha256 = "69ff0a8034cdd7399d412b1deb85ad40f6a739bb40cc13d707a3733805d217cf"
+
+[[artifacts]]
+path = "out/static-contract/verification/toml-syntax.txt"
+sha256 = "363f63019119b4f4a8e66d3a41be5641fc8cec8327d367d8c34a0c329681a79f"
+
+[[artifacts]]
+path = "out/static-contract/verification/stock-preservation.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[artifacts]]
+path = "out/static-contract/index-review.md"
+sha256 = "3633be8f4e8a079277bea0fa819c3b60a8e0aa6f6b05628e12ed0aac195968f4"
+
+[[artifacts]]
+path = "out/static-contract/final-review.md"
+sha256 = "45da247421a56da5faf801dd8929a84c5c110105f35b60b96ab912ce0d36491f"
+
+[[artifacts]]
+path = "out/static-contract/spu-init-review.md"
+sha256 = "bb8df5406828630f03c540e69fd5eb526abaf8125526d74d1794f34ca8c3bda5"
+
+[[artifacts]]
+path = "out/static-contract/remaining-init/call-lists.tsv"
+sha256 = "e7fcfafec589666c15607aa13b7dc03cb8f81af1812c8bc107f853f9dd5f4f01"

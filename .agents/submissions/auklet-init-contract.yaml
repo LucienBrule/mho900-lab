@@ -1,0 +1,28 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.auklet-init-contract
+contract: sha256:ff71bc0012e163d0401d3cc87a921a7632a6f57394687c4283a5ba208ad80820
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T07:46:47Z"
+evidence:
+  provenance: >-
+    experiments/static-contract/userspace-results.toml SHA-256 d67bb6084d6df83a85cd860443ce97a57f7b64c3e02fa915ebf0509816397dc5
+    pins the unchanged stock library/APK, analysis tool, reports, derived graph, inventories and raw evidence.
+    IndexAuklet checked 1988337 instruction words against the pinned library; a deliberately changed listing word
+    was rejected at the exact differing PC. No guest ran. The first incomplete heap-exhausted index is retained.
+  graph: >-
+    experiments/static-contract/initialization-graph.toml contains 25 typed nodes using all five operation
+    classifications and explicit conditions/decomposition links. The index validates node references and PC witnesses.
+    hardware-callers.toml has 282 boundary candidates including 19 named R32 and 95 named W32 caller sites.
+    mapped-wrappers.toml distinguishes R32/W32/W64 from the wave-data wrapper with no mapped access in its body.
+  semantics: >-
+    docs/research/static-initialization-contract.md SHA-256 9e46f7257654146679af1568dcf183bfe5a4f29449753814b63b36abc37165c4
+    recovers the complete ADC initializer: 440 loop stores plus four constant and eight software-shadow stores,
+    command masks/modes, requested delays and discarded statuses. Independent analysis agrees on all 440 words
+    and the complete conditional tail. Selected SPU initialization has eight writes and two separate software
+    mode selectors. ADC read bit16 and OTP bit4 dependencies are distinguished from software-shadow loads.
+  coverage: >-
+    GOT-mediated ADC/SPU/WPU sibling calls and parent startup ordering are statically recovered and reconciled
+    with the existing two-read/two-write dynamic prefix without claiming full-routine execution. The index retains
+    3466 indirect sites and 68256 unnamed direct targets; nearest-label ownership and runtime bindings remain
+    explicit limits. Later selectors, serial helpers, DDR, DMA and FPGA behavior are not claimed recovered.

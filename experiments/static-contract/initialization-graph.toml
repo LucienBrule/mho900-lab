@@ -1,0 +1,254 @@
+schema_version = "mho900-lab.initialization-graph/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+method = "Reviewed static annotations plus byte-checked call inventory; not general symbolic execution"
+children_semantics = "Decomposition and dependency, not unconditional dynamic reachability or cross-thread ordering"
+
+[[nodes]]
+id = "startup"
+classification = "RUNTIME-SELECTED"
+operation = "CALL_SEQUENCE"
+pcs = ["0x239110", "0x239114", "0x2392dc"]
+opcodes = ["0x97ff3360", "0x97ff083f", "0x97ff72f5"]
+semantics = "CApiFactory::Api_Init calls PCIeInit, InitVendor, application post loops, then Drv_Init(false)."
+conditions = "PLT bindings and application callbacks are runtime inputs; static order is not an observed call stack."
+children = ["bypass", "dna", "driver-init"]
+
+[[nodes]]
+id = "bypass"
+classification = "RUNTIME-SELECTED"
+operation = "DEVICE_ABI"
+pcs = ["0x2701fc", "0x270280"]
+opcodes = ["0x97fe83f1", "0x97fe846c"]
+semantics = "Open /dev/xdma0_bypass; mmap offset 0, length 0x1000000, PROT_READ|PROT_WRITE, MAP_SHARED."
+conditions = "Open and mapping return values select error paths. Existing guest witness confirms these requests."
+children = []
+
+[[nodes]]
+id = "dna"
+classification = "HARDWARE-RETURNED"
+operation = "READ_BRANCH"
+pcs = ["0x270604", "0x42a8ec"]
+opcodes = ["0xb9400109", "0xf9000128"]
+semantics = "SCU offsets 0x4048 then 0x4044 feed masked 57-bit m_DNA composition."
+conditions = "Two synthetic read values and resulting m_DNA have dynamic evidence; physical identity values are unknown."
+children = []
+
+[[nodes]]
+id = "driver-init"
+classification = "RUNTIME-SELECTED"
+operation = "CALL_SEQUENCE"
+pcs = ["0x2e5254", "0x2e5268", "0x2e5278", "0x2e5288"]
+opcodes = ["0x97fcdf6b", "0x97fce23a", "0x97fcd6fa", "0x97fcbfbe"]
+semantics = "Drv_Init calls InitDrvFEM, Dev_Init(input bool), SCU version and hardware-version reads, then configuration-dependent DDR work."
+conditions = "Other callers include low-power reinitialization with true. Do not flatten both branches into one transcript."
+children = ["device-init", "scu-version", "ddr"]
+
+[[nodes]]
+id = "device-init"
+classification = "RUNTIME-SELECTED"
+operation = "CALL_SEQUENCE"
+pcs = ["0x272890", "0x2728ac", "0x2728b8", "0x2728c4", "0x2728d8", "0x2728dc", "0x2728e4", "0x272980"]
+opcodes = ["0x97fe2898", "0xd63f0100", "0xd63f0100", "0xd63f0100", "0x97fe82f2", "0x97fe1751", "0x37000069", "0xd63f0100"]
+semantics = "Four AFE initializers, ADC, SPU, WPU software globals, SCU, board-power notification, bool-selected reset branch, LA accumulator reset. Returns zero without propagating child results."
+conditions = "ADC/SPU/WPU and LA calls use relocatable GOT slots; identities require live binding validation."
+children = ["adc-globals", "adc-loop", "adc-tail-direct", "adc-tail-state", "spu", "wpu", "scu-init", "board-power", "reset-selector", "la-reset"]
+
+[[nodes]]
+id = "adc-globals"
+classification = "STATIC-DETERMINED"
+operation = "SOFTWARE_STATE"
+pcs = ["0x27ed60", "0x27e9ec", "0x27ea78", "0x27eb44", "0x27ecb0"]
+opcodes = ["0x97fde7d4", "0x7100211f", "0x7100091f", "0x7100091f", "0x7100211f"]
+semantics = "InitGlobalVariable initializes software shadows from regInitValue; bounded copy loops have counts 8,2,2,8 with additional scalar copies and masks. No MMIO or child calls."
+conditions = "ELF regInitValue=0x99471c; runtime GOT binding and absence of concurrent shadow mutations remain conditions."
+children = []
+
+[[nodes]]
+id = "adc-loop"
+classification = "STATIC-DETERMINED"
+operation = "LOOP"
+pcs = ["0x27ed6c", "0x27edc4", "0x27ee00", "0x27ee10"]
+opcodes = ["0x7101b91f", "0x97fe37b3", "0x97fe37a4", "0x17ffffd6"]
+semantics = "For i=0..109, call AdcWrite(regValue[i],addrValue[i],0), then mode1: 440 W32 at offset0x3000. Entry110 is unused."
+conditions = "Arrays each have111 u32 elements at ELF0x994a5c and0x994c18; GOT and PLT self-binding assumed. Only first2 completed stores and third attempted store observed."
+children = ["adc-write"]
+
+[[nodes]]
+id = "adc-write"
+classification = "STATIC-DETERMINED"
+operation = "WRITE_SEQUENCE"
+pcs = ["0x2717d4", "0x2717d8", "0x271810", "0x27181c", "0x271828", "0x271870", "0x27188c", "0x27189c"]
+opcodes = ["0x781fa3a0", "0x781f83a1", "0x52a02008", "0x52a04008", "0x12800008", "0x97fe2554", "0x97fea0f1", "0x97fe2549"]
+semantics = "For mode0/1: command=0x04000000|((mode+1)<<24)|((addr&0xffff)<<16)|(value&0xffff); W32(0x3000,command), usleep(100), W32(0x3000,command&0x03ffffff). Invalid mode returns-1 without writes."
+conditions = "Valid modes return0 regardless of Dev_WriteRegister/usleep results. Sleep request is not guaranteed elapsed hardware time or completion."
+children = []
+
+[[nodes]]
+id = "adc-tail-direct"
+classification = "STATIC-DETERMINED"
+operation = "WRITE_SEQUENCE"
+pcs = ["0x27ee14", "0x27ee30", "0x27ee34", "0x27ee4c"]
+opcodes = ["0x528001a0", "0x97fe3798", "0x528000a8", "0x97fe3791"]
+semantics = "AdcWrite(13,0,0), AdcWrite(5,0,1): 0500000d,0100000d,06000005,02000005 at0x3000."
+conditions = "Same stock bindings and writer as table loop."
+children = ["adc-write"]
+
+[[nodes]]
+id = "adc-tail-state"
+classification = "RUNTIME-SELECTED"
+operation = "SOFTWARE_STATE"
+pcs = ["0x27ee54", "0x27ee68", "0x27ee7c", "0x27ee98", "0x27eeb0", "0x27eec4", "0x27eee0", "0x27eef8"]
+opcodes = ["0x79400148", "0x79000148", "0x79000548", "0x97fe68d6", "0x97fe68d0", "0x39000148", "0x97fe68c4", "0x97fe68be"]
+semantics = "Shadow09[0]=(old&0x8fff)|0x5000; shadow09[1]=(old&0x8fff)|0x4000; clear low nibble of shadow08; SetADCReg(mode0,9), (mode1,9), (mode0,8), (mode1,8). With initialized shadows: eight words05097001,01097001,06096001,02096001,05080000,01080000,06080000,02080000."
+conditions = "Shadows are writable BSS, not device reads. Expected initial09=0x6721 and08=0x000b; concurrent callers or interposition can invalidate prediction."
+children = ["adc-set"]
+
+[[nodes]]
+id = "adc-set"
+classification = "STATIC-DETERMINED"
+operation = "WRITE_SEQUENCE"
+pcs = ["0x27e8d4", "0x27e8ec", "0x27e8f0", "0x27e908", "0x27e910"]
+opcodes = ["0x0a0b014a", "0xb940010b", "0x4a0b014a", "0x97fe38e2", "0x2a0903e0"]
+semantics = "SetADCReg(mode,index,value) calls AdcWrite((value&0xffff)^maskValue[index],index,mode), then returns0 regardless of child result."
+conditions = "maskValue ELF0x9948bc; index is unchecked here; caller must bound it. Entries9=0x2720 and8=0."
+children = ["adc-write"]
+
+[[nodes]]
+id = "adc-read"
+classification = "HARDWARE-RETURNED"
+operation = "READ_BRANCH"
+pcs = ["0x271968", "0x271988", "0x27199c", "0x2719ac", "0x2719c0", "0x2719c8"]
+opcodes = ["0x97fe2516", "0x97fea0b2", "0x97fe2509", "0x97fea0a9", "0x97fe26ac", "0x360000c8"]
+semantics = "Mode0/1 selects base; write0x04800000|base|(addr16<<16), sleep100us, write command&0x03ffffff, sleep100us, R32(0x3004). If returned bit16 set, copy low16 to output and return0; otherwise return-1."
+conditions = "No polling here; reset/readiness/latency semantics unknown. Invalid mode returns-1 before accesses."
+children = []
+
+[[nodes]]
+id = "adc-get"
+classification = "HARDWARE-RETURNED"
+operation = "READ_BRANCH"
+pcs = ["0x27e948", "0x27e95c", "0x27e974", "0x27e978", "0x27e99c"]
+opcodes = ["0x781f43aa", "0x97fe6e79", "0xb868792b", "0x4a0b014a", "0x2a1f03e0"]
+semantics = "GetADCReg zero-initializes local16, invokes AdcRead, XORs local16 with maskValue[index], stores result, returns0. Child failure is discarded."
+conditions = "A zero status from this wrapper is not proof of successful device response."
+children = ["adc-read"]
+
+[[nodes]]
+id = "adc-otp"
+classification = "HARDWARE-RETURNED"
+operation = "LOOP"
+pcs = ["0x27efc4", "0x27efe4", "0x27efec", "0x27f024"]
+opcodes = ["0x71003108", "0x97fe73ef", "0x37200148", "0x17ffffe7"]
+semantics = "GetOtpAll repeatedly invokes GetOtpByte; accepted-count increments only when returned bit4 is clear, until13 values accepted. Attempt index increments regardless; no fixed attempt bound is visible."
+conditions = "Not called by ADC_Init. GetOtpByte is a separate write/read protocol; not admitted for modeling. Returned data controls liveness."
+children = ["adc-get"]
+
+[[nodes]]
+id = "spu"
+classification = "RUNTIME-SELECTED"
+operation = "WRITE_SEQUENCE"
+pcs = ["0x272f68", "0x272f70", "0x272f88", "0x272fb0", "0x272fc8"]
+opcodes = ["0x97fe35d6", "0x97fe13d0", "0x97fe7e2a", "0x97fe83f0", "0x97fe1376"]
+semantics = "Exactly8 W32: five at0x1000 (S|1,S&~1,S&~0x11,(S&~0x11)|0x10,S&~0x11), then0x105c gain,0x1010 T|0x20000000,0x1014 ADC bits. No device read in selected nested paths."
+conditions = "Mutable S,G,T,A and separate software modes Mg=GetSampleMode(1), Mr=GetSampleMode(15) required. Gain=0x55555555 for Mg1, (G&0xffff0000)|0x5555 for Mg2, else (G&0xffffff00)|0x55. ADC=((A|1)&~0x00f00000)|(L<<20), L=0 for Mr1/2 else15. Return propagates only0x1010 write result."
+children = []
+
+[[nodes]]
+id = "wpu"
+classification = "STATIC-DETERMINED"
+operation = "SOFTWARE_STATE"
+pcs = ["0x28f8a4", "0x28f8c8"]
+opcodes = ["0xb9000128", "0xd65f03c0"]
+semantics = "WPU_Init sets software globals including1000,480,0,1,50 and0.0f; no child call or MMIO wrapper."
+conditions = "GOT symbols must resolve to expected software objects; WPU rendering is a later path."
+children = []
+
+[[nodes]]
+id = "scu-init"
+classification = "RUNTIME-SELECTED"
+operation = "WRITE_SEQUENCE"
+pcs = ["0x285250", "0x285284"]
+opcodes = ["0x97fe2714", "0x97fe2707"]
+semantics = "W32(0x4004,shadow with bit31=input bool); then clear bit31 and bit2 in shadow and W32(0x4004,new shadow). Dev_Init passes true."
+conditions = "Remaining shadow bits are software state; endpoint effects unknown."
+children = []
+
+[[nodes]]
+id = "board-power"
+classification = "RUNTIME-SELECTED"
+operation = "DEVICE_ABI"
+pcs = ["0x2728dc", "0x297e44", "0x297e50", "0x297f20", "0x297f3c", "0x297f44"]
+opcodes = ["0x97fe1751", "0x97fde0df", "0x36f80529", "0x97fddf5c", "0x97fd9211", "0x97fd86cb"]
+semantics = "UART_OPen failure returns-1; otherwise form five-byte FA,05,00,CRC,AF frame, call uartDataSeed and Uart_Close, return0. Dev_Init discards this result."
+conditions = "UART helper semantics and actual FD/device response remain separate from mapped register writes."
+children = []
+
+[[nodes]]
+id = "reset-selector"
+classification = "RUNTIME-SELECTED"
+operation = "DISPATCH"
+pcs = ["0x2728e4", "0x2728e8", "0x272904", "0x272928", "0x272934"]
+opcodes = ["0x37000069", "0x97fe82d6", "0x97fe212f", "0x97fe2126", "0x97fe29df"]
+semantics = "False calls Dev_SetGD32Reset. True writes1 then0 at0x2003c with usleep5000, then JESD init and DAC-sync operations. Both join at LA accumulator reset."
+conditions = "Api_Init statically passes false; runtime binding/caller identity still unverified. Nested hardware semantics unresolved."
+children = []
+
+[[nodes]]
+id = "la-reset"
+classification = "RUNTIME-SELECTED"
+operation = "WRITE_SEQUENCE"
+pcs = ["0x294e18", "0x294e3c", "0x294e60", "0x2949f0"]
+opcodes = ["0xb940010c", "0x97fdf775", "0x97fdf76c", "0x97fd98f4"]
+semantics = "Set bit0 of software word at ELF0x106d4d8, W32(0x7034,shadow); clear bit0 and repeat W32. Wrapper adds0x7000 to selector0x34."
+conditions = "Other shadow bits are runtime software state; endpoint reset behavior unproved."
+children = []
+
+[[nodes]]
+id = "scu-version"
+classification = "HARDWARE-RETURNED"
+operation = "READ_BRANCH"
+pcs = ["0x285300", "0x285310", "0x285394"]
+opcodes = ["0x97fe2ab4", "0x97fe2ab0", "0x97fe2a8f"]
+semantics = "GetVersion reads offsets0x4 then0x0; GetHardwareVersion reads0x401c. Drv_Init consumes these results after Dev_Init returns."
+conditions = "Version encoding, physical values and downstream branch relevance need further recovery; no synthetic values admitted."
+children = []
+
+[[nodes]]
+id = "ddr"
+classification = "HARDWARE-RETURNED"
+operation = "DISPATCH"
+pcs = ["0x2e5470", "0x2e54a0", "0x2e5590", "0x2e55a4"]
+opcodes = ["0x97fc4b40", "0x97fcbfbc", "0x97fcb7d4", "0x97fcbad7"]
+semantics = "Drv_Init uses DevConfig_GetDdrCalSkip, GetDdrSkipTap, SetMemReset and Spu_SelfTest call sites."
+conditions = "Static inventory only for these nested routines; selectors, calibration/polling behavior remain unresolved."
+children = []
+
+[[nodes]]
+id = "dma"
+classification = "UNKNOWN"
+operation = "DEVICE_ABI"
+pcs = ["0x37dedc", "0x37df30", "0x37df84"]
+opcodes = ["0x97fa4cb9", "0x97fa4d40", "0x8b0a0129"]
+semantics = "DrvDMA_Init opens /dev/dma_auklet and maps256MiB; destination pointer is base+128MiB. Copy uses two ioctls. XDMA C2H is a distinct read path."
+conditions = "Provider, completion, buffer ownership, sample content and whether operations block are unknown."
+children = []
+
+[[nodes]]
+id = "thread-activity"
+classification = "ASYNCHRONOUS"
+operation = "DISPATCH"
+pcs = []
+opcodes = []
+semantics = "Stock dynamic evidence contains multiple threads and runtime clones; any modeled-mapping access must be attributed across the observed group."
+conditions = "Per-function static order does not establish global thread order, interrupt semantics or future schedules."
+children = []
+
+[[nodes]]
+id = "unresolved-edges"
+classification = "UNKNOWN"
+operation = "DISPATCH"
+pcs = []
+opcodes = []
+semantics = "Inventory retains 3466 unresolved BR/BLR sites, including intraprocedural jump tables and virtual calls."
+conditions = "Not all are hardware calls, and no absence of direct calls proves absence of an indirect caller."
+children = []
