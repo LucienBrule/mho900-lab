@@ -1,0 +1,65 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-evidence-review
+    title: Review captured ADC evidence and correct future nested indexing
+    state: open
+    intent: Establish explicit offline evidence completeness while retaining the stock run's frozen index rejection.
+    requires: [TASK.guest.adc-input-capture-decision]
+    requirements:
+      - Preserve stock-adc-input-capture-01 raw files, original index, original source and failed frozen verifier unchanged. Do not rerun the guest or reclassify that frozen result as accepted.
+      - Independently verify the complete consumed artifact set, raw capture checksums and sizes, all existing index entries, and the eight omitted static contracts against frozen source pins; record a separate review manifest with the exact coverage limitation.
+      - Correct future runner indexing to cover the declared nested static-contract artifacts and exercise the actual runner_index function with positive, missing-file, modified-file and duplicate-index controls. Avoid a different recursive index builder in the integration test.
+      - Preserve capture semantics and the native binary. Commit and push the review and prospective harness correction before successor execution work.
+    acceptance: [An explicit offline completeness conclusion and tested future index correction are committed and pushed without altering the completed experiment.]
+    verification: [review, indexing, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-candidate-instantiation
+    title: Instantiate the whole ADC programming candidate from captured state
+    state: open
+    intent: Turn the reviewed static grammar and observed software inputs into a typed complete operation sequence.
+    requires: [TASK.guest.adc-input-evidence-review]
+    requirements:
+      - Decode the captured calibration record, shadows, selectors and runtime fields with explicit widths and signedness; bind raw and static source hashes and distinguish observed bytes from derived predictions.
+      - Build a Kotlin typed operation sequence and TOML manifest for the selected mode-zero path, including all ordered writes, two readbacks, requested delays, masks, shadow transitions, helper status behavior and the routine return boundary.
+      - Independently check the expected 97-write two-read 25200us branch against the reviewed grammar; use controls that detect wrong operands, ordering, signedness, missing operations and stale inputs rather than mirroring native implementation.
+      - Mark read return words as unobserved hardware inputs and state their known software use; do not supply a new device response or claim acquisition. No guest execution in this task.
+      - Record any input or control-flow ambiguity precisely. Commit and push the candidate and verification before considering dynamic validation.
+    acceptance: [A complete independently checked candidate or a precise unresolved dependency is committed and pushed.]
+    verification: [inputs, sequence, controls, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-guest-capacity-review
+    title: Review evidence-preserving capacity for the next guest experiment
+    state: open
+    intent: Identify a bounded reversible storage option without weakening the preboot gate or discarding evidence.
+    requires: [TASK.guest.adc-input-capture-decision]
+    requirements:
+      - Inventory only relevant generated guest-run storage and available workspace capacity; keep all existing evidence and reference artifacts unchanged during this review.
+      - Distinguish indexed raw evidence, disposable runtime disks, immutable backing inputs and derived host controls. Pin any proposed candidates and explain dependencies needed for exact restoration.
+      - Prefer a verified lossless archival or independent storage option if available; do not lower the 2GiB gate merely to continue. Any replacement or removal must be separately admitted with restoration and byte-identity checks first.
+      - Record a concrete capacity plan or genuine blocker. No archive replacement, deletion, guest launch, host policy change or physical access in this task.
+    acceptance: [A concrete evidence-preserving capacity recommendation or exact blocker is committed.]
+    verification: [inventory, restoration, recommendation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-whole-sequence-gate
+    title: Select the next whole-sequence ADC hypothesis and capacity preconditions
+    state: open
+    intent: Admit selective dynamic validation only after candidate completeness and evidence-preserving capacity are resolved.
+    requires: [TASK.guest.adc-candidate-instantiation, TASK.guest.adc-guest-capacity-review]
+    requirements:
+      - Evaluate the offline completeness review, candidate sequence and remaining hardware inputs; preserve the original full-verifier rejection as a distinct historical result.
+      - Prefer one complete predicted sequence with divergence stops and a post-routine checkpoint over per-access rediscovery. Specify synthetic readbacks only to the degree supported by known software use, and preserve normal synchronization and thread coverage.
+      - Resolve storage prerequisites through a separately bounded reversible plan before any guest launch. Do not discard evidence or weaken the space gate to obtain progress.
+      - Draft plan inspect admit against the current revision and commit and push the supported successor batch before implementation. If unresolved, name the exact missing input or capacity constraint.
+    acceptance: [A supported bounded successor or explicit unresolved condition is committed and pushed.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
