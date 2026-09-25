@@ -7,6 +7,7 @@
 #include "spu-transcript.h"
 #include "remaining-init.h"
 #include "init-tail.h"
+#include "calibration-loaders.h"
 struct GmShared {
     unsigned ready,release,worker_go,worker_ack,mapped,hold;
     U worker,new_worker,mapping,output,arm;
@@ -19,6 +20,8 @@ struct GmShared {
     unsigned st_tables[5][16][4],st_configs[4];
     unsigned ri_scu,ri_la; int ri_cached; unsigned ri_bool,ri_atomic,ri_device_io,ri_old_executed; U ri_slots[RI_BINDINGS];
     unsigned it_dac,it_control,it_config,it_status,it_packed,it_hw; U it_taps[6]; unsigned it_ready,it_atomic,it_calibration,it_old; U it_slots[IT_BINDINGS];
+    U cl_lsb,cl_vertical,cl_adc,cl_slots[CL_BINDINGS];
+    unsigned cl_lengths[3],cl_atomic,cl_clone,cl_ready,cl_old;
 };
 _Static_assert(__builtin_offsetof(struct GmShared,st_slots)==1080,"st_slots offset");
 _Static_assert(__builtin_offsetof(struct GmShared,st_globals)==1200,"st_globals offset");
@@ -34,13 +37,15 @@ _Static_assert(__builtin_offsetof(struct GmShared,ri_slots)==2888,"ri_slots offs
 _Static_assert(__builtin_offsetof(struct GmShared,it_dac)==2984,"it_dac offset");
 _Static_assert(__builtin_offsetof(struct GmShared,it_taps)==3008,"it_taps offset");
 _Static_assert(__builtin_offsetof(struct GmShared,it_slots)==3072,"it_slots offset");
-_Static_assert(sizeof(struct GmShared)==3200,"tail shared size");
+_Static_assert(__builtin_offsetof(struct GmShared,cl_lsb)==3200,"loader shared append");
 static struct GmShared *gm;
 static unsigned char gm_stack1[16384] __attribute__((aligned(16)));
 static unsigned char gm_stack2[16384] __attribute__((aligned(16)));
+static unsigned char gm_stack3[16384] __attribute__((aligned(16)));
 extern char gm_first_pc[],gm_second_pc[],gm_worker_pc[],gm_read64_pc[],gm_store_pc[],gm_stop_pc[],gm_write_pc[],gm_write64_pc[];
 extern char gm_ri_cp0[],gm_ri_cp1[],gm_ri_cp2[],gm_ri_cp3[],gm_ri_cp4[],gm_ri_cp5[],gm_ri_cp6[],gm_ri_cp7[],gm_ri_cp8[],gm_ri_cp9[];
 extern char gm_it_cp0[],gm_it_cp1[],gm_it_cp2[];
+extern char gm_cl_cp0[],gm_cl_cp1[],gm_cl_cp2[],gm_cl_cp3[];
 __attribute__((naked)) static S gm_clone(U flags __attribute__((unused)),U stack __attribute__((unused)),void (*fn)(void) __attribute__((unused))) {
     __asm__ volatile("mov x9, x2\nmov x2, #0\nmov x3, #0\nmov x4, #0\nmov x8, #220\nsvc #0\ncbnz x0, 1f\nblr x9\nmov x0, #88\nmov x8, #93\nsvc #0\n1: ret");
 }
@@ -69,9 +74,17 @@ __attribute__((naked)) static void gm_store(U value __attribute__((unused)),U ob
 RI_CP(0) RI_CP(1) RI_CP(2) RI_CP(3) RI_CP(4) RI_CP(5) RI_CP(6) RI_CP(7) RI_CP(8) RI_CP(9)
 #define IT_CP(n) __attribute__((naked)) static U gm_it_site##n(U a __attribute__((unused)),U b __attribute__((unused))) { __asm__ volatile(".global gm_it_cp" #n "\ngm_it_cp" #n ":\nnop\nret"); }
 IT_CP(0) IT_CP(1) IT_CP(2)
+#define CL_CP(n) __attribute__((naked)) static S gm_cl_site##n(S status __attribute__((unused))) { __asm__ volatile(".global gm_cl_cp" #n "\ngm_cl_cp" #n ":\nnop\nret"); }
+CL_CP(0) CL_CP(1) CL_CP(2) CL_CP(3)
+__attribute__((naked)) static S gm_cl_bad_site(S status __attribute__((unused))) { __asm__ volatile(".global gm_cl_bad_cp\ngm_cl_bad_cp:\nmov x0, x0\nret"); }
+extern char gm_cl_bad_cp[];
 static unsigned char gm_at_bytes[AT_MAX_BYTES+1];
 static struct AtInput gm_at;
-static int gm_transcript,gm_spu,gm_remaining,gm_tail;
+static int gm_transcript,gm_spu,gm_remaining,gm_tail,gm_loaders;
+static unsigned gm_cl_checkpoint,gm_cl_captures;
+static U gm_cl_requested;
+static const char *gm_cl_outdir;
+static unsigned char gm_cl_chunk[CL_CHUNK];
 static const char gm_ri_tty[]="/dev/ttyS0",gm_ri_gpio[]="/dev/hdcode_gpio",gm_ri_command[]="*RST\n";
 static void gm_ri_atomic_step(void) { __atomic_fetch_add(&gm->ri_atomic,1,__ATOMIC_SEQ_CST); }
 static unsigned char gm_st_bytes[ST_BYTES+1];
@@ -166,7 +179,10 @@ static void gm_st_private_before_write(unsigned i) {
 }
 static void gm_publish(unsigned *p);
 static void gm_wait_flag(unsigned *p);
+static void gm_worker2(void);
 static void gm_tail_private(U mapping);
+static void gm_loader_private(U mapping);
+static void gm_loader_prepare(void);
 static void gm_remaining_private(U mapping) {
     gm->ri_scu=0; gm->ri_la=0; gm->ri_cached=-1; gm->ri_bool=0;
     gm->ri_slots[0]=(U)&gm->ri_scu; gm->ri_slots[1]=(U)gm_remaining_private; gm->ri_slots[2]=(U)gm_write;
@@ -224,7 +240,32 @@ static void gm_tail_private(U mapping) {
     gm->it_status=(unsigned)gm_first(mapping+0x1008); (void)gm_first(mapping+0x1210); gm->it_ready=(gm->it_status>>29)&1U;
     if(gm->arm==69)gm->it_taps[1]^=1UL<<32; if(gm->arm==70)gm->it_ready=0; __atomic_add_fetch(&gm->it_atomic,1,__ATOMIC_SEQ_CST); gm_it_site1(0,0);
     if(gm->arm==71)gm_first(mapping+0x1008);
-    __atomic_add_fetch(&gm->it_atomic,1,__ATOMIC_SEQ_CST); gm_it_site2(0,0); gm->it_calibration++; quit(88);
+    if(gm_loaders)gm_loader_prepare();__atomic_add_fetch(&gm->it_atomic,1,__ATOMIC_SEQ_CST); gm_it_site2(0,0);
+    if(gm_loaders)gm_loader_private(mapping);gm->it_calibration++;quit(88);
+}
+static void gm_cl_fill(unsigned char *p,U n,unsigned mul,unsigned add) { for(U i=0;i<n;i++)p[i]=(unsigned char)(i*mul+add); }
+static void gm_cl_atomic_step(void) { __atomic_add_fetch(&gm->cl_atomic,1,__ATOMIC_SEQ_CST); }
+static void gm_loader_prepare(void) {
+    S mem=sys(222,0,0x1c4000,3,0x21,(U)-1,0);check(mem,"loader-private-mmap");
+    unsigned char *p=(unsigned char *)mem;gm->cl_lsb=(U)p;gm->cl_adc=(U)(p+0x1000);gm->cl_vertical=(U)(p+0x3000);
+    gm->cl_lengths[0]=CL_LSB_BYTES;gm->cl_lengths[1]=CL_ADC_BYTES;gm->cl_lengths[2]=CL_VERTICAL_BYTES;
+    U f[CL_BINDINGS]={(U)gm_tail_private,(U)gm_loader_private,(U)gm_private_leader,(U)gm_cl_site0,(U)gm_cl_site1,(U)gm_cl_site2};for(unsigned i=0;i<CL_BINDINGS;i++)gm->cl_slots[i]=f[i];
+    gm_cl_fill((unsigned char *)gm->cl_lsb,CL_LSB_BYTES,0,0xa5);gm_cl_fill((unsigned char *)gm->cl_adc,CL_ADC_BYTES,0,0x5a);
+    if(gm->arm==81)gm->cl_slots[2]++;if(gm->arm==82)gm->cl_adc++;if(gm->arm==83)gm->cl_lengths[1]--;
+    gm_publish(&gm->cl_ready);
+}
+static void gm_loader_private(U mapping) {
+    if(gm->arm==80){gm_publish(&gm->mapped);gm_wait_flag(&gm->hold);quit(88);}
+    if(gm->arm==87){S child=gm_clone(0x10f00,(U)(gm_stack3+sizeof(gm_stack3)),gm_worker2);check(child,"loader-clone");gm->cl_clone=(unsigned)child;gm_wait_flag(&gm->hold);quit(88);}
+    gm_cl_fill((unsigned char *)gm->cl_lsb,CL_LSB_BYTES,3,1);gm_cl_atomic_step();
+    S s0=gm->arm==77?(S)(U)0xffffffffU:192;if(gm->arm==79)gm_cl_bad_site(s0);else gm_cl_site0(s0);
+    if(gm->arm==88){gm_cl_site0(s0);gm->cl_old=1;}
+    if(gm->arm==86){gm_first(mapping+8);quit(88);}if(gm->arm==89){gm_wait_flag(&gm->hold);quit(88);}
+    gm_cl_fill((unsigned char *)gm->cl_vertical,CL_VERTICAL_BYTES,5,7);if(gm->arm==85)((unsigned char *)gm->cl_vertical)[CL_VERTICAL_BYTES-1]^=1;
+    gm_cl_atomic_step();gm_cl_site1(gm->arm==77?(S)(U)0xfffffffeU:(S)CL_VERTICAL_BYTES);
+    gm_cl_atomic_step();gm_cl_site2(gm->arm==77?(S)(U)0xfffffffdU:(S)CL_ADC_BYTES);
+    if(gm->arm==84)check(sys(215,(gm->cl_vertical+CL_VERTICAL_BYTES-1)&~4095UL,4096,0,0,0,0),"loader-private-unmap");
+    gm_cl_atomic_step();gm_cl_site3(0);quit(88);
 }
 static unsigned gm_load(unsigned *p) { return __atomic_load_n(p,__ATOMIC_ACQUIRE); }
 static void gm_publish(unsigned *p) { __atomic_store_n(p,1,__ATOMIC_RELEASE); check(sys(98,(U)p,1,128,0,0,0),"group-wake"); }
@@ -237,6 +278,7 @@ static void gm_worker1(void) {
     if(gm->arm==2 || gm->arm==4 || gm->arm==6 || gm->arm==10 || gm->arm==14 || gm->arm==26) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
     if(gm->arm==19 || gm->arm==30 || gm->arm==49 || gm->arm==57) { gm_wait_flag(&gm->mapped); U off=gm->arm==57?0x7034:gm->arm==49?0x4004:gm->arm==30?st_write_offset(0):at_ref_write_offset(0); U value=gm->arm==57?1:gm->arm==49?0x80000000:gm->arm==30?st_write_value(0):at_ref_write_value(0); gm_write(gm->mapping+off,value); quit(88); }
     if(gm->arm==62) { gm_wait_flag(&gm->mapped); gm_worker_read(gm->mapping+4); quit(88); }
+    if(gm->arm==80) { gm_wait_flag(&gm->mapped); gm_cl_site0(192); quit(88); }
     gm_wait_flag(&gm->hold); quit(88);
 }
 static void gm_private_leader(U observer) {
@@ -467,6 +509,40 @@ static int gm_it_prepare_nonempty(U tid,struct Regs *before_regs) {
     struct Regs after_regs={0};registers(tid,&after_regs,0);gm_registers("tail-debug-prep-registers",tid,&after_regs);if(!gm_regs_same(before_regs,&after_regs))return 0;
     event("tail-debug-prep-ready");hex("checkpoint",0);hex("tid",tid);hex("target",target);hex("opcode",(unsigned)peek(tid,target));return 1;
 }
+static U gm_cl_private_pc(unsigned i){static const U p[CL_CHECKPOINTS]={(U)gm_cl_cp0,(U)gm_cl_cp1,(U)gm_cl_cp2,(U)gm_cl_cp3};return p[i];}
+static U gm_cl_private_target(unsigned i){static const U p[CL_BINDINGS]={(U)gm_tail_private,(U)gm_loader_private,(U)gm_private_leader,(U)gm_cl_site0,(U)gm_cl_site1,(U)gm_cl_site2};return p[i];}
+static void gm_cl_reject(U tid,const char *reason,const char *stage,U actual,U expected){event("loader-rejected");put("reason = \"");put(reason);put("\"\nstage = \"");put(stage);put("\"\n");hex("tid",tid);hex("checkpoint",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("atomic",gm_private?gm->cl_atomic:0);hex("actual",actual);hex("expected",expected);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",gm_private?gm->cl_atomic:0);hex("old_executed",gm_private?gm->cl_old:0);hex("clone_tid",gm_region_clone);gm_quiesce(tid);quit(78);}
+static int gm_cl_initial(void){
+    for(unsigned i=0;i<CL_BINDINGS;i++){U actual=gm_private?gm->cl_slots[i]:peek(tg_pid,gm_base+cl_binding_slot[i]),expected=gm_private?gm_cl_private_target(i):gm_base+cl_binding_target[i];event("loader-binding");hex("index",i);hex("slot",gm_private?(U)&gm->cl_slots[i]:gm_base+cl_binding_slot[i]);hex("actual_target",actual);hex("expected_target",expected);hex("match",actual==expected);if(actual!=expected)return -1;}
+    U object[4]={gm_private?(U)gm:gm_base+cl_scope,gm_private?(U)&gm->cl_lsb:gm_base+cl_calibration,gm_private?(U)&gm->cl_adc:gm_base+cl_adc,gm_private?(U)&gm->cl_vertical:gm_base+cl_vertical};
+    for(unsigned i=0;i<4;i++){event("loader-layout");put("category = \"object\"\nevidence_kind = \"derived-fixed-layout\"\n");hex("index",i);hex("address",object[i]);hex("expected_address",object[i]);hex("length",0);hex("expected_length",0);hex("match",1);}
+    U actual[3]={gm_private?gm->cl_lsb:gm_base+cl_vertical,gm_private?gm->cl_adc:gm_base+cl_adc_record,gm_private?gm->cl_vertical:gm_base+cl_vertical_record};
+    U expected[3]={actual[0],actual[1],actual[2]};unsigned lengths[3]={CL_LSB_BYTES,CL_ADC_BYTES,CL_VERTICAL_BYTES};
+    if(gm_private){expected[0]=gm->cl_lsb;expected[1]=gm->cl_lsb+0x1000;expected[2]=gm->cl_lsb+0x3000;}
+    for(unsigned i=0;i<3;i++){unsigned al=gm_private?gm->cl_lengths[i]:lengths[i];event("loader-layout");put("category = \"destination\"\n");hex("index",i);hex("address",actual[i]);hex("expected_address",expected[i]);hex("length",al);hex("expected_length",lengths[i]);hex("match",actual[i]==expected[i]&&al==lengths[i]);if(!actual[i]||actual[i]!=expected[i])return -2;if(al!=lengths[i])return -3;}return 1;
+}
+static int gm_cl_path(char *out,const char *name){U n=0;while(gm_cl_outdir[n]&&n<180){out[n]=gm_cl_outdir[n];n++;}if(!n||n>=180)return 0;if(out[n-1]!='/')out[n++]='/';U j=0;while(name[j]&&n<250)out[n++]=name[j++];out[n]=0;return !name[j];}
+static unsigned char gm_cl_pattern(unsigned capture,U i){if(capture==0)return 0xa5;if(capture==1||capture==3)return 0x5a;if(capture==2)return (unsigned char)(i*3+1);return (unsigned char)(i*5+7);}
+static int gm_cl_capture(unsigned index,const char *phase,const char *name,U address,U length){
+    if(length>0x1c0000U||length>CL_CAPTURE_LIMIT||gm_cl_requested>CL_CAPTURE_LIMIT-length||address+length<address)return 0;gm_cl_requested+=length;
+    char path[256];if(!gm_cl_path(path,name))return 0;S fd=sys(56,(U)-100,(U)path,0x241,0600,0,0);if(fd<0)return 0;U done=0,chunks=0;int match=1;S last=0;
+    while(done<length){U take=length-done;if(take>CL_CHUNK)take=CL_CHUNK;struct Iov local={gm_cl_chunk,take},remote={(void *)(address+done),take};last=sys(270,tg_pid,(U)&local,1,(U)&remote,1,0);if(last<=0)break;U got=(U)last;S wr=sys(64,fd,(U)gm_cl_chunk,got,0,0,0);if(wr!=(S)got){last=wr;break;}if(gm_private)for(U j=0;j<got;j++)if(gm_cl_chunk[j]!=gm_cl_pattern(index,done+j))match=0;done+=got;chunks++;if(got!=take)break;}
+    sys(57,fd,0,0,0,0,0);event("loader-capture");hex("index",index);put("phase = \"");put(phase);put("\"\nname = \"");put(name);put("\"\n");hex("address",address);hex("length",length);hex("completed",done);hex("chunks",chunks);hex("result",last);hex("pattern",gm_private?index+1:0);hex("match",done==length&&match);if(done==length&&match){gm_cl_captures++;return 1;}return 0;
+}
+static int gm_cl_debug(U tid,int next){
+    struct NpsDebugState before={0};struct Iov io={&before,sizeof(before)};S rc=pt(0x4204,tid,0x402,(U)&io);nps_debug_dump("loader-debug-before",rc,&io,&before);if(rc<0||io.size!=sizeof(before)||before.info!=0x0606)return 0;
+    U previous=gm_cl_checkpoint? (gm_private?gm_cl_private_pc(gm_cl_checkpoint-1):gm_base+cl_stock_pc[gm_cl_checkpoint-1]):0;
+    if(before.slots[0].address!=previous||before.slots[0].control!=(gm_cl_checkpoint?0x1e4U:0x1e5U))return 0;for(int i=1;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
+    if(gm_cl_checkpoint){before.slots[0].address=0;before.slots[0].control=0;io.size=24;nps_debug_dump("loader-debug-clear-request",0,&io,&before);rc=pt(0x4205,tid,0x402,(U)&io);event("loader-debug-clear-set");hex("result",rc);if(rc<0)return 0;struct NpsDebugState clear={0};struct Iov cio={&clear,sizeof(clear)};rc=pt(0x4204,tid,0x402,(U)&cio);nps_debug_dump("loader-debug-clear-after",rc,&cio,&clear);if(rc<0||cio.size!=sizeof(clear)||clear.info!=0x0606||clear.slots[0].address||clear.slots[0].control!=0x1e5U)return 0;before.info=clear.info;for(int i=0;i<16;i++)before.slots[i]=clear.slots[i];io.base=&before;io.size=sizeof(before);}
+    if(!next)return 1;U target=gm_private?(gm->arm==79&&!gm_cl_checkpoint?(U)gm_cl_bad_cp:gm_cl_private_pc(gm_cl_checkpoint)):gm_base+cl_stock_pc[gm_cl_checkpoint];before.slots[0].address=target;before.slots[0].control=0x1e5;io.size=24;nps_debug_dump("loader-debug-arm-request",0,&io,&before);rc=pt(0x4205,tid,0x402,(U)&io);event("loader-debug-arm-set");hex("result",rc);if(rc<0)return 0;struct NpsDebugState after={0};struct Iov aio={&after,sizeof(after)};rc=pt(0x4204,tid,0x402,(U)&aio);nps_debug_dump("loader-debug-arm-after",rc,&aio,&after);if(rc<0||aio.size!=sizeof(after)||after.info!=0x0606||after.slots[0].address!=target||after.slots[0].control!=0x1e4U)return 0;for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;event("loader-debug-ready");hex("checkpoint",gm_cl_checkpoint);hex("tid",tid);hex("target",target);hex("opcode",(unsigned)peek(tid,target));return 1;
+}
+static int gm_cl_worker_prepare(U tid){
+    struct TgThread *t=tg_find(tid);if(!t||!t->live||!t->stopped)return 0;struct Regs before_regs={0};registers(tid,&before_regs,0);
+    struct NpsDebugState before={0};struct Iov io={&before,sizeof(before)};S rc=pt(0x4204,tid,0x402,(U)&io);nps_debug_dump("loader-worker-debug-before",rc,&io,&before);gm_registers("loader-worker-before-registers",tid,&before_regs);if(rc<0||io.size!=sizeof(before)||before.info!=0x0606)return 0;for(int i=0;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
+    U target=gm_cl_private_pc(0);before.slots[0].address=target;before.slots[0].control=0x1e5;io.size=24;nps_debug_dump("loader-worker-debug-arm-request",0,&io,&before);rc=pt(0x4205,tid,0x402,(U)&io);event("loader-worker-debug-arm-set");hex("result",rc);if(rc<0)return 0;
+    struct NpsDebugState after={0};struct Iov aio={&after,sizeof(after)};rc=pt(0x4204,tid,0x402,(U)&aio);nps_debug_dump("loader-worker-debug-arm-after",rc,&aio,&after);if(rc<0||aio.size!=sizeof(after)||after.info!=0x0606||after.slots[0].address!=target||after.slots[0].control!=0x1e4U)return 0;for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;
+    struct Regs after_regs={0};registers(tid,&after_regs,0);gm_registers("loader-worker-debug-registers",tid,&after_regs);if(!gm_regs_same(&before_regs,&after_regs))return 0;event("loader-worker-debug-ready");hex("tid",tid);hex("target",target);hex("opcode",(unsigned)peek(tid,target));return 1;
+}
 static int gm_ri_binding(void) {
     for(unsigned i=0;i<RI_BINDINGS;i++) { U actual=gm_private?gm->ri_slots[i]:peek(tg_pid,gm_base+ri_binding_slot[i]); U expected=gm_private?gm_ri_private_target(i):gm_base+ri_binding_target[i];
         event("remaining-binding"); hex("index",i); hex("slot",ri_binding_slot[i]); hex("expected_target",expected); hex("actual_target",actual); hex("match",actual==expected); if(actual!=expected)return 0; }
@@ -547,6 +623,7 @@ static int gm_meta(U tid,int status,int quiescing) {
         struct TgIdentity id; rc=tg_identity(child,"runtime-clone-child",&id);
         if(rc<0 || id.tracer!=tg_observer) tg_fail("runtime-clone-identity",rc);
         struct TgThread *c=tg_add(child); gm_confirmed[c-tg_threads]=1;
+        if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS&&!quiescing){gm_region_clone=child;event("loader-clone");hex("parent_tid",tid);hex("new_tid",child);return 1;}
         if(gm_remaining&&gm_writes>=AT_FULL_WRITES+ST_WRITES&&!quiescing) { gm_region_clone=child; event("remaining-clone"); hex("parent_tid",tid); hex("new_tid",child); return 1; }
         if(!quiescing) { gm_resume(t); if(c->stopped) gm_resume(c); } return 1;
     }
@@ -582,6 +659,10 @@ static void gm_quiesce(U stopping_tid) {
     if(gm_tail) { event("tail-summary");hex("private_metrics",gm_private);hex("reads",gm_it_reads);hex("writes",gm_it_writes);hex("checkpoints",gm_it_checkpoint);hex("total_writes",gm_writes);hex("atomic",gm_private?gm->it_atomic:0);hex("calibration_executed",gm_private?gm->it_calibration:0);hex("old_executed",gm_private?gm->it_old:0);hex("clone_tid",gm_region_clone); }
     tg_cleanup();
 }
+static void gm_cl_converge(U stopping_tid){
+    event("loader-terminal-converge");hex("stopping_tid",stopping_tid);for(U i=0;i<tg_count;i++)if(tg_threads[i].live&&!tg_threads[i].stopped){S rc=pt(0x4207,tg_threads[i].tid,0,0);event("loader-terminal-interrupt");hex("tid",tg_threads[i].tid);hex("result",rc);if(rc<0&&rc!=-5)gm_cl_reject(stopping_tid,"interrupt","terminal",rc,0);}
+    for(;;){int pending=0;for(U i=0;i<tg_count;i++)if(tg_threads[i].live&&!tg_threads[i].stopped)pending=1;if(!pending)break;int status=0;U tid=gm_wait(&status);if(!tid)gm_cl_reject(stopping_tid,"deadline","terminal-converge",0,1);U kind=(unsigned)status>>16,signal=(status>>8)&255;if(kind==3&&signal==5){(void)gm_meta(tid,status,1);gm_cl_reject(stopping_tid,"clone","terminal-converge",tid,0);}if(gm_meta(tid,status,1))continue;if(signal==11||signal==7)gm_cl_reject(tid,"unexpected-access","terminal-converge",signal,0);gm_cl_reject(tid,"signal","terminal-converge",signal,5);}
+}
 static void gm_observe(U pid,U base,int private) {
     gm_private=private; gm_base=base; gm_target=private?(U)gm_stop_pc:base+0x42a8f0;
     tg_options=0x100009; tg_discover(pid,0);
@@ -600,13 +681,15 @@ static void gm_observe(U pid,U base,int private) {
     event("ready"); hex("pid",pid); hex("observer_pid",tg_observer); hex("stopping_tid",pid);
     if(gm_remaining) { event("remaining-mode"); put("debug_profile = \"phase-specific-clear-v1\"\n"); hex("checkpoint_count",RI_CHECKPOINTS); hex("write_count",RI_WRITES); hex("binding_count",RI_BINDINGS); hex("deadline_ms",10000); }
     if(gm_tail) { event("tail-mode");put("debug_profile = \"inherited-direct-arm-v1\"\n");hex("read_count",IT_READS);hex("write_count",IT_WRITES);hex("checkpoint_count",IT_CHECKPOINTS);hex("binding_count",IT_BINDINGS);hex("deadline_ms",10000); }
+    if(gm_loaders){event("loader-mode");put("scope = \"");put(private?"private":"stock");put("\"\ndebug_profile = \"inherited-direct-arm-v1\"\n");hex("arm",private?gm->arm:0);hex("profile",private?2:1);hex("checkpoint_count",CL_CHECKPOINTS);hex("capture_count",CL_CAPTURE_COUNT);hex("binding_count",CL_BINDINGS);hex("deadline_ms",10000);}
+    if(gm_loaders&&private&&gm->arm==80&&!gm_cl_worker_prepare(gm->worker))gm_cl_reject(gm->worker,"worker-debug","pre-run",0,1);
     if(private) gm_publish(&gm->release);
     for(U i=0;i<tg_count;i++) if(tg_threads[i].live) gm_resume(&tg_threads[i]);
     U fd=(U)-1; int pending_open=0,pending_map=0;
     for(;;) {
         int status=0; U tid=gm_wait(&status);
-        if(!tid && gm_remaining) { event(gm_tail?"tail-deadline":"remaining-deadline"); hex("stopping_tid",0); hex("checkpoint",gm_tail?gm_it_checkpoint:gm_ri_checkpoint); hex("reads",gm_it_reads); hex("remaining_writes",gm_ri_writes); hex("tail_writes",gm_it_writes); gm_quiesce(0); quit(78); }
-        if(gm_meta(tid,status,0)) { if(gm_region_clone) { if(gm_tail&&gm_ri_checkpoint==RI_CHECKPOINTS)gm_it_reject(tid,"clone","runtime",gm_region_clone,0);gm_ri_reject(tid,"clone",gm_region_clone,0); } continue; }
+        if(!tid && gm_remaining) { event(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS?"loader-deadline":gm_tail?"tail-deadline":"remaining-deadline"); hex("stopping_tid",0); hex("checkpoint",gm_loaders?gm_cl_checkpoint:gm_tail?gm_it_checkpoint:gm_ri_checkpoint); hex("reads",gm_it_reads); hex("remaining_writes",gm_ri_writes); hex("tail_writes",gm_it_writes); if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS)gm_cl_reject(0,"deadline","runtime",gm_cl_checkpoint,CL_CHECKPOINTS);gm_quiesce(0); quit(78); }
+        if(gm_meta(tid,status,0)) { if(gm_region_clone) { if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS)gm_cl_reject(tid,"clone","runtime",gm_region_clone,0);if(gm_tail&&gm_ri_checkpoint==RI_CHECKPOINTS)gm_it_reject(tid,"clone","runtime",gm_region_clone,0);gm_ri_reject(tid,"clone",gm_region_clone,0); } continue; }
         U signal=(status>>8)&255; struct TgThread *t=tg_find(tid); struct Regs r={0}; registers(tid,&r,0);
         if(gm_remaining&&signal==5&&gm_writes>=AT_FULL_WRITES+ST_WRITES&&gm_ri_checkpoint<RI_CHECKPOINTS) {
             U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"remaining-siginfo"); unsigned i=gm_ri_checkpoint;
@@ -626,12 +709,28 @@ static void gm_observe(U pid,U base,int private) {
             if(tid!=pid||(unsigned)info[1]!=4||info[2]!=target||r.pc!=target||opcode!=expected_opcode)gm_it_reject(tid,"checkpoint","trap",r.pc,target);
             int guard=gm_it_checkpoint_ok(i,&r);event("tail-checkpoint-guard");hex("index",i);hex("match",guard);hex("reads",gm_it_reads);hex("writes",gm_it_writes);hex("atomic",private?gm->it_atomic:0);if(!guard)gm_it_reject(tid,"checkpoint-state","guard",i,1);
             struct Regs before=r;gm_it_checkpoint++;if(!gm_it_debug(tid,gm_it_checkpoint<IT_CHECKPOINTS))gm_it_reject(tid,"debug-rotation","checkpoint",gm_it_checkpoint,IT_CHECKPOINTS);struct Regs after={0};registers(tid,&after,0);gm_registers("tail-debug-registers",tid,&after);if(!gm_regs_same(&before,&after))gm_it_reject(tid,"debug-registers","checkpoint",after.pc,before.pc);
-            if(gm_it_checkpoint==IT_CHECKPOINTS){gm_quiesce(tid);quit(78);}gm_resume(t);continue;
+            if(gm_it_checkpoint==IT_CHECKPOINTS){
+                if(!gm_loaders){gm_quiesce(tid);quit(78);}int initial=gm_cl_initial();if(initial<0)gm_cl_reject(tid,initial==-1?"binding":initial==-2?"pointer":"length","entry",(U)(-initial),0);
+                U lsb=private?gm->cl_lsb:base+cl_vertical,adc=private?gm->cl_adc:base+cl_adc_record;
+                if(!gm_cl_capture(0,"entry","loader-entry-lsb.bin",lsb,CL_LSB_BYTES))gm_cl_reject(tid,"capture","entry-lsb",0,CL_LSB_BYTES);
+                if(!gm_cl_capture(1,"entry","loader-entry-adc.bin",adc,CL_ADC_BYTES))gm_cl_reject(tid,"capture","entry-adc",0,CL_ADC_BYTES);
+                if(!gm_cl_debug(tid,1))gm_cl_reject(tid,"debug-initial","entry",0,1);struct Regs ca={0};registers(tid,&ca,0);gm_registers("loader-debug-registers",tid,&ca);if(!gm_regs_same(&before,&ca))gm_cl_reject(tid,"debug-registers","entry",ca.pc,before.pc);gm_resume(t);continue;
+            }gm_resume(t);continue;
+        }
+        if(gm_loaders&&signal==5&&gm_it_checkpoint==IT_CHECKPOINTS&&gm_cl_checkpoint<CL_CHECKPOINTS){
+            U info[16]={0};check(pt(0x4202,tid,0,(U)info),"loader-siginfo");unsigned i=gm_cl_checkpoint;U armed=private?(gm->arm==79&&!i?(U)gm_cl_bad_cp:gm_cl_private_pc(i)):base+cl_stock_pc[i],target=private&&gm->arm==78&&!i?gm_cl_private_pc(1):armed;unsigned opcode=(unsigned)peek(tid,r.pc),expected_opcode=private?0xd503201f:cl_stock_opcode[i];S status_value=i<3?(S)(int)(unsigned)r.x[0]:(private?0:(S)(int)(unsigned)peek(tg_pid,r.sp+0x74));S expected_status=status_value;if(i<3){if(private&&gm->arm==77)expected_status=-(S)(i+1);else if(i==0)expected_status=192;else if(i==1)expected_status=(S)CL_VERTICAL_BYTES;else expected_status=private?(S)CL_ADC_BYTES:(S)-1;}
+            event("loader-checkpoint");hex("index",i);hex("tid",tid);hex("signal",signal);hex("si_code",(unsigned)info[1]);hex("address",info[2]);hex("pc",r.pc);hex("relative_pc",private?0:r.pc-base);hex("opcode",opcode);hex("expected_pc",target);hex("expected_opcode",expected_opcode);hex("status",(U)status_value);gm_registers("loader-checkpoint-registers",tid,&r);
+            if(tid!=pid||(unsigned)info[1]!=4||info[2]!=target||r.pc!=target||opcode!=expected_opcode)gm_cl_reject(tid,tid!=pid?"thread":opcode!=expected_opcode?"opcode":r.pc!=target?"pc":"checkpoint","trap",r.pc,target);
+            if(i<3){event("loader-status");hex("index",i);hex("width",4);hex("actual",(U)status_value);hex("expected",(U)expected_status);hex("match",status_value==expected_status);if(status_value!=expected_status)gm_cl_reject(tid,"status","checkpoint",(U)status_value,(U)expected_status);}
+            if(i==3&&!private&&(r.x[0]!=base+cl_adc||r.x[1]||status_value!=-1))gm_cl_reject(tid,"terminal-state","checkpoint",r.x[0],base+cl_adc);
+            if(private&&gm->cl_atomic!=i+1)gm_cl_reject(tid,"atomic","checkpoint",gm->cl_atomic,i+1);struct Regs before=r;gm_cl_checkpoint++;if(!gm_cl_debug(tid,gm_cl_checkpoint<CL_CHECKPOINTS))gm_cl_reject(tid,"debug-rotation","checkpoint",gm_cl_checkpoint,CL_CHECKPOINTS);struct Regs after={0};registers(tid,&after,0);gm_registers("loader-debug-registers",tid,&after);if(!gm_regs_same(&before,&after))gm_cl_reject(tid,"debug-registers","checkpoint",after.pc,before.pc);
+            if(gm_cl_checkpoint==CL_CHECKPOINTS){gm_cl_converge(tid);U lsb=private?gm->cl_lsb:base+cl_vertical,adc=private?gm->cl_adc:base+cl_adc_record,vertical=private?gm->cl_vertical:base+cl_vertical_record;if(!gm_cl_capture(2,"terminal","loader-terminal-lsb.bin",lsb,CL_LSB_BYTES))gm_cl_reject(tid,"capture","terminal-lsb",0,CL_LSB_BYTES);if(!gm_cl_capture(3,"terminal","loader-terminal-adc.bin",adc,CL_ADC_BYTES))gm_cl_reject(tid,"capture","terminal-adc",0,CL_ADC_BYTES);if(!gm_cl_capture(4,"terminal","loader-terminal-vertical.bin",vertical,CL_VERTICAL_BYTES))gm_cl_reject(tid,private&&gm->arm==84?"short-read":private&&gm->arm==85?"buffer":"capture","terminal-vertical",0,CL_VERTICAL_BYTES);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",private?gm->cl_atomic:0);hex("old_executed",private?gm->cl_old:0);hex("clone_tid",gm_region_clone);gm_quiesce(tid);quit(78);}gm_resume(t);continue;
         }
         if(signal==11 || (gm_next && signal==7)) {
             gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
             if(gm_next && gm_responses==2) {
                 U offset=info[2]-gm_mapping,write_pc=private?(U)gm_write_pc:base+0x27043c;
+                if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS){event("loader-access-rejected");put("reason = \"unexpected-access\"\n");hex("tid",tid);hex("checkpoint",gm_cl_checkpoint);hex("address",info[2]);hex("offset",offset);hex("pc",r.pc);hex("opcode",(unsigned)peek(tid,r.pc));gm_cl_reject(tid,"access","runtime",offset,0);}
                 if(gm_tail&&gm_ri_checkpoint==RI_CHECKPOINTS&&gm_writes>=AT_FULL_WRITES+ST_WRITES+RI_WRITES) {
                     unsigned step=gm_it_reads+gm_it_writes,read_index=99,write_index=99;int expect_read=0,expect_write=0;
                     if(step<3){expect_read=1;read_index=step;}else if(step==3){expect_write=1;write_index=0;}else if(step>=4&&step<=8){expect_read=1;read_index=step-1;}else if(step==9){expect_write=1;write_index=1;}else if(step>=10&&step<=11){expect_read=1;read_index=step-2;}
@@ -776,6 +875,15 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
+    int loader_control=argc==6&&equal(argv[1],"control-loaders"),loader_stock=argc==7&&equal(argv[1],"stock-loaders");
+    if(loader_control||loader_stock){
+        U arm=loader_control?parse(argv[2],10):0;if(loader_control&&(arm<76||arm>89))quit(2);unsigned profile=loader_stock?1:2;
+        if(!gm_at_load(argv[loader_stock?4:3],profile,AT_FULL_WRITES))quit(2);if(!gm_st_load(argv[loader_stock?5:4],profile))quit(2);gm_cl_outdir=argv[loader_stock?6:5];
+        gm_transcript=1;gm_spu=1;gm_remaining=1;gm_tail=1;gm_loaders=1;gm_next=1;tg_deadline=tg_now()+10000;
+        if(loader_stock){U pid=parse(argv[2],10),base=parse(argv[3],16);event("model-mode");put("scope = \"stock\"\n");hex("pid",pid);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("profile",1);gm_observe(pid,base,0);quit(2);}
+        S memory=sys(222,0,32768,3,0x21,(U)-1,0);check(memory,"model-shared-mmap");gm=(struct GmShared *)memory;gm->arm=arm;gm->output=(U)-1;U observer=sys(172,0,0,0,0,0,0);S pid=sys(220,17,0,0,0,0,0);check(pid,"model-private-clone");if(!pid)gm_private_leader(observer);while(!gm_load(&gm->ready))tg_tick();
+        event("model-mode");put("scope = \"private\"\n");hex("arm",arm);hex("pid",pid);hex("fixture_worker",gm->worker);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("profile",2);gm_observe(pid,0,1);quit(2);
+    }
     int tail_control=argc==5&&equal(argv[1],"control-tail"),tail_stock=argc==6&&equal(argv[1],"stock-tail");
     if(tail_control||tail_stock) {
         U arm=tail_control?parse(argv[2],10):0;if(tail_control&&(arm<59||arm>75))quit(2);unsigned profile=tail_stock?1:2;

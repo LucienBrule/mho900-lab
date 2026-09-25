@@ -1,0 +1,99 @@
+schema_version = "mho900-lab.calibration-loader-results/1"
+result = "no-go-host-verifier-admission"
+run_id = "group-calibration-loaders-01"
+started_at = "2026-09-25T11:41:31Z"
+finished_at = "2026-09-25T11:43:29Z"
+native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+native_runtime_failure_observed = false
+legacy_arms_accepted_by_frozen_verifiers = 59
+legacy_tail_arm_rejected_by_frozen_hash_pin = 59
+legacy_tail_arm_accepted_by_explicit_offline_review = 59
+legacy_malformed_controls_passed = 30
+unexecuted_legacy_arms = "60..75"
+unexecuted_loader_arms = "76..89"
+guest_calibration_fixture_prepared = false
+complete_loader_capture_demonstrated = false
+altered_loader_evidence_controls_executed = false
+stock_continuation_authorized_by_result = false
+indexed_artifacts = 561
+system_server_pid = 1065
+system_server_samples = 67
+guest_enforcement_unchanged = true
+stock_artifacts_unchanged = true
+dedicated_listeners_absent = true
+
+[finding]
+observed = "Legacy tail verifier rejects the new binary at its previous-binary digest requirement before semantics."
+offline_review_change = "Only the two expected native digest literals changed in a separately preserved review copy."
+offline_review_result = "Unchanged raw arm59 evidence passes all existing semantic checks."
+unreached_static_defect = "Loader verifier requires 466 writes but compares their indices to a 464-item list."
+next_question = "Does an explicit private build profile and corrected count admit the unchanged observer controls?"
+
+[tail59]
+native_exit = 78
+existing_dna_reads = 2
+modeled_writes = 466
+tail_reads = 10
+tail_writes = 2
+tail_checkpoints = 3
+tail_atomic_completions = 3
+calibration_executed = false
+tracked_threads = 3
+reaped_threads = 3
+final_wait_result = -10
+
+[[artifacts]]
+path = "experiments/calibration-loaders/inputs.toml"
+sha256 = "8d81339e76609b46fc9488386006baf1164de29bea93aecb03357d08ba9e338d"
+
+[[artifacts]]
+path = "docs/research/calibration-loader-observer.md"
+sha256 = "166059eabb732e301b5e9d919c91c00301c3942e1e67090a8b95f7bb983567f9"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-01/result.toml"
+sha256 = "c6ded8d760c46d31427300f78d58022edd22c9fb91888e9ebe23b4d57401d90f"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-01/evidence-sha256.txt"
+sha256 = "d9fdcc99e9d0c397424f3a87c54cd358f40f27817bbba15e425115fb6b5f948d"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-01/tail-59.toml"
+sha256 = "e38bad28990f12d3f39c1ff7ab06680fa1040bbd82baa38590ae0625372ea211"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-01/tail-59-verification.stderr"
+sha256 = "01d17975b6cb493e6b20b77b3a7d1f4f1def2647a95a00553c006c2c0f64d6bc"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-01/source/VerifyInitTailObserver.main.kts"
+sha256 = "61b2b0c9a7083d64981f2a3fd9f04d6a799ca55e8bc489bfe9a03aef0889dc02"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-01/source/VerifyCalibrationLoaders.main.kts"
+sha256 = "fc0be4ec614832ccca9872310e17062667e7195689e3320174aefc3d1c4ffc04"
+
+[[artifacts]]
+path = "out/calibration-loaders/VerifyTailBuild11Review.main.kts"
+sha256 = "94f1305f86fcaa07b662df849f7654955605315419adab58f30aa5ae8eed0bb8"
+
+[[artifacts]]
+path = "out/calibration-loaders/run01-tail59-review.toml"
+sha256 = "39a322f4c24583d1688308e8704a3f910f55b15f0c599295bb5975244824d748"
+
+[[artifacts]]
+path = "out/calibration-loaders/audit-run01.main.kts"
+sha256 = "b50ea077c553010356e60de27bcfa44cad9c4e5ef1b08ee8936343f0c00c14f3"
+
+[[artifacts]]
+path = "out/calibration-loaders/run01-audit-03.toml"
+sha256 = "2b6c787a43e0dcf36cea9fe92242bc2efc3abf2da5e87bf078f32e5aba896ff3"
+
+[[artifacts]]
+path = "out/calibration-loaders/run01-native-review.md"
+sha256 = "061330b8227a440dbda096d4a6119efde654af852c568188c3c69cb514dbc2e1"
+
+[[artifacts]]
+path = "out/calibration-loaders/run01-admission-review.md"
+sha256 = "fe5c8b55f7a6c7074146b444772392ecf3b72957c6f2675319f7783b663aaa9a"

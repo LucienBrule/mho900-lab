@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -179,7 +179,7 @@ emulator_pid=
 logcat_pid=
 trap - EXIT
 for artifact in "$run"/*.txt "$run"/*.log "$run"/*.stderr "$run"/*.png "$run"/*.toml "$run"/*.policy \
-    "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
+    "$run"/*.bin "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
     "$run"/source/* "$run"/tombstones/*; do
     [ "$artifact" != "$run/evidence-sha256.txt" ] || continue
     [ -f "$artifact" ] || continue

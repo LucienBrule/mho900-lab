@@ -1,0 +1,96 @@
+schema_version = "mho900-lab.calibration-loader-controls/1"
+arm_first = 76
+arm_last = 89
+runtime_exit = 78
+
+[[arms]]
+arm = 76
+purpose = "complete-positive"
+outcome = "terminal"
+checkpoints = 4
+captures = 5
+atomic = 4
+
+[[arms]]
+arm = 77
+purpose = "signed-status-width"
+outcome = "terminal"
+checkpoints = 4
+captures = 5
+atomic = 4
+statuses = [-1, -2, -3]
+
+[[arms]]
+arm = 78
+purpose = "wrong-pc"
+outcome = "rejected"
+reason = "pc"
+
+[[arms]]
+arm = 79
+purpose = "wrong-opcode"
+outcome = "rejected"
+reason = "opcode"
+
+[[arms]]
+arm = 80
+purpose = "wrong-thread"
+outcome = "rejected"
+reason = "thread"
+
+[[arms]]
+arm = 81
+purpose = "binding"
+outcome = "rejected"
+reason = "binding"
+
+[[arms]]
+arm = 82
+purpose = "destination-pointer"
+outcome = "rejected"
+reason = "pointer"
+
+[[arms]]
+arm = 83
+purpose = "destination-length"
+outcome = "rejected"
+reason = "length"
+
+[[arms]]
+arm = 84
+purpose = "short-bulk-read"
+outcome = "rejected"
+reason = "short-read"
+
+[[arms]]
+arm = 85
+purpose = "full-buffer-mismatch"
+outcome = "rejected"
+reason = "buffer"
+
+[[arms]]
+arm = 86
+purpose = "unexpected-mapped-access"
+outcome = "rejected"
+reason = "access"
+
+[[arms]]
+arm = 87
+purpose = "unexpected-clone"
+outcome = "rejected"
+reason = "clone"
+
+[[arms]]
+arm = 88
+purpose = "old-breakpoint-revisit"
+outcome = "terminal"
+checkpoints = 4
+captures = 5
+atomic = 4
+old_executed = 1
+
+[[arms]]
+arm = 89
+purpose = "missing-checkpoint"
+outcome = "deadline"
+reason = "deadline"
