@@ -1,0 +1,81 @@
+schema_version = "mho900-lab.one-write-stock-results/1"
+run_id = "stock-one-write-01"
+classification = "one-store-completed-next-predicted-store-observed"
+modeled_reads = 2
+modeled_writes = 1
+modeled_write_offset = "0x3000"
+modeled_write_value = "0x05630000"
+next_write_offset = "0x3000"
+next_write_value = "0x01630000"
+next_write_completed = false
+write_elf_pc = "0x27043c"
+write_opcode = "0xb9000109"
+stock_prediction_matched = true
+runtime_caller = "not captured"
+initial_threads = 21
+terminal_threads = 22
+runtime_clone_events = 1
+all_terminal_threads_reaped = true
+system_server_pid = 1045
+system_server_stable = true
+final_enforcement = "Enforcing"
+stock_artifacts_preserved = true
+guest_torn_down = true
+physical_device_access = false
+next_hypothesis = "complete only the two observed stores and stop at the next access"
+
+[[artifacts]]
+path = "docs/research/stock-one-mapped-write.md"
+sha256 = "1a569f3c8531a441029ae4f8d728ed2ba341eff032f52d9a69fb13fb291320c2"
+
+[[artifacts]]
+path = "experiments/group-observer/one-write-results.toml"
+sha256 = "5025d3dfe8128109aed7b5fea7976ebbfaea0958f3584c548960928512258043"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "905a28d0dcf5be5ae78283f9862aeb1df2a01730e12a553bfa2ef64a379f3555"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "871292de7cdbb7e43004ae7dcee302ec5b9ff94d1f23c5a481de3403eeba58b1"
+
+[[artifacts]]
+path = "out/group-observer/one-write-stock-verification.toml"
+sha256 = "544a48b96985fc5edf822ca8c2d3470b688a9852c0428202547021db08e53819"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/evidence-sha256.txt"
+sha256 = "9180b703d7abdeb5c0f0c4faaa706a7ef223d47f145e8a23052df2469de27f3c"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/group-control.elf"
+sha256 = "2b436576dd3f7fc3b2b4f2840fa2c33fa340b304bba076f7145d93bbe1cb67db"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/native-events.toml"
+sha256 = "33747223088ce4366b213647ed011ebb5d9e04913a1d22cfbadcba5bc8f8db91"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/native-status.toml"
+sha256 = "56f847c1c1e37c158a9b0a64e6680d3f533d15d605743dd92b5d776c59b70cec"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/system-server-pid.toml"
+sha256 = "fa0d81c360a6eb7c8bafadb0b7bed7fd0d2f95c62ae7448fc4e23d26c2d263de"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/native-final-system-server.txt"
+sha256 = "6930b0e0d2202e940726dcd6233c5b02c38bcae06db650a9ddc70ba9d3a98cf0"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/result.toml"
+sha256 = "c3f07bb2259a0fb20c69c1cc0773a2c4f16c483ef995299cee2c2558593d75ff"
+
+[[artifacts]]
+path = "out/guest-admission/stock-one-write-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
