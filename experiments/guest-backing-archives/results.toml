@@ -1,0 +1,59 @@
+schema_version = "mho900-lab.guest-backing-archive-result/1"
+result = "two-backings-preserved-and-retired"
+raw_files = 2
+raw_bytes_preserved = 1677721600
+compressed_bytes = 18905663
+independent_full_restoration_checks = 4
+original_raw_paths_removed = true
+dependent_overlays_unchanged = true
+original_indexes_unchanged = true
+all_original_index_entries_verified_before_and_after = true
+free_before_kib = 2254416
+free_after_kib = 3361884
+observed_free_increase_kib = 1107468
+minimum_guest_preboot_free_kib = 2097152
+gate_weakened = false
+host_control_steps = 9
+all_control_steps_matched = true
+guest_runs = 0
+physical_instrument_access = false
+
+[[artifacts]]
+path = "tools/research/ArchiveGuestBacking.main.kts"
+sha256 = "1d5f86e5a9cab630628f2b53a87f37f6a205b3dfe62df9a84754fedea47231c9"
+
+[[artifacts]]
+path = "tools/research/test-archive-guest-backing.main.kts"
+sha256 = "bdd3f400adebdc190d60e73501299d13b09c4389a980a15c1b9da1e100851d9a"
+
+[[artifacts]]
+path = "docs/research/guest-backing-archives.md"
+sha256 = "290bec9059c8386c3d0839c40edf470378f367e16c79479629566dfa189c7615"
+
+[[artifacts]]
+path = "experiments/guest-backing-archives/host-controls.toml"
+sha256 = "64af12566ee0c230a0d4c3a9270c6be6cfcc3cac0cbcb37f1e7d021e629fea67"
+
+[[artifacts]]
+path = "experiments/guest-backing-archives/stock-calibration-loaders-02.toml"
+sha256 = "e17ca825897f28ada3c6457b3434473006903c1fa2bab8d91ae5166ce501d48a"
+
+[[artifacts]]
+path = "experiments/guest-backing-archives/calibration-file-access-01.toml"
+sha256 = "22b9de9b8d123366cf13701773442b9a6876ec5c54150d6e39fb135c769fa04b"
+
+[[artifacts]]
+path = "out/adc-sequence-capacity/indexes-before.toml"
+sha256 = "6bc003bc634990aeb2e97b8c6dad86ff24a1b2c4377f0a634d93b17df30b3434"
+
+[[artifacts]]
+path = "out/adc-sequence-capacity/indexes-after.toml"
+sha256 = "6bc003bc634990aeb2e97b8c6dad86ff24a1b2c4377f0a634d93b17df30b3434"
+
+[[artifacts]]
+path = "out/adc-sequence-capacity/free-before.txt"
+sha256 = "bece2cc64af5713665e5dc1b23ee543c460e4a0f3cf80d8325cc2193d686a125"
+
+[[artifacts]]
+path = "out/adc-sequence-capacity/free-after.txt"
+sha256 = "effae04c6763ee0ea7011492267229899dc334d91cb639b24e891b75e418b28d"

@@ -1,0 +1,14 @@
+schema_version = "mho900-lab.guest-backing-archive/1"
+phase = "complete"
+recorded_at = "2026-09-25T15:45:30.387578Z"
+raw_path = "out/guest-admission/calibration-file-access-01/userdata.img"
+raw_sha256 = "711bff1bc874a108294054b3fec7bdd6647785fa4e57f01d9c5e6727b149b141"
+raw_bytes = 838860800
+raw_mode = "rw-r--r--"
+overlay_path = "out/guest-admission/calibration-file-access-01/userdata.img.qcow2"
+overlay_sha256 = "a7c50a9d1bc6a4df2eec6fc09657a0f10f15d51e0f7e743b3909c4eb68ebd59d"
+archive_path = "out/guest-evidence-archives/calibration-file-access-01-01/userdata.img.gz"
+archive_sha256 = "4dd06d3152725c41ceb23339a687fef407f8fc51ae424bc0ae45fb0e7c6475fb"
+restore_to_original_location_before_overlay_use = true
+restoration_to_independent_file_verified = true
+raw_removed = true

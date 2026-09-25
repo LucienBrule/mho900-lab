@@ -49,3 +49,23 @@ preparation, a corrupt archive and an active image user. They do not overwrite
 or link existing research evidence. The unchanged guest preboot requirement is
 2097152 KiB; actual free-space changes must be measured independently of reported
 allocated blocks on a COW filesystem.
+
+## Completed two-backing experiment
+
+Both pinned raw backings were independently restored during preparation and
+again immediately before retirement. Each restored file matched all 838860800
+original bytes, SHA-256 and mode. Both original raw paths are now absent; their
+separate gzip archives and restoration manifests are preserved under
+`out/guest-evidence-archives/`. The archives total 18905663 bytes.
+
+Free capacity measured 2254416 KiB before the operation and 3361884 KiB afterward,
+a net increase of 1107468 KiB (about 1.06 GiB). This is a before/after observation;
+concurrent host activity may contribute to the exact difference. The final
+measurement exceeds the unchanged guest gate and is not a guarantee about a
+future launch's available capacity.
+
+The 292 indexed loader-run artifacts and 177 indexed file-access artifacts were
+verified before and after retirement. Both original indexes and both dependent
+overlay hashes remain unchanged. No guest ran during the operation. Consult the
+tracked per-run manifests in `experiments/guest-backing-archives/` for exact
+restoration paths and archive hashes before reusing either old runtime disk.
