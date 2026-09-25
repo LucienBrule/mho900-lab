@@ -1,0 +1,52 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.remaining-init-control
+    title: Validate native checkpoints for the remaining missing-device branch
+    state: open
+    intent: Test the entire SCU transport-failure LA region with precise stops and no new hardware responses.
+    requires: [TASK.hardware.remaining-init-architecture]
+    requirements:
+      - Implement the fixed four-store ten-checkpoint hypothesis in docs/research/remaining-init-decision.md, pinning native instruction bytes bindings literals and mutable state against the recovered grammar.
+      - Preserve existing ADC452 SPU8 and two synthetic identity reads, stock bytes and all established thread mapping and register guards.
+      - Use one rotating per-thread hardware breakpoint only while main is stopped; clear and verify old debug state then set and verify next without single-stepping or changing general registers.
+      - Continue only actual negative board and GPIO open results with false original bool and negative cached descriptor; verify exact propagated errors and stop successful opens before device I/O.
+      - Accept SCU4004 operands80000000 and0 then LA7034 operands1 and0 at their exact phases; capture live shadows and stop before the next R32 offset4 or any divergence.
+      - Privately test complete sequence atomic completion between checkpoints successful-open stops cached bool binding shadow operand order width thread checkpoint and timeout negatives; independently verify raw state and all cleanup.
+      - Preserve existing regression controls and pin the exact tested executable; unexpected debug architecture behavior is a decision event rather than an assumed successful fixture.
+      - No guest device-node change may force missing-device outcomes; no new synthetic read or transport result and no physical instrument access.
+    acceptance: [Private positive or negative conclusion and tested executable hash are committed and pushed before stock continuation.]
+    verification: [contract, controls, rejection, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.stock-remaining-init
+    title: Falsify the complete remaining initialization branch in stock Sparrow
+    state: open
+    intent: Observe whether natural guest device absence permits SCU through LA without new returned hardware state.
+    requires: [TASK.guest.remaining-init-control]
+    requirements:
+      - Run one fresh disposable guest with the exact privately tested executable and unchanged stock APK and library.
+      - Validate460 prior stores then the conditional four-store ten-checkpoint branch; record successful opens or any mismatch as terminal evidence without adapting the run.
+      - Independently verify arguments return statuses bool cached descriptor shadows register preservation debug rearming thread coverage deadlines and exact cleanup.
+      - Capture next uncompleted mapped access or transport boundary and distinguish guest absence from physical behavior; preserve system_server and enforcement and stop guest services.
+    acceptance: [Reproducible conclusion is committed and pushed before successor execution.]
+    verification: [inputs, sequence, boundary, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.remaining-init-decision
+    title: Select the next transport or returned-state hypothesis from observed divergence
+    state: open
+    intent: Branch deliberately using the recovered grammar and completed observation.
+    requires: [TASK.hardware.stock-remaining-init]
+    requirements:
+      - Evaluate whether missing-device failure propagation matched prediction or a different transport branch was reached.
+      - Use recovered consumers to choose coherent modeled state or further static recovery; do not return to per-store rediscovery.
+      - Keep version interface identities distinct and treat UART FPGA timing and DDR behavior as hypotheses rather than inferred hardware truth.
+    acceptance: [Admit and commit plus push a bounded successor before execution or record a concrete blocker.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
