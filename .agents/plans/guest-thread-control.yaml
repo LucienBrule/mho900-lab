@@ -1,0 +1,40 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.thread-control
+    title: Validate existing and newly created worker mapped-access observation
+    state: open
+    intent: Establish bounded multi-thread observer controls before stock initialization advances.
+    requires: [TASK.hardware.post-store-snapshot-decision]
+    requirements:
+      - Use private freestanding ARM64 controls in the pinned disposable guest; no stock application run in this batch.
+      - Seize and interrupt a known leader and pre-existing worker with clone-event reporting before releasing their fixture gate.
+      - Prove a worker read fault is attributed to its TID and a narrowly guarded synthetic completion reaches shared fixture output.
+      - Observe a subsequently created worker through the clone event and stop on its next mapped access without supplying another response.
+      - Include unexpected-offset and write-direction arms that terminate without an unsupported response.
+      - Record thread group and tracer identities, wait statuses, registers, instruction and mapping bindings, and complete child cleanup.
+      - Bound thread count, event count and wall time; preserve guest enforcement and system_server stability.
+    acceptance:
+      - Independent verification distinguishes pre-existing attachment, newly traced thread startup, worker fault delivery and guard rejection.
+      - Either controls pass or their precise negative outcome is preserved without broadening the fixture in place.
+      - Explicitly retain the gap between a fixed private thread schedule and arbitrary stock thread creation races.
+    verification: [abi, controls, coverage, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.thread-control-decision
+    title: Evaluate thread controls and admit only a justified stock coverage continuation
+    state: open
+    intent: Preserve complete mapped-access observation as initialization fans out.
+    requires: [TASK.guest.thread-control]
+    requirements:
+      - Reconcile private scheduling assumptions with existing stock siblings and potential new threads.
+      - Do not infer global event order or hardware semantics from private controls.
+    acceptance:
+      - Select a bounded coverage correction or stock coverage observation with no additional modeled register value.
+      - Commit and push conclusions before another run.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
