@@ -351,7 +351,7 @@ fun verifySequencePhase(es: List<Event>, binary: ByteArray, profile: Profile, pi
         val offset=when(arm){105->0x3010uL;108->0x3004uL;else->op.offset}
         val tid=if(arm==108)es.single{it.kind=="model-mode"}.unsigned("fixture_worker") else pid
         val pc=elf.symbol(when(arm){105->"gm_first_pc";108->"gm_worker_pc";else->"gm_write_pc"})
-        fields(a,mapOf("index" to 0uL,"tid" to tid,"signal" to 11uL,"si_code" to 2uL,"address" to mapping+offset,"offset" to offset,"pc" to pc,"opcode" to when(arm){105->0xb9400109uL;108->0xf9400109uL;else->0xb9000109uL}))
+        fields(a,mapOf("index" to 0uL,"tid" to tid,"signal" to 11uL,"si_code" to 2uL,"address" to mapping+offset,"offset" to offset,"pc" to pc,"opcode" to when(arm){105,108->0xb9400109uL;else->0xb9000109uL}))
         if(arm!=105&&arm!=108)require(a.unsigned("operand")==op.value+if(arm==102)1uL else 0uL)
         if(arm==108)require(tid!=pid && tid in tracked)
     }

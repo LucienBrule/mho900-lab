@@ -1,0 +1,39 @@
+schema_version = "mho900-lab.adc-worker-width-correction/1"
+result = "offline-controls-accepted-new-private-freeze"
+run_id = "private-adc-sequence-03"
+manifest_sha256 = "1fc6afca5a9fe44a9e080bda07ff39680555d6eb4b206a3ba3d669848c4ca13f"
+frozen_artifacts = 143
+checker_sha256 = "0627b8f2f9265ed8bf169def80ff7d9fd13251762fe270608593271a185d7406"
+checker_changed_lines = 1
+native_unchanged = true
+profile_unchanged = true
+responses_unchanged = true
+replayed_arms = [101, 102, 103, 104, 105, 106, 107, 108]
+corruption_controls = ["changed-opcode", "leader-substitution", "changed-address", "cleanup-count"]
+original_indexed_artifacts_unchanged = 492
+compiled_worker_pc = "0x238900"
+compiled_worker_opcode = "0xb9400109"
+worker_read_width_bytes = 4
+guest_launched = false
+stock_admitted = false
+physical_access = false
+
+[[evidence]]
+path = "experiments/adc-sequence/control-inputs-03.toml"
+sha256 = "1fc6afca5a9fe44a9e080bda07ff39680555d6eb4b206a3ba3d669848c4ca13f"
+
+[[evidence]]
+path = "out/adc-worker-width/controls01/results.toml"
+sha256 = "aea17318b1f04e959baa61667b84a079578008b24555db38561da5a6acbe7fb5"
+
+[[evidence]]
+path = "out/adc-worker-width/controls01/preservation.toml"
+sha256 = "0c7611cfbec164ca4ebdd28e77007f8302efeebd321f85f7adcb399e6e911b6c"
+
+[[evidence]]
+path = "out/adc-worker-width/controls01/worker-disassembly.txt"
+sha256 = "0904408d3f980b1aeb2cb68789dc42bf714e80ea30f74ff52309e7bec96569ee"
+
+[[evidence]]
+path = "out/adc-worker-width/controls01/replay-108.stdout"
+sha256 = "1169e8c9d57181f20e8cb95c2e2a9f7987a890f14cbac04f558954406cab8fa3"
