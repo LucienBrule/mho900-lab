@@ -1,0 +1,52 @@
+schema_version = "mho900-lab.calibration-review-refinements/1"
+base_recovery_commit = "db496ad"
+base_result_sha256 = "b777227117e030bbc16d013cc6eeadb00c65ac8a03185b47567e47e2ce1464ea"
+precedence = "These explicit refinements qualify the original pinned recovery; unmentioned fields retain their original scope."
+
+[adc_stray_loader]
+original_operation_name = "adc_state_load_loop"
+correct_operation_name = "adc_stray_load_loop"
+original_loader_contract = "loaders.toml#adc-stray"
+correct_loader_id = "adc_stray"
+callee = "CCalibration_ADC::DrvCalibration_LoadAdcStary(int)"
+callee_address = 0x34aec4
+callee_bytes = 0x7c4
+selectors = [0,1,2,3]
+
+[mutable_inputs]
+original_field = "algorithms-threads.toml:calls[SetADCParameter].mutable_inputs"
+interpretation = "First direct reference fields only; explicitly non-exhaustive."
+first_reference_offsets = [0x8854,0x8856]
+gain_row_offset = 0x8824
+gain_row_stride = 0x70
+spu_gain_offset = 0x8cd4
+later_offset_delay_fields_recovered_completely = false
+
+[gain_index_table]
+address = 0x99d210
+entry_count = 10
+entry_width = 8
+element_width = 4
+signed = true
+byte_length = 80
+sha256 = "c8f65a8acee98e05edcd7e2b4ebc2bff286b7ad8f946775c4a006003cf0c0744"
+entries = [[0,0],[1,1],[2,2],[3,3],[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]]
+mode_zero_word_count = 16
+mode_zero_source_offset = 0x8cd4
+mode_zero_source_contiguous = true
+
+[thread_order]
+thread_constructor_call_pc = 0x252978
+active_flag_store_pc = 0x2529a8
+detach_call_pc = 0x2529b8
+worker_entry = 0x33531c
+active_flag_precedes_worker_entry_proven = false
+
+[graph_scope]
+parent_call_coverage = "All calls inside CCalibration::Init; caller invocation at0x2e5800 is folded into dispatcher entry."
+selected_function_ranges = 22
+call_sites = 381
+indirect_calls_in_selected_ranges = 0
+unresolved_direct_sites = 37
+unresolved_unique_direct_targets = 12
+transitive_virtual_calls_absent = false

@@ -1,0 +1,98 @@
+schema_version = "mho900-lab.calibration-static-semantic-review/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+complete_transitive_review = false
+
+[reviewed]
+dispatcher_report = "experiments/calibration-static/dispatcher.toml"
+dispatcher_report_sha256 = "939566f4ad7bbf3f59ab757da42e40291361d215fe8404bf5c6f1f5c716504f9"
+adc_parameter_report = "experiments/calibration-static/adc-parameters.toml"
+adc_parameter_report_sha256 = "95f6a939eb53e9524dfbc9d0930b205897498f5dfff5a88a7a31b79dde2fcb3d"
+algorithms_threads_report = "experiments/calibration-static/algorithms-threads.toml"
+algorithms_threads_report_sha256 = "33ed4fcff5e3770d5157ab245188ddd9b4def71d321aa9d201adefa9fcfbad7a"
+raw_disassembly = "out/group-observer/next-write-static/full-disassembly.txt"
+raw_disassembly_sha256 = "f9bd4a0b93b6037faa6f9d9d78d54543aeab50079c388a6e468641fa08810d09"
+
+[[findings]]
+severity = "material"
+subject = "adc-stray-loader-loop"
+status = "naming-correction-committed-callee-already-resolved"
+range_start = 0x333cc0
+range_end_exclusive = 0x333d00
+callee_symbol = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+callee_start = 0x34aec4
+callee_size = 0x7c4
+selectors = [0, 1, 2, 3]
+detail = "committed callee is resolved; operation name says state although callee and dispatcher identify stray"
+
+[[findings]]
+severity = "material"
+subject = "mutable-input-list"
+status = "scope-qualification"
+detail = "8854 and 8856 are first direct fields, not exhaustive SetADCParameter mode0 inputs"
+
+[[findings]]
+severity = "material"
+subject = "thread-start-ordering"
+status = "scope-qualification"
+thread_constructor_call_pc = 0x252978
+active_flag_store_pc = 0x2529a8
+detach_call_pc = 0x2529b8
+entry_override = 0x33531c
+detail = "new thread may start before active flag store; asynchronous classification remains correct"
+
+[mode_zero]
+set_ref_load_pcs = [0x33f024, 0x33f048]
+set_ref_width = 2
+set_ref_signed = true
+set_quard_call_pcs = [0x33f094, 0x33f0ac, 0x33f0c4, 0x33f0dc]
+channels = [0, 1, 2, 3]
+row_base_offset = 0x8824
+row_stride = 0x70
+row_indices_per_channel = [0, 4, 8, 12]
+core_gain_chips = [0, 0, 1, 1]
+core_gain_call_count = 16
+deep_stary_algorithm_expanded = false
+
+[mode_zero.gain_index_table]
+address = 0x99d210
+entry_count = 10
+entry_width = 8
+element_width = 4
+byte_length = 80
+sha256 = "c8f65a8acee98e05edcd7e2b4ebc2bff286b7ad8f946775c4a006003cf0c0744"
+entries = [[0, 0], [1, 1], [2, 2], [3, 3], [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]]
+mode_zero_first_row = 0
+mode_zero_second_row = 0
+mode_zero_source_offset = 0x8cd4
+mode_zero_word_count = 16
+
+[observation_boundary]
+terminal_pc = 0x333ba8
+mmio_responses_required = 0
+new_calibration_thread_created_before_terminal = false
+post_call_checkpoints = [0x333b78, 0x333b84, 0x333b9c]
+capture_signed_w0 = true
+terminal_adc_status_stack_offset = 0x74
+terminal_x0_is_adc_object_pointer = true
+repeat_destinations_at_terminal = true
+negative_status_may_mutate_destination = true
+main_tid_only_breakpoints = true
+thread_group_inventory_required = true
+atomic_digest_requires_temporary_group_stop = true
+design_review = "consistent-with-boundary-with-fixture-conditions"
+
+[[observation_boundary.destinations]]
+id = "lsb"
+adc_or_subobject = "vertical"
+length = 192
+
+[[observation_boundary.destinations]]
+id = "vertical"
+adc_or_subobject = "vertical"
+length = 0x1b60c0
+
+[[observation_boundary.destinations]]
+id = "adc"
+adc_or_subobject = "adc"
+offset = 0x8804
+length = 1936

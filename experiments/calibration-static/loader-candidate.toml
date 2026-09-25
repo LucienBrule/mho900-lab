@@ -1,0 +1,213 @@
+schema_version = "mho900-lab.loader-observation-candidate/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+address_domain = "ELF-link-time-relative-to-library-base"
+stage = "reviewed-proposal"
+implementation_performed = false
+guest_execution_performed = false
+modeled_mmio_responses = 0
+
+[object_layout]
+scope = 0x10bee40
+calibration_offset_from_scope = 0x60d8
+calibration = 0x10c4f18
+adc_offset_from_calibration = 0x18
+adc = 0x10c4f30
+vertical_offset_from_calibration = 0x8fc0
+vertical = 0x10cded8
+
+[[destinations]]
+id = "lsb"
+base = 0x10cded8
+owner = "vertical"
+owner_offset = 0
+length = 192
+end_exclusive = 0x10cdf98
+capture_entry = true
+capture_terminal = true
+
+[[destinations]]
+id = "vertical"
+base = 0x1151638
+owner = "vertical"
+owner_offset = 0x83760
+length = 0x1b60c0
+end_exclusive = 0x13076f8
+capture_entry = false
+capture_terminal = true
+
+[[destinations]]
+id = "adc"
+base = 0x10cd734
+owner = "adc"
+owner_offset = 0x8804
+length = 1936
+end_exclusive = 0x10cdec4
+capture_entry = true
+capture_terminal = true
+
+[[checkpoints]]
+order = 0
+role = "entry-get-scope-call"
+pc = 0x2e57f8
+opcode = 0x97fc6696
+status_source = "none"
+
+[[checkpoints]]
+order = 1
+role = "lsb-return-before-status-store"
+pc = 0x333b78
+opcode = 0xb90077e0
+status_source = "signed-w0"
+status_width = 4
+next_effect = "store-w0-to-sp-plus-0x74"
+
+[[checkpoints]]
+order = 2
+role = "vertical-return-before-status-store"
+pc = 0x333b84
+opcode = 0xb90077e0
+status_source = "signed-w0"
+status_width = 4
+next_effect = "store-w0-to-sp-plus-0x74"
+
+[[checkpoints]]
+order = 3
+role = "adc-return-before-status-store"
+pc = 0x333b9c
+opcode = 0xb90077e0
+status_source = "signed-w0"
+status_width = 4
+next_effect = "store-w0-to-sp-plus-0x74"
+
+[[checkpoints]]
+order = 4
+role = "terminal-before-set-adc-parameter"
+pc = 0x333ba8
+opcode = 0x97fb9b9e
+status_source = "signed-u32-at-sp-plus-0x74-for-adc-only"
+status_width = 4
+x0 = 0x10c4f30
+w1 = 0
+instruction_must_not_execute = true
+
+[[calls]]
+role = "get-scope"
+pc = 0x2e57f8
+opcode = 0x97fc6696
+symbol = "_Z12Drv_GetScopev"
+got_slot = 0xb7c000
+relocation_type = "R_AARCH64_JUMP_SLOT"
+target = 0x2e5a40
+
+[[calls]]
+role = "get-calibration"
+pc = 0x2e57fc
+opcode = 0x97fc5141
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+got_slot = 0xb79558
+relocation_type = "R_AARCH64_JUMP_SLOT"
+target = 0x2e5a4c
+
+[[calls]]
+role = "init"
+pc = 0x2e5800
+opcode = 0x97fc7268
+symbol = "_ZN12CCalibration4InitEv"
+got_slot = 0xb7d7a8
+relocation_type = "R_AARCH64_JUMP_SLOT"
+target = 0x333afc
+
+[[calls]]
+role = "load-lsb"
+pc = 0x333b74
+opcode = 0x97fb4823
+symbol = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+got_slot = 0xb7f4d8
+relocation_type = "R_AARCH64_JUMP_SLOT"
+target = 0x366e4c
+destination = "lsb"
+
+[[calls]]
+role = "load-vertical"
+pc = 0x333b80
+opcode = 0x97fb0b88
+symbol = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+got_slot = 0xb77ba8
+relocation_type = "R_AARCH64_JUMP_SLOT"
+target = 0x366c20
+destination = "vertical"
+
+[[calls]]
+role = "load-adc"
+pc = 0x333b98
+opcode = 0x97fb520e
+symbol = "_ZN16CCalibration_ADC11LoadCalDataEv"
+got_slot = 0xb808c0
+relocation_type = "R_AARCH64_JUMP_SLOT"
+target = 0x33eac8
+destination = "adc"
+
+[status_contract]
+post_return_register = "w0 interpreted signed32"
+caller_stack_slot_offset = 0x74
+stack_slot_overwritten_after_each_loader = true
+terminal_stack_slot_owner = "adc"
+terminal_x0_role = "adc-object-pointer"
+lsb_expected_with_fixture = 192
+vertical_expected_with_fixture = 0x1b60c0
+adc_expected_with_fixture = -1
+expected_values_are_fixture_conditional = true
+
+[bulk_capture]
+interface = "implementation-hypothesis-requires-private-control"
+maximum_single_destination_bytes = 0x1b60c0
+unique_destination_bytes = 1796368
+entry_capture_bytes = 2128
+terminal_capture_bytes = 1796368
+maximum_total_capture_bytes = 1798496
+hard_total_limit_bytes = 0x200000
+hard_single_limit_bytes = 0x1c0000
+maximum_chunk_bytes = 0x10000
+exact_length_required = true
+short_read_is_failure = true
+address_overflow_check_required = true
+hash_full_destination_only = true
+terminal_group_quiescence_required_for_atomic_snapshot = true
+
+[[source_assets]]
+id = "lsb-default"
+logical_path = "/rigol/data/default/cal_lsb.hex"
+project_path = "local/reversing/firmware-extracted/stock-0.26/firmware/data/default/cal_lsb.hex"
+file_bytes = 220
+payload_bytes = 192
+file_sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+payload_sha256 = "ed4d4016974a509c55530c8573c7e0ef1cb9c28d65536310c13ec8a437c52907"
+
+[[source_assets]]
+id = "vertical-default"
+logical_path = "/rigol/data/default/cal_vertical.hex"
+project_path = "local/reversing/firmware-extracted/stock-0.26/firmware/data/default/cal_vertical.hex"
+file_bytes = 1794268
+payload_bytes = 0x1b60c0
+file_sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+payload_sha256 = "1835df35ca11f040c15988e7cdb150198e98688e2472c0b608377b9a2357139b"
+
+[[absent_fixture_paths]]
+logical_path = "/rigol/data/cal_lsb.hex"
+
+[[absent_fixture_paths]]
+logical_path = "/rigol/data/cal_vertical.hex"
+
+[[absent_fixture_paths]]
+logical_path = "/rigol/data/cal_adc.hex"
+
+[[absent_fixture_paths]]
+logical_path = "/rigol/data/default/cal_adc.hex"
+
+[coverage]
+checkpoint_tid = "main-only"
+clone_registration = true
+unexpected_worker_access = "reject"
+new_calibration_worker_before_terminal = false
+intermediate_snapshots_atomic = false
+terminal_snapshot_atomic_only_after_group_convergence = true

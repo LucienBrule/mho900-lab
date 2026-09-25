@@ -1,0 +1,101 @@
+schema_version = "mho900-lab.calibration-review-result/1"
+task = "TASK.hardware.calibration-static-review"
+result = "accepted-with-explicit-refinements-and-frontiers"
+recorded_at = "2026-09-25T11:18:00Z"
+base_recovery_commit = "db496ad"
+base_recovery_result_sha256 = "b777227117e030bbc16d013cc6eeadb00c65ac8a03185b47567e47e2ce1464ea"
+selected_ranges_verified = 22
+call_sites_verified = 381
+dispatcher_nodes = 24
+dispatcher_edges = 24
+loaders = 11
+semantic_review = "Independent stock disassembly review plus root cross-check; corrections are explicit in review-refinements.toml."
+byte_verification = "Independent ELF parser checks selected ranges exact BL set decoded targets and PLT slots actual PT_LOAD storage table values and candidate checkpoints."
+control_directory = "out/calibration-static/review-verifier-06-tests"
+control_cases = 12
+controls_expected_outcomes = true
+altered_component_pins_regenerated = true
+original_bundle_unchanged = true
+root_verifier_refinement = "Require a named non-PLT target to equal the decoded branch destination; reject a deliberately relabeled unnamed call."
+preliminary_controls = "Earlier01 through04 controls retained locally;05 failed at launcher invocation before verification;06 uses kotlinc-script and the final tools. Initial pin-only mutation tests were insufficient and superseded."
+candidate = "loader-candidate.toml"
+next_dependency = "Accessible exact LSB and vertical default files plus observed ADC pre-load state before SetADCParameter."
+new_mmio_responses_for_candidate = 0
+new_calibration_worker_before_candidate_terminal = false
+existing_peer_thread_coverage_required = true
+full_terminal_capture_requires_group_quiescence = true
+transitive_recovery_complete = false
+physical_hardware_semantics_established = false
+guest_runs = 0
+
+[[artifacts]]
+path = "experiments/calibration-static/results.toml"
+sha256 = "b777227117e030bbc16d013cc6eeadb00c65ac8a03185b47567e47e2ce1464ea"
+
+[[artifacts]]
+path = "experiments/calibration-static/review-refinements.toml"
+sha256 = "1ed808fcb98763ed1ae8685eef47a7469ef2b0aadc38f3c01d6b2096e45f3511"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "experiments/calibration-static/semantic-review.toml"
+sha256 = "3bd5a4216d980c76aa2884280303e5942423ef5ab7b1bcf43c3c9d6ec3b0cccd"
+
+[[artifacts]]
+path = "tools/research/VerifyCalibrationContract.main.kts"
+sha256 = "bf71799d65cb635d8e150562a005d2dd881613b12957e8d23f0d08e7b7c3b2b6"
+
+[[artifacts]]
+path = "tools/research/CheckCalibrationContract.main.kts"
+sha256 = "8720feb34779099ed8aa739f9cf1debef61721b3a062a136a0ee435a02900bb1"
+
+[[artifacts]]
+path = "docs/research/calibration-static-review.md"
+sha256 = "2c251bf2871b23666c05daf0b75394af5afa6442385ec17442d985626ae22c93"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-06-tests/results.toml"
+sha256 = "ee30f4dfe7653d4dc4e91980eb2485e02f2b0043a904c39615050191ff31ad5b"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-06-tests/accepted.stdout"
+sha256 = "6f438587a8bb36cefa03dfe4edb13b32c615ceaa5d61c7007a2281b0836745d8"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-06-tests/direct-target-label.stderr"
+sha256 = "2cb5f8fef19eb66df2040b814f3daf5c9b1d268b5f7aae7209a09993c1ee8b8e"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-06.stdout"
+sha256 = "42848d13b8a2a58ed4658b55b1ca13722fe8ac9d05b52228d23127e2bfc86de2"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-06.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-01.md"
+sha256 = "1b0854bcc87e19afe4fee369068a7381b4943c09682d624e0735705cf31d7b5d"
+
+[[artifacts]]
+path = "out/calibration-static/review-verifier-01.toml"
+sha256 = "0f1e66a932eb121649b1d0c028a926fc9bcc08d6f28a8842aa1fd30b3d1c16f6"
+
+[[artifacts]]
+path = "out/calibration-static/review-semantics-01.md"
+sha256 = "88357e00cc711cca3d1adceb27c974aea5290305e96819e64ddb7a98dafd33f5"
+
+[[artifacts]]
+path = "out/calibration-static/review-semantics-01.toml"
+sha256 = "3bd5a4216d980c76aa2884280303e5942423ef5ab7b1bcf43c3c9d6ec3b0cccd"
+
+[[artifacts]]
+path = "out/calibration-static/loader-candidate-01.toml"
+sha256 = "7796611378c3e19f44b76830ceebb26118a814a2994999dbfef4e08b60d0430d"
+
+[[artifacts]]
+path = "out/calibration-static/root-review-01.toml"
+sha256 = "1e2c8d36131f5bcc5f503ea8b6a1c0f863e7e7060173a314bc148f71cdff4c27"
