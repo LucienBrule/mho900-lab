@@ -4,8 +4,12 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.time.Instant
 import java.util.HexFormat
-require(args.size == 1) { "Usage: FreezeAdcSequence.main.kts NEW_MANIFEST" }
+require(args.size == 4) { "Usage: FreezeAdcSequence.main.kts NEW_MANIFEST RUN_ID TASK_ID TASK_CONTRACT" }
 val destination = Path.of(args[0]); require(!Files.exists(destination))
+val runId = args[1]; val taskId = args[2]; val taskContract = args[3]
+require(runId.matches(Regex("private-adc-sequence-[0-9]{2}")))
+require(taskId.matches(Regex("TASK\\.guest\\.adc-sequence-private-run-[0-9]{2}")))
+require(taskContract.matches(Regex("sha256:[0-9a-f]{64}")))
 fun hash(p: Path) = HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(p)))
 data class Artifact(val path: String, val runPath: String)
 val artifacts = mutableListOf<Artifact>()
@@ -46,8 +50,8 @@ val arms = listOf("complete sequence and worker/read-protocol/atomic/precise-sto
     "second-thread mapped read", "clone coverage", "deadline", "missing atomic completion", "wrong final shadow")
 val manifest = buildString {
     append("schema_version = \"mho900-lab.adc-sequence-controls/1\"\nfrozen_at = \"${Instant.now()}\"\n")
-    append("task = \"TASK.guest.adc-sequence-private-run\"\ntask_contract = \"sha256:0e64756e6b6e8de319960b59666850fee0f6e9ec853a4239a675fe38a591546d\"\n")
-    append("mode = \"adcsequencecontrol\"\nrun_id = \"private-adc-sequence-01\"\nstock_application_launched = false\nexpected_native_exit = 78\nstop_suite_on_unexpected_result = true\nadaptive_retry = false\nphysical_access = false\n")
+    append("task = \"$taskId\"\ntask_contract = \"$taskContract\"\n")
+    append("mode = \"adcsequencecontrol\"\nrun_id = \"$runId\"\nstock_application_launched = false\nexpected_native_exit = 78\nstop_suite_on_unexpected_result = true\nadaptive_retry = false\nphysical_access = false\n")
     append("\n[native]\npath = \"$native\"\nsha256 = \"${hash(Path.of(native))}\"\nprofile = 2\n")
     arms.forEachIndexed { i, question -> append("\n[[arms]]\narm = ${101 + i}\nquestion = \"$question\"\n") }
     artifacts.forEach { a -> append("\n[[artifacts]]\npath = \"${a.path}\"\nrun_path = \"${a.runPath}\"\nsha256 = \"${hash(Path.of(a.path))}\"\n") }

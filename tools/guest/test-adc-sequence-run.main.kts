@@ -12,7 +12,7 @@ val captures = listOf("loader-entry-lsb.bin", "loader-entry-adc.bin", "loader-te
     "loader-terminal-vertical.bin", "adc-input-matrix.bin", "adc-input-setting.bin", "adc-input-drvparam.bin", "adc-input-series.bin",
     "adc-input-config.bin", "adc-input-sample-entry.bin", "adc-input-shadow-low.bin", "adc-input-shadow-high.bin", "adc-input-global-inputs.bin", "adc-input-maps.txt")
 val cases = listOf("complete", "missing-candidate", "changed-and-reindexed-profile", "changed-system-server", "not-enforcing",
-    "leftover-observer", "health-command-failed", "missing-arm-capture", "native-exit-failed", "unindexed-consumed", "wrong-freeze-pin")
+    "leftover-observer", "health-command-failed", "missing-arm-capture", "native-exit-failed", "unindexed-consumed", "wrong-freeze-pin", "wrong-run-identity", "wrong-prerequisite")
 val report = StringBuilder("schema_version = \"mho900-lab.adc-sequence-suite-host-controls/1\"\nclassification = \"synthetic-integrity-and-health-only\"\nchecker_sha256 = \"${hash(Files.readAllBytes(checker))}\"\nruntime_sha256 = \"${hash(Files.readAllBytes(runtime))}\"\nguest_launched = false\nnative_semantics_tested = false\n")
 for (case in cases) {
     val dir = out.resolve(case); Files.createDirectory(dir)
@@ -22,11 +22,12 @@ for (case in cases) {
         "adc-sequence/profile.toml", "adc-candidate/candidate.toml", "adc-candidate/sequence.tsv")
     frozen.forEach { put(it, "synthetic host artifact: $it\n") }
     val manifest = buildString {
-        append("schema_version = \"mho900-lab.adc-sequence-controls/1\"\nmode = \"adcsequencecontrol\"\nrun_id = \"private-adc-sequence-01\"\nstock_application_launched = false\nexpected_native_exit = 78\nstop_suite_on_unexpected_result = true\nadaptive_retry = false\nphysical_access = false\n")
+        append("schema_version = \"mho900-lab.adc-sequence-controls/1\"\nmode = \"adcsequencecontrol\"\nrun_id = \"private-adc-sequence-02\"\nstock_application_launched = false\nexpected_native_exit = 78\nstop_suite_on_unexpected_result = true\nadaptive_retry = false\nphysical_access = false\n")
         for (arm in 101..112) append("\n[[arms]]\narm = $arm\n")
         for (name in frozen) append("\n[[artifacts]]\nrun_path = \"$name\"\nsha256 = \"${hash(Files.readAllBytes(dir.resolve(name)))}\"\n")
     }
     put("source/adc-sequence-control-inputs.toml", manifest)
+    put("frida-prerequisite.toml", "schema_version = \"mho900-lab.frida-prerequisite/1\"\nmode = \"adcsequencecontrol\"\nrequired = false\nreason = \"private native control suite\"\n")
     for (arm in 101..112) {
         val prefix = "adcseq-$arm"
         put("$prefix-status.toml", "exit_code = 78\n"); put("$prefix.elf", "synthetic host artifact: group-control.elf\n")
@@ -35,7 +36,7 @@ for (case in cases) {
         put("$prefix-pulls.toml", captures.joinToString("") { "\"$it\" = 0\n" })
         captures.forEach { put("$prefix-$it", "synthetic host capture\n") }
     }
-    put("result.toml", "run_id = \"private-adc-sequence-01\"\nmode = \"adcsequencecontrol\"\nboot = \"completed\"\ninspection = \"completed\"\ninstall = \"not_reached\"\nlaunch = \"not_reached\"\nrunner_exit = 0\nstopped_phase = \"finished\"\nfinal_health_attempted = true\ninitial_index_exit = 0\n")
+    put("result.toml", "run_id = \"private-adc-sequence-02\"\nmode = \"adcsequencecontrol\"\nboot = \"completed\"\ninspection = \"completed\"\ninstall = \"not_reached\"\nlaunch = \"not_reached\"\nrunner_exit = 0\nstopped_phase = \"finished\"\nfinal_health_attempted = true\ninitial_index_exit = 0\n")
     put("final-system-server.txt", "123\n")
     put("adcseq-system-server.toml", (listOf("before", "after_root") + (101..112).map { "after_arm_$it" } + "after").joinToString("") { "$it = 123\n" })
     for (name in listOf("adcseq-enforcing.txt", "adcseq-final-enforcing.txt", "final-enforcing.txt")) put(name, "Enforcing\n")
@@ -55,6 +56,8 @@ for (case in cases) {
         "health-command-failed" -> put("final-health-status.toml", "pid_exit = 1\n")
         "missing-arm-capture" -> Files.delete(dir.resolve("adcseq-112-adc-input-setting.bin"))
         "native-exit-failed" -> put("adcseq-111-status.toml", "exit_code = 1\n")
+        "wrong-run-identity" -> put("result.toml", Files.readString(dir.resolve("result.toml")).replace("private-adc-sequence-02", "private-adc-sequence-01"))
+        "wrong-prerequisite" -> put("frida-prerequisite.toml", "required = true\n")
     }
     val index = ProcessBuilder("sh", "-c", "set -eu; . \"\$1\"; run=\$2; runner_index", "index", runtime.toString(), dir.toString())
         .redirectOutput(out.resolve("$case-index.stdout").toFile()).redirectError(out.resolve("$case-index.stderr").toFile()).start()
@@ -72,4 +75,4 @@ for (case in cases) {
     report.append("\n[[cases]]\nname = \"$case\"\nexit_code = $rc\nexpected_outcome = true\n")
     Files.writeString(out.resolve("results.toml"), report)
 }
-println("Suite audit controls: one positive and ten negatives matched")
+println("Suite audit controls: one positive and twelve negatives matched")

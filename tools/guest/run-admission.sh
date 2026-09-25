@@ -27,7 +27,7 @@ mkdir "$run/source"
 cp "$repo"/tools/guest/* "$run/source/"
 cp "$admission_manifest" "$run/source/admission-inputs.toml"
 if [ "$mode" = adcsequencecontrol ]; then
-    sequence_manifest="$repo/experiments/adc-sequence/control-inputs.toml"
+    sequence_manifest=${ADMISSION_ADC_SEQUENCE_INPUTS:-"$repo/experiments/adc-sequence/control-inputs.toml"}
     [ "$(yq -p toml -o yaml -r '.run_id' "$sequence_manifest")" = "$run_id" ]
     [ "$(yq -p toml -o yaml -r '.mode' "$sequence_manifest")" = "$mode" ]
     cp "$sequence_manifest" "$run/source/adc-sequence-control-inputs.toml"
@@ -89,11 +89,8 @@ if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel
     [ "$actual" = "$expected" ] || exit 2
     cp "$repo/$ramdisk" "$run/fixture-ramdisk.img"
 fi
-expected=$(yq -p toml -o yaml -r '.frida.server_sha256' "$admission_manifest")
-actual=$(shasum -a 256 "$repo/local/guest-tools/frida-16.7.19/server"); actual=${actual%% *}
-[ "$actual" = "$expected" ] || { echo 'Frida server mismatch' >&2; exit 2; }
-[ "$("$repo/local/guest-tools/frida-16.7.19/venv/bin/frida" --version)" = 16.7.19 ]
-uv pip freeze --python "$repo/local/guest-tools/frida-16.7.19/venv/bin/python" > "$run/frida-packages.txt"
+. "$run/source/admission-tooling.sh"
+runner_frida_prerequisites
 yq -p toml -o yaml -r '.sdk_files[] | [.path, .sha256] | @tsv' "$admission_manifest" |
 while IFS="$(printf '\t')" read -r path expected; do
     actual=$(shasum -a 256 "$sdk/$path"); actual=${actual%% *}

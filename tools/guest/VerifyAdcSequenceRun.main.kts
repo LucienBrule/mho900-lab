@@ -28,9 +28,11 @@ fun expect(body: String, fields: Map<String, String>) {
 val manifestName = "source/adc-sequence-control-inputs.toml"
 val manifest = text(manifestName)
 require(hash(bytes(manifestName)) == frozenManifest) { "external freeze pin" }
+val runId = field(manifest.substringBefore("\n["), "run_id")
+require(runId.matches(Regex("private-adc-sequence-[0-9]{2}")))
 expect(manifest.substringBefore("\n["), mapOf(
     "schema_version" to "mho900-lab.adc-sequence-controls/1",
-    "mode" to "adcsequencecontrol", "run_id" to "private-adc-sequence-01",
+    "mode" to "adcsequencecontrol", "run_id" to runId,
     "stock_application_launched" to "false", "expected_native_exit" to "78",
     "stop_suite_on_unexpected_result" to "true", "adaptive_retry" to "false", "physical_access" to "false"))
 val arms = manifest.split("[[arms]]").drop(1).map { field(it.substringBefore("\n["), "arm").toInt() }
@@ -65,9 +67,11 @@ for (arm in arms) {
     captureNames.forEach { bytes("$prefix-$it") }
 }
 val result = text("result.toml")
-expect(result, mapOf("run_id" to "private-adc-sequence-01", "mode" to "adcsequencecontrol", "boot" to "completed",
+expect(result, mapOf("run_id" to runId, "mode" to "adcsequencecontrol", "boot" to "completed",
     "inspection" to "completed", "install" to "not_reached", "launch" to "not_reached", "runner_exit" to "0",
     "stopped_phase" to "finished", "final_health_attempted" to "true", "initial_index_exit" to "0"))
+expect(text("frida-prerequisite.toml"), mapOf("schema_version" to "mho900-lab.frida-prerequisite/1",
+    "mode" to "adcsequencecontrol", "required" to "false", "reason" to "private native control suite"))
 val finalPid = text("final-system-server.txt").trim().toULong()
 require(finalPid > 0uL)
 val pidLines = text("adcseq-system-server.toml").lineSequence().filter { it.isNotBlank() }.map { line ->

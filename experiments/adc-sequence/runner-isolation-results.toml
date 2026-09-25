@@ -1,0 +1,51 @@
+schema_version = "mho900-lab.adc-runner-isolation/1"
+result = "host-controls-accepted-new-private-freeze"
+run_id = "private-adc-sequence-02"
+manifest_sha256 = "50aefb8dd10c8207a9a811591349b0e3d374d7099568623f390375fadb9c262b"
+frozen_artifacts = 142
+private_arms = 12
+prerequisite_positive_controls = 2
+prerequisite_negative_controls = 3
+runtime_controls = 7
+index_positive_controls = 1
+index_negative_controls = 4
+suite_audit_positive_controls = 1
+suite_audit_negative_controls = 12
+prior_staged_artifacts_unchanged = 140
+native_profile_and_per_arm_verifier_unchanged = true
+host_interpreter_configuration_changed = false
+guest_launched = false
+stock_validation_admitted = false
+physical_access = false
+
+[[evidence]]
+path = "experiments/adc-sequence/control-inputs.toml"
+sha256 = "cd75cdcfdc6f2bde8c1a1b52bbb92e8b35c00908518370f203726dcb269568f5"
+
+[[evidence]]
+path = "experiments/adc-sequence/control-inputs-02.toml"
+sha256 = "50aefb8dd10c8207a9a811591349b0e3d374d7099568623f390375fadb9c262b"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/tooling-controls01/results.toml"
+sha256 = "c04503383a419cc5a35a009e257f41a6bb84fdb9355ba8be10fa46ee4344fd4d"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/runtime-controls01/results.toml"
+sha256 = "88cfaf6b62980b4347d5e54fd18293ba869223e5b9d249517b248caac7aed113"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/index-controls01/results.toml"
+sha256 = "02361736d8af2869382bc2d4308181572ab851344acf779b13462a03e759c68f"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/suite-controls01/results.toml"
+sha256 = "976356ab9b8131f1d76d4597f0828dc0a8ea466dd63075d7b54f7aa99aac9c36"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/prior-staged-audit.txt"
+sha256 = "577777e9b69cab54e244925e6326c3abc82466d5ae83ae73fcee767f1e732434"
+
+[[evidence]]
+path = "out/adc-sequence-isolation/preservation.txt"
+sha256 = "87760d3de045a3e8c3a0eaba4f5fa6108170e66c679f74566b5006d4363c6e5d"
