@@ -3,6 +3,7 @@ struct TgThread { U tid; int live,stopped; };
 struct TgIdentity { U tgid,tracer,state; };
 static struct TgThread tg_threads[128];
 static U tg_count,tg_pid,tg_observer,tg_deadline,tg_wait_count;
+static U tg_options=0x100008;
 static U tg_now(void) {
     U stamp[2]={0}; check(sys(113,1,(U)stamp,0,0,0,0),"group-clock"); return stamp[0]*1000+stamp[1]/1000000;
 }
@@ -95,7 +96,7 @@ static int tg_collect(void) {
 }
 static void tg_discover(U pid,void (*after_enumeration)(U)) {
     tg_pid=pid; tg_observer=sys(172,0,0,0,0,0,0); tg_deadline=tg_now()+10000;
-    event("group-setup"); hex("pid",pid); hex("observer_pid",tg_observer); hex("options",0x100008);
+    event("group-setup"); hex("pid",pid); hex("observer_pid",tg_observer); hex("options",tg_options);
     hex("thread_limit",128); hex("pass_limit",16); hex("event_limit",256); hex("deadline_ms",10000);
     for(U pass=0;pass<16;pass++) {
         while(tg_collect()) {}
@@ -111,8 +112,8 @@ static void tg_discover(U pid,void (*after_enumeration)(U)) {
             if(rc<0 || (id.tracer && id.tracer!=tg_observer)) tg_fail("foreign-tracer",rc);
             t=tg_add(tids[i]); added=1;
             if(!id.tracer) {
-                rc=pt(0x4206,t->tid,0,0x100008);
-                event("group-seize"); hex("tid",t->tid); hex("result",rc); hex("options",0x100008);
+                rc=pt(0x4206,t->tid,0,tg_options);
+                event("group-seize"); hex("tid",t->tid); hex("result",rc); hex("options",tg_options);
                 if(rc==-3) { t->live=0; event("group-vanished"); hex("tid",t->tid); hex("result",rc); continue; }
                 if(rc<0) {
                     struct TgIdentity after; S identity=tg_identity(t->tid,"seize-race",&after);

@@ -141,6 +141,11 @@ if [ "${ADMISSION_MODE:-label}" = coverage ]; then
     "$run/source/coverage-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"
 fi
+if [ "${ADMISSION_MODE:-label}" = groupmodel ]; then
+    native_rc=0
+    "$run/source/group-probe.sh" || native_rc=$?
+    printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"
+fi
 adb shell pidof com.rigol.scope > "$run/app-pid.txt" 2>&1 || true
 adb shell ps > "$run/processes.txt" 2>&1
 adb shell dumpsys activity activities > "$run/activities.txt" 2>&1

@@ -1,0 +1,95 @@
+schema_version = "mho900-lab.group-observer-results/1"
+run_id = "group-observer-01"
+classification = "private-integrated-controls-pass"
+arm_responses = [2, 1, 1]
+initial_threads_per_arm = 2
+terminal_threads_per_arm = 3
+clone_events_per_arm = 1
+sibling_acknowledgement_per_arm = true
+positive_global_value = "0x0123456789abcdef"
+negative_global_value = "0xffffffffffffffff"
+all_terminal_threads_stopped = true
+all_terminal_threads_reaped = true
+system_server_pid = 1052
+system_server_stable = true
+enforcing_samples = 2
+stock_application_run = false
+physical_device_access = false
+guest_torn_down = true
+next_task = "TASK.hardware.group-post-store"
+
+[[artifacts]]
+path = "docs/research/guest-group-observer.md"
+sha256 = "b8b4282513def294ef34240122b4d80722bcecee7d9cdfa88684282c327f862d"
+
+[[artifacts]]
+path = "experiments/group-observer/fixture.toml"
+sha256 = "c801cb857d1a663264d4e77885c820a7df543ee20229390e607c13a3537e23d6"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "f02dd1f657f1718688440d3cc219f424db70a69ddf7d9339c7ec8010f8eadde4"
+
+[[artifacts]]
+path = "tools/guest/native-post-store.h"
+sha256 = "f42905f26f5cad17e823c8dd2234cdcba39f357b568c6a265bec60871fc51846"
+
+[[artifacts]]
+path = "tools/guest/thread-group.h"
+sha256 = "d68d2c6f5c53c99ba9997431c7d27a3798c9633f0029359f0dea4ea03947a2a1"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "71c2071f50d9c862188ce8d75f9d21ac9d530bcf066d55658b2b3f5d29c807b7"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+sha256 = "fa3b541f408ddecb9f21db88bd637be5c23cc0dc2789b6532487b410a4bef098"
+
+[[artifacts]]
+path = "tools/guest/admission-groupcontrol.sh"
+sha256 = "7a72c4148277211f97dda290340705bddf66eb7e78e7a18b6c985380dd0011c3"
+
+[[artifacts]]
+path = "out/group-observer/verification.toml"
+sha256 = "9fc20ef46f130c63a651cf6e1dee9c80acbc54ae91564a3260d4411f63d3a89b"
+
+[[artifacts]]
+path = "out/group-observer/review.toml"
+sha256 = "2b46536b806850f832cccaa52ce90eee7c52bc7b514a55aa3880f91318395c12"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/evidence-sha256.txt"
+sha256 = "ac66d9d50533b5c4ca61333aeef0be9aa8b24ffbc73d54828e197b850be84c80"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/group-control.elf"
+sha256 = "d06d9302701892c7e736e324f2ad7ba9d7721bb964446e16a50bbcc975fbed6e"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/group-0.toml"
+sha256 = "415ca5bf459b360d0a85db0bc191b68ec27bceaafdc11019a770c9b0d2b95d52"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/group-1.toml"
+sha256 = "89c2354c49aa2e435858d282e7dcb6b231c43b7fbf3920abd060dd2be5ab6687"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/group-2.toml"
+sha256 = "0efc4dc62239c848e401af417c5b430a96161707617d13a15306e8d5a408dd54"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/group-system-server.toml"
+sha256 = "054bfe2a1367df5e676a74558d4a19478bfc1ba24b1e89f59748275e6e0dc9b4"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/group-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/result.toml"
+sha256 = "d6fad9d89edc3a30b7a0e6bc9e940fdccfcf1a53ea89df44139556edefc9b967"
+
+[[artifacts]]
+path = "out/guest-admission/group-observer-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"

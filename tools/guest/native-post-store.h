@@ -79,22 +79,26 @@ static void nps_debug_dump(const char *kind,S rc,struct Iov *io,struct NpsDebugS
     event(kind); hex("result",rc); hex("size",io->size); hex("info",s->info);
     for(int i=0;i<16;i++) { char a[]={'a',(char)('0'+i/10),(char)('0'+i%10),0}; char c[]={'c',(char)('0'+i/10),(char)('0'+i%10),0}; hex(a,s->slots[i].address); hex(c,s->slots[i].control); }
 }
-static void nps_terminal(U pid,int child,U base) {
-    U target=child?(U)control_pair_stop:base+0x42a8f0;
+static int nps_arm(U pid,U target) {
     struct NpsDebugState before={0}; struct Iov io={&before,sizeof(before)};
     S rc=pt(0x4204,pid,0x402,(U)&io); nps_debug_dump("debug-before",rc,&io,&before);
     event("debug-profile"); put("guest_profile = \"cached-enable\"\n");
     hex("requested_control",0x1e5); hex("expected_readback_control",0x1e4);
-    if(rc<0 || io.size!=sizeof(before) || !(before.info&255)) { event("debug-unsupported"); terminate_tracee(pid); quit(80); }
-    for(int i=0;i<16;i++) if(before.slots[i].address || before.slots[i].control) { event("debug-nonempty"); terminate_tracee(pid); quit(81); }
+    if(rc<0 || io.size!=sizeof(before) || !(before.info&255)) { event("debug-unsupported"); return 80; }
+    for(int i=0;i<16;i++) if(before.slots[i].address || before.slots[i].control) { event("debug-nonempty"); return 81; }
     before.slots[0].address=target; before.slots[0].control=0x1e5; io.size=24;
     nps_debug_dump("debug-request",0,&io,&before); rc=pt(0x4205,pid,0x402,(U)&io);
-    event("debug-set"); hex("result",rc); if(rc<0) { terminate_tracee(pid); quit(80); }
+    event("debug-set"); hex("result",rc); if(rc<0) return 80;
     struct NpsDebugState after={0}; struct Iov aio={&after,sizeof(after)};
     rc=pt(0x4204,pid,0x402,(U)&aio); nps_debug_dump("debug-after",rc,&aio,&after);
     int bad=rc<0 || aio.size!=sizeof(after) || after.info!=before.info || after.slots[0].address!=target || after.slots[0].control!=0x1e4;
     for(int i=1;i<16;i++) if(after.slots[i].address || after.slots[i].control) bad=1;
-    if(bad) { event("debug-readback-mismatch"); terminate_tracee(pid); quit(82); }
+    if(bad) { event("debug-readback-mismatch"); return 82; }
+    return 0;
+}
+static void nps_terminal(U pid,int child,U base) {
+    U target=child?(U)control_pair_stop:base+0x42a8f0;
+    int armed=nps_arm(pid,target); if(armed) { terminate_tracee(pid); quit(armed); }
     check(pt(7,pid,0,0),"post-store-continue"); int status=0;
     check(sys(260,pid,(U)&status,0x40000000,0,0,0),"post-store-wait");
     if((status&255)!=127) {
