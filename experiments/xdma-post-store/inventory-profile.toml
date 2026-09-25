@@ -1,0 +1,13 @@
+schema_version = "mho900-lab.thread-inventory-profile/1"
+architecture = "arm64"
+reference = "https://raw.githubusercontent.com/torvalds/linux/v3.18/arch/arm64/include/uapi/asm/fcntl.h"
+old_directory_flag = "0x10000"
+arm64_directory_flag = "0x4000"
+comparison_scope = "stopped private child only"
+old_flag_expected = "open returns a recorded negative errno"
+corrected_flag_expected = "open succeeds and getdents64 returns directory entries"
+maximum_threads = 128
+directory_buffer_bytes = 2048
+status_buffer_bytes = 1024
+error_operations = ["0=none", "1=openat", "2=getdents64", "3=directory record", "4=thread name", "5=close"]
+stock_observer_scope = "main thread only; inventories are non-atomic snapshots"

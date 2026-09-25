@@ -153,7 +153,7 @@ static void supervise(U pid,int child,U base,int respond,U response) {
             hex("object",object); hex("initial_value",peek(pid,object));
         }
     }
-    if(respond==3) nps_inventory(pid,"before-ready");
+    if(respond==3) { if(child) nps_directory_control(pid); nps_inventory(pid,"before-ready"); }
     event("ready"); hex("pid",pid); hex("observer_pid",sys(172,0,0,0,0,0,0)); hex("stopping_tid",pid);
     U fd=(U)-1, mapped=0, output_address=0; int pending_open=0,pending_map=0, completed=0;
     int response_limit=respond==3?2:respond;

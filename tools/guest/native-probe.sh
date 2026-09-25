@@ -4,6 +4,16 @@ run=${ADMISSION_RUN:?}
 repo=${ADMISSION_REPO:?}
 sdk=${ANDROID_SDK_ROOT:?}
 adb() { gtimeout -k 2 30 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
+if [ "${NATIVE_POST_STORE:-0}" = 1 ]; then
+    final_sample() {
+        rc=$?
+        trap - EXIT
+        adb shell getenforce > "$run/native-final-enforcing.txt" 2>&1 || true
+        adb shell pidof system_server > "$run/native-final-system-server.txt" 2>&1 || true
+        exit "$rc"
+    }
+    trap final_sample EXIT
+fi
 cp "$repo/local/guest-tools/native-probe/"*.txt "$run/"
 cp "$repo/local/guest-tools/native-probe/native-probe" "$run/native-probe.elf"
 adb push "$run/native-probe.elf" /data/local/tmp/native-probe > "$run/native-push.txt"
@@ -24,6 +34,7 @@ if [ "$post_store" = 1 ]; then
     [ "$pair" = 0 ] && [ -z "$word" ] || exit 2
     command=stock-post-store
     cp "$repo/experiments/xdma-post-store/fixture.toml" "$run/native-post-store-fixture.toml"
+    cp "$repo/experiments/xdma-post-store/inventory-profile.toml" "$run/native-inventory-profile.toml"
     cp "$repo/experiments/guest-execution-stop/profile.toml" "$run/native-execution-profile.toml"
     [ "$(adb shell uname -r | tr -d '\r')" = '3.18.91+' ] || exit 3
     rc=0

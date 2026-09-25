@@ -34,27 +34,44 @@ static void nps_status(U pid,U tid,const char *phase) {
     hex("tgid",tgid); hex("tracer_pid",tracer); hex("state",state);
     if(!have_tgid || !have_tracer || !have_state) hex("read_error",1);
 }
+static void nps_directory_control(U pid) {
+    char path[64]="/proc/", buf[2048]; U at=6;
+    at=nps_decimal(path,at,sizeof(path),pid); nps_append(path,at,sizeof(path),"/task");
+    const U flags[2]={0x10000,0x4000};
+    for(int i=0;i<2;i++) {
+        S fd=sys(56,(U)-100,(U)path,flags[i],0,0,0), got=0, closed=0;
+        if(fd>=0) { got=sys(61,fd,(U)buf,sizeof(buf),0,0,0); closed=sys(57,fd,0,0,0,0,0); }
+        event("directory-control"); hex("pid",pid); hex("flags",flags[i]); hex("open_result",fd);
+        hex("read_attempted",fd>=0); hex("read_result",got); hex("close_result",closed);
+    }
+}
 static void nps_inventory(U pid,const char *phase) {
     char path[64]="/proc/", buf[2048]; U at=6, count=0; int overflow=0,error=0;
+    U operation=0; S result=0;
     at=nps_decimal(path,at,sizeof(path),pid); nps_append(path,at,sizeof(path),"/task");
-    S fd=sys(56,(U)-100,(U)path,0x10000,0,0,0);
-    if(fd<0) error=1;
+    S fd=sys(56,(U)-100,(U)path,0x4000,0,0,0);
+    if(fd<0) { error=1; operation=1; result=fd; }
     while(fd>=0 && !overflow && !error) {
-        S got=sys(61,fd,(U)buf,sizeof(buf),0,0,0); if(got<0) { error=1; break; } if(!got) break;
+        S got=sys(61,fd,(U)buf,sizeof(buf),0,0,0);
+        if(got<0) { error=1; operation=2; result=got; break; } if(!got) break;
         for(U pos=0;pos<(U)got;) {
             struct NpsDirent *d=(struct NpsDirent *)(buf+pos);
-            if(d->reclen<20 || pos+d->reclen>(U)got) { error=1; break; }
+            if((U)got-pos<20 || d->reclen<20 || pos+d->reclen>(U)got) { error=1; operation=3; result=pos; break; }
             if(d->name[0]>='0' && d->name[0]<='9') {
+                U len=0;
+                while(19+len<d->reclen && d->name[len]>='0' && d->name[len]<='9') len++;
+                if(19+len>=d->reclen || d->name[len]) { error=1; operation=4; result=pos; break; }
                 U tid=parse(d->name,10); if(count==128) { overflow=1; break; }
                 nps_status(pid,tid,phase); count++;
             }
             pos+=d->reclen;
         }
     }
-    if(fd>=0) sys(57,fd,0,0,0,0,0);
+    if(fd>=0) { S closed=sys(57,fd,0,0,0,0,0); if(closed<0 && !error) { error=1; operation=5; result=closed; } }
     event("thread-inventory"); put("phase = \""); put(phase); put("\"\n");
     hex("pid",pid); hex("observer_pid",sys(172,0,0,0,0,0,0)); hex("stopping_tid",pid);
     hex("observed_count",count); hex("overflow",overflow); hex("error",error);
+    hex("directory_flags",0x4000); hex("error_operation",operation); hex("error_result",result);
 }
 
 static void nps_debug_dump(const char *kind,S rc,struct Iov *io,struct NpsDebugState *s) {

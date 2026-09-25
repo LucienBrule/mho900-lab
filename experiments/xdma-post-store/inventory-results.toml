@@ -1,0 +1,109 @@
+schema_version = "mho900-lab.post-store-inventory-results/1"
+run_id = "post-store-inventory-01"
+classification = "private-controls-pass-stock-pre-attach-snapshot-failure"
+old_flag = "0x10000"
+old_open_errno = [22, 22]
+corrected_flag = "0x4000"
+corrected_directory_read_bytes = [72, 72]
+private_inventory_counts = [1, 1, 1, 1]
+private_inventory_errors = [0, 0, 0, 0]
+legacy_controls_passed = 4
+private_positive_reads = 2
+private_positive_value = "0x0123456789abcdef"
+private_negative_reads = 1
+private_negative_rejected_offset = "0x4040"
+private_controls_verified_before_stock = true
+stock_pid = 2534
+stock_snapshot_bytes = 102177
+native_helper_exit = 255
+snapshot_individual_statuses_available = false
+stock_supervisor_started = false
+stock_device_responses = 0
+stock_global_store_observed = false
+final_enforcing = true
+system_server_pid = 1073
+system_server_stable = true
+stock_apk_and_library_preserved = true
+guest_torn_down = true
+physical_device_access = false
+next_question = "Separate and diagnose process-snapshot command statuses before the unchanged stock post-store experiment."
+
+[[artifacts]]
+path = "docs/research/xdma-thread-inventory.md"
+sha256 = "ce4a340652da0621799d692311986f9b50a10a5782123cae8566c3842b1f6c65"
+
+[[artifacts]]
+path = "experiments/xdma-post-store/inventory-profile.toml"
+sha256 = "33f0f965fced4cef73d415c2fc4fa24d76f80b0ed5914285cfff0c50336e3eed"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "551662afa8aa9b1f2b09c9d227b8dad50ff99802977a984005e75140d299ba3a"
+
+[[artifacts]]
+path = "tools/guest/native-post-store.h"
+sha256 = "68c8d5d41cd78dffbbe12b16acbd47eb7cc4230aae69a5ca10b82757258f04ad"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "621d228abf51e0d2bf55d0b6751333fe4f257d00bfdf0bb2afa6afed80b2203e"
+
+[[artifacts]]
+path = "tools/guest/VerifyPostStore.main.kts"
+sha256 = "3a47b7d7c1fb06ffb340df9c416aa4dcd8322076db7bdac395df5543e0eb4db8"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/evidence-sha256.txt"
+sha256 = "63b0de837eb34832663a04e6be372845a308a79e69e21268057657588b714bb3"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/source/VerifyPostStore.main.kts"
+sha256 = "4f1fcef609343cd005088cbc4b30eefa5c50b380eef0d04310fa8f9533178fdd"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-probe.elf"
+sha256 = "93ecefa863c3067445b041ccaed9f9417cf5751131c7e74f96020fd215096ccb"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-post-store-control.toml"
+sha256 = "45921f9b6c24230eb499dccf8e63092d46466d02cd5643412217135cc51f59e7"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-post-store-negative.toml"
+sha256 = "049f896c84b17efd70dfb376eead7f02a15538214c03437850f6bfc3f419e7ad"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-post-store-controls-verification.toml"
+sha256 = "1a90970d2d44c554552029c0e07539b1f8335de891e6264838f77a06ef0f2947"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-helper-status.toml"
+sha256 = "357713f1b05ee9fe0b3187edd29b7ca80a47d62b0213c15db752b84c9e1c19e4"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-before.txt"
+sha256 = "c18a6b8cc8dfd5ead13ae66b37fc9ec6448692d0845297974c147a816d3494c3"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/native-final-system-server.txt"
+sha256 = "551cf8db9af28c24c6555d03a649e228b27f067ed4522995e55039afdec8c847"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/system-server-pid.toml"
+sha256 = "8ed48743e2d68db84999b691e66057416c808d6b3af0017494c653474795de31"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/result.toml"
+sha256 = "8904220d3f964f12eab72705554ed15ff28b8ff4d7d3875039844ac9fb699412"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-inventory-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/xdma-post-store-inventory/verification.toml"
+sha256 = "64b0d8581b946c26f05bec3ea657263f19a7c0d3e445e6fe18356da902b97b45"

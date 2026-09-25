@@ -7,11 +7,12 @@ import java.security.MessageDigest
 import java.util.HexFormat
 import java.util.zip.ZipFile
 
-require(args.size in 1..2) { "Usage: VerifyPostStore.main.kts RUN_DIRECTORY [controls|inventory-failure]" }
+require(args.size in 1..2) { "Usage: VerifyPostStore.main.kts RUN_DIRECTORY [controls|inventory-failure|pre-attach-failure]" }
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 val inventoryFailure = args.getOrNull(1) == "inventory-failure"
+val preAttachFailure = args.getOrNull(1) == "pre-attach-failure"
 val controlsOnly = args.size == 2
-require(args.size == 1 || args[1] == "controls" || inventoryFailure)
+require(args.size == 1 || args[1] == "controls" || inventoryFailure || preAttachFailure)
 fun text(name: String) = Files.readString(run.resolve(name))
 fun hash(bytes: ByteArray) = HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes))
 fun hash(path: Path) = hash(Files.readAllBytes(path))
@@ -65,7 +66,8 @@ data class Boundary(val expected: ULong,val target: ULong,val obj: ULong,val val
     val tid: ULong,val x8: ULong,val x9: ULong,val expectedValue: ULong): Event
 data class Thread(val phase: String,val tid: ULong,val tgid: ULong,val tracer: ULong,val state: ULong): Event
 data class Inventory(val phase: String,val pid: ULong,val observer: ULong,val tid: ULong,val count: ULong,
-    val overflow: ULong,val error: ULong): Event
+    val overflow: ULong,val error: ULong,val flags: ULong?,val operation: ULong?,val result: ULong?): Event
+data class Directory(val pid: ULong,val flags: ULong,val open: Long,val attempted: ULong,val read: Long,val close: Long): Event
 data class Terminated(val status: ULong): Event
 class Rejected: Event
 fun events(name: String): List<Event> = text(name).split("[[events]]").drop(1).map {
@@ -86,7 +88,8 @@ fun events(name: String): List<Event> = text(name).split("[[events]]").drop(1).m
         "post-store-stop"->Stop(v("status"),v("signal"),v("si_code"),v("address"),v("observer_pid"),v("stopping_tid"),v("pc"),v("relative_pc"),v("opcode"),regs())
         "post-store-boundary"->Boundary(v("expected_stop"),v("target"),v("object"),v("value"),v("observer_pid"),v("stopping_tid"),v("x8"),v("x9"),v("expected_value"))
         "thread-status"->{ require("read_error" !in f) { "Thread status read failed" }; Thread(f.getValue("phase"),v("tid"),v("tgid"),v("tracer_pid"),v("state")) }
-        "thread-inventory"->Inventory(f.getValue("phase"),v("pid"),v("observer_pid"),v("stopping_tid"),v("observed_count"),v("overflow"),v("error"))
+        "thread-inventory"->Inventory(f.getValue("phase"),v("pid"),v("observer_pid"),v("stopping_tid"),v("observed_count"),v("overflow"),v("error"),f["directory_flags"]?.let(::n),f["error_operation"]?.let(::n),f["error_result"]?.let(::n))
+        "directory-control"->Directory(v("pid"),v("flags"),v("open_result").toLong(),v("read_attempted"),v("read_result").toLong(),v("close_result").toLong())
         "terminated"->Terminated(v("status"))
         "response-guard-rejected"->Rejected()
         else->error("Unexpected event: $kind")
@@ -110,13 +113,22 @@ fun common(r: List<Event>) {
 }
 fun inventories(r: List<Event>,private: Boolean) {
     val ready=r.filterIsInstance<Ready>().single(); val all=r.filterIsInstance<Inventory>()
+    val dirs=r.filterIsInstance<Directory>()
+    if(private && !inventoryFailure) {
+        require(dirs.size==2 && dirs.map { it.flags }==listOf(0x10000uL,0x4000uL))
+        require(dirs.all { it.pid==ready.pid && it.close==0L })
+        require(dirs[0].open in -4095L..-1L && dirs[0].attempted==0uL && dirs[0].read==0L)
+        require(dirs[1].open>=0L && dirs[1].attempted==1uL && dirs[1].read in 1L..2048L)
+        require(r.take(2)==dirs)
+        println("directory_old_flag_errno_${ready.pid} = ${-dirs[0].open}")
+    } else require(dirs.isEmpty())
     require(all.map { it.phase }==listOf("before-ready","terminal"))
     for(g in all) {
         require(g.pid==ready.pid && g.tid==ready.pid && g.observer==ready.observer && g.overflow==0uL)
         val ts=r.filterIsInstance<Thread>().filter { it.phase==g.phase }
         require(ts.size.toULong()==g.count && ts.map { it.tid }.distinct().size==ts.size)
         if(inventoryFailure) require(g.error==1uL && g.count==0uL && ts.isEmpty())
-        else require(g.error==0uL && g.count in 1uL..128uL)
+        else require(g.error==0uL && g.count in 1uL..128uL && g.flags==0x4000uL && g.operation==0uL && g.result==0uL)
         if(private && !inventoryFailure) require(ts.size==1)
         require(ts.all { it.tgid==ready.pid && it.state>0uL && it.tracer==if(it.tid==ready.pid) ready.observer else 0uL })
         if(!inventoryFailure) require(ts.single { it.tid==ready.pid }.state in listOf(0x54uL,0x74uL))
@@ -131,7 +143,7 @@ fun response(f: Fault,s: Response,value: ULong) {
     require(f.opcode and 0xffc0001fuL==0xb9400009uL)
     require(s.value==value && s.before==f.regs[9] && s.after==value && s.pcBefore==f.pc && s.pcAfter==f.pc+4uL && s.unchanged==1uL)
 }
-fun core(r: List<Event>)=r.filterNot { it is Thread || it is Inventory }
+fun core(r: List<Event>)=r.filterNot { it is Thread || it is Inventory || it is Directory }
 fun positive(r: List<Event>,elf: Elf,base: ULong,private: Boolean) {
     common(r); inventories(r,private)
     val fs=r.filterIsInstance<Fault>(); val rs=r.filterIsInstance<Response>(); require(fs.size==2 && rs.size==2)
@@ -187,17 +199,28 @@ require(nf.all { control.word(it.pc)==it.opcode && it.opcode and 0xffc0001fuL==0
 val nr=neg.filterIsInstance<Response>().single(); response(nf[0],nr,0xe1234567uL)
 require(core(neg)==listOf(neg.filterIsInstance<Ready>().single(),neg.filterIsInstance<Open>().single(),neg.filterIsInstance<Request>().single(),neg.filterIsInstance<Mapping>().single(),nf[0],nr,nf[1],neg.filterIsInstance<Rejected>().single(),neg.filterIsInstance<Terminated>().single()))
 println("private_post_store_controls = \"${if(inventoryFailure) "functional_capture_verified_inventory_failed" else "verified"}\"")
-if(inventoryFailure) {
-    status("native-helper-status.toml",3)
-    for(name in listOf("native-events.toml","native-status.toml","native-app-pid.toml","native-before.txt","native-device.txt"))
+if(inventoryFailure || preAttachFailure) {
+    status("native-helper-status.toml",if(inventoryFailure) 3 else 255)
+    val absent=if(inventoryFailure) listOf("native-app-pid.toml","native-before.txt") else listOf("native-libc.so","native-libc-pull.txt")
+    for(name in absent+listOf("native-events.toml","native-status.toml","native-device.txt"))
         require(!Files.exists(run.resolve(name))) { "Unexpected stock observation: $name" }
     for(line in Files.readAllLines(run.resolve("evidence-sha256.txt"))) {
         require(line.length>66); val artifact=Path.of(line.substring(66)).normalize()
         require(artifact.startsWith(run) && hash(artifact)==line.take(64))
     }
     require(hash(run.resolve("installed.apk"))=="6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b")
+    val lib=ZipFile(run.resolve("installed.apk").toFile()).use { z->z.getInputStream(z.getEntry("lib/arm64-v8a/libscope-auklet.so")).readBytes() }
+    require(hash(lib)=="4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e")
     require(text("system-server-pid.toml").lineSequence().filter { it.isNotBlank() }.map { it.substringAfter("= ").toInt() }.toList().let { it.size==3 && it.distinct().size==1 })
     require(text("frida-detach-status.toml").trim()=="exit_code = 0")
+    if(preAttachFailure) {
+        require(text("native-app-pid.toml").substringAfter("= ").trim().toInt()>0)
+        require(text("native-before.txt").contains("com.rigol.scope") && text("native-before.txt").contains("u:r:system_app:s0"))
+        require(text("native-final-enforcing.txt").trim()=="Enforcing")
+        val finalPid=text("native-final-system-server.txt").trim().toInt()
+        require(text("system-server-pid.toml").lineSequence().filter { it.isNotBlank() }.all { it.substringAfter("= ").toInt()==finalPid })
+        println("stock_pre_attach_snapshot_failed = true")
+    }
     println("stock_device_responses = 0")
     println("stock_supervisor_started = false")
 }
@@ -206,6 +229,9 @@ if(!controlsOnly) {
     val p=ProcessBuilder("kotlin",run.resolve("source/VerifyNative.main.kts").toString(),run.toString(),"admission-only").redirectErrorStream(true).start()
     val output=p.inputStream.bufferedReader().readText(); require(p.waitFor()==0) { "Admission verification failed: $output" }; print(output)
     status("native-status.toml",0); status("native-helper-status.toml",0)
+    require(text("native-final-enforcing.txt").trim()=="Enforcing")
+    val finalSystemServer=text("native-final-system-server.txt").trim().toInt()
+    require(text("system-server-pid.toml").lineSequence().filter { it.isNotBlank() }.all { it.substringAfter("= ").toInt()==finalSystemServer })
     require(hash(run.resolve("native-executed.elf"))==hash(controlBytes))
     require(text("result.toml").contains("mode = \"native\""))
     val apk=Files.readAllBytes(run.resolve("installed.apk"))
