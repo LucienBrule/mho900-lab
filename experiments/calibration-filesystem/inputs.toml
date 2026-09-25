@@ -1,0 +1,91 @@
+schema_version = "mho900-lab.calibration-filesystem-inputs/1"
+question = "Can the pinned API25 guest host exact stock defaults on one bounded tmpfs mount?"
+task = "TASK.guest.calibration-filesystem-fixture"
+task_contract = "sha256:e9e565c972982d6d32e5df77df6f1682b1eaea4a986b655d9cb7d50f82bc4c9b"
+mode = "filesystem"
+run_id = "calibration-filesystem-01"
+mount_command = "mount -t tmpfs -o rw,nosuid,nodev,noexec,size=4m tmpfs /rigol"
+adaptive_retry = false
+stock_application_execution = false
+stock_uid_readability_claim = false
+physical_instrument_access = false
+host_policy_changes = false
+original_ramdisk_sha256 = "100d85ff3ddfd78d04830f0c9508ca387c36baf4a612fa9ba2d9c41fd6327300"
+stock_lsb_file_sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+stock_vertical_file_sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+required_absent_paths = ["/rigol/data/cal_lsb.hex", "/rigol/data/cal_vertical.hex", "/rigol/data/cal_adc.hex", "/rigol/data/default/cal_adc.hex"]
+
+[derivative]
+path = "out/calibration-filesystem/build-04/ramdisk.img"
+sha256 = "98b4925f73aa77cd21a6d4e2a3f384056dba8b2d379162ad2c02f55f3a071398"
+original_content_entries_preserved = 46
+original_trailer_preserved = true
+added_path = "rigol"
+added_mode = "040755"
+added_uid = 0
+added_gid = 0
+added_size = 0
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "9e461a16c06b79e7182e8103264e948548e9527bc735eb4aa3f636d83e7832e9"
+
+[[artifacts]]
+path = "tools/guest/admission-filesystem.sh"
+sha256 = "9dcee7f2b17ed0286eb940f35639fae092f1ae475920ec423c0e4cf9bf5408ac"
+
+[[artifacts]]
+path = "tools/guest/admission-final-health.sh"
+sha256 = "4709ae90fb20f1cc141a6524c7c67dfcabab9fa3f44cc4949b152e29c5e25809"
+
+[[artifacts]]
+path = "tools/guest/BuildCalibrationRamdisk.main.kts"
+sha256 = "fe2926c0a48db5e450c7f007f4ea873976f3a3228d764f8d013f5f9f79d1ef8b"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationFilesystem.main.kts"
+sha256 = "11f8407ca88940c1997cb78e17bb6c1e287b6536ff12f54861924e9f9f0d33ad"
+
+[[artifacts]]
+path = "tools/research/InspectCalibrationAssets.main.kts"
+sha256 = "0187caa8ff62133e8999ab7f52ea5ef1b0b8fb2069a89f1d9d3144dbb50aae14"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "docs/research/calibration-filesystem-decision.md"
+sha256 = "8722825b5f012a50886bb315638a1794dafa5b8ee4fdc3b099d630863ef36547"
+
+[[artifacts]]
+path = "out/calibration-filesystem/static-01/analysis.toml"
+sha256 = "a43d0c6e823e912ffaea6e790574fed7157fd59af5bf37cb216b4490bc0fa2bc"
+
+[[artifacts]]
+path = "out/calibration-filesystem/static-02/recipe.toml"
+sha256 = "d15ccc09ba7b5c7b267c84ae9074a1b2652afa9fc7472966a1b2738287b8f73e"
+
+[[artifacts]]
+path = "out/calibration-filesystem/build-review.toml"
+sha256 = "5972cf36a4253d655a803d7c9dfc66acd61dcdfe388004da14b0a3294034d961"
+
+[[artifacts]]
+path = "out/calibration-filesystem/build-04/manifest.toml"
+sha256 = "32eb4a6cec4b39e4c62a284db0aa57d1009879697d00a1f681eb1e6e37db0a9b"
+
+[[artifacts]]
+path = "out/calibration-filesystem/build-05/manifest.toml"
+sha256 = "32eb4a6cec4b39e4c62a284db0aa57d1009879697d00a1f681eb1e6e37db0a9b"
+
+[[artifacts]]
+path = "out/calibration-filesystem/verifier-smoke-results.toml"
+sha256 = "6b2b7d2af4af5dce47949db8dbb76cab9793abda22f1aa00939909fa63473f01"
+
+[[artifacts]]
+path = "out/calibration-filesystem/independent-archive-check.py"
+sha256 = "3e1a32442c9898142f20a6861a51ae2457a2afb93aca5813a52ef11c876c67dc"
+
+[[artifacts]]
+path = "out/calibration-filesystem/independent-archive-check.toml"
+sha256 = "eb0630a4ee9293436257b39bb7e030c9daed2a41b6ad3b09773f46d64e91a857"

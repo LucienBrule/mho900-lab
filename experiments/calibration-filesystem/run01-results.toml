@@ -1,0 +1,94 @@
+schema_version = "mho900-lab.calibration-filesystem-results/1"
+result = "accepted-root-shell-fixture"
+run_id = "calibration-filesystem-01"
+started_at = "2026-09-25T12:12:42Z"
+finished_at = "2026-09-25T12:12:54Z"
+derivative_sha256 = "98b4925f73aa77cd21a6d4e2a3f384056dba8b2d379162ad2c02f55f3a071398"
+original_ramdisk_unchanged = true
+original_archive_content_records_preserved = 46
+original_archive_trailer_preserved = true
+added_empty_directory = "rigol"
+mount_attempts = 1
+mount_succeeded = true
+mount_size_bytes = 4194304
+stock_files_roundtrip_matched = 2
+required_absent_paths = 4
+setup_command_statuses_zero = 24
+final_health_statuses_zero = 5
+system_server_pid = 1083
+system_server_samples = 3
+root_mount_read_only_before_and_after = true
+directory_mode = "0755"
+file_mode = "0644"
+owner_uid = 0
+owner_gid = 0
+underlying_directory_label = "u:object_r:rootfs:s0"
+mounted_directory_label = "u:object_r:tmpfs:s0"
+file_label = "u:object_r:su_tmpfs:s0"
+guest_enforcement_unchanged = true
+stock_application_executed = false
+stock_uid_file_access_observed = false
+physical_hardware_claim = false
+indexed_artifacts = 143
+frozen_aggregate_accepted = true
+stock_artifacts_unchanged = true
+dedicated_listeners_absent = true
+independent_canonical_verifier_accepted = true
+independent_altered_evidence_cases_rejected = 4
+altered_evidence_indexes_regenerated = true
+
+[[artifacts]]
+path = "experiments/calibration-filesystem/inputs.toml"
+sha256 = "c86a3b7769bfe852b9309b168979674d9c4e78d80e8d9e24a05e98b682103198"
+
+[[artifacts]]
+path = "docs/research/calibration-filesystem-results.md"
+sha256 = "46cd7ef15d498bd8a4b12e8232c6261740b8beab1184d6dcf864c827d5a247bb"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/result.toml"
+sha256 = "d1b20e38f96d21964bf5b322bd55b6638742c35090fba35b2e7877d8bfc6897a"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/evidence-sha256.txt"
+sha256 = "63bfa2c3e07028a57585a9b7d7b4000ac773c0193c291f23e41857790f07a9fc"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/fixture-command-status.toml"
+sha256 = "4b86190a629b2d6745f6de96e7d520252e9bc04c36ae247aa2383fc787b9e01e"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/fixture-before-mounts.txt"
+sha256 = "71c9af1494cec0a87f43ab41311a0690710d4a570c9bf8c58500d18cde5f7390"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/fixture-after-mounts.txt"
+sha256 = "abf8deb3e345209461271bb6d6bae0d7e50b459946631a2b7de5af01c2c568f7"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/fixture-after-labels.txt"
+sha256 = "b50220bcc4d0359a0da999f86f77d527368f67ac071e0fe4555f92672e997cf9"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-filesystem-01/final-health-status.toml"
+sha256 = "edf937ff07c06eeee07035140479692de6342d260051080d3816fdab6ea9dd4a"
+
+[[artifacts]]
+path = "out/calibration-filesystem/run01-verification.toml"
+sha256 = "27df6252969052c8e553f07dccfbc1adad548de18d46c78f0d76f602518d0d2f"
+
+[[artifacts]]
+path = "out/calibration-filesystem/run01-review/summary.toml"
+sha256 = "447a66ec5b51b12a010a6e09e33f56031a17d98493d0e58b2e89d7e1583a542b"
+
+[[artifacts]]
+path = "out/calibration-filesystem/run01-review/review.md"
+sha256 = "05b988d598796f3a405862626391712f9756954341f8d3b0ea2f1be754684196"
+
+[[artifacts]]
+path = "out/calibration-filesystem/run01-index-check.txt"
+sha256 = "8230f3f003ddc21661f8522117a8cbc0952da1c18a2a6a62f3248e53f5cc6d53"
+
+[[artifacts]]
+path = "out/calibration-filesystem/run01-preservation-hashes.txt"
+sha256 = "65e2671273a1e617c5066744a1c692db64501f19f5129c1136f61cec406f9944"
