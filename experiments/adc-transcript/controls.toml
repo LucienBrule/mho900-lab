@@ -1,0 +1,73 @@
+schema_version = "mho900-lab.adc-transcript-controls/1"
+task = "TASK.guest.transcript-control"
+scope = "Disposable guest private fixture; stock application absent"
+transcript_profile = 2
+protocol_capacity = 512
+compiled_reference_count = 452
+consumer_count_limit = 452
+count_limit_reason = "This consumer accepts only prefixes of the pinned compiled 452-word reference"
+deadline_ms = 10000
+thread_limit = 128
+setup_pass_limit = 16
+setup_event_limit = 256
+runtime_event_limit = 200000
+synthetic_reads = 2
+legacy_arms = "0..12, unchanged contracts"
+parser_rejections = ["magic", "version", "profile", "count", "reference-count", "reserved", "truncated", "trailing", "oversized", "binding", "table-count", "width", "offset"]
+parser_expected_exit = 2
+parser_target_created = false
+private_instruction_source = "Compiled reference array, independent of the loaded expected-input buffer"
+initial_shadows = ["0x67216721", "0x000b"]
+complete_final_shadows = ["0x47215721", "0x0000"]
+private_shadow_effect = "Fixture updates its software shadows after the complete command sequence; observer does not change them"
+stop_rule = "First unexpected access or live-input mismatch, followed by full thread-group quiescence and exact cleanup"
+expected_exit = 78
+
+[[arms]]
+id = 13
+case = "Complete sequence then main-thread read"
+writes = 452
+[[arms]]
+id = 14
+case = "Complete sequence then worker read"
+writes = 452
+[[arms]]
+id = 15
+case = "Wrong second operand"
+writes = 1
+[[arms]]
+id = 16
+case = "Wrong second offset"
+writes = 1
+[[arms]]
+id = 17
+case = "Second word attempted first"
+writes = 0
+[[arms]]
+id = 18
+case = "One-word input exhausted before second store"
+writes = 1
+[[arms]]
+id = 19
+case = "Worker attempts expected first store"
+writes = 0
+[[arms]]
+id = 20
+case = "64-bit store attempts expected first operand"
+writes = 0
+[[arms]]
+id = 21
+case = "Function binding differs"
+writes = 0
+[[arms]]
+id = 22
+case = "Initial software shadow differs"
+writes = 0
+[[arms]]
+id = 23
+case = "Live table word differs"
+writes = 0
+[[arms]]
+id = 24
+case = "Live initializer source differs"
+writes = 0

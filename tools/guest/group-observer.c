@@ -3,11 +3,19 @@
 #include "native-probe.c"
 #undef entry
 #include "thread-group.h"
-struct GmShared { unsigned ready,release,worker_go,worker_ack,mapped,hold; U worker,new_worker,mapping,output,arm; };
+#include "adc-transcript.h"
+struct GmShared {
+    unsigned ready,release,worker_go,worker_ack,mapped,hold;
+    U worker,new_worker,mapping,output,arm;
+    U at_slots[AT_BINDINGS];
+    unsigned at_addr[AT_TABLE_WORDS],at_value[AT_TABLE_WORDS],at_source[4];
+    unsigned at_shadow9; unsigned short at_shadow8,pad;
+    unsigned at_spu[4];
+};
 static struct GmShared *gm;
 static unsigned char gm_stack1[16384] __attribute__((aligned(16)));
 static unsigned char gm_stack2[16384] __attribute__((aligned(16)));
-extern char gm_first_pc[],gm_second_pc[],gm_worker_pc[],gm_store_pc[],gm_stop_pc[],gm_write_pc[];
+extern char gm_first_pc[],gm_second_pc[],gm_worker_pc[],gm_store_pc[],gm_stop_pc[],gm_write_pc[],gm_write64_pc[];
 __attribute__((naked)) static S gm_clone(U flags __attribute__((unused)),U stack __attribute__((unused)),void (*fn)(void) __attribute__((unused))) {
     __asm__ volatile("mov x9, x2\nmov x2, #0\nmov x3, #0\nmov x4, #0\nmov x8, #220\nsvc #0\ncbnz x0, 1f\nblr x9\nmov x0, #88\nmov x8, #93\nsvc #0\n1: ret");
 }
@@ -23,8 +31,55 @@ __attribute__((naked)) static U gm_worker_read(U address __attribute__((unused))
 __attribute__((naked)) static void gm_write(U address __attribute__((unused)),U value __attribute__((unused))) {
     __asm__ volatile("mov x8, x0\nmov x9, x1\n.global gm_write_pc\ngm_write_pc:\nstr w9, [x8]\nret");
 }
+__attribute__((naked)) static void gm_write64(U address __attribute__((unused)),U value __attribute__((unused))) {
+    __asm__ volatile("mov x8, x0\nmov x9, x1\n.global gm_write64_pc\ngm_write64_pc:\nstr x9, [x8]\nret");
+}
 __attribute__((naked)) static void gm_store(U value __attribute__((unused)),U object __attribute__((unused))) {
     __asm__ volatile("mov x8, x0\nmov x9, x1\n.global gm_store_pc\ngm_store_pc:\nstr x8, [x9]\n.global gm_stop_pc\ngm_stop_pc:\nnop\nret");
+}
+static unsigned char gm_at_bytes[AT_MAX_BYTES+1];
+static struct AtInput gm_at;
+static int gm_transcript;
+static void gm_private_leader(U observer);
+static int gm_at_reject(const char *reason,U actual,U expected) {
+    event("transcript-input-rejected"); put("reason = \""); put(reason); put("\"\n"); hex("actual",actual); hex("expected",expected); return 0;
+}
+static int gm_at_load(const char *path,unsigned profile,unsigned required_count) {
+    S fd=sys(56,(U)-100,(U)path,0,0,0,0); if(fd<0) return gm_at_reject("open",fd,0);
+    U used=0;
+    while(used<sizeof(gm_at_bytes)) { S n=sys(63,fd,(U)(gm_at_bytes+used),sizeof(gm_at_bytes)-used,0,0,0); if(n<0) { sys(57,fd,0,0,0,0,0); return gm_at_reject("read",n,0); } if(!n) break; used+=(U)n; }
+    sys(57,fd,0,0,0,0,0);
+    if(used>AT_MAX_BYTES) return gm_at_reject("oversize",used,AT_MAX_BYTES);
+    if(used<AT_FIXED_BYTES) return gm_at_reject("truncated",used,AT_FIXED_BYTES);
+    for(unsigned i=0;i<8;i++) if(gm_at_bytes[i]!=(unsigned char)"MHOADCT1"[i]) return gm_at_reject("magic",i,gm_at_bytes[i]);
+    unsigned count=at_u32(gm_at_bytes+24),total=at_u32(gm_at_bytes+16),actual_profile=at_u32(gm_at_bytes+20);
+    if(at_u32(gm_at_bytes+8)!=1 || at_u32(gm_at_bytes+12)!=64) return gm_at_reject("version",at_u32(gm_at_bytes+8),1);
+    if(actual_profile!=profile) return gm_at_reject("profile",actual_profile,profile);
+    if(!count || count>AT_FULL_WRITES || count!=required_count) return gm_at_reject("write-count",count,required_count);
+    if(total!=AT_FIXED_BYTES+8U*count || total!=used) return gm_at_reject("length",used,AT_FIXED_BYTES+8U*count);
+    if(at_u32(gm_at_bytes+28)!=AT_TABLE_WORDS || at_u32(gm_at_bytes+32)!=AT_BINDINGS || at_u32(gm_at_bytes+36)!=AT_SHADOWS || at_u32(gm_at_bytes+40)!=0x3000 || at_u32(gm_at_bytes+44)!=4) return gm_at_reject("shape",0,1);
+    for(unsigned i=48;i<64;i++) if(gm_at_bytes[i]) return gm_at_reject("reserved",i,0);
+    for(unsigned i=64;i<AT_FIXED_BYTES;i++) if(gm_at_bytes[i]!=at_reference[i]) return gm_at_reject("fixed-data",i,at_reference[i]);
+    for(unsigned i=0;i<count;i++) {
+        if(at_u32(gm_at_bytes+AT_FIXED_BYTES+8*i)!=at_ref_write_offset(i)) return gm_at_reject("write-offset",i,at_ref_write_offset(i));
+        if(at_u32(gm_at_bytes+AT_FIXED_BYTES+8*i+4)!=at_ref_write_value(i)) return gm_at_reject("write-value",i,at_ref_write_value(i));
+    }
+    gm_at.profile=profile; gm_at.count=count; gm_at.total=total; gm_at.bytes=gm_at_bytes;
+    event("transcript-input"); hex("profile",profile); hex("write_count",count); hex("total_size",total); hex("table_count",AT_TABLE_WORDS); hex("binding_count",AT_BINDINGS); hex("shadow_count",AT_SHADOWS); hex("write_offset",0x3000); hex("write_width",4);
+    event("transcript-input-accepted"); hex("profile",profile); hex("write_count",count); return 1;
+}
+static void gm_at_private_init(void) {
+    for(unsigned i=0;i<AT_TABLE_WORDS;i++) { gm->at_addr[i]=at_u32(at_reference+328+4*i); gm->at_value[i]=at_u32(at_reference+772+4*i); }
+    for(unsigned i=0;i<4;i++) gm->at_source[i]=at_u32(at_reference+1216+4*i);
+    gm->at_shadow9=0x67216721; gm->at_shadow8=0xb;
+    gm->at_slots[0]=(U)gm_private_leader; gm->at_slots[1]=(U)gm_at_private_init; gm->at_slots[2]=(U)gm_write;
+    gm->at_slots[3]=(U)gm_store; gm->at_slots[4]=(U)gm_write;
+    gm->at_slots[5]=(U)gm->at_addr; gm->at_slots[6]=(U)gm->at_value; gm->at_slots[7]=(U)gm->at_source; gm->at_slots[8]=(U)(gm->at_source+2);
+    gm->at_slots[9]=(U)&gm->at_shadow9; gm->at_slots[10]=(U)&gm->at_shadow8;
+    if(gm->arm==21) gm->at_slots[4]++;
+    if(gm->arm==22) gm->at_shadow9++;
+    if(gm->arm==23) gm->at_value[1]++;
+    if(gm->arm==24) gm->at_source[1]++;
 }
 static unsigned gm_load(unsigned *p) { return __atomic_load_n(p,__ATOMIC_ACQUIRE); }
 static void gm_publish(unsigned *p) { __atomic_store_n(p,1,__ATOMIC_RELEASE); check(sys(98,(U)p,1,128,0,0,0),"group-wake"); }
@@ -34,11 +89,13 @@ static void gm_wait_flag(unsigned *p) {
 static void gm_worker2(void) { gm_wait_flag(&gm->hold); quit(88); }
 static void gm_worker1(void) {
     gm_wait_flag(&gm->worker_go); gm_publish(&gm->worker_ack);
-    if(gm->arm==2 || gm->arm==4 || gm->arm==6 || gm->arm==10) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
+    if(gm->arm==2 || gm->arm==4 || gm->arm==6 || gm->arm==10 || gm->arm==14) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
+    if(gm->arm==19) { gm_wait_flag(&gm->mapped); gm_write(gm->mapping+at_ref_write_offset(0),at_ref_write_value(0)); quit(88); }
     gm_wait_flag(&gm->hold); quit(88);
 }
 static void gm_private_leader(U observer) {
     check(sys(167,1,9,0,0,0,0),"parent-death-signal"); if(sys(173,0,0,0,0,0,0)!=(S)observer) quit(72);
+    if(gm_transcript) gm_at_private_init();
     S worker=gm_clone(0x10f00,(U)(gm_stack1+sizeof(gm_stack1)),gm_worker1); check(worker,"group-existing-worker");
     gm->worker=worker; gm_publish(&gm->ready); gm_wait_flag(&gm->release);
     gm_publish(&gm->worker_go); gm_wait_flag(&gm->worker_ack);
@@ -59,11 +116,61 @@ static void gm_private_leader(U observer) {
     if(gm->arm==10) { gm_write(mapping+0x3000,0x05630000); gm_write(mapping+0x3000,0x01630000); gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
     if(gm->arm==11) { gm_write(mapping+0x3000,0x05630000); gm_write(mapping+0x3000,0x01630001); quit(88); }
     if(gm->arm==12) { gm_write(mapping+0x3000,0x05630000); gm_write(mapping+0x3004,0x01630000); quit(88); }
+    if(gm->arm>=13) {
+        unsigned limit=(gm->arm==15 || gm->arm==16 || gm->arm==18)?2:AT_FULL_WRITES;
+        if(gm->arm==17) { gm_write(mapping+at_ref_write_offset(1),at_ref_write_value(1)); quit(88); }
+        if(gm->arm==19) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+        if(gm->arm==20) { gm_write64(mapping+at_ref_write_offset(0),at_ref_write_value(0)); quit(88); }
+        for(unsigned i=0;i<limit;i++) {
+            U address=mapping+at_ref_write_offset(i); U value=at_ref_write_value(i);
+            if(gm->arm==15 && i==1) value++;
+            if(gm->arm==16 && i==1) address+=4;
+            gm_write(address,value);
+        }
+        if(limit==AT_FULL_WRITES) { gm->at_shadow9=0x47215721; gm->at_shadow8=0; }
+        if(gm->arm==14) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+        if(gm->arm==13) { gm->output=gm_second(mapping+0x4040); quit(88); }
+        gm_wait_flag(&gm->hold); quit(88);
+    }
     quit(88);
 }
 static int gm_armed,gm_next,gm_one_write,gm_pair,gm_confirmed[128];
 static U gm_base,gm_mapping,gm_target,gm_object,gm_responses,gm_writes,gm_write_offset,gm_write_value,gm_wait_count;
-static int gm_private;
+static int gm_private,gm_at_live_checked;
+static U gm_at_private_target(unsigned i) {
+    if(i==0) return (U)gm_private_leader; if(i==1) return (U)gm_at_private_init; if(i==2) return (U)gm_write; if(i==3) return (U)gm_store; if(i==4) return (U)gm_write;
+    if(i==5) return (U)gm->at_addr; if(i==6) return (U)gm->at_value; if(i==7) return (U)gm->at_source;
+    if(i==8) return (U)(gm->at_source+2); if(i==9) return (U)&gm->at_shadow9; return (U)&gm->at_shadow8;
+}
+static int gm_at_mismatch(const char *kind,U index,U actual,U expected) {
+    event("transcript-live-rejected"); put("category = \""); put(kind); put("\"\n"); hex("index",index); hex("actual",actual); hex("expected",expected); return 0;
+}
+static int gm_at_live(void) {
+    for(unsigned i=0;i<AT_BINDINGS;i++) {
+        const unsigned char *b=at_reference+64+24*i; U slot=at_u64(b+8),target=at_u64(b+16);
+        U actual=gm_private?gm->at_slots[i]:peek(tg_pid,gm_base+slot); U expected=gm_private?gm_at_private_target(i):gm_base+target;
+        event("transcript-binding"); hex("index",i); hex("binding_kind",at_u32(b)); hex("slot",slot); hex("expected_target",expected); hex("actual_target",actual); hex("match",actual==expected);
+        if(actual!=expected) return gm_at_mismatch("binding",i,actual,expected);
+    }
+    for(unsigned table=0;table<2;table++) for(unsigned i=0;i<AT_TABLE_WORDS;i++) {
+        U object=gm_private?(table?(U)gm->at_value:(U)gm->at_addr):gm_base+at_u64(at_reference+64+24*(5+table)+16);
+        unsigned actual=(unsigned)peek(tg_pid,object+4*i),expected=at_u32(at_reference+(table?772:328)+4*i);
+        event("transcript-table-word"); hex("table",table); hex("index",i); hex("object",object); hex("expected",expected); hex("actual",actual); hex("match",actual==expected);
+        if(actual!=expected) return gm_at_mismatch("table",table*AT_TABLE_WORDS+i,actual,expected);
+    }
+    static const U source_offsets[4]={0x994740,0x99473c,0x9948e0,0x9948dc};
+    for(unsigned i=0;i<4;i++) {
+        U object=gm_private?(U)(gm->at_source+i):gm_base+source_offsets[i]; unsigned expected=at_u32(at_reference+1216+4*i),actual=(unsigned)peek(tg_pid,object);
+        event("transcript-source-word"); hex("index",i); hex("object",object); hex("expected",expected); hex("actual",actual); hex("match",actual==expected);
+        if(actual!=expected) return gm_at_mismatch("source",i,actual,expected);
+    }
+    for(unsigned i=0;i<2;i++) {
+        const unsigned char *s=at_reference+1232+32*i; U slot=at_u64(s),object=gm_private?(i?(U)&gm->at_shadow8:(U)&gm->at_shadow9):gm_base+at_u64(s+8); unsigned width=at_u32(s+16),expected=at_u32(s+20),actual=(unsigned)peek(tg_pid,object); if(width==2) actual&=0xffff;
+        event("transcript-shadow"); put("phase = \"initial\"\n"); hex("index",i); hex("slot",slot); hex("object",object); hex("width",width); hex("expected",expected); hex("actual",actual); hex("match",actual==expected);
+        if(actual!=expected) return gm_at_mismatch("shadow",i,actual,expected);
+    }
+    event("transcript-live-state"); hex("valid",1); hex("checked_bindings",AT_BINDINGS); hex("checked_table_words",2*AT_TABLE_WORDS); hex("checked_sources",4); hex("checked_shadows",2); gm_at_live_checked=1; return 1;
+}
 static void gm_resume(struct TgThread *t) {
     if(!t || !t->live || !t->stopped) tg_fail("resume-state",t?t->tid:0);
     U op=t->tid==tg_pid && !gm_armed?24:7;
@@ -72,12 +179,22 @@ static void gm_resume(struct TgThread *t) {
 }
 static S gm_wait(int *status) {
     for(;;) {
+        if(gm_transcript && tg_now()>tg_deadline) tg_fail("runtime-deadline",gm_wait_count);
         S tid=sys(260,(U)-1,(U)status,0x40000001,0,0,0);
         if(tid<0) tg_fail("runtime-wait",tid);
         if(!tid) { tg_tick(); continue; }
         if(++gm_wait_count>200000) tg_fail("runtime-event-limit",gm_wait_count);
         event("runtime-wait"); hex("index",gm_wait_count-1); hex("tid",tid); hex("status",*status); return tid;
     }
+}
+static void gm_at_terminal(void) {
+    for(unsigned i=0;i<2;i++) {
+        const unsigned char *s=at_reference+1232+32*i; unsigned width=at_u32(s+16); U slot=at_u64(s),object=gm_private?(i?(U)&gm->at_shadow8:(U)&gm->at_shadow9):gm_base+at_u64(s+8);
+        unsigned initial=at_u32(s+20),final=at_u32(s+24),expected=gm_writes==AT_FULL_WRITES?final:initial,actual=(unsigned)peek(tg_pid,object); if(width==2) actual&=0xffff;
+        event("transcript-shadow"); put("phase = \"terminal\"\n"); hex("index",i); hex("slot",slot); hex("object",object); hex("width",width); hex("expected",expected); hex("actual",actual); hex("match",actual==expected);
+    }
+    static const U slots[4]={0xb8d288,0xb8bb48,0xb8d060,0xb8be90},targets[4]={0x3cb44fc,0x3cb44a0,0x3cb44f0,0x3cb44b0};
+    for(unsigned i=0;i<4;i++) { U object=gm_private?(U)&gm->at_spu[i]:peek(tg_pid,gm_base+slots[i]),expected=gm_private?(U)&gm->at_spu[i]:gm_base+targets[i]; event("transcript-spu-shadow"); hex("index",i); hex("slot",slots[i]); hex("object",object); hex("expected_object",expected); hex("object_match",object==expected); hex("value",object==expected?((unsigned)peek(tg_pid,object)):0); }
 }
 static void gm_registers(const char *kind,U tid,struct Regs *r) {
     event(kind); hex("tid",tid); hex("pc",r->pc); hex("relative_pc",gm_private?0:r->pc-gm_base);
@@ -136,8 +253,9 @@ static void gm_quiesce(U stopping_tid) {
     }
     nps_inventory_for(tg_pid,"terminal",stopping_tid);
     event("terminal-state"); hex("object",gm_object); hex("value",peek(tg_pid,gm_object)); hex("responses",gm_responses);
-    if(gm_one_write || gm_pair) { hex("modeled_writes",gm_writes); hex("write_offset",gm_writes?gm_write_offset:0); hex("write_value",gm_writes?gm_write_value:0); }
+    if(gm_one_write || gm_pair || gm_transcript) { hex("modeled_writes",gm_writes); hex("write_offset",gm_writes?gm_write_offset:0); hex("write_value",gm_writes?gm_write_value:0); }
     if(gm_private) { hex("worker_ack",gm_load(&gm->worker_ack)); hex("fixture_new_tid",gm->new_worker); }
+    if(gm_transcript) gm_at_terminal();
     tg_cleanup();
 }
 static void gm_observe(U pid,U base,int private) {
@@ -150,7 +268,8 @@ static void gm_observe(U pid,U base,int private) {
     event("model-binding"); hex("pid",pid); hex("base",base); hex("target",gm_target); hex("object",gm_object); hex("initial_value",peek(pid,gm_object));
     hex("first_pc",private?(U)gm_first_pc:base+0x270604); hex("second_pc",private?(U)gm_second_pc:base+0x270604);
     hex("worker_pc",private?(U)gm_worker_pc:0); hex("store_pc",private?(U)gm_store_pc:base+0x42a8ec);
-    if(gm_one_write || gm_pair) { hex("write_pc",private?(U)gm_write_pc:base+0x27043c); hex("write_opcode",0xb9000109); }
+    if(gm_one_write || gm_pair || gm_transcript) { hex("write_pc",private?(U)gm_write_pc:base+0x27043c); hex("write_opcode",0xb9000109); }
+    if(gm_transcript) { hex("write64_pc",private?(U)gm_write64_pc:0); hex("write64_opcode",0xf9000109); }
     hex("target_opcode",(unsigned)peek(pid,gm_target)); hex("store_opcode",(unsigned)peek(pid,private?(U)gm_store_pc:base+0x42a8ec));
     if(!private) { hex("got_slot",base+0xb8d758); hex("mmap_got",peek(pid,base+0xb850f0)); }
     nps_inventory(pid,"before-ready");
@@ -165,19 +284,33 @@ static void gm_observe(U pid,U base,int private) {
             gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
             if(gm_next && gm_responses==2) {
                 U offset=info[2]-gm_mapping,write_pc=private?(U)gm_write_pc:base+0x27043c;
-                U write_limit=gm_pair?2:1;
-                U expected_write=gm_pair && gm_writes==1?0x01630000:0x05630000;
-                if((gm_one_write || gm_pair) && gm_writes<write_limit && tid==pid && signal==11 && (unsigned)info[1]==2 &&
-                    gm_mapping && offset==0x3000 && r.x[8]==info[2] && r.pc==write_pc &&
+                U write_limit=gm_transcript?gm_at.count:(gm_pair?2:1);
+                int has_expected=gm_writes<write_limit;
+                U expected_offset=gm_transcript?(has_expected?at_u32(gm_at.bytes+AT_FIXED_BYTES+8*gm_writes):0):0x3000;
+                U expected_write=gm_transcript?(has_expected?at_u32(gm_at.bytes+AT_FIXED_BYTES+8*gm_writes+4):0):(gm_pair && gm_writes==1?0x01630000:0x05630000);
+                if(gm_transcript && !gm_at_live_checked && tid==pid && signal==11 && (unsigned)info[1]==2 && gm_mapping && offset<0x1000000 && r.x[8]==info[2] && r.pc==write_pc && (unsigned)peek(tid,r.pc)==0xb9000109) {
+                    if(!gm_at_live()) {
+                        event("transcript-write-rejected"); hex("tid",tid); hex("index",gm_writes); put("reason = \"live-state\"\n"); hex("offset",offset); hex("pc",r.pc); hex("actual_value",(unsigned)r.x[9]);
+                        event("unsupported-access"); hex("tid",tid); hex("responses",gm_responses); hex("writes",gm_writes); put("classification = \"mapped\"\n"); gm_quiesce(tid); quit(78);
+                    }
+                }
+                if((gm_one_write || gm_pair || gm_transcript) && gm_writes<write_limit && (!gm_transcript || gm_at_live_checked) && tid==pid && signal==11 && (unsigned)info[1]==2 &&
+                    gm_mapping && offset==expected_offset && r.x[8]==info[2] && r.pc==write_pc &&
                     (unsigned)peek(tid,r.pc)==0xb9000109 && (unsigned)r.x[9]==expected_write) {
                     struct Regs before=r; r.pc+=4; registers(tid,&r,1); struct Regs after={0}; registers(tid,&after,0);
                     for(int i=0;i<31;i++) if(after.x[i]!=before.x[i]) tg_fail("write-register",i);
                     if(after.pc!=before.pc+4 || after.sp!=before.sp || after.pstate!=before.pstate) tg_fail("write-state",0);
                     gm_write_offset=offset; gm_write_value=(unsigned)before.x[9]; gm_writes++;
                     event("modeled-write"); hex("tid",tid); hex("index",gm_writes-1); hex("offset",gm_write_offset); hex("value",gm_write_value); hex("width",4);
-                    gm_registers("write-registers",tid,&after); gm_resume(t); continue;
+                    if(gm_transcript) { event("transcript-write"); hex("tid",tid); hex("index",gm_writes-1); hex("pc",before.pc); hex("opcode",0xb9000109); hex("offset",gm_write_offset); hex("value",gm_write_value); hex("width",4); }
+                    gm_registers("write-registers",tid,&after); if(gm_transcript && gm_writes==gm_at.count) { event("transcript-complete"); hex("writes",gm_writes); } gm_resume(t); continue;
                 }
                 int mapped=gm_mapping && info[2]>=gm_mapping && info[2]<gm_mapping+0x1000000;
+                if(gm_transcript) {
+                    event(gm_writes>=write_limit?"transcript-boundary":"transcript-write-rejected");
+                    if(gm_writes<write_limit) { const char *reason=tid!=pid?"thread":signal!=11?"signal":(unsigned)info[1]!=2?"si-code":offset!=expected_offset?"offset":r.x[8]!=info[2]?"address-register":r.pc!=write_pc?"pc":(unsigned)peek(tid,r.pc)!=0xb9000109?"opcode":"value"; put("reason = \""); put(reason); put("\"\n"); }
+                    hex("tid",tid); hex("index",gm_writes); hex("signal",signal); hex("si_code",(unsigned)info[1]); hex("address",info[2]); hex("offset",offset); hex("pc",r.pc); hex("opcode",(unsigned)peek(tid,r.pc)); hex("actual_value",(unsigned)r.x[9]); hex("expected_offset",has_expected?expected_offset:0); hex("expected_value",has_expected?expected_write:0); hex("writes",gm_writes);
+                }
                 event("unsupported-access"); hex("tid",tid); hex("responses",gm_responses); hex("writes",gm_writes);
                 put("classification = \""); put(mapped?"mapped":"nonmapped"); put("\"\n");
                 gm_quiesce(tid); quit(mapped?78:83);
@@ -238,6 +371,22 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
+    int transcript_control=argc==4 && equal(argv[1],"control-transcript");
+    int transcript_stock=argc==5 && equal(argv[1],"stock-transcript");
+    if(transcript_control || transcript_stock) {
+        U arm=transcript_control?parse(argv[2],10):0; if(transcript_control && (arm<13 || arm>24)) quit(2);
+        unsigned profile=transcript_stock?1:2,required_count=arm==18?1:AT_FULL_WRITES; if(!gm_at_load(argv[transcript_stock?4:3],profile,required_count)) quit(2);
+        gm_transcript=1; gm_next=1; tg_deadline=tg_now()+10000;
+        if(transcript_stock) {
+            U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); hex("continuation",1); hex("one_write",0); hex("pair_write",0); hex("transcript",1); hex("profile",1); hex("write_count",gm_at.count); gm_observe(pid,base,0); quit(2);
+        }
+        S memory=sys(222,0,16384,3,0x21,(U)-1,0); check(memory,"model-shared-mmap"); gm=(struct GmShared *)memory;
+        gm->arm=arm; gm->output=(U)-1; U observer=sys(172,0,0,0,0,0,0);
+        S pid=sys(220,17,0,0,0,0,0); check(pid,"model-private-clone"); if(!pid) gm_private_leader(observer);
+        while(!gm_load(&gm->ready)) tg_tick();
+        event("model-mode"); put("scope = \"private\"\n"); hex("arm",arm); hex("pid",pid); hex("fixture_worker",gm->worker); hex("continuation",1); hex("one_write",0); hex("pair_write",0); hex("transcript",1); hex("profile",2); hex("write_count",gm_at.count);
+        gm_observe(pid,0,1); quit(2);
+    }
     if(argc==4 && (equal(argv[1],"stock") || equal(argv[1],"stock-next") || equal(argv[1],"stock-write") || equal(argv[1],"stock-pair-write"))) {
         gm_next=equal(argv[1],"stock-next"); gm_one_write=equal(argv[1],"stock-write"); gm_pair=equal(argv[1],"stock-pair-write"); if(gm_pair) gm_one_write=1; if(gm_one_write) gm_next=1;
         U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); hex("continuation",gm_next); hex("one_write",gm_one_write&&!gm_pair); hex("pair_write",gm_pair); gm_observe(pid,base,0);

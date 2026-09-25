@@ -1,0 +1,215 @@
+schema_version = "mho900-lab.adc-transcript-control-results/1"
+task = "TASK.guest.transcript-control"
+run = "out/guest-admission/group-adc-transcript-01"
+scope = "Private fixture in disposable guest"
+stock_application_run = false
+binary_sha256 = "00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a"
+compiled_reference_sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+legacy_arms_passed = 13
+transcript_arms_passed = 12
+parser_rejections_passed = 13
+full_sequence_cases = 2
+full_sequence_writes_each = 452
+aggregate_transcript_writes = 907
+initial_threads_each = 2
+terminal_threads_each = 3
+exact_cleanup_each = true
+system_server_pid = 1124
+system_server_samples = 28
+system_server_unchanged = true
+enforcing_before_after = true
+stock_package_absent = true
+dedicated_services_stopped = true
+deadline_ms = 10000
+consumer_count_limit = 452
+protocol_capacity = 512
+
+[verification]
+frozen_run_verifier_passed = true
+stronger_current_verifier_passed_same_evidence = true
+private_function_symbols_independently_checked = true
+private_data_layout_independently_checked = true
+non_pc_registers_preserved = true
+later_guest_rerun_for_verifier_review = false
+mutated_binding_evidence_rejected = true
+mutated_post_register_evidence_rejected = true
+initial_mutation_harness_failure = "Pattern omitted TOML quotes and made no change; unchanged evidence was accepted. Preserved first script/output. Corrected helper asserts actual mutation before verification."
+terminal_adc_got_rechecked = false
+terminal_spu_got_rechecked = true
+fpga_behavior_established = false
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "ff4bbff90cb67a75468d10e8702f326eb1ff1f3f366e1c29e5509a5f4bc3ffae"
+
+[[artifacts]]
+path = "tools/guest/adc-transcript.h"
+sha256 = "31a837d9e92110c3f5d7b62e0f8909e6c17abd1588b66f3148a6fc550dc07448"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+sha256 = "77e7e7fff036b6f17b511ab93682333df6d24d706f97f21d84ebab7831a76024"
+
+[[artifacts]]
+path = "tools/guest/PrepareAdcInputControls.main.kts"
+sha256 = "b159e4c4b45fb66cb247dc28cd5b34a3c9c01047317f740e253bcaa2c8575c65"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcObserver.main.kts"
+sha256 = "f6bbc72f056b1d907d079c68fb379014de4291699a738e5eb13530f80e65046b"
+
+[[artifacts]]
+path = "tools/guest/admission-transcriptcontrol.sh"
+sha256 = "75bc3f0b7f531197950793be832024521eaeb0d0af80500c2a258ec897addbf5"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "a59e687d02b35c30b08858c0bfd3e493085177de251e50c05c65fb7e5f764023"
+
+[[artifacts]]
+path = "experiments/adc-transcript/controls.toml"
+sha256 = "2e03f4306c06aaac9e8f595447d8bbed2b25e63a2117973fbcf3605f5f2d196a"
+
+[[artifacts]]
+path = "docs/research/adc-transcript-controls.md"
+sha256 = "72a42c093aae2747455d8fdb2be30ac956206a2694218f21669af7dc644e4a83"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/evidence-sha256.txt"
+sha256 = "be99d8fa871f438fbb079fd23e96748424487995cd67f533986df4fdcf13a49b"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/source/VerifyAdcObserver.main.kts"
+sha256 = "1fe7597f61eca5047ffd063bb4b76d7f8c2a92676663a6864592a0baeb7c4dfb"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-private-one.bin"
+sha256 = "ff7b60aee0f2cc79c69d8f28b92dd50b12ee8de3f3a6b3df25027e7997376e93"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-private.bin"
+sha256 = "28471720179d4bf0e41911c0a4d29e108c89bbb4279d264793efb5f8ff9e866d"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-stock.bin"
+sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/binding.bin"
+sha256 = "0a716da8a0c22e3b8f7199badc97a1e7342b569c646ad28d1af4d410fb5911ec"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/count.bin"
+sha256 = "2cd199c5a6b45ee9082d89a776d9832c02ac19da567ab98f54f9d3083cf18163"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/magic.bin"
+sha256 = "0fa7c3d2300d18f132ad796484855450320edc9290b49f0338d25ac0e0a199c1"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/manifest.toml"
+sha256 = "263fe8caa30bc0dd74eaa46e7bf12cdc6b7360515f5ce7e9d3fd9be16386858a"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/offset.bin"
+sha256 = "28e856ff26b36b4e95c40eb1ba0ae8a57fdd079c198660cdc9c79ad4cb4f367c"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/oversized.bin"
+sha256 = "feb15617a9e42a66d27b1a7b8bd9b26fbd403de6f993e2a3f58bfdb6ecfade55"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/profile.bin"
+sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/reference-count.bin"
+sha256 = "c61dfc707d7c991fd152a52fbdbbe43d99e644c7d28ffe239773a9ee470cbfb5"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/reserved.bin"
+sha256 = "b9371f93fb8033f49bf00d5b50b7e361615f5361e940c2e6dc050f95c5b157dc"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/table-count.bin"
+sha256 = "52e2486de5714e1905ac984905a9abeb877242ad788d3f2d5f8446106a4ca2aa"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/trailing.bin"
+sha256 = "ad04ffa1d83820775d1c45a9327b33b070e547f3986c2f6312d8367e796137aa"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/truncated.bin"
+sha256 = "7915715dcc57477ab1d556e6d84d9cce882b153e40c2de035bf462163a7fdc3d"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/version.bin"
+sha256 = "8ecfa5d6fa97ea33fc612b3cedddec75f6d2c0a2012c457cc9c8b92f0d19cf57"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/adc-invalid/width.bin"
+sha256 = "20cb96ed76cc4d1befa295e5f8dd759b0f7f470bd1895cbf869a8e51ddf63066"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/group-control.elf"
+sha256 = "00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/result.toml"
+sha256 = "0e7d5743df567d025369fb9209b134dc910e2c667c344eca7293c834a4b4dba9"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/group-system-server.toml"
+sha256 = "9663937f69842fb25d724f8ce9494722a5eb1f3970119e8d621cad011c074770"
+
+[[artifacts]]
+path = "out/guest-admission/group-adc-transcript-01/group-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/adc-transcript/private-run-01-verification.toml"
+sha256 = "45c7546cdd9a61449ef4dde7dbf36a7159f95582e622ef06df463d67788af0be"
+
+[[artifacts]]
+path = "out/adc-transcript/private-run-01-independent-verification.toml"
+sha256 = "45c7546cdd9a61449ef4dde7dbf36a7159f95582e622ef06df463d67788af0be"
+
+[[artifacts]]
+path = "out/adc-transcript/check-compiled-reference.main.kts"
+sha256 = "512997aaaf49b9409a50d14aeb78aadf7c0316e9315b8bf2fa3a848afddb255d"
+
+[[artifacts]]
+path = "out/adc-transcript/compiled-reference-verification.toml"
+sha256 = "cd0ac62213e7fb5c6373a917f1781151c2d872818613444b25582c05b1d17951"
+
+[[artifacts]]
+path = "out/adc-transcript/check-private-layout.c"
+sha256 = "03a3f7523ef4d4d18f3c1532b466ef092f4ca7d87c86a6cc9232c0c4e54b2b92"
+
+[[artifacts]]
+path = "out/adc-transcript/private-layout.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/adc-transcript/check-evidence-mutations-01.main.kts"
+sha256 = "6c434265d1a72007f72668b546daa1649a19f5c789b4b876177a50ba9083c561"
+
+[[artifacts]]
+path = "out/adc-transcript/evidence-mutations-verification.stderr"
+sha256 = "84fe0699c500f7f7d4cda30abb568038ba93abfeee1e0cca6ce26bbc8ca5cf6d"
+
+[[artifacts]]
+path = "out/adc-transcript/check-evidence-mutations.main.kts"
+sha256 = "fbcbbd18585f5e1d95499f85555ce69b50a634a4d22d7000ec7dc0adae0f6446"
+
+[[artifacts]]
+path = "out/adc-transcript/evidence-mutations-02-verification.toml"
+sha256 = "7eb873d1ac627b4872ac369039d7ebe314fac5fd9034a07dfff56202c3dd0e06"
+
+[[artifacts]]
+path = "out/adc-transcript/evidence-mutations-02/post-register/verification.stderr"
+sha256 = "77a835944ffc7bb0325e76f95d6dc2efb90330bf0143c59b6448c734016d5da1"
+
+[[artifacts]]
+path = "out/adc-transcript/evidence-mutations-02/reported-binding/verification.stderr"
+sha256 = "703ef64ce1577d732b5d204fb958d6e247d093cccb1b06430b4791b59879c2ac"
