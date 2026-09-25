@@ -1,0 +1,71 @@
+schema_version = "mho900-lab.adc-sequence-private-result/2"
+result = "all-private-controls-and-final-audit-accepted"
+run_id = "private-adc-sequence-03"
+task = "TASK.guest.adc-sequence-private-run-03"
+freeze_commit = "6e9a8cb"
+freeze_sha256 = "1fc6afca5a9fe44a9e080bda07ff39680555d6eb4b206a3ba3d669848c4ca13f"
+runner_exit = 0
+guest_launches = 1
+private_arms_executed = 12
+private_arms_accepted = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112]
+complete_arm_operations = 99
+complete_arm_writes = 97
+complete_arm_reads = 2
+complete_arm_atomic = 1
+complete_arm_worker_ack = 1
+complete_arm_final_shadows = 33
+complete_arm_terminal_instruction_executed = false
+system_server_pid = 1052
+system_server_continuity = true
+enforcing = true
+final_health_commands_succeeded = true
+cleanup_succeeded = true
+indexed_artifacts_verified = 649
+consumed_artifacts_verified = 413
+suite_audit_exit = 0
+suite_audit_accepted = true
+stock_installed = false
+stock_artifacts_changed = false
+physical_access = false
+rerun_performed = false
+stock_sequence_execution_observed = false
+
+[[evidence]]
+path = "out/guest-admission/private-adc-sequence-03/evidence-sha256.txt"
+sha256 = "1fc38bc5ad5d8ed30ced1caf3e3272befe1c6689c3f0148959467d8b3a78d70c"
+
+[[evidence]]
+path = "out/guest-admission/private-adc-sequence-03/result.toml"
+sha256 = "79e4d9ba46d2799b58e6c44d565cf72410a41c78c6dfb6c1bc539012cb1cb350"
+
+[[evidence]]
+path = "out/adc-worker-width/run03-suite-audit.toml"
+sha256 = "b032ef1ba2a6c695203b992c9e068a72954e891532c30e6bf1a26f094801650d"
+
+[[evidence]]
+path = "out/adc-worker-width/run03-suite-audit.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[evidence]]
+path = "out/adc-worker-width/run03-index-audit.txt"
+sha256 = "6a238673371b3e4da16d966c4ca8769b52f438cf35fb6b9d524fe090e9e30173"
+
+[[evidence]]
+path = "out/adc-worker-width/run03-ports.toml"
+sha256 = "76e88f83900f58fd7125657884193421ef16c80ebc7db45515da37d92cdea5ca"
+
+[[evidence]]
+path = "out/adc-worker-width/stock-before-run03.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[evidence]]
+path = "out/adc-worker-width/stock-after-run03.txt"
+sha256 = "e059fcf2c5088447ddbe302086d9fcf756f80f4ac3c9efdf422ced1d077eb686"
+
+[[evidence]]
+path = "out/adc-worker-width/run03.stdout"
+sha256 = "79e4d9ba46d2799b58e6c44d565cf72410a41c78c6dfb6c1bc539012cb1cb350"
+
+[[evidence]]
+path = "out/adc-worker-width/run03.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
