@@ -26,7 +26,7 @@ runner_collect_boot() {
 }
 
 runner_health() {
-    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel)
+    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel)
         if [ "$boot" = completed ] && [ "$health_attempted" = false ]; then
             health_attempted=true
             health_rc=0

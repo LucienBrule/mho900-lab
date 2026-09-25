@@ -16,3 +16,27 @@ task gains that gate as a prerequisite. No guest runs during implementation; a
 stock run follows only an accepted, pushed gate and the existing free-space check.
 The broader initialization architecture is unchanged: this corrects missing
 health evidence before the planned bulk software-input observation.
+
+## Repair verification
+
+The dispatch now includes both new modes. Seven host cases passed for each of
+`loadermodel`, `adcinputcontrol`, and `adcinputmodel`: normal completion, mandatory
+collection failure, optional collection failure, early abort, final-health failure,
+and index failure paths. Each booted case attempts health exactly once; cleanup
+runs exactly once, and failed mandatory collection prevents admission.
+
+The revised full stock checker accepts an independent synthetic positive fixture
+and rejects an independently copied fixture containing the old runtime, even with
+a regenerated evidence index. Native source, capture header, binary, capture
+checker, and stock artifact identities are unchanged. No guest was launched for
+this repair. The original unexecuted stock manifest is retained as
+`stock-initial-inputs.toml`; `stock-inputs.toml` revision 2 binds the corrected
+runtime, revised task contract, and accepted private result.
+
+Reproduce the dispatch controls with fresh directories:
+
+```sh
+sh tools/guest/test-admission-runtime.sh out/health-loader loadermodel
+sh tools/guest/test-admission-runtime.sh out/health-private adcinputcontrol
+sh tools/guest/test-admission-runtime.sh out/health-stock adcinputmodel
+```

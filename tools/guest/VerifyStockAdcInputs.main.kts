@@ -63,14 +63,14 @@ require(field(nativeInput,"capture_header_sha256")==captureInputHeaderSha256)
 require(bytes("source/adc-input-capture-inputs.toml").contentEquals(bytes("source/calibration-stock-runtime-inputs.toml")))
 val runtimePins=mapOf(
     "run-admission.sh" to "5602dbc61ca2e8e62e6b0feaa38c86af4e62232ca41d4de1656a62a260ee452b",
-    "admission-runtime.sh" to "e931d00a13fdf446b883d897728f54c0942d413cb47c671cf0ba087c7dc9ea16",
+    "admission-runtime.sh" to "ff3719a94bfa79a3766d06833e139482e05536c06e571f7f3a69701641b9ad65",
     "admission-label.sh" to "48559c82b85393369bae7c28885bd154b5744b3f7ac8c15f03a7569a13c1a7bd",
     "admission-loadermodel.sh" to "97cfe4e4f2210095ec144ce4305e525811e355830dbec9ac427b488eaf24fc49",
     "group-probe.sh" to "7dc57f09dac8cc66e3580927558448a211c6eeb8cf4899bfff2c855d2312dbc2",
     "stage-userdata.sh" to "91e27fa3deeebd30e5535409527e04b8603ea8dd1bd426b941b11e1ec36ed47c",
     "VerifyAdcInputCapture.main.kts" to "cc6fbe8e2e0bab9c78b6908e7d014ca100be078d9481a36f76baee76c38d9401")
 runtimePins.forEach{(name,digest)->require(hash("source/$name")==digest){"actual runtime source $name"}}
-for(required in listOf("schema_version = \"mho900-lab.adc-input-capture/1\"","task = \"TASK.guest.adc-input-capture-stock\"","task_contract = \"sha256:11f50d96378235c2c826f666dde80f862de3f9f2ab7c22d6636a73fd259e8de8\"","mode = \"adcinputmodel\"","run_id = \"stock-adc-input-capture-01\"","terminal_relative_pc = 0x333ba8","terminal_opcode = 0x97fb9b9e","terminal_instruction_executes = false","new_modeled_reads = 0","new_modeled_writes = 0","physical_access = false"))require(required in stockInputs)
+for(required in listOf("schema_version = \"mho900-lab.adc-input-capture/1\"","task = \"TASK.guest.adc-input-capture-stock\"","task_contract = \"sha256:bc067ab4e1ebc1e68fa7de54cfdc99c86f19201a4f6a2f5d7e9cee035b021cab\"","mode = \"adcinputmodel\"","run_id = \"stock-adc-input-capture-01\"","terminal_relative_pc = 0x333ba8","terminal_opcode = 0x97fb9b9e","terminal_instruction_executes = false","new_modeled_reads = 0","new_modeled_writes = 0","physical_access = false"))require(required in stockInputs)
 require(hash("calibration-loader-candidate.toml")=="6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3")
 val buildInputs=text("build-inputs.txt")
 for ((name,digest) in mapOf("group-observer.c" to captureSourceSha256,"calibration-loaders.h" to captureHeaderSha256,"adc-parameter-capture.h" to captureInputHeaderSha256)) {
@@ -310,6 +310,7 @@ fun verify(){
 	 val q=es.single{it.kind=="terminal-quiesce"};require(q.u("stopping_tid")==pid&&loaderCps.last().u("pc")==base+0x333ba8uL&&es.indexOf(loaderSummary)<es.indexOf(q));val terminalTids=inventory("terminal",q.u("stopping_tid"));require(terminalTids==tracked.toSet());val terminalState=es.single{it.kind=="terminal-state"};require(es.indexOf(q)<es.indexOf(terminalState)&&terminalState.u("object")==obj&&terminalState.u("value")==0x0123456789abcdefuL&&terminalState.u("responses")==2uL&&terminalState.u("modeled_writes")==466uL);require(es.none{it.kind in setOf("terminal-cleanup-deadline","unexpected-runtime-signal")});val cleanup=es.single{it.kind=="group-cleanup"};val reaped=es.filter{it.kind=="group-reaped"};require(reaped.size==cleanup.u("reaped_count").toInt()&&cleanup.u("expected_count")==cleanup.u("reaped_count")&&cleanup.u("wait_result").toLong()==-10L&&reaped.all{it.u("status")==9uL}&&reaped.map{it.u("tid")}.toSet()==terminalTids&&reaped.map{it.u("tid")}.distinct().size==reaped.size&&es.last()==cleanup)
     require(text("native-status.toml").trim()=="exit_code = 78")
     require(hash("group-control.elf")==captureNativeSha256&&bytes("group-control.elf").contentEquals(bytes("group-executed.elf")))
+    require(text("result.toml").contains("final_health_attempted = true")&&text("result.toml").contains("runner_exit = 0"))
     require(text("result.toml").contains("mode = \"adcinputmodel\"")&&text("result.toml").contains("inspection = \"completed\""))
     require(text("native-enforcing.txt").trim()=="Enforcing"&&text("native-final-enforcing.txt").trim()=="Enforcing"&&text("final-enforcing.txt").trim()=="Enforcing")
     require(text("loader-final-package.txt").isBlank()&&text("final-packages.txt").isBlank())

@@ -2,7 +2,9 @@
 # Host-only controls for the sourced admission runtime. No guest is launched.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-out=${1:?Usage: test-admission-runtime.sh OUTPUT_DIRECTORY}
+out=${1:?Usage: test-admission-runtime.sh OUTPUT_DIRECTORY [loadermodel|adcinputcontrol|adcinputmodel]}
+control_mode=${2:-loadermodel}
+case "$control_mode" in loadermodel|adcinputcontrol|adcinputmodel) ;; *) exit 2;; esac
 [ ! -e "$out" ] || { echo "Output exists: $out" >&2; exit 2; }
 mkdir -p "$out/cases"
 runtime="$repo/tools/guest/admission-runtime.sh"
@@ -23,11 +25,11 @@ printf '%s\n' "$count" > "$ADMISSION_RUN/health-count.txt"
 EOF
     chmod +x "$run/source/admission-final-health.sh"
     set +e
-    CONTROL_CASE=$id CONTROL_RUN=$run CONTROL_RUNTIME=$runtime sh <<'EOF' > "$case_dir/stdout.txt" 2> "$case_dir/stderr.txt"
+    CONTROL_MODE=$control_mode CONTROL_CASE=$id CONTROL_RUN=$run CONTROL_RUNTIME=$runtime sh <<'EOF' > "$case_dir/stdout.txt" 2> "$case_dir/stderr.txt"
 set -eu
 run=$CONTROL_RUN
 run_id="runtime-$CONTROL_CASE"
-mode=loadermodel
+mode=$CONTROL_MODE
 sdk=/mock-sdk
 timeout_bin=/mock-timeout
 started=2026-09-25T00:00:00Z
@@ -163,6 +165,7 @@ cat > "$out/results.toml" <<EOF
 schema_version = "mho900-lab.admission-runtime-controls/1"
 result = "accepted"
 kind = "host-only-mocked-runtime"
+mode = "$control_mode"
 runtime_sha256 = "$runtime_hash"
 cases = 7
 guest_launched = false

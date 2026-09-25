@@ -1,16 +1,7 @@
 schema_version = "mho900-lab.adc-input-capture/1"
-freeze_revision = 2
-initial_freeze_path = "experiments/adc-input-capture/stock-initial-inputs.toml"
-initial_freeze_sha256 = "c3df69feece32dabc7c566cae7569ec5f363dc4f897c316436333627d6261879"
-initial_freeze_was_executed = false
-health_gate = "TASK.guest.adc-input-health-gate"
-health_gate_contract = "sha256:45fe6dc9e9055069ba67dfd80dad6167ad344afb633ebb5a8ebcc0eaa97f3f9e"
-accepted_private_result = "experiments/adc-input-capture/private-run01-results.toml"
-accepted_private_result_sha256 = "0a1ef9905f1eeb1cdf81ffdc388beaf652fa34dd10db008b4395e502e9308df7"
-
 question = "Which complete ADC candidate is selected by stock software state at the pre-call checkpoint?"
 task = "TASK.guest.adc-input-capture-stock"
-task_contract = "sha256:bc067ab4e1ebc1e68fa7de54cfdc99c86f19201a4f6a2f5d7e9cee035b021cab"
+task_contract = "sha256:11f50d96378235c2c826f666dde80f862de3f9f2ab7c22d6636a73fd259e8de8"
 mode = "adcinputmodel"
 run_id = "stock-adc-input-capture-01"
 expected_statuses = [192, 1794240, -1]
@@ -168,7 +159,7 @@ sha256 = "24c746bc1ec817491c79493b6ac0069830e25cb65bf14755ce35d434264e0194"
 
 [[artifacts]]
 path = "tools/guest/VerifyStockAdcInputs.main.kts"
-sha256 = "d1580db76854905dd98f51673c74133d1ddbc57292c2d562978fea580773313d"
+sha256 = "fde0a2c891b32ef215b2e58634d65c7f8f97d5a6c18c3441c092d2b72ccd4dfa"
 
 [[artifacts]]
 path = "tools/guest/VerifyStockCalibrationLoaders.main.kts"
@@ -260,7 +251,7 @@ sha256 = "46faf464f1b43e3adaf59a6462b3d2d9972ac38b6371e835dd8b0d414beb5a05"
 
 [[artifacts]]
 path = "tools/guest/admission-runtime.sh"
-sha256 = "ff3719a94bfa79a3766d06833e139482e05536c06e571f7f3a69701641b9ad65"
+sha256 = "e931d00a13fdf446b883d897728f54c0942d413cb47c671cf0ba087c7dc9ea16"
 
 [[artifacts]]
 path = "tools/guest/admission-spucontrol.sh"
@@ -420,7 +411,7 @@ sha256 = "288b0dbb2f9144ed39ab16e27e4248a57d9597bb921ab257eb475837fb5242fe"
 
 [[artifacts]]
 path = "tools/guest/test-admission-runtime.sh"
-sha256 = "f8e852633a0f6e187b4be754549b6241d0742495594850c43d3e1f9ca13d4e3b"
+sha256 = "774c69376b778525f7a684470189089c7ec165819e4a04be993980a4499ceeca"
 
 [[artifacts]]
 path = "tools/guest/test-stock-adc-inputs.main.kts"
@@ -537,11 +528,3 @@ sha256 = "097f3195c2d0a4197ac7d0326b029770ef2d1ae6299c8606cf7dde54ccd70dd3"
 [[artifacts]]
 path = "out/calibration-filesystem/build-04/ramdisk.img"
 sha256 = "98b4925f73aa77cd21a6d4e2a3f384056dba8b2d379162ad2c02f55f3a071398"
-
-[[artifacts]]
-path = "experiments/adc-input-capture/stock-initial-inputs.toml"
-sha256 = "c3df69feece32dabc7c566cae7569ec5f363dc4f897c316436333627d6261879"
-
-[[artifacts]]
-path = "experiments/adc-input-capture/private-run01-results.toml"
-sha256 = "0a1ef9905f1eeb1cdf81ffdc388beaf652fa34dd10db008b4395e502e9308df7"

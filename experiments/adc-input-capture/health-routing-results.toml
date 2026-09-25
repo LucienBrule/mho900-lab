@@ -1,0 +1,69 @@
+schema_version = "mho900-lab.adc-input-health-routing-result/1"
+result = "verified-ready-for-admission-evaluation"
+guest_runs = 0
+runtime_modes_tested = ["loadermodel", "adcinputcontrol", "adcinputmodel"]
+host_runtime_cases = 21
+all_expected_outcomes = true
+full_profile_synthetic_positive_accepted = true
+stale_runtime_rejected_after_reindex = true
+independent_copies = true
+original_evidence_preserved = true
+stock_initial_freeze_executed = false
+stock_freeze_revision = 2
+native_binary_sha256 = "c30ebe79fcc31512231c2c0a5d3a4b5795fba7179af70a22acb412db49bf0dbf"
+native_source_sha256 = "f04e3bedadbecdba54a4e3ab590b748ff88d3d1c421f06315e868b51a6dbe261"
+input_capture_checker_sha256 = "cc6fbe8e2e0bab9c78b6908e7d014ca100be078d9481a36f76baee76c38d9401"
+new_modeled_responses = 0
+physical_instrument_access = false
+
+[[artifacts]]
+path = "tools/guest/admission-runtime.sh"
+sha256 = "ff3719a94bfa79a3766d06833e139482e05536c06e571f7f3a69701641b9ad65"
+
+[[artifacts]]
+path = "tools/guest/test-admission-runtime.sh"
+sha256 = "f8e852633a0f6e187b4be754549b6241d0742495594850c43d3e1f9ca13d4e3b"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockAdcInputs.main.kts"
+sha256 = "d1580db76854905dd98f51673c74133d1ddbc57292c2d562978fea580773313d"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/stock-initial-inputs.toml"
+sha256 = "c3df69feece32dabc7c566cae7569ec5f363dc4f897c316436333627d6261879"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/stock-inputs.toml"
+sha256 = "85ed7a716d7ad91adae54b4b07288c8d4fe2e3148fc4ddde124234b042db8117"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/private-run01-results.toml"
+sha256 = "0a1ef9905f1eeb1cdf81ffdc388beaf652fa34dd10db008b4395e502e9308df7"
+
+[[artifacts]]
+path = "docs/research/adc-input-health-routing.md"
+sha256 = "fcd12639110dc3b0e75164ad2ff58fb3490bc48c68c2863b53321bdfa40c5280"
+
+[[artifacts]]
+path = "out/adc-input-health-routing/runtime-loadermodel/results.toml"
+sha256 = "399c1314a44e96884ab56df4155b8706d6e66110ea75c9f32517c0c6e27464d3"
+
+[[artifacts]]
+path = "out/adc-input-health-routing/runtime-adcinputcontrol/results.toml"
+sha256 = "664e98a7d3fce836090bc9784958b4ddd927efd540ac65dd8f721781ad22102f"
+
+[[artifacts]]
+path = "out/adc-input-health-routing/runtime-adcinputmodel/results.toml"
+sha256 = "de273d4bc7c4001d97fc59c76e499b45639d0458cf7a865ab992d9eb1b855323"
+
+[[artifacts]]
+path = "out/adc-input-health-routing/full-host/positive.toml"
+sha256 = "30cf42f93333ce5c8bc4f2adc1bdf1741aef4ba9a13b6bd9351c7a34ae062669"
+
+[[artifacts]]
+path = "out/adc-input-health-routing/full-host/preparation.toml"
+sha256 = "cb47f9c97a1a58d1776628e47acdf66cfb36b9775a8b192d3c61e176f859b844"
+
+[[artifacts]]
+path = "out/adc-input-health-routing/full-host/stale-result.toml"
+sha256 = "6780012958c3a97ad9d6c52826343da89595e598af830d0204b1a8aa82b7d58d"
