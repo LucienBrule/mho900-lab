@@ -15,6 +15,7 @@ The project is running initial guest experiments; no complete emulator or physic
 - [External native first mapped-register capture](docs/research/xdma-native.md)
 - [Synthetic single-read comparison and three-experiment conclusion](docs/research/xdma-single-read.md)
 - [Stock two-word identity composition and downstream dataflow](docs/research/xdma-identity-flow.md)
+- [Two-word observation and guest single-step control finding](docs/research/xdma-two-word.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

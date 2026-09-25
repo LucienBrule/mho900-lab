@@ -16,6 +16,19 @@ for which in 0 1 2 3; do
 done
 command=stock
 word=${NATIVE_TEST_WORD:-}
+pair=${NATIVE_TWO_WORD:-0}
+case "$pair" in 0|1) ;; *) exit 2;; esac
+if [ "$pair" = 1 ]; then
+    [ -z "$word" ] || exit 2
+    command=stock-pair
+    cp "$repo/experiments/xdma-two-word/fixture.toml" "$run/native-pair-fixture.toml"
+    adb shell '/data/local/tmp/native-probe control-pair 0' > "$run/native-pair-control.toml" 2>&1
+    rc=0
+    adb shell '/data/local/tmp/native-probe control-pair 1' > "$run/native-pair-negative.toml" 2>&1 || rc=$?
+    printf 'exit_code = %s\n' "$rc" > "$run/native-pair-negative-status.toml"
+    [ "$rc" = 78 ] || exit 3
+    kotlin "$run/source/VerifyPairControls.main.kts" "$run" > "$run/native-pair-controls-verification.toml"
+fi
 if [ -n "$word" ]; then
     case "$word" in 0|11223344) ;; *) exit 2;; esac
     command=stock-step
@@ -26,6 +39,11 @@ pid=$(adb shell pidof com.rigol.scope | tr -d '\r')
 case "$pid" in ''|*[!0-9]*) exit 2;; esac
 printf 'pid = %s\n' "$pid" > "$run/native-app-pid.toml"
 adb shell "cat /proc/$pid/cmdline; cat /proc/$pid/attr/current; cat /proc/$pid/maps" > "$run/native-before.txt"
+if [ "$pair" = 1 ]; then
+    adb pull /system/lib64/libc.so "$run/native-libc.so" > "$run/native-libc-pull.txt" 2>&1
+    shasum -a 256 "$run/native-libc.so" > "$run/native-libc-sha256.txt"
+    adb shell "ls /proc/$pid/task" > "$run/native-thread-ids.txt"
+fi
 actual=$(unzip -p "$run/installed.apk" lib/arm64-v8a/libscope-auklet.so | shasum -a 256); actual=${actual%% *}
 [ "$actual" = 4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e ]
 # The pinned APK's stored ELF starts at ZIP data offset 0xf05000; verifier derives it independently.
@@ -43,7 +61,10 @@ done
 if [ "$ready" = true ]; then
     adb shell 'test ! -e /dev/xdma0_bypass && ln -s /dev/null /dev/xdma0_bypass; ls -lZ /dev/xdma0_bypass' \
         > "$run/native-device.txt" 2>&1
-    sleep 3
+    for attempt in 1 2 3 4 5 6 7 8 9 10; do
+        if adb shell test -f /data/local/tmp/native-status.toml; then break; fi
+        sleep 1
+    done
 fi
 adb shell 'p=$(cat /data/local/tmp/native-pid); if [ -r /proc/$p/cmdline ] && grep -q native-probe /proc/$p/cmdline; then kill -9 $p; fi; rm -f /dev/xdma0_bypass' \
     > "$run/native-cleanup.txt" 2>&1 || true

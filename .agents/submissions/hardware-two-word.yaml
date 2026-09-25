@@ -1,0 +1,23 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.two-word
+contract: sha256:a1771bb92d579a5357bf4c86fd2712c536f887f6fce43b8f246583cbe6d7fb70
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T03:11:43Z"
+evidence:
+  controls: >-
+    docs/research/xdma-two-word.md SHA-256 44f751f24161c23a5b158ec1f42eb3a34b382a33446d98f1cb53db0d2309ee46
+    records four passing width/direction controls and a reproducible rejection in the two-read private control.
+    Both responses completed, then its first single-step advanced PC by four and reported SIGTRAP code 4.
+    The observer required code 2, terminated the control with status 9 and exited 73. The added unexpected-second-
+    access control was not reached. This closes a negative control result, not a successful composition test.
+  stock-observation: >-
+    The control gate prevented stock observer attachment and all stock device responses. Stock composition,
+    masking, global storage and the pre-converter stop remain unobserved dynamically. Original runtime sources
+    remain in out/guest-admission/two-word-01/source; no guest rerun or relaxed guard was used for this conclusion.
+  preservation: >-
+    experiments/xdma-two-word/results.toml SHA-256 279830653a4f2fd1377108a2affc1aea6f3fe4525558e689d317fa63fa02e415
+    pins fixture, sources, raw evidence index, helper ELF, reference code and verifier outputs. Independent Kotlin
+    checks validate admission, four access controls, exact negative step outcome and rejection of an altered code
+    fixture. Stock APK/native hashes match inputs. system_server stayed PID 1045 across three samples. Guest
+    cleanup completed and isolated experiment ports had no listeners. No physical instrument was accessed.

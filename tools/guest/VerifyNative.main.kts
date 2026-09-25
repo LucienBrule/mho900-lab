@@ -9,9 +9,10 @@ import java.util.zip.ZipFile
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read]" }
-val singleRead = args.size == 2
-if(singleRead) require(args[1] == "single-read")
+require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word]" }
+val singleRead = args.size == 2 && args[1] == "single-read"
+val twoWord = args.size == 2 && args[1] == "two-word"
+require(args.size == 1 || singleRead || twoWord) { "Unknown verification mode" }
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 fun text(name: String): String = Files.readString(run.resolve(name))
 fun sha256(path: Path): String {
@@ -121,6 +122,13 @@ data class Mapped(val base: ULong, val protection: ULong) : Event
 data class Response(val value: ULong, val pcBefore: ULong, val pcAfter: ULong,
     val before: ULong, val after: ULong, val unchanged: ULong, val output: ULong) : Event
 data class Output(val address: ULong, val raw: ULong, val completed: ULong) : Event
+data class StepBefore(val index: ULong, val pc: ULong, val opcode: ULong) : Event
+data class StepAfter(val index: ULong, val pc: ULong, val signal: ULong, val code: ULong, val address: ULong) : Event
+data class Boundary(val pc: ULong, val opcode: ULong, val objectAddress: ULong, val gotSlot: ULong,
+    val value: ULong, val completed: ULong, val steps: ULong, val limit: ULong) : Event
+data class GlobalStore(val phase: String, val pc: ULong, val objectAddress: ULong, val value: ULong) : Event
+data class Terminated(val status: ULong) : Event
+data class Rejected(val reason: String) : Event
 data class Fault(val signal: ULong, val code: ULong, val address: ULong, val mapping: ULong,
     val offset: ULong, val pc: ULong, val relativePc: ULong, val opcode: ULong,
     val registers: List<ULong>) : Event
@@ -143,6 +151,14 @@ fun events(name: String): List<Event> = text(name).split("[[events]]").drop(1).m
             number("destination_before"), number("destination_after"), number("other_registers_unchanged"),
             number("output_address"))
         "consumer-output" -> Output(number("address"), number("raw_word"), number("completed_reads"))
+        "step-before" -> StepBefore(number("index"), number("pc"), number("opcode"))
+        "step-after" -> StepAfter(number("index"), number("pc"), number("signal"), number("si_code"), number("address"))
+        "composition-boundary" -> Boundary(number("pc"), number("opcode"), number("object"), number("got_slot"),
+            number("value"), number("completed_reads"), number("steps"), number("step_limit"))
+        "global-store-before" -> GlobalStore("before", number("pc"), number("object"), number("value"))
+        "global-store-after" -> GlobalStore("after", number("pc"), number("object"), number("value"))
+        "terminated" -> Terminated(number("status"))
+        "response-guard-rejected", "step-rejected", "step-budget-exhausted" -> Rejected(fields.getValue("kind"))
         "fault" -> Fault(number("signal"), number("si_code"), number("address"), number("mapping"),
             number("offset"), number("pc"), number("relative_pc"), number("opcode"),
             (0..30).map { number("x" + it.toString().padStart(2, '0')) })
@@ -191,6 +207,17 @@ require(captured.filterIsInstance<Request>().single().lr == binding.base + 0x270
 val native = ZipFile(run.resolve("installed.apk").toFile()).use {
     it.getInputStream(it.getEntry("lib/arm64-v8a/libscope-auklet.so")).readBytes()
 }
+fun nativeWord(offset: ULong): ULong =
+    ByteBuffer.wrap(native, offset.toInt(), 4).order(ByteOrder.LITTLE_ENDIAN).int.toUInt().toULong()
+data class ExecMap(val start: ULong, val end: ULong, val fileOffset: ULong, val path: String)
+fun executableMaps(): List<ExecMap> = text("native-before.txt").lineSequence().mapNotNull { line ->
+    val fields = line.trim().split(Regex("\\s+"))
+    if (fields.size < 6 || !fields[1].contains('x')) null else {
+        val range = fields[0].split("-", limit = 2)
+        ExecMap(range[0].toULong(16), range[1].toULong(16), fields[2].toULong(16), fields.drop(5).joinToString(" "))
+    }
+}.toList()
+fun sha256Hex(path: Path): String = HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(path)))
 require(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(native)) ==
     "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e")
 require(fault.relativePc == 0x270604uL && access.operation == Operation.READ && access.width == 4)
@@ -224,6 +251,84 @@ if(singleRead) {
     println("synthetic_response = \"0x${expected.toString(16)}\"")
     println("next_offset = \"0x4044\"")
     println("completed_reads = 1")
+} else if(twoWord) {
+    val records = captured
+    val faults = records.filterIsInstance<Fault>()
+    require(faults.size == 2) { "two-word fault count" }
+    require(faults[0].offset == 0x4048uL && faults[1].offset == 0x4044uL)
+    require(faults.all { it.signal == 11uL && it.code == 2uL && it.opcode == 0xb9400109uL })
+    val (firstFault, firstAccess) = checkCapture(records)
+    val (secondFault, secondAccess) = checkCapture(records, 1)
+    require(firstAccess.operation == Operation.READ && firstAccess.width == 4 && firstAccess.register == 9)
+    require(secondAccess.operation == Operation.READ && secondAccess.width == 4 && secondAccess.register == 9)
+    require(firstFault.address == firstFault.registers[firstAccess.baseRegister] + firstAccess.immediate)
+    require(secondFault.address == secondFault.registers[secondAccess.baseRegister] + secondAccess.immediate)
+    require(secondFault.pc == firstFault.pc && secondFault.relativePc == firstFault.relativePc)
+    val responses = records.filterIsInstance<Response>()
+    require(responses.size == 2) { "two-word response count" }
+    require(responses[0].value == 0xe1234567uL && responses[1].value == 0x89abcdefuL)
+    require(responses[0].pcBefore == faults[0].pc && responses[0].pcAfter == faults[0].pc + 4uL)
+    require(responses[1].pcBefore == faults[1].pc && responses[1].pcAfter == faults[1].pc + 4uL)
+    require(responses.all { it.after == it.value && it.unchanged == 1uL })
+    require(responses[0].before == firstFault.registers[9] && responses[1].before == secondFault.registers[9])
+    val before = records.filterIsInstance<StepBefore>()
+    val after = records.filterIsInstance<StepAfter>()
+    require(before.size == after.size && before.size <= 256 && before.isNotEmpty())
+    require(before.map { it.index } == after.map { it.index })
+    require(before.map { it.index } == before.indices.map { it.toULong() })
+    require(before.first().pc == responses.last().pcAfter)
+    require(before.drop(1).map { it.pc } == after.dropLast(1).map { it.pc })
+    require(after.all { it.signal == 5uL && it.code == 2uL })
+    val libc = run.resolve("native-libc.so")
+    require(Files.isRegularFile(libc))
+    val libcManifest = text("native-libc-sha256.txt").lineSequence().first { it.isNotBlank() }
+    require(libcManifest.length >= 64 && sha256Hex(libc) == libcManifest.take(64))
+    val maps = executableMaps()
+    require(maps.any { it.path.contains("base.apk") } && maps.any { it.path.endsWith("/libc.so") })
+    for (step in before) {
+        val mapping = maps.singleOrNull { step.pc >= it.start && step.pc + 4uL <= it.end }
+            ?: error("step outside executable mapping")
+        val expected = when {
+            mapping.path.contains("base.apk") -> {
+                require(mapping.start == binding.base)
+                nativeWord(step.pc - binding.base)
+            }
+            mapping.path.endsWith("/libc.so") -> {
+                val offset = step.pc - mapping.start + mapping.fileOffset
+                require(offset + 4uL <= Files.size(libc).toULong())
+                ByteBuffer.wrap(Files.readAllBytes(libc), offset.toInt(), 4).order(ByteOrder.LITTLE_ENDIAN).int.toUInt().toULong()
+            }
+            else -> error("unknown executable mapping ${mapping.path}")
+        }
+        require(step.opcode == expected) { "step opcode mismatch at 0x${(step.pc - mapping.start).toString(16)}" }
+    }
+    require(before.none { it.pc == binding.base + 0x42a2b4uL })
+    val boundary = records.filterIsInstance<Boundary>().single()
+    require(boundary.pc == binding.base + 0x42a2b4uL && boundary.opcode == 0x97f7331fuL)
+    require(boundary.gotSlot == binding.base + 0xb8d758uL && boundary.objectAddress == binding.base + 0xbbccf0uL)
+    require(boundary.value == 0x0123456789abcdefuL && boundary.completed == 2uL && boundary.steps == before.size.toULong())
+    require(boundary.limit == 256uL && boundary.pc == after.last().pc)
+    val stores = records.filterIsInstance<GlobalStore>()
+    require(stores.size == 2)
+    val storeBefore = stores.single { it.phase == "before" }
+    val storeAfter = stores.single { it.phase == "after" }
+    require(storeBefore.pc == binding.base + 0x42a8ecuL && storeAfter.pc == binding.base + 0x42a8f0uL)
+    require(storeBefore.objectAddress == binding.base + 0xbbccf0uL && storeAfter.objectAddress == storeBefore.objectAddress)
+    require(storeBefore.value == 0x0123456789abcdefuL && storeAfter.value == storeBefore.value)
+    require(records.indexOf(storeBefore) < records.indexOf(storeAfter) && records.indexOf(storeAfter) < records.indexOf(boundary))
+    val terminated = records.filterIsInstance<Terminated>().single()
+    require(terminated.status and 0x7fuL == 9uL)
+    require(records.none { it is Rejected || it is Output })
+    val sequence: List<Event> = listOf(binding, records.filterIsInstance<Ready>().single(),
+        records.filterIsInstance<Opened>().single(), records.filterIsInstance<Request>().single(),
+        records.filterIsInstance<Mapped>().single(), faults[0], responses[0], faults[1], responses[1]) +
+        before.zip(after).flatMap { (pre, post) ->
+            if(pre.pc == storeBefore.pc) listOf(pre, storeBefore, post, storeAfter) else listOf(pre, post)
+        } + listOf(boundary, terminated)
+    require(records == sequence) { "Stock event order or extra event" }
+    println("two_word_value = \"0x0123456789abcdef\"")
+    println("two_word_steps = ${before.size}")
+    println("pre_converter_boundary = true")
 } else {
     require(captured.filterIsInstance<Fault>().size == 1 && captured.last() == fault)
     require(captured.none { it is Response || it is Output })
@@ -233,4 +338,4 @@ println("stock_operation = \"read\"")
 println("stock_width = 4")
 println("stock_offset = \"0x4048\"")
 println("stock_pc = \"0x270604\"")
-println("synthetic_values_supplied = $singleRead")
+println("synthetic_values_supplied = ${singleRead || twoWord}")

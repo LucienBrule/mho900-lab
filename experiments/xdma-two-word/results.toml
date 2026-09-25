@@ -1,0 +1,140 @@
+schema_version = "mho900-lab.two-word-results/1"
+classification = "negative-observer-control-result"
+run_id = "two-word-01"
+report = "docs/research/xdma-two-word.md"
+active_task = "TASK.hardware.two-word"
+decision_task = "TASK.hardware.two-word-decision"
+stock_composition_observed = false
+stock_device_responses = 0
+private_control_completed_reads = 2
+completed_single_steps = 1
+expected_single_step_code = 2
+observed_single_step_code = 4
+observed_single_step_signal = 5
+observed_pc_before = "0x211784"
+observed_pc_after = "0x211788"
+observed_opcode = "0xb3607d69"
+observer_exit = 73
+control_termination_status = 9
+width_direction_controls_passed = 4
+unexpected_second_access_control_reached = false
+stock_observer_attached = false
+system_server_pid = 1045
+system_server_stable = true
+stock_apk_preserved = true
+stock_library_preserved = true
+physical_device_access = false
+guest_torn_down = true
+source_snapshot = "out/guest-admission/two-word-01/source"
+post_run_verifier_added = "VerifyPairControls.main.kts step-rejected mode"
+invalid_code_fixture_rejected = true
+reference_repository = "https://github.com/torvalds/linux"
+reference_revision = "b2776bf7149bddd1f4161f14f79520f17fc1d71d"
+reference_tag = "v3.18"
+reference_is_verified_guest_source = false
+next_question = "Validate a code-4 single-step profile with complete private controls before the stock observation."
+successor_admitted = false
+
+[[artifacts]]
+path = "docs/research/xdma-two-word.md"
+sha256 = "44f751f24161c23a5b158ec1f42eb3a34b382a33446d98f1cb53db0d2309ee46"
+
+[[artifacts]]
+path = "experiments/xdma-two-word/fixture.toml"
+sha256 = "28e7e259bfcebb9d884e7d906f75c5029a1a8f1b65cecfdb0f63721c85a6196d"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "451e909408153aeb556e5f5afe260d186ad708e81b42d865e072fd0389b47a1d"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "b0c1e64bd026ef9f8e2b3713c7b507a4be51930c58ee9d71ab4e3376d3bfd291"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+sha256 = "2466111a7a029c145ba234336d3be034da7cbd640ae8b8181770e7e9bf6ade8b"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "487f6737a73c99e8331e3656c06aec00f3c63f2cd60a831ae19c969397fdd85a"
+
+[[artifacts]]
+path = "tools/guest/VerifyPairControls.main.kts"
+sha256 = "0f39f86c198d64021e0b98ba09dd2769a14632336356b63abc03c71261dfca05"
+
+[[artifacts]]
+path = "tools/guest/VerifyLabeling.main.kts"
+sha256 = "b94b997050f311fde12ba2b1dbce7c869ba595d1416ac42ee52a8e1032507bfc"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/source/VerifyPairControls.main.kts"
+sha256 = "117ba69b5b98bd67dec0242be9054df69f8ace25563187db7f95436201295186"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/evidence-sha256.txt"
+sha256 = "b2caef9f9e33920f219a5d93cc975fbf5f0692a4b1920dfb3370f4afd552fa05"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/native-probe.elf"
+sha256 = "8d557ffc1d1d2ff0b9d949b9797f5b7b37849fe679a115a25e4a4ad573674278"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/native-pair-control.toml"
+sha256 = "0520919cd31189ec00b60839b49665403da8d790f39e9fc96fbc3565c7174dfe"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/native-helper-status.toml"
+sha256 = "cde0ab406a27a2dd4f7e97fcd597bd08c06d7b95f9a612d858a4940e05f4b777"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/system-server-pid.toml"
+sha256 = "fa0d81c360a6eb7c8bafadb0b7bed7fd0d2f95c62ae7448fc4e23d26c2d263de"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/installed.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-01/result.toml"
+sha256 = "f281712c4a01d96338cda1a37a382bae9434ae21155b15466c0cad1940b2e42f"
+
+[[artifacts]]
+path = "out/xdma-two-word/admission-verification.toml"
+sha256 = "33bb789e114ac44f9ec2c6cf60fd1368af2445cb50dc72a0ec1a71f22d56ab5f"
+
+[[artifacts]]
+path = "out/xdma-two-word/rejection-verification.toml"
+sha256 = "240abe2d0957a6513d4bb0b83ca98c17caf85ddd10d66a5000baa266ee406cd6"
+
+[[artifacts]]
+path = "out/xdma-two-word/hash-verification.txt"
+sha256 = "be18fe11115acb43253b124e794eb206b08aaabe02381f26957ec10804df5f3c"
+
+[[artifacts]]
+path = "out/xdma-two-word/stock-native-sha256.txt"
+sha256 = "d251e61b2118fccc207161961f46c0aa99cbe287e695e3a3554443da7af990e3"
+
+[[artifacts]]
+path = "out/xdma-two-word/teardown.toml"
+sha256 = "dd290ea0a9856e61b202f550bd4be22355e498e35f03805f3c21f978f5310d42"
+
+[[artifacts]]
+path = "out/xdma-two-word/verifier-negative-code.txt"
+sha256 = "72cd9b60a5516f8a7442ebd2d998c67f4595c388f3c8e058ab47b45dc77aaae6"
+
+[[artifacts]]
+path = "out/xdma-two-word/verifier-negative-code-status.toml"
+sha256 = "d26625b7482ca023b1d2fc9113f63c62af045da9fa9dd31f2d3a16733812d9ec"
+
+[[artifacts]]
+path = "out/xdma-two-word/linux-pinned-debug-monitors.c"
+sha256 = "eac5c7fb172af1e453233414419439bd6ec20a99a24cd1c239f9c46d468ae533"
+
+[[artifacts]]
+path = "out/xdma-two-word/linux-pinned-siginfo.h"
+sha256 = "ac134a275f529a9f1ffb1310490a25b460001246a59a3ad26b94cae41bd22ba0"

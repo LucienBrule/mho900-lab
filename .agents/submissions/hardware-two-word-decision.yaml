@@ -1,0 +1,18 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.two-word-decision
+contract: sha256:3ecae8dd268c0809540c77e912564cbde0af418707dfc9efa872e9b9c2750892
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T03:11:43Z"
+evidence:
+  evaluation: >-
+    docs/research/xdma-two-word.md SHA-256 44f751f24161c23a5b158ec1f42eb3a34b382a33446d98f1cb53db0d2309ee46
+    distinguishes private control progress from the unexecuted stock observation. Upstream Linux v3.18 ARM64
+    at b2776bf7149bddd1f4161f14f79520f17fc1d71d assigns TRAP_HWBKPT in its single-step handler, consistent
+    with observed code 4. This is pinned reference evidence, not a verified source match for the guest kernel.
+    The device-model architecture is unchanged; the observer's assumed signal code needs a guest-specific profile.
+  next-question: >-
+    A separately admitted successor should test a pinned code-4 profile against the full private step and
+    unexpected-access controls, then attempt the same bounded stock observation. Keep the 256-step limit,
+    exact instruction and PC checks, two-response ceiling, termination and stock-byte checks. Commit and push
+    this negative conclusion before that successor. No additional guest run belongs to this closed attempt.

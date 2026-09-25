@@ -6,6 +6,7 @@ typedef long S;
 struct Regs { U x[31], sp, pc, pstate; };
 struct Iov { void *base; U size; };
 static volatile U control_output;
+extern char control_pair_stop[];
 static S sys(S n, U a, U b, U c, U d, U e, U f) {
     register U x0 __asm__("x0")=a, x1 __asm__("x1")=b, x2 __asm__("x2")=c;
     register U x3 __asm__("x3")=d, x4 __asm__("x4")=e, x5 __asm__("x5")=f;
@@ -64,9 +65,67 @@ static void control(U which) {
             __asm__ volatile("mov x9, #-1\nldr w9, [%0]\nstr x9, [%1]\nsub x10, %0, #4\nldr w10, [x10]"
                 :: "r"(address),"r"(&control_output) : "x9","x10","memory");
             break;
+        case 5:
+        case 6:
+            control_output=(U)-1;
+            __asm__ volatile("ldr w9, [%0]\nmov x11, x9\nsub x10, %0, %2\nldr w9, [x10]\n"
+                "bfi x9, x11, #32, #32\nand x9, x9, #0x01ffffffffffffff\nstr x9, [%1]\n"
+                ".global control_pair_stop\ncontrol_pair_stop:\nnop"
+                :: "r"(address),"r"(&control_output),"r"(which==5?4UL:8UL)
+                : "x9","x10","x11","memory");
+            break;
         default: quit(2);
     }
     quit(88); /* Reaching this means the guard failed. */
+}
+static void terminate_tracee(U pid) {
+    int status=0;
+    check(sys(129,pid,9,0,0,0,0),"terminate-tracee");
+    check(sys(260,pid,(U)&status,0x40000000,0,0,0),"reap-tracee");
+    event("terminated"); hex("status",status);
+    if((status&127)!=9) quit(76);
+}
+static void observe_composition(U pid,int child,U base) {
+    U target=child?(U)control_pair_stop:base+0x42a2b4;
+    for(U steps=0;steps<=256;steps++) {
+        struct Regs r; registers(pid,&r,0);
+        if(r.pc==target) {
+            U object=child?(U)&control_output:peek(pid,base+0xb8d758);
+            if(!child && (object!=base+0xbbccf0 ||
+                (unsigned)peek(pid,target)!=0x97f7331fU)) quit(75);
+            event("composition-boundary"); hex("pc",r.pc); hex("relative_pc",r.pc-base);
+            hex("opcode",(unsigned)peek(pid,r.pc)); hex("object",object);
+            hex("got_slot",child?0:base+0xb8d758); hex("value",peek(pid,object));
+            hex("completed_reads",2); hex("steps",steps); hex("step_limit",256);
+            terminate_tracee(pid); quit(0);
+        }
+        if(steps==256) break;
+        event("step-before"); hex("index",steps); hex("pc",r.pc);
+        hex("opcode",(unsigned)peek(pid,r.pc));
+        U store_object=0;
+        if(!child && r.pc==base+0x42a8ec) {
+            store_object=r.x[9];
+            if(store_object!=base+0xbbccf0) quit(75);
+            event("global-store-before"); hex("pc",r.pc);
+            hex("object",store_object); hex("value",r.x[8]);
+        }
+        check(pt(9,pid,0,0),"single-step");
+        int status=0; check(sys(260,pid,(U)&status,0x40000000,0,0,0),"step-wait");
+        if((status&255)!=127) { event("step-exit"); hex("status",status); quit(74); }
+        U info[16]={0}; check(pt(0x4202,pid,0,(U)info),"step-siginfo");
+        registers(pid,&r,0);
+        event("step-after"); hex("index",steps); hex("pc",r.pc);
+        hex("signal",(status>>8)&255); hex("si_code",(unsigned)info[1]);
+        hex("address",info[2]);
+        if(((status>>8)&255)!=5 || (unsigned)info[1]!=2) {
+            event("step-rejected"); terminate_tracee(pid); quit(73);
+        }
+        if(store_object) {
+            event("global-store-after"); hex("pc",r.pc);
+            hex("object",store_object); hex("value",peek(pid,store_object));
+        }
+    }
+    event("step-budget-exhausted"); terminate_tracee(pid); quit(72);
 }
 static void supervise(U pid,int child,U base,int respond,U response) {
     int status=0;
@@ -78,6 +137,8 @@ static void supervise(U pid,int child,U base,int respond,U response) {
         if((unsigned)peek(pid,base+0x270604)!=0xb9400109U ||
            (unsigned)peek(pid,base+0x27043c)!=0xb9000109U) quit(86);
         event("stock-binding"); hex("base",base); hex("mmap_got",peek(pid,base+0xb850f0));
+        if(respond==2 && ((unsigned)peek(pid,base+0x42a2b4)!=0x97f7331fU ||
+            peek(pid,base+0xb8d758)!=base+0xbbccf0)) quit(75);
     }
     event("ready"); hex("pid",pid);
     U fd=(U)-1, mapped=0, output_address=0; int pending_open=0,pending_map=0, completed=0;
@@ -95,23 +156,28 @@ static void supervise(U pid,int child,U base,int respond,U response) {
             hex("pc",r.pc); hex("relative_pc",r.pc-base); hex("opcode",opcode);
             hex("sp",r.sp); hex("pstate",r.pstate);
             for(int i=0;i<31;i++) { char key[]={'x',(char)('0'+i/10),(char)('0'+i%10),0}; hex(key,r.x[i]); }
-            if(respond && !completed) {
-                if(!mapped || address!=mapped+0x4048 ||
+            if(respond && completed<respond) {
+                U expected_offset=completed==0?0x4048:0x4044;
+                U value=respond==2?(completed==0?0xe1234567UL:0x89abcdefUL):response;
+                if(!mapped || address!=mapped+expected_offset ||
                    (child ? (opcode&0xffc0001fUL)!=0xb9400009UL :
                     (r.pc!=base+0x270604 || opcode!=0xb9400109UL))) {
-                    event("response-guard-rejected"); pt(17,pid,0,11); quit(78);
+                    event("response-guard-rejected");
+                    if(respond==2) terminate_tracee(pid); else pt(17,pid,0,11);
+                    quit(78);
                 }
                 output_address=child?(U)&control_output:peek(pid,r.x[29]-0x10);
                 U before=r.x[9], before_pc=r.pc;
-                r.x[9]=(unsigned)response; r.pc+=4;
+                r.x[9]=(unsigned)value; r.pc+=4;
                 registers(pid,&r,1);
                 struct Regs after; registers(pid,&after,0);
                 for(int i=0;i<31;i++) if(after.x[i]!=r.x[i]) quit(77);
                 if(after.pc!=r.pc || after.sp!=r.sp || after.pstate!=r.pstate) quit(77);
-                event("synthetic-response"); hex("value",response); hex("pc_before",before_pc);
+                event("synthetic-response"); hex("value",value); hex("pc_before",before_pc);
                 hex("pc_after",after.pc); hex("destination_before",before); hex("destination_after",after.x[9]);
                 hex("other_registers_unchanged",1); hex("output_address",output_address);
-                completed=1;
+                completed++;
+                if(respond==2 && completed==2) observe_composition(pid,child,base);
                 continue; /* Suppress just this fault; the unchanged next stock instruction executes. */
             }
             if(completed) {
@@ -168,6 +234,11 @@ void entry(U *stack) {
         S pid=sys(220,17,0,0,0,0,0); check(pid,"clone");
         if(!pid) control(4); else supervise(pid,1,0,1,response);
     } else if(argc==4 && equal(argv[1],"stock")) supervise(parse(argv[2],10),0,parse(argv[3],16),0,0);
+    else if(argc==3 && equal(argv[1],"control-pair")) {
+        U which=parse(argv[2],10); if(which>1) quit(2);
+        S pid=sys(220,17,0,0,0,0,0); check(pid,"clone");
+        if(!pid) control(5+which); else supervise(pid,1,0,2,0);
+    } else if(argc==4 && equal(argv[1],"stock-pair")) supervise(parse(argv[2],10),0,parse(argv[3],16),2,0);
     else if(argc==5 && equal(argv[1],"stock-step")) {
         U response=parse(argv[4],16); if(response!=0 && response!=0x11223344) quit(2);
         supervise(parse(argv[2],10),0,parse(argv[3],16),1,response);
