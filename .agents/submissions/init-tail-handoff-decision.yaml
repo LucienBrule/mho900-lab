@@ -1,0 +1,18 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.init-tail-handoff-decision
+contract: sha256:9b45a5f47d250e7e20c06cac1fdb6228daf54cab423b1555d45544f9b27a0e2b
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T10:46:00Z"
+evidence:
+  evaluation: >-
+    docs/research/init-tail-stock-gate.md evaluates the full private pass committed in ab14d57.
+    Frozen aggregate verification independent raw audit and altered-copy checks passed. The decision
+    separates guest observation reference-kernel explanation and synthetic hardware values. No stock
+    state propagation or physical register semantics have yet been established for this tail.
+  continuation: >-
+    experiments/init-tail/stock-gate.toml releases only TASK.hardware.stock-init-tail with exact native
+    fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182 and fixed stock input candidate
+    and handoff profile hashes. One fresh run must stop before0x2e57f8 without adaptation. Subsequent
+    work returns to static subsystem recovery or first-divergence analysis. Decision is committed and
+    pushed before implementation or execution of that stock validation.
