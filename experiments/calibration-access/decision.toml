@@ -1,0 +1,34 @@
+schema_version = "mho900-lab.calibration-access-decision/1"
+result = "private-file-access-control-before-stock"
+private_loader_observer_supported = true
+root_shell_filesystem_fixture_supported = true
+stock_file_readability_observed = false
+reference_policy_predicts_file_denial = true
+exact_compiled_allow_rules_confirmed = false
+new_model_responses = 0
+stock_application_run_admitted = false
+successor = "TASK.guest.calibration-file-access"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/run03-results.toml"
+sha256 = "d6d05bfd028c2723d129940b5a93eef9c4dcbb6ae550f9f0f484623326dad633"
+
+[[artifacts]]
+path = "experiments/calibration-filesystem/run01-results.toml"
+sha256 = "0dc900ff8edda2c324088bd319259f2b5a6897c4118369fa868c7b080ab8e086"
+
+[[artifacts]]
+path = "out/calibration-filesystem/stock-access-review.toml"
+sha256 = "3503de177f837e60b766ef38330f5b7650269f74e32bc255cc58af7e3aeb9d4f"
+
+[[artifacts]]
+path = "out/calibration-filesystem/stock-access-review.md"
+sha256 = "9c779b1e61103319228f9fc0d7b95365ecd83aa8c644b89502c646b5a10c4820"
+
+[[artifacts]]
+path = "docs/research/calibration-file-access-decision.md"
+sha256 = "ec94920c475bd9be23741891e63de3d731b9a9acb7813e910e7f4fdfd964ac96"
+
+[[artifacts]]
+path = ".agents/plans/calibration-file-access.yaml"
+sha256 = "b06cf04968ce26cbad1f174b59b564b14a2f386aed016d11996206cc4e58be7b"

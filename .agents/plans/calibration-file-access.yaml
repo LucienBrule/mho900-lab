@@ -1,0 +1,36 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-file-access
+    title: Measure the stock application domain's access to the calibration fixture
+    state: open
+    intent: Resolve measured tmpfs file labels before repeating stock initialization.
+    requires: [TASK.guest.calibration-loader-ready-gate]
+    requirements:
+      - Preserve the successful private loader and root-shell filesystem results; pin the exact guest policy and matching reference-source prediction separately from measured access.
+      - Build one narrowly scoped private Kotlin probe APK using a provenance-pinned public AOSP platform test key only if its certificate exactly matches the pinned disposable guest platform; preserve stock artifacts and make no admission or policy exception for this probe.
+      - Freeze the probe source APK toolchain fixture harness and independent verifier before one fresh guest run; reproduce the existing derived ramdisk and single tmpfs fixture unchanged and install no stock application.
+      - Verify the probe actually runs with UID1000 and system_app context; record fixed-directory metadata and independent getattr open and bounded complete read outcomes for both default files with errno hashes and available audit evidence. Do not change labels retry alternate layouts or relax enforcement on failure.
+      - Capture final system_server enforcement process package fixture-byte and teardown evidence on success or failure; distinguish an observed access denial from a harness failure or absent execution.
+      - Commit and push the exact result before another guest experiment; a negative result is a completed question and must lead to a separate deliberate fixture decision.
+    acceptance: [Commit and push a reproducible application-domain file-access result or precise precondition failure.]
+    verification: [provenance, controls, observation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-access-decision
+    title: Choose stock loader validation or one measured file-access fixture correction
+    state: open
+    intent: Use actual application-domain access to select the next bounded transition.
+    requires: [TASK.guest.calibration-file-access]
+    requirements:
+      - Compare actual process identity file operations and audit evidence with the static prediction; do not equate root-shell roundtrip success with stock-domain readability.
+      - If access is supported admit the bounded first-three-stock-loader experiment; if denied inspect the exact failing object and existing policy before proposing one narrow research fixture correction and corresponding controls.
+      - Treat an unexpected process domain certificate mismatch or missing observation as a distinct no-go; preserve original artifacts and current policy rather than adapting the experiment in place.
+      - Draft plan inspect admit and commit successor tasking before execution; keep every model response explicit and avoid physical instrument or host policy changes.
+    acceptance: [Commit and push an evidence-supported continuation decision.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
