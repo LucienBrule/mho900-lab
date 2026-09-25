@@ -1,0 +1,188 @@
+schema_version = "mho900-lab.exclusive-control-results/1"
+classification = "private-observer-differential"
+run_id = "exclusive-01"
+report = "docs/research/guest-exclusive-control.md"
+active_task = "TASK.guest.exclusive-control"
+decision_task = "TASK.guest.exclusive-control-decision"
+guest_boots = 1
+private_children = 4
+arm_order = ["cont", "step", "step", "cont"]
+attempts = [1, 8, 8, 1]
+terminal_store_status = [0, 1, 1, 0]
+initial_word = 1
+terminal_word = [0, 1, 1, 0]
+single_step_resumes = [0, 67, 67, 0]
+step_code_4_stops_per_stepped_arm = 66
+terminal_code_1_stops_per_arm = 1
+attempt_limit = 8
+step_limit = 128
+terminal_pc = "0x210fac"
+loop_pc = "0x210f90"
+control_elf_size = 6640
+control_elf_sha256 = "ea13209ed405080c38ca2bf072de4ac12c6816f03eee8f7905ad8e5d6dc4e151"
+all_arms_same_elf = true
+all_supervisor_exits = 0
+all_child_termination_statuses = 9
+replicated_outcome_difference = true
+exact_causal_mechanism_established = false
+stock_runtime_observed = false
+stock_retry_explanation = "Supported inference from private control; not independently reproduced here."
+sparrow_installed = false
+sparrow_launched = false
+device_responses = 0
+system_server_pid = 1057
+system_server_stable = true
+selinux_enforcing = true
+guest_torn_down = true
+reserved_ports_free = true
+stock_apk_preserved = true
+stock_library_preserved = true
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+physical_device_access = false
+verifier_matches_captured_source = true
+contradictory_word_fixture_rejected = true
+contradictory_word_verifier_exit = 3
+independent_read_only_review_completed = true
+next_question = "Can a private hardware execution breakpoint capture a precise terminal PC after uninterrupted exclusive-operation success?"
+successor_admitted = false
+
+[[artifacts]]
+path = "docs/research/guest-exclusive-control.md"
+sha256 = "f94b4728b26944bb070fa47dc09c0885c8b893f93317120d80c9e767ba4f008d"
+
+[[artifacts]]
+path = "experiments/guest-exclusive-control/fixture.toml"
+sha256 = "0916ea2c2a4f8cf3191cd098c564f1bf70a84c30a469c8f89e54149d77a748b6"
+
+[[artifacts]]
+path = "experiments/guest-baseline/inputs.toml"
+sha256 = "74bf7d1c840e524bcd058b606ef929e49af085f7014c51311ac0b9a372a911ca"
+
+[[artifacts]]
+path = "experiments/guest-admission/inputs.toml"
+sha256 = "097f3195c2d0a4197ac7d0326b029770ef2d1ae6299c8606cf7dde54ccd70dd3"
+
+[[artifacts]]
+path = "tools/guest/exclusive-control.c"
+sha256 = "86d0c35fde52689205c424595856b4fa1c349463d3d7587d79c3ba717fe5c901"
+
+[[artifacts]]
+path = "tools/guest/build-exclusive-control.sh"
+sha256 = "83f3680513a715e31c30bfbf8d068626c6a1fa2efce714efa36085f489e9c401"
+
+[[artifacts]]
+path = "tools/guest/admission-exclusive.sh"
+sha256 = "d2acb0e3ca0888a86e7a34a4aabd58231084ef6b61d2666d68293ffa4c49f796"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "5834be9639a3e31452df5fc7175dcda4eafa7557e278b102678b9fd8bfea31a0"
+
+[[artifacts]]
+path = "tools/guest/VerifyExclusive.main.kts"
+sha256 = "a9e07697528a74b347f9273208f66f816a5004ad62e8fb09232fda1778ad2aef"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/evidence-sha256.txt"
+sha256 = "3692a9b44d7dc3f2886d957566c2dced2f12a70741340e9dd985c96f78336dbf"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/source/exclusive-control.c"
+sha256 = "86d0c35fde52689205c424595856b4fa1c349463d3d7587d79c3ba717fe5c901"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/source/VerifyExclusive.main.kts"
+sha256 = "a9e07697528a74b347f9273208f66f816a5004ad62e8fb09232fda1778ad2aef"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/build-inputs.txt"
+sha256 = "73a397ce5bc3e04e930064c3bcd1c57edf3beac206eb837606a4dce8cf1ac776"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/input-sha256.txt"
+sha256 = "ac2b8a409c716663a6d3daa87e47c10f9383619432905cb63e948438071f626a"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-control.elf"
+sha256 = "ea13209ed405080c38ca2bf072de4ac12c6816f03eee8f7905ad8e5d6dc4e151"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-0.toml"
+sha256 = "3272bd78fa033aaae93d40ea37382ce0d9b534904c52208d3eb461e03689d8d1"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-1.toml"
+sha256 = "545beeccf32a526e9a16f17bba718e063f1303bbffea272ef3a3cb9c5c9ea73a"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-2.toml"
+sha256 = "d4962e3fc2eae846880e7a9483dd2e1fefd6d74dc8f1f26a0cbf8e85d7ef49ba"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-3.toml"
+sha256 = "e325ee2cfa764af2614a46f52c893a1cf0aa37a1dd857aaf8ce88719bd5ebb06"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-system-server.toml"
+sha256 = "b34b9065e07b9c44a7e9a55e4766f9aab6dc49c2edcdc0a60e3826a170bcc2c0"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-packages.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/exclusive-processes.txt"
+sha256 = "6f8b99104e6c58a2658aba6d238cf5dd992d1eac8d19d4711e4dccff1fc5f78c"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/guest-admission/exclusive-01/result.toml"
+sha256 = "4b91688b4a95a8eb47117585699630d71c8cbcf8b641300bf720a826827016a0"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/verification.toml"
+sha256 = "b981d9d2183bd41ae4ebf0d2f499a4f10234367c9c2e8244492a2e18c08c7938"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/MakeNegative.main.kts"
+sha256 = "efd96ab4c0eb5f4a3b6fd3945886cc5ecdedd015be751004f9e10290df665007"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/negative-fixture.toml"
+sha256 = "edc3dcfe3989ef464b7231aaa7d198dfde376cc5dfcb390dc7de40e784762ad9"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/negative-status.toml"
+sha256 = "57eb0e44e9d047a6972321cb6a15d0567964c583cc67539c0add82e78624397f"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/negative-rejection.txt"
+sha256 = "db9b1c3d5ea20c17e823009c416737022812e94e5e7b32b6ee3b703e67456e18"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/contradictory-word/evidence-sha256.txt"
+sha256 = "ebc72ed8f9835247d6999ee91e6f65de18d697ae415ac6b738bef0317393c92a"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/disassembly.txt"
+sha256 = "4a1a4b923977cd977750c245637045afa159ddc4421c86d569d7ee3e06c4e688"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/elf.txt"
+sha256 = "f332a2d474cc71517ee0f9fa6f86e08ccf24039bd58a6b00735477f7e85e05a1"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/stock-preservation.txt"
+sha256 = "a35d313640a9577675ad00a41d839c60797bac93f363fa37eda9a25cb299d398"
+
+[[artifacts]]
+path = "out/guest-exclusive-control/teardown.toml"
+sha256 = "be6cb99b4e4d133077d6016fec7a3c5810ec0fe54bfc181c0d5cc0cd2c835312"
