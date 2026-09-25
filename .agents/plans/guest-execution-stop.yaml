@@ -1,0 +1,57 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.execution-stop
+    title: Validate precise execution stops after uninterrupted private atomic operations
+    state: open
+    intent: Establish a post-sequence observation boundary that preserves exclusive-store progress.
+    requires: [TASK.guest.exclusive-control-decision]
+    requirements:
+      - Fresh pinned disposable guest; private controls only, no Sparrow launch or device responses.
+      - Place execution breakpoint after the entire bounded exclusive sequence; never between the exclusive load and store.
+      - Preserve the stock APK and native library and retain guest enforcement and host policy.
+      - Same private executable and fixed inputs across continuous baseline, matching breakpoint and nonmatching breakpoint controls.
+      - At most eight exclusive attempts and one observed terminal stop per arm, with a 30-second host command bound.
+      - Preserve unsupported breakpoint operations and unexpected stops as outcomes without changing the question mid-run.
+    acceptance:
+      - Pin reference ABI sources and distinguish upstream reference from actual guest behavior.
+      - Capture debug-register availability, requested and read-back state, final PC and signal metadata.
+      - Establish whether the exclusive store succeeds before the intended execution breakpoint fires.
+      - Independently verify same executable, terminal state, matching versus nonmatching stop classification and preservation.
+    verification: [abi, controls, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.execution-stop-decision
+    title: Evaluate precise execution stops and choose the next stock observation batch
+    state: open
+    intent: Admit stock two-word continuation only if private observation controls support it.
+    requires: [TASK.guest.execution-stop]
+    requirements:
+      - Separate private controls, stock inference and unknown emulator mechanisms.
+      - Make thread coverage explicit before growing the device model.
+    acceptance:
+      - Decide whether supported precise stops justify stock adaptation or a different observer layer.
+      - Select a bounded next question and retain unknown-access stopping and stock byte preservation.
+      - Commit and push findings before the next experiment.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps:
+  - kind: roadmap
+    protocol: tasking/planning-draft-1
+    id: ROADMAP.instrument-personality
+    title: Minimum synthetic instrument environment for stock Sparrow
+    intent: Validate observation, demonstrate device-to-application state and follow witnessed initialization dependencies toward useful UI.
+    tasks: [TASK.guest.execution-stop, TASK.guest.execution-stop-decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.guest-observation
+    title: Synchronization-compatible guest observation
+    scope: Establish precise stops and explicit thread coverage while preserving stock execution.
+    tasks: [TASK.guest.execution-stop, TASK.guest.execution-stop-decision]
+    required_extensions: []
+    extensions: {}

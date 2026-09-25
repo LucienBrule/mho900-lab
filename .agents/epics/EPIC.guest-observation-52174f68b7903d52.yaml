@@ -1,0 +1,1 @@
+{"kind":"epic","id":"EPIC.guest-observation","scope":"Establish precise stops and explicit thread coverage while preserving stock execution.","protocol":"tasking/planning-draft-1","title":"Synchronization-compatible guest observation","tasks":["TASK.guest.execution-stop","TASK.guest.execution-stop-decision"],"required_extensions":[],"extensions":{}}
