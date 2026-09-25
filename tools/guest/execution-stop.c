@@ -2,6 +2,9 @@
 #define entry exclusive_legacy_entry
 #include "exclusive-control.c"
 #undef entry
+#ifndef CACHED_ENABLE_PROFILE
+#define CACHED_ENABLE_PROFILE 0
+#endif
 struct DebugSlot { U address; unsigned control, pad; };
 struct DebugState { unsigned info, pad; struct DebugSlot slots[16]; };
 _Static_assert(sizeof(struct DebugState)==264,"ARM64 hardware debug ABI");
@@ -26,6 +29,7 @@ void entry(U *stack) {
     struct Regs r; regs(pid,&r);
     U target=(U)exclusive_terminal+(miss?4:0);
     event("setup"); hex("pid",pid); hex("use_break",use_break); hex("miss",miss);
+    hex("cached_enable_profile",CACHED_ENABLE_PROFILE);
     hex("clone_flags",17); hex("word_address",(U)&word); hex("log_address",(U)attempts);
     hex("loop_pc",(U)exclusive_loop); hex("terminal_pc",(U)exclusive_terminal); hex("target_pc",target);
     hex("attempt_limit",8); hex("initial_word",peek(pid,(U)&word)&65535);
@@ -45,7 +49,10 @@ void entry(U *stack) {
         struct DebugState after={0}; struct Iov after_io={&after,sizeof(after)};
         rc=pt(0x4204,pid,0x402,(U)&after_io); debug_event("debug-after",rc,&after_io,&after);
         if(rc<0 || after_io.size!=sizeof(after) || after.info!=state.info ||
-            after.slots[0].address!=target || after.slots[0].control!=0x1e5) {
+            after.slots[0].address!=target || after.slots[0].control!=(CACHED_ENABLE_PROFILE?0x1e4U:0x1e5U)) {
+            event("debug-readback-mismatch"); stop_child(pid); quit(82);
+        }
+        for(int i=1;i<16;i++) if(after.slots[i].address || after.slots[i].control) {
             event("debug-readback-mismatch"); stop_child(pid); quit(82);
         }
     }

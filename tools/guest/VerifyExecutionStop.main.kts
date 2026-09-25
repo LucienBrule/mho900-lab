@@ -5,9 +5,9 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.util.HexFormat
 
-require(args.size in 1..2) { "Usage: VerifyExecutionStop.main.kts RUN_DIRECTORY [success|readback-mismatch]" }
+require(args.size in 1..2) { "Usage: VerifyExecutionStop.main.kts RUN_DIRECTORY [success|readback-mismatch|cached-enable]" }
 val verificationMode = args.getOrNull(1) ?: "success"
-require(verificationMode == "success" || verificationMode == "readback-mismatch") { "Unknown verification mode: $verificationMode" }
+require(verificationMode == "success" || verificationMode == "readback-mismatch" || verificationMode == "cached-enable") { "Unknown verification mode: $verificationMode" }
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 fun text(name: String): String = Files.readString(run.resolve(name))
 fun sha256(path: Path): String = HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(path)))
@@ -26,6 +26,13 @@ for (expected in listOf("mode = \"execution\"", "boot = \"completed\"", "inspect
     require(expected in result) { "Missing result: $expected" }
 }
 if (verificationMode == "readback-mismatch") require("inspection = \"failed\"" in result)
+if (verificationMode == "cached-enable") {
+    val profile = text("execution-profile.toml").lineSequence().filter { it.isNotBlank() }.map {
+        val p = it.split(" = ", limit = 2); require(p.size == 2); p[0] to p[1].removeSurrounding("\"")
+    }.toMap()
+    require(profile["profile_id"] == "api25-arm64-r02-cached-enable")
+    require(profile["requested_control"] == "0x1e5" && profile["expected_readback_control"] == "0x1e4")
+}
 require(text("guest-kernel.txt").contains("3.18.91+"))
 val enforcing = text("execution-enforcing.txt").lineSequence().filter { it.isNotBlank() }.toList()
 require(enforcing.size == 2 && enforcing.all { it.trim() == "Enforcing" })
@@ -39,7 +46,7 @@ val control = run.resolve("execution-control.elf")
 require(Files.isRegularFile(control))
 val controlHash = sha256(control)
 require(text("binary-sha256.txt").take(64) == controlHash)
-val expectedArmCount = if (verificationMode == "success") 5 else 2
+val expectedArmCount = if (verificationMode == "readback-mismatch") 2 else 5
 for (index in 0 until expectedArmCount) {
     require(sha256(run.resolve("execution-$index.elf")) == controlHash) { "Arm ELF changed: $index" }
     val expectedExit = if (verificationMode == "readback-mismatch" && index == 1) 82 else 0
@@ -56,16 +63,17 @@ if (verificationMode == "readback-mismatch") {
 val server = text("execution-system-server.toml").lineSequence().filter { it.isNotBlank() }.map {
     val p = it.split(" = ", limit = 2); require(p.size == 2); p[0] to p[1].toInt()
 }.toMap()
-val expectedServerKeys = if (verificationMode == "success")
+val expectedServerKeys = if (verificationMode == "readback-mismatch")
+    setOf("before", "after_root", "after_arm_0", "after_arm_1")
+else
     setOf("before", "after_root", "after_arm_0", "after_arm_1", "after_arm_2", "after_arm_3", "after_arm_4")
-else setOf("before", "after_root", "after_arm_0", "after_arm_1")
 require(server.keys == expectedServerKeys)
 require(server.values.distinct().size == 1)
 
 data class Snapshot(val pc: ULong, val sp: ULong, val pstate: ULong, val x: List<ULong>)
 data class Setup(val pid: ULong, val useBreak: Boolean, val miss: Boolean, val cloneFlags: ULong,
     val word: ULong, val log: ULong, val loop: ULong, val terminal: ULong, val target: ULong,
-    val attemptLimit: ULong, val initialWord: ULong, val initialLogs: List<ULong>)
+    val attemptLimit: ULong, val initialWord: ULong, val initialLogs: List<ULong>, val cachedEnableProfile: ULong)
 data class DebugState(val result: ULong, val size: ULong, val info: ULong, val addresses: List<ULong>, val controls: List<ULong>)
 data class Stop(val signal: ULong, val code: ULong, val address: ULong, val opcode: ULong, val snapshot: Snapshot)
 data class Terminal(val word: ULong, val attempts: ULong, val status: ULong, val loaded: ULong, val logs: List<ULong>)
@@ -99,7 +107,7 @@ fun parseEvents(path: String): List<Event> = text(path).split("[[events]]").drop
             number(f.getValue("miss")) != 0uL, number(f.getValue("clone_flags")), number(f.getValue("word_address")),
             number(f.getValue("log_address")), number(f.getValue("loop_pc")), number(f.getValue("terminal_pc")),
             number(f.getValue("target_pc")), number(f.getValue("attempt_limit")), number(f.getValue("initial_word")),
-            (0..7).map { number(f.getValue("s$it")) }))
+            (0..7).map { number(f.getValue("s$it")) }, f["cached_enable_profile"]?.let { number(it) } ?: 0uL))
         "initial" -> InitialEvent(snapshot(f))
         "debug-before", "debug-request", "debug-after" -> DebugEvent(f.getValue("kind"), debugState(f))
         "debug-set" -> DebugSetEvent(number(f.getValue("result")))
@@ -137,6 +145,7 @@ fun elfWord(address: ULong): ULong {
 val expectedLoop = listOf(0x485f7e6auL, 0x480bfe68uL, 0xb82c7a8buL, 0x1100058cuL, 0x3400006buL, 0x6b0d019fuL, 0x54ffff43uL)
 val expectedBrk = 0xd4202460uL
 val expectedControl = 0x1e5uL
+val expectedCachedEnableProfile = if (verificationMode == "cached-enable") 1uL else 0uL
 
 fun requireDebug(event: DebugEvent, expectedName: String, expectedSize: ULong, expectedResult: ULong,
     expectedInfo: ULong? = null, expectedAddress: ULong? = null, expectedControlValue: ULong? = null) {
@@ -153,6 +162,7 @@ fun verifyArm(index: Int): Setup {
     val records = parseEvents("execution-$index.toml")
     val setup = records.filterIsInstance<SetupEvent>().single().value
     require(setup.cloneFlags == 17uL && setup.attemptLimit == 8uL && setup.initialWord == 1uL)
+    require(setup.cachedEnableProfile == expectedCachedEnableProfile)
     require(setup.initialLogs.all { it == 0xffffffffuL })
     require(setup.terminal == setup.loop + 28uL && setup.target == setup.terminal + if (setup.miss) 4uL else 0uL)
     require(expectedLoop.mapIndexed { offset, opcode -> elfWord(setup.loop + offset.toULong() * 4uL) == opcode }.all { it })
@@ -170,7 +180,8 @@ fun verifyArm(index: Int): Setup {
         require(debugBefore.single().value.info and 0xffuL != 0uL)
         requireDebug(debugRequest.single(), "debug-request", 24uL, 0uL, debugBefore.single().value.info, setup.target, expectedControl)
         require(debugSet.single().result == 0uL)
-        requireDebug(debugAfter.single(), "debug-after", 264uL, 0uL, debugBefore.single().value.info, setup.target, expectedControl)
+        val expectedReadback = if (verificationMode == "cached-enable") 0x1e4uL else expectedControl
+        requireDebug(debugAfter.single(), "debug-after", 264uL, 0uL, debugBefore.single().value.info, setup.target, expectedReadback)
     }
     val stops = records.filterIsInstance<StopEvent>().map { it.value }
     require(stops.size == 1)
@@ -210,6 +221,7 @@ fun verifyReadbackMismatch(index: Int): Setup {
     val records = parseEvents("execution-$index.toml")
     val setup = records.filterIsInstance<SetupEvent>().single().value
     require(setup.useBreak && !setup.miss && setup.cloneFlags == 17uL && setup.attemptLimit == 8uL && setup.initialWord == 1uL)
+    require(setup.cachedEnableProfile == 0uL)
     require(setup.target == setup.terminal && setup.terminal == setup.loop + 28uL)
     require(setup.initialLogs.all { it == 0xffffffffuL })
     require(expectedLoop.mapIndexed { offset, opcode -> elfWord(setup.loop + offset.toULong() * 4uL) == opcode }.all { it })
@@ -233,12 +245,13 @@ fun verifyReadbackMismatch(index: Int): Setup {
     return setup
 }
 
-if (verificationMode == "success") {
+if (verificationMode != "readback-mismatch") {
     val setups = (0..4).map { verifyArm(it) }
     require(setups.map { it.useBreak to it.miss } == listOf(false to false, true to false, true to true, true to false, false to false))
     require(setups.map { it.word }.distinct().size == 1 && setups.map { it.log }.distinct().size == 1 &&
         setups.map { it.loop }.distinct().size == 1 && setups.map { it.terminal }.distinct().size == 1)
     println("mode = \"execution\"")
+    if (verificationMode == "cached-enable") println("profile_id = \"api25-arm64-r02-cached-enable\"")
     println("arms = 5")
     for ((i, setup) in setups.withIndex()) {
         val terminal = parseEvents("execution-$i.toml").filterIsInstance<TerminalEvent>().single().value

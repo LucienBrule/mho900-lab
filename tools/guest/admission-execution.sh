@@ -4,6 +4,8 @@ set -eu
 run=${ADMISSION_RUN:?}
 repo=${ADMISSION_REPO:?}
 sdk=${ANDROID_SDK_ROOT:?}
+profile=${EXECUTION_PROFILE:-strict}
+case "$profile" in strict) suffix=;; cached-enable) suffix=-profile;; *) exit 2;; esac
 adb() { gtimeout -k 2 30 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
 sample_pid() {
     pid=$(adb shell pidof system_server | tr -d '\r')
@@ -21,9 +23,12 @@ adb wait-for-device
 sample_pid after_root
 [ "$pid" = "$system_pid" ]
 adb shell 'id; cat /proc/self/attr/current' > "$run/execution-identity.txt"
-cp "$repo/local/guest-tools/execution-stop/"*.txt "$run/"
-cp "$repo/local/guest-tools/execution-stop/execution-stop" "$run/execution-control.elf"
+cp "$repo/local/guest-tools/execution-stop$suffix/"*.txt "$run/"
+cp "$repo/local/guest-tools/execution-stop$suffix/execution-stop" "$run/execution-control.elf"
 cp "$repo/experiments/guest-execution-stop/fixture.toml" "$run/execution-fixture.toml"
+if [ "$profile" = cached-enable ]; then
+    cp "$repo/experiments/guest-execution-stop/profile.toml" "$run/execution-profile.toml"
+fi
 adb push "$run/execution-control.elf" /data/local/tmp/execution-control > "$run/execution-push.txt"
 adb shell chmod 755 /data/local/tmp/execution-control
 index=0

@@ -1,0 +1,126 @@
+schema_version = "mho900-lab.execution-profile-results/1"
+classification = "private-post-atomic-delivery-confirmed"
+run_id = "execution-profile-01"
+report = "docs/research/guest-execution-profile.md"
+guest_boots = 1
+arm_order = ["cont", "break", "miss", "break", "cont"]
+attempts = [1, 1, 1, 1, 1]
+store_status = [0, 0, 0, 0, 0]
+final_word = [0, 0, 0, 0, 0]
+stop_codes = [1, 4, 1, 4, 1]
+terminal_pc = "0x21109c"
+nonmatching_target = "0x2110a0"
+requested_control = "0x1e5"
+returned_control = "0x1e4"
+debug_info = "0x0606"
+arm_exits = [0, 0, 0, 0, 0]
+child_termination_status = 9
+hardware_breakpoint_delivery_established = true
+stock_delivery_established = false
+system_server_pid = 1036
+system_server_stable = true
+selinux_enforcing = true
+stock_artifacts_preserved = true
+sparrow_launched = false
+device_responses = 0
+physical_device_access = false
+guest_torn_down = true
+verifier_matches_pre_run_snapshot = true
+strict_mode_rejects_profiled_capture = true
+next_question = "Observe stock synthetic two-word composition immediately after the global store, with explicit main-thread coverage limits."
+
+[[artifacts]]
+path = "docs/research/guest-execution-profile.md"
+sha256 = "c67ff6f4250b394faecd17b25dc6a31dcc96af568e45f712815b5eabde403ae9"
+
+[[artifacts]]
+path = "experiments/guest-execution-stop/profile.toml"
+sha256 = "b7caf88aef907f54cadb16e0f9505172f6bb202762fdf9241399643b795fbf5a"
+
+[[artifacts]]
+path = "tools/guest/execution-stop.c"
+sha256 = "6386bf2038a70fe607dae9bd63d46bb15e6bb03693c213a159bc56473e0d5eab"
+
+[[artifacts]]
+path = "tools/guest/exclusive-control.c"
+sha256 = "86d0c35fde52689205c424595856b4fa1c349463d3d7587d79c3ba717fe5c901"
+
+[[artifacts]]
+path = "tools/guest/build-execution-stop.sh"
+sha256 = "2b6f6e6baf41acdab33716f76fc8104500de2856d9e6ce4d80b11988cadbf93e"
+
+[[artifacts]]
+path = "tools/guest/admission-execution.sh"
+sha256 = "027cac2f9c070b78057f9ee639281935bc0e77aec3a96b2a81893e47eae2ddc6"
+
+[[artifacts]]
+path = "tools/guest/VerifyExecutionStop.main.kts"
+sha256 = "155b75bdad585cced2c620683d01e22d8e044cf64f784825ff795359eec69ed1"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/evidence-sha256.txt"
+sha256 = "ffc01bdc6801f19aa73f0ed8f0ef32d2229908e66fa931ad18e9aac336827820"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/source/VerifyExecutionStop.main.kts"
+sha256 = "155b75bdad585cced2c620683d01e22d8e044cf64f784825ff795359eec69ed1"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-control.elf"
+sha256 = "76aa14c88f99ffa920f061e2781168aadc335b6f08ba4dfaafed771368e0790b"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-0.toml"
+sha256 = "7974e0fe4d9edc8479a32fa7e84465729715a25318b4908ca8d1bc2a66c3491a"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-1.toml"
+sha256 = "7ce53b9c7577723a84c17e9cdbd6bba9a0005bffcf8ecadd40382e30d5d32230"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-2.toml"
+sha256 = "7be589b669e9f3bc3cd50c722d514836561f0de0fd9482b8089d489e84cc3353"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-3.toml"
+sha256 = "06485680ecffe8026503f4c792e96e856d71dfdeea114e6bacf848660ec29c0f"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-4.toml"
+sha256 = "9808474c29753c00e660e8228e82756cc63deadb68ffae90dbc92716af6290fe"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/execution-system-server.toml"
+sha256 = "b4a6f35473311b0091d60b21ff297aae240000a5b3237fd8e33e488117b35de9"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/guest-admission/execution-profile-01/result.toml"
+sha256 = "b67c12c87bbdc5c2bb4102c09632828fdb088a6423309b5dc5d786fcb2ddac41"
+
+[[artifacts]]
+path = "out/guest-execution-stop/profile-verification.toml"
+sha256 = "73d7dba7471b4c3df8aa65418a35b6059eabb7c03b5ba064c1915a99033e8f26"
+
+[[artifacts]]
+path = "out/guest-execution-stop/profile-strict-rejection.txt"
+sha256 = "5364d7ecac1a2b5273a7c9aa07c99e17c40bf756aa220b5e8ddae9d7e06f7427"
+
+[[artifacts]]
+path = "out/guest-execution-stop/profile-strict-status.toml"
+sha256 = "57eb0e44e9d047a6972321cb6a15d0567964c583cc67539c0add82e78624397f"
+
+[[artifacts]]
+path = "out/guest-execution-stop/profile-teardown.toml"
+sha256 = "d029f55818d5f157f5b69fcf1450dbe4f3bdd987cd820514f40a220a57e8df92"
+
+[[artifacts]]
+path = "out/guest-execution-stop/profile-stock-preservation.txt"
+sha256 = "a35d313640a9577675ad00a41d839c60797bac93f363fa37eda9a25cb299d398"
+
+[[artifacts]]
+path = "out/guest-execution-stop/profile-disassembly.txt"
+sha256 = "8189bde189e53ce742ffbc86b9971f463d273997623ef0f96157e2c2e9c6128c"

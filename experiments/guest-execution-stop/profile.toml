@@ -1,0 +1,13 @@
+schema_version = "mho900-lab.execution-stop-profile/1"
+profile_id = "api25-arm64-r02-cached-enable"
+source_run = "execution-stop-01"
+source_classification = "setup-negative, delivery untested"
+guest_kernel_sha256 = "3112e2210d65c276b067e6cfdd1c26caa95e45061cb08893cccd03f82f76407b"
+requested_control = "0x1e5"
+expected_readback_control = "0x1e4"
+allowed_difference = "cached enabled bit only; no claim of actual delivery from readback"
+actual_delivery_witness = "SIGTRAP code4, address and PC equal to post-atomic target"
+nonmatching_witness = "SIGTRAP code1 at earlier fallback BRK"
+repeat_programming = false
+single_steps = 0
+arm_order = ["cont", "break", "miss", "break", "cont"]
