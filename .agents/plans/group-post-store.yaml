@@ -1,0 +1,59 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.group-observer
+    title: Validate the integrated thread-aware two-read observer with private controls
+    state: open
+    intent: Combine discovery, continuous worker execution, clone reporting and precise mapped-state observation.
+    requires: [TASK.hardware.thread-coverage-decision]
+    requirements:
+      - Reuse bounded thread discovery and release all covered threads normally before modeled execution.
+      - Private controls must require a sibling acknowledgement and create a newly traced worker before the mapped reads.
+      - Permit only two guarded main-thread read responses at offsets 0x4048 and 0x4044 with the established synthetic words.
+      - Positive control stops immediately after composed-value storage using the proven hardware breakpoint profile.
+      - Negative controls stop on an unexpected second offset and an unsupported worker mapped access without another response.
+      - Account for runtime thread events and terminal pending stops; quiesce and inventory the group before exact cleanup.
+      - Unknown signals, identities, instructions, accesses or exhausted bounds produce a recorded negative result.
+    acceptance:
+      - Independent verification proves sibling progress, new-thread attribution, guarded response counts, terminal state and complete group cleanup.
+      - Preserve guest enforcement and system_server stability; no stock application run in private controls.
+      - Commit and push the control conclusion before stock execution.
+    verification: [controls, coverage, state, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.group-post-store
+    title: Repeat the stock post-store witness with all live threads observed
+    state: open
+    intent: Verify that wider thread observation preserves the known stock device-to-state transition.
+    requires: [TASK.guest.group-observer]
+    requirements:
+      - Fresh pinned guest, unchanged stock artifacts and established narrow admission controls.
+      - Establish converged thread coverage while the device path is absent, then resume all siblings normally.
+      - Preserve original open and 16 MiB mmap request evidence and exactly the established two main-thread mapped read responses.
+      - Use continuous execution after the second read to the hardware stop at stock ELF 0x42a8f0.
+      - Observe mapped faults from any traced thread; stop on unsupported access rather than supplying another value.
+      - Record runtime clone/exit events and terminal pending stops, then quiesce and fully reap the traced group.
+    acceptance:
+      - Either verify the stock global value, x8/x9, instruction binding and actual breakpoint at the expected post-store boundary or classify the precise negative outcome.
+      - Verify all thread identities and preservation evidence without claiming global hardware ordering or a physical instrument value.
+    verification: [stock-binding, coverage, state, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.group-post-store-decision
+    title: Evaluate the wider observer before following the next initialization dependency
+    state: open
+    intent: Move past the identity witness only when observer behavior is adequately established.
+    requires: [TASK.hardware.group-post-store]
+    requirements:
+      - Distinguish private control proof, stock state and concurrent observation limitations.
+      - Do not analyze the identity transform further without a witnessed need.
+    acceptance:
+      - Select a bounded correction or continuation with the same two responses until the next unsatisfied dependency, with no new modeled value yet.
+      - Commit and push conclusions before the next experiment.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
