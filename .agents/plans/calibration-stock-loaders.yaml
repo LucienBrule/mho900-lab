@@ -1,0 +1,35 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-stock-loaders
+    title: Validate the first three stock calibration loaders as one bounded sequence
+    state: open
+    intent: Test static whole-loader predictions using the verified readable filesystem fixture and unchanged native observer.
+    requires: [TASK.guest.calibration-label-decision]
+    requirements:
+      - Pin static loader recovery private observer controls complete application-domain file reads and the unchanged loader-capable native binary; preserve stock APK native library assets and original guest ramdisk bytes.
+      - Prepare the same derived-ramdisk tmpfs with two exact default files and their tested existing application-data type; retain modes owners directory types and four absent paths; verify preconditions before stock launch.
+      - Freeze a stock-loader harness and independent verifier before one fresh run; validate complete inherited two-DNA-read 466-store ten-tail-read prefix and stock loader bindings addresses instructions return statuses and whole capture hashes from raw evidence.
+      - Run unchanged stock native code through LSB vertical and ADC loaders with no new modeled MMIO responses; predict returns 192 and 1794240 and minus1, capture entry and terminal ADC bytes, and stop before SetADCParameter zero without executing its instruction.
+      - Require terminal thread convergence and complete raw captures for both stock payloads and unchanged ADC bytes; report actual entry state separately from static zero-fill inference and stop on unexpected accesses clones statuses signals or deadlines without adaptive rerun.
+      - Test verifier acceptance and meaningful altered-evidence rejection with regenerated indexes; capture final system_server enforcement process package file bytes labels absent paths and cleanup even on failure; discard the disposable guest and commit and push the precise conclusion before another experiment.
+    acceptance: [Commit and push a supported whole-loader observation or an exact reproducible divergence.]
+    verification: [inputs, controls, stock_observation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-stock-decision
+    title: Evaluate stock loader state and select the next whole-subsystem question
+    state: open
+    intent: Follow the next unresolved initialization dependency with static recovery first and dynamic validation at ambiguity boundaries.
+    requires: [TASK.guest.calibration-stock-loaders]
+    requirements:
+      - Evaluate actual return values destination bytes thread coverage final health and any divergence against the frozen prediction; do not promote a private control or matching static source into stock observation.
+      - If stock loaders agree recover the complete next SetADCParameter path and its callers tables loops read dependencies and downstream boundary before choosing a bounded validation candidate; distinguish deterministic software operations runtime selectors hardware responses asynchronous state and unknowns.
+      - Reconcile unexpected architecture evidence and choose the smallest justified successor; draft plan inspect admit commit and push tasking before implementation or another guest run, preserving stock artifacts and excluding physical instrument access.
+    acceptance: [Commit and push the evidence-supported next subsystem decision and bounded tasking.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

@@ -1,0 +1,36 @@
+schema_version = "mho900-lab.calibration-stock-loader-decision/1"
+result = "admit-whole-stock-loader-validation"
+file_access_observed = "complete-read-hash-matched"
+stock_loader_behavior_observed = false
+native_change_required = false
+native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+new_modeled_register_responses = 0
+expected_loader_statuses = [192, 1794240, -1]
+terminal_pc = 0x333ba8
+terminal_instruction_must_execute = false
+successor = "TASK.guest.calibration-stock-loaders"
+strategy = "whole-subsystem-static-recovery-selective-dynamic-falsification"
+
+[[artifacts]]
+path = "experiments/calibration-access/label-run01-results.toml"
+sha256 = "43bd9716bee7a7894ee83b2120d11957ce362c03a258f6d26c9ebf189e268cf8"
+
+[[artifacts]]
+path = "experiments/calibration-static/results.toml"
+sha256 = "b777227117e030bbc16d013cc6eeadb00c65ac8a03185b47567e47e2ce1464ea"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/run03-results.toml"
+sha256 = "d6d05bfd028c2723d129940b5a93eef9c4dcbb6ae550f9f0f484623326dad633"
+
+[[artifacts]]
+path = "docs/research/calibration-stock-loader-decision.md"
+sha256 = "fdcd42ff56c6f00b0e822d64a77dc3e8c3ef053e0e71acdba9dff4047bc46205"
+
+[[artifacts]]
+path = ".agents/plans/calibration-stock-loaders.yaml"
+sha256 = "e081c10ec074f6beced014a089d4d851e0c7444adc7bc657e186fbcbd69ffdae"
