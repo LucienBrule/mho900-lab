@@ -5,6 +5,7 @@ typedef unsigned long U;
 typedef long S;
 struct Regs { U x[31], sp, pc, pstate; };
 struct Iov { void *base; U size; };
+static volatile U control_output;
 static S sys(S n, U a, U b, U c, U d, U e, U f) {
     register U x0 __asm__("x0")=a, x1 __asm__("x1")=b, x2 __asm__("x2")=c;
     register U x3 __asm__("x3")=d, x4 __asm__("x4")=e, x5 __asm__("x5")=f;
@@ -58,11 +59,16 @@ static void control(U which) {
         case 1: __asm__ volatile("str %w0, [%1]" :: "r"(value),"r"(address) : "memory"); break;
         case 2: __asm__ volatile("ldr x9, [%0]" :: "r"(address) : "x9","memory"); break;
         case 3: __asm__ volatile("str %0, [%1]" :: "r"(value),"r"(address) : "memory"); break;
+        case 4:
+            control_output=(U)-1;
+            __asm__ volatile("mov x9, #-1\nldr w9, [%0]\nstr x9, [%1]\nsub x10, %0, #4\nldr w10, [x10]"
+                :: "r"(address),"r"(&control_output) : "x9","x10","memory");
+            break;
         default: quit(2);
     }
     quit(88); /* Reaching this means the guard failed. */
 }
-static void supervise(U pid,int child,U base) {
+static void supervise(U pid,int child,U base,int respond,U response) {
     int status=0;
     if(!child) check(pt(16,pid,0,0),"attach");
     check(sys(260,pid,(U)&status,0x40000000,0,0,0),"initial-wait");
@@ -74,7 +80,7 @@ static void supervise(U pid,int child,U base) {
         event("stock-binding"); hex("base",base); hex("mmap_got",peek(pid,base+0xb850f0));
     }
     event("ready"); hex("pid",pid);
-    U fd=(U)-1, mapped=0; int pending_open=0,pending_map=0;
+    U fd=(U)-1, mapped=0, output_address=0; int pending_open=0,pending_map=0, completed=0;
     for(U stops=0;stops<200000;stops++) {
         check(pt(24,pid,0,0),"resume");
         check(sys(260,pid,(U)&status,0x40000000,0,0,0),"wait");
@@ -89,6 +95,29 @@ static void supervise(U pid,int child,U base) {
             hex("pc",r.pc); hex("relative_pc",r.pc-base); hex("opcode",opcode);
             hex("sp",r.sp); hex("pstate",r.pstate);
             for(int i=0;i<31;i++) { char key[]={'x',(char)('0'+i/10),(char)('0'+i%10),0}; hex(key,r.x[i]); }
+            if(respond && !completed) {
+                if(!mapped || address!=mapped+0x4048 ||
+                   (child ? (opcode&0xffc0001fUL)!=0xb9400009UL :
+                    (r.pc!=base+0x270604 || opcode!=0xb9400109UL))) {
+                    event("response-guard-rejected"); pt(17,pid,0,11); quit(78);
+                }
+                output_address=child?(U)&control_output:peek(pid,r.x[29]-0x10);
+                U before=r.x[9], before_pc=r.pc;
+                r.x[9]=(unsigned)response; r.pc+=4;
+                registers(pid,&r,1);
+                struct Regs after; registers(pid,&after,0);
+                for(int i=0;i<31;i++) if(after.x[i]!=r.x[i]) quit(77);
+                if(after.pc!=r.pc || after.sp!=r.sp || after.pstate!=r.pstate) quit(77);
+                event("synthetic-response"); hex("value",response); hex("pc_before",before_pc);
+                hex("pc_after",after.pc); hex("destination_before",before); hex("destination_after",after.x[9]);
+                hex("other_registers_unchanged",1); hex("output_address",output_address);
+                completed=1;
+                continue; /* Suppress just this fault; the unchanged next stock instruction executes. */
+            }
+            if(completed) {
+                event("consumer-output"); hex("address",output_address); hex("raw_word",peek(pid,output_address));
+                hex("completed_reads",completed);
+            }
             check(pt(17,pid,0,11),"detach-fault");
             if(child) check(sys(260,pid,(U)&status,0,0,0,0),"reap-control");
             quit(mapped && address>=mapped && address<mapped+0x1000000 ? 0 : 84);
@@ -133,8 +162,16 @@ void entry(U *stack) {
     if(argc==3 && equal(argv[1],"control")) {
         U which=parse(argv[2],10); if(which>3) quit(2);
         S pid=sys(220,17,0,0,0,0,0); check(pid,"clone");
-        if(!pid) control(which); else supervise(pid,1,0);
-    } else if(argc==4 && equal(argv[1],"stock")) supervise(parse(argv[2],10),0,parse(argv[3],16));
+        if(!pid) control(which); else supervise(pid,1,0,0,0);
+    } else if(argc==3 && equal(argv[1],"control-step")) {
+        U response=parse(argv[2],16); if(response!=0 && response!=0x11223344) quit(2);
+        S pid=sys(220,17,0,0,0,0,0); check(pid,"clone");
+        if(!pid) control(4); else supervise(pid,1,0,1,response);
+    } else if(argc==4 && equal(argv[1],"stock")) supervise(parse(argv[2],10),0,parse(argv[3],16),0,0);
+    else if(argc==5 && equal(argv[1],"stock-step")) {
+        U response=parse(argv[4],16); if(response!=0 && response!=0x11223344) quit(2);
+        supervise(parse(argv[2],10),0,parse(argv[3],16),1,response);
+    }
     quit(2);
 }
 __asm__(".global _start\n_start:\nmov x0, sp\nbl entry\n");

@@ -9,7 +9,9 @@ import java.util.zip.ZipFile
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-require(args.size == 1) { "Usage: VerifyNative.main.kts RUN_DIRECTORY" }
+require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read]" }
+val singleRead = args.size == 2
+if(singleRead) require(args[1] == "single-read")
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 fun text(name: String): String = Files.readString(run.resolve(name))
 fun sha256(path: Path): String {
@@ -116,6 +118,9 @@ data class Opened(val fd: ULong) : Event
 data class Request(val address: ULong, val length: ULong, val protection: ULong, val flags: ULong,
     val fd: ULong, val offset: ULong, val pc: ULong, val lr: ULong) : Event
 data class Mapped(val base: ULong, val protection: ULong) : Event
+data class Response(val value: ULong, val pcBefore: ULong, val pcAfter: ULong,
+    val before: ULong, val after: ULong, val unchanged: ULong, val output: ULong) : Event
+data class Output(val address: ULong, val raw: ULong, val completed: ULong) : Event
 data class Fault(val signal: ULong, val code: ULong, val address: ULong, val mapping: ULong,
     val offset: ULong, val pc: ULong, val relativePc: ULong, val opcode: ULong,
     val registers: List<ULong>) : Event
@@ -134,6 +139,10 @@ fun events(name: String): List<Event> = text(name).split("[[events]]").drop(1).m
         "mmap-request" -> Request(number("a0"), number("a1"), number("a2"), number("a3"),
             number("a4"), number("a5"), number("pc"), number("lr"))
         "mapping-result" -> Mapped(number("base"), number("protection"))
+        "synthetic-response" -> Response(number("value"), number("pc_before"), number("pc_after"),
+            number("destination_before"), number("destination_after"), number("other_registers_unchanged"),
+            number("output_address"))
+        "consumer-output" -> Output(number("address"), number("raw_word"), number("completed_reads"))
         "fault" -> Fault(number("signal"), number("si_code"), number("address"), number("mapping"),
             number("offset"), number("pc"), number("relative_pc"), number("opcode"),
             (0..30).map { number("x" + it.toString().padStart(2, '0')) })
@@ -149,15 +158,15 @@ fun decode(word: ULong): Access {
         width, (word and 31uL).toInt(), ((word shr 5) and 31uL).toInt(),
         ((word shr 10) and 4095uL) * width.toULong())
 }
-fun checkCapture(records: List<Event>): Pair<Fault, Access> {
+fun checkCapture(records: List<Event>, index: Int = 0): Pair<Fault, Access> {
     val opened = records.filterIsInstance<Opened>().single()
     val request = records.filterIsInstance<Request>().single()
     require(request.address == 0uL && request.length == 0x1000000uL && request.protection == 3uL &&
         request.flags == 1uL && request.fd == opened.fd && request.offset == 0uL)
     val mapped = records.filterIsInstance<Mapped>().single()
     require(mapped.base != 0uL && mapped.protection == 0uL)
-    val fault = records.filterIsInstance<Fault>().single()
-    require(records.last() == fault && fault.signal == 11uL && fault.code == 2uL)
+    val fault = records.filterIsInstance<Fault>()[index]
+    require(fault.signal == 11uL && fault.code == 2uL)
     require(fault.mapping == mapped.base && fault.address == mapped.base + fault.offset)
     val access = decode(fault.opcode)
     require(access.width in listOf(4, 8) && access.baseRegister < 31)
@@ -168,6 +177,7 @@ fun checkCapture(records: List<Event>): Pair<Fault, Access> {
 for (which in 0..3) {
     require(text("native-control-$which-status.toml").trim() == "exit_code = 0")
     val (fault, access) = checkCapture(events("native-control-$which.toml"))
+    require(events("native-control-$which.toml").filterIsInstance<Fault>().size == 1)
     require(fault.offset == 0x4048uL && access.width == if(which < 2) 4 else 8)
     require(access.operation == if(which % 2 == 0) Operation.READ else Operation.WRITE)
     if(access.operation == Operation.WRITE) require(fault.registers[access.register] == 0x1122334455667788uL)
@@ -187,9 +197,40 @@ require(fault.relativePc == 0x270604uL && access.operation == Operation.READ && 
 require(ByteBuffer.wrap(native, fault.relativePc.toInt(), 4).order(ByteOrder.LITTLE_ENDIAN).int.toUInt().toULong() ==
     fault.opcode)
 require(fault.offset == 0x4048uL)
+if(singleRead) {
+    val expected = text("native-test-word.toml").trim().substringAfter("\"0x").substringBefore('"').toULong(16)
+    require(expected in listOf(0uL, 0x11223344uL))
+    for((name, isStock) in listOf("native-step-control.toml" to false, "native-events.toml" to true)) {
+        val records = events(name)
+        val faults = records.filterIsInstance<Fault>()
+        require(faults.size == 2)
+        val response = records.filterIsInstance<Response>().single()
+        val output = records.filterIsInstance<Output>().single()
+        val (first, firstAccess) = checkCapture(records)
+        val (second, secondAccess) = checkCapture(records, 1)
+        require(first.offset == 0x4048uL && second.offset == 0x4044uL)
+        require(listOf(firstAccess,secondAccess).all { it.operation == Operation.READ && it.width == 4 })
+        require(response.value == expected && response.after == expected && response.unchanged == 1uL)
+        require(response.pcBefore == first.pc && response.pcAfter == first.pc + 4uL)
+        require(response.before == first.registers[9] && firstAccess.register == 9)
+        require(records.indexOf(first) < records.indexOf(response) && records.indexOf(response) < records.indexOf(second))
+        require(records.last() == output && output.address == response.output && output.completed == 1uL)
+        require(output.raw and 0xffffffffuL == expected)
+        if(isStock) require(second.pc == first.pc && second.opcode == first.opcode)
+        else {
+            require(response.before == ULong.MAX_VALUE && output.raw == expected) { "W-register zero extension failed" }
+        }
+    }
+    println("synthetic_response = \"0x${expected.toString(16)}\"")
+    println("next_offset = \"0x4044\"")
+    println("completed_reads = 1")
+} else {
+    require(captured.filterIsInstance<Fault>().size == 1 && captured.last() == fault)
+    require(captured.none { it is Response || it is Output })
+}
 println("control_accesses_verified = 4")
 println("stock_operation = \"read\"")
 println("stock_width = 4")
 println("stock_offset = \"0x4048\"")
 println("stock_pc = \"0x270604\"")
-println("hardware_values_supplied = false")
+println("synthetic_values_supplied = $singleRead")

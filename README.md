@@ -11,6 +11,9 @@ The project is running initial guest experiments; no complete emulator or physic
 - [Scoped process labeling and splash rendering](docs/research/guest-labeling.md)
 - [Live stock startup and the PCIe hardware stop condition](docs/research/guest-startup.md)
 - [XDMA reference comparison and negative mapping-adapter experiment](docs/research/xdma-boundary.md)
+- [Independent stock mmap failure control](docs/research/xdma-syscall.md)
+- [External native first mapped-register capture](docs/research/xdma-native.md)
+- [Synthetic single-read checkpoint and pending comparison](docs/research/xdma-single-read.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

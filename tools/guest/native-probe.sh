@@ -14,6 +14,14 @@ for which in 0 1 2 3; do
     printf 'exit_code = %s\n' "$rc" > "$run/native-control-$which-status.toml"
     [ "$rc" = 0 ] || exit 3
 done
+command=stock
+word=${NATIVE_TEST_WORD:-}
+if [ -n "$word" ]; then
+    case "$word" in 0|11223344) ;; *) exit 2;; esac
+    command=stock-step
+    adb shell "/data/local/tmp/native-probe control-step $word" > "$run/native-step-control.toml" 2>&1
+    printf 'word = "0x%s"\n' "$word" > "$run/native-test-word.toml"
+fi
 pid=$(adb shell pidof com.rigol.scope | tr -d '\r')
 case "$pid" in ''|*[!0-9]*) exit 2;; esac
 printf 'pid = %s\n' "$pid" > "$run/native-app-pid.toml"
@@ -23,7 +31,7 @@ actual=$(unzip -p "$run/installed.apk" lib/arm64-v8a/libscope-auklet.so | shasum
 # The pinned APK's stored ELF starts at ZIP data offset 0xf05000; verifier derives it independently.
 base=$(sed -n 's/^\([0-9a-f]*\)-.* r-xp 00f05000 .*com.rigol.scope.*\/base.apk$/\1/p' "$run/native-before.txt")
 case "$base" in ''|*[!0-9a-f]*) exit 2;; esac
-adb shell "/data/local/tmp/native-probe stock $pid $base >/data/local/tmp/native-events.toml 2>&1 & tracer=\$!; echo \$tracer >/data/local/tmp/native-pid; wait \$tracer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
+adb shell "/data/local/tmp/native-probe $command $pid $base $word >/data/local/tmp/native-events.toml 2>&1 & tracer=\$!; echo \$tracer >/data/local/tmp/native-pid; wait \$tracer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
 command_pid=$!
 ready=false

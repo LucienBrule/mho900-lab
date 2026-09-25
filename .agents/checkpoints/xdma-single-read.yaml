@@ -1,0 +1,12 @@
+schema_version: mho900-lab.research-checkpoint/1
+recorded_at: "2026-09-25T02:31:03Z"
+status: paused-at-operator-request
+ledger_revision: sha256:fe12af235822c60d88dbfcc39506f47d4d4b7982d9bb8ad253e69acf31fb0068
+active_task: TASK.hardware.single-read
+decision_task: TASK.hardware.single-read-decision
+completed_run: single-read-zero
+pending: Fresh same-source comparison with NATIVE_TEST_WORD=11223344; no second arm started.
+report: docs/research/xdma-single-read.md
+manifest: experiments/xdma-single-read/checkpoint.toml
+resume: Read taskctl doctor, context, frontier and both task contracts before resuming.
+limit: Complete this third experiment, conclude, commit and push; no fourth experiment admitted.

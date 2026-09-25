@@ -1,0 +1,92 @@
+schema_version = "mho900-lab.single-read-checkpoint/1"
+status = "paused-at-operator-request"
+active_task = "TASK.hardware.single-read"
+decision_task = "TASK.hardware.single-read-decision"
+ledger_revision = "sha256:fe12af235822c60d88dbfcc39506f47d4d4b7982d9bb8ad253e69acf31fb0068"
+completed_run = "single-read-zero"
+completed_response = "0x00000000"
+pending_response = "0x11223344"
+pending_run_started = false
+paired_conclusion_available = false
+first_read = "read32 0x4048 at stock ELF PC 0x270604"
+next_read = "read32 0x4044 at stock ELF PC 0x270604"
+completed_stock_reads = 1
+synthetic_response = true
+physical_value_claimed = false
+stock_bytes_preserved = true
+system_server_pid = 1053
+system_server_stable = true
+guest_stopped = true
+report = "docs/research/xdma-single-read.md"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "0a9c6b286e356fe2b376aff6b683350a688e6661bdd51534856dcbac5e6d5695"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "710507b4cdb38edc8a75350f3283a4159130932ee0aa03c61ce980aa52251a32"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+sha256 = "2466111a7a029c145ba234336d3be034da7cbd640ae8b8181770e7e9bf6ade8b"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "4b2702ec07d1d99d04680e909b87fc4a660964802c6c676825d4a006f8940b9f"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "3d23ee4199b70b9ffa3bcee801e8f6a3b100a88181d9bec1fd450293ab0e0417"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "bece4ceba28fb602fa19b7e3abb515c0c619f796e902338371ef2f139963734c"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/evidence-sha256.txt"
+sha256 = "df8654f4095bcff0c8172df56fb6b7d8f807c2065fdfa6f9bf66029240e78415"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-probe.elf"
+sha256 = "1b6ea47016c6cb28162c1737fea258d7a378803b233dd60b39966d5a5039491b"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-events.toml"
+sha256 = "9ec1d39f2339ceeef9d923e4c88a87332f0d05b4e2465fdeed87db4bf11e6c5c"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-step-control.toml"
+sha256 = "51552ba72e46ff63aaba08472e91448296f3dafab0fb60da99c7c9c4b9c9b3c5"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/result.toml"
+sha256 = "1b40954015939d23e313092c66a690db2c80a5e7825eceea3e8b917565cae280"
+
+[[artifacts]]
+path = "out/xdma-single-read/zero-verification.toml"
+sha256 = "ef5aff36342aa114b78e92199770ac1e00cf6dd2c946fe5f220c15314059405d"
+
+[[artifacts]]
+path = "out/xdma-single-read/prior-verification.toml"
+sha256 = "215738b38dcb0be6776e04c4aa1324d3c2a25f1426333f69c1c2ededdcb2d0ac"
+
+[[artifacts]]
+path = "out/xdma-single-read/build/binary-sha256.txt"
+sha256 = "324a45ca29f1dd24b97acc2d5eb4c5448f62e568ad67a8e6b5739919b3944429"
+
+[[artifacts]]
+path = "out/xdma-single-read/build/build-inputs.txt"
+sha256 = "fcec25a08f3e3f43ee2d042828e61b7562c3e745b3cc644c04e46c0936a80650"
+
+[[artifacts]]
+path = "out/xdma-single-read/build/compiler.txt"
+sha256 = "bf2f6a4c64eec7479c428ba60ba769d6b05ff8c824d8dc247c350555c8826533"
+
+[[artifacts]]
+path = "out/xdma-single-read/build/linker.txt"
+sha256 = "ea80675f4affbb6e9c99feb37309e005396e7d2497b9436e927cae0c2c82c6f7"
+
+[[artifacts]]
+path = "out/xdma-single-read/build/native-probe"
+sha256 = "1b6ea47016c6cb28162c1737fea258d7a378803b233dd60b39966d5a5039491b"
