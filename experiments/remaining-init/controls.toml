@@ -1,0 +1,71 @@
+schema_version = "mho900-lab.remaining-init-controls/1"
+task = "TASK.guest.remaining-init-control"
+scope = "Disposable guest private fixture; stock application absent"
+adc_prefix = 452
+spu_prefix = 8
+remaining_writes = 4
+checkpoints = 10
+synthetic_reads = 2
+runtime_exit = 78
+prior_regression_arms = "0..39"
+new_response_values = false
+normal_execution_between_checkpoints = true
+candidate_changes_during_run = false
+
+[[arms]]
+id = 40
+purpose = "Complete region with uninterrupted atomic work between rotating checkpoints; stop before R4"
+[[arms]]
+id = 41
+purpose = "Stop on successful board open before any private device I/O"
+[[arms]]
+id = 42
+purpose = "Stop on successful GPIO open before any private device I/O"
+[[arms]]
+id = 43
+purpose = "Reject nonnegative cached command descriptor before its write path"
+[[arms]]
+id = 44
+purpose = "Reject true original initialization bool"
+[[arms]]
+id = 45
+purpose = "Reject changed region binding before following it"
+[[arms]]
+id = 46
+purpose = "Reject changed SCU checkpoint shadow"
+[[arms]]
+id = 47
+purpose = "Reject changed SCU operand"
+[[arms]]
+id = 48
+purpose = "Reject wide SCU store"
+[[arms]]
+id = 49
+purpose = "Reject worker SCU store"
+[[arms]]
+id = 50
+purpose = "Reject reordered region store"
+[[arms]]
+id = 51
+purpose = "Reject omitted or reordered checkpoint through captured divergence or deadline"
+[[arms]]
+id = 52
+purpose = "Bound a hung continuation and quiesce the full group"
+[[arms]]
+id = 53
+purpose = "Revisit a cleared old checkpoint without a stale trap and complete the region"
+[[arms]]
+id = 54
+purpose = "Reject changed LA shadow before accepting its stores"
+[[arms]]
+id = 55
+purpose = "Reject changed LA operand"
+[[arms]]
+id = 56
+purpose = "Reject wide LA store"
+[[arms]]
+id = 57
+purpose = "Reject worker LA store"
+[[arms]]
+id = 58
+purpose = "Reject changed propagated error return"

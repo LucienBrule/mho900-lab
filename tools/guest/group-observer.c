@@ -5,6 +5,7 @@
 #include "thread-group.h"
 #include "adc-transcript.h"
 #include "spu-transcript.h"
+#include "remaining-init.h"
 struct GmShared {
     unsigned ready,release,worker_go,worker_ack,mapped,hold;
     U worker,new_worker,mapping,output,arm;
@@ -15,6 +16,7 @@ struct GmShared {
     U st_slots[ST_BINDINGS];
     unsigned st_globals[3],st_series[ST_SERIES][8],st_samples[ST_SAMPLES][4],st_shadows[ST_SHADOWS];
     unsigned st_tables[5][16][4],st_configs[4];
+    unsigned ri_scu,ri_la; int ri_cached; unsigned ri_bool,ri_atomic,ri_device_io,ri_old_executed; U ri_slots[RI_BINDINGS];
 };
 _Static_assert(__builtin_offsetof(struct GmShared,st_slots)==1080,"st_slots offset");
 _Static_assert(__builtin_offsetof(struct GmShared,st_globals)==1200,"st_globals offset");
@@ -23,11 +25,16 @@ _Static_assert(__builtin_offsetof(struct GmShared,st_samples)==1500,"st_samples 
 _Static_assert(__builtin_offsetof(struct GmShared,st_shadows)==1548,"st_shadows offset");
 _Static_assert(__builtin_offsetof(struct GmShared,st_tables)==1564,"st_tables offset");
 _Static_assert(__builtin_offsetof(struct GmShared,st_configs)==2844,"st_configs offset");
-_Static_assert(sizeof(struct GmShared)==2864,"shared size");
+_Static_assert(__builtin_offsetof(struct GmShared,ri_scu)==2860,"ri_scu offset");
+_Static_assert(__builtin_offsetof(struct GmShared,ri_la)==2864,"ri_la offset");
+_Static_assert(__builtin_offsetof(struct GmShared,ri_cached)==2868,"ri_cached offset");
+_Static_assert(__builtin_offsetof(struct GmShared,ri_slots)==2888,"ri_slots offset");
+_Static_assert(sizeof(struct GmShared)==2984,"shared size");
 static struct GmShared *gm;
 static unsigned char gm_stack1[16384] __attribute__((aligned(16)));
 static unsigned char gm_stack2[16384] __attribute__((aligned(16)));
 extern char gm_first_pc[],gm_second_pc[],gm_worker_pc[],gm_store_pc[],gm_stop_pc[],gm_write_pc[],gm_write64_pc[];
+extern char gm_ri_cp0[],gm_ri_cp1[],gm_ri_cp2[],gm_ri_cp3[],gm_ri_cp4[],gm_ri_cp5[],gm_ri_cp6[],gm_ri_cp7[],gm_ri_cp8[],gm_ri_cp9[];
 __attribute__((naked)) static S gm_clone(U flags __attribute__((unused)),U stack __attribute__((unused)),void (*fn)(void) __attribute__((unused))) {
     __asm__ volatile("mov x9, x2\nmov x2, #0\nmov x3, #0\nmov x4, #0\nmov x8, #220\nsvc #0\ncbnz x0, 1f\nblr x9\nmov x0, #88\nmov x8, #93\nsvc #0\n1: ret");
 }
@@ -49,9 +56,13 @@ __attribute__((naked)) static void gm_write64(U address __attribute__((unused)),
 __attribute__((naked)) static void gm_store(U value __attribute__((unused)),U object __attribute__((unused))) {
     __asm__ volatile("mov x8, x0\nmov x9, x1\n.global gm_store_pc\ngm_store_pc:\nstr x8, [x9]\n.global gm_stop_pc\ngm_stop_pc:\nnop\nret");
 }
+#define RI_CP(n) __attribute__((naked)) static U gm_ri_site##n(U a __attribute__((unused)),U b __attribute__((unused))) { __asm__ volatile(".global gm_ri_cp" #n "\ngm_ri_cp" #n ":\nnop\nret"); }
+RI_CP(0) RI_CP(1) RI_CP(2) RI_CP(3) RI_CP(4) RI_CP(5) RI_CP(6) RI_CP(7) RI_CP(8) RI_CP(9)
 static unsigned char gm_at_bytes[AT_MAX_BYTES+1];
 static struct AtInput gm_at;
-static int gm_transcript,gm_spu;
+static int gm_transcript,gm_spu,gm_remaining;
+static const char gm_ri_tty[]="/dev/ttyS0",gm_ri_gpio[]="/dev/hdcode_gpio",gm_ri_command[]="*RST\n";
+static void gm_ri_atomic_step(void) { __atomic_fetch_add(&gm->ri_atomic,1,__ATOMIC_SEQ_CST); }
 static unsigned char gm_st_bytes[ST_BYTES+1];
 static void gm_private_leader(U observer);
 static int gm_at_reject(const char *reason,U actual,U expected) {
@@ -142,6 +153,46 @@ static void gm_st_private_before_write(unsigned i) {
     unsigned value=gm_st_private_operand(i);
     if(i<5) gm->st_shadows[0]=value; else if(i==5) gm->st_shadows[1]=value; else if(i==6) gm->st_shadows[2]=value; else gm->st_shadows[3]=value;
 }
+static void gm_publish(unsigned *p);
+static void gm_wait_flag(unsigned *p);
+static void gm_remaining_private(U mapping) {
+    gm->ri_scu=0; gm->ri_la=0; gm->ri_cached=-1; gm->ri_bool=0;
+    gm->ri_slots[0]=(U)&gm->ri_scu; gm->ri_slots[1]=(U)gm_remaining_private; gm->ri_slots[2]=(U)gm_write;
+    gm->ri_slots[3]=(U)gm_ri_cp0; gm->ri_slots[4]=(U)gm_ri_cp0; gm->ri_slots[5]=(U)&gm->ri_cached;
+    gm->ri_slots[6]=(U)gm_ri_cp8; gm->ri_slots[7]=(U)gm_ri_cp3; gm->ri_slots[8]=(U)gm_ri_cp4;
+    gm->ri_slots[9]=(U)gm_ri_cp9; gm->ri_slots[10]=(U)gm_write; gm->ri_slots[11]=(U)gm_write;
+    if(gm->arm==45) gm->ri_slots[9]++;
+    if(gm->arm==46) gm->ri_scu=1;
+    if(gm->arm==49) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+    if(gm->arm==50) { gm->ri_scu=0x80000000U; gm_write(mapping+0x4004,0); quit(88); }
+    gm->ri_scu|=0x80000000U;
+    if(gm->arm==45||gm->arm==46) gm_write(mapping+0x4004,0x80000000U);
+    else if(gm->arm==47) gm_write(mapping+0x4004,gm->ri_scu+1);
+    else if(gm->arm==48) gm_write64(mapping+0x4004,gm->ri_scu);
+    else gm_write(mapping+0x4004,gm->ri_scu);
+    gm->ri_scu&=0x7ffffffbU; gm_write(mapping+0x4004,gm->ri_scu);
+    if(gm->arm==52) { gm_wait_flag(&gm->hold); quit(88); }
+    gm_ri_site0((U)gm_ri_tty,1); gm_ri_atomic_step();
+    if(gm->arm==53) { gm_ri_site0((U)gm_ri_tty,1); gm->ri_old_executed=1; }
+    S board=gm->arm==41?0:-1; gm_ri_site1((U)board,0); gm_ri_atomic_step();
+    if(gm->arm==41) gm->ri_device_io=1;
+    gm->ri_bool=gm->arm==44; gm_ri_site2((U)-1,gm->ri_bool); gm_ri_atomic_step();
+    gm->ri_cached=gm->arm==43?0:-1; gm_ri_site3((U)gm_ri_command,5); gm_ri_atomic_step();
+    if(gm->arm!=51) { gm_ri_site4((U)gm_ri_gpio,0x802); gm_ri_atomic_step(); }
+    S gpio=gm->arm==42?0:-1; gm_ri_site5((U)gpio,0); gm_ri_atomic_step();
+    if(gm->arm==42) gm->ri_device_io=1;
+    gm_ri_site6((U)(gm->arm==58?-2:-3),0); gm_ri_atomic_step();
+    gm_ri_site7((U)-7,0); gm_ri_atomic_step(); gm->ri_cached=-7;
+    gm_ri_site8((U)-3,0); gm_ri_atomic_step();
+    if(gm->arm==54) gm->ri_la=2; gm_ri_site9((U)-1,0); gm_ri_atomic_step();
+    if(gm->arm==57) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+    gm->ri_la=(gm->ri_la&0xfffffffeU)|1;
+    if(gm->arm==55) gm_write(mapping+0x7034,gm->ri_la+1);
+    else if(gm->arm==56) gm_write64(mapping+0x7034,gm->ri_la);
+    else gm_write(mapping+0x7034,gm->ri_la);
+    gm->ri_la&=0xfffffffeU; gm_write(mapping+0x7034,gm->ri_la);
+    gm->output=gm_second(mapping+4); quit(88);
+}
 static unsigned gm_load(unsigned *p) { return __atomic_load_n(p,__ATOMIC_ACQUIRE); }
 static void gm_publish(unsigned *p) { __atomic_store_n(p,1,__ATOMIC_RELEASE); check(sys(98,(U)p,1,128,0,0,0),"group-wake"); }
 static void gm_wait_flag(unsigned *p) {
@@ -151,7 +202,7 @@ static void gm_worker2(void) { gm_wait_flag(&gm->hold); quit(88); }
 static void gm_worker1(void) {
     gm_wait_flag(&gm->worker_go); gm_publish(&gm->worker_ack);
     if(gm->arm==2 || gm->arm==4 || gm->arm==6 || gm->arm==10 || gm->arm==14 || gm->arm==26) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
-    if(gm->arm==19 || gm->arm==30) { gm_wait_flag(&gm->mapped); gm_write(gm->mapping+(gm->arm==30?st_write_offset(0):at_ref_write_offset(0)),gm->arm==30?st_write_value(0):at_ref_write_value(0)); quit(88); }
+    if(gm->arm==19 || gm->arm==30 || gm->arm==49 || gm->arm==57) { gm_wait_flag(&gm->mapped); U off=gm->arm==57?0x7034:gm->arm==49?0x4004:gm->arm==30?st_write_offset(0):at_ref_write_offset(0); U value=gm->arm==57?1:gm->arm==49?0x80000000:gm->arm==30?st_write_value(0):at_ref_write_value(0); gm_write(gm->mapping+off,value); quit(88); }
     gm_wait_flag(&gm->hold); quit(88);
 }
 static void gm_private_leader(U observer) {
@@ -198,6 +249,7 @@ static void gm_private_leader(U observer) {
             if(gm->arm==25) { gm_write(mapping+0x4004,1); quit(88); }
             if(gm->arm==26) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
             if(gm->arm==39) { gm_write(mapping+st_write_offset(0),st_write_value(0)); quit(88); }
+            if(gm_remaining) gm_remaining_private(mapping);
             gm_wait_flag(&gm->hold); quit(88);
         }
         if(gm->arm==14) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
@@ -207,8 +259,10 @@ static void gm_private_leader(U observer) {
     quit(88);
 }
 static int gm_armed,gm_next,gm_one_write,gm_pair,gm_confirmed[128];
+static unsigned gm_ri_checkpoint,gm_ri_writes;
 static U gm_base,gm_mapping,gm_target,gm_object,gm_responses,gm_writes,gm_write_offset,gm_write_value,gm_wait_count;
-static int gm_private,gm_at_live_checked,gm_st_live_checked;
+static int gm_private,gm_at_live_checked,gm_st_live_checked; static U gm_region_clone;
+static void gm_quiesce(U stopping_tid);
 static U gm_at_private_target(unsigned i) {
     if(i==0) return (U)gm_private_leader; if(i==1) return (U)gm_at_private_init; if(i==2) return (U)gm_write; if(i==3) return (U)gm_store; if(i==4) return (U)gm_write;
     if(i==5) return (U)gm->at_addr; if(i==6) return (U)gm->at_value; if(i==7) return (U)gm->at_source;
@@ -292,10 +346,10 @@ static void gm_resume(struct TgThread *t) {
 }
 static S gm_wait(int *status) {
     for(;;) {
-        if(gm_transcript && tg_now()>tg_deadline) tg_fail("runtime-deadline",gm_wait_count);
+        if(gm_transcript && tg_now()>tg_deadline) { if(gm_remaining) return 0; tg_fail("runtime-deadline",gm_wait_count); }
         S tid=sys(260,(U)-1,(U)status,0x40000001,0,0,0);
         if(tid<0) tg_fail("runtime-wait",tid);
-        if(!tid) { tg_tick(); continue; }
+        if(!tid) { if(gm_remaining) { U delay[2]={0,1000000}; sys(101,(U)delay,0,0,0,0,0); } else tg_tick(); continue; }
         if(++gm_wait_count>200000) tg_fail("runtime-event-limit",gm_wait_count);
         event("runtime-wait"); hex("index",gm_wait_count-1); hex("tid",tid); hex("status",*status); return tid;
     }
@@ -331,6 +385,52 @@ static void gm_fault(U tid,const char *kind,U signal) {
     hex("mapping",gm_mapping); hex("offset",info[2]-gm_mapping); hex("opcode",(unsigned)peek(tid,r.pc)); hex("responses",gm_responses);
     gm_registers("fault-registers",tid,&r);
 }
+static U gm_ri_private_pc(unsigned i) { static const U p[RI_CHECKPOINTS]={(U)gm_ri_cp0,(U)gm_ri_cp1,(U)gm_ri_cp2,(U)gm_ri_cp3,(U)gm_ri_cp4,(U)gm_ri_cp5,(U)gm_ri_cp6,(U)gm_ri_cp7,(U)gm_ri_cp8,(U)gm_ri_cp9}; return p[i]; }
+static U gm_ri_private_target(unsigned i) {
+    if(i==0)return (U)&gm->ri_scu; if(i==1)return (U)gm_remaining_private; if(i==2||i==10||i==11)return (U)gm_write;
+    if(i==3||i==4)return (U)gm_ri_cp0; if(i==5)return (U)&gm->ri_cached; if(i==6)return (U)gm_ri_cp8;
+    if(i==7)return (U)gm_ri_cp3; if(i==8)return (U)gm_ri_cp4; return (U)gm_ri_cp9;
+}
+static int gm_ri_debug(U tid,int next) {
+    struct NpsDebugState before={0}; struct Iov io={&before,sizeof(before)}; S rc=pt(0x4204,tid,0x402,(U)&io); nps_debug_dump("remaining-debug-before",rc,&io,&before);
+    if(rc<0||io.size!=sizeof(before)||!(before.info&255))return 0;
+    if(gm_ri_checkpoint==0) { for(int i=0;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0; }
+    else if(before.slots[0].address!=(gm_private?gm_ri_private_pc(gm_ri_checkpoint-1):gm_base+ri_stock_pc[gm_ri_checkpoint-1])||before.slots[0].control!=0x1e4)return 0;
+    for(int i=1;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
+    before.slots[0].address=0; before.slots[0].control=0; io.size=24; nps_debug_dump("remaining-debug-clear-request",0,&io,&before); rc=pt(0x4205,tid,0x402,(U)&io); event("remaining-debug-clear-set"); hex("result",rc); if(rc<0)return 0;
+    struct NpsDebugState clear={0}; struct Iov cio={&clear,sizeof(clear)}; rc=pt(0x4204,tid,0x402,(U)&cio); nps_debug_dump("remaining-debug-clear-after",rc,&cio,&clear); if(rc<0||cio.size!=sizeof(clear)||clear.info!=before.info)return 0; for(int i=0;i<16;i++)if(clear.slots[i].address||clear.slots[i].control)return 0;
+    if(!next)return 1; U target=gm_private?gm_ri_private_pc(gm_ri_checkpoint):gm_base+ri_stock_pc[gm_ri_checkpoint]; clear.slots[0].address=target; clear.slots[0].control=0x1e5; cio.size=24; nps_debug_dump("remaining-debug-arm-request",0,&cio,&clear); rc=pt(0x4205,tid,0x402,(U)&cio); event("remaining-debug-arm-set"); hex("result",rc); if(rc<0)return 0;
+    struct NpsDebugState after={0}; struct Iov aio={&after,sizeof(after)}; rc=pt(0x4204,tid,0x402,(U)&aio); nps_debug_dump("remaining-debug-arm-after",rc,&aio,&after); if(rc<0||aio.size!=sizeof(after)||after.info!=before.info||after.slots[0].address!=target||after.slots[0].control!=0x1e4)return 0; for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;
+    event("remaining-debug-ready"); hex("checkpoint",gm_ri_checkpoint); hex("tid",tid); hex("target",target); hex("opcode",(unsigned)peek(tid,target)); return 1;
+}
+static int gm_ri_binding(void) {
+    for(unsigned i=0;i<RI_BINDINGS;i++) { U actual=gm_private?gm->ri_slots[i]:peek(tg_pid,gm_base+ri_binding_slot[i]); U expected=gm_private?gm_ri_private_target(i):gm_base+ri_binding_target[i];
+        event("remaining-binding"); hex("index",i); hex("slot",ri_binding_slot[i]); hex("expected_target",expected); hex("actual_target",actual); hex("match",actual==expected); if(actual!=expected)return 0; }
+    return 1;
+}
+static int gm_ri_literals(void) {
+    static const U off[3]={0x99814f,0x99364b,0x998f93}; static const char *expect[3]={gm_ri_tty,gm_ri_gpio,gm_ri_command};
+    for(unsigned i=0;i<3;i++) { char actual[32]={0}; U address=gm_private?(U)expect[i]:gm_base+off[i]; remote_string(tg_pid,address,actual,sizeof(actual)); int match=equal(actual,expect[i]); U aw0=0,aw1=0,ew0=0,ew1=0,n=0,en=0; while(actual[n]&&n<31)n++; while(expect[i][en])en++; for(unsigned j=0;j<8;j++){aw0|=(U)(unsigned char)actual[j]<<(8*j);if(j<en)ew0|=(U)(unsigned char)expect[i][j]<<(8*j);} for(unsigned j=0;j<8;j++){aw1|=(U)(unsigned char)actual[8+j]<<(8*j);if(8+j<en)ew1|=(U)(unsigned char)expect[i][8+j]<<(8*j);}
+        event("remaining-literal"); hex("index",i); hex("address",address); hex("length",n); hex("actual_word0",aw0); hex("actual_word1",aw1); hex("expected_word0",ew0); hex("expected_word1",ew1); hex("match",match); if(!match)return 0; }
+    return 1;
+}
+static int gm_ri_initial(void) {
+    if(!gm_ri_binding()||!gm_ri_literals())return 0;
+    unsigned scu=gm_private?gm->ri_scu:(unsigned)peek(tg_pid,gm_base+0x3cb4620);
+    event("remaining-state"); put("phase = \"initial\"\n"); hex("index",0); hex("object",gm_private?(U)&gm->ri_scu:gm_base+0x3cb4620); hex("width",4); hex("expected",0x80000000); hex("actual",scu); hex("match",scu==0x80000000);
+    return scu==0x80000000;
+}
+static int gm_regs_same(struct Regs *a,struct Regs *b) { for(int i=0;i<31;i++)if(a->x[i]!=b->x[i])return 0; return a->pc==b->pc&&a->sp==b->sp&&a->pstate==b->pstate; }
+static int gm_ri_checkpoint_ok(unsigned i,struct Regs *r,int cached,unsigned boolean,unsigned la) {
+    if(gm_ri_writes!=2)return 0;
+    S x0=(S)(int)(unsigned)r->x[0]; if(i==0)return r->x[0]==(gm_private?(U)gm_ri_tty:gm_base+0x99814f)&&r->x[1]==1;
+    if(i==1)return x0<0; if(i==2)return x0==-1&&!boolean;
+    if(i==3) { return r->x[0]==(gm_private?(U)gm_ri_command:gm_base+0x998f93)&&r->x[1]==5&&cached<0; }
+    if(i==4)return r->x[0]==(gm_private?(U)gm_ri_gpio:gm_base+0x99364b)&&r->x[1]==0x802;
+    if(i==5)return x0<0; if(i==6)return x0==-3; if(i==7)return x0==-7; if(i==8)return x0==-3;
+    return x0==-1&&cached==-7&&la==0;
+}
+static void gm_ri_reject(U tid,const char *reason,U actual,U expected) { event("remaining-rejected"); put("reason = \""); put(reason); put("\"\n"); hex("tid",tid); hex("checkpoint",gm_ri_checkpoint); hex("actual",actual); hex("expected",expected); gm_quiesce(tid); quit(78); }
 /* Returns one for a clone/new-thread/exit event that has been accounted for. */
 static int gm_meta(U tid,int status,int quiescing) {
     struct TgThread *t=tg_find(tid);
@@ -352,6 +452,7 @@ static int gm_meta(U tid,int status,int quiescing) {
         struct TgIdentity id; rc=tg_identity(child,"runtime-clone-child",&id);
         if(rc<0 || id.tracer!=tg_observer) tg_fail("runtime-clone-identity",rc);
         struct TgThread *c=tg_add(child); gm_confirmed[c-tg_threads]=1;
+        if(gm_remaining&&gm_writes>=AT_FULL_WRITES+ST_WRITES&&!quiescing) { gm_region_clone=child; event("remaining-clone"); hex("parent_tid",tid); hex("new_tid",child); return 1; }
         if(!quiescing) { gm_resume(t); if(c->stopped) gm_resume(c); } return 1;
     }
     if(kind==128 && signal==5) {
@@ -362,6 +463,7 @@ static int gm_meta(U tid,int status,int quiescing) {
     return 0;
 }
 static void gm_quiesce(U stopping_tid) {
+    if(gm_remaining) tg_deadline=tg_now()+2000;
     event("terminal-quiesce"); hex("stopping_tid",stopping_tid);
     for(U i=0;i<tg_count;i++) if(tg_threads[i].live && !tg_threads[i].stopped) {
         S rc=pt(0x4207,tg_threads[i].tid,0,0); event("terminal-interrupt"); hex("tid",tg_threads[i].tid); hex("result",rc);
@@ -370,7 +472,7 @@ static void gm_quiesce(U stopping_tid) {
     for(;;) {
         int pending=0; for(U i=0;i<tg_count;i++) if(tg_threads[i].live && !tg_threads[i].stopped) pending=1;
         if(!pending) break;
-        int status=0; U tid=gm_wait(&status); if(gm_meta(tid,status,1)) continue;
+        int status=0; U tid=gm_wait(&status); if(!tid) { event("terminal-cleanup-deadline"); hex("stopping_tid",stopping_tid); tg_deadline=tg_now()+2000; tg_cleanup(); quit(84); } if(gm_meta(tid,status,1)) continue;
         U signal=(status>>8)&255;
         if(signal==11 || signal==7) gm_fault(tid,"terminal-pending-fault",signal);
         else { event("terminal-pending-signal"); hex("tid",tid); hex("status",status); }
@@ -381,6 +483,7 @@ static void gm_quiesce(U stopping_tid) {
     if(gm_private) { hex("worker_ack",gm_load(&gm->worker_ack)); hex("fixture_new_tid",gm->new_worker); }
     if(gm_transcript) gm_at_terminal();
     if(gm_spu) gm_st_terminal();
+    if(gm_remaining) { event("remaining-summary"); hex("private_metrics",gm_private); hex("scu_object",gm_private?(U)&gm->ri_scu:gm_base+0x3cb4620); hex("scu_value",gm_private?gm->ri_scu:(unsigned)peek(tg_pid,gm_base+0x3cb4620)); hex("la_object",gm_private?(U)&gm->ri_la:gm_base+0x106d4d8); hex("la_value",gm_private?gm->ri_la:(unsigned)peek(tg_pid,gm_base+0x106d4d8)); hex("cached_object",gm_private?(U)&gm->ri_cached:gm_base+0xbb127c); hex("cached_value",(unsigned)(gm_private?gm->ri_cached:(int)peek(tg_pid,gm_base+0xbb127c))); hex("checkpoints",gm_ri_checkpoint); hex("remaining_writes",gm_ri_writes); hex("total_writes",gm_writes); hex("atomic",gm_private?gm->ri_atomic:0); hex("device_io",gm_private?gm->ri_device_io:0); hex("old_executed",gm_private?gm->ri_old_executed:0); hex("clone_tid",gm_region_clone); }
     tg_cleanup();
 }
 static void gm_observe(U pid,U base,int private) {
@@ -399,16 +502,48 @@ static void gm_observe(U pid,U base,int private) {
     if(!private) { hex("got_slot",base+0xb8d758); hex("mmap_got",peek(pid,base+0xb850f0)); }
     nps_inventory(pid,"before-ready");
     event("ready"); hex("pid",pid); hex("observer_pid",tg_observer); hex("stopping_tid",pid);
+    if(gm_remaining) { event("remaining-mode"); hex("checkpoint_count",RI_CHECKPOINTS); hex("write_count",RI_WRITES); hex("binding_count",RI_BINDINGS); hex("deadline_ms",10000); }
     if(private) gm_publish(&gm->release);
     for(U i=0;i<tg_count;i++) if(tg_threads[i].live) gm_resume(&tg_threads[i]);
     U fd=(U)-1; int pending_open=0,pending_map=0;
     for(;;) {
-        int status=0; U tid=gm_wait(&status); if(gm_meta(tid,status,0)) continue;
+        int status=0; U tid=gm_wait(&status);
+        if(!tid && gm_remaining) { event("remaining-deadline"); hex("stopping_tid",0); hex("checkpoint",gm_ri_checkpoint); hex("remaining_writes",gm_ri_writes); gm_quiesce(0); quit(78); }
+        if(gm_meta(tid,status,0)) { if(gm_region_clone)gm_ri_reject(tid,"clone",gm_region_clone,0); continue; }
         U signal=(status>>8)&255; struct TgThread *t=tg_find(tid); struct Regs r={0}; registers(tid,&r,0);
+        if(gm_remaining&&signal==5&&gm_writes>=AT_FULL_WRITES+ST_WRITES&&gm_ri_checkpoint<RI_CHECKPOINTS) {
+            U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"remaining-siginfo"); unsigned i=gm_ri_checkpoint;
+            U target=private?gm_ri_private_pc(i):base+ri_stock_pc[i],opcode=(unsigned)peek(tid,r.pc);
+            unsigned expected_opcode=private?0xd503201f:ri_stock_opcode[i]; event("remaining-checkpoint"); hex("index",i); hex("tid",tid); hex("signal",signal); hex("si_code",(unsigned)info[1]); hex("address",info[2]); hex("pc",r.pc); hex("relative_pc",private?0:r.pc-base); hex("opcode",opcode); hex("expected_pc",target); hex("expected_opcode",expected_opcode);
+            gm_registers("remaining-checkpoint-registers",tid,&r);
+            if(tid!=pid||(unsigned)info[1]!=4||info[2]!=target||r.pc!=target||opcode!=expected_opcode)gm_ri_reject(tid,"checkpoint",r.pc,target);
+            int cached=private?gm->ri_cached:(int)(unsigned)peek(tg_pid,base+0xbb127c); unsigned boolean=private?gm->ri_bool:(i==2?(unsigned)peek(tg_pid,r.x[29]-1)&255:0); unsigned la=private?gm->ri_la:(unsigned)peek(tg_pid,base+0x106d4d8);
+            int guard=gm_ri_checkpoint_ok(i,&r,cached,boolean,la); event("remaining-checkpoint-guard"); hex("index",i); hex("match",guard); hex("atomic",private?gm->ri_atomic:0); hex("x0",r.x[0]); hex("x1",r.x[1]); hex("cached_object",private?(U)&gm->ri_cached:base+0xbb127c); hex("cached_value",(unsigned)cached); hex("bool_object",private?(U)&gm->ri_bool:(i==2?r.x[29]-1:0)); hex("bool_value",boolean); hex("la_object",private?(U)&gm->ri_la:base+0x106d4d8); hex("la_value",la); if(!guard)gm_ri_reject(tid,"checkpoint-state",r.x[0],0);
+            struct Regs before=r; gm_ri_checkpoint++; if(!gm_ri_debug(tid,gm_ri_checkpoint<RI_CHECKPOINTS))gm_ri_reject(tid,"debug-rotation",gm_ri_checkpoint,RI_CHECKPOINTS);
+            struct Regs after={0}; registers(tid,&after,0); gm_registers("remaining-debug-registers",tid,&after); if(!gm_regs_same(&before,&after))gm_ri_reject(tid,"debug-registers",after.pc,before.pc);
+            gm_resume(t); continue;
+        }
         if(signal==11 || (gm_next && signal==7)) {
             gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
             if(gm_next && gm_responses==2) {
                 U offset=info[2]-gm_mapping,write_pc=private?(U)gm_write_pc:base+0x27043c;
+                if(gm_remaining&&gm_writes>=AT_FULL_WRITES+ST_WRITES) {
+                    unsigned index=gm_ri_writes; int has=index<RI_WRITES,mapped=gm_mapping&&info[2]>=gm_mapping&&info[2]<gm_mapping+0x1000000;
+                    U eo=has?ri_offset[index]:4,ev=has?ri_value[index]:0; int phase=(index<2?gm_ri_checkpoint==0:gm_ri_checkpoint==RI_CHECKPOINTS);
+                    int candidate=has&&phase&&tid==pid&&signal==11&&(unsigned)info[1]==2&&offset==eo&&r.x[8]==info[2]&&r.pc==write_pc&&(unsigned)peek(tid,r.pc)==0xb9000109&&(unsigned)r.x[9]==ev,live=1;
+                    if(candidate&&index==0&&!gm_ri_initial()){live=0;candidate=0;}
+                    if(candidate&&index==2) { unsigned la=private?gm->ri_la:(unsigned)peek(tg_pid,base+0x106d4d8); event("remaining-state"); put("phase = \"la\"\n"); hex("index",1); hex("object",private?(U)&gm->ri_la:base+0x106d4d8); hex("width",4); hex("expected",1); hex("actual",la); hex("match",la==1); if(la!=1){live=0;candidate=0;} }
+                    if(candidate) { struct Regs before=r; r.pc+=4; registers(tid,&r,1); struct Regs after={0}; registers(tid,&after,0); if(!gm_regs_same(&r,&after))gm_ri_reject(tid,"write-registers",after.pc,r.pc);
+                        gm_write_offset=offset; gm_write_value=(unsigned)before.x[9]; gm_writes++; gm_ri_writes++;
+                        event("modeled-write"); hex("tid",tid); hex("index",gm_writes-1); hex("offset",offset); hex("value",gm_write_value); hex("width",4);
+                        event("remaining-write"); hex("tid",tid); hex("index",index); hex("global_index",gm_writes-1); hex("pc",before.pc); hex("opcode",0xb9000109); hex("offset",offset); hex("value",gm_write_value); hex("width",4); gm_registers("write-registers",tid,&after);
+                        if(gm_ri_writes==2) { gm_ri_checkpoint=0; if(!gm_ri_debug(tid,1))gm_ri_reject(tid,"debug-initial",0,1); struct Regs debug_after={0}; registers(tid,&debug_after,0); gm_registers("remaining-initial-debug-registers",tid,&debug_after); if(!gm_regs_same(&after,&debug_after))gm_ri_reject(tid,"debug-initial-registers",debug_after.pc,after.pc); }
+                        gm_resume(t); continue;
+                    }
+                    event(has?"remaining-write-rejected":"remaining-boundary"); if(has){const char *reason=!phase?"phase":tid!=pid?"thread":signal!=11?"signal":(unsigned)info[1]!=2?"si-code":offset!=eo?"offset":r.x[8]!=info[2]?"address-register":r.pc!=write_pc?"pc":(unsigned)peek(tid,r.pc)!=0xb9000109?"opcode":!live?"live-state":"value"; put("reason = \"");put(reason);put("\"\n");} hex("tid",tid); hex("index",index); hex("global_index",gm_writes); hex("signal",signal); hex("si_code",(unsigned)info[1]); hex("address",info[2]); hex("offset",offset); hex("pc",r.pc); hex("opcode",(unsigned)peek(tid,r.pc)); hex("actual_value",(unsigned)r.x[9]); hex("expected_offset",eo); hex("expected_value",ev); hex("remaining_writes",gm_ri_writes);
+                    if(!has&&gm_ri_checkpoint==RI_CHECKPOINTS&&tid==pid&&signal==11&&(unsigned)info[1]==2&&offset==4&&r.x[8]==info[2]&&r.pc==(private?(U)gm_second_pc:base+0x270604)&&(unsigned)peek(tid,r.pc)==0xb9400109) { gm_quiesce(tid); quit(78); }
+                    event("unsupported-access"); hex("tid",tid); hex("responses",gm_responses); hex("writes",gm_writes); put("classification = \""); put(mapped?"mapped":"nonmapped"); put("\"\n"); gm_quiesce(tid); quit(mapped?78:83);
+                }
                 if(gm_spu && gm_writes>=AT_FULL_WRITES) {
                     unsigned index=(unsigned)(gm_writes-AT_FULL_WRITES); int has=index<ST_WRITES;
                     U expected_offset=has?st_write_offset(index):0,expected_value=has?st_write_value(index):0;
@@ -519,6 +654,16 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
+    int remaining_control=argc==5&&equal(argv[1],"control-remaining"),remaining_stock=argc==6&&equal(argv[1],"stock-remaining");
+    if(remaining_control||remaining_stock) {
+        U arm=remaining_control?parse(argv[2],10):0; if(remaining_control&&(arm<40||arm>58))quit(2); unsigned profile=remaining_stock?1:2;
+        if(!gm_at_load(argv[remaining_stock?4:3],profile,AT_FULL_WRITES))quit(2); if(!gm_st_load(argv[remaining_stock?5:4],profile))quit(2);
+        gm_transcript=1; gm_spu=1; gm_remaining=1; gm_next=1; tg_deadline=tg_now()+10000;
+        if(remaining_stock) { U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); hex("continuation",1); hex("one_write",0); hex("pair_write",0); hex("transcript",1); hex("spu",1); hex("remaining",1); hex("profile",1); hex("write_count",AT_FULL_WRITES); hex("spu_write_count",ST_WRITES); hex("remaining_write_count",RI_WRITES); gm_observe(pid,base,0); quit(2); }
+        S memory=sys(222,0,32768,3,0x21,(U)-1,0); check(memory,"model-shared-mmap"); gm=(struct GmShared *)memory; gm->arm=arm; gm->output=(U)-1; U observer=sys(172,0,0,0,0,0,0);
+        S pid=sys(220,17,0,0,0,0,0); check(pid,"model-private-clone"); if(!pid)gm_private_leader(observer); while(!gm_load(&gm->ready))tg_tick();
+        event("model-mode"); put("scope = \"private\"\n"); hex("arm",arm); hex("pid",pid); hex("fixture_worker",gm->worker); hex("continuation",1); hex("one_write",0); hex("pair_write",0); hex("transcript",1); hex("spu",1); hex("remaining",1); hex("profile",2); hex("write_count",AT_FULL_WRITES); hex("spu_write_count",ST_WRITES); hex("remaining_write_count",RI_WRITES); gm_observe(pid,0,1); quit(2);
+    }
     int spu_control=argc==5&&equal(argv[1],"control-spu"),spu_stock=argc==6&&equal(argv[1],"stock-spu");
     if(spu_control||spu_stock) {
         U arm=spu_control?parse(argv[2],10):0; if(spu_control&&(arm<25||arm>39))quit(2); unsigned profile=spu_stock?1:2;

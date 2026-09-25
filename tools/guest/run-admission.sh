@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingcontrol]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingcontrol) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -151,7 +151,7 @@ if [ "$boot" = completed ]; then
     helper_mode=$mode
     case "$mode" in nextcontrol|writecontrol|paircontrol) helper_mode=groupcontrol;; esac
     case "$mode" in transcriptcontrol) helper_mode=transcriptcontrol;; esac
-    case "$mode" in spucontrol) helper_mode=spucontrol;; esac
+    case "$mode" in spucontrol) helper_mode=spucontrol;; remainingcontrol) helper_mode=remainingcontrol;; esac
     case "$mode" in startup|mapping|syscall|native|coverage|groupmodel|nextmodel|writemodel|pairmodel|transcriptmodel|spumodel) helper_mode=label;; esac
     "$run/source/admission-$helper_mode.sh" || inspection=failed
     if [ -f "$run/probe-result.toml" ]; then
@@ -178,7 +178,7 @@ cleanup
 emulator_pid=
 logcat_pid=
 trap - EXIT
-for artifact in "$run"/*.txt "$run"/*.log "$run"/*.png "$run"/*.toml "$run"/*.policy \
+for artifact in "$run"/*.txt "$run"/*.log "$run"/*.stderr "$run"/*.png "$run"/*.toml "$run"/*.policy \
     "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
     "$run"/source/* "$run"/tombstones/*; do
     [ "$artifact" != "$run/evidence-sha256.txt" ] || continue

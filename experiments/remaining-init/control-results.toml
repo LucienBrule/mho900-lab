@@ -1,0 +1,153 @@
+schema_version = "mho900-lab.remaining-init-control-results/1"
+task = "TASK.guest.remaining-init-control"
+run = "out/guest-admission/group-remaining-init-01"
+started_at = "2026-09-25T09:23:30Z"
+finished_at = "2026-09-25T09:24:42Z"
+conclusion = "negative-debug-clear-readback"
+native_sha256 = "d6630eafbe3646f938f0de42ddfe84ec1ee9c4a1fd6f9cb8c2ed85c04a243586"
+prior_runtime_controls_passed = 40
+malformed_inputs_rejected = 30
+new_runtime_controls_executed = 1
+new_runtime_controls_not_executed = "41..58"
+accepted_writes = 462
+accepted_remaining_writes = 2
+synthetic_reads = 2
+checkpoints_reached = 0
+atomic_increments = 0
+device_io_sentinel = 0
+initial_threads = 2
+runtime_clones = 1
+terminal_threads = 3
+reaped_threads = 3
+exit_code = 78
+system_server_pid = 1070
+system_server_samples = 47
+enforcement_preserved = true
+stock_application_installed = false
+stock_artifacts_modified = false
+guest_services_stopped = true
+stock_continuation_admitted_by_result = false
+negative_evidence_verified = true
+altered_evidence_copies_rejected = 7
+
+[readback]
+metadata = 0x0606
+get_size = 264
+set_size = 24
+requested_address = 0
+requested_control = 0
+set_result = 0
+returned_address = 0
+returned_control = 0x1e4
+other_slots_zero = true
+physical_delivery_tested = false
+
+[verification]
+frozen_success_verifier = "rejected at independent literal-padding expectation"
+post_run_corrections = "Length-bounded literal words, completed private identity value, explicit negative mode"
+success_profile_changed = false
+raw_capture_modified = false
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "645eb11033a207739952515e744ae5bfc3b9fbcbc939f51f79e190033c5284f5"
+
+[[artifacts]]
+path = "tools/guest/remaining-init.h"
+sha256 = "afa661513a4dae2db07856a9d79546513bebffb09a1b59159b5290bd2ff872a6"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+sha256 = "3ff5dfdc5b40c33b4475b03805121b9db566ff2c2a35c9e33fe06fb1c56f0567"
+
+[[artifacts]]
+path = "tools/guest/VerifyRemainingObserver.main.kts"
+sha256 = "b6d044c07827a89f4625e6eb273e2faaf04b52425bd284311c2e97ea86dbbf76"
+
+[[artifacts]]
+path = "tools/guest/admission-remainingcontrol.sh"
+sha256 = "d207b4533f21ef3919aa46dcf01b021dbaf1c5a51f953cfee9a26afb85a27642"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "feb1cb650e4ccc781f61a7a897616f69da52d46920f06c820f68a53b967d2828"
+
+[[artifacts]]
+path = "experiments/remaining-init/controls.toml"
+sha256 = "53757544404e6098ca823ac7081c6fab94abb4c5aad5b5803c8f884311c223cf"
+
+[[artifacts]]
+path = "docs/research/remaining-init-controls.md"
+sha256 = "6fdccdccc12b5a2e3f614e3a2ce87dfa8387fae991dd7fd62ac5f9bafed6f9f3"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-init-01/evidence-sha256.txt"
+sha256 = "4326e8b19aa47f818fce7c0db7ba1c0a1519e713449d3295dcef8b32b1936034"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-init-01/result.toml"
+sha256 = "7b22e923d470b7887d27e9b56cd09e0700248ba5db10945ee9e703e6ebd9827a"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-init-01/remaining-40.toml"
+sha256 = "0f4a8bf545b0f1e75c4f53877652c4093ebd713e7de0af7845b482ba4ef5558d"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-init-01/source/VerifyRemainingObserver.main.kts"
+sha256 = "69636d96632116e97c60ac68b5de1ef7706943eae592f6eddcf45e7549a7b50d"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-init-01/remaining-40-verification.stderr"
+sha256 = "cccfc325c8162ab84c1be5713a1fe6d0ede5fe3483ce385a19415782136e242f"
+
+[[artifacts]]
+path = "out/remaining-init/private-negative-01-verification.toml"
+sha256 = "9cf40a371275854c82504a4d404b202505fcf31d746cbd2cbad4bbc6dcf3d2f8"
+
+[[artifacts]]
+path = "out/remaining-init/private-positive-rejection-01.stderr"
+sha256 = "480a25e41230c0225328b8ed7c59c2d3edbf771647a328f1c3fa074c739b5440"
+
+[[artifacts]]
+path = "out/remaining-init/negative-review-01.md"
+sha256 = "46eb3eb0a20e2b8b9c2d543c8a74177ebed9cbd964703ebedb6b96145eb9cdf2"
+
+[[artifacts]]
+path = "out/remaining-init/negative-preservation-01.toml"
+sha256 = "97513cd09940c7368f954ab7944cac12e811a61b27b9429c1fdda0881ac520a3"
+
+[[artifacts]]
+path = "out/remaining-init/negative-mutations-01.toml"
+sha256 = "1acbee8133c76edc1c6cfdd4c592ffc23d412b842b531cb0c1d025a716e7841d"
+
+[[artifacts]]
+path = "out/remaining-init/CheckNegativeEvidence.main.kts"
+sha256 = "de3df08baa18f3c66b9ee5d292a76b6ec9ec9c9ff0f360f43f9f4eb4f3272a1d"
+
+[[artifacts]]
+path = "out/remaining-init/native-private-audit-02.toml"
+sha256 = "e52f413c9c266a13d485ec2fb1d06f0ed2dbd9bfa636c3026d3add068ca8af4a"
+
+[[artifacts]]
+path = "out/remaining-init/native-private-audit-02.md"
+sha256 = "957570c6ea5659aad2ae6919b30fd2f41f4655aefc281de6cb6a5472ee496e4f"
+
+[[artifacts]]
+path = "out/remaining-init/verifier-review-01.md"
+sha256 = "bf1aaced1ca180be4a2593d0ceef735492691dc85bd8375c05d6e345c37d06b4"
+
+[[artifacts]]
+path = "out/remaining-init/CheckRemainingHeader.main.kts"
+sha256 = "537bbb71e1c056da4b80c3d335c36bc9129e4f66cbab92fb61b5676631da69c9"
+
+[[artifacts]]
+path = "out/remaining-init/native-header-check-01.toml"
+sha256 = "3d7d35f42657e3b20ad575339e062824046a41d7b089cffb34eebc90a7f482ec"
+
+[[artifacts]]
+path = "out/remaining-init/build-01.stderr"
+sha256 = "b9ab7a1ba5a17b73d3b701833c4a6a5745c0951d0baffc033ba4f8db7e7d3d96"
+
+[[artifacts]]
+path = "out/remaining-init/build-02.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
