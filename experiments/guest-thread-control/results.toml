@@ -1,0 +1,129 @@
+schema_version = "mho900-lab.thread-control-results/1"
+run_id = "thread-control-01"
+classification = "private-existing-and-new-worker-controls-pass"
+arms_passed = 3
+responses = [1, 0, 1]
+reaped_threads = [3, 2, 3]
+shared_output_after_response = "0x11223344"
+existing_read_pc = "0x2199d0"
+new_read_pc = "0x2199f0"
+new_write_pc = "0x2199e4"
+clone_before_child_stop_observed = true
+child_stop_before_clone_observed = false
+initial_thread_ids_supplied_by_fixture = true
+stock_thread_discovery_validated = false
+stock_application_run = false
+system_server_pid = 1053
+system_server_stable = true
+enforcing_samples = 2
+guest_torn_down = true
+physical_device_access = false
+next_question = "Establish bounded live thread-set coverage before repeating the stock state witness with the wider observer."
+
+[[artifacts]]
+path = "docs/research/guest-thread-control.md"
+sha256 = "deb3385b679af8955fda660bd50071d20823d518096cbf5ad2e3f1bd5984012e"
+
+[[artifacts]]
+path = "experiments/guest-thread-control/fixture.toml"
+sha256 = "ec8ae14f7b0e4ee0322628159a2461635930a3f93174d8e4862ff44c853424a5"
+
+[[artifacts]]
+path = "tools/guest/thread-control.c"
+sha256 = "d80e2cdcc383e2708a5a652533f8daf7f91579ac9d289acfa7d3408e6262122d"
+
+[[artifacts]]
+path = "tools/guest/build-thread-control.sh"
+sha256 = "e50af87c6869210153d634c5ad680f49cb78c9f9578bfdff6b08fd425d6e1907"
+
+[[artifacts]]
+path = "tools/guest/admission-threads.sh"
+sha256 = "123ea3347a268b121728e1f58627f43bf1dce3775f4d6628c6248aa835411ed6"
+
+[[artifacts]]
+path = "tools/guest/VerifyThreads.main.kts"
+sha256 = "6dff7390636c985a13f6b2580f9b533abc1a9c6c2c8b13a8afd10953babe65a9"
+
+[[artifacts]]
+path = "tools/guest/native-post-store.h"
+sha256 = "eaa0fa0874e209e05d5fc38a8f786b95c8a466c62c10e0fccea5cc4fb099d713"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "0fea05de17767813b511ad03dd801b8ffec7307fab4585755da99800196b3fec"
+
+[[artifacts]]
+path = "out/guest-thread-control/verification.toml"
+sha256 = "ee0ccd2ada4ab1ef914f453653aaf673aeb428d2fb4108939cc6e78c883cbc49"
+
+[[artifacts]]
+path = "out/guest-thread-control/disassembly.txt"
+sha256 = "8010e2e3e4c0fea13534d6086cf358297a95aed99779036f2bc7914209cb4b98"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference-sha256.txt"
+sha256 = "d3ddd0319c3a9e1a9f91f1bc5dea9a8e9ef4e5e9e279774ffa4d2acc2a4aa095"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference/provenance.toml"
+sha256 = "c1f52c4adf3b52e00223d5381fcaffca01390ab95ad9b8645c3309091d5cce7a"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference/ptrace.h"
+sha256 = "d53dda260eaad1a9040b6e18cc1bf84b86c47e04fb63ed6f426144e98410940f"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference/sched.h"
+sha256 = "becb50d972f55496b039dc9761307cd014ffac0d1febd4d4c32ba2a2b87d43e2"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference/wait-pinned.h"
+sha256 = "e488789ceabd2c2bfe1779f397d8d8c85128e97e167b5d51810eb08fb4b42845"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference/fork.c"
+sha256 = "841530c7c71ef1f6111356473d2cb8e5d8fe66d29eafe9fb716a669da4024a6b"
+
+[[artifacts]]
+path = "out/guest-thread-control/reference/unistd.h"
+sha256 = "fd89affc196229d1f383f0ab6423fba7cc53d380f09de52c8a4ba32c0adfd835"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/evidence-sha256.txt"
+sha256 = "918aebefc6ac1fbe9c23123189fc0b19e434bccc10a273cdc2f0db265597f96d"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-control.elf"
+sha256 = "529712c15ea49452141b15868dae3bdda0564f8ca0c77dd9fddf49ee6dc230e1"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-0.toml"
+sha256 = "634f8924cef51f6b91b0b0e682962ce1ae09ea0884a9776d6a5d3a8c51e7dc46"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-1.toml"
+sha256 = "db60e2f7af12569a0e13b44c742b5c6b4165d479a09dbc7d4b65cd7d0504fe32"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-2.toml"
+sha256 = "621abd22f985002abe94cabfb5396ced4e57ce2ee427d3dc066caa15a0ade3e0"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-system-server.toml"
+sha256 = "b926f9c8963f93e419b635dcb92ab954bf7c770293717c0836654a62f817036f"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/thread-processes-after.txt"
+sha256 = "e1acc42c1c0713b1661e4fdcea48a3b372b2c9e51084ef1d4a38691d750d2393"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/result.toml"
+sha256 = "84fc87240d96a6ea528909d945c88ce0af819fc4d7508e5c69300f29f088d7ca"
+
+[[artifacts]]
+path = "out/guest-admission/thread-control-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"

@@ -45,7 +45,7 @@ static void nps_directory_control(U pid) {
         hex("read_attempted",fd>=0); hex("read_result",got); hex("close_result",closed);
     }
 }
-static void nps_inventory(U pid,const char *phase) {
+static void nps_inventory_for(U pid,const char *phase,U stopping_tid) {
     char path[64]="/proc/", buf[2048]; U at=6, count=0; int overflow=0,error=0;
     U operation=0; S result=0;
     at=nps_decimal(path,at,sizeof(path),pid); nps_append(path,at,sizeof(path),"/task");
@@ -69,10 +69,11 @@ static void nps_inventory(U pid,const char *phase) {
     }
     if(fd>=0) { S closed=sys(57,fd,0,0,0,0,0); if(closed<0 && !error) { error=1; operation=5; result=closed; } }
     event("thread-inventory"); put("phase = \""); put(phase); put("\"\n");
-    hex("pid",pid); hex("observer_pid",sys(172,0,0,0,0,0,0)); hex("stopping_tid",pid);
+    hex("pid",pid); hex("observer_pid",sys(172,0,0,0,0,0,0)); hex("stopping_tid",stopping_tid);
     hex("observed_count",count); hex("overflow",overflow); hex("error",error);
     hex("directory_flags",0x4000); hex("error_operation",operation); hex("error_result",result);
 }
+static void nps_inventory(U pid,const char *phase) { nps_inventory_for(pid,phase,pid); }
 
 static void nps_debug_dump(const char *kind,S rc,struct Iov *io,struct NpsDebugState *s) {
     event(kind); hex("result",rc); hex("size",io->size); hex("info",s->info);
