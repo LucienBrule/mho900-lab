@@ -1,0 +1,47 @@
+schema_version = "mho900-lab.calibration-static-scope/1"
+task = "TASK.hardware.calibration-static-contract"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+parent_dispatcher = "dispatcher.toml"
+parent_calls_complete = true
+direct_call_inventory = "call-inventory.toml"
+inventory_ranges = 22
+inventory_calls = 381
+dispatcher_nodes = 24
+dispatcher_edges = 24
+transitive_recovery_complete = false
+guest_execution_performed = false
+new_hardware_responses = 0
+operation_classes = ["STATIC-DETERMINED","RUNTIME-SELECTED","HARDWARE-RETURNED","ASYNCHRONOUS","UNKNOWN"]
+components = ["loaders.toml","checked-stream.toml","assets.toml","adc-initial-state.toml","adc-parameters.toml","algorithms-threads.toml"]
+unresolved_direct_targets_preserved = true
+private_host_paths_in_manifests = false
+stock_payload_bytes_published = false
+first_ambiguity = "Loader outcomes and ADC record contents before SetADCParameter(0)."
+earliest_hardware_call = 0x33f038
+earliest_hardware_callee = "DevAcquireADC_SetRef"
+first_reference_fields = [0x8854,0x8856]
+adc_constructor_initializes_load_record = false
+image_initial_zero_fill_established = true
+live_preload_record_established = false
+missing_adc_file_implies_zero_values = false
+next_recommended_observation = "Complete first-three-loader region, returned statuses and live destination records, before ADC parameter programming."
+
+[[frontiers]]
+name = "CCalibration_ADC::DrvCalibration_SetAdcStary(0)"
+classification = "UNKNOWN"
+reason = "State and sample-rate-dependent algorithm remains unexpanded beyond entry."
+
+[[frontiers]]
+name = "ADC synchronization, data-line, input-delay, core-alignment and QADC algorithms"
+classification = "HARDWARE-RETURNED"
+reason = "Known caller ordering and selected interfaces; complete feedback algorithms and physical behavior are not recovered."
+
+[[frontiers]]
+name = "CCalibration::run"
+classification = "ASYNCHRONOUS"
+reason = "Worker entry resolved; worker body and concurrent effects are outside this dispatcher recovery."
+
+[[frontiers]]
+name = "Driver and FPGA semantics beyond reused ADC/SPU transport"
+classification = "UNKNOWN"
+reason = "No new ioctl DMA or interrupt contract is established by names or call edges alone."

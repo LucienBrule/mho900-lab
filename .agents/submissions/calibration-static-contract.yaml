@@ -1,0 +1,24 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.calibration-static-contract
+contract: sha256:c14aa16332ff2ffa0d22279136e8f0bb8d16ab476aff0f4a8f8594e250aef8c4
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T11:10:00Z"
+evidence:
+  inputs: >-
+    experiments/calibration-static/results.toml SHA-256 b777227117e030bbc16d013cc6eeadb00c65ac8a03185b47567e47e2ce1464ea
+    pins the unchanged APK and stock ELF, prior stock-tail result and all recovered components and local derivations.
+  recovery: >-
+    Twenty-two symbol ranges and381 calls were extracted directly from ELF bytes and PLT relocations.
+    Two final derivations produced byte-identical inventory and dispatcher files. Loader paths destinations sizes
+    failure semantics constructor effects initial ELF zero-fill and mode-zero ADC helper ordering are documented.
+    Two available extracted default records pass the recovered28-byte-header and payload CRC32 checks.
+  graph: >-
+    The24-node24-edge dispatcher accounts for every parent call including buffer initialization and canary failure.
+    Deterministic AFG selectors1..2 and ADC-stray selectors0..3, the signed DDR return branch, mutable calibration
+    inputs and thread construction are distinguished. Direct unresolved targets and indirect calls remain explicit.
+    Initial ADC record is zero-filled; its live pre-load state is unobserved. Semantic annotations await independent review.
+  scope: >-
+    No guest ran and no new device response was introduced. Deeper calibration feedback algorithms and worker body
+    remain explicit frontiers rather than a claim of complete transitive recovery. No physical instrument was accessed.
+    TOML parsing, prose width, source disclosure checks and unchanged stock hashes passed. Commit and push precede review.

@@ -1,0 +1,105 @@
+schema_version = "mho900-lab.adc-parameter/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+caller = "CCalibration::Init()"
+call_pc = 0x333ba8
+call_instruction_le = "9e9bfb97"
+function = "CCalibration_ADC::SetADCParameter(unsigned int)"
+start = 0x33efe0
+end_exclusive = 0x33fc80
+byte_length = 3232
+range_sha256 = "8abde0a3d3fb580a49e3136b033ffe19dca0a67fe6ae2cbd35009745765685d7"
+mode = 0
+
+[[steps]]
+order = 0
+call_pc = 0x33f038
+callee = "DevAcquireADC_SetRef"
+callee_range = "0x2801ec..0x280280"
+arguments = "chip=0, reference=s16[this+0x8854]"
+effect = "shadow9[0]=(shadow9[0]&0xffc0)|(reference&0x3f); SetADCReg(0,9,shadow9[0])"
+classification = "RUNTIME-SELECTED"
+
+[[steps]]
+order = 1
+call_pc = 0x33f058
+callee = "DevAcquireADC_SetRef"
+callee_range = "0x2801ec..0x280280"
+arguments = "chip=1, reference=s16[this+0x8856]"
+effect = "shadow9[1]=(shadow9[1]&0xffc0)|(reference&0x3f); SetADCReg(1,9,shadow9[1])"
+classification = "RUNTIME-SELECTED"
+
+[[steps]]
+order = 2
+call_pc = 0x33f06c
+callee = "CCalibration_ADC::SetSpuAdcGain"
+callee_range = "0x33edac..0x33efe0"
+arguments = "mode=0"
+effect = "assemble 16 u32 values from calibration table this+0x8cd4 using mode0 lookup; call DevAcquireSpuH12S4_SetAdcGainFine"
+classification = "RUNTIME-SELECTED"
+
+[[steps]]
+order = 3
+call_pcs = [0x33f094, 0x33f0ac, 0x33f0c4, 0x33f0dc]
+callee = "CCalibration_ADC::SetQuardAdcParameter"
+callee_range = "0x33ec00..0x33edac"
+channels = [0, 1, 2, 3]
+mode = 0
+effect = "four SetADCCoreGain calls per channel; chips 0,0,1,1; indices ch,ch+4,ch+8,ch+12 into s16 calibration row at this+0x8804+0x20"
+helper_call_count = 16
+classification = "RUNTIME-SELECTED"
+
+[[steps]]
+order = 4
+call_pc = 0x33f0f0
+callee = "CCalibration_ADC::DrvCalibration_SetAdcStary(int)"
+callee_start = 0x33fc80
+arguments = "mode=0"
+classification = "UNKNOWN"
+expanded = false
+
+[[steps]]
+order = 5
+range = "0x33f72c..0x33f790"
+callee = "DevAcquireADC_SetADCCoreOffset"
+indices = "0..15"
+call_count = 16
+classification = "RUNTIME-SELECTED"
+
+[[steps]]
+order = 6
+range = "0x33f790..0x33fc4c"
+effect = "mode0 sample-clock and chip clock-delay application from signed calibration fields"
+callees = ["DevAcquireADC_SetDlySmpClk", "DevAcquireADC_SetClockDelay"]
+classification = "RUNTIME-SELECTED"
+
+[[steps]]
+order = 7
+call_pc = 0x33fc4c
+callee = "DevAcquireSPU_SetAdcSync"
+classification = "UNKNOWN"
+
+[adc_transport]
+set_adc_reg = 0x27e8a8
+dev_adc_write = 0x2717c8
+register_offset = 0x3000
+write_count_per_call = 2
+inter_write_delay_us = 100
+word_first = "0x04000000 | chip_select(mode) | (index<<16) | ((value&0xffff)^mask[index])"
+word_second = "word_first & 0x03ffffff"
+return_semantics = "SetADCReg and valid-mode Dev_AdcWrite discard lower-layer write failures"
+
+[bindings]
+index9_shadow_got = 0xb8cb08
+
+[resolved_boundaries]
+spu_adc_gain_fine = 0x275858
+adc_core_gain = 0x281a04
+adc_core_offset = 0x281ed8
+adc_sample_clock_delay = 0x2844b4
+adc_clock_delay = 0x284554
+spu_adc_sync = 0x2739c0
+
+[limitations]
+actual_calibration_values = "UNKNOWN runtime data"
+drv_calibration_set_adc_stary = "UNKNOWN unexpanded deep algorithm"
+hardware_success = "not implied by wrapper returns"

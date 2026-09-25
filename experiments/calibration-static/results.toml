@@ -1,0 +1,125 @@
+schema_version = "mho900-lab.calibration-static-result/1"
+task = "TASK.hardware.calibration-static-contract"
+result = "recovered-with-explicit-frontiers"
+recorded_at = "2026-09-25T11:09:00Z"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+input_checkpoint = "stock-init-tail-01: unexecuted instruction at relative0x2e57f8"
+derivation = "out/calibration-static/inventory-05"
+deterministic_repeat = "out/calibration-static/inventory-06"
+repeat_byte_equal = true
+ranges = 22
+calls = 381
+dispatcher_nodes = 24
+dispatcher_edges = 24
+parent_call_coverage_complete = true
+transitive_recovery_complete = false
+asset_format_crc_checks = "two available extracted default records accepted"
+image_initial_adc_record = "ELF zero-fill; constructor-local effects preserve record"
+live_adc_record = "unobserved; prior writes and partial loader mutation remain possible"
+guest_runs = 0
+new_synthetic_device_responses = 0
+physical_instrument_access = false
+independent_review_pending = true
+semantic_annotation_provenance = "Reviewed stock disassembly; inventory tool reproduces ranges words targets and selected storage facts, not semantic proof."
+component_normalization = "Five operation classes; image-backed template copy is not assumed immutable; resolved loader names cross-linked."
+
+[[artifacts]]
+path = "experiments/calibration-static/scope.toml"
+sha256 = "7c1a74e33b29017205bed773fcda8979c439f2fd6e44637bccdb64b07c16bf7b"
+
+[[artifacts]]
+path = "experiments/calibration-static/call-inventory.toml"
+sha256 = "43551a47ef218564aa66028ec65b1f988e2b49129173dd1081fa30beeaa3acca"
+
+[[artifacts]]
+path = "experiments/calibration-static/dispatcher.toml"
+sha256 = "939566f4ad7bbf3f59ab757da42e40291361d215fe8404bf5c6f1f5c716504f9"
+
+[[artifacts]]
+path = "experiments/calibration-static/loaders.toml"
+sha256 = "de0a18126ca20c2857bae12013a332e1bd8d255648d9e1208c010f75553720fc"
+
+[[artifacts]]
+path = "experiments/calibration-static/checked-stream.toml"
+sha256 = "234771630ef3051315f8f32399bcea536b32e6e31f062ef51f1f80e473eba186"
+
+[[artifacts]]
+path = "experiments/calibration-static/adc-initial-state.toml"
+sha256 = "0b56c1e0f040429f196de2150735e5c52c59786e5d47cbc693773f32dcb68ed3"
+
+[[artifacts]]
+path = "experiments/calibration-static/algorithms-threads.toml"
+sha256 = "33ed4fcff5e3770d5157ab245188ddd9b4def71d321aa9d201adefa9fcfbad7a"
+
+[[artifacts]]
+path = "experiments/calibration-static/adc-parameters.toml"
+sha256 = "95f6a939eb53e9524dfbc9d0930b205897498f5dfff5a88a7a31b79dde2fcb3d"
+
+[[artifacts]]
+path = "experiments/calibration-static/assets.toml"
+sha256 = "901935faaef34829471e13c817de35864ee314df136ec0bf61db027217971c8b"
+
+[[artifacts]]
+path = "tools/research/RecoverCalibrationInventory.main.kts"
+sha256 = "2b547fadef59b5270d802dc9c15ed6288586b07a329514609ae8554ad185003f"
+
+[[artifacts]]
+path = "tools/research/InspectCalibrationAssets.main.kts"
+sha256 = "0187caa8ff62133e8999ab7f52ea5ef1b0b8fb2069a89f1d9d3144dbb50aae14"
+
+[[artifacts]]
+path = "docs/research/calibration-initialization-contract.md"
+sha256 = "cc6126d002ab83ad4edb0de6b83888ec87dd82163aea0f5d795383fba674452b"
+
+[[artifacts]]
+path = "experiments/init-tail/stock-results.toml"
+sha256 = "5e9314bf1de262358c1302c213801d2f38d4d4995eff4aad8f1d8e76f4f0dfe1"
+
+[[artifacts]]
+path = "out/calibration-static/loaders-01.md"
+sha256 = "88c43d355ba17b0128742809edac552de7ce8787de6dea95164ad34fa3b13143"
+
+[[artifacts]]
+path = "out/calibration-static/loaders-01.toml"
+sha256 = "de0a18126ca20c2857bae12013a332e1bd8d255648d9e1208c010f75553720fc"
+
+[[artifacts]]
+path = "out/calibration-static/checked-stream-01.md"
+sha256 = "bf7da7cde91e574105646a6114f584e2cca4411679b6ede225f889a60266dcc4"
+
+[[artifacts]]
+path = "out/calibration-static/checked-stream-01.toml"
+sha256 = "234771630ef3051315f8f32399bcea536b32e6e31f062ef51f1f80e473eba186"
+
+[[artifacts]]
+path = "out/calibration-static/adc-initial-state-01.md"
+sha256 = "280c049ca9f6e85b685f37351ea288f21a4eab18beece66a46489e790b048371"
+
+[[artifacts]]
+path = "out/calibration-static/adc-initial-state-01.toml"
+sha256 = "7bfd5ed96b49448e002c5584be455a227dd2b87ce642aba2ea9a970e8ce23718"
+
+[[artifacts]]
+path = "out/calibration-static/algorithms-threads-01.md"
+sha256 = "f6651041e89864749e544548467f7067f2b91ef9806c53412f80cb040606eece"
+
+[[artifacts]]
+path = "out/calibration-static/algorithms-threads-01.toml"
+sha256 = "1f7e74f8c9be64cc19db30c1813d86ef676a0d71ac227951b4b459c7b9dd3caf"
+
+[[artifacts]]
+path = "out/calibration-static/adc-parameter-01.md"
+sha256 = "db735df5b1bcda2b7ab1eb3a4c003fa83a1598d2c052a2f358de1b2800162a73"
+
+[[artifacts]]
+path = "out/calibration-static/adc-parameter-01.toml"
+sha256 = "45a89be55bf6f6fb4afa7f81b8f456d9e223b1a741afc1d6c57b14f088b2f0f4"
+
+[[artifacts]]
+path = "out/calibration-static/assets-01.toml"
+sha256 = "901935faaef34829471e13c817de35864ee314df136ec0bf61db027217971c8b"
+
+[[artifacts]]
+path = "out/calibration-static/inventory-06.stdout"
+sha256 = "78ea5ebd61282df342c030bb8e798304d464bae19d62d4915e27a2a55eaf598f"

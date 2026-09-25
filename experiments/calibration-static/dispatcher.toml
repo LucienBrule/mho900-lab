@@ -1,0 +1,310 @@
+schema_version = "mho900-lab.calibration-dispatcher/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+entry = "get_scope"
+parent_calls_complete = true
+transitive_recovery_complete = false
+
+[[nodes]]
+id = "get_scope"
+classification = "STATIC-DETERMINED"
+pc = 0x2e57f8
+opcode = 0x97fc6696
+semantics = "Drv_GetScope returns library base+0x10bee40 via ADRP/ADD; fixed image-relative global object."
+
+[[nodes]]
+id = "get_calibration"
+classification = "STATIC-DETERMINED"
+pc = 0x2e57fc
+opcode = 0x97fc5141
+semantics = "GetCalibration returns scope+0x60d8."
+
+[[nodes]]
+id = "initialize_buffers"
+classification = "STATIC-DETERMINED"
+pc = 0x333b40
+opcode = 0x97fb36c0
+semantics = "Zero1120 bytes at sp+0xa8 and40 bytes at sp+0x80."
+
+[[nodes]]
+id = "load_lsb"
+classification = "RUNTIME-SELECTED"
+pc = 0x333b74
+opcode = 0x97fb4823
+semantics = "Load vertical LSB into this+0x8fc0; status stored then overwritten."
+
+[[nodes]]
+id = "load_vertical"
+classification = "RUNTIME-SELECTED"
+pc = 0x333b80
+opcode = 0x97fb0b88
+semantics = "Load vertical calibration on this+0x8fc0; status ignored by dispatcher."
+
+[[nodes]]
+id = "load_adc"
+classification = "RUNTIME-SELECTED"
+pc = 0x333b98
+opcode = 0x97fb520e
+semantics = "Load ADC calibration on this+0x18; status ignored by dispatcher."
+
+[[nodes]]
+id = "apply_adc_zero"
+classification = "RUNTIME-SELECTED"
+pc = 0x333ba8
+opcode = 0x97fb9b9e
+semantics = "SetADCParameter(this+0x18,0), consuming mutable calibration fields; returned status ignored."
+
+[[nodes]]
+id = "load_afe_zero"
+classification = "RUNTIME-SELECTED"
+pc = 0x333bcc
+opcode = 0x97fb3a11
+semantics = "Load AFE zero on this+0x242838; status ignored."
+
+[[nodes]]
+id = "load_afe_bandwidth"
+classification = "RUNTIME-SELECTED"
+pc = 0x333bd8
+opcode = 0x97fb0f4e
+semantics = "Load AFE bandwidth on same object; status ignored."
+
+[[nodes]]
+id = "load_clock"
+classification = "RUNTIME-SELECTED"
+pc = 0x333bf4
+opcode = 0x97fb54e3
+semantics = "Load clock on this+0x245450; status ignored."
+
+[[nodes]]
+id = "load_ext"
+classification = "RUNTIME-SELECTED"
+pc = 0x333c10
+opcode = 0x97fb224c
+semantics = "Load external calibration on this+0x245458; status ignored."
+
+[[nodes]]
+id = "load_ddr"
+classification = "RUNTIME-SELECTED"
+pc = 0x333c2c
+opcode = 0x97fb34ed
+semantics = "Load DDR calibration on this+0x245510; signed result selects next edge."
+
+[[nodes]]
+id = "configure_ddr"
+classification = "UNKNOWN"
+pc = 0x333c58
+opcode = 0x97fb3462
+semantics = "Configure loaded DDR data only when signed load result>=1; physical behavior unresolved."
+
+[[nodes]]
+id = "load_afg"
+classification = "RUNTIME-SELECTED"
+pc = 0x333ca8
+opcode = 0x97fb7d56
+semantics = "For selectors1..2, call LoadAfgCalibration(this+0x245568+(selector-1)*0x290,selector); results ignored."
+
+[[nodes]]
+id = "load_stray"
+classification = "RUNTIME-SELECTED"
+pc = 0x333ce8
+opcode = 0x97fb0b9a
+semantics = "For selectors0..3, call LoadAdcStary(this+0x18,selector); results ignored."
+
+[[nodes]]
+id = "load_la"
+classification = "RUNTIME-SELECTED"
+pc = 0x333d14
+opcode = 0x97fb775b
+semantics = "Load LA calibration on this+0x245558; status ignored."
+
+[[nodes]]
+id = "sync_delay"
+classification = "HARDWARE-RETURNED"
+pc = 0x333d1c
+opcode = 0x97fb6bf5
+semantics = "CalAdcSyncDelay has device-feedback-dependent internal selection; parent ignores returned status."
+
+[[nodes]]
+id = "data_line"
+classification = "UNKNOWN"
+pc = 0x333d40
+opcode = 0x97fb9fb4
+semantics = "CalAdcDataLine(this+0x18,sp+0xa8); buffer may change; parent ignores status."
+
+[[nodes]]
+id = "input_delay"
+classification = "UNKNOWN"
+pc = 0x333d5c
+opcode = 0x97fb5855
+semantics = "LoadAdcIDelay(this+0x18,false,sp+0xa8); runtime output from prior call is input; status ignored."
+
+[[nodes]]
+id = "core_align"
+classification = "HARDWARE-RETURNED"
+pc = 0x333d74
+opcode = 0x97fb6c93
+semantics = "CalAdcCoreAlign(1,1,sp+0x80); hardware-dependent algorithm not collapsed to constant; parent ignores status/output."
+
+[[nodes]]
+id = "qadc"
+classification = "UNKNOWN"
+pc = 0x333d84
+opcode = 0x97fb4e33
+semantics = "CalQADC(this+0x18); unexpanded hardware/runtime boundary; parent ignores status."
+
+[[nodes]]
+id = "thread_start"
+classification = "ASYNCHRONOUS"
+pc = 0x333d94
+opcode = 0x97fb1a2b
+semantics = "RQThread::start(this) creates a thread then detaches it; worker execution need not wait for caller return."
+
+[[nodes]]
+id = "return"
+classification = "STATIC-DETERMINED"
+pc = 0x333dbc
+opcode = 0xd65f03c0
+semantics = "Normal return preserves x0 left by RQThread::start; no forced-success result."
+
+[[nodes]]
+id = "canary_failure"
+classification = "UNKNOWN"
+pc = 0x333dc0
+opcode = 0x97fb4eb4
+semantics = "Stack-canary mismatch calls __stack_chk_fail; exceptional terminal boundary."
+
+[[edges]]
+from = "get_scope"
+to = "get_calibration"
+condition = "callee returns normally"
+
+[[edges]]
+from = "get_calibration"
+to = "initialize_buffers"
+condition = "callee returns normally"
+
+[[edges]]
+from = "initialize_buffers"
+to = "load_lsb"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_lsb"
+to = "load_vertical"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_vertical"
+to = "load_adc"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_adc"
+to = "apply_adc_zero"
+condition = "callee returns normally"
+
+[[edges]]
+from = "apply_adc_zero"
+to = "load_afe_zero"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_afe_zero"
+to = "load_afe_bandwidth"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_afe_bandwidth"
+to = "load_clock"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_clock"
+to = "load_ext"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_ext"
+to = "load_ddr"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_ddr"
+to = "configure_ddr"
+condition = "signed load result>=1"
+
+[[edges]]
+from = "load_ddr"
+to = "load_afg"
+condition = "signed load result<1"
+
+[[edges]]
+from = "configure_ddr"
+to = "load_afg"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_afg"
+to = "load_stray"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_stray"
+to = "load_la"
+condition = "callee returns normally"
+
+[[edges]]
+from = "load_la"
+to = "sync_delay"
+condition = "callee returns normally"
+
+[[edges]]
+from = "sync_delay"
+to = "data_line"
+condition = "callee returns normally"
+
+[[edges]]
+from = "data_line"
+to = "input_delay"
+condition = "callee returns normally"
+
+[[edges]]
+from = "input_delay"
+to = "core_align"
+condition = "callee returns normally"
+
+[[edges]]
+from = "core_align"
+to = "qadc"
+condition = "callee returns normally"
+
+[[edges]]
+from = "qadc"
+to = "thread_start"
+condition = "callee returns normally"
+
+[[edges]]
+from = "thread_start"
+to = "return"
+condition = "callee returns and stack canary unchanged"
+
+[[edges]]
+from = "thread_start"
+to = "canary_failure"
+condition = "callee returns and stack canary differs"
+
+[loops]
+afg_selectors = [1,2]
+afg_stride = 0x290
+adc_stray_selectors = [0,1,2,3]
+pcs = [0x333c60,0x333c70,0x333cb4,0x333cc0,0x333cd0,0x333cf4]
+opcodes = [0x52800028, 0x71000908, 0x11000508, 0x2a1f03e8, 0x71000d08, 0x11000508]
+
+[storage]
+scope_relative_address = 0x10bee40
+adc_record_relative_address = 0x10cd734
+adc_record_bytes = 1936
+record_in_zero_fill = true
+relocations_in_record = 0
+get_scope_pcs = [0x2e5a40,0x2e5a44,0x2e5a48]
+get_scope_opcodes = [0xb0006ec0, 0x91390000, 0xd65f03c0]
+live_state_proven = false

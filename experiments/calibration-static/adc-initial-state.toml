@@ -1,0 +1,98 @@
+schema_version = "mho900-lab.adc-calibration-initial-state/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+constructor_defines_loaded_record = false
+image_initial_zero_proven = true
+live_preload_zero_proven = false
+
+[scope_object]
+getter_symbol = "_Z12Drv_GetScopev"
+getter_start = 0x2e5a40
+getter_size = 0xc
+getter_range_sha256 = "297cdd0fd774f8ce253993662166d281715c1c98101f515c2659317cd07bd7ff"
+link_time_address = 0x10bee40
+allocation = "fixed-bss"
+
+[load_segment]
+virtual_address = 0xb69c00
+file_size = 0x77200
+memory_size = 0x314ad10
+file_backed_end = 0xbe0e00
+record_in_zero_fill = true
+
+[record_identity]
+link_time_start = 0x10cd734
+link_time_end_exclusive = 0x10cdec4
+image_initial_state = "zero"
+post_constructor_state = "zero"
+later_live_state = "runtime-history-dependent"
+
+[adc_constructor]
+symbols = ["_ZN16CCalibration_ADCC1Ev", "_ZN16CCalibration_ADCC2Ev"]
+start = 0x338330
+size = 0x9c
+range_sha256 = "43dad689cd00edc5a36a07e1cfa87bf65a5a9432b1d364a182c753c36b1a6b40"
+
+[[adc_constructor.effects]]
+offset = 0
+kind = "RString-constructor"
+
+[[adc_constructor.effects]]
+offset = 0x18
+kind = "RString-constructor"
+
+[[adc_constructor.effects]]
+offset = 0x4e50
+length = 64
+kind = "image-backed-template-copy"
+source_address = 0xbb28d0
+source_sha256 = "c2dcd90c2bd409c272edb05ceebbaeee59bffb2aa63101dd93f662f3e018e5f1"
+
+[[adc_constructor.effects]]
+offset = 0x87f4
+length = 16
+kind = "zero-words"
+
+[embedding]
+adc_in_calibration_offset = 0x18
+calibration_constructor_start = 0x3336c0
+calibration_constructor_size = 0x43c
+calibration_constructor_sha256 = "7f52debd3197f93efa52b57c29fe0afa60f3aff8bec8682b3f20eb9d161de501"
+adc_constructor_call_pc = 0x333710
+calibration_in_scope_offset = 0x60d8
+scope_constructor_start = 0x2e6138
+scope_constructor_size = 0x27c
+scope_constructor_sha256 = "d463600265873db3b17a888404f06e63c7e0d62e040e15a5a5807deb34402d6f"
+calibration_constructor_call_pc = 0x2e6230
+
+[load]
+symbol = "_ZN16CCalibration_ADC11LoadCalDataEv"
+start = 0x33eac8
+size = 0x138
+range_sha256 = "80dc7100f7f758a981881e9016d6a4cf8f5b7feafce8122cfbff79352d89cd6f"
+destination_offset = 0x8804
+payload_bytes = 1936
+primary_call_pc = 0x33eb34
+fallback_call_pc = 0x33eb70
+initialization_before_load = false
+
+[[first_consumed_fields]]
+adc_offset = 0x8854
+payload_offset = 0x50
+width = 2
+signed = true
+load_pc = 0x33f024
+consumer = "DevAcquireADC_SetRef(0,value)"
+
+[[first_consumed_fields]]
+adc_offset = 0x8856
+payload_offset = 0x52
+width = 2
+signed = true
+load_pc = 0x33f048
+consumer = "DevAcquireADC_SetRef(1,value)"
+
+[failure_state]
+open_or_header_failure = "prior-bytes-unproven"
+short_payload_read = "unknown-prefix-overwritten"
+payload_crc_failure = "full-untrusted-payload-retained"
+parent_uses_loader_status = false

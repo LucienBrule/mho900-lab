@@ -1,0 +1,226 @@
+schema_version = "mho900-lab.calibration-loaders-static/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+scope = "direct-loaders-reachable-from-CCalibration-Init"
+complete_transitive_coverage = false
+
+[parent]
+symbol = "_ZN12CCalibration4InitEv"
+start = 0x333afc
+size = 0x2c8
+range_sha256 = "50d0478e110c488dcd2ae46366a5605dca3a2eaa69250b3fdf3f2f4b0c55872b"
+afg_selectors = [1, 2]
+adc_stray_selectors = [0, 1, 2, 3]
+normal_return_source = "RQThread::start"
+
+[[loaders]]
+id="vertical_lsb"
+symbol="_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+start=0x366e4c
+size=0x120
+range_sha256="eadff5d7ba171ff4620122baeb2d356edbc5a205a8ed10e79bcdc61d091c474b"
+call_pc=0x333b74
+primary="/rigol/data/cal_lsb.hex"
+fallback="/rigol/data/default/cal_lsb.hex"
+bytes=192
+destination_offset=0
+[[loaders]]
+id="vertical"
+symbol="_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+start=0x366c20
+size=0x22c
+range_sha256="e365cc7992792e0c664cda903e1d3322be67ff4c581864fc07f8a9284c73d276"
+call_pc=0x333b80
+primary="/rigol/data/cal_vertical.hex"
+fallback="/rigol/data/default/cal_vertical.hex"
+bytes=0x1b60c0
+destination_offset=0x83760
+[[loaders]]
+id="adc"
+symbol="_ZN16CCalibration_ADC11LoadCalDataEv"
+start=0x33eac8
+size=0x138
+range_sha256="80dc7100f7f758a981881e9016d6a4cf8f5b7feafce8122cfbff79352d89cd6f"
+call_pc=0x333b98
+primary="/rigol/data/cal_adc.hex"
+fallback="/rigol/data/default/cal_adc.hex"
+bytes=1936
+destination_offset=0x8804
+[[loaders]]
+id="afe_zero"
+symbol="_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+start=0x350614
+size=0x138
+range_sha256="5f19178803e5bfaa5e6b1c6aa8f52cd2fdc3b1470b8a0de2060238a76577f505"
+call_pc=0x333bcc
+primary="/rigol/data/cal_afe_zero.hex"
+fallback="/rigol/data/default/cal_afe_zero.hex"
+bytes=560
+destination_offset=0x29e8
+[[loaders]]
+id="afe_bandwidth"
+symbol="_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+start=0x350e44
+size=0x178
+range_sha256="e4924d58aa1d2c8ad48e34ccc7e7d1358a7311d669c69637b915a528f4b38127"
+call_pc=0x333bd8
+primary="/rigol/data/cal_afe_bandwidth.hex"
+fallback="/rigol/data/default/cal_afe_bandwidth.hex"
+bytes=320
+destination_offset=0x2728
+[[loaders]]
+id="clock"
+symbol="_ZN18CCalibration_Clock16LoadClockCalDataEv"
+start=0x35a1fc
+size=0x140
+range_sha256="aa6b8ac2bd92f02363e074c83c06912ae80633c8805f5d88631b8ebd31653a41"
+call_pc=0x333bf4
+primary="/rigol/data/cal_clock.hex"
+fallback="/rigol/data/default/cal_clock.hex"
+bytes=8
+destination_offset=-1
+[[loaders]]
+id="external"
+symbol="_ZN16CCalibration_Ext14LoadExtCalDataEv"
+start=0x35b094
+size=0x128
+range_sha256="a0426ebda11d7309e1f95cd5bb5b9765c0948bd7b392f7c13075f3c02f76aa2e"
+call_pc=0x333c10
+primary="/rigol/data/cal_ext.hex"
+fallback=""
+bytes=160
+destination_offset=0x18
+[[loaders]]
+id="ddr"
+symbol="_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+start=0x35bf3c
+size=0x128
+range_sha256="19883325daec2397cce252feb7837cd59b6421139f5a92c06e1a557dfa14a0d2"
+call_pc=0x333c2c
+primary="/rigol/data/cal_ddr.hex"
+fallback="/rigol/data/default/cal_ddr.hex"
+bytes=48
+destination_offset=0x18
+[[loaders]]
+id="afg"
+symbol="_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+start=0x356c2c
+size=0x4c8
+range_sha256="1463f90e6bf8bb8298d3c51b05e14612dd896890d3560f0e33a2ac2ea7bbb21b"
+call_pc=0x333ca8
+primary="channel-formatted-five-files"
+fallback=""
+bytes=320
+destination_offset=0
+[[loaders]]
+id="adc_stray"
+symbol="_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+start=0x34aec4
+size=0x7c4
+range_sha256="cc71ed0f2b95349220d417ee9c66d5454088e84110e9b87507edf016ea6adfcd"
+call_pc=0x333ce8
+primary="/rigol/data/AdcStray%d.hex"
+fallback=""
+bytes=-1
+destination_offset=-1
+[[loaders]]
+id="la"
+symbol="_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+start=0x35d4c0
+size=0x1a0
+range_sha256="405b687a895b3f417ace083530ec81829e437979970e8e194cb6f04bc911dcfc"
+call_pc=0x333d14
+primary="/rigol/data/cal_la.hex"
+fallback="/rigol/data/default/cal_la.hex"
+bytes=8
+destination_offset=-1
+
+[[dependencies]]
+symbol="_ZN14CCheckedStream4loadERK7RStringPvj"
+start=0x3dd0dc
+size=0x6e8
+range_sha256="0179e0d9deefc32a30bec99680d88a7fb058aab96e63ee6a6230a190de4884fb"
+boundary="filesystem-and-checked-stream"
+[[dependencies]]
+symbol="_Z15Drv_LoadCalDataPcPvj"
+start=0x338230
+size=0x100
+range_sha256="01a450544ee90a306990be3c619241edebfc3f9e2d82cea16424cbdada1c3bef"
+boundary="formatted-afg-files"
+[[dependencies]]
+symbol="_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+start=0x33ae40
+size=0x2f4
+range_sha256="c31e4a24349cb55869798437db099a992a5040a5e6e5c8d940987cbe38951a7e"
+boundary="post-loader-runtime-and-hardware"
+
+[[constants]]
+id = "adc_primary"
+address = 0x99c7e3
+length = 24
+sha256 = "a0125d0e4ea55c4f03ec7b6f7a46d7b4f7f012e1476c1cdce0ddd24222aa8a5c"
+
+[[constants]]
+id = "adc_fallback"
+address = 0x99c7fb
+length = 32
+sha256 = "b2e285ce17a10d9c1379c52a645c9355fc830d2adbfe4bdb0a6abc4734cf8f0c"
+
+[[constants]]
+id = "adc_stray_template"
+address = 0x99d027
+length = 27
+sha256 = "703ed2b1ad3fb06cfe880d0321b790f00709d719fc255866243fa26c2df42c4e"
+
+[[constants]]
+id = "afg_rm_ac_template"
+address = 0x99dd24
+length = 33
+sha256 = "6017551db4e37b99fd922013a00dd448f200655b3850e9ebc2b446247b5152fe"
+
+[[constants]]
+id = "afg_rm_offset_template"
+address = 0x99dd4a
+length = 37
+sha256 = "a0cc25da390b00454581b375e05cab32e2f1336754e5b5639399cc3df9168f9e"
+
+[[constants]]
+id = "afg_rm_lfflat_template"
+address = 0x99dd6f
+length = 37
+sha256 = "df067bbfaeb5c8129e715206403db05140b5a7025153a20cd853bc46cd50c6f5"
+
+[[constants]]
+id = "afg_rm_hfflat_template"
+address = 0x99dd94
+length = 37
+sha256 = "d6774900d16f634773b36a178284d10a02357cb4e30f2f55cf9db288d96d82ed"
+
+[[constants]]
+id = "afg_rm_inner_template"
+address = 0x99ddb9
+length = 36
+sha256 = "bd499d3d486b299f997248e7764d2ff1e03d31f049420eeba78479426033ce95"
+
+[[constants]]
+id = "lsb_primary"
+address = 0x99e41a
+length = 24
+sha256 = "cff32e8d9704bedbca26b4295430707de1ae97da74ef548b0c8d3f700a66198a"
+
+[[constants]]
+id = "vertical_primary"
+address = 0x99e4f7
+length = 29
+sha256 = "79087099431424b8661ec106e8a3a5b45cf39445719d0a444e7526188bad805d"
+
+[[constants]]
+id = "vertical_fallback"
+address = 0x99e514
+length = 37
+sha256 = "7751deccf082bcfbbbce5b5025612016cd9d5c764d5c330415f78d45106cb9c7"
+
+[[constants]]
+id = "lsb_fallback"
+address = 0x99e578
+length = 32
+sha256 = "c37f551f29a02fe731a33a32cc905140dca330fd23677d3433b55d4e3d9cda8d"

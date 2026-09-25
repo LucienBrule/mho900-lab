@@ -1,0 +1,107 @@
+schema_version = "mho900-lab.calibration-algorithms-threads/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+function = "CCalibration::Init()"
+start = 0x333afc
+end_exclusive = 0x333dc4
+byte_length = 712
+range_sha256 = "50d0478e110c488dcd2ae46366a5605dca3a2eaa69250b3fdf3f2f4b0c55872b"
+
+[[calls]]
+name = "CCalibration_ADC::SetADCParameter"
+pc = 0x333ba8
+instruction_le = "9e9bfb97"
+callee_range = "0x33efe0..0x33fc80"
+callee_byte_length = 3232
+callee_range_sha256 = "8abde0a3d3fb580a49e3136b033ffe19dca0a67fe6ae2cbd35009745765685d7"
+arguments = "x0=this+0x18, w1=0"
+classification = "UNKNOWN"
+first_hardware_call_pc = 0x33f038
+mode_zero_calls = "SetRef(0,s16[this+0x8854]); SetRef(1,s16[this+0x8856]); SetSpuAdcGain(0); SetQuardAdcParameter(ch,0) for ch=0..3; SetAdcStary(0)"
+mutable_inputs = [0x8854, 0x8856]
+
+[[operations]]
+name = "conditional_ddr_config"
+load_call_pc = 0x333c2c
+config_call_pc = 0x333c58
+predicate = "signed LoadDdrCalData return >= 1"
+classification = "RUNTIME-SELECTED"
+
+[[operations]]
+name = "afg_load_loop"
+range = "0x333c60..0x333cc0"
+selectors = [1, 2]
+stride = 0x290
+classification = "STATIC-DETERMINED"
+callee = "CCalibration_Afg::LoadAfgCalibration(int)"
+loader_contract = "loaders.toml#afg"
+
+[[operations]]
+name = "adc_state_load_loop"
+range = "0x333cc0..0x333d00"
+selectors = [0, 1, 2, 3]
+object_offset = 0x18
+classification = "STATIC-DETERMINED"
+callee = "CCalibration_ADC::DrvCalibration_LoadAdcStary(int)"
+loader_contract = "loaders.toml#adc-stray"
+
+[[calls]]
+name = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x333d1c
+instruction_le = "f56bfb97"
+callee_range = "0x339f04..0x33a7f8"
+classification = "UNKNOWN"
+first_hardware_call_pc = 0x33a090
+first_feedback_call_pc = 0x33a0c0
+
+[[calls]]
+name = "CCalibration_ADC::CalAdcDataLine"
+pc = 0x333d40
+instruction_le = "b49ffb97"
+callee_range = "0x33a7f8..0x33ae40"
+arguments = "x0=this+0x18, x1=sp+0xa8"
+classification = "UNKNOWN"
+
+[[calls]]
+name = "CCalibration_ADC::LoadAdcIDelay"
+pc = 0x333d5c
+instruction_le = "5558fb97"
+callee_range = "0x33ae40..0x33b134"
+arguments = "x0=this+0x18, w1=0, x2=sp+0xa8"
+classification = "UNKNOWN"
+
+[[calls]]
+name = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x333d74
+instruction_le = "936cfb97"
+callee_range = "0x274410..0x274e94"
+arguments = "w0=1, w1=1, x2=sp+0x80"
+classification = "UNKNOWN"
+
+[[calls]]
+name = "CCalibration_ADC::CalQADC"
+pc = 0x333d84
+instruction_le = "334efb97"
+callee_range = "0x33846c..0x3386e4"
+arguments = "x0=this+0x18"
+classification = "UNKNOWN"
+
+[[calls]]
+name = "RQThread::start"
+pc = 0x333d94
+instruction_le = "2b1afb97"
+callee_range = "0x252910..0x252a0c"
+arguments = "x0=this"
+classification = "ASYNCHRONOUS"
+detach_pc = 0x2529b8
+thread_creation_helper_call_pc = 0x252978
+bound_virtual_member = "RQThread::run"
+runtime_override = "CCalibration::run"
+runtime_override_pc = 0x33531c
+thread_entry_algorithm = "UNKNOWN unexpanded"
+
+[boundary]
+actual_next_dependency = "CCalibration_ADC::SetADCParameter"
+actual_next_dependency_pc = 0x333ba8
+first_hardware_programming_pc = 0x33f038
+asynchronous_boundary_call_pc = 0x333d94
+unexpanded_transitive_recovery = true

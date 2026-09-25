@@ -1,0 +1,49 @@
+schema_version = "mho900-lab.calibration-asset-inspection/1"
+source_scope = "Provided extracted stock corpus only"
+guest_state_observed = false
+
+[[assets]]
+path = "firmware/data/cal_lsb.hex"
+present = false
+requested_payload_bytes = 192
+
+[[assets]]
+path = "firmware/data/default/cal_lsb.hex"
+present = true
+requested_payload_bytes = 192
+file_bytes = 220
+sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+header_bytes = 28
+header_crc32 = 0x4e2ebb
+payload_crc32 = 0x27b7be0f
+payload_sha256 = "ed4d4016974a509c55530c8573c7e0ef1cb9c28d65536310c13ec8a437c52907"
+trailing_bytes = 0
+crc_valid = true
+
+[[assets]]
+path = "firmware/data/cal_vertical.hex"
+present = false
+requested_payload_bytes = 1794240
+
+[[assets]]
+path = "firmware/data/default/cal_vertical.hex"
+present = true
+requested_payload_bytes = 1794240
+file_bytes = 1794268
+sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+header_bytes = 28
+header_crc32 = 0x13e40809
+payload_crc32 = 0xd022e65b
+payload_sha256 = "1835df35ca11f040c15988e7cdb150198e98688e2472c0b608377b9a2357139b"
+trailing_bytes = 0
+crc_valid = true
+
+[[assets]]
+path = "firmware/data/cal_adc.hex"
+present = false
+requested_payload_bytes = 1936
+
+[[assets]]
+path = "firmware/data/default/cal_adc.hex"
+present = false
+requested_payload_bytes = 1936

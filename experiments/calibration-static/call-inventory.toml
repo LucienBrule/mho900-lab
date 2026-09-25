@@ -1,0 +1,4671 @@
+schema_version = "mho900-lab.calibration-call-inventory/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+scope = "Entry getters and Init plus defined direct callees; instruction-level direct-call inventory only"
+transitive_complete = false
+
+[[ranges]]
+name = "_ZN8RQThread5startEv"
+address = 0x252910
+size = 252
+sha256 = "a2b4b241d1eac75ad49fa5da61b609a8a525dba0510d5f9c8776fb37f16fd2d9"
+
+[[ranges]]
+name = "DevAcquireSPU_CalAdcCoreAlign"
+address = 0x274410
+size = 2692
+sha256 = "b2a410a70b502898f6debe957a7301a890b2152308ddf0269d8e884ec6548c4f"
+
+[[ranges]]
+name = "_Z12Drv_GetScopev"
+address = 0x2e5a40
+size = 12
+sha256 = "297cdd0fd774f8ce253993662166d281715c1c98101f515c2659317cd07bd7ff"
+
+[[ranges]]
+name = "_ZN9CDrvScope14GetCalibrationEv"
+address = 0x2e5a4c
+size = 28
+sha256 = "3e86adf931a11ddd0b366c7ad5366e2975f30d933c86660786fe9fbca18b0bf6"
+
+[[ranges]]
+name = "_ZN12CCalibration4InitEv"
+address = 0x333afc
+size = 712
+sha256 = "50d0478e110c488dcd2ae46366a5605dca3a2eaa69250b3fdf3f2f4b0c55872b"
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC7CalQADCEv"
+address = 0x33846c
+size = 632
+sha256 = "e2d787ebc71bfe90a6461f62ce282b2b50bb91e1453ad50dcc8edbf66a433aaf"
+
+[[ranges]]
+name = "DrvCalibration_CalAdcSyncDelay"
+address = 0x339f04
+size = 2292
+sha256 = "4802d06cce3a52497174609167b46b8b88c312cf9471c7eb5523f750cb953ddd"
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+address = 0x33a7f8
+size = 1608
+sha256 = "d55f77bb71d053ffef9e7f93b9c1fe00691c58a5daba6645566a2f234d6841b5"
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+address = 0x33ae40
+size = 756
+sha256 = "c31e4a24349cb55869798437db099a992a5040a5e6e5c8d940987cbe38951a7e"
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC11LoadCalDataEv"
+address = 0x33eac8
+size = 312
+sha256 = "80dc7100f7f758a981881e9016d6a4cf8f5b7feafce8122cfbff79352d89cd6f"
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC15SetADCParameterEj"
+address = 0x33efe0
+size = 3232
+sha256 = "8abde0a3d3fb580a49e3136b033ffe19dca0a67fe6ae2cbd35009745765685d7"
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+address = 0x34aec4
+size = 1988
+sha256 = "cc71ed0f2b95349220d417ee9c66d5454088e84110e9b87507edf016ea6adfcd"
+
+[[ranges]]
+name = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+address = 0x350614
+size = 312
+sha256 = "5f19178803e5bfaa5e6b1c6aa8f52cd2fdc3b1470b8a0de2060238a76577f505"
+
+[[ranges]]
+name = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+address = 0x350e44
+size = 376
+sha256 = "e4924d58aa1d2c8ad48e34ccc7e7d1358a7311d669c69637b915a528f4b38127"
+
+[[ranges]]
+name = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+address = 0x356c2c
+size = 1224
+sha256 = "1463f90e6bf8bb8298d3c51b05e14612dd896890d3560f0e33a2ac2ea7bbb21b"
+
+[[ranges]]
+name = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+address = 0x35a1fc
+size = 320
+sha256 = "aa6b8ac2bd92f02363e074c83c06912ae80633c8805f5d88631b8ebd31653a41"
+
+[[ranges]]
+name = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+address = 0x35b094
+size = 296
+sha256 = "a0426ebda11d7309e1f95cd5bb5b9765c0948bd7b392f7c13075f3c02f76aa2e"
+
+[[ranges]]
+name = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+address = 0x35bf3c
+size = 296
+sha256 = "19883325daec2397cce252feb7837cd59b6421139f5a92c06e1a557dfa14a0d2"
+
+[[ranges]]
+name = "_ZN16CCalibration_Ddr18ConfigueDdrCalDataEv"
+address = 0x35c064
+size = 176
+sha256 = "cdb70d708b2e7d5d06e988c65327906300a846f1a389075e8b02239d2605b55d"
+
+[[ranges]]
+name = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+address = 0x35d4c0
+size = 416
+sha256 = "405b687a895b3f417ace083530ec81829e437979970e8e194cb6f04bc911dcfc"
+
+[[ranges]]
+name = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+address = 0x366c20
+size = 556
+sha256 = "e365cc7992792e0c664cda903e1d3322be67ff4c581864fc07f8a9284c73d276"
+
+[[ranges]]
+name = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+address = 0x366e4c
+size = 288
+sha256 = "eadff5d7ba171ff4620122baeb2d356edbc5a205a8ed10e79bcdc61d091c474b"
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x252964
+opcode = 0x9400002a
+form = "BL"
+branch_target = 0x252a0c
+symbol = "UNRESOLVED"
+resolved_target = 0x252a0c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x252978
+opcode = 0x9400003a
+form = "BL"
+branch_target = 0x252a60
+symbol = "UNRESOLVED"
+resolved_target = 0x252a60
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x252980
+opcode = 0x940000a5
+form = "BL"
+branch_target = 0x252c14
+symbol = "UNRESOLVED"
+resolved_target = 0x252c14
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x25299c
+opcode = 0x940000a3
+form = "BL"
+branch_target = 0x252c28
+symbol = "UNRESOLVED"
+resolved_target = 0x252c28
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x2529b8
+opcode = 0x97feea62
+form = "BL"
+branch_target = 0x20d340
+symbol = "_ZNSt6__ndk16thread6detachEv"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb83078
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x2529c4
+opcode = 0x97fef723
+form = "BL"
+branch_target = 0x210650
+symbol = "_ZNSt6__ndk16threadD1Ev"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84a00
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x2529f8
+opcode = 0x97fef716
+form = "BL"
+branch_target = 0x210650
+symbol = "_ZNSt6__ndk16threadD1Ev"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84a00
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x252a04
+opcode = 0x941cf58b
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN8RQThread5startEv"
+pc = 0x252a08
+opcode = 0x97fed3a2
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274550
+opcode = 0x97fe7e88
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = false
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274560
+opcode = 0x97fe46c0
+form = "BL"
+branch_target = 0x206060
+symbol = "DevAcquireADC_SetDataMode"
+resolved_target = 0x27fd80
+defined = true
+expanded = false
+relocation_slot = 0xb7f708
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274574
+opcode = 0x97fe46bb
+form = "BL"
+branch_target = 0x206060
+symbol = "DevAcquireADC_SetDataMode"
+resolved_target = 0x27fd80
+defined = true
+expanded = false
+relocation_slot = 0xb7f708
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274584
+opcode = 0x97fe8f83
+form = "BL"
+branch_target = 0x218390
+symbol = "DevAcquireSPU_SetAdcSync"
+resolved_target = 0x2739c0
+defined = true
+expanded = false
+relocation_slot = 0xb888a0
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x2745bc
+opcode = 0x97fe2839
+form = "BL"
+branch_target = 0x1fe6a0
+symbol = "DevAcquireSPU_SetAdcCalSelect"
+resolved_target = 0x273af0
+defined = true
+expanded = false
+relocation_slot = 0xb7ba28
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x2745cc
+opcode = 0x97fe4665
+form = "BL"
+branch_target = 0x205f60
+symbol = "DevAcquireSPU_SetAdcCoreAlign"
+resolved_target = 0x27437c
+defined = true
+expanded = false
+relocation_slot = 0xb7f688
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274614
+opcode = 0x97fe2823
+form = "BL"
+branch_target = 0x1fe6a0
+symbol = "DevAcquireSPU_SetAdcCalSelect"
+resolved_target = 0x273af0
+defined = true
+expanded = false
+relocation_slot = 0xb7ba28
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x27465c
+opcode = 0x97fe7e45
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = false
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x27466c
+opcode = 0x97fe8cd5
+form = "BL"
+branch_target = 0x2179c0
+symbol = "DevAcquireSpu_ReadRegister"
+resolved_target = 0x272c5c
+defined = true
+expanded = false
+relocation_slot = 0xb883b8
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x2746cc
+opcode = 0x97fea59d
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x2746e4
+opcode = 0x97fe6d17
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274750
+opcode = 0x97fe2b8c
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274828
+opcode = 0x97fea546
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274844
+opcode = 0x97fe6cbf
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x2748a0
+opcode = 0x97fe2b38
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274908
+opcode = 0x97fea50e
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274924
+opcode = 0x97fe6c87
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274980
+opcode = 0x97fe2b00
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x2749f8
+opcode = 0x97fea4d2
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274a14
+opcode = 0x97fe6c4b
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274a50
+opcode = 0x97fe2acc
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274a84
+opcode = 0x97fe4ad3
+form = "BL"
+branch_target = 0x2075d0
+symbol = "DevAcquireSPU_AdcAlign"
+resolved_target = 0x274238
+defined = true
+expanded = false
+relocation_slot = 0xb801c0
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274bb8
+opcode = 0x97fea462
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274bd4
+opcode = 0x97fe6bdb
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274c10
+opcode = 0x97fe2a5c
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274cec
+opcode = 0x97fe266d
+form = "BL"
+branch_target = 0x1fe6a0
+symbol = "DevAcquireSPU_SetAdcCalSelect"
+resolved_target = 0x273af0
+defined = true
+expanded = false
+relocation_slot = 0xb7ba28
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274d48
+opcode = 0x97fe7c8a
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = false
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274d58
+opcode = 0x97fe4482
+form = "BL"
+branch_target = 0x205f60
+symbol = "DevAcquireSPU_SetAdcCoreAlign"
+resolved_target = 0x27437c
+defined = true
+expanded = false
+relocation_slot = 0xb7f688
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274da8
+opcode = 0x97fea3e6
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274dc4
+opcode = 0x97fe6b5f
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274e38
+opcode = 0x97fe29d2
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireSPU_CalAdcCoreAlign"
+pc = 0x274e90
+opcode = 0x97fe4a80
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333b40
+opcode = 0x97fb36c0
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333b74
+opcode = 0x97fb4823
+form = "BL"
+branch_target = 0x205c00
+symbol = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+resolved_target = 0x366e4c
+defined = true
+expanded = true
+relocation_slot = 0xb7f4d8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333b80
+opcode = 0x97fb0b88
+form = "BL"
+branch_target = 0x1f69a0
+symbol = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+resolved_target = 0x366c20
+defined = true
+expanded = true
+relocation_slot = 0xb77ba8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333b98
+opcode = 0x97fb520e
+form = "BL"
+branch_target = 0x2083d0
+symbol = "_ZN16CCalibration_ADC11LoadCalDataEv"
+resolved_target = 0x33eac8
+defined = true
+expanded = true
+relocation_slot = 0xb808c0
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333ba8
+opcode = 0x97fb9b9e
+form = "BL"
+branch_target = 0x21aa20
+symbol = "_ZN16CCalibration_ADC15SetADCParameterEj"
+resolved_target = 0x33efe0
+defined = true
+expanded = true
+relocation_slot = 0xb89be8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333bcc
+opcode = 0x97fb3a11
+form = "BL"
+branch_target = 0x202410
+symbol = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+resolved_target = 0x350614
+defined = true
+expanded = true
+relocation_slot = 0xb7d8e0
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333bd8
+opcode = 0x97fb0f4e
+form = "BL"
+branch_target = 0x1f7910
+symbol = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+resolved_target = 0x350e44
+defined = true
+expanded = true
+relocation_slot = 0xb78360
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333bf4
+opcode = 0x97fb54e3
+form = "BL"
+branch_target = 0x208f80
+symbol = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+resolved_target = 0x35a1fc
+defined = true
+expanded = true
+relocation_slot = 0xb80e98
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333c10
+opcode = 0x97fb224c
+form = "BL"
+branch_target = 0x1fc540
+symbol = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+resolved_target = 0x35b094
+defined = true
+expanded = true
+relocation_slot = 0xb7a978
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333c2c
+opcode = 0x97fb34ed
+form = "BL"
+branch_target = 0x200fe0
+symbol = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+resolved_target = 0x35bf3c
+defined = true
+expanded = true
+relocation_slot = 0xb7cec8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333c58
+opcode = 0x97fb3462
+form = "BL"
+branch_target = 0x200de0
+symbol = "_ZN16CCalibration_Ddr18ConfigueDdrCalDataEv"
+resolved_target = 0x35c064
+defined = true
+expanded = true
+relocation_slot = 0xb7cdc8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333ca8
+opcode = 0x97fb7d56
+form = "BL"
+branch_target = 0x213200
+symbol = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+resolved_target = 0x356c2c
+defined = true
+expanded = true
+relocation_slot = 0xb85fd8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333ce8
+opcode = 0x97fb0b9a
+form = "BL"
+branch_target = 0x1f6b50
+symbol = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+resolved_target = 0x34aec4
+defined = true
+expanded = true
+relocation_slot = 0xb77c80
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d14
+opcode = 0x97fb775b
+form = "BL"
+branch_target = 0x211a80
+symbol = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+resolved_target = 0x35d4c0
+defined = true
+expanded = true
+relocation_slot = 0xb85418
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d1c
+opcode = 0x97fb6bf5
+form = "BL"
+branch_target = 0x20ecf0
+symbol = "DrvCalibration_CalAdcSyncDelay"
+resolved_target = 0x339f04
+defined = true
+expanded = true
+relocation_slot = 0xb83d50
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d40
+opcode = 0x97fb9fb4
+form = "BL"
+branch_target = 0x21bc10
+symbol = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+resolved_target = 0x33a7f8
+defined = true
+expanded = true
+relocation_slot = 0xb8a4e0
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d5c
+opcode = 0x97fb5855
+form = "BL"
+branch_target = 0x209eb0
+symbol = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+resolved_target = 0x33ae40
+defined = true
+expanded = true
+relocation_slot = 0xb81630
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d74
+opcode = 0x97fb6c93
+form = "BL"
+branch_target = 0x20efc0
+symbol = "DevAcquireSPU_CalAdcCoreAlign"
+resolved_target = 0x274410
+defined = true
+expanded = true
+relocation_slot = 0xb83eb8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d84
+opcode = 0x97fb4e33
+form = "BL"
+branch_target = 0x207650
+symbol = "_ZN16CCalibration_ADC7CalQADCEv"
+resolved_target = 0x33846c
+defined = true
+expanded = true
+relocation_slot = 0xb80200
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333d94
+opcode = 0x97fb1a2b
+form = "BL"
+branch_target = 0x1fa640
+symbol = "_ZN8RQThread5startEv"
+resolved_target = 0x252910
+defined = true
+expanded = true
+relocation_slot = 0xb799f8
+
+[[calls]]
+owner = "_ZN12CCalibration4InitEv"
+pc = 0x333dc0
+opcode = 0x97fb4eb4
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x338488
+opcode = 0x97fb2906
+form = "BL"
+branch_target = 0x2028a0
+symbol = "clock"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7db28
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x3384d4
+opcode = 0x97fb6043
+form = "BL"
+branch_target = 0x2105e0
+symbol = "DevAcquireADC_SetyQiTrim13"
+resolved_target = 0x283eb4
+defined = true
+expanded = false
+relocation_slot = 0xb849c8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x338544
+opcode = 0x97fb05f7
+form = "BL"
+branch_target = 0x1f9d20
+symbol = "DevAcquireADC_GetCal_D"
+resolved_target = 0x284110
+defined = true
+expanded = false
+relocation_slot = 0xb79568
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x338560
+opcode = 0x97fb28d0
+form = "BL"
+branch_target = 0x2028a0
+symbol = "clock"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7db28
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x33860c
+opcode = 0x97fb95cd
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x338620
+opcode = 0x97fb5d48
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x338654
+opcode = 0x97fb1bcb
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x338674
+opcode = 0x97fb5fdb
+form = "BL"
+branch_target = 0x2105e0
+symbol = "DevAcquireADC_SetyQiTrim13"
+resolved_target = 0x283eb4
+defined = true
+expanded = false
+relocation_slot = 0xb849c8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC7CalQADCEv"
+pc = 0x3386e0
+opcode = 0x97fb3c6c
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x339f30
+opcode = 0x97fb7708
+form = "BL"
+branch_target = 0x217b50
+symbol = "DevConfig_GetAdcNum"
+resolved_target = 0x272588
+defined = true
+expanded = false
+relocation_slot = 0xb88480
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a090
+opcode = 0x97fb13f4
+form = "BL"
+branch_target = 0x1ff060
+symbol = "DevAcquireADC_SetSyncDelay"
+resolved_target = 0x283e20
+defined = true
+expanded = false
+relocation_slot = 0xb7bf08
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a0a0
+opcode = 0x97fb7eec
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a0a8
+opcode = 0x97fb78ba
+form = "BL"
+branch_target = 0x218390
+symbol = "DevAcquireSPU_SetAdcSync"
+resolved_target = 0x2739c0
+defined = true
+expanded = false
+relocation_slot = 0xb888a0
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a0c0
+opcode = 0x97fb7818
+form = "BL"
+branch_target = 0x218120
+symbol = "DevAcquireADC_GetADCReg"
+resolved_target = 0x27e920
+defined = true
+expanded = false
+relocation_slot = 0xb88768
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a1d8
+opcode = 0x97fb8eda
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a1ec
+opcode = 0x97fb5655
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a27c
+opcode = 0x97fb14c1
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a284
+opcode = 0x97fb13f3
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a288
+opcode = 0x97fafe9e
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a30c
+opcode = 0x97fffebf
+form = "BL"
+branch_target = 0x339e08
+symbol = "UNRESOLVED"
+resolved_target = 0x339e08
+defined = false
+expanded = false
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a314
+opcode = 0x97fb13cf
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a318
+opcode = 0x97fafe7a
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a348
+opcode = 0x97fb4f7a
+form = "BL"
+branch_target = 0x20e130
+symbol = "__strcat_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb83770
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a410
+opcode = 0x97fb1314
+form = "BL"
+branch_target = 0x1ff060
+symbol = "DevAcquireADC_SetSyncDelay"
+resolved_target = 0x283e20
+defined = true
+expanded = false
+relocation_slot = 0xb7bf08
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a490
+opcode = 0x97fb8e2c
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a4ac
+opcode = 0x97fb55a5
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a4f0
+opcode = 0x97fb1424
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a4f8
+opcode = 0x97fb1356
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a4fc
+opcode = 0x97fafe01
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a544
+opcode = 0x97fffe31
+form = "BL"
+branch_target = 0x339e08
+symbol = "UNRESOLVED"
+resolved_target = 0x339e08
+defined = false
+expanded = false
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a54c
+opcode = 0x97fb1341
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a550
+opcode = 0x97fafdec
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a580
+opcode = 0x97fb4eec
+form = "BL"
+branch_target = 0x20e130
+symbol = "__strcat_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb83770
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a63c
+opcode = 0x97fb1289
+form = "BL"
+branch_target = 0x1ff060
+symbol = "DevAcquireADC_SetSyncDelay"
+resolved_target = 0x283e20
+defined = true
+expanded = false
+relocation_slot = 0xb7bf08
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a6bc
+opcode = 0x97fb8da1
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a6d8
+opcode = 0x97fb551a
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a71c
+opcode = 0x97fb1399
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a724
+opcode = 0x97fb12cb
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a728
+opcode = 0x97fafd76
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a768
+opcode = 0x97fffda8
+form = "BL"
+branch_target = 0x339e08
+symbol = "UNRESOLVED"
+resolved_target = 0x339e08
+defined = false
+expanded = false
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a770
+opcode = 0x97fb12b8
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a774
+opcode = 0x97fafd63
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a7a4
+opcode = 0x97fb4e63
+form = "BL"
+branch_target = 0x20e130
+symbol = "__strcat_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb83770
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a7b0
+opcode = 0x97fb76f8
+form = "BL"
+branch_target = 0x218390
+symbol = "DevAcquireSPU_SetAdcSync"
+resolved_target = 0x2739c0
+defined = true
+expanded = false
+relocation_slot = 0xb888a0
+
+[[calls]]
+owner = "DrvCalibration_CalAdcSyncDelay"
+pc = 0x33a7f4
+opcode = 0x97fb3427
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a8f4
+opcode = 0x97fb2ddb
+form = "BL"
+branch_target = 0x206060
+symbol = "DevAcquireADC_SetDataMode"
+resolved_target = 0x27fd80
+defined = true
+expanded = false
+relocation_slot = 0xb7f708
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a90c
+opcode = 0x97fb2dd5
+form = "BL"
+branch_target = 0x206060
+symbol = "DevAcquireADC_SetDataMode"
+resolved_target = 0x27fd80
+defined = true
+expanded = false
+relocation_slot = 0xb7f708
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a920
+opcode = 0x97fb1018
+form = "BL"
+branch_target = 0x1fe980
+symbol = "DevAcquireADC_SetOutputCode"
+resolved_target = 0x27fb28
+defined = true
+expanded = false
+relocation_slot = 0xb7bb98
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a934
+opcode = 0x97fb1013
+form = "BL"
+branch_target = 0x1fe980
+symbol = "DevAcquireADC_SetOutputCode"
+resolved_target = 0x27fb28
+defined = true
+expanded = false
+relocation_slot = 0xb7bb98
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a944
+opcode = 0x97fb4aa3
+form = "BL"
+branch_target = 0x20d3d0
+symbol = "DevAcquireSPU_SetAdcGray"
+resolved_target = 0x274e94
+defined = true
+expanded = false
+relocation_slot = 0xb830c0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a94c
+opcode = 0x97fb7691
+form = "BL"
+branch_target = 0x218390
+symbol = "DevAcquireSPU_SetAdcSync"
+resolved_target = 0x2739c0
+defined = true
+expanded = false
+relocation_slot = 0xb888a0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a980
+opcode = 0x97fb0f48
+form = "BL"
+branch_target = 0x1fe6a0
+symbol = "DevAcquireSPU_SetAdcCalSelect"
+resolved_target = 0x273af0
+defined = true
+expanded = false
+relocation_slot = 0xb7ba28
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a9ac
+opcode = 0x97fb0a01
+form = "BL"
+branch_target = 0x1fd1b0
+symbol = "DevAcquireSPU_SetAdcIdelay"
+resolved_target = 0x273ef4
+defined = true
+expanded = false
+relocation_slot = 0xb7afb0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a9b4
+opcode = 0x97fb5be7
+form = "BL"
+branch_target = 0x211950
+symbol = "DevAcquireSPU_SetIdelayCalEn"
+resolved_target = 0x273b54
+defined = true
+expanded = false
+relocation_slot = 0xb85380
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33a9d8
+opcode = 0x97fb85b6
+form = "BL"
+branch_target = 0x21c0b0
+symbol = "DevAcquireSPU_GetAdcBER"
+resolved_target = 0x273c04
+defined = true
+expanded = false
+relocation_slot = 0xb8a730
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33aa7c
+opcode = 0x97fb3c7d
+form = "BL"
+branch_target = 0x209c70
+symbol = "_ZN16CCalibration_ADC7RefLineEPjjPij"
+resolved_target = 0x346318
+defined = true
+expanded = false
+relocation_slot = 0xb81510
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33aac4
+opcode = 0x97fb11bb
+form = "BL"
+branch_target = 0x1ff1b0
+symbol = "_ZN16CCalibration_ADC11FindBestWndEPjjS0_Pi"
+resolved_target = 0x346770
+defined = true
+expanded = false
+relocation_slot = 0xb7bfb0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33aafc
+opcode = 0x97fb11ad
+form = "BL"
+branch_target = 0x1ff1b0
+symbol = "_ZN16CCalibration_ADC11FindBestWndEPjjS0_Pi"
+resolved_target = 0x346770
+defined = true
+expanded = false
+relocation_slot = 0xb7bfb0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ab54
+opcode = 0x97fb7fa7
+form = "BL"
+branch_target = 0x21a9f0
+symbol = "__memset_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89bd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ab74
+opcode = 0x97fb1ab3
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ac7c
+opcode = 0x97fb8c31
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ac98
+opcode = 0x97fb53aa
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ad08
+opcode = 0x97fb121e
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ad10
+opcode = 0x97fb1150
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ad14
+opcode = 0x97fafbfb
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ad74
+opcode = 0x97fffc25
+form = "BL"
+branch_target = 0x339e08
+symbol = "UNRESOLVED"
+resolved_target = 0x339e08
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33adb0
+opcode = 0x97fb4ce0
+form = "BL"
+branch_target = 0x20e130
+symbol = "__strcat_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb83770
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33adf0
+opcode = 0x97fb2c9c
+form = "BL"
+branch_target = 0x206060
+symbol = "DevAcquireADC_SetDataMode"
+resolved_target = 0x27fd80
+defined = true
+expanded = false
+relocation_slot = 0xb7f708
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ae04
+opcode = 0x97fb2c97
+form = "BL"
+branch_target = 0x206060
+symbol = "DevAcquireADC_SetDataMode"
+resolved_target = 0x27fd80
+defined = true
+expanded = false
+relocation_slot = 0xb7f708
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC14CalAdcDataLineEPj"
+pc = 0x33ae3c
+opcode = 0x97fb3295
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33ae94
+opcode = 0x97fb732f
+form = "BL"
+branch_target = 0x217b50
+symbol = "DevConfig_GetAdcNum"
+resolved_target = 0x272588
+defined = true
+expanded = false
+relocation_slot = 0xb88480
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33af0c
+opcode = 0x97fb8b8d
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33af20
+opcode = 0x97fb5308
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33af58
+opcode = 0x97fb118a
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33af88
+opcode = 0x97fb0dc6
+form = "BL"
+branch_target = 0x1fe6a0
+symbol = "DevAcquireSPU_SetAdcCalSelect"
+resolved_target = 0x273af0
+defined = true
+expanded = false
+relocation_slot = 0xb7ba28
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33afb8
+opcode = 0x97fb087e
+form = "BL"
+branch_target = 0x1fd1b0
+symbol = "DevAcquireSPU_SetAdcIdelay"
+resolved_target = 0x273ef4
+defined = true
+expanded = false
+relocation_slot = 0xb7afb0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33b000
+opcode = 0x97fb086c
+form = "BL"
+branch_target = 0x1fd1b0
+symbol = "DevAcquireSPU_SetAdcIdelay"
+resolved_target = 0x273ef4
+defined = true
+expanded = false
+relocation_slot = 0xb7afb0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33b078
+opcode = 0x97fb8b32
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33b08c
+opcode = 0x97fb52ad
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13LoadAdcIDelayEbPj"
+pc = 0x33b0fc
+opcode = 0x97fb1121
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33eaf0
+opcode = 0x97fb5404
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33eb00
+opcode = 0x97fb4210
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33eb10
+opcode = 0x97fb420c
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33eb34
+opcode = 0x97fb2977
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33eb70
+opcode = 0x97fb2968
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33eba0
+opcode = 0x97fb2f3c
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33ebb4
+opcode = 0x97fb2f37
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33ebbc
+opcode = 0x97fb2f35
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33ebec
+opcode = 0x97fb2f29
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33ebf8
+opcode = 0x9419450e
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC11LoadCalDataEv"
+pc = 0x33ebfc
+opcode = 0x97fb2325
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f038
+opcode = 0x97fae6ae
+form = "BL"
+branch_target = 0x1f8af0
+symbol = "DevAcquireADC_SetRef"
+resolved_target = 0x2801ec
+defined = true
+expanded = false
+relocation_slot = 0xb78c50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f058
+opcode = 0x97fae6a6
+form = "BL"
+branch_target = 0x1f8af0
+symbol = "DevAcquireADC_SetRef"
+resolved_target = 0x2801ec
+defined = true
+expanded = false
+relocation_slot = 0xb78c50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f06c
+opcode = 0x97fb7861
+form = "BL"
+branch_target = 0x21d1f0
+symbol = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+resolved_target = 0x33edac
+defined = true
+expanded = false
+relocation_slot = 0xb8afd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f094
+opcode = 0x97fb2857
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0ac
+opcode = 0x97fb2851
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0c4
+opcode = 0x97fb284b
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0dc
+opcode = 0x97fb2845
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0f0
+opcode = 0x97faed80
+form = "BL"
+branch_target = 0x1fa6f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+resolved_target = 0x33fc80
+defined = true
+expanded = false
+relocation_slot = 0xb79a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f128
+opcode = 0x97fb2832
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f140
+opcode = 0x97fb282c
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f158
+opcode = 0x97fb2826
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f170
+opcode = 0x97fb2820
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f184
+opcode = 0x97faed5b
+form = "BL"
+branch_target = 0x1fa6f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+resolved_target = 0x33fc80
+defined = true
+expanded = false
+relocation_slot = 0xb79a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f1bc
+opcode = 0x97fb280d
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f1d4
+opcode = 0x97fb2807
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f1ec
+opcode = 0x97fb2801
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f204
+opcode = 0x97fb27fb
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f218
+opcode = 0x97faed36
+form = "BL"
+branch_target = 0x1fa6f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+resolved_target = 0x33fc80
+defined = true
+expanded = false
+relocation_slot = 0xb79a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f250
+opcode = 0x97fb27e8
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f268
+opcode = 0x97fb27e2
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f280
+opcode = 0x97fb27dc
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f298
+opcode = 0x97fb27d6
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f2ac
+opcode = 0x97faed11
+form = "BL"
+branch_target = 0x1fa6f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+resolved_target = 0x33fc80
+defined = true
+expanded = false
+relocation_slot = 0xb79a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f2dc
+opcode = 0x97fb27c5
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f2f4
+opcode = 0x97fb27bf
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f314
+opcode = 0x97fb27b7
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f32c
+opcode = 0x97fb27b1
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f344
+opcode = 0x97fb54eb
+form = "BL"
+branch_target = 0x2146f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEii"
+resolved_target = 0x341840
+defined = true
+expanded = false
+relocation_slot = 0xb86a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f374
+opcode = 0x97fb279f
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f394
+opcode = 0x97fb2797
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f3ac
+opcode = 0x97fb2791
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f3c4
+opcode = 0x97fb278b
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f3dc
+opcode = 0x97fb54c5
+form = "BL"
+branch_target = 0x2146f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEii"
+resolved_target = 0x341840
+defined = true
+expanded = false
+relocation_slot = 0xb86a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f40c
+opcode = 0x97fb2779
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f424
+opcode = 0x97fb2773
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f444
+opcode = 0x97fb276b
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f45c
+opcode = 0x97fb2765
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f474
+opcode = 0x97fb549f
+form = "BL"
+branch_target = 0x2146f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEii"
+resolved_target = 0x341840
+defined = true
+expanded = false
+relocation_slot = 0xb86a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f4ac
+opcode = 0x97fb2751
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f4cc
+opcode = 0x97fb2749
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f4e4
+opcode = 0x97fb2743
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f4fc
+opcode = 0x97fb273d
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f514
+opcode = 0x97fb5477
+form = "BL"
+branch_target = 0x2146f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEii"
+resolved_target = 0x341840
+defined = true
+expanded = false
+relocation_slot = 0xb86a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f54c
+opcode = 0x97fb2729
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f564
+opcode = 0x97fb2723
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f584
+opcode = 0x97fb271b
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f59c
+opcode = 0x97fb2715
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f5b4
+opcode = 0x97fb544f
+form = "BL"
+branch_target = 0x2146f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEii"
+resolved_target = 0x341840
+defined = true
+expanded = false
+relocation_slot = 0xb86a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f5ec
+opcode = 0x97fb2701
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f604
+opcode = 0x97fb26fb
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f624
+opcode = 0x97fb26f3
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f63c
+opcode = 0x97fb26ed
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f654
+opcode = 0x97fb5427
+form = "BL"
+branch_target = 0x2146f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEii"
+resolved_target = 0x341840
+defined = true
+expanded = false
+relocation_slot = 0xb86a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f674
+opcode = 0x97fb26df
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f694
+opcode = 0x97fb26d7
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f6b4
+opcode = 0x97fb26cf
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f6d4
+opcode = 0x97fb26c7
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = false
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f6f4
+opcode = 0x97fb4f63
+form = "BL"
+branch_target = 0x213480
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEiiii"
+resolved_target = 0x343e04
+defined = true
+expanded = false
+relocation_slot = 0xb86118
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f778
+opcode = 0x97fb6fb6
+form = "BL"
+branch_target = 0x21b650
+symbol = "DevAcquireADC_SetADCCoreOffset"
+resolved_target = 0x281ed8
+defined = true
+expanded = false
+relocation_slot = 0xb8a200
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f800
+opcode = 0x97fb5e08
+form = "BL"
+branch_target = 0x217020
+symbol = "DevAcquireADC_SetDlySmpClk"
+resolved_target = 0x2844b4
+defined = true
+expanded = false
+relocation_slot = 0xb87ee8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f84c
+opcode = 0x97fafbf9
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f878
+opcode = 0x97fafbee
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f8f4
+opcode = 0x97fb5dcb
+form = "BL"
+branch_target = 0x217020
+symbol = "DevAcquireADC_SetDlySmpClk"
+resolved_target = 0x2844b4
+defined = true
+expanded = false
+relocation_slot = 0xb87ee8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f940
+opcode = 0x97fafbbc
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f96c
+opcode = 0x97fafbb1
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f9e8
+opcode = 0x97fb5d8e
+form = "BL"
+branch_target = 0x217020
+symbol = "DevAcquireADC_SetDlySmpClk"
+resolved_target = 0x2844b4
+defined = true
+expanded = false
+relocation_slot = 0xb87ee8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fa34
+opcode = 0x97fafb7f
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fa60
+opcode = 0x97fafb74
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fadc
+opcode = 0x97fb5d51
+form = "BL"
+branch_target = 0x217020
+symbol = "DevAcquireADC_SetDlySmpClk"
+resolved_target = 0x2844b4
+defined = true
+expanded = false
+relocation_slot = 0xb87ee8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fb28
+opcode = 0x97fafb42
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fb54
+opcode = 0x97fafb37
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fbc0
+opcode = 0x97fb5d18
+form = "BL"
+branch_target = 0x217020
+symbol = "DevAcquireADC_SetDlySmpClk"
+resolved_target = 0x2844b4
+defined = true
+expanded = false
+relocation_slot = 0xb87ee8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc0c
+opcode = 0x97fafb09
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc38
+opcode = 0x97fafafe
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = false
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc4c
+opcode = 0x97fb61d1
+form = "BL"
+branch_target = 0x218390
+symbol = "DevAcquireSPU_SetAdcSync"
+resolved_target = 0x2739c0
+defined = true
+expanded = false
+relocation_slot = 0xb888a0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc7c
+opcode = 0x97fb1f05
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34af20
+opcode = 0x97fb0f14
+form = "BL"
+branch_target = 0x20eb70
+symbol = "_ZNSt6__ndk16vectorIiNS_9allocatorIiEEEC2EmRKi"
+resolved_target = 0x34addc
+defined = true
+expanded = false
+relocation_slot = 0xb83c90
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34af38
+opcode = 0x97fb0f0e
+form = "BL"
+branch_target = 0x20eb70
+symbol = "_ZNSt6__ndk16vectorIiNS_9allocatorIiEEEC2EmRKi"
+resolved_target = 0x34addc
+defined = true
+expanded = false
+relocation_slot = 0xb83c90
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34af58
+opcode = 0x97fb0f06
+form = "BL"
+branch_target = 0x20eb70
+symbol = "_ZNSt6__ndk16vectorIiNS_9allocatorIiEEEC2EmRKi"
+resolved_target = 0x34addc
+defined = true
+expanded = false
+relocation_slot = 0xb83c90
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34af64
+opcode = 0x97fe1e0c
+form = "BL"
+branch_target = 0x2d2794
+symbol = "UNRESOLVED"
+resolved_target = 0x2d2794
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34afd8
+opcode = 0x97fabfe6
+form = "BL"
+branch_target = 0x1faf70
+symbol = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+resolved_target = 0x347990
+defined = true
+expanded = false
+relocation_slot = 0xb79e90
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b078
+opcode = 0x97fb4b32
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b0a0
+opcode = 0x97fb12a8
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b104
+opcode = 0x97fad11f
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b148
+opcode = 0x94000150
+form = "BL"
+branch_target = 0x34b688
+symbol = "UNRESOLVED"
+resolved_target = 0x34b688
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b180
+opcode = 0x97ffbb22
+form = "BL"
+branch_target = 0x339e08
+symbol = "UNRESOLVED"
+resolved_target = 0x339e08
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b194
+opcode = 0x97fb0c27
+form = "BL"
+branch_target = 0x20e230
+symbol = "_ZNSt6__ndk114basic_ifstreamIcNS_11char_traitsIcEEE4openEPKcj"
+resolved_target = 0x34b774
+defined = true
+expanded = false
+relocation_slot = 0xb837f0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b1a0
+opcode = 0x97ff75a5
+form = "BL"
+branch_target = 0x328834
+symbol = "UNRESOLVED"
+resolved_target = 0x328834
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b234
+opcode = 0x97fb4ac3
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b25c
+opcode = 0x97fb1239
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b2a4
+opcode = 0x97fad0b7
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b3ac
+opcode = 0x97fabed9
+form = "BL"
+branch_target = 0x1faf10
+symbol = "_ZNSt6__ndk114basic_ifstreamIcNS_11char_traitsIcEEED1Ev"
+resolved_target = 0x320568
+defined = true
+expanded = false
+relocation_slot = 0xb79e60
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b4c4
+opcode = 0x97ff524c
+form = "BL"
+branch_target = 0x31fdf4
+symbol = "UNRESOLVED"
+resolved_target = 0x31fdf4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b548
+opcode = 0x97fb49fe
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b570
+opcode = 0x97fb1174
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b5bc
+opcode = 0x97facff1
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b5f0
+opcode = 0x97fab034
+form = "BL"
+branch_target = 0x1f76c0
+symbol = "_Z15Drv_LoadCalDataPcPvj"
+resolved_target = 0x338230
+defined = true
+expanded = false
+relocation_slot = 0xb78238
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b600
+opcode = 0x97fabe44
+form = "BL"
+branch_target = 0x1faf10
+symbol = "_ZNSt6__ndk114basic_ifstreamIcNS_11char_traitsIcEEED1Ev"
+resolved_target = 0x320568
+defined = true
+expanded = false
+relocation_slot = 0xb79e60
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b608
+opcode = 0x97fe1c89
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b610
+opcode = 0x97fe1c87
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b618
+opcode = 0x97fe1c85
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b620
+opcode = 0x97fe1c83
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b654
+opcode = 0x97fe1c76
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b65c
+opcode = 0x97fe1c74
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b668
+opcode = 0x97fe1c71
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b674
+opcode = 0x97fe1c6e
+form = "BL"
+branch_target = 0x2d282c
+symbol = "UNRESOLVED"
+resolved_target = 0x2d282c
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b680
+opcode = 0x9419126c
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC27DrvCalibration_LoadAdcStaryEi"
+pc = 0x34b684
+opcode = 0x97faf083
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x35063c
+opcode = 0x97fb0d31
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x35064c
+opcode = 0x97fafb3d
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x35065c
+opcode = 0x97fafb39
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x350680
+opcode = 0x97fae2a4
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x3506bc
+opcode = 0x97fae295
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x3506ec
+opcode = 0x97fae869
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x350700
+opcode = 0x97fae864
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x350708
+opcode = 0x97fae862
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x350738
+opcode = 0x97fae856
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x350744
+opcode = 0x9418fe3b
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe18LoadAfeZeroCalDataEv"
+pc = 0x350748
+opcode = 0x97fadc52
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350e6c
+opcode = 0x97fb0b25
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350e7c
+opcode = 0x97faf931
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350e8c
+opcode = 0x97faf92d
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350eb0
+opcode = 0x97fae098
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350eec
+opcode = 0x97fae089
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350f1c
+opcode = 0x97fae65d
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350f5c
+opcode = 0x97fac809
+form = "BL"
+branch_target = 0x202f80
+symbol = "_Z35DrvCalibrationAfe_BandWidthSaveDatav"
+resolved_target = 0x350fbc
+defined = true
+expanded = false
+relocation_slot = 0xb7de98
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350f70
+opcode = 0x97fae648
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350f78
+opcode = 0x97fae646
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350fa8
+opcode = 0x97fae63a
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350fb4
+opcode = 0x9418fc1f
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+pc = 0x350fb8
+opcode = 0x97fada36
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356c98
+opcode = 0x97fb0f56
+form = "BL"
+branch_target = 0x21a9f0
+symbol = "__memset_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89bd0
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356cbc
+opcode = 0x97faaa61
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356d18
+opcode = 0x97fb0f36
+form = "BL"
+branch_target = 0x21a9f0
+symbol = "__memset_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89bd0
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356d3c
+opcode = 0x97faaa41
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356da0
+opcode = 0x97fb0f14
+form = "BL"
+branch_target = 0x21a9f0
+symbol = "__memset_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89bd0
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356dcc
+opcode = 0x97faaa1d
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356e34
+opcode = 0x97fb0eef
+form = "BL"
+branch_target = 0x21a9f0
+symbol = "__memset_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89bd0
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356e60
+opcode = 0x97faa9f8
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356ec8
+opcode = 0x97fb0eca
+form = "BL"
+branch_target = 0x21a9f0
+symbol = "__memset_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89bd0
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356ef4
+opcode = 0x97faa9d3
+form = "BL"
+branch_target = 0x201640
+symbol = "memset"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7d1f8
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356f20
+opcode = 0x94000075
+form = "BL"
+branch_target = 0x3570f4
+symbol = "UNRESOLVED"
+resolved_target = 0x3570f4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356f48
+opcode = 0x9400006b
+form = "BL"
+branch_target = 0x3570f4
+symbol = "UNRESOLVED"
+resolved_target = 0x3570f4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356f70
+opcode = 0x94000061
+form = "BL"
+branch_target = 0x3570f4
+symbol = "UNRESOLVED"
+resolved_target = 0x3570f4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356f98
+opcode = 0x94000057
+form = "BL"
+branch_target = 0x3570f4
+symbol = "UNRESOLVED"
+resolved_target = 0x3570f4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356fc0
+opcode = 0x9400004d
+form = "BL"
+branch_target = 0x3570f4
+symbol = "UNRESOLVED"
+resolved_target = 0x3570f4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x356ff8
+opcode = 0x97fa9522
+form = "BL"
+branch_target = 0x1fc480
+symbol = "_ZN14CCalDataStream4loadEPc"
+resolved_target = 0x352188
+defined = true
+expanded = false
+relocation_slot = 0xb7a918
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x357030
+opcode = 0x97fa9514
+form = "BL"
+branch_target = 0x1fc480
+symbol = "_ZN14CCalDataStream4loadEPc"
+resolved_target = 0x352188
+defined = true
+expanded = false
+relocation_slot = 0xb7a918
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x357068
+opcode = 0x97fa9506
+form = "BL"
+branch_target = 0x1fc480
+symbol = "_ZN14CCalDataStream4loadEPc"
+resolved_target = 0x352188
+defined = true
+expanded = false
+relocation_slot = 0xb7a918
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x3570a0
+opcode = 0x97fa94f8
+form = "BL"
+branch_target = 0x1fc480
+symbol = "_ZN14CCalDataStream4loadEPc"
+resolved_target = 0x352188
+defined = true
+expanded = false
+relocation_slot = 0xb7a918
+
+[[calls]]
+owner = "_ZN16CCalibration_Afg18LoadAfgCalibrationEi"
+pc = 0x3570d8
+opcode = 0x97fa94ea
+form = "BL"
+branch_target = 0x1fc480
+symbol = "_ZN14CCalDataStream4loadEPc"
+resolved_target = 0x352188
+defined = true
+expanded = false
+relocation_slot = 0xb7a918
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a230
+opcode = 0x97fae634
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a248
+opcode = 0x97fad43e
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a258
+opcode = 0x97fad43a
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a270
+opcode = 0x97fabba8
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a2a0
+opcode = 0x97fabb9c
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a2d0
+opcode = 0x97fac170
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a2dc
+opcode = 0x97fad221
+form = "BL"
+branch_target = 0x20eb60
+symbol = "_ZN18CCalibration_Clock20ConfigClockConfigRegEv"
+resolved_target = 0x35a13c
+defined = true
+expanded = false
+relocation_slot = 0xb83c88
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a2f0
+opcode = 0x97fac168
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a2f8
+opcode = 0x97fac166
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a328
+opcode = 0x97fac15a
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a334
+opcode = 0x9418d73f
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN18CCalibration_Clock16LoadClockCalDataEv"
+pc = 0x35a338
+opcode = 0x97fab556
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b0bc
+opcode = 0x97fae291
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b0cc
+opcode = 0x97fad09d
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b0dc
+opcode = 0x97fad099
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b0f8
+opcode = 0x97fab806
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b12c
+opcode = 0x97fab7f9
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b15c
+opcode = 0x97fabdcd
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b170
+opcode = 0x97fabdc8
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b178
+opcode = 0x97fabdc6
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b1a8
+opcode = 0x97fabdba
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b1b4
+opcode = 0x9418d39f
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Ext14LoadExtCalDataEv"
+pc = 0x35b1b8
+opcode = 0x97fab1b6
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35bf64
+opcode = 0x97fadee7
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35bf74
+opcode = 0x97faccf3
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35bf84
+opcode = 0x97faccef
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35bfa0
+opcode = 0x97fab45c
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35bfd4
+opcode = 0x97fab44f
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35c004
+opcode = 0x97faba23
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35c018
+opcode = 0x97faba1e
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35c020
+opcode = 0x97faba1c
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35c050
+opcode = 0x97faba10
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35c05c
+opcode = 0x9418cff5
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr14LoadDdrCalDataEv"
+pc = 0x35c060
+opcode = 0x97faae0c
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr18ConfigueDdrCalDataEv"
+pc = 0x35c09c
+opcode = 0x97fadd11
+form = "BL"
+branch_target = 0x2134e0
+symbol = "DevAcquireSPU_SetMemReset"
+resolved_target = 0x277d08
+defined = true
+expanded = false
+relocation_slot = 0xb86148
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr18ConfigueDdrCalDataEv"
+pc = 0x35c0e4
+opcode = 0x97faf85f
+form = "BL"
+branch_target = 0x21a260
+symbol = "DevAcquireSPU_SetDdrSkipTap"
+resolved_target = 0x27d07c
+defined = true
+expanded = false
+relocation_slot = 0xb89808
+
+[[calls]]
+owner = "_ZN16CCalibration_Ddr18ConfigueDdrCalDataEv"
+pc = 0x35c0fc
+opcode = 0x97fadcf9
+form = "BL"
+branch_target = 0x2134e0
+symbol = "DevAcquireSPU_SetMemReset"
+resolved_target = 0x277d08
+defined = true
+expanded = false
+relocation_slot = 0xb86148
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d4e8
+opcode = 0x97fad986
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d4f8
+opcode = 0x97fac792
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d508
+opcode = 0x97fac78e
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d520
+opcode = 0x97faaefc
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d550
+opcode = 0x97faaef0
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d580
+opcode = 0x97fab4c4
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d594
+opcode = 0x97fa872f
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d5a4
+opcode = 0x97fa71d7
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d5d4
+opcode = 0x97fa871f
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d5e4
+opcode = 0x97fa71c7
+form = "BL"
+branch_target = 0x1f9d00
+symbol = "_ZN9CDrvScope14GetCalibrationEv"
+resolved_target = 0x2e5a4c
+defined = true
+expanded = true
+relocation_slot = 0xb79558
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d614
+opcode = 0x97fab49f
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d61c
+opcode = 0x97fab49d
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d64c
+opcode = 0x97fab491
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d658
+opcode = 0x9418ca76
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN21CCalibration_La_Probe13LoadLaCalDataEv"
+pc = 0x35d65c
+opcode = 0x97faa88d
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366c4c
+opcode = 0x97fab3ad
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366c5c
+opcode = 0x97faa1b9
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366c6c
+opcode = 0x97faa1b5
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366c98
+opcode = 0x97fa891e
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366d2c
+opcode = 0x97fadc05
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366d4c
+opcode = 0x97faa37d
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366d8c
+opcode = 0x97fa61fd
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366db8
+opcode = 0x97fa88d6
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366de8
+opcode = 0x97fa8eaa
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366dfc
+opcode = 0x97fa8ea5
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366e04
+opcode = 0x97fa8ea3
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366e38
+opcode = 0x97fa8e96
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366e44
+opcode = 0x9418a47b
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert23LoadVerticalCalibrationEv"
+pc = 0x366e48
+opcode = 0x97fa8292
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366e74
+opcode = 0x97fab323
+form = "BL"
+branch_target = 0x213b00
+symbol = "_ZN14CCheckedStreamC1Ev"
+resolved_target = 0x3dc85c
+defined = true
+expanded = false
+relocation_slot = 0xb86458
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366e84
+opcode = 0x97faa12f
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366e94
+opcode = 0x97faa12b
+form = "BL"
+branch_target = 0x20f340
+symbol = "_ZN7RStringC2EPKc"
+resolved_target = 0x239014
+defined = true
+expanded = false
+relocation_slot = 0xb84078
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366eac
+opcode = 0x97fa8899
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366edc
+opcode = 0x97fa888d
+form = "BL"
+branch_target = 0x209110
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+resolved_target = 0x3dd0dc
+defined = true
+expanded = false
+relocation_slot = 0xb80f60
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366f0c
+opcode = 0x97fa8e61
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366f20
+opcode = 0x97fa8e5c
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366f28
+opcode = 0x97fa8e5a
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366f58
+opcode = 0x97fa8e4e
+form = "BL"
+branch_target = 0x20a890
+symbol = "_ZN7RStringD2Ev"
+resolved_target = 0x239040
+defined = true
+expanded = false
+relocation_slot = 0xb81b20
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366f64
+opcode = 0x9418a433
+form = "BL"
+branch_target = 0x990030
+symbol = "UNRESOLVED"
+resolved_target = 0x990030
+defined = false
+expanded = false
+
+[[calls]]
+owner = "_ZN17CCalibration_Vert18LoadLsbCalibrationEv"
+pc = 0x366f68
+opcode = 0x97fa824a
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320

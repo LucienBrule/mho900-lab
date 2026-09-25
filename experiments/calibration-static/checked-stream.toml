@@ -1,0 +1,86 @@
+schema_version = "mho900-lab.checked-calibration-stream/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+complete_environment_inventory = false
+
+[loader]
+symbol = "_ZN14CCheckedStream4loadERK7RStringPvj"
+start = 0x3dd0dc
+size = 0x6e8
+range_sha256 = "0179e0d9deefc32a30bec99680d88a7fb058aab96e63ee6a6230a190de4884fb"
+open_mode = 1
+header_bytes = 28
+header_body_bytes = 20
+success_return = "requested_payload_bytes"
+open_failure = -1
+structural_failure = -2
+integrity_failure = -3
+payload_crc_failure_mutates_destination = true
+short_payload_read_may_mutate_destination_prefix = true
+
+[[format_fields]]
+offset = 0
+width = 4
+meaning = "crc32-header-body"
+
+[[format_fields]]
+offset = 4
+width = 4
+meaning = "header-body-length"
+required_value = 20
+
+[[format_fields]]
+offset = 8
+width = 4
+meaning = "opaque-metadata-word"
+
+[[format_fields]]
+offset = 12
+width = 8
+meaning = "opaque-metadata-qword"
+
+[[format_fields]]
+offset = 20
+width = 4
+meaning = "payload-length"
+
+[[format_fields]]
+offset = 24
+width = 4
+meaning = "crc32-payload"
+
+[[assets]]
+logical_path = "/rigol/data/default/cal_lsb.hex"
+corpus_path = "local/reversing/firmware-extracted/stock-0.26/firmware/data/default/cal_lsb.hex"
+present = true
+file_bytes = 220
+payload_bytes = 192
+sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+stored_header_crc32 = 0x004e2ebb
+computed_header_crc32 = 0x004e2ebb
+stored_payload_crc32 = 0x27b7be0f
+computed_payload_crc32 = 0x27b7be0f
+
+[[assets]]
+logical_path = "/rigol/data/default/cal_vertical.hex"
+corpus_path = "local/reversing/firmware-extracted/stock-0.26/firmware/data/default/cal_vertical.hex"
+present = true
+file_bytes = 1794268
+payload_bytes = 0x1b60c0
+sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+stored_header_crc32 = 0x13e40809
+computed_header_crc32 = 0x13e40809
+stored_payload_crc32 = 0xd022e65b
+computed_payload_crc32 = 0xd022e65b
+
+[[assets]]
+logical_path = "/rigol/data/default/cal_adc.hex"
+present = false
+
+[[missing_primary_assets]]
+logical_path = "/rigol/data/cal_lsb.hex"
+
+[[missing_primary_assets]]
+logical_path = "/rigol/data/cal_vertical.hex"
+
+[[missing_primary_assets]]
+logical_path = "/rigol/data/cal_adc.hex"
