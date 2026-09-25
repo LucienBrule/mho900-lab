@@ -12,9 +12,13 @@ capture() {
     printf '%s = %s\n' "$key" "$rc" >> "$run/fixture-command-status.toml"
     return "$rc"
 }
-cp "$repo/experiments/calibration-static/loader-candidate.toml" "$run/calibration-loader-candidate.toml"
 source_root="$repo/local/reversing/firmware-extracted/stock-0.26"
-cp "$repo/tools/research/InspectCalibrationAssets.main.kts" "$run/source/InspectCalibrationAssets.main.kts"
+if [ "${ADMISSION_MODE:-filesystem}" = adcsequencemodel ]; then
+    source_root="$run/calibration-source"
+else
+    cp "$repo/experiments/calibration-static/loader-candidate.toml" "$run/calibration-loader-candidate.toml"
+    cp "$repo/tools/research/InspectCalibrationAssets.main.kts" "$run/source/InspectCalibrationAssets.main.kts"
+fi
 kotlin "$run/source/InspectCalibrationAssets.main.kts" "$source_root" \
     "$run/calibration-asset-inspection.toml" > "$run/calibration-asset-check.toml" \
     2> "$run/calibration-asset-check.stderr"

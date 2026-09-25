@@ -3,6 +3,7 @@
 set -eu
 run=${ADMISSION_RUN:?}
 repo=${ADMISSION_REPO:?}
+frida_home=${ADMISSION_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19"}
 sdk=${ANDROID_SDK_ROOT:?}
 adb() { gtimeout -k 2 20 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
 adb root > "$run/adb-root.txt" 2>&1
@@ -20,7 +21,7 @@ expected=$(yq -p toml -o yaml -r '.services_odex_sha256' "$repo/experiments/gues
 adb pull /seapp_contexts "$run/seapp_contexts" > "$run/selinux-config-pull.txt" 2>&1
 adb pull /system/etc/security/mac_permissions.xml "$run/mac_permissions.xml" >> "$run/selinux-config-pull.txt" 2>&1
 adb exec-out cat /sys/fs/selinux/policy > "$run/selinux-before.policy"
-adb push "$repo/local/guest-tools/frida-16.7.19/server" /data/local/tmp/admission-frida \
+adb push "$frida_home/server" /data/local/tmp/admission-frida \
     > "$run/frida-push.txt" 2>&1
 adb shell 'chmod 700 /data/local/tmp/admission-frida; /data/local/tmp/admission-frida --version' \
     > "$run/frida-version.txt" 2>&1
@@ -30,7 +31,7 @@ sleep 3
 adb shell 'ps; cat /data/local/tmp/frida-server.txt; cat /proc/net/tcp' > "$run/server-state.txt" 2>&1
 adb forward tcp:27043 tcp:27042 > "$run/frida-forward.txt" 2>&1
 system_pid=$(adb shell pidof system_server | tr -d '\r')
-gtimeout -k 2 35 "$repo/local/guest-tools/frida-16.7.19/venv/bin/frida" -H 127.0.0.1:27043 \
+gtimeout -k 2 35 "$frida_home/venv/bin/frida" -H 127.0.0.1:27043 \
     -p "$system_pid" -l "$run/source/inspect-framework.js" -q -t 8 --no-auto-reload --exit-on-error \
     > "$run/frida-inspection.txt" 2>&1
 adb shell getenforce > "$run/selinux-after.txt"

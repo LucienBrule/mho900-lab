@@ -21,6 +21,8 @@ remaining=false
 tail=false
 loaders=false
 adcinputs=false
+sequence=false
+if [ "${ADMISSION_MODE:-groupmodel}" = adcsequencemodel ]; then sequence=true; adcinputs=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = adcinputmodel ]; then adcinputs=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = loadermodel ] || [ "$adcinputs" = true ]; then loaders=true; tail=true; remaining=true; spu=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = tailmodel ]; then tail=true; remaining=true; spu=true; fi
@@ -28,28 +30,34 @@ if [ "${ADMISSION_MODE:-groupmodel}" = remainingmodel ]; then remaining=true; sp
 [ "${ADMISSION_MODE:-groupmodel}" != spumodel ] || spu=true
 if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ] || [ "$spu" = true ]; then
     transcript=true
+    if [ "$sequence" != true ]; then
     canonical="$repo/out/adc-transcript/derived-01"
     cp "$canonical/adc-stock.bin" "$run/adc-stock.bin"
     cp "$repo/experiments/adc-transcript/reference.tsv" "$run/reference.tsv"
     cp "$repo/experiments/adc-transcript/derivation.toml" "$run/derivation.toml"
+    fi
     actual=$(shasum -a 256 "$run/adc-stock.bin"); actual=${actual%% *}
     [ "$actual" = 42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7 ]
     actual=$(shasum -a 256 "$run/reference.tsv"); actual=${actual%% *}
     [ "$actual" = 6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9 ]
 fi
 if [ "$spu" = true ]; then
+    if [ "$sequence" != true ]; then
     cp "$repo/out/spu-transcript/derived-01/spu-stock.bin" "$run/spu-stock.bin"
     cp "$repo/experiments/spu-transcript/derivation.toml" "$run/spu-derivation.toml"
+    fi
     actual=$(shasum -a 256 "$run/spu-stock.bin"); actual=${actual%% *}
     [ "$actual" = 34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6 ]
 fi
 native_dir="$repo/local/guest-tools/group-observer"
-if [ "$adcinputs" = true ]; then
+if [ "$adcinputs" = true ] && [ "$sequence" != true ]; then
     native_path=$(yq -p toml -o yaml -r '.native.path' "$run/source/adc-input-capture-inputs.toml")
     native_dir=$(dirname "$repo/$native_path")
 fi
-cp "$native_dir/"*.txt "$run/"
-cp "$native_dir/group-observer" "$run/group-control.elf"
+if [ "$sequence" != true ]; then
+    cp "$native_dir/"*.txt "$run/"
+    cp "$native_dir/group-observer" "$run/group-control.elf"
+fi
 if [ "$transcript" = true ]; then
     actual=$(shasum -a 256 "$run/group-control.elf"); actual=${actual%% *}
     expected_binary=00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a
@@ -57,22 +65,26 @@ if [ "$transcript" = true ]; then
     [ "$remaining" != true ] || expected_binary=8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d
     [ "$tail" != true ] || expected_binary=fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182
     [ "$loaders" != true ] || expected_binary=3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa
-    [ "$adcinputs" != true ] || expected_binary=$(yq -p toml -o yaml -r '.native.sha256' "$run/source/adc-input-capture-inputs.toml")
+    if [ "$adcinputs" = true ]; then
+        native_manifest="$run/source/adc-input-capture-inputs.toml"
+        [ "$sequence" != true ] || native_manifest="$run/source/adc-sequence-stock-inputs.toml"
+        expected_binary=$(yq -p toml -o yaml -r '.native.sha256' "$native_manifest")
+    fi
     [ "$actual" = "$expected_binary" ]
 fi
-if [ "$remaining" = true ]; then
+if [ "$remaining" = true ] && [ "$sequence" != true ]; then
     cp "$repo/experiments/remaining-init/stock-gate.toml" "$run/remaining-stock-gate.toml"
     cp "$repo/experiments/remaining-init/rearm-profile.toml" "$run/remaining-rearm-profile.toml"
     cp "$repo/experiments/remaining-init/grammar.toml" "$run/remaining-grammar.toml"
 fi
-if [ "$tail" = true ]; then
+if [ "$tail" = true ] && [ "$sequence" != true ]; then
     cp "$repo/experiments/init-tail/stock-gate.toml" "$run/tail-stock-gate.toml"
     cp "$repo/experiments/init-tail/candidate.toml" "$run/tail-candidate.toml"
     cp "$repo/experiments/init-tail/grammar.toml" "$run/tail-grammar.toml"
     cp "$repo/experiments/init-tail/controls-handoff.toml" "$run/tail-control-fixture.toml"
     cp "$repo/experiments/init-tail/handoff-profile.toml" "$run/tail-handoff-profile.toml"
 fi
-cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
+if [ "$sequence" != true ]; then cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"; fi
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
 adb shell chmod 755 /data/local/tmp/group-observer
 
@@ -133,6 +145,7 @@ fi
 [ "$tail" != true ] || command=stock-tail
 [ "$loaders" != true ] || command=stock-loaders
 [ "$adcinputs" != true ] || command=stock-adc-inputs
+[ "$sequence" != true ] || command=stock-adc-sequence
 command_args="$pid $base"
 if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
 if [ "$spu" = true ]; then command_args="$command_args /data/local/tmp/spu-stock.bin"; fi

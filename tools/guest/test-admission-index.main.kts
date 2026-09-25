@@ -8,7 +8,7 @@ val out=Path.of(args[0]).toAbsolutePath();require(!Files.exists(out));Files.crea
 val runtime=Path.of("tools/guest/admission-runtime.sh").toAbsolutePath()
 fun digest(b:ByteArray)=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(b))
 val nested=listOf("scope","main-grammar","stary-grammar","stary-refinements","integer-refinements","helper-grammar","helper-refinements","getter-inputs").map{"adc-parameter-static/$it.toml"}+listOf("adc-candidate/candidate.toml","adc-candidate/sequence.tsv","adc-sequence/profile.toml")
-val expected=(nested+"result.toml"+"source/control.sh").associateWith{"fixture = \"$it\"\n".toByteArray()}
+val expected=(nested+listOf("result.toml","source/control.sh","source/frida-environment-files.toml","frida-tooling-verification.toml","calibration-source/firmware/data/default/cal_lsb.hex","calibration-source/firmware/data/default/cal_vertical.hex","admission-controls/changed-bytes.apk","stock-input.apk")).associateWith{"fixture = \"$it\"\n".toByteArray()}
 fun verify(dir:Path){
     val lines=Files.readAllLines(dir.resolve("evidence-sha256.txt"))
     val paths=lines.map{line->require(line.length>66&&line.substring(64,66)=="  ");val p=Path.of(line.substring(66)).normalize();require(p.startsWith(dir)&&Files.isRegularFile(p)&&!Files.isSymbolicLink(p));require(digest(Files.readAllBytes(p))==line.take(64)){"indexed hash"};p}

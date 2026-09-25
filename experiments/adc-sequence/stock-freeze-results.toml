@@ -1,0 +1,38 @@
+schema_version = "mho900-lab.adc-sequence-stock-preparation/1"
+classification = "host-only-preparation"
+guest_runs = 0
+manifest = "experiments/adc-sequence/stock-inputs.toml"
+manifest_sha256 = "c174fc9bd0b4a9842af20783df3ea92afe02ed217527a84b44325f4c7db33cd3"
+artifacts = 168
+checker_sha256 = "c13d9d63faaf8e206d5aa0e262b2ce8320d219f32f50c2d96360bf8fa915d901"
+native_sha256 = "960b91e1b3cd7de8f49d47833c6e13ec43afcc597bb0d205c379f471a2bcda37"
+profile_sha256 = "1fd5ffcf09094da41bd7aa08ed60974b6a6f4c3be9ba7f0f92eebdab087d8abb"
+
+[[controls]]
+path = "out/stock-adc-sequence-host-controls/controls16/results.toml"
+sha256 = "23f48d7cc8cc8ddc4a2d06a7a158ed16bb89c59974d57ddde965665591429668"
+positive = 1
+negative = 14
+
+[[controls]]
+path = "out/stock-adc-sequence-preparation/runtime-controls02/results.toml"
+sha256 = "5209f6be584f435c6c226b8346c61c0223d7c43fd64418ecd172ce62db289f5f"
+cases = 7
+
+[[controls]]
+path = "out/stock-adc-sequence-preparation/index-controls02/results.toml"
+sha256 = "8834594604e47f90627eeddbc95394e0d91b6ce1a63e2513e85ad09fd1b594c0"
+positive = 1
+negative = 4
+
+[[controls]]
+path = "out/stock-adc-sequence-preparation/tooling-controls02/results.toml"
+sha256 = "02a0c7162be083e0de797729a27257df30880852737253fe4f1166556c351819"
+positive = 2
+negative = 3
+
+[[controls]]
+path = "out/stock-adc-sequence-preparation/environment-controls01/results.toml"
+sha256 = "ce6e149f936c2d49014b3ad0235b549b289940ce70cb3f748d5d4036c333d93c"
+positive = 1
+negative = 3

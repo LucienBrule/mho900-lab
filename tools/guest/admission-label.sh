@@ -2,9 +2,14 @@
 set -eu
 run=${ADMISSION_RUN:?}
 repo=${ADMISSION_REPO:?}
+frida_home=${ADMISSION_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19"}
 sdk=${ANDROID_SDK_ROOT:?}
 controls="$repo/local/guest-inputs/admission-controls"
 apk="$repo/local/guest-inputs/Sparrow.apk"
+if [ "${ADMISSION_MODE:-label}" = adcsequencemodel ]; then
+    controls="$run/admission-controls"
+    apk="$run/stock-input.apk"
+fi
 adb() { gtimeout -k 2 30 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
 install_control() {
     name=$1
@@ -47,7 +52,7 @@ cleanup() {
 trap cleanup EXIT
 trap 'exit 130' INT TERM
 system_pid=$(adb shell pidof system_server | tr -d '\r')
-gtimeout -k 2 180 "$repo/local/guest-tools/frida-16.7.19/venv/bin/frida" -H 127.0.0.1:27043 \
+gtimeout -k 2 180 "$frida_home/venv/bin/frida" -H 127.0.0.1:27043 \
     -p "$system_pid" -l "$run/source/labeling-exception.js" -q -t 45 --exit-on-error --no-auto-reload \
     > "$run/admission-hook.txt" 2>&1 &
 frida_pid=$!
@@ -141,7 +146,7 @@ if [ "${ADMISSION_MODE:-label}" = coverage ]; then
     "$run/source/coverage-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"
 fi
-if [ "${ADMISSION_MODE:-label}" = groupmodel ] || [ "${ADMISSION_MODE:-label}" = nextmodel ] || [ "${ADMISSION_MODE:-label}" = writemodel ] || [ "${ADMISSION_MODE:-label}" = pairmodel ] || [ "${ADMISSION_MODE:-label}" = transcriptmodel ] || [ "${ADMISSION_MODE:-label}" = spumodel ] || [ "${ADMISSION_MODE:-label}" = remainingmodel ] || [ "${ADMISSION_MODE:-label}" = tailmodel ] || [ "${ADMISSION_MODE:-label}" = loadermodel ] || [ "${ADMISSION_MODE:-label}" = adcinputmodel ]; then
+if [ "${ADMISSION_MODE:-label}" = groupmodel ] || [ "${ADMISSION_MODE:-label}" = nextmodel ] || [ "${ADMISSION_MODE:-label}" = writemodel ] || [ "${ADMISSION_MODE:-label}" = pairmodel ] || [ "${ADMISSION_MODE:-label}" = transcriptmodel ] || [ "${ADMISSION_MODE:-label}" = spumodel ] || [ "${ADMISSION_MODE:-label}" = remainingmodel ] || [ "${ADMISSION_MODE:-label}" = tailmodel ] || [ "${ADMISSION_MODE:-label}" = loadermodel ] || [ "${ADMISSION_MODE:-label}" = adcinputmodel ] || [ "${ADMISSION_MODE:-label}" = adcsequencemodel ]; then
     native_rc=0
     "$run/source/group-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"
