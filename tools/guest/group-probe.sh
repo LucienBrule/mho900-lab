@@ -18,6 +18,8 @@ trap final_sample EXIT
 transcript=false
 spu=false
 remaining=false
+tail=false
+if [ "${ADMISSION_MODE:-groupmodel}" = tailmodel ]; then tail=true; remaining=true; spu=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = remainingmodel ]; then remaining=true; spu=true; fi
 [ "${ADMISSION_MODE:-groupmodel}" != spumodel ] || spu=true
 if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ] || [ "$spu" = true ]; then
@@ -44,12 +46,20 @@ if [ "$transcript" = true ]; then
     expected_binary=00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a
     [ "$spu" != true ] || expected_binary=ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae
     [ "$remaining" != true ] || expected_binary=8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d
+    [ "$tail" != true ] || expected_binary=fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182
     [ "$actual" = "$expected_binary" ]
 fi
 if [ "$remaining" = true ]; then
     cp "$repo/experiments/remaining-init/stock-gate.toml" "$run/remaining-stock-gate.toml"
     cp "$repo/experiments/remaining-init/rearm-profile.toml" "$run/remaining-rearm-profile.toml"
     cp "$repo/experiments/remaining-init/grammar.toml" "$run/remaining-grammar.toml"
+fi
+if [ "$tail" = true ]; then
+    cp "$repo/experiments/init-tail/stock-gate.toml" "$run/tail-stock-gate.toml"
+    cp "$repo/experiments/init-tail/candidate.toml" "$run/tail-candidate.toml"
+    cp "$repo/experiments/init-tail/grammar.toml" "$run/tail-grammar.toml"
+    cp "$repo/experiments/init-tail/controls-handoff.toml" "$run/tail-control-fixture.toml"
+    cp "$repo/experiments/init-tail/handoff-profile.toml" "$run/tail-handoff-profile.toml"
 fi
 cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
@@ -109,6 +119,7 @@ if [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
     cp "$repo/experiments/group-observer/two-writes.toml" "$run/pair-write-fixture.toml"
 fi
 [ "$remaining" != true ] || command=stock-remaining
+[ "$tail" != true ] || command=stock-tail
 command_args="$pid $base"
 if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
 if [ "$spu" = true ]; then command_args="$command_args /data/local/tmp/spu-stock.bin"; fi

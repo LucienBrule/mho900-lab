@@ -1,0 +1,131 @@
+schema_version = "mho900-lab.init-tail-stock-results/1"
+task = "TASK.hardware.stock-init-tail"
+run = "out/guest-admission/stock-init-tail-01"
+started_at = "2026-09-25T10:51:16Z"
+finished_at = "2026-09-25T10:53:02Z"
+conclusion = "stock-tail-matches-static-candidate-under-synthetic-state"
+native_sha256 = "fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182"
+apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+prefix_reads = 2
+prefix_stores = 464
+prefix_transport_checkpoints = 10
+tail_reads = 10
+tail_stores = 2
+tail_checkpoints = 3
+total_stores = 466
+version = 0x12345678
+hardware_version = 0x10203040
+dac_shadow = 0x646e
+tap_outputs = [0x21,0x345,0x234,0x456,0x167,0]
+ready_byte = 1
+status_object = 0x20000000
+control_shadow = 0
+terminal_relative_pc = 0x2e57f8
+terminal_instruction_executed = false
+calibration_entered = false
+initial_threads = 21
+prefix_clones = 1
+tail_clones = 0
+reaped_threads = 22
+final_wait_result = -10
+system_server_pid = 1066
+system_server_samples = 4
+indexed_artifacts_verified = 192
+altered_evidence_copies_rejected = 12
+stock_artifacts_unchanged = true
+enforcement_preserved = true
+dedicated_listeners_absent = true
+physical_register_semantics_confirmed = false
+
+[[artifacts]]
+path = "docs/research/stock-initialization-tail.md"
+sha256 = "4d60aa01754ad96d4a733d0c1070b93a127629beed2a4187a780ffe69d6ca587"
+
+[[artifacts]]
+path = "experiments/init-tail/candidate.toml"
+sha256 = "54554db2ff6e0948fcf4476d54ebde60877503f641c7eaac68e94cf4b1b19666"
+
+[[artifacts]]
+path = "experiments/init-tail/stock-gate.toml"
+sha256 = "230528f0afd95f219911ed1ff7382c77be6b34a4391a53d12b369f4d48338e66"
+
+[[artifacts]]
+path = "experiments/init-tail/handoff-profile.toml"
+sha256 = "05fa1d0ae6d771c5616cf09c2241d0ea282607c7b1a9e8caaf4d2b90402fc0cb"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "cbcd292fc91ba993362d028f3259f9d78d9bd8254d776223708f12e33acb7656"
+
+[[artifacts]]
+path = "tools/guest/init-tail.h"
+sha256 = "bae1bc75a2a6551ba20b63531e160a62744ac9e8ddf34a8b00c66eb50ab7a150"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockInitTail.main.kts"
+sha256 = "8e49595576b300025cd936d7890a322e8a534ccdbdab88a4a67f7c700c21c258"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "76342a33ddd0cec7ba82c05f322df6e75e0e5991436dfcf73ddca3a7ff92c6dc"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "74364eb976db2548560099d81325126fb3f6866c96fed843709f8dfd1e684a59"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "88e442034bfbad609fb1f2f30e710f057ff93e16885792dc1a1f59c40d8ef482"
+
+[[artifacts]]
+path = "tools/research/CheckStockInitTail.main.kts"
+sha256 = "7e8322a532ec3c059a788e4d14c0f4185857c4b1a104428e5b17e28092343616"
+
+[[artifacts]]
+path = "out/guest-admission/stock-init-tail-01/evidence-sha256.txt"
+sha256 = "93fd9bcd1244244d1692b62ab817693b6fd6d29d8abfc4b060030916e9843eaf"
+
+[[artifacts]]
+path = "out/guest-admission/stock-init-tail-01/native-events.toml"
+sha256 = "b9c0bddd8cfc7d2436356f58c8b50bd679b849df4b1b05d2860abd9c2ff8d008"
+
+[[artifacts]]
+path = "out/guest-admission/stock-init-tail-01/result.toml"
+sha256 = "ee139d059ecf126d7e6be1a5d04988cfb296be08dd6594794f3a3d332307ea55"
+
+[[artifacts]]
+path = "out/init-tail/stock-verification-01.toml"
+sha256 = "763393ffd465627918dcf56cba5a064723fd9b1da5068d5f221663c858d0d44c"
+
+[[artifacts]]
+path = "out/init-tail/stock-preservation-01.toml"
+sha256 = "ce34997fe47e5561fc7041fd5e217a9be7963c49c116fb9aeda39a5e3c4cc30e"
+
+[[artifacts]]
+path = "out/init-tail/audit-stock-preservation-01.main.kts"
+sha256 = "639b139ac9c0a96702072b77ff57057e6a66c19d13b693a6775bb6626dd5a0c0"
+
+[[artifacts]]
+path = "out/init-tail/stock-verifier-controls-01/results.toml"
+sha256 = "020349664422c8fe5c758dbb7b6b4a55131488fea13bcc962f4039cea5969015"
+
+[[artifacts]]
+path = "out/init-tail/stock-verifier-review-01.md"
+sha256 = "1d89736d21eef2788fa6eb35047c6a8d32b22345934988bb2751af73a71e7ba1"
+
+[[artifacts]]
+path = "out/init-tail/stock-native-review-01.md"
+sha256 = "592ee2d914fca8af9a11905bdb1e176f20137c2ade14e87d66da864a2292f511"
+
+[[artifacts]]
+path = "out/init-tail/stock-native-review-01.toml"
+sha256 = "61a6f98571102e482f24c8f026424db4b857c355327a8faa327dd73a84cce90b"
+
+[[artifacts]]
+path = "out/init-tail/stock-independent-audit-01.md"
+sha256 = "bc3f277e9e763a52cbe9773a7bc3b8ee69960a4796412ff17aab7969b0ff8112"
+
+[[artifacts]]
+path = "out/init-tail/stock-independent-audit-01.toml"
+sha256 = "c345b9ab0bdac5c764d7aaf0b1b45c1799350cdfe6f9e6c36d45f8d929be256c"
