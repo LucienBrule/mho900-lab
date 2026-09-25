@@ -6,11 +6,13 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.util.HexFormat
 import java.util.zip.ZipFile
-require(args.size in 1..3) { "Usage: VerifyGroupObserver.main.kts RUN_DIRECTORY [0|1|2|3|4|stock|next-stock] [ADMISSION_VERIFIER_OVERRIDE]" }
+require(args.size in 1..3) { "Usage: VerifyGroupObserver.main.kts RUN_DIRECTORY [0..8|stock|next-stock|write-stock] [ADMISSION_VERIFIER_OVERRIDE]" }
 val run=Path.of(args[0]).toAbsolutePath().normalize()
-val stock=args.getOrNull(1) in setOf("stock","next-stock")
-val stockNext=args.getOrNull(1)=="next-stock"
+val stock=args.getOrNull(1) in setOf("stock","next-stock","write-stock")
+val stockWrite=args.getOrNull(1)=="write-stock"
+val stockNext=args.getOrNull(1)=="next-stock" || stockWrite
 require(args.size<3 || stock) { "Verifier override is only for stock evidence" }
+val writeSuite=Files.exists(run.resolve("write-fixture.toml"))
 val continuationSuite=Files.exists(run.resolve("continuation-fixture.toml"))
 fun text(name:String)=Files.readString(run.resolve(name))
 fun hash(bytes:ByteArray)=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes))
@@ -39,9 +41,10 @@ fun regs(e:E)=R(e.u("tid"),e.u("pc"),e.u("relative_pc"),e.u("sp"),e.u("pstate"),
 data class T(var stopped:Boolean,var confirmed:Boolean,var live:Boolean=true)
 val binary=Files.readAllBytes(run.resolve("group-control.elf")); val binaryHash=hash(binary)
 require(binaryHash==text("binary-sha256.txt").take(64)); val control=Elf(binary)
-val arms=if(stock) listOf(-1) else if(args.size==2) listOf(args[1].toInt().also { require(it in 0..4) }) else if(continuationSuite) listOf(0,1,2,3,4) else listOf(0,1,2)
+val arms=if(stock) listOf(-1) else if(args.size==2) listOf(args[1].toInt().also { require(it in 0..8) }) else if(writeSuite) (0..8).toList() else if(continuationSuite) listOf(0,1,2,3,4) else listOf(0,1,2)
 for(arm in arms) {
-    val continuation=stockNext || arm in 3..4
+    val oneWrite=stockWrite || arm in 5..8
+    val continuation=stockNext || arm in 3..8
     val positive=stock || arm==0 || continuation; val prefix=if(stock) "native" else "group-$arm"
     require(text("$prefix-status.toml").trim()=="exit_code = ${if(positive && !continuation) 0 else 78}")
     require(hash(run.resolve(if(stock) "group-executed.elf" else "group-$arm.elf"))==binaryHash)
@@ -49,6 +52,7 @@ for(arm in arms) {
     val mode=es[0]; require(mode.kind=="model-mode" && mode.s("scope")==if(stock) "stock" else "private")
     if(!stock) require(mode.u("arm")==arm.toULong())
     require((mode.f["continuation"]?.removePrefix("0x")?.toULong(16) ?: 0uL)==if(continuation) 1uL else 0uL)
+    require((mode.f["one_write"]?.removePrefix("0x")?.toULong(16) ?: 0uL)==if(oneWrite) 1uL else 0uL)
     val setup=es[1]; require(setup.kind=="group-setup" && setup.u("options")==0x100009uL)
     val pid=setup.u("pid"); val observer=setup.u("observer_pid"); require(pid==mode.u("pid") && pid>1uL && observer>1uL && pid!=observer)
     require(setup.u("thread_limit")==128uL && setup.u("pass_limit")==16uL && setup.u("event_limit")==256uL && setup.u("deadline_ms")==10000uL)
@@ -94,6 +98,8 @@ for(arm in arms) {
     require(elf.word(binding.u("first_pc")-base)==0xb9400109uL && elf.word(binding.u("second_pc")-base)==0xb9400109uL)
     require(binding.u("store_pc")+4uL==target && binding.u("store_opcode")==0xf9000128uL && elf.word(binding.u("store_pc")-base)==binding.u("store_opcode"))
     require(elf.word(target-base)==binding.u("target_opcode") && binding.u("target_opcode")==if(stock) 0x14000001uL else 0xd503201fuL)
+    if(oneWrite) { require(binding.u("write_opcode")==0xb9000109uL && elf.word(binding.u("write_pc")-base)==0xb9000109uL)
+        if(stock) require(binding.u("write_pc")==base+0x27043cuL) }
     if(stock) {
         require(target==base+0x42a8f0uL && obj==base+0xbbccf0uL && binding.u("got_slot")==base+0xb8d758uL)
         require(binding.u("first_pc")==base+0x270604uL && binding.u("second_pc")==base+0x270604uL)
@@ -115,6 +121,7 @@ for(arm in arms) {
     val ready=take("ready"); require(ready.u("pid")==pid && ready.u("observer_pid")==observer && ready.u("stopping_tid")==pid)
     var armed=false; var quiescing=false; var count=0; var waitIndex=0uL; var mapBase=0uL; var fd:ULong?=null
     var lastWait:E?=null; var lastCall:E?=null; var firstFault:R?=null; var finalFault:R?=null; var currentFault:E?=null
+    var writes=0; var ledgerOffset=0uL; var ledgerValue=0uL
     var unsupported:E?=null; var unsupportedRegs:R?=null
     var pendingUnknown:ULong?=null; val identities=mutableSetOf<ULong>(); val confirmed=initial.toMutableSet(); val clones=mutableSetOf<ULong>()
     val resumesBeforeWait=mutableSetOf<ULong>(); var rejected=false; var boundary:E?=null; var stopRegs:R?=null; var terminalTid=0uL
@@ -181,9 +188,17 @@ for(arm in arms) {
                 if(count==0) { require(r.tid==pid && r.pc==binding.u("first_pc") && e.u("offset")==0x4048uL); firstFault=r }
                 else if(count==2) {
                     require(continuation && armed && unsupported==null && e.u("offset")<0x1000000uL)
-                    if(!stock) { require(e.u("offset")==0x4040uL && r.x[8]==e.u("address") && e.u("opcode")==0xb9400109uL)
+                    if(!stock && !oneWrite) { require(e.u("offset")==0x4040uL && r.x[8]==e.u("address") && e.u("opcode")==0xb9400109uL)
                         require(r.tid==if(arm==4) mode.u("fixture_worker") else pid)
                         require(r.pc==if(arm==4) binding.u("worker_pc") else binding.u("second_pc")) }
+                    if(!stock && oneWrite) {
+                        val worker=arm==6 && writes==1
+                        require(r.x[8]==e.u("address") && e.u("offset")==if(worker) 0x4040uL else if(arm==8) 0x3004uL else 0x3000uL)
+                        require(r.tid==if(worker) mode.u("fixture_worker") else pid)
+                        require(r.pc==if(worker) binding.u("worker_pc") else binding.u("write_pc"))
+                        require(e.u("opcode")==if(worker) 0xb9400109uL else 0xb9000109uL)
+                        if(!worker) require(r.x[9] and 0xffffffffuL==if(arm==7) 0x05630001uL else if(writes==1) 0x01630000uL else 0x05630000uL)
+                    }
                     unsupported=e; unsupportedRegs=r
                 }
                 else { require(count==1); finalFault=r; val wanted=if(positive) 0x4044uL else 0x4040uL; require(e.u("offset")==wanted)
@@ -202,7 +217,17 @@ for(arm in arms) {
             "continuation-mode"->{
                 require(continuation && count==2 && !armed && e.u("responses")==2uL && e.u("hardware_breakpoint")==0uL && e.u("resume_operation")==7uL); armed=true
             }
+            "modeled-write"->{
+                val f=requireNotNull(unsupported); val before=requireNotNull(unsupportedRegs)
+                require(oneWrite && count==2 && writes==0 && !quiescing && !rejected && armed)
+                require(f.u("tid")==pid && before.tid==pid && f.u("offset")==0x3000uL && before.x[8]==f.u("address") && before.x[9] and 0xffffffffuL==0x05630000uL)
+                require(before.pc==binding.u("write_pc") && f.u("opcode")==0xb9000109uL)
+                require(e.u("tid")==pid && e.u("index")==0uL && e.u("offset")==0x3000uL && e.u("value")==0x05630000uL && e.u("width")==4uL)
+                val after=regs(take("write-registers")); require(after.tid==pid && after.pc==before.pc+4uL && after.sp==before.sp && after.pstate==before.pstate && after.x==before.x)
+                writes=1; ledgerOffset=e.u("offset"); ledgerValue=e.u("value"); unsupported=null; unsupportedRegs=null
+            }
             "unsupported-access"->{
+                if(oneWrite) require(e.u("writes")==writes.toULong())
                 val f=requireNotNull(unsupported); require(continuation && count==2 && !rejected && e.u("tid")==f.u("tid") && e.u("responses")==2uL && e.s("classification")=="mapped"); rejected=true
             }
             "debug-before"->{
@@ -238,12 +263,15 @@ for(arm in arms) {
     inventory("terminal",terminalTid)
     val terminal=take("terminal-state"); require(terminal.u("object")==obj && terminal.u("value")==if(positive) 0x0123456789abcdefuL else ULong.MAX_VALUE)
     require(terminal.u("responses")==count.toULong())
+    if(oneWrite) { require(writes==if(stock || arm in 5..6) 1 else 0)
+        require(terminal.u("modeled_writes")==writes.toULong() && terminal.u("write_offset")==ledgerOffset && terminal.u("write_value")==ledgerValue) }
     if(!stock) { require(terminal.u("worker_ack")==1uL && clones==setOf(terminal.u("fixture_new_tid")) && tracked.size==3) }
     val live=tracked.filterValues { it.live }.keys; val reaped=mutableSetOf<ULong>()
     while(es[at].kind=="group-reaped") { val e=take("group-reaped"); require(e.u("tid") in live && reaped.add(e.u("tid")) && e.u("status")==9uL) }
     val cleanup=take("group-cleanup"); require(reaped==live && cleanup.u("expected_count")==live.size.toULong() && cleanup.u("reaped_count")==live.size.toULong() && cleanup.u("wait_result").toLong()==-10L && at==es.size)
     val label=if(stock) "stock" else "arm_$arm"
     println("${label}_observer = \"verified\""); println("${label}_responses = $count"); println("${label}_initial_threads = ${initial.size}"); println("${label}_terminal_threads = ${live.size}"); println("${label}_clone_events = ${clones.size}")
+    if(oneWrite) println("${label}_modeled_writes = $writes")
     if(continuation) { val f=requireNotNull(unsupported); val r=requireNotNull(unsupportedRegs)
         println("${label}_unsupported_offset = \"${f.s("offset")}\""); println("${label}_unsupported_tid = \"${f.s("tid")}\""); println("${label}_unsupported_pc = \"0x${(r.pc-base).toString(16)}\""); println("${label}_unsupported_opcode = \"${f.s("opcode")}\"")
     }
@@ -252,7 +280,7 @@ for(arm in arms) {
 if(args.size==1 || stock) {
     for(line in Files.readAllLines(run.resolve("evidence-sha256.txt"))) { require(line.length>66); val file=Path.of(line.substring(66)).normalize(); require(file.startsWith(run) && hash(file)==line.take(64)) }
     if(stock) {
-        require(text("result.toml").contains("mode = \"${if(stockNext) "nextmodel" else "groupmodel"}\""))
+        require(text("result.toml").contains("mode = \"${if(stockWrite) "writemodel" else if(stockNext) "nextmodel" else "groupmodel"}\""))
         for(script in listOf("VerifySnapshot.main.kts","VerifyNative.main.kts")) {
             val verifier=if(script=="VerifyNative.main.kts" && args.size==3) Path.of(args[2]).toAbsolutePath().normalize() else run.resolve("source/$script")
             if(script=="VerifyNative.main.kts") println("admission_verifier_sha256 = \"${hash(verifier)}\"")
@@ -262,10 +290,10 @@ if(args.size==1 || stock) {
         require(text("native-final-enforcing.txt").trim()=="Enforcing")
         val finalPid=text("native-final-system-server.txt").trim().toInt(); require(text("system-server-pid.toml").lineSequence().filter { it.isNotBlank() }.all { it.substringAfter("= ").toInt()==finalPid })
     } else {
-        require(text("result.toml").contains("mode = \"${if(continuationSuite) "nextcontrol" else "groupcontrol"}\"") && text("result.toml").contains("inspection = \"completed\""))
+        require(text("result.toml").contains("mode = \"${if(writeSuite) "writecontrol" else if(continuationSuite) "nextcontrol" else "groupcontrol"}\"") && text("result.toml").contains("inspection = \"completed\""))
         require(text("group-packages.txt").isBlank() && !text("group-processes-after.txt").contains("group-observer"))
         require(text("group-enforcing.txt").lineSequence().filter { it.isNotBlank() }.toList()==listOf("Enforcing","Enforcing"))
-        val pids=text("group-system-server.toml").lineSequence().filter { it.isNotBlank() }.map { it.substringAfter("= ").toInt() }.toList(); require(pids.size==(if(continuationSuite) 7 else 5) && pids.distinct().size==1)
+        val pids=text("group-system-server.toml").lineSequence().filter { it.isNotBlank() }.map { it.substringAfter("= ").toInt() }.toList(); require(pids.size==(if(writeSuite) 11 else if(continuationSuite) 7 else 5) && pids.distinct().size==1)
         println("system_server_pid = ${pids.first()}"); println("stock_application_run = false")
     }
     println("evidence_index = \"verified\"")

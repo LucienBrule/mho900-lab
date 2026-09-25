@@ -7,7 +7,7 @@ struct GmShared { unsigned ready,release,worker_go,worker_ack,mapped,hold; U wor
 static struct GmShared *gm;
 static unsigned char gm_stack1[16384] __attribute__((aligned(16)));
 static unsigned char gm_stack2[16384] __attribute__((aligned(16)));
-extern char gm_first_pc[],gm_second_pc[],gm_worker_pc[],gm_store_pc[],gm_stop_pc[];
+extern char gm_first_pc[],gm_second_pc[],gm_worker_pc[],gm_store_pc[],gm_stop_pc[],gm_write_pc[];
 __attribute__((naked)) static S gm_clone(U flags __attribute__((unused)),U stack __attribute__((unused)),void (*fn)(void) __attribute__((unused))) {
     __asm__ volatile("mov x9, x2\nmov x2, #0\nmov x3, #0\nmov x4, #0\nmov x8, #220\nsvc #0\ncbnz x0, 1f\nblr x9\nmov x0, #88\nmov x8, #93\nsvc #0\n1: ret");
 }
@@ -20,6 +20,9 @@ __attribute__((naked)) static U gm_second(U address __attribute__((unused))) {
 __attribute__((naked)) static U gm_worker_read(U address __attribute__((unused))) {
     __asm__ volatile("mov x8, x0\n.global gm_worker_pc\ngm_worker_pc:\nldr w9, [x8]\nmov x0, x9\nret");
 }
+__attribute__((naked)) static void gm_write(U address __attribute__((unused)),U value __attribute__((unused))) {
+    __asm__ volatile("mov x8, x0\nmov x9, x1\n.global gm_write_pc\ngm_write_pc:\nstr w9, [x8]\nret");
+}
 __attribute__((naked)) static void gm_store(U value __attribute__((unused)),U object __attribute__((unused))) {
     __asm__ volatile("mov x8, x0\nmov x9, x1\n.global gm_store_pc\ngm_store_pc:\nstr x8, [x9]\n.global gm_stop_pc\ngm_stop_pc:\nnop\nret");
 }
@@ -31,7 +34,7 @@ static void gm_wait_flag(unsigned *p) {
 static void gm_worker2(void) { gm_wait_flag(&gm->hold); quit(88); }
 static void gm_worker1(void) {
     gm_wait_flag(&gm->worker_go); gm_publish(&gm->worker_ack);
-    if(gm->arm==2 || gm->arm==4) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
+    if(gm->arm==2 || gm->arm==4 || gm->arm==6) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
     gm_wait_flag(&gm->hold); quit(88);
 }
 static void gm_private_leader(U observer) {
@@ -48,10 +51,14 @@ static void gm_private_leader(U observer) {
     gm_store(((high<<32)|low)&0x01ffffffffffffffUL,(U)&gm->output);
     if(gm->arm==3) { gm->output=gm_second(mapping+0x4040); quit(88); }
     if(gm->arm==4) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+    if(gm->arm==5) { gm_write(mapping+0x3000,0x05630000); gm_write(mapping+0x3000,0x01630000); quit(88); }
+    if(gm->arm==6) { gm_write(mapping+0x3000,0x05630000); gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+    if(gm->arm==7) { gm_write(mapping+0x3000,0x05630001); quit(88); }
+    if(gm->arm==8) { gm_write(mapping+0x3004,0x05630000); quit(88); }
     quit(88);
 }
-static int gm_armed,gm_next,gm_confirmed[128];
-static U gm_base,gm_mapping,gm_target,gm_object,gm_responses,gm_wait_count;
+static int gm_armed,gm_next,gm_one_write,gm_confirmed[128];
+static U gm_base,gm_mapping,gm_target,gm_object,gm_responses,gm_writes,gm_write_offset,gm_write_value,gm_wait_count;
 static int gm_private;
 static void gm_resume(struct TgThread *t) {
     if(!t || !t->live || !t->stopped) tg_fail("resume-state",t?t->tid:0);
@@ -125,6 +132,7 @@ static void gm_quiesce(U stopping_tid) {
     }
     nps_inventory_for(tg_pid,"terminal",stopping_tid);
     event("terminal-state"); hex("object",gm_object); hex("value",peek(tg_pid,gm_object)); hex("responses",gm_responses);
+    if(gm_one_write) { hex("modeled_writes",gm_writes); hex("write_offset",gm_writes?gm_write_offset:0); hex("write_value",gm_writes?gm_write_value:0); }
     if(gm_private) { hex("worker_ack",gm_load(&gm->worker_ack)); hex("fixture_new_tid",gm->new_worker); }
     tg_cleanup();
 }
@@ -138,6 +146,7 @@ static void gm_observe(U pid,U base,int private) {
     event("model-binding"); hex("pid",pid); hex("base",base); hex("target",gm_target); hex("object",gm_object); hex("initial_value",peek(pid,gm_object));
     hex("first_pc",private?(U)gm_first_pc:base+0x270604); hex("second_pc",private?(U)gm_second_pc:base+0x270604);
     hex("worker_pc",private?(U)gm_worker_pc:0); hex("store_pc",private?(U)gm_store_pc:base+0x42a8ec);
+    if(gm_one_write) { hex("write_pc",private?(U)gm_write_pc:base+0x27043c); hex("write_opcode",0xb9000109); }
     hex("target_opcode",(unsigned)peek(pid,gm_target)); hex("store_opcode",(unsigned)peek(pid,private?(U)gm_store_pc:base+0x42a8ec));
     if(!private) { hex("got_slot",base+0xb8d758); hex("mmap_got",peek(pid,base+0xb850f0)); }
     nps_inventory(pid,"before-ready");
@@ -151,8 +160,19 @@ static void gm_observe(U pid,U base,int private) {
         if(signal==11 || (gm_next && signal==7)) {
             gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
             if(gm_next && gm_responses==2) {
+                U offset=info[2]-gm_mapping,write_pc=private?(U)gm_write_pc:base+0x27043c;
+                if(gm_one_write && gm_writes==0 && tid==pid && signal==11 && (unsigned)info[1]==2 &&
+                    gm_mapping && offset==0x3000 && r.x[8]==info[2] && r.pc==write_pc &&
+                    (unsigned)peek(tid,r.pc)==0xb9000109 && (unsigned)r.x[9]==0x05630000) {
+                    struct Regs before=r; r.pc+=4; registers(tid,&r,1); struct Regs after={0}; registers(tid,&after,0);
+                    for(int i=0;i<31;i++) if(after.x[i]!=before.x[i]) tg_fail("write-register",i);
+                    if(after.pc!=before.pc+4 || after.sp!=before.sp || after.pstate!=before.pstate) tg_fail("write-state",0);
+                    gm_write_offset=offset; gm_write_value=(unsigned)before.x[9]; gm_writes++;
+                    event("modeled-write"); hex("tid",tid); hex("index",0); hex("offset",gm_write_offset); hex("value",gm_write_value); hex("width",4);
+                    gm_registers("write-registers",tid,&after); gm_resume(t); continue;
+                }
                 int mapped=gm_mapping && info[2]>=gm_mapping && info[2]<gm_mapping+0x1000000;
-                event("unsupported-access"); hex("tid",tid); hex("responses",gm_responses);
+                event("unsupported-access"); hex("tid",tid); hex("responses",gm_responses); hex("writes",gm_writes);
                 put("classification = \""); put(mapped?"mapped":"nonmapped"); put("\"\n");
                 gm_quiesce(tid); quit(mapped?78:83);
             }
@@ -212,15 +232,15 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
-    if(argc==4 && (equal(argv[1],"stock") || equal(argv[1],"stock-next"))) {
-        gm_next=equal(argv[1],"stock-next");
-        U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); hex("continuation",gm_next); gm_observe(pid,base,0);
+    if(argc==4 && (equal(argv[1],"stock") || equal(argv[1],"stock-next") || equal(argv[1],"stock-write"))) {
+        gm_next=equal(argv[1],"stock-next"); gm_one_write=equal(argv[1],"stock-write"); if(gm_one_write) gm_next=1;
+        U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); hex("continuation",gm_next); hex("one_write",gm_one_write); gm_observe(pid,base,0);
     }
-    if(argc!=3 || !equal(argv[1],"control")) quit(2); U arm=parse(argv[2],10); if(arm>4) quit(2); gm_next=arm>=3;
+    if(argc!=3 || !equal(argv[1],"control")) quit(2); U arm=parse(argv[2],10); if(arm>8) quit(2); gm_next=arm>=3; gm_one_write=arm>=5;
     tg_deadline=tg_now()+10000; S memory=sys(222,0,4096,3,0x21,(U)-1,0); check(memory,"model-shared-mmap"); gm=(struct GmShared *)memory;
     gm->arm=arm; gm->output=(U)-1; U observer=sys(172,0,0,0,0,0,0);
     S pid=sys(220,17,0,0,0,0,0); check(pid,"model-private-clone"); if(!pid) gm_private_leader(observer);
     while(!gm_load(&gm->ready)) tg_tick();
-    event("model-mode"); put("scope = \"private\"\n"); hex("arm",arm); hex("pid",pid); hex("fixture_worker",gm->worker); hex("continuation",gm_next);
+    event("model-mode"); put("scope = \"private\"\n"); hex("arm",arm); hex("pid",pid); hex("fixture_worker",gm->worker); hex("continuation",gm_next); hex("one_write",gm_one_write);
     gm_observe(pid,0,1); quit(2);
 }

@@ -1,0 +1,105 @@
+schema_version = "mho900-lab.one-write-control-results/1"
+run_id = "group-one-write-01"
+classification = "one-write-and-regression-controls-pass"
+regression_arms = [0, 1, 2, 3, 4]
+write_arms = [5, 6, 7, 8]
+write_arm_counts = [1, 1, 0, 0]
+write_arm_read_responses = [2, 2, 2, 2]
+write_completion_changes_pc_only = true
+write_ledger_only = true
+peripheral_side_effects_modeled = false
+initial_threads_per_arm = 2
+terminal_threads_per_arm = 3
+clone_events_per_arm = 1
+all_terminal_threads_reaped = true
+system_server_pid = 1109
+system_server_stable = true
+enforcing_samples = 2
+stock_application_run = false
+guest_torn_down = true
+physical_device_access = false
+next_task = "TASK.hardware.one-mapped-write"
+
+[[artifacts]]
+path = "docs/research/guest-one-write-control.md"
+sha256 = "575356488073accea131c7df0d8b901413a4c63e78a43b808505159972dda303"
+
+[[artifacts]]
+path = "experiments/group-observer/one-write.toml"
+sha256 = "20f8004701c011621df4a173c734d20f1dcf70c58051367e277c2f0fd12cc052"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "a9f225a6bd732ed1975cca88b997acd653b8a47a7f6ab5db113a8fab2cf9a936"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "905a28d0dcf5be5ae78283f9862aeb1df2a01730e12a553bfa2ef64a379f3555"
+
+[[artifacts]]
+path = "tools/guest/admission-groupcontrol.sh"
+sha256 = "8813e4690443851eb6ccf1dddd0e7da6e8294e0f15d6629d087d089e9c3969f2"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "2006195e6e7e5c016049b2dc21931c7e316536177563e76d1b1b1e91606a9ec3"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "a6a1b3cd66fc9b2b2eef4b0678262ceef3fb1586182d679f3babfc88220f4ea6"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "b0007dd60616a93a58ba00147c0f1b8d61bdf78d429e92a023bdad1e30ad11d0"
+
+[[artifacts]]
+path = "out/group-observer/one-write-verification.toml"
+sha256 = "b06e4dbbef38fdb63b8b746ece8a7745305a4484fcc4a933fb568c4900078430"
+
+[[artifacts]]
+path = "out/group-observer/write-checker-regression-private.toml"
+sha256 = "b57464ccff31998aac1d36b6c6cf8e05c0860e384cf4096ac67ebd7476279e38"
+
+[[artifacts]]
+path = "out/group-observer/write-checker-regression-stock.toml"
+sha256 = "a6dfdded6fd24db0931352314d59d0f1779de14f8486552c5c690528eee0ba69"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/evidence-sha256.txt"
+sha256 = "b12f9ae4c270be94a9b6776e91806cfa3e0d15b31e8402a0e14eb758d3ee2dbf"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-control.elf"
+sha256 = "2b436576dd3f7fc3b2b4f2840fa2c33fa340b304bba076f7145d93bbe1cb67db"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-5.toml"
+sha256 = "e23bf6e94a6f15a6c6334f42bba07f5163dc594f098b98f06956bd2fb6cdb54c"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-6.toml"
+sha256 = "99662b59f2336004f2dbd1f2ef5c1273d21ad9a9af66667d106a538d013f3eac"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-7.toml"
+sha256 = "e4dda2a58d6e8b469ac1a330c7e432b69a0aba97eed6cd45fe656895a96fe09e"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-8.toml"
+sha256 = "283c3e7a8ba913bb1f04c4c4268a654acf8c4517b19ebe4b7f76773e1958e4d6"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-system-server.toml"
+sha256 = "f8759f4ad44e66e2d6e3255e140f322d8825e2651756391715abdb461eeedf80"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/group-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/result.toml"
+sha256 = "d2c6a7cfae9b9ef85244cd4348b6dcdd5fad6fc4e3f36c2c3271330eb301bd1f"
+
+[[artifacts]]
+path = "out/guest-admission/group-one-write-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"

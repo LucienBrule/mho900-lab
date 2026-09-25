@@ -51,10 +51,14 @@ adb shell 'test ! -e /dev/xdma0_bypass && rm -f /data/local/tmp/native-events.to
     > "$run/native-marker-reset.txt" 2>&1
 command=stock
 expected=0
-if [ "${ADMISSION_MODE:-groupmodel}" = nextmodel ]; then
+if [ "${ADMISSION_MODE:-groupmodel}" = nextmodel ] || [ "${ADMISSION_MODE:-groupmodel}" = writemodel ]; then
     command=stock-next
     expected=78
     cp "$repo/experiments/group-observer/continuation.toml" "$run/continuation-fixture.toml"
+fi
+if [ "${ADMISSION_MODE:-groupmodel}" = writemodel ]; then
+    command=stock-write
+    cp "$repo/experiments/group-observer/one-write.toml" "$run/write-fixture.toml"
 fi
 adb shell "/data/local/tmp/group-observer $command $pid $base >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
