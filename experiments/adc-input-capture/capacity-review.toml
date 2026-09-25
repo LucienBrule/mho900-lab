@@ -1,0 +1,81 @@
+schema_version = "mho900-lab.adc-guest-capacity-review/1"
+result = "recommend-separately-admitted-lossless-archive"
+review_only = true
+generated_disk_files = 180
+raw_backing_files = 60
+raw_backing_logical_bytes = 50331648000
+raw_backing_reported_allocated_bytes = 35340156928
+selected_raw_logical_bytes = 1677721600
+selected_reported_allocated_bytes = 1160773632
+streamed_compressed_bytes = 18905663
+potential_reported_block_reduction_bytes = 1141867969
+actual_reclaim_proven = false
+compressed_streams_saved = false
+archive_created = false
+original_files_removed = false
+existing_evidence_modified = false
+minimum_guest_preboot_free_kib = 2097152
+space_gate_lowering_recommended = false
+restore_before_replacement_required = true
+restore_to_original_location_before_overlay_use = true
+separate_task_admission_required = true
+
+[[candidates]]
+run_id = "stock-calibration-loaders-02"
+raw_path = "out/guest-admission/stock-calibration-loaders-02/userdata.img"
+raw_sha256 = "6eab6e8e6789c25b48bf200615c7ff4b82607a9ffc50efcfa06482a4d9b032c6"
+raw_bytes = 838860800
+reported_allocated_bytes = 580386816
+link_count = 1
+streamed_gzip_bytes = 9452830
+raw_in_original_evidence_index = false
+active_image_users_observed = false
+overlay_path = "out/guest-admission/stock-calibration-loaders-02/userdata.img.qcow2"
+overlay_sha256 = "f08a8281a5b49ac2c61791cd977af352f83682ec5919457f72475f5628fc951c"
+overlay_must_remain_unchanged = true
+
+[[candidates]]
+run_id = "calibration-file-access-01"
+raw_path = "out/guest-admission/calibration-file-access-01/userdata.img"
+raw_sha256 = "711bff1bc874a108294054b3fec7bdd6647785fa4e57f01d9c5e6727b149b141"
+raw_bytes = 838860800
+reported_allocated_bytes = 580386816
+link_count = 1
+streamed_gzip_bytes = 9452833
+raw_in_original_evidence_index = false
+active_image_users_observed = false
+overlay_path = "out/guest-admission/calibration-file-access-01/userdata.img.qcow2"
+overlay_sha256 = "a7c50a9d1bc6a4df2eec6fc09657a0f10f15d51e0f7e743b3909c4eb68ebd59d"
+overlay_must_remain_unchanged = true
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/disk-inventory.txt"
+sha256 = "16f495add9350008ca0150066c6c7b3f407e8a77679141b239239bb7456e4995"
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/inventory-summary.toml"
+sha256 = "9e53f669f2023c49925cb3ea52cf92de3c6df36bf9c6a509d4fa362e9e11239a"
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/loader02-backing-chain.json"
+sha256 = "b63c5318976dcdad23a8caedc22b1a2d7cf0120370a2d958094f604953f8c90b"
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/file-access-backing-chain.json"
+sha256 = "029260ecdb7f2e5160e2aec72ae529c1f3624a4c6cb01b8923ae404f26974871"
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/backing-compressed-byte-estimate.txt"
+sha256 = "cae433857c14c073c1b985585ea32a075162166753a898547941a9270be50caf"
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/file-access-compressed-byte-estimate.txt"
+sha256 = "2704a478e2a10e9f48b6fc4871ad26e90395ef2e61a0f1955eff74745c0ef152"
+
+[[artifacts]]
+path = "out/adc-guest-capacity-review/selected-open-files.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "docs/research/adc-guest-capacity-review.md"
+sha256 = "d3b242dd5026b031bfe956f6b4292002cd4d0a167c99c6c43c185ac0f690362d"
