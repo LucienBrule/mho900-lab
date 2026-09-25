@@ -7,6 +7,7 @@ out=${GROUP_OBSERVER_OUT:-"$repo/local/guest-tools/group-observer"}
 mkdir -p "$out"
 "$cc" --version > "$out/compiler.txt"
 "$ld" --version > "$out/linker.txt"
+shasum -a 256 "$repo/tools/guest/adc-sequence-profile.h" "$repo/tools/guest/adc-sequence-private.h" "$repo/tools/guest/adc-sequence-observer.h" > "$out/adc-sequence-inputs.txt"
 shasum -a 256 "$cc" "$ld" "$repo/tools/guest/group-observer.c" "$repo/tools/guest/thread-group.h" "$repo/tools/guest/native-probe.c" "$repo/tools/guest/native-post-store.h" "$repo/tools/guest/adc-transcript.h" "$repo/tools/guest/spu-transcript.h" "$repo/tools/guest/remaining-init.h" "$repo/tools/guest/init-tail.h" "$repo/tools/guest/calibration-loaders.h" "$repo/tools/guest/adc-parameter-capture.h" > "$out/build-inputs.txt"
 "$cc" --target=aarch64-linux-gnu -O2 -ffreestanding -fno-builtin -fno-stack-protector \
     -nostdlib -static -fno-pic -Werror -Wall -Wextra --ld-path="$ld" \

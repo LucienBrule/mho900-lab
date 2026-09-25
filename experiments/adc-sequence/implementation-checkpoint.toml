@@ -1,0 +1,77 @@
+schema_version = "mho900-lab.adc-sequence-implementation-checkpoint/1"
+task = "TASK.guest.adc-sequence-control-freeze"
+result = "compiled-prototype-not-frozen"
+task_closed = false
+private_suite_admitted_but_not_ready = true
+private_verifier_complete = false
+runner_integrated = false
+freeze_complete = false
+bus_operations = 99
+entry_guards = 175
+final_shadow_values = 33
+profile_regeneration_byte_identical = true
+native_image_check_passed = true
+image_positive_cases = 1
+image_negative_cases = 3
+all_image_controls_matched = true
+final_private_atomic_shape_verified_statically = true
+runtime_atomic_behavior_verified = false
+stock_artifact_hashes_unchanged = true
+guest_runs = 0
+new_hardware_responses_executed = 0
+
+[[artifacts]]
+path = "tools/research/BuildAdcSequenceProfile.main.kts"
+sha256 = "3a34fe6264be65af2781115ce3b71a0a180b0fea858a14e2f08f165f8f2d6414"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcSequenceImage.main.kts"
+sha256 = "084d707448d8564a4d156d7a9466c4e85840e61e4956c58445ae7c863e9f83d0"
+
+[[artifacts]]
+path = "tools/research/test-adc-sequence-image.main.kts"
+sha256 = "9ccddebacf8a4e04d3a94c6c804d87469f05841f80f30d8f65030c9a326749ca"
+
+[[artifacts]]
+path = "tools/guest/adc-sequence-profile.h"
+sha256 = "e3a80852517fc033a065a599e729c028269d383250ec77e8c40c6a0ae1bce841"
+
+[[artifacts]]
+path = "tools/guest/adc-sequence-private.h"
+sha256 = "40bf537ae120d9e04cf3bf60b8054ed5a5705a860fa7a8d8b657ed88afbb12b2"
+
+[[artifacts]]
+path = "tools/guest/adc-sequence-observer.h"
+sha256 = "777cb11accd99e9d0d366a0ad48ce6bd126c1b58653abf8c2419313af6575f37"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "200cdcf01b07055f83bfa97f9bbe3e7f19b573a93df975bddf8048852a57bd90"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+sha256 = "11b925ace9ccb87f6a57f0490dc868867eb3fdc8566af6879cdf26ecf1ab4d76"
+
+[[artifacts]]
+path = "experiments/adc-sequence/profile.toml"
+sha256 = "1fd5ffcf09094da41bd7aa08ed60974b6a6f4c3be9ba7f0f92eebdab087d8abb"
+
+[[artifacts]]
+path = "docs/research/adc-sequence-observer.md"
+sha256 = "ca8b3d4942df2204dbe6f33fe6f6b284db2e973b5fe2dab11eefbab771def3bb"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/group-observer"
+sha256 = "960b91e1b3cd7de8f49d47833c6e13ec43afcc597bb0d205c379f471a2bcda37"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/image-verification.toml"
+sha256 = "4af605bc27c898f894e43dcad885f394cbb6afa2615ac1221f35d1b5fd092b2c"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/image-controls01/results.toml"
+sha256 = "2c2a4140ba3b5d4e795afd000fe615d59ce8dc610823f1b485304613d83c7f9e"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/private-loader-disassembly.txt"
+sha256 = "74a42f9e5724d8a81e5d426ff9bd72897f37f9f6c83f8dfd6ae8b649445687f5"

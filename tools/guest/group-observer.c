@@ -9,6 +9,7 @@
 #include "init-tail.h"
 #include "calibration-loaders.h"
 #include "adc-parameter-capture.h"
+#include "adc-sequence-profile.h"
 struct GmShared {
     unsigned ready,release,worker_go,worker_ack,mapped,hold;
     U worker,new_worker,mapping,output,arm;
@@ -24,6 +25,7 @@ struct GmShared {
     U cl_lsb,cl_vertical,cl_adc,cl_slots[CL_BINDINGS];
     unsigned cl_lengths[3],cl_atomic,cl_clone,cl_ready,cl_old;
     U adci_arena,adci_matrix,adci_setting,adci_drvparam,adci_series,adci_config,adci_table,adci_shadow_low,adci_shadow_high,adci_global,adci_slots[ADCI_BINDINGS];unsigned adci_clone_ready;
+    unsigned adci_pad,ap_worker_go,ap_worker_ack,ap_atomic,ap_reads; U ap_raw0,ap_raw1; unsigned ap_old,ap_protocol0,ap_protocol1,ap_pad;
 };
 _Static_assert(__builtin_offsetof(struct GmShared,st_slots)==1080,"st_slots offset");
 _Static_assert(__builtin_offsetof(struct GmShared,st_globals)==1200,"st_globals offset");
@@ -43,7 +45,8 @@ _Static_assert(__builtin_offsetof(struct GmShared,cl_lsb)==3200,"loader shared a
 _Static_assert(__builtin_offsetof(struct GmShared,adci_arena)==3304,"adc input shared append");
 _Static_assert(__builtin_offsetof(struct GmShared,adci_slots)==3384,"adc input slot append");
 _Static_assert(__builtin_offsetof(struct GmShared,adci_clone_ready)==3512,"adc input clone append");
-_Static_assert(sizeof(struct GmShared)==3520,"adc input shared size");
+_Static_assert(__builtin_offsetof(struct GmShared,ap_worker_go)==3520,"adc sequence shared append");
+_Static_assert(sizeof(struct GmShared)==3568,"adc sequence shared size");
 static struct GmShared *gm;
 static unsigned char gm_stack1[16384] __attribute__((aligned(16)));
 static unsigned char gm_stack2[16384] __attribute__((aligned(16)));
@@ -86,7 +89,7 @@ __attribute__((naked)) static S gm_cl_bad_site(S status __attribute__((unused)))
 extern char gm_cl_bad_cp[];
 static unsigned char gm_at_bytes[AT_MAX_BYTES+1];
 static struct AtInput gm_at;
-static int gm_transcript,gm_spu,gm_remaining,gm_tail,gm_loaders,gm_adci;
+static int gm_transcript,gm_spu,gm_remaining,gm_tail,gm_loaders,gm_adci,gm_ap;
 static unsigned gm_cl_checkpoint,gm_cl_captures;
 static U gm_cl_requested;
 static const char *gm_cl_outdir;
@@ -187,6 +190,9 @@ static void gm_publish(unsigned *p);
 static void gm_wait_flag(unsigned *p);
 static void gm_worker2(void);
 static void gm_adci_clone_worker(void);
+static void gm_ap_prepare_fixture(void);
+static void gm_ap_fixture(U mapping);
+static void gm_ap_worker(void);
 static void gm_tail_private(U mapping);
 static void gm_loader_private(U mapping);
 static void gm_loader_prepare(void);
@@ -268,7 +274,7 @@ static void gm_loader_prepare(void) {
     gm->cl_lengths[0]=CL_LSB_BYTES;gm->cl_lengths[1]=CL_ADC_BYTES;gm->cl_lengths[2]=CL_VERTICAL_BYTES;
     U f[CL_BINDINGS]={(U)gm_tail_private,(U)gm_loader_private,(U)gm_private_leader,(U)gm_cl_site0,(U)gm_cl_site1,(U)gm_cl_site2};for(unsigned i=0;i<CL_BINDINGS;i++)gm->cl_slots[i]=f[i];
     gm_cl_fill((unsigned char *)gm->cl_lsb,CL_LSB_BYTES,0,0xa5);gm_cl_fill((unsigned char *)gm->cl_adc,CL_ADC_BYTES,0,0x5a);
-    if(gm_adci)gm_adci_prepare();if(gm->arm==81)gm->cl_slots[2]++;if(gm->arm==82)gm->cl_adc++;if(gm->arm==83)gm->cl_lengths[1]--;
+    if(gm_adci)gm_adci_prepare();if(gm_ap)gm_ap_prepare_fixture();if(gm->arm==81)gm->cl_slots[2]++;if(gm->arm==82)gm->cl_adc++;if(gm->arm==83)gm->cl_lengths[1]--;
     gm_publish(&gm->cl_ready);
 }
 static void gm_loader_private(U mapping) {
@@ -283,7 +289,7 @@ static void gm_loader_private(U mapping) {
     gm_cl_atomic_step();gm_cl_site2(gm->arm==77?(S)(U)0xfffffffdU:(S)CL_ADC_BYTES);
     if(gm->arm==84)check(sys(215,(gm->cl_vertical+CL_VERTICAL_BYTES-1)&~4095UL,4096,0,0,0,0),"loader-private-unmap");
     if(gm_adci&&gm->arm==100){S child=gm_clone(0x10f00,(U)(gm_stack3+sizeof(gm_stack3)),gm_adci_clone_worker);check(child,"adc-input-clone");gm->cl_clone=(unsigned)child;gm_wait_flag(&gm->adci_clone_ready);}
-    gm_cl_atomic_step();gm_cl_site3(0);quit(88);
+    gm_cl_atomic_step();gm_cl_site3(0);if(gm_ap)gm_ap_fixture(mapping);quit(88);
 }
 static unsigned gm_load(unsigned *p) { return __atomic_load_n(p,__ATOMIC_ACQUIRE); }
 static void gm_publish(unsigned *p) { __atomic_store_n(p,1,__ATOMIC_RELEASE); check(sys(98,(U)p,1,128,0,0,0),"group-wake"); }
@@ -291,9 +297,11 @@ static void gm_wait_flag(unsigned *p) {
     while(!gm_load(p)) { S rc=sys(98,(U)p,0,0,0,0,0); if(rc<0 && rc!=-4 && rc!=-11) check(rc,"group-futex-wait"); }
 }
 static void gm_worker2(void) { gm_wait_flag(&gm->hold); quit(88); }
+#include "adc-sequence-private.h"
 static void gm_adci_clone_worker(void){gm_publish(&gm->adci_clone_ready);gm_wait_flag(&gm->hold);quit(88);}
 static void gm_worker1(void) {
     gm_wait_flag(&gm->worker_go); gm_publish(&gm->worker_ack);
+    if(gm_ap)gm_ap_worker();
     if(gm->arm==2 || gm->arm==4 || gm->arm==6 || gm->arm==10 || gm->arm==14 || gm->arm==26) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
     if(gm->arm==19 || gm->arm==30 || gm->arm==49 || gm->arm==57) { gm_wait_flag(&gm->mapped); U off=gm->arm==57?0x7034:gm->arm==49?0x4004:gm->arm==30?st_write_offset(0):at_ref_write_offset(0); U value=gm->arm==57?1:gm->arm==49?0x80000000:gm->arm==30?st_write_value(0):at_ref_write_value(0); gm_write(gm->mapping+off,value); quit(88); }
     if(gm->arm==62) { gm_wait_flag(&gm->mapped); gm_worker_read(gm->mapping+4); quit(88); }
@@ -541,7 +549,7 @@ static int gm_cl_initial(void){
     for(unsigned i=0;i<3;i++){unsigned al=gm_private?gm->cl_lengths[i]:lengths[i];event("loader-layout");put("category = \"destination\"\n");hex("index",i);hex("address",actual[i]);hex("expected_address",expected[i]);hex("length",al);hex("expected_length",lengths[i]);hex("match",actual[i]==expected[i]&&al==lengths[i]);if(!actual[i]||actual[i]!=expected[i])return -2;if(al!=lengths[i])return -3;}return 1;
 }
 static int gm_cl_path(char *out,const char *name){U n=0;while(gm_cl_outdir[n]&&n<180){out[n]=gm_cl_outdir[n];n++;}if(!n||n>=180)return 0;if(out[n-1]!='/')out[n++]='/';U j=0;while(name[j]&&n<250)out[n++]=name[j++];out[n]=0;return !name[j];}
-static unsigned char gm_cl_pattern(unsigned capture,U i){if(capture==0)return 0xa5;if(capture==1||capture==3)return 0x5a;if(capture==2)return (unsigned char)(i*3+1);return (unsigned char)(i*5+7);}
+static unsigned char gm_cl_pattern(unsigned capture,U i){if(capture==0)return 0xa5;if(capture==1||capture==3)return gm_ap?0:0x5a;if(capture==2)return (unsigned char)(i*3+1);return (unsigned char)(i*5+7);}
 static int gm_cl_capture(unsigned index,const char *phase,const char *name,U address,U length){
     if(length>0x1c0000U||length>CL_CAPTURE_LIMIT||gm_cl_requested>CL_CAPTURE_LIMIT-length||address+length<address)return 0;gm_cl_requested+=length;
     char path[256];if(!gm_cl_path(path,name))return 0;S fd=sys(56,(U)-100,(U)path,0x241,0600,0,0);if(fd<0)return 0;U done=0,chunks=0;int match=1;S last=0;
@@ -709,6 +717,7 @@ static void gm_cl_converge(U stopping_tid){
     event("loader-terminal-converge");hex("stopping_tid",stopping_tid);for(U i=0;i<tg_count;i++)if(tg_threads[i].live&&!tg_threads[i].stopped){S rc=pt(0x4207,tg_threads[i].tid,0,0);event("loader-terminal-interrupt");hex("tid",tg_threads[i].tid);hex("result",rc);if(rc<0&&rc!=-5)gm_cl_reject(stopping_tid,"interrupt","terminal",rc,0);}
     for(;;){int pending=0;for(U i=0;i<tg_count;i++)if(tg_threads[i].live&&!tg_threads[i].stopped)pending=1;if(!pending)break;int status=0;U tid=gm_wait(&status);if(!tid)gm_cl_reject(stopping_tid,"deadline","terminal-converge",0,1);U kind=(unsigned)status>>16,signal=(status>>8)&255;if(kind==3&&signal==5){(void)gm_meta(tid,status,1);gm_cl_reject(stopping_tid,"clone","terminal-converge",tid,0);}if(gm_meta(tid,status,1))continue;if(signal==11||signal==7)gm_cl_reject(tid,"unexpected-access","terminal-converge",signal,0);gm_cl_reject(tid,"signal","terminal-converge",signal,5);}
 }
+#include "adc-sequence-observer.h"
 static void gm_observe(U pid,U base,int private) {
     gm_private=private; gm_base=base; gm_target=private?(U)gm_stop_pc:base+0x42a8f0;
     tg_options=0x100009; tg_discover(pid,0);
@@ -734,9 +743,12 @@ static void gm_observe(U pid,U base,int private) {
     U fd=(U)-1; int pending_open=0,pending_map=0;
     for(;;) {
         int status=0; U tid=gm_wait(&status);
+        if(!tid&&gm_ap_active)gm_ap_reject(0,"deadline","runtime",gm_ap_index,AP_OPERATIONS);
         if(!tid && gm_remaining) { event(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS?"loader-deadline":gm_tail?"tail-deadline":"remaining-deadline"); hex("stopping_tid",0); hex("checkpoint",gm_loaders?gm_cl_checkpoint:gm_tail?gm_it_checkpoint:gm_ri_checkpoint); hex("reads",gm_it_reads); hex("remaining_writes",gm_ri_writes); hex("tail_writes",gm_it_writes); if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS)gm_cl_reject(0,"deadline","runtime",gm_cl_checkpoint,CL_CHECKPOINTS);gm_quiesce(0); quit(78); }
-        if(gm_meta(tid,status,0)) { if(gm_region_clone) { if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS)gm_cl_reject(tid,"clone","runtime",gm_region_clone,0);if(gm_tail&&gm_ri_checkpoint==RI_CHECKPOINTS)gm_it_reject(tid,"clone","runtime",gm_region_clone,0);gm_ri_reject(tid,"clone",gm_region_clone,0); } continue; }
+        if(gm_meta(tid,status,0)) { if(gm_region_clone) { if(gm_ap_active)gm_ap_reject(tid,"clone","runtime",gm_region_clone,0);if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS)gm_cl_reject(tid,"clone","runtime",gm_region_clone,0);if(gm_tail&&gm_ri_checkpoint==RI_CHECKPOINTS)gm_it_reject(tid,"clone","runtime",gm_region_clone,0);gm_ri_reject(tid,"clone",gm_region_clone,0); } continue; }
         U signal=(status>>8)&255; struct TgThread *t=tg_find(tid); struct Regs r={0}; registers(tid,&r,0);
+        if(gm_ap_active&&signal==5)gm_ap_finish(tid,&r);
+        if(gm_ap_active&&signal!=11&&signal!=7)gm_ap_reject(tid,"signal","runtime",signal,11);
         if(gm_remaining&&signal==5&&gm_writes>=AT_FULL_WRITES+ST_WRITES&&gm_ri_checkpoint<RI_CHECKPOINTS) {
             U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"remaining-siginfo"); unsigned i=gm_ri_checkpoint;
             U target=private?gm_ri_private_pc(i):base+ri_stock_pc[i],opcode=(unsigned)peek(tid,r.pc);
@@ -770,10 +782,11 @@ static void gm_observe(U pid,U base,int private) {
             if(i<3){event("loader-status");hex("index",i);hex("width",4);hex("actual",(U)status_value);hex("expected",(U)expected_status);hex("match",status_value==expected_status);if(status_value!=expected_status)gm_cl_reject(tid,"status","checkpoint",(U)status_value,(U)expected_status);}
             if(i==3&&!private&&(r.x[0]!=base+cl_adc||r.x[1]||status_value!=-1))gm_cl_reject(tid,"terminal-state","checkpoint",r.x[0],base+cl_adc);
             if(private&&gm->cl_atomic!=i+1)gm_cl_reject(tid,"atomic","checkpoint",gm->cl_atomic,i+1);struct Regs before=r;gm_cl_checkpoint++;if(!gm_cl_debug(tid,gm_cl_checkpoint<CL_CHECKPOINTS))gm_cl_reject(tid,"debug-rotation","checkpoint",gm_cl_checkpoint,CL_CHECKPOINTS);struct Regs after={0};registers(tid,&after,0);gm_registers("loader-debug-registers",tid,&after);if(!gm_regs_same(&before,&after))gm_cl_reject(tid,"debug-registers","checkpoint",after.pc,before.pc);
-            if(gm_cl_checkpoint==CL_CHECKPOINTS){gm_cl_converge(tid);U lsb=private?gm->cl_lsb:base+cl_vertical,adc=private?gm->cl_adc:base+cl_adc_record,vertical=private?gm->cl_vertical:base+cl_vertical_record;if(!gm_cl_capture(2,"terminal","loader-terminal-lsb.bin",lsb,CL_LSB_BYTES))gm_cl_reject(tid,"capture","terminal-lsb",0,CL_LSB_BYTES);if(!gm_cl_capture(3,"terminal","loader-terminal-adc.bin",adc,CL_ADC_BYTES))gm_cl_reject(tid,"capture","terminal-adc",0,CL_ADC_BYTES);if(!gm_cl_capture(4,"terminal","loader-terminal-vertical.bin",vertical,CL_VERTICAL_BYTES))gm_cl_reject(tid,private&&gm->arm==84?"short-read":private&&gm->arm==85?"buffer":"capture","terminal-vertical",0,CL_VERTICAL_BYTES);if(gm_adci)gm_adci_run(tid);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",private?gm->cl_atomic:0);hex("old_executed",private?gm->cl_old:0);hex("clone_tid",gm_region_clone);gm_quiesce(tid);quit(78);}gm_resume(t);continue;
+            if(gm_cl_checkpoint==CL_CHECKPOINTS){gm_cl_converge(tid);U lsb=private?gm->cl_lsb:base+cl_vertical,adc=private?gm->cl_adc:base+cl_adc_record,vertical=private?gm->cl_vertical:base+cl_vertical_record;if(!gm_cl_capture(2,"terminal","loader-terminal-lsb.bin",lsb,CL_LSB_BYTES))gm_cl_reject(tid,"capture","terminal-lsb",0,CL_LSB_BYTES);if(!gm_cl_capture(3,"terminal","loader-terminal-adc.bin",adc,CL_ADC_BYTES))gm_cl_reject(tid,"capture","terminal-adc",0,CL_ADC_BYTES);if(!gm_cl_capture(4,"terminal","loader-terminal-vertical.bin",vertical,CL_VERTICAL_BYTES))gm_cl_reject(tid,private&&gm->arm==84?"short-read":private&&gm->arm==85?"buffer":"capture","terminal-vertical",0,CL_VERTICAL_BYTES);if(gm_adci)gm_adci_run(tid);event("loader-summary");hex("checkpoints",gm_cl_checkpoint);hex("captures",gm_cl_captures);hex("modeled_reads",0);hex("modeled_writes",0);hex("atomic",private?gm->cl_atomic:0);hex("old_executed",private?gm->cl_old:0);hex("clone_tid",gm_region_clone);if(gm_ap){gm_ap_begin(tid,&r);continue;}gm_quiesce(tid);quit(78);}gm_resume(t);continue;
         }
         if(signal==11 || (gm_next && signal==7)) {
             gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
+            if(gm_ap_active){gm_ap_access(tid,signal,info,&r,t);continue;}
             if(gm_next && gm_responses==2) {
                 U offset=info[2]-gm_mapping,write_pc=private?(U)gm_write_pc:base+0x27043c;
                 if(gm_loaders&&gm_it_checkpoint==IT_CHECKPOINTS){event("loader-access-rejected");put("reason = \"unexpected-access\"\n");hex("tid",tid);hex("checkpoint",gm_cl_checkpoint);hex("address",info[2]);hex("offset",offset);hex("pc",r.pc);hex("opcode",(unsigned)peek(tid,r.pc));gm_cl_reject(tid,"access","runtime",offset,0);}
@@ -921,12 +934,13 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
-    int adci_control=argc==6&&equal(argv[1],"control-adc-inputs"),adci_stock=argc==7&&equal(argv[1],"stock-adc-inputs");
+    int ap_control=argc==6&&equal(argv[1],"control-adc-sequence"),ap_stock=argc==7&&equal(argv[1],"stock-adc-sequence");
+    int adci_control=(argc==6&&equal(argv[1],"control-adc-inputs"))||ap_control,adci_stock=(argc==7&&equal(argv[1],"stock-adc-inputs"))||ap_stock;
     int loader_control=(argc==6&&equal(argv[1],"control-loaders"))||adci_control,loader_stock=(argc==7&&equal(argv[1],"stock-loaders"))||adci_stock;
     if(loader_control||loader_stock){
-        U arm=loader_control?parse(argv[2],10):0;if(loader_control&&((adci_control&&(arm<90||arm>100))||(!adci_control&&(arm<76||arm>89))))quit(2);unsigned profile=loader_stock?1:2;
+        U arm=loader_control?parse(argv[2],10):0;if(loader_control&&(ap_control?(arm<101||arm>112):adci_control?(arm<90||arm>100):(arm<76||arm>89)))quit(2);unsigned profile=loader_stock?1:2;
         if(!gm_at_load(argv[loader_stock?4:3],profile,AT_FULL_WRITES))quit(2);if(!gm_st_load(argv[loader_stock?5:4],profile))quit(2);gm_cl_outdir=argv[loader_stock?6:5];
-        gm_transcript=1;gm_spu=1;gm_remaining=1;gm_tail=1;gm_loaders=1;gm_adci=adci_control||adci_stock;gm_next=1;tg_deadline=tg_now()+10000;
+        gm_transcript=1;gm_spu=1;gm_remaining=1;gm_tail=1;gm_loaders=1;gm_adci=adci_control||adci_stock;gm_ap=ap_control||ap_stock;gm_next=1;tg_deadline=tg_now()+10000;
         if(loader_stock){U pid=parse(argv[2],10),base=parse(argv[3],16);event("model-mode");put("scope = \"stock\"\n");hex("pid",pid);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("adc_inputs",gm_adci);hex("profile",1);gm_observe(pid,base,0);quit(2);}
         S memory=sys(222,0,32768,3,0x21,(U)-1,0);check(memory,"model-shared-mmap");gm=(struct GmShared *)memory;gm->arm=arm;gm->output=(U)-1;U observer=sys(172,0,0,0,0,0,0);S pid=sys(220,17,0,0,0,0,0);check(pid,"model-private-clone");if(!pid)gm_private_leader(observer);while(!gm_load(&gm->ready))tg_tick();
         event("model-mode");put("scope = \"private\"\n");hex("arm",arm);hex("pid",pid);hex("fixture_worker",gm->worker);hex("continuation",1);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("loaders",1);hex("adc_inputs",gm_adci);hex("profile",2);gm_observe(pid,0,1);quit(2);

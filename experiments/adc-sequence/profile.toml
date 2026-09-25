@@ -1,0 +1,2208 @@
+schema_version = "mho900-lab.adc-sequence-profile/1"
+classification = "synthetic-observer-contract"
+candidate_sha256 = "5339cbe2af98ce52f99776f9eeba3b5dc391d8f1269b094123a3eec4caf19d70"
+sequence_sha256 = "d43f2f307125cd70b11c0164412ad846abc51b6b30ad092497b5ae103f8741cd"
+header_sha256 = "e3a80852517fc033a065a599e729c028269d383250ec77e8c40c6a0ae1bce841"
+bus_operations = 99
+writes = 97
+reads = 2
+synthetic_read_values = [0x11234, 0]
+sleep_requests_observed_at_this_boundary = false
+entry_guards = 175
+final_shadow_values = 33
+relocated_pointer_bytes_compared = false
+additional_guards_required = ["selected row equals two without fallback", "normalized mask zero", "16 relocated bindings", "selected config and table addresses", "mapped base equals observed mapping", "entry call arguments"]
+
+[[guards]]
+index = 0
+name = "reference[0]"
+source = "ADC_RECORD"
+offset = 0x50
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 1
+name = "reference[1]"
+source = "ADC_RECORD"
+offset = 0x52
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 2
+name = "fine[0]"
+source = "ADC_RECORD"
+offset = 0x4d0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 3
+name = "fine[1]"
+source = "ADC_RECORD"
+offset = 0x4d4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 4
+name = "fine[2]"
+source = "ADC_RECORD"
+offset = 0x4d8
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 5
+name = "fine[3]"
+source = "ADC_RECORD"
+offset = 0x4dc
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 6
+name = "fine[4]"
+source = "ADC_RECORD"
+offset = 0x4e0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 7
+name = "fine[5]"
+source = "ADC_RECORD"
+offset = 0x4e4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 8
+name = "fine[6]"
+source = "ADC_RECORD"
+offset = 0x4e8
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 9
+name = "fine[7]"
+source = "ADC_RECORD"
+offset = 0x4ec
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 10
+name = "fine[8]"
+source = "ADC_RECORD"
+offset = 0x4f0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 11
+name = "fine[9]"
+source = "ADC_RECORD"
+offset = 0x4f4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 12
+name = "fine[10]"
+source = "ADC_RECORD"
+offset = 0x4f8
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 13
+name = "fine[11]"
+source = "ADC_RECORD"
+offset = 0x4fc
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 14
+name = "fine[12]"
+source = "ADC_RECORD"
+offset = 0x500
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 15
+name = "fine[13]"
+source = "ADC_RECORD"
+offset = 0x504
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 16
+name = "fine[14]"
+source = "ADC_RECORD"
+offset = 0x508
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 17
+name = "fine[15]"
+source = "ADC_RECORD"
+offset = 0x50c
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 18
+name = "gain[0]"
+source = "ADC_RECORD"
+offset = 0x20
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 19
+name = "gain[1]"
+source = "ADC_RECORD"
+offset = 0x22
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 20
+name = "gain[2]"
+source = "ADC_RECORD"
+offset = 0x24
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 21
+name = "gain[3]"
+source = "ADC_RECORD"
+offset = 0x26
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 22
+name = "gain[4]"
+source = "ADC_RECORD"
+offset = 0x28
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 23
+name = "gain[5]"
+source = "ADC_RECORD"
+offset = 0x2a
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 24
+name = "gain[6]"
+source = "ADC_RECORD"
+offset = 0x2c
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 25
+name = "gain[7]"
+source = "ADC_RECORD"
+offset = 0x2e
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 26
+name = "gain[8]"
+source = "ADC_RECORD"
+offset = 0x30
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 27
+name = "gain[9]"
+source = "ADC_RECORD"
+offset = 0x32
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 28
+name = "gain[10]"
+source = "ADC_RECORD"
+offset = 0x34
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 29
+name = "gain[11]"
+source = "ADC_RECORD"
+offset = 0x36
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 30
+name = "gain[12]"
+source = "ADC_RECORD"
+offset = 0x38
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 31
+name = "gain[13]"
+source = "ADC_RECORD"
+offset = 0x3a
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 32
+name = "gain[14]"
+source = "ADC_RECORD"
+offset = 0x3c
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 33
+name = "gain[15]"
+source = "ADC_RECORD"
+offset = 0x3e
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 34
+name = "offset[0]"
+source = "ADC_RECORD"
+offset = 0x0
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 35
+name = "offset[1]"
+source = "ADC_RECORD"
+offset = 0x2
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 36
+name = "offset[2]"
+source = "ADC_RECORD"
+offset = 0x4
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 37
+name = "offset[3]"
+source = "ADC_RECORD"
+offset = 0x6
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 38
+name = "offset[4]"
+source = "ADC_RECORD"
+offset = 0x8
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 39
+name = "offset[5]"
+source = "ADC_RECORD"
+offset = 0xa
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 40
+name = "offset[6]"
+source = "ADC_RECORD"
+offset = 0xc
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 41
+name = "offset[7]"
+source = "ADC_RECORD"
+offset = 0xe
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 42
+name = "offset[8]"
+source = "ADC_RECORD"
+offset = 0x10
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 43
+name = "offset[9]"
+source = "ADC_RECORD"
+offset = 0x12
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 44
+name = "offset[10]"
+source = "ADC_RECORD"
+offset = 0x14
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 45
+name = "offset[11]"
+source = "ADC_RECORD"
+offset = 0x16
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 46
+name = "offset[12]"
+source = "ADC_RECORD"
+offset = 0x18
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 47
+name = "offset[13]"
+source = "ADC_RECORD"
+offset = 0x1a
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 48
+name = "offset[14]"
+source = "ADC_RECORD"
+offset = 0x1c
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 49
+name = "offset[15]"
+source = "ADC_RECORD"
+offset = 0x1e
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 50
+name = "sampleDelay[0]"
+source = "ADC_RECORD"
+offset = 0x40
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 51
+name = "sampleDelay[1]"
+source = "ADC_RECORD"
+offset = 0x42
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 52
+name = "sampleDelay[2]"
+source = "ADC_RECORD"
+offset = 0x44
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 53
+name = "sampleDelay[3]"
+source = "ADC_RECORD"
+offset = 0x46
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 54
+name = "sampleDelay[4]"
+source = "ADC_RECORD"
+offset = 0x48
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 55
+name = "sampleDelay[5]"
+source = "ADC_RECORD"
+offset = 0x4a
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 56
+name = "sampleDelay[6]"
+source = "ADC_RECORD"
+offset = 0x4c
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 57
+name = "sampleDelay[7]"
+source = "ADC_RECORD"
+offset = 0x4e
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 58
+name = "clockFine[0]"
+source = "ADC_RECORD"
+offset = 0x200
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 59
+name = "clockFine[1]"
+source = "ADC_RECORD"
+offset = 0x204
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 60
+name = "clockCoarse[0]"
+source = "ADC_RECORD"
+offset = 0x202
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 61
+name = "clockCoarse[1]"
+source = "ADC_RECORD"
+offset = 0x206
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 62
+name = "channel[0].scale"
+source = "SETTING"
+offset = 0x0
+width = 8
+expected_bits = 0x2faf080
+
+[[guards]]
+index = 63
+name = "channel[0].impedance"
+source = "SETTING"
+offset = 0x1c
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 64
+name = "channel[0].delay"
+source = "SETTING"
+offset = 0x28
+width = 8
+expected_bits = 0x0
+
+[[guards]]
+index = 65
+name = "probe[0].delay"
+source = "SETTING"
+offset = 0x338
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 66
+name = "channel[0].on[0]"
+source = "SETTING"
+offset = 0xb4
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 67
+name = "channel[0].on[1]"
+source = "SETTING"
+offset = 0xb5
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 68
+name = "channel[0].on[2]"
+source = "SETTING"
+offset = 0xb6
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 69
+name = "channel[0].on[3]"
+source = "SETTING"
+offset = 0xb7
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 70
+name = "channel[0].on[4]"
+source = "SETTING"
+offset = 0xb8
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 71
+name = "channel[0].on[5]"
+source = "SETTING"
+offset = 0xb9
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 72
+name = "channel[0].on[6]"
+source = "SETTING"
+offset = 0xba
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 73
+name = "channel[0].on[7]"
+source = "SETTING"
+offset = 0xbb
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 74
+name = "channel[1].scale"
+source = "SETTING"
+offset = 0xc0
+width = 8
+expected_bits = 0x2faf080
+
+[[guards]]
+index = 75
+name = "channel[1].impedance"
+source = "SETTING"
+offset = 0xdc
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 76
+name = "channel[1].delay"
+source = "SETTING"
+offset = 0xe8
+width = 8
+expected_bits = 0x0
+
+[[guards]]
+index = 77
+name = "probe[1].delay"
+source = "SETTING"
+offset = 0x378
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 78
+name = "channel[1].on[0]"
+source = "SETTING"
+offset = 0x174
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 79
+name = "channel[1].on[1]"
+source = "SETTING"
+offset = 0x175
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 80
+name = "channel[1].on[2]"
+source = "SETTING"
+offset = 0x176
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 81
+name = "channel[1].on[3]"
+source = "SETTING"
+offset = 0x177
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 82
+name = "channel[1].on[4]"
+source = "SETTING"
+offset = 0x178
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 83
+name = "channel[1].on[5]"
+source = "SETTING"
+offset = 0x179
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 84
+name = "channel[1].on[6]"
+source = "SETTING"
+offset = 0x17a
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 85
+name = "channel[1].on[7]"
+source = "SETTING"
+offset = 0x17b
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 86
+name = "channel[2].scale"
+source = "SETTING"
+offset = 0x180
+width = 8
+expected_bits = 0x2faf080
+
+[[guards]]
+index = 87
+name = "channel[2].impedance"
+source = "SETTING"
+offset = 0x19c
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 88
+name = "channel[2].delay"
+source = "SETTING"
+offset = 0x1a8
+width = 8
+expected_bits = 0x0
+
+[[guards]]
+index = 89
+name = "probe[2].delay"
+source = "SETTING"
+offset = 0x3b8
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 90
+name = "channel[2].on[0]"
+source = "SETTING"
+offset = 0x234
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 91
+name = "channel[2].on[1]"
+source = "SETTING"
+offset = 0x235
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 92
+name = "channel[2].on[2]"
+source = "SETTING"
+offset = 0x236
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 93
+name = "channel[2].on[3]"
+source = "SETTING"
+offset = 0x237
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 94
+name = "channel[2].on[4]"
+source = "SETTING"
+offset = 0x238
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 95
+name = "channel[2].on[5]"
+source = "SETTING"
+offset = 0x239
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 96
+name = "channel[2].on[6]"
+source = "SETTING"
+offset = 0x23a
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 97
+name = "channel[2].on[7]"
+source = "SETTING"
+offset = 0x23b
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 98
+name = "channel[3].scale"
+source = "SETTING"
+offset = 0x240
+width = 8
+expected_bits = 0x2faf080
+
+[[guards]]
+index = 99
+name = "channel[3].impedance"
+source = "SETTING"
+offset = 0x25c
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 100
+name = "channel[3].delay"
+source = "SETTING"
+offset = 0x268
+width = 8
+expected_bits = 0x0
+
+[[guards]]
+index = 101
+name = "probe[3].delay"
+source = "SETTING"
+offset = 0x3f8
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 102
+name = "channel[3].on[0]"
+source = "SETTING"
+offset = 0x2f4
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 103
+name = "channel[3].on[1]"
+source = "SETTING"
+offset = 0x2f5
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 104
+name = "channel[3].on[2]"
+source = "SETTING"
+offset = 0x2f6
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 105
+name = "channel[3].on[3]"
+source = "SETTING"
+offset = 0x2f7
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 106
+name = "channel[3].on[4]"
+source = "SETTING"
+offset = 0x2f8
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 107
+name = "channel[3].on[5]"
+source = "SETTING"
+offset = 0x2f9
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 108
+name = "channel[3].on[6]"
+source = "SETTING"
+offset = 0x2fa
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 109
+name = "channel[3].on[7]"
+source = "SETTING"
+offset = 0x2fb
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 110
+name = "sampleRate"
+source = "DRV"
+offset = 0x8
+width = 8
+expected_bits = 0x0
+
+[[guards]]
+index = 111
+name = "masterSource"
+source = "SETTING"
+offset = 0x1b30
+width = 4
+expected_bits = 0x1
+
+[[guards]]
+index = 112
+name = "bode"
+source = "SETTING"
+offset = 0x1c70
+width = 1
+expected_bits = 0x0
+
+[[guards]]
+index = 113
+name = "sampleMode"
+source = "SAMPLE"
+offset = 0x4
+width = 4
+expected_bits = 0x1
+
+[[guards]]
+index = 114
+name = "delay"
+source = "CONFIG"
+offset = 0x20
+width = 4
+expected_bits = 0x3d090
+
+[[guards]]
+index = 115
+name = "pointTime"
+source = "CONFIG"
+offset = 0x38
+width = 4
+expected_bits = 0x3d090
+
+[[guards]]
+index = 116
+name = "reference09[0]"
+source = "HIGH"
+offset = 0x40
+width = 2
+expected_bits = 0x5721
+
+[[guards]]
+index = 117
+name = "reference09[1]"
+source = "HIGH"
+offset = 0x42
+width = 2
+expected_bits = 0x4721
+
+[[guards]]
+index = 118
+name = "gainAndDelay[0]"
+source = "HIGH"
+offset = 0x2a
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 119
+name = "gainAndDelay[1]"
+source = "HIGH"
+offset = 0x2c
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 120
+name = "gainAndDelay[2]"
+source = "HIGH"
+offset = 0x2e
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 121
+name = "gainAndDelay[3]"
+source = "HIGH"
+offset = 0x30
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 122
+name = "gainAndDelay[4]"
+source = "HIGH"
+offset = 0x32
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 123
+name = "gainAndDelay[5]"
+source = "HIGH"
+offset = 0x34
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 124
+name = "gainAndDelay[6]"
+source = "HIGH"
+offset = 0x36
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 125
+name = "gainAndDelay[7]"
+source = "HIGH"
+offset = 0x38
+width = 2
+expected_bits = 0x2
+
+[[guards]]
+index = 126
+name = "offset[0]"
+source = "HIGH"
+offset = 0x0
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 127
+name = "offset[1]"
+source = "HIGH"
+offset = 0x2
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 128
+name = "offset[2]"
+source = "HIGH"
+offset = 0x4
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 129
+name = "offset[3]"
+source = "HIGH"
+offset = 0x6
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 130
+name = "offset[4]"
+source = "HIGH"
+offset = 0x8
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 131
+name = "offset[5]"
+source = "HIGH"
+offset = 0xa
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 132
+name = "offset[6]"
+source = "HIGH"
+offset = 0xc
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 133
+name = "offset[7]"
+source = "HIGH"
+offset = 0xe
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 134
+name = "clock01[0]"
+source = "HIGH"
+offset = 0x3c
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 135
+name = "clock01[1]"
+source = "HIGH"
+offset = 0x3e
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 136
+name = "sample04[0]"
+source = "HIGH"
+offset = 0x70
+width = 2
+expected_bits = 0x8000
+
+[[guards]]
+index = 137
+name = "sample04[1]"
+source = "HIGH"
+offset = 0x72
+width = 2
+expected_bits = 0x8000
+
+[[guards]]
+index = 138
+name = "sample05[0]"
+source = "HIGH"
+offset = 0x5c
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 139
+name = "sample05[1]"
+source = "HIGH"
+offset = 0x5e
+width = 2
+expected_bits = 0x0
+
+[[guards]]
+index = 140
+name = "fineGain[0]"
+source = "LOW"
+offset = 0x38
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 141
+name = "syncControl[0]"
+source = "LOW"
+offset = 0x0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 142
+name = "adjustGain[0]"
+source = "GLOBAL"
+offset = 0x10
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 143
+name = "adjustGainLoad[0]"
+source = "GLOBAL"
+offset = 0x1c
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 144
+name = "adjustOffset1[0]"
+source = "GLOBAL"
+offset = 0x14
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 145
+name = "adjustOffset1Load[0]"
+source = "GLOBAL"
+offset = 0x20
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 146
+name = "adjustOffset2[0]"
+source = "GLOBAL"
+offset = 0x18
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 147
+name = "adjustOffset2Load[0]"
+source = "GLOBAL"
+offset = 0x24
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 148
+name = "adjustControl[0]"
+source = "GLOBAL"
+offset = 0x28
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 149
+name = "mask[1]"
+source = "MASK"
+offset = 0x4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 150
+name = "mask[4]"
+source = "MASK"
+offset = 0x10
+width = 4
+expected_bits = 0x8080
+
+[[guards]]
+index = 151
+name = "mask[5]"
+source = "MASK"
+offset = 0x14
+width = 4
+expected_bits = 0x8080
+
+[[guards]]
+index = 152
+name = "mask[9]"
+source = "MASK"
+offset = 0x24
+width = 4
+expected_bits = 0x2720
+
+[[guards]]
+index = 153
+name = "mask[20]"
+source = "MASK"
+offset = 0x50
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 154
+name = "mask[21]"
+source = "MASK"
+offset = 0x54
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 155
+name = "mask[28]"
+source = "MASK"
+offset = 0x70
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 156
+name = "mask[29]"
+source = "MASK"
+offset = 0x74
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 157
+name = "mask[36]"
+source = "MASK"
+offset = 0x90
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 158
+name = "mask[37]"
+source = "MASK"
+offset = 0x94
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 159
+name = "mask[44]"
+source = "MASK"
+offset = 0xb0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 160
+name = "mask[45]"
+source = "MASK"
+offset = 0xb4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 161
+name = "mask[52]"
+source = "MASK"
+offset = 0xd0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 162
+name = "mask[53]"
+source = "MASK"
+offset = 0xd4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 163
+name = "mask[60]"
+source = "MASK"
+offset = 0xf0
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 164
+name = "mask[61]"
+source = "MASK"
+offset = 0xf4
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 165
+name = "mask[68]"
+source = "MASK"
+offset = 0x110
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 166
+name = "mask[69]"
+source = "MASK"
+offset = 0x114
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 167
+name = "mask[76]"
+source = "MASK"
+offset = 0x130
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 168
+name = "mask[77]"
+source = "MASK"
+offset = 0x134
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 169
+name = "selector0"
+source = "SERIES"
+offset = 0x0
+width = 4
+expected_bits = 0x8
+
+[[guards]]
+index = 170
+name = "selector1"
+source = "SERIES"
+offset = 0x4
+width = 4
+expected_bits = 0x384
+
+[[guards]]
+index = 171
+name = "specialFlag"
+source = "GLOBAL"
+offset = 0xc
+width = 4
+expected_bits = 0x0
+
+[[guards]]
+index = 172
+name = "selectedRow.selector0"
+source = "SERIES"
+offset = 0x4c
+width = 4
+expected_bits = 0x8
+
+[[guards]]
+index = 173
+name = "selectedRow.selector1"
+source = "SERIES"
+offset = 0x50
+width = 4
+expected_bits = 0x384
+
+[[guards]]
+index = 174
+name = "tableBound"
+source = "SERIES"
+offset = 0x5c
+width = 4
+expected_bits = 0x10
+
+[[operations]]
+index = 0
+sequence_index = 0
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x5097020
+
+[[operations]]
+index = 1
+sequence_index = 2
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x1097020
+
+[[operations]]
+index = 2
+sequence_index = 3
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x6096020
+
+[[operations]]
+index = 3
+sequence_index = 5
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x2096020
+
+[[operations]]
+index = 4
+sequence_index = 6
+phase = "FINE_GAIN"
+kind = "W32"
+offset = 0x1058
+value = 0x0
+
+[[operations]]
+index = 5
+sequence_index = 7
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5150000
+
+[[operations]]
+index = 6
+sequence_index = 9
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1150000
+
+[[operations]]
+index = 7
+sequence_index = 10
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5350000
+
+[[operations]]
+index = 8
+sequence_index = 12
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1350000
+
+[[operations]]
+index = 9
+sequence_index = 13
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6150000
+
+[[operations]]
+index = 10
+sequence_index = 15
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2150000
+
+[[operations]]
+index = 11
+sequence_index = 16
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6350000
+
+[[operations]]
+index = 12
+sequence_index = 18
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2350000
+
+[[operations]]
+index = 13
+sequence_index = 19
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x51d0000
+
+[[operations]]
+index = 14
+sequence_index = 21
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x11d0000
+
+[[operations]]
+index = 15
+sequence_index = 22
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x53d0000
+
+[[operations]]
+index = 16
+sequence_index = 24
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x13d0000
+
+[[operations]]
+index = 17
+sequence_index = 25
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x61d0000
+
+[[operations]]
+index = 18
+sequence_index = 27
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x21d0000
+
+[[operations]]
+index = 19
+sequence_index = 28
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x63d0000
+
+[[operations]]
+index = 20
+sequence_index = 30
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x23d0000
+
+[[operations]]
+index = 21
+sequence_index = 31
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5250000
+
+[[operations]]
+index = 22
+sequence_index = 33
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1250000
+
+[[operations]]
+index = 23
+sequence_index = 34
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5450000
+
+[[operations]]
+index = 24
+sequence_index = 36
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1450000
+
+[[operations]]
+index = 25
+sequence_index = 37
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6250000
+
+[[operations]]
+index = 26
+sequence_index = 39
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2250000
+
+[[operations]]
+index = 27
+sequence_index = 40
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6450000
+
+[[operations]]
+index = 28
+sequence_index = 42
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2450000
+
+[[operations]]
+index = 29
+sequence_index = 43
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x52d0000
+
+[[operations]]
+index = 30
+sequence_index = 45
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x12d0000
+
+[[operations]]
+index = 31
+sequence_index = 46
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x54d0000
+
+[[operations]]
+index = 32
+sequence_index = 48
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x14d0000
+
+[[operations]]
+index = 33
+sequence_index = 49
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x62d0000
+
+[[operations]]
+index = 34
+sequence_index = 51
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x22d0000
+
+[[operations]]
+index = 35
+sequence_index = 52
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x64d0000
+
+[[operations]]
+index = 36
+sequence_index = 54
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x24d0000
+
+[[operations]]
+index = 37
+sequence_index = 55
+phase = "STARY"
+kind = "W32"
+offset = 0x1574
+value = 0x1
+
+[[operations]]
+index = 38
+sequence_index = 57
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5140000
+
+[[operations]]
+index = 39
+sequence_index = 59
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1140000
+
+[[operations]]
+index = 40
+sequence_index = 60
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x51c0000
+
+[[operations]]
+index = 41
+sequence_index = 62
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x11c0000
+
+[[operations]]
+index = 42
+sequence_index = 63
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5240000
+
+[[operations]]
+index = 43
+sequence_index = 65
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1240000
+
+[[operations]]
+index = 44
+sequence_index = 66
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x52c0000
+
+[[operations]]
+index = 45
+sequence_index = 68
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x12c0000
+
+[[operations]]
+index = 46
+sequence_index = 69
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5340000
+
+[[operations]]
+index = 47
+sequence_index = 71
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1340000
+
+[[operations]]
+index = 48
+sequence_index = 72
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x53c0000
+
+[[operations]]
+index = 49
+sequence_index = 74
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x13c0000
+
+[[operations]]
+index = 50
+sequence_index = 75
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5440000
+
+[[operations]]
+index = 51
+sequence_index = 77
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1440000
+
+[[operations]]
+index = 52
+sequence_index = 78
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x54c0000
+
+[[operations]]
+index = 53
+sequence_index = 80
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x14c0000
+
+[[operations]]
+index = 54
+sequence_index = 81
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6140000
+
+[[operations]]
+index = 55
+sequence_index = 83
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2140000
+
+[[operations]]
+index = 56
+sequence_index = 84
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x61c0000
+
+[[operations]]
+index = 57
+sequence_index = 86
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x21c0000
+
+[[operations]]
+index = 58
+sequence_index = 87
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6240000
+
+[[operations]]
+index = 59
+sequence_index = 89
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2240000
+
+[[operations]]
+index = 60
+sequence_index = 90
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x62c0000
+
+[[operations]]
+index = 61
+sequence_index = 92
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x22c0000
+
+[[operations]]
+index = 62
+sequence_index = 93
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6340000
+
+[[operations]]
+index = 63
+sequence_index = 95
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2340000
+
+[[operations]]
+index = 64
+sequence_index = 96
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x63c0000
+
+[[operations]]
+index = 65
+sequence_index = 98
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x23c0000
+
+[[operations]]
+index = 66
+sequence_index = 99
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6440000
+
+[[operations]]
+index = 67
+sequence_index = 101
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2440000
+
+[[operations]]
+index = 68
+sequence_index = 102
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x64c0000
+
+[[operations]]
+index = 69
+sequence_index = 104
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x24c0000
+
+[[operations]]
+index = 70
+sequence_index = 105
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5040080
+
+[[operations]]
+index = 71
+sequence_index = 107
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1040080
+
+[[operations]]
+index = 72
+sequence_index = 108
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5058080
+
+[[operations]]
+index = 73
+sequence_index = 110
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1058080
+
+[[operations]]
+index = 74
+sequence_index = 111
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5048080
+
+[[operations]]
+index = 75
+sequence_index = 113
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1048080
+
+[[operations]]
+index = 76
+sequence_index = 114
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5058080
+
+[[operations]]
+index = 77
+sequence_index = 116
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1058080
+
+[[operations]]
+index = 78
+sequence_index = 117
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6040080
+
+[[operations]]
+index = 79
+sequence_index = 119
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2040080
+
+[[operations]]
+index = 80
+sequence_index = 120
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6058080
+
+[[operations]]
+index = 81
+sequence_index = 122
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2058080
+
+[[operations]]
+index = 82
+sequence_index = 123
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6048080
+
+[[operations]]
+index = 83
+sequence_index = 125
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2048080
+
+[[operations]]
+index = 84
+sequence_index = 126
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6058080
+
+[[operations]]
+index = 85
+sequence_index = 128
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2058080
+
+[[operations]]
+index = 86
+sequence_index = 129
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5010000
+
+[[operations]]
+index = 87
+sequence_index = 131
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1010000
+
+[[operations]]
+index = 88
+sequence_index = 132
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5810000
+
+[[operations]]
+index = 89
+sequence_index = 134
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1810000
+
+[[operations]]
+index = 90
+sequence_index = 136
+phase = "CLOCK_DELAY"
+kind = "R32"
+offset = 0x3004
+synthetic_value = 0x11234
+classification = "MODELED-SOFTWARE-PROTOCOL-CONTROL"
+
+[[operations]]
+index = 91
+sequence_index = 137
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6010000
+
+[[operations]]
+index = 92
+sequence_index = 139
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2010000
+
+[[operations]]
+index = 93
+sequence_index = 140
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6810000
+
+[[operations]]
+index = 94
+sequence_index = 142
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2810000
+
+[[operations]]
+index = 95
+sequence_index = 144
+phase = "CLOCK_DELAY"
+kind = "R32"
+offset = 0x3004
+synthetic_value = 0x0
+classification = "MODELED-SOFTWARE-PROTOCOL-CONTROL"
+
+[[operations]]
+index = 96
+sequence_index = 145
+phase = "SYNC"
+kind = "W32"
+offset = 0x1000
+value = 0x0
+
+[[operations]]
+index = 97
+sequence_index = 147
+phase = "SYNC"
+kind = "W32"
+offset = 0x1000
+value = 0x2
+
+[[operations]]
+index = 98
+sequence_index = 149
+phase = "SYNC"
+kind = "W32"
+offset = 0x1000
+value = 0x0
