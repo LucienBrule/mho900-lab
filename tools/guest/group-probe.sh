@@ -15,8 +15,24 @@ final_sample() {
 }
 trap final_sample EXIT
 
+transcript=false
+if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ]; then
+    transcript=true
+    canonical="$repo/out/adc-transcript/derived-01"
+    cp "$canonical/adc-stock.bin" "$run/adc-stock.bin"
+    cp "$repo/experiments/adc-transcript/reference.tsv" "$run/reference.tsv"
+    cp "$repo/experiments/adc-transcript/derivation.toml" "$run/derivation.toml"
+    actual=$(shasum -a 256 "$run/adc-stock.bin"); actual=${actual%% *}
+    [ "$actual" = 42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7 ]
+    actual=$(shasum -a 256 "$run/reference.tsv"); actual=${actual%% *}
+    [ "$actual" = 6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9 ]
+fi
 cp "$repo/local/guest-tools/group-observer/"*.txt "$run/"
 cp "$repo/local/guest-tools/group-observer/group-observer" "$run/group-control.elf"
+if [ "$transcript" = true ]; then
+    actual=$(shasum -a 256 "$run/group-control.elf"); actual=${actual%% *}
+    [ "$actual" = 00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a ]
+fi
 cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
 adb shell chmod 755 /data/local/tmp/group-observer
@@ -51,6 +67,12 @@ adb shell 'test ! -e /dev/xdma0_bypass && rm -f /data/local/tmp/native-events.to
     > "$run/native-marker-reset.txt" 2>&1
 command=stock
 expected=0
+input=/data/local/tmp/adc-stock.bin
+if [ "$transcript" = true ]; then
+    command=stock-transcript
+    expected=78
+    adb push "$run/adc-stock.bin" "$input" > "$run/adc-stock-push.txt"
+fi
 if [ "${ADMISSION_MODE:-groupmodel}" = nextmodel ] || [ "${ADMISSION_MODE:-groupmodel}" = writemodel ] || [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
     command=stock-next
     expected=78
@@ -64,7 +86,9 @@ if [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
     command=stock-pair-write
     cp "$repo/experiments/group-observer/two-writes.toml" "$run/pair-write-fixture.toml"
 fi
-adb shell "/data/local/tmp/group-observer $command $pid $base >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
+command_args="$pid $base"
+if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
+adb shell "/data/local/tmp/group-observer $command $command_args >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
 command_pid=$!
 ready=false

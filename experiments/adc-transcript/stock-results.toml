@@ -1,0 +1,122 @@
+schema_version = "mho900-lab.stock-adc-region-results/1"
+task = "TASK.hardware.adc-table-loop"
+run = "out/guest-admission/stock-adc-region-01"
+binary_sha256 = "00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a"
+transcript_sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+read_responses = 2
+completed_writes = 452
+exact_prediction_matched = true
+live_bindings_checked = 11
+live_table_words_checked = 222
+live_source_words_checked = 4
+initial_shadows = ["0x67216721", "0x000b"]
+terminal_shadows = ["0x47215721", "0x0000"]
+identity_object = "0x0123456789abcdef"
+initial_threads = 20
+terminal_threads = 21
+clone_events = 1
+all_threads_quiesced_and_reaped = true
+exit_code = 78
+system_server_pid = 1073
+system_server_unchanged = true
+enforcing = true
+stock_artifacts_unchanged = true
+dedicated_services_stopped = true
+verifier_passed = true
+composite_snapshot_exit = 255
+individual_snapshot_exits = [0, 0, 0]
+snapshot_map_rows = 982
+
+[next_access]
+completed = false
+thread = "main"
+operation = "W32"
+offset = "0x1000"
+value = "0x00000001"
+relative_pc = "0x27043c"
+opcode = "0xb9000109"
+static_interpretation = "First SPU reset store; shared wrapper PC does not independently prove caller"
+
+[spu_checkpoint]
+bindings_match = true
+control = "0x00000001"
+gain = "0x00000000"
+tx = "0x00000000"
+adc_control = "0x00000000"
+control_is_pre_spu_initial_value = false
+sample_mode_1_captured = false
+sample_mode_15_captured = false
+
+[limits]
+software_state_races_excluded = false
+all_internal_calls_traced = false
+hardware_effects = false
+ready_or_calibrated = false
+useful_ui = false
+acquisition = false
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "9533ef1ae6af5075575dad951efdca085623b9608da028d433c42feaa4b3435d"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "996bc1a0872c4d5fd8a13f2162c679bbad2fd914fc6907cb7dbda9849aa8c01c"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "cb55805549cec9e8bb6b3bd49e24dd4114f4561ae49c8a2ed501dd0e3af9b95a"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcObserver.main.kts"
+sha256 = "f6bbc72f056b1d907d079c68fb379014de4291699a738e5eb13530f80e65046b"
+
+[[artifacts]]
+path = "docs/research/stock-adc-region.md"
+sha256 = "bd3a186003b1fce857c8088b27f69e9e76834eb9c875bd3c0d1e698016b0776e"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/evidence-sha256.txt"
+sha256 = "d5a9497b071a4d736cd5a65906d14785de35efcd42b350354567834d49f7f0f2"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/adc-stock.bin"
+sha256 = "42138210921f16b38a4627de3601cd9330bd413638bd96414e69a1a3d47592e7"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/reference.tsv"
+sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/group-executed.elf"
+sha256 = "00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/native-events.toml"
+sha256 = "30fb0fd453d628fc89af5a8748ecd9de75062fdad7d813f54c94d036167a623e"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/native-status.toml"
+sha256 = "56f847c1c1e37c158a9b0a64e6680d3f533d15d605743dd92b5d776c59b70cec"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/result.toml"
+sha256 = "63193e3dde1946630442bfd3398a6cbd86e22369c467467da4a954acacec031b"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/system-server-pid.toml"
+sha256 = "8ed48743e2d68db84999b691e66057416c808d6b3af0017494c653474795de31"
+
+[[artifacts]]
+path = "out/guest-admission/stock-adc-region-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/adc-transcript/stock-run-01-verification.toml"
+sha256 = "e6ac53a31c08a3a9c8ce852a557b0f5ce0d4e4db831ea0c66097924355505cfa"
+
+[[artifacts]]
+path = "out/adc-transcript/stock-run-01-verification.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
