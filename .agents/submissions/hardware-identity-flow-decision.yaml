@@ -1,0 +1,20 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.identity-flow-decision
+contract: sha256:64ffec5fff73125eeafff056afad3605f7fc1dd773d2864eb51393738b11588b
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:54:45Z"
+evidence:
+  evaluation: >-
+    docs/research/xdma-identity-flow.md SHA-256
+    a694d724e0a1ec96fcfae0106717f17a86d64c7271e6a1abf86ce7b92f0cc984
+    establishes a 57-bit composition, a wrapper that does not propagate lower status, global storage,
+    and an all-ones sentinel comparison before a partially decoded transformation. These are static
+    operations of unchanged stock code, not claims about physical register values or new runtime evidence.
+    The unresolved helper and later consumers prevent assigning further semantics to fileKeys.
+  next-question: >-
+    Propose a separately admitted bounded observation with distinct synthetic words, including bits above
+    the high word's retained 25 bits, to validate word order, masking and global storage. Stop before entering
+    the converter. This avoids requiring an identity fixture or assumptions about the unresolved helper.
+    No successor guest experiment is admitted or run by this decision. Close this read-only batch and
+    commit and push the evidence and task state before any further execution.

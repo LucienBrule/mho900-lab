@@ -1,0 +1,95 @@
+schema_version = "mho900-lab.identity-flow-results/1"
+classification = "read-only-stock-dataflow-analysis"
+report = "docs/research/xdma-identity-flow.md"
+active_task = "TASK.hardware.identity-flow"
+decision_task = "TASK.hardware.identity-flow-decision"
+accepted_capture = "static-02"
+llvm_version = "23.1.1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+new_guest_runs = 0
+new_synthetic_responses = 0
+physical_device_access = false
+stock_bytes_preserved = true
+high_word_offset = "0x4048"
+low_word_offset = "0x4044"
+composition_mask = "0x01ffffffffffffff"
+wrapper_propagates_lower_status = false
+first_direct_comparison = "0x42a93c: global value == UINT64_MAX"
+comparison_scope = "inspected normal caller chain"
+helper_address = "0x42f254"
+helper_semantics_resolved = false
+immutable_snapshot_across_helper_calls_established = false
+downstream_dynamic_witness = false
+independent_review_completed = true
+preliminary_capture = "static-01 preserved; self-inclusion in index corrected in static-02"
+substantive_captures_identical = true
+next_question = "Validate two-word assembly, masking and global storage with distinct words; stop before converter."
+next_guest_experiment_admitted = false
+
+[[artifacts]]
+path = "docs/research/xdma-identity-flow.md"
+sha256 = "a694d724e0a1ec96fcfae0106717f17a86d64c7271e6a1abf86ce7b92f0cc984"
+
+[[artifacts]]
+path = "experiments/xdma-identity-flow/review.toml"
+sha256 = "5f73277d0cde868766f2e5cc8e3c351b85ab6954f5174cda17052f80738da6c8"
+
+[[artifacts]]
+path = "tools/guest/inspect-identity-flow.sh"
+sha256 = "fe9337d3c8d4afb76a55a81f985400bf83328eb200481c7dd75092ed5241aa2f"
+
+[[artifacts]]
+path = "experiments/xdma-single-read/results.toml"
+sha256 = "6a7280572ceb02e90ea5443c11b1cf50654fe1fd294665c514f53ec42212e455"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/composition.txt"
+sha256 = "14886de41fa8252574e4cfbce757688d6b75e277a81f26e07859d1d606fcf7a4"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/dynamic-symbols.txt"
+sha256 = "f5f8fc5797043743f4dc3be36abd5f0ba7b091f1c8574789a467f6041d6cb138"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/evidence-sha256.txt"
+sha256 = "7ffeef586086084b961f10b7c73ee0f92fffbef808e4ddf7e0ce7ead012f0288"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/getter.txt"
+sha256 = "0ab95f722d875598b23f63b630d872cd27741069086661880c365ea9ba35147e"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/input-sha256.txt"
+sha256 = "a700603a59e8166e85d7f7326673504d2157a8a5321791573ae6f388da40a958"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/inspect-identity-flow.sh"
+sha256 = "fe9337d3c8d4afb76a55a81f985400bf83328eb200481c7dd75092ed5241aa2f"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/llvm-version.txt"
+sha256 = "d53fedaab6a970efabdc293886b7c22a514a48a065d6b1eeb6cece822d4f2602"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/relocations.txt"
+sha256 = "9474c55b4cc8840a749bfea43a35d5fb76c916db2324b01bba9bdeabf1723db4"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/tool-sha256.txt"
+sha256 = "96be6464a5c435bb8f5d3e7f71d036ad91bd11e5f276bc9662e3a58127bf4904"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/transform.txt"
+sha256 = "711ff359d41a5ca203f163d666ae5dcbe579cd198093880ac8e138e8daaf0b7f"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/vendor-entry.txt"
+sha256 = "6113fbdd51c7b2935edb5152be4c3cc5d40bb2c8cb0748be3edb27d988f648e0"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02/wrapper.txt"
+sha256 = "786facd8eef1ade115186f591a107faf8abb01a230e66e052fc4ce490dfa22ae"
+
+[[artifacts]]
+path = "out/xdma-identity-flow/static-02-verification.txt"
+sha256 = "6f32cecdb6b078125746272badaac294d5773a4e6e61020c1034906668f6b18f"

@@ -1,0 +1,30 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.identity-flow
+contract: sha256:5f7050ea696498aa02a602faa760ac3b0ddf50d96fff58080c5d9419063d9d7d
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:54:45Z"
+evidence:
+  composition: >-
+    docs/research/xdma-identity-flow.md SHA-256
+    a694d724e0a1ec96fcfae0106717f17a86d64c7271e6a1abf86ce7b92f0cc984
+    records stock ELF instructions assembling high word at offset 0x4048 and low word at 0x4044,
+    then masking to 57 bits at 0x285430. Both reads are attempted and their statuses summed.
+    experiments/xdma-identity-flow/results.toml SHA-256
+    2b3298ed995dc59f0ab21668d480b5c43cf8f1c932e69ce10ba3adbdd4f6aee6
+    pins the unchanged library, capture helper, disassembly, symbols, relocations, tool hashes
+    and accepted static-02 index. All artifact hashes and the capture index verified;
+    substantive captures match static-01, whose self-including index remains preserved.
+  consumer-flow: >-
+    The report identifies wrapper status discard at 0x2f1920, global m_DNA storage at 0x42a8ec,
+    and the first direct value comparison in the inspected chain at 0x42a93c against UINT64_MAX.
+    Relocations bind m_DNA and fileKeys. The converter's four stores are decoded, with helper
+    0x42f254 explicitly unresolved and repeated global loads qualified against unknown side effects.
+    Existing live runs stop before the second read completes. No new guest run, synthetic response,
+    physical access or stock-artifact modification occurred. Physical identity semantics remain unknown.
+  review: >-
+    experiments/xdma-identity-flow/review.toml SHA-256
+    5f73277d0cde868766f2e5cc8e3c351b85ab6954f5174cda17052f80738da6c8
+    records independent read-only review of prior paired-run verification and stock dataflow.
+    No material disagreements remain. Final synthesis explicitly qualifies repeated global loads.
+    TOML parse, manifest hashes, shell syntax, whitespace and source-disclosure checks passed.

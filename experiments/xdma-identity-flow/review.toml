@@ -1,0 +1,20 @@
+schema_version = "mho900-lab.identity-flow-review/1"
+classification = "independent-read-only-review-assertion"
+guest_runs = 0
+source_edits = 0
+material_disagreements = 0
+checks = [
+  "Prior zero and patterned single-read evidence passed the existing verifier; native probe bytes matched.",
+  "Stock composition retains 57 bits and sums both read statuses without an early status branch.",
+  "The driver wrapper returns its local zero status rather than the lower routine status.",
+  "Dynamic symbols and relocations identify the global m_DNA and fileKeys objects.",
+  "The first direct value comparison in the inspected chain is the all-ones sentinel check.",
+  "Converter stores match F(D), F(D xor (D >> 1)), low32(D), high32(D); F remains unresolved."
+]
+limits = [
+  "Static downstream dataflow has no new dynamic witness.",
+  "Prior live evidence covers two synthetic first-word values, not physical register semantics.",
+  "Prior runs used the documented scoped guest admission-policy fixture.",
+  "Nearest-symbol disassembly labels do not identify the unresolved helper.",
+  "Final synthesis explicitly qualifies repeated global loads; helper side effects remain unresolved."
+]
