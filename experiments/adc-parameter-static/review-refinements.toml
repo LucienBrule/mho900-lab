@@ -1,0 +1,38 @@
+schema_version = "mho900-lab.adc-parameter-review-refinements/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+precedence = "Clarifies machine-width bucket arithmetic and replaces the provisional selected-series capture formula; other contracts retain their scope."
+
+[bucket]
+input_width = 32
+input_signed = false
+multiplier = 0x10624dd3
+first_shift = 38
+addition = 120000
+second_operand_width = 32
+second_shift = 36
+output_mask = 15
+formula = "((u64(u32(((u64(u32(delay))*0x10624dd3)>>38)+120000))*0x10624dd3)>>36)&15"
+maximum_first_shifted = 4294967
+maximum_second_operand = 4414967
+second_operand_truncation_changes_value = false
+bound_reason = "Input is u32; both multiplication and right shift are monotone on this range without u64 overflow. At the maximum input the intermediate plus120000 is4414967, below2^32. Thus the earlier formula is equivalent for every admitted input."
+
+[series_selected_capture]
+row_entry_bound_offset = 0x10
+row_table_pointer_offset = 8
+row_config_pointer_offset = 0x18
+bound_is_physical_channel_count = false
+whole_table_capture_required = false
+normalized_mask = "if i32(M)<0 or u32(M)>u32(B-1), use0; otherwise M"
+entry_address = "validated table pointer + 16*normalized_mask"
+mode_word_offset = 4
+minimal_bytes = 4
+aligned_entry_bytes = 8
+independent_capture_safety_bound_required = true
+provisional_prefix_length_formula_superseded = "0x10*(channel_count+1)"
+
+[review_limits]
+semantic_prose_automatically_proven = false
+primitive_runtime_inputs_observed = false
+fpga_behavior_known = false
+full_binary_transitive_closure_claimed = false

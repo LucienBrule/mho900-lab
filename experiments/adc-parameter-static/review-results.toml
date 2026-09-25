@@ -1,0 +1,65 @@
+schema_version = "mho900-lab.adc-parameter-review-result/1"
+result = "accepted-bounded-with-capture-plan-correction"
+reviewed_static_commit = "33e21a5"
+unknown_defined_direct_calls_in_selected_closure = 0
+full_binary_transitive_closure_claimed = false
+independent_semantic_reviews = 2
+positive_controls = 1
+negative_controls = 13
+negative_controls_rejected = 13
+byte_decoded_branch_and_call_coverage_checked = true
+semantic_prose_automatically_proven = false
+candidate_write_counts = [97, 100, 244]
+hardware_reads = 2
+bucket_formula_equivalent_over_all_u32_inputs = true
+series_capture_formula_corrected = true
+guest_runs = 0
+new_model_responses = 0
+stock_artifacts_preserved = true
+physical_instrument_access = false
+prior_result_pins_are_historical = true
+prior_result_pin_commit = "33e21a5"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcParameter.main.kts"
+sha256 = "bb4bcfc20c1046014d706e349d340202175854111a8496adafad79017e4a243f"
+
+[[artifacts]]
+path = "tools/research/test-adc-parameter-contract.sh"
+sha256 = "b3d9319e20c293b17c4e162e36b8ad639b682ae42245ca29497b0bcd843c41f2"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/review-refinements.toml"
+sha256 = "b82df0a2b0aa74748f02e2c422126e01c0ce40b781cd4e869df907bb155f6d01"
+
+[[artifacts]]
+path = "docs/research/adc-parameter-review.md"
+sha256 = "a17601ad9097cce36f5178021f6b005831353b910f03f4b503df554921064acf"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-native/review.md"
+sha256 = "e3a0147b4aaf8d6214b7c03823eef36ed9c97c7431a664abced819a1bdf28c85"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-native/review.toml"
+sha256 = "46f5d756a21c6acaec2458f728efe5fed388247ad99abb3d5de37a6f56fc7d02"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-remaining.md"
+sha256 = "a9b45d8cb5e01aa583c5913bcf0a392bf7b2168aa7009ddd91761d1f4689ddc5"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-remaining.toml"
+sha256 = "9bd9f243b060a6c15c3d8d79d9edc3f5b6a78773bd7af9163007288a56f90981"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-root/check01.toml"
+sha256 = "575374bcbbf7d9d65792266797b55b4e2968981025aa409bdb8be5a87e4cc943"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-controls01/summary.toml"
+sha256 = "9d857cc85158ca99b91be5f92f57635c98d219d2f3486c1cabfdefd111873efc"
+
+[[artifacts]]
+path = "out/adc-parameter-static/review-controls01/checker-sha256.txt"
+sha256 = "d59f990db0317c5ba4a7834f7419dbc4b6bd6e5de0be2e9f5ee4a54942aa3f7d"

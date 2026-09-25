@@ -40,6 +40,52 @@ val calls=tabs(inv,"calls");val callKeys=mutableSetOf<Pair<String,Long>>();for(t
 for(t in tabs(inv,"branches")){val owner=sv(t,"owner");val pc=nv(t,"pc");require(pc in ranges.getValue(owner).start until ranges.getValue(owner).end){"branch range $owner 0x${pc.toString(16)}"};require(elf.word(pc)==nv(t,"opcode")){"branch bytes $owner 0x${pc.toString(16)}"};if(sv(t,"kind")=="return")require(na(t,"successors").isEmpty())else require(na(t,"successors").isNotEmpty()){"branch successors $owner 0x${pc.toString(16)}"}}
 for(t in tabs(inv,"tables")){val a=nv(t,"address");val n=nv(t,"bytes").toInt();require(n>0&&sha(elf.bytes(a,n))==sv(t,"sha256")){"inventory table ${sv(t,"id")}"}}
 
+// Independently walk byte-decoded successors, so omitted calls/branches and
+// altered successors cannot pass merely by retaining the original range hash.
+fun sx(value:Long,bits:Int)=(value shl (64-bits)) shr (64-bits)
+val prune=mapOf(0x33f074L to 0x3500042bL,0x33f794L to 0x35000768L,0x33ee24L to 0x540006ecL)
+require(prune.all{(pc,op)->elf.word(pc)==op})
+val jumpSpecs=mapOf(0x281a8cL to (0x9945ccL to 8),0x281f60L to (0x99460cL to 8),0x284500L to (0x9946fcL to 8),0x347ac0L to (0x99c558L to 4))
+val allBranches=tabs(inv,"branches")
+for(rr in ranges.values){
+ val pending=ArrayDeque<Long>();pending.add(rr.start);val seen=mutableSetOf<Long>()
+ val branchPcs=mutableSetOf<Long>();val callPcs=mutableSetOf<Long>()
+ while(pending.isNotEmpty()){
+  val pc=pending.removeFirst();if(!seen.add(pc))continue
+  require(pc%4==0L&&pc in rr.start until rr.end)
+  val op=elf.word(pc);var kind="fallthrough"
+  val next=when{
+   pc in prune->{kind="mode-zero-fallthrough";listOf(pc+4)}
+   op and 0xfffffc1fL==0xd65f0000L->{kind="return";emptyList()}
+   op and 0xfffffc1fL==0xd61f0000L->{kind="table-branch";val (a,n)=requireNotNull(jumpSpecs[pc]){"unresolved BR"};(0 until n).map{a+sx(elf.word(a+4L*it),32)}}
+   op and 0xfc000000L==0x14000000L->{kind="branch";listOf(pc+(sx(op and 0x3ffffff,26) shl 2))}
+   op and 0xff000010L==0x54000000L->{kind="conditional";listOf(pc+4,pc+(sx((op ushr 5)and 0x7ffff,19) shl 2))}
+   op and 0x7e000000L==0x34000000L->{kind="compare-branch";listOf(pc+4,pc+(sx((op ushr 5)and 0x7ffff,19) shl 2))}
+   op and 0x7e000000L==0x36000000L->{kind="test-bit-branch";listOf(pc+4,pc+(sx((op ushr 5)and 0x3fff,14) shl 2))}
+   else->listOf(pc+4)
+  }
+  if(kind!="fallthrough"){
+   branchPcs+=pc;val supplied=allBranches.single{sv(it,"owner")==rr.name&&nv(it,"pc")==pc}
+   require(sv(supplied,"kind")==kind&&na(supplied,"successors")==next){"decoded branch successors"}
+  }
+  if(op and 0xfc000000L==0x94000000L)callPcs+=pc
+  require(op and 0xfffffc1fL!=0xd63f0000L){"unresolved indirect call"}
+  next.filter{it in rr.start until rr.end}.forEach(pending::addLast)
+ }
+ require(allBranches.filter{sv(it,"owner")==rr.name}.map{nv(it,"pc")}.toSet()==branchPcs){"branch coverage"}
+ require(calls.filter{sv(it,"owner")==rr.name}.map{nv(it,"pc")}.toSet()==callPcs){"call coverage"}
+ val rt=tabs(inv,"ranges").single{sv(it,"name")==rr.name}
+ require(nv(rt,"reachable_instruction_count")==seen.size.toLong()){"reachable instruction count"}
+}
+for(t in calls){
+ val dest=nv(t,"branch_target");val name=sv(t,"symbol")
+ if("relocation_slot" in t.v){val s=requireNotNull(elf.rels[nv(t,"relocation_slot")]?.symbol);require(nv(t,"resolved_target")==s.value&&bv(t,"defined")== (s.section!=0))}
+ else if(name=="UNRESOLVED")require(nv(t,"resolved_target")==dest&&!bv(t,"defined"))
+ else{val s=elf.symbols.getValue(name);require(s.value==dest&&nv(t,"resolved_target")==dest&&bv(t,"defined"))}
+ require(bv(t,"expanded")==ranges.containsKey(name)){"expanded target"}
+}
+for(t in tabs(inv,"tables")){val a=nv(t,"address");val n=nv(t,"bytes").toInt();require(nv(t,"element_width")==4L&&bv(t,"signed"));require(na(t,"values")== (0 until n/4).map{sx(elf.word(a+4L*it),32)}){"decoded table values"}}
+
 val main=load("main-grammar.toml");checkPin(main);require(str(root(main,"schema_version"))=="mho900-lab.adc-parameter-main-grammar/1");require(num(root(main,"function_start"))==0x33efe0L&&num(root(main,"function_end_exclusive"))==0x33fc80L&&num(root(main,"mode"))==0L);require(num(root(main,"mode_zero_main_call_sites"))==13L&&num(root(main,"mode_zero_main_call_invocations"))==35L&&num(root(main,"record_reads_described_here"))==62L)
 val nodes=tabs(main,"nodes");val ids=listOf("reference","spu-gain","quad-gain","stary","core-offset","sample-clock-delay","clock-delay","synchronize","return");require(nodes.map{sv(it,"id")}==ids&&nodes.map{nv(it,"order")}==(0L..8L).toList()){"main node order"}
 data class Field(val base:Long,val stride:Long,val width:Long,val count:Long,val signed:Boolean)
