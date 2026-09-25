@@ -1,0 +1,50 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-parameter-static
+    title: Recover the complete mode-zero ADC parameter software contract
+    state: open
+    intent: Recover a typed operation graph through SetADCParameter zero and its callees using immutable stock bytes and observed entry data.
+    requires: [TASK.guest.calibration-repeat-decision]
+    requirements:
+      - Pin stock ELF and existing disassembly provenance plus the accepted loader entry and terminal captures; distinguish live zero record evidence from physical calibration semantics.
+      - Recover the complete mode-zero path through return including transitive helpers such as SetAdcStary, call ordering, record offsets widths signedness, immutable tables, loop bounds, arithmetic, masks, shifts, delays, and return-use or error propagation.
+      - Resolve direct calls and relevant relocation bindings from ELF bytes; identify unresolved indirect or runtime selectors explicitly rather than assuming graph completeness.
+      - Produce project-authored TOML operation graph and reproducible typed Kotlin extraction or checking tooling with exact byte ranges and hashes; preserve source artifacts and do not launch a guest or change an observer model.
+      - Classify operations as static-determined runtime-selected hardware-returned asynchronous or unknown; distinguish complete software formulas from absent FPGA semantics and list the smallest unresolved input boundary.
+      - Evaluate formulas under the observed zero ADC record only where all other required inputs are known; preserve live shadows and unobserved globals as parameters rather than inventing values or claiming a validated hardware transcript.
+    acceptance: [An auditable whole-subsystem static contract with explicit completeness limits and unresolved boundaries is committed and pushed.]
+    verification: [inputs, extraction, grammar, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-parameter-review
+    title: Independently verify mode-zero ADC contract recovery
+    state: open
+    intent: Check authored formulas control flow tables and classifications against stock bytes before choosing dynamic validation.
+    requires: [TASK.guest.adc-parameter-static]
+    requirements:
+      - Independently inspect stock byte ranges branch coverage call bindings field mappings table bounds and all hardware-facing operations in the selected mode-zero closure.
+      - Reproduce extraction or checking outputs and test meaningful altered-contract rejection for operands bounds signedness or omitted branches where machine checking is supported; do not treat matching generated assertions as independent proof.
+      - Report unresolved algorithms runtime inputs and genuine hardware behavior separately; reconcile material errors before accepting the graph and preserve an explicit limit if complete recovery is not supported.
+      - No guest execution or new model responses; preserve stock hashes and commit and push the reviewed static conclusion.
+    acceptance: [An independently reviewed bounded static contract or precise unresolved limit is committed and pushed.]
+    verification: [review, controls, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-parameter-decision
+    title: Select selective runtime falsification at the next real ambiguity
+    state: open
+    intent: Choose a whole-sequence validation or the smallest unresolved input question from the reviewed static contract.
+    requires: [TASK.guest.adc-parameter-review]
+    requirements:
+      - Compare complete software predictions with runtime-selected hardware-returned asynchronous and unknown inputs; do not return to one deterministic write per experiment.
+      - Prefer the existing mapped-access observer while it preserves stock semantics thread coverage and useful observability; justify any changed boundary with a concrete deficiency.
+      - State the exact next bounded hypothesis required synthetic responses or captures and terminal checkpoint before drafting planning inspecting admitting committing and pushing successor tasking.
+    acceptance: [A justified bounded successor is admitted and committed before implementation or guest execution.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

@@ -1,0 +1,59 @@
+schema_version = "mho900-lab.adc-parameter-static-decision/1"
+result = "admit-complete-mode-zero-static-recovery"
+stock_loader_prediction_verified = true
+terminal_relative_pc = 0x333ba8
+next_function_relative_pc = 0x33efe0
+next_function_end_exclusive = 0x33fc80
+mode = 0
+observed_adc_record_offset = 0x8804
+observed_adc_record_bytes = 1936
+observed_adc_nonzero_bytes = 0
+live_shadows_fully_known = false
+unobserved_globals_are_parameters = true
+guest_runs_in_batch = 0
+observer_changes_in_batch = 0
+new_hardware_responses_in_batch = 0
+stock_artifacts_must_remain_unchanged = true
+classes = ["STATIC-DETERMINED", "RUNTIME-SELECTED", "HARDWARE-RETURNED", "ASYNCHRONOUS", "UNKNOWN"]
+preferred_observation_boundary = "stock-mapped-access-and-precise-stops"
+boundary_change_requires_concrete_deficiency = true
+
+[[artifacts]]
+path = "docs/research/adc-parameter-static-decision.md"
+sha256 = "300183be65cc96993826b767bc18da75563b7f94993bf9e06f85ecfc9034b77e"
+
+[[artifacts]]
+path = ".agents/plans/adc-parameter-static.yaml"
+sha256 = "a0d3fab92cb3d44d13019abe2fe261396fadc5192930d56b9e8f10c27a3d9f83"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-run02-results.toml"
+sha256 = "d26cbe3d0157c6514d1cd06082fdd3e150c23b6a4749a5371147ed9f49d19727"
+
+[[artifacts]]
+path = "out/calibration-loaders/adc-static-scope-review.md"
+sha256 = "19df2901a6f3d2f48e59ce580cd8bf61203331488f98826389a37b71239a328b"
+
+[[artifacts]]
+path = "out/calibration-loaders/adc-parameter-static-plan.txt"
+sha256 = "3367f7d90673b407b4e4e53125ac3bfadcbad641c6bfaa7072c36c6258afda11"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-loader-entry-adc.bin"
+sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-loader-terminal-adc.bin"
+sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+
+[[artifacts]]
+path = "experiments/calibration-static/adc-parameters.toml"
+sha256 = "95f6a939eb53e9524dfbc9d0930b205897498f5dfff5a88a7a31b79dde2fcb3d"
+
+[[artifacts]]
+path = "experiments/calibration-static/call-inventory.toml"
+sha256 = "43551a47ef218564aa66028ec65b1f988e2b49129173dd1081fa30beeaa3acca"
+
+[[artifacts]]
+path = "experiments/calibration-static/review-refinements.toml"
+sha256 = "1ed808fcb98763ed1ae8685eef47a7469ef2b0aadc38f3c01d6b2096e45f3511"
