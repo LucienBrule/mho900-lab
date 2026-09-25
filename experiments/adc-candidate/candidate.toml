@@ -1,0 +1,2522 @@
+schema_version = "mho900-lab.adc-candidate/1"
+classification = "derived-software-prediction"
+guest_executed = false
+hardware_read_values_supplied = false
+mode = 0
+writes = 97
+reads = 2
+requested_delay_us = 25200
+entry_call_pc = 0x333ba8
+return_instruction_pc = 0x33fc78
+post_return_pc = 0x333bac
+post_return_opcode = 0x5285070a
+normal_return = 0
+normal_return_requires_stack_check = true
+helper_statuses_control_main_branch = false
+read_use = "bit16 selects low16 or initialized zero, then XOR mask[1]; caller logs only"
+transport_assumption = "mapped base present; normal mutex and logging completion"
+thread_scope = "one stopped thread-group snapshot; future observation must cover all mapping users"
+original_experiment_result = "frozen-full-verifier-rejected; separate offline completeness review"
+
+[selection]
+selector0 = 8
+selector1 = 900
+row = 2
+table_bound = 16
+raw_mask = 0
+normalized_mask = 0
+sample_mode = 1
+sample_rate_s64 = 0
+branch = "stary-bypass-only"
+master_index = 0
+config_delay_u32 = 250000
+config_point_time_u32 = 250000
+channel_delay_u32 = [0, 0, 0, 0]
+scale_s64 = 50000000
+impedance_s32 = 0
+scale_index = 3
+bucket = 0
+matrix_values_used_for_mmio = false
+
+[[calibration_fields]]
+name = "reference[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x50
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "reference[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x52
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "fine[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4d0
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4d4
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[2]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4d8
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[3]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4dc
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[4]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4e0
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[5]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4e4
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[6]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4e8
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[7]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4ec
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[8]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4f0
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[9]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4f4
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[10]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4f8
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[11]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4fc
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[12]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x500
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[13]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x504
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[14]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x508
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "fine[15]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x50c
+type = "u32"
+value = 0
+
+[[calibration_fields]]
+name = "gain[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x20
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x22
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[2]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x24
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[3]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x26
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[4]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x28
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[5]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x2a
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[6]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x2c
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[7]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x2e
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[8]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x30
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[9]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x32
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[10]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x34
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[11]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x36
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[12]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x38
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[13]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x3a
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[14]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x3c
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "gain[15]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x3e
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x0
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x2
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[2]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[3]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x6
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[4]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x8
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[5]"
+source = "native-loader-terminal-adc.bin"
+offset = 0xa
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[6]"
+source = "native-loader-terminal-adc.bin"
+offset = 0xc
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[7]"
+source = "native-loader-terminal-adc.bin"
+offset = 0xe
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[8]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x10
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[9]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x12
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[10]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x14
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[11]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x16
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[12]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x18
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[13]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x1a
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[14]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x1c
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "offset[15]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x1e
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x40
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x42
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[2]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x44
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[3]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x46
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[4]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x48
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[5]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4a
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[6]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4c
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "sampleDelay[7]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x4e
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "clockFine[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x200
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "clockFine[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x204
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "clockCoarse[0]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x202
+type = "s16"
+value = 0
+
+[[calibration_fields]]
+name = "clockCoarse[1]"
+source = "native-loader-terminal-adc.bin"
+offset = 0x206
+type = "s16"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].scale"
+source = "adc-input-setting.bin"
+offset = 0x0
+type = "s64"
+value = 50000000
+
+[[runtime_fields]]
+name = "channel[0].impedance"
+source = "adc-input-setting.bin"
+offset = 0x1c
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].delay"
+source = "adc-input-setting.bin"
+offset = 0x28
+type = "s64"
+value = 0
+
+[[runtime_fields]]
+name = "probe[0].delay"
+source = "adc-input-setting.bin"
+offset = 0x338
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[0]"
+source = "adc-input-setting.bin"
+offset = 0xb4
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[1]"
+source = "adc-input-setting.bin"
+offset = 0xb5
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[2]"
+source = "adc-input-setting.bin"
+offset = 0xb6
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[3]"
+source = "adc-input-setting.bin"
+offset = 0xb7
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[4]"
+source = "adc-input-setting.bin"
+offset = 0xb8
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[5]"
+source = "adc-input-setting.bin"
+offset = 0xb9
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[6]"
+source = "adc-input-setting.bin"
+offset = 0xba
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[0].on[7]"
+source = "adc-input-setting.bin"
+offset = 0xbb
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].scale"
+source = "adc-input-setting.bin"
+offset = 0xc0
+type = "s64"
+value = 50000000
+
+[[runtime_fields]]
+name = "channel[1].impedance"
+source = "adc-input-setting.bin"
+offset = 0xdc
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].delay"
+source = "adc-input-setting.bin"
+offset = 0xe8
+type = "s64"
+value = 0
+
+[[runtime_fields]]
+name = "probe[1].delay"
+source = "adc-input-setting.bin"
+offset = 0x378
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[0]"
+source = "adc-input-setting.bin"
+offset = 0x174
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[1]"
+source = "adc-input-setting.bin"
+offset = 0x175
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[2]"
+source = "adc-input-setting.bin"
+offset = 0x176
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[3]"
+source = "adc-input-setting.bin"
+offset = 0x177
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[4]"
+source = "adc-input-setting.bin"
+offset = 0x178
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[5]"
+source = "adc-input-setting.bin"
+offset = 0x179
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[6]"
+source = "adc-input-setting.bin"
+offset = 0x17a
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[1].on[7]"
+source = "adc-input-setting.bin"
+offset = 0x17b
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].scale"
+source = "adc-input-setting.bin"
+offset = 0x180
+type = "s64"
+value = 50000000
+
+[[runtime_fields]]
+name = "channel[2].impedance"
+source = "adc-input-setting.bin"
+offset = 0x19c
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].delay"
+source = "adc-input-setting.bin"
+offset = 0x1a8
+type = "s64"
+value = 0
+
+[[runtime_fields]]
+name = "probe[2].delay"
+source = "adc-input-setting.bin"
+offset = 0x3b8
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[0]"
+source = "adc-input-setting.bin"
+offset = 0x234
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[1]"
+source = "adc-input-setting.bin"
+offset = 0x235
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[2]"
+source = "adc-input-setting.bin"
+offset = 0x236
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[3]"
+source = "adc-input-setting.bin"
+offset = 0x237
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[4]"
+source = "adc-input-setting.bin"
+offset = 0x238
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[5]"
+source = "adc-input-setting.bin"
+offset = 0x239
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[6]"
+source = "adc-input-setting.bin"
+offset = 0x23a
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[2].on[7]"
+source = "adc-input-setting.bin"
+offset = 0x23b
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].scale"
+source = "adc-input-setting.bin"
+offset = 0x240
+type = "s64"
+value = 50000000
+
+[[runtime_fields]]
+name = "channel[3].impedance"
+source = "adc-input-setting.bin"
+offset = 0x25c
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].delay"
+source = "adc-input-setting.bin"
+offset = 0x268
+type = "s64"
+value = 0
+
+[[runtime_fields]]
+name = "probe[3].delay"
+source = "adc-input-setting.bin"
+offset = 0x3f8
+type = "s32"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[0]"
+source = "adc-input-setting.bin"
+offset = 0x2f4
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[1]"
+source = "adc-input-setting.bin"
+offset = 0x2f5
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[2]"
+source = "adc-input-setting.bin"
+offset = 0x2f6
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[3]"
+source = "adc-input-setting.bin"
+offset = 0x2f7
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[4]"
+source = "adc-input-setting.bin"
+offset = 0x2f8
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[5]"
+source = "adc-input-setting.bin"
+offset = 0x2f9
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[6]"
+source = "adc-input-setting.bin"
+offset = 0x2fa
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "channel[3].on[7]"
+source = "adc-input-setting.bin"
+offset = 0x2fb
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "sampleRate"
+source = "adc-input-drvparam.bin"
+offset = 0x8
+type = "s64"
+value = 0
+
+[[runtime_fields]]
+name = "masterSource"
+source = "adc-input-setting.bin"
+offset = 0x1b30
+type = "s32"
+value = 1
+
+[[runtime_fields]]
+name = "bode"
+source = "adc-input-setting.bin"
+offset = 0x1c70
+type = "u8-bit0"
+value = 0
+
+[[runtime_fields]]
+name = "sampleMode"
+source = "adc-input-sample-entry.bin"
+offset = 0x4
+type = "u32"
+value = 1
+
+[[runtime_fields]]
+name = "delay"
+source = "adc-input-config.bin"
+offset = 0x20
+type = "u32"
+value = 250000
+
+[[runtime_fields]]
+name = "pointTime"
+source = "adc-input-config.bin"
+offset = 0x38
+type = "u32"
+value = 250000
+
+[[mask_words]]
+register = 1
+value = 0x0
+
+[[mask_words]]
+register = 4
+value = 0x8080
+
+[[mask_words]]
+register = 5
+value = 0x8080
+
+[[mask_words]]
+register = 9
+value = 0x2720
+
+[[mask_words]]
+register = 20
+value = 0x0
+
+[[mask_words]]
+register = 21
+value = 0x0
+
+[[mask_words]]
+register = 28
+value = 0x0
+
+[[mask_words]]
+register = 29
+value = 0x0
+
+[[mask_words]]
+register = 36
+value = 0x0
+
+[[mask_words]]
+register = 37
+value = 0x0
+
+[[mask_words]]
+register = 44
+value = 0x0
+
+[[mask_words]]
+register = 45
+value = 0x0
+
+[[mask_words]]
+register = 52
+value = 0x0
+
+[[mask_words]]
+register = 53
+value = 0x0
+
+[[mask_words]]
+register = 60
+value = 0x0
+
+[[mask_words]]
+register = 61
+value = 0x0
+
+[[mask_words]]
+register = 68
+value = 0x0
+
+[[mask_words]]
+register = 69
+value = 0x0
+
+[[mask_words]]
+register = 76
+value = 0x0
+
+[[mask_words]]
+register = 77
+value = 0x0
+
+[[shadows]]
+name = "reference09"
+address = 0x3cb45bc
+width = 2
+initial = [22305, 18209]
+final = [22272, 18176]
+
+[[shadows]]
+name = "gainAndDelay"
+address = 0x3cb45a6
+width = 2
+initial = [2, 2, 2, 2, 2, 2, 2, 2]
+final = [0, 0, 0, 0, 0, 0, 0, 0]
+
+[[shadows]]
+name = "offset"
+address = 0x3cb457c
+width = 2
+initial = [0, 0, 0, 0, 0, 0, 0, 0]
+final = [0, 0, 0, 0, 0, 0, 0, 0]
+
+[[shadows]]
+name = "clock01"
+address = 0x3cb45b8
+width = 2
+initial = [0, 0]
+final = [0, 0]
+
+[[shadows]]
+name = "sample04"
+address = 0x3cb45ec
+width = 2
+initial = [32768, 32768]
+final = [0, 0]
+
+[[shadows]]
+name = "sample05"
+address = 0x3cb45d8
+width = 2
+initial = [0, 0]
+final = [0, 0]
+
+[[shadows]]
+name = "fineGain"
+address = 0x3cb4534
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "syncControl"
+address = 0x3cb44fc
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustGain"
+address = 0xbe1138
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustGainLoad"
+address = 0xbe1144
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustOffset1"
+address = 0xbe113c
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustOffset1Load"
+address = 0xbe1148
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustOffset2"
+address = 0xbe1140
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustOffset2Load"
+address = 0xbe114c
+width = 4
+initial = [0]
+final = [0]
+
+[[shadows]]
+name = "adjustControl"
+address = 0xbe1150
+width = 4
+initial = [0]
+final = [1]
+
+[[transitions]]
+phase = "REFERENCE"
+shadow = "reference09"
+index = 0
+before = 22305
+after = 22272
+
+[[transitions]]
+phase = "REFERENCE"
+shadow = "reference09"
+index = 1
+before = 18209
+after = 18176
+
+[[transitions]]
+phase = "FINE_GAIN"
+shadow = "fineGain"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 0
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 4
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 4
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 1
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 5
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 1
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 5
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 2
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 6
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 2
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 6
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 3
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 7
+before = 2
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 3
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_GAIN"
+shadow = "gainAndDelay"
+index = 7
+before = 0
+after = 0
+
+[[transitions]]
+phase = "STARY"
+shadow = "adjustControl"
+index = 0
+before = 0
+after = 1
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 1
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 2
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 3
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 4
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 5
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 6
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 7
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 1
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 2
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 3
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 4
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 5
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 6
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CORE_OFFSET"
+shadow = "offset"
+index = 7
+before = 0
+after = 0
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample04"
+index = 0
+before = 32768
+after = 32768
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample05"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample04"
+index = 0
+before = 32768
+after = 0
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample05"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample04"
+index = 1
+before = 32768
+after = 32768
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample05"
+index = 1
+before = 0
+after = 0
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample04"
+index = 1
+before = 32768
+after = 0
+
+[[transitions]]
+phase = "SAMPLE_DELAY"
+shadow = "sample05"
+index = 1
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CLOCK_DELAY"
+shadow = "clock01"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "CLOCK_DELAY"
+shadow = "clock01"
+index = 1
+before = 0
+after = 0
+
+[[transitions]]
+phase = "SYNC"
+shadow = "syncControl"
+index = 0
+before = 0
+after = 0
+
+[[transitions]]
+phase = "SYNC"
+shadow = "syncControl"
+index = 0
+before = 0
+after = 2
+
+[[transitions]]
+phase = "SYNC"
+shadow = "syncControl"
+index = 0
+before = 2
+after = 0
+
+[[operations]]
+index = 0
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x5097020
+
+[[operations]]
+index = 1
+phase = "REFERENCE"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 2
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x1097020
+
+[[operations]]
+index = 3
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x6096020
+
+[[operations]]
+index = 4
+phase = "REFERENCE"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 5
+phase = "REFERENCE"
+kind = "W32"
+offset = 0x3000
+value = 0x2096020
+
+[[operations]]
+index = 6
+phase = "FINE_GAIN"
+kind = "W32"
+offset = 0x1058
+value = 0x0
+
+[[operations]]
+index = 7
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5150000
+
+[[operations]]
+index = 8
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 9
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1150000
+
+[[operations]]
+index = 10
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5350000
+
+[[operations]]
+index = 11
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 12
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1350000
+
+[[operations]]
+index = 13
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6150000
+
+[[operations]]
+index = 14
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 15
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2150000
+
+[[operations]]
+index = 16
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6350000
+
+[[operations]]
+index = 17
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 18
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2350000
+
+[[operations]]
+index = 19
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x51d0000
+
+[[operations]]
+index = 20
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 21
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x11d0000
+
+[[operations]]
+index = 22
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x53d0000
+
+[[operations]]
+index = 23
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 24
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x13d0000
+
+[[operations]]
+index = 25
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x61d0000
+
+[[operations]]
+index = 26
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 27
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x21d0000
+
+[[operations]]
+index = 28
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x63d0000
+
+[[operations]]
+index = 29
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 30
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x23d0000
+
+[[operations]]
+index = 31
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5250000
+
+[[operations]]
+index = 32
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 33
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1250000
+
+[[operations]]
+index = 34
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x5450000
+
+[[operations]]
+index = 35
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 36
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x1450000
+
+[[operations]]
+index = 37
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6250000
+
+[[operations]]
+index = 38
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 39
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2250000
+
+[[operations]]
+index = 40
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x6450000
+
+[[operations]]
+index = 41
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 42
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x2450000
+
+[[operations]]
+index = 43
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x52d0000
+
+[[operations]]
+index = 44
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 45
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x12d0000
+
+[[operations]]
+index = 46
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x54d0000
+
+[[operations]]
+index = 47
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 48
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x14d0000
+
+[[operations]]
+index = 49
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x62d0000
+
+[[operations]]
+index = 50
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 51
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x22d0000
+
+[[operations]]
+index = 52
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x64d0000
+
+[[operations]]
+index = 53
+phase = "CORE_GAIN"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 54
+phase = "CORE_GAIN"
+kind = "W32"
+offset = 0x3000
+value = 0x24d0000
+
+[[operations]]
+index = 55
+phase = "STARY"
+kind = "W32"
+offset = 0x1574
+value = 0x1
+
+[[operations]]
+index = 56
+phase = "STARY"
+kind = "SLEEP"
+microseconds = 20000
+
+[[operations]]
+index = 57
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5140000
+
+[[operations]]
+index = 58
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 59
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1140000
+
+[[operations]]
+index = 60
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x51c0000
+
+[[operations]]
+index = 61
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 62
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x11c0000
+
+[[operations]]
+index = 63
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5240000
+
+[[operations]]
+index = 64
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 65
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1240000
+
+[[operations]]
+index = 66
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x52c0000
+
+[[operations]]
+index = 67
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 68
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x12c0000
+
+[[operations]]
+index = 69
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5340000
+
+[[operations]]
+index = 70
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 71
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1340000
+
+[[operations]]
+index = 72
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x53c0000
+
+[[operations]]
+index = 73
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 74
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x13c0000
+
+[[operations]]
+index = 75
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x5440000
+
+[[operations]]
+index = 76
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 77
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x1440000
+
+[[operations]]
+index = 78
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x54c0000
+
+[[operations]]
+index = 79
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 80
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x14c0000
+
+[[operations]]
+index = 81
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6140000
+
+[[operations]]
+index = 82
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 83
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2140000
+
+[[operations]]
+index = 84
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x61c0000
+
+[[operations]]
+index = 85
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 86
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x21c0000
+
+[[operations]]
+index = 87
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6240000
+
+[[operations]]
+index = 88
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 89
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2240000
+
+[[operations]]
+index = 90
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x62c0000
+
+[[operations]]
+index = 91
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 92
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x22c0000
+
+[[operations]]
+index = 93
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6340000
+
+[[operations]]
+index = 94
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 95
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2340000
+
+[[operations]]
+index = 96
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x63c0000
+
+[[operations]]
+index = 97
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 98
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x23c0000
+
+[[operations]]
+index = 99
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x6440000
+
+[[operations]]
+index = 100
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 101
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x2440000
+
+[[operations]]
+index = 102
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x64c0000
+
+[[operations]]
+index = 103
+phase = "CORE_OFFSET"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 104
+phase = "CORE_OFFSET"
+kind = "W32"
+offset = 0x3000
+value = 0x24c0000
+
+[[operations]]
+index = 105
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5040080
+
+[[operations]]
+index = 106
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 107
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1040080
+
+[[operations]]
+index = 108
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5058080
+
+[[operations]]
+index = 109
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 110
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1058080
+
+[[operations]]
+index = 111
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5048080
+
+[[operations]]
+index = 112
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 113
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1048080
+
+[[operations]]
+index = 114
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5058080
+
+[[operations]]
+index = 115
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 116
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1058080
+
+[[operations]]
+index = 117
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6040080
+
+[[operations]]
+index = 118
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 119
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2040080
+
+[[operations]]
+index = 120
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6058080
+
+[[operations]]
+index = 121
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 122
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2058080
+
+[[operations]]
+index = 123
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6048080
+
+[[operations]]
+index = 124
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 125
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2048080
+
+[[operations]]
+index = 126
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6058080
+
+[[operations]]
+index = 127
+phase = "SAMPLE_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 128
+phase = "SAMPLE_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2058080
+
+[[operations]]
+index = 129
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5010000
+
+[[operations]]
+index = 130
+phase = "CLOCK_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 131
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1010000
+
+[[operations]]
+index = 132
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x5810000
+
+[[operations]]
+index = 133
+phase = "CLOCK_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 134
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x1810000
+
+[[operations]]
+index = 135
+phase = "CLOCK_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 136
+phase = "CLOCK_DELAY"
+kind = "R32"
+offset = 0x3004
+chip = 0
+value_class = "HARDWARE-RETURNED-UNOBSERVED"
+mask = 0x0
+
+[[operations]]
+index = 137
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6010000
+
+[[operations]]
+index = 138
+phase = "CLOCK_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 139
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2010000
+
+[[operations]]
+index = 140
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x6810000
+
+[[operations]]
+index = 141
+phase = "CLOCK_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 142
+phase = "CLOCK_DELAY"
+kind = "W32"
+offset = 0x3000
+value = 0x2810000
+
+[[operations]]
+index = 143
+phase = "CLOCK_DELAY"
+kind = "SLEEP"
+microseconds = 100
+
+[[operations]]
+index = 144
+phase = "CLOCK_DELAY"
+kind = "R32"
+offset = 0x3004
+chip = 1
+value_class = "HARDWARE-RETURNED-UNOBSERVED"
+mask = 0x0
+
+[[operations]]
+index = 145
+phase = "SYNC"
+kind = "W32"
+offset = 0x1000
+value = 0x0
+
+[[operations]]
+index = 146
+phase = "SYNC"
+kind = "SLEEP"
+microseconds = 200
+
+[[operations]]
+index = 147
+phase = "SYNC"
+kind = "W32"
+offset = 0x1000
+value = 0x2
+
+[[operations]]
+index = 148
+phase = "SYNC"
+kind = "SLEEP"
+microseconds = 200
+
+[[operations]]
+index = 149
+phase = "SYNC"
+kind = "W32"
+offset = 0x1000
+value = 0x0
+
+[[inputs]]
+path = "out/adc-input-evidence-review/review01/review.toml"
+sha256 = "b34cf1a86a01dc54cbc14e28de60989352579423224e7ddfb8096d1990b0810b"
+
+[[inputs]]
+path = "local/reversing/firmware-extracted/stock-0.26/sparrow/base/lib/arm64-v8a/libscope-auklet.so"
+sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+
+[[inputs]]
+path = "tools/research/InstantiateAdcCandidate.main.kts"
+sha256 = "05d1ba7b7f294944342407b012b0a56556695a2b3e446ec5d19754c6334461e9"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-config.bin"
+sha256 = "5eb791b353732ce48c1f9142c9d0c4bc30c0a35c8b33980c4a3fc8241d22e338"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-config.bin-pull.txt"
+sha256 = "1891de93cd31e648b8f7e6e42e507c8bd9be803c4e96486e3ad5f21e4f48e54e"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-drvparam.bin"
+sha256 = "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-drvparam.bin-pull.txt"
+sha256 = "22fcb8dc59c1ca2d8c2be7ab7e2ce47517d23535d3e0693fef8f550b579abcc1"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-global-inputs.bin"
+sha256 = "f1569a69ceb6ad2f592ffdd9e5cd439dbadaa593d5edc830bb65fe41de1a5fb2"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-global-inputs.bin-pull.txt"
+sha256 = "f2f5f1ac64437b9fb361815374d425d79230a17db56abf76232e163ed09aa2d5"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-maps.txt"
+sha256 = "7ef722d7a257fe9b74e611ca34de76f74232edd49904541d995b5114d2418c5f"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-maps.txt-pull.txt"
+sha256 = "c6a8418065f8a630b0a51a63aed525f80e4027553cb935f0524571a25db0ef0c"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-matrix.bin"
+sha256 = "5bf20baa8e81253184e83e29702e76687430b972a8233683351fa1a158abdcff"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-matrix.bin-pull.txt"
+sha256 = "e9f1c92e105f074f63a4bc181afc449a439d34fd785fb2fe2d8166f3da59ce54"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-pulls.toml"
+sha256 = "2044b32c40856dba14d677e67f213f3328d58470465b70948260e65e184d0f76"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-sample-entry.bin"
+sha256 = "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-sample-entry.bin-pull.txt"
+sha256 = "1872d71d222128f0f1c7160a87d60bd9d4e37851df08fff9f2be2f387ddc5748"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-series.bin"
+sha256 = "4d51d3934cbea95b5523d25a841f67ccbe6e5c210722ebd812fd83082a66c101"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-series.bin-pull.txt"
+sha256 = "43fdfb1bd99a54f2196c39b1739ff003b6c5901119feef5f13402d2dfc0b628e"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-setting.bin"
+sha256 = "25c5f2dd1971b65be00855370eed758340c817df08c7744ce055afb749fa4292"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-setting.bin-pull.txt"
+sha256 = "22cbb0fbb8cdea34a1713426892bd40f71095195f023c7c1b1b17af8b8b7ac53"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-shadow-high.bin"
+sha256 = "0c8b84d1b5a0124b32b6e35a7e3b0080bd872a027033e6dcb629897561938199"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-shadow-high.bin-pull.txt"
+sha256 = "df78f2175d6571823a2d5a402b0df83aec7f554511e81b34530da209aa70ea5c"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-shadow-low.bin"
+sha256 = "f667f4330187003d9a0261d430e1d9bd1370a17a6f35ad2fdcd94a5dc4d3bde7"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-input-shadow-low.bin-pull.txt"
+sha256 = "e6a520fbd0043956ab1f73fd9634866f50e83be924e04afba06c97b11c787487"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/getter-inputs.toml"
+sha256 = "9daa0d606744a98f0fd96bfd0962dc324934caab09530f43fb2faacae44cf3f8"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/helper-grammar.toml"
+sha256 = "b74b4edeb422ac85b9a0b3ab96a13caf276a28d27dc227f0259b7a2ddbc28bc9"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/helper-refinements.toml"
+sha256 = "709c4b340b74b71e32f7ff7338d3af2c2425d9cb9e2b4575310b2a93a668ac71"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/integer-refinements.toml"
+sha256 = "d268a5b111373edbe78501ef7ff6e1fb28496fc3ebf1f5c99ce8f55e189c5355"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/main-grammar.toml"
+sha256 = "65e346f18029530832ed7f684199d20a04812ad033cd7f4d0561b73b9a142c2c"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/scope.toml"
+sha256 = "170b6b99f14143944c9a682ac56bf8680c33480dc2bca0328f3c6ac4ff3d0f09"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/stary-grammar.toml"
+sha256 = "9ea7bd9d912dd0d5ab5c243469f32ee0ed5de866c59f4a5f4f8830063b2f73b0"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/adc-parameter-static/stary-refinements.toml"
+sha256 = "368a10344670f3346e6c04fb4ac0f8eb9ff2eb3510faa3463a202c39fe8a81bc"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/native-loader-terminal-adc.bin"
+sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/source/adc-input-capture-decision.toml"
+sha256 = "49554ca20c721623d947b42c211948a2ba2f91d32d9b1c27a36c06fb3f617a9f"
+
+[[inputs]]
+path = "out/guest-admission/stock-adc-input-capture-01/source/adc-input-capture-inputs.toml"
+sha256 = "85ed7a716d7ad91adae54b4b07288c8d4fe2e3148fc4ddde124234b042db8117"

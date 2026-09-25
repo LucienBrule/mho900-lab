@@ -1,0 +1,54 @@
+schema_version = "mho900-lab.adc-candidate-result/1"
+result = "complete-candidate-independently-checked"
+classification = "derived-software-prediction"
+reviewed_input_artifacts = 333
+calibration_fields = 62
+runtime_fields = 54
+mutable_shadow_objects = 15
+shadow_transitions = 49
+operations = 150
+writes = 97
+unknown_reads = 2
+sleep_requests = 51
+requested_sleep_us = 25200
+host_positive_cases = 1
+host_negative_cases = 12
+all_host_controls_matched = true
+signed_arithmetic_controls_passed = true
+original_stock_experiment = "frozen-full-verifier-rejected"
+offline_coverage_review = "separate-and-complete"
+guest_runs = 0
+new_hardware_responses = 0
+physical_instrument_access = false
+
+[[artifacts]]
+path = "experiments/adc-candidate/candidate.toml"
+sha256 = "5339cbe2af98ce52f99776f9eeba3b5dc391d8f1269b094123a3eec4caf19d70"
+
+[[artifacts]]
+path = "experiments/adc-candidate/sequence.tsv"
+sha256 = "d43f2f307125cd70b11c0164412ad846abc51b6b30ad092497b5ae103f8741cd"
+
+[[artifacts]]
+path = "docs/research/adc-candidate.md"
+sha256 = "c621fd86617a9c8217088e8ee98200880881ce7ba0f2074aa72b2e00dbcacaa0"
+
+[[artifacts]]
+path = "tools/research/InstantiateAdcCandidate.main.kts"
+sha256 = "05d1ba7b7f294944342407b012b0a56556695a2b3e446ec5d19754c6334461e9"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcCandidate.main.kts"
+sha256 = "4a63803e1a127415b02f41b3ca44140b5bbf426aa931c327099660012eef4967"
+
+[[artifacts]]
+path = "tools/research/test-adc-candidate.main.kts"
+sha256 = "f36859133d99b7dfea08b7ce079fe3f3fe687f32529933fdec7dfc024c09f829"
+
+[[artifacts]]
+path = "out/adc-candidate/tracked-verification.toml"
+sha256 = "ff7bac0f07bcf442ddb5bbd99949c18066c82c3b26a1fa3f86f59d87bb736699"
+
+[[artifacts]]
+path = "out/adc-candidate/controls01/results.toml"
+sha256 = "5fa363adfc8612464561b3e72fa274a0b605a7524026c5c17fe39e2fe3ccafe5"
