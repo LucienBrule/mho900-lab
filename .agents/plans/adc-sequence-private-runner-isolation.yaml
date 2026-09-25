@@ -1,0 +1,49 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-runner-isolation
+    title: Isolate private native controls from unused Frida prerequisites
+    state: open
+    intent: Remove the witnessed preflight coupling without changing the frozen native observation question.
+    requires: [TASK.guest.adc-sequence-stock-admission]
+    requirements:
+      - Preserve private-adc-sequence-01 and its original manifest, staged inputs and failure logs unchanged. Treat it as a preflight failure with zero guest and native control outcomes.
+      - Make the Frida prerequisite phase mode-aware. The private adcsequencecontrol mode must not require a Frida installation; retain checks for all existing modes that use it. Do not repair or alter host interpreter configuration to satisfy an unused dependency.
+      - Exercise the actual prerequisite function with private mode and absent Frida, and retained-mode positive, changed artifact, missing launcher and wrong-version controls. Recheck runtime health routing and production indexing for all new inputs.
+      - Preserve native executable SHA256 960b91e1b3cd7de8f49d47833c6e13ec43afcc597bb0d205c379f471a2bcda37, profile SHA256 1fd5ffcf09094da41bd7aa08ed60974b6a6f4c3be9ba7f0f92eebdab087d8abb and per-arm verifier SHA256 ee4f4728377dd97f2b5bbc0adf68fff406cffade3ff70966c082f0420081af0c. No new modeled response or observer change is included.
+      - Freeze a distinct private-adc-sequence-02 manifest with the same twelve native arms, source pins, final health and complete index audit. Support explicit frozen manifest selection and bind the suite audit to its externally supplied digest and run identity. Commit and push before execution.
+    acceptance: [A narrowly corrected runner and separately frozen private suite are verified committed and pushed, or a precise limitation is recorded.]
+    verification: [scope, controls, freeze]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-private-run-02
+    title: Execute the unchanged native ADC suite through isolated prerequisites
+    state: open
+    intent: Obtain actual guest evidence for the whole ADC sequence observer after resolving the preflight dependency.
+    requires: [TASK.guest.adc-sequence-runner-isolation]
+    requirements:
+      - Recheck the new manifest, unchanged native/profile/per-arm verifier, stock artifact preservation and capacity before exactly one fresh private-adc-sequence-02 attempt. Install no stock application.
+      - Execute only the twelve frozen arms and verifiers. Stop at the first unexpected result and preserve all evidence without adapting or retrying the experiment.
+      - Evaluate complete predicted sequence, worker dependency, both synthetic read protocols, uninterrupted atomic progress, precise final stop, fail-closed negative controls and thread cleanup from actual guest records. Do not substitute host synthetic evidence for guest observations.
+      - Verify system_server continuity, Enforcing state, final health, index coverage and teardown. If preflight fails again, report zero guest outcomes explicitly. Commit and push the conclusion before the decision gate.
+    acceptance: [One frozen attempt has a precise positive or negative conclusion and preserved evidence committed and pushed.]
+    verification: [execution, controls, health, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-sequence-stock-gate-02
+    title: Evaluate actual private ADC sequence evidence for stock admission
+    state: open
+    intent: Admit one bounded stock validation only if the observer has passed the required guest controls.
+    requires: [TASK.guest.adc-sequence-private-run-02]
+    requirements:
+      - Distinguish preflight results, host synthetic checker tests and actual guest control evidence. Do not promote the first failed attempt into a native observer result.
+      - If supported admit exactly one stock validation of the predicted whole sequence, with unchanged stock APK and library, explicit two synthetic logging readbacks, entry guards, full thread coverage and the unexecuted post-return PC0x333bac. No next-subsystem response is included.
+      - Otherwise identify the smallest evidence-supported correction or architecture limitation. Draft, plan, inspect and admit any successor batch against the expected ledger revision; commit and push tasking before execution.
+    acceptance: [An evidence-supported bounded continuation or precise unresolved limitation is committed and pushed.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
