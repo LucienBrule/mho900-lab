@@ -1,0 +1,22 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.startup-decision
+contract: sha256:42f7edc66936ec2b700b6f667fdce9dd84ddafdbe6b84a3475c107f4e77d0104
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T01:32:53Z"
+evidence:
+  boundary-evaluation: >-
+    docs/research/guest-startup.md SHA-256 d949de86d92b37a986f7667275692920763569959feb2dc8aea828139121b21a
+    correlates observed main-thread JNI startup frames with stock Dev_PCIeInit's failed-open retry and the absent
+    /dev/xdma0_bypass interface. Its success branch requires a 16 MiB shared device mapping. This establishes a
+    real instrument control-plane dependency, while useful UI, acquisition, exact syscall errno, retry exhaustion
+    and subsequent initialization remain unestablished. A file or successful return substitution would not supply
+    faithful register behavior. The prior static hardware boundary is confirmed, not materially redesigned;
+    no architecture reconciliation is required. Readme and research overviews link this newer runtime evidence.
+  continuation-decision: >-
+    Stop under terminal condition 2 of the operator's standing authorization. No successor task is drafted or
+    admitted to supply hardware behavior. The task has used static inspection and observational guest traces only;
+    no device node, BAR model, register response, DMA behavior or synthetic waveform was supplied. The guest is
+    torn down, all experiment ports are closed, and stock artifacts remain hash-identical. The final report is
+    ready for operator review before any hardware-model design or implementation. Work is committed locally and
+    will not be pushed under the current no-external-publication constraint.

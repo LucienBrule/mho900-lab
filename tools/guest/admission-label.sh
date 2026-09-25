@@ -105,19 +105,22 @@ actual=$(shasum -a 256 "$run/installed.apk"); actual=${actual%% *}
 "$sdk/build-tools/35.0.0/apksigner" verify --print-certs "$run/installed.apk" \
     > "$run/installed-signature.txt"
 # adb root restarts adbd, so use a new collector for the application phase.
-gtimeout -k 2 90 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 logcat -b all -v threadtime \
+gtimeout -k 2 180 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 logcat -b all -v threadtime \
     > "$run/application-logcat.txt" 2>&1 &
 app_log_pid=$!
 launch_rc=0
 printf 'install = "admitted"\nlaunch = "attempted"\n' > "$run/probe-result.toml"
 # Observe labels without attaching to or changing the application process.
-adb shell 'i=0; while [ "$i" -lt 40 ]; do ps -Z; sleep 1; i=$((i+1)); done' \
+adb shell 'i=0; while [ "$i" -lt 25 ]; do ps -Z; sleep 1; i=$((i+1)); done' \
     > "$run/process-labels.txt" 2>&1 &
 label_pid=$!
 adb shell am start -W -n com.rigol.scope/.SplashActivity > "$run/launch.txt" 2>&1 || launch_rc=$?
 printf 'exit_code = %s\n' "$launch_rc" > "$run/launch-status.toml"
 sleep 15
 wait "$label_pid" || true
+if [ "${ADMISSION_MODE:-label}" = startup ]; then
+    "$run/source/startup-trace.sh"
+fi
 adb shell pidof com.rigol.scope > "$run/app-pid.txt" 2>&1 || true
 adb shell ps > "$run/processes.txt" 2>&1
 adb shell dumpsys activity activities > "$run/activities.txt" 2>&1

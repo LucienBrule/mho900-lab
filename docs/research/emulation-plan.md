@@ -3,6 +3,9 @@
 2026-09-24. The first bounded investigation is tracked by `ROADMAP.guest-baseline`.
 See the [baseline report](guest-baseline.md) for execution evidence and the decision gate.
 The subsequent [admission experiment](guest-admission.md) records the scoped guest change and next startup boundary.
+The [labeling](guest-labeling.md) and [startup](guest-startup.md) batches reach the stock splash and native PCIe
+device-open retry. Execution is stopped at the hardware-model boundary for operator review; later stages below
+remain proposals, not authorization to implement hardware behavior.
 
 ## Initial investigation: capture the stock APK's first failure
 

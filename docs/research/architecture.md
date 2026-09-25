@@ -4,12 +4,16 @@ Inspected 2026-09-24. This is a research architecture proposal, not an implement
 See [provenance](provenance.md) for input locations and [the experiment plan](emulation-plan.md) for progression gates.
 The later [guest baseline](guest-baseline.md) establishes generic API-25 guest boot and an APK signing rejection;
 the reconnaissance observations below retain their original scope.
+The later [startup investigation](guest-startup.md) establishes a stock splash-rendering and native execution
+witness in a generic guest, stopping at the missing PCIe control device. It does not establish a useful UI,
+a complete stock Android environment, or physical acquisition behavior.
 
 ## Result
 
 We possess a useful stock application baseline, extensive bounded native experiments, and partial platform evidence.
-We do not yet possess a demonstrated bootable stock Android environment, a Sparrow launch witness, or acquisition
-traces from the incoming MHO984. Begin with the byte-identical stock APK on ARM64 Android 7.1/API 25, capturing the
+At reconnaissance, we did not possess a demonstrated bootable stock Android environment, a Sparrow launch witness,
+or acquisition traces from the incoming MHO984. The proposed first step was the byte-identical stock APK on ARM64
+Android 7.1/API 25, capturing the
 first failure without hardware substitutes. Environment availability and package signing are the first gates.
 
 The repository began as a clean bootstrap on `main`, with taskctl healthy and zero tasks, roadmaps, or epics.

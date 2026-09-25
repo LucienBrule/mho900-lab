@@ -1,0 +1,32 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.startup-trace
+contract: sha256:efc0ad04d88c7bafd963c6ca1ef710f0676f95b044139fb0e4b90fbfc40ac286
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T01:32:36Z"
+evidence:
+  stock-startup-path: >-
+    tools/guest/inspect-startup.sh reproduces exact-APK class inspection and exact packaged-ELF disassembly.
+    out/guest-startup/static-02 is verified, including its checksum index. Stock APK SHA-256 remains
+    6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b; packaged ELF and reference ELF both
+    retain 4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e. The stock path loads
+    scope-auklet, calls UI_StartBusiness before view-model reads and MainActivity, enters JNI_StartBusiness,
+    CApiFactory::Api_Init and Dev_PCIeInit. The latter opens the referenced /dev/xdma0_bypass string and requests
+    a 16 MiB shared read/write mapping on success. Captured versions are JADX 1.5.6 and LLVM 23.1.1.
+  live-boundary: >-
+    startup-01 at 01:28:04Z to 01:30:00Z on 2026-09-25 has app PID 2527 in system_app, repeated exact-stock
+    admission/labeling controls and byte/certificate checks, splash rendering, no crash buffer entries, and
+    stable system_server PID 1039. ART SIGQUIT shows the main thread at native call sites 0x27022c, 0x239110,
+    0x232558, then API.UI_StartBusiness and the splash coroutine. Native library load is present in ART's list
+    and APK mappings. The device inventory has no /dev/xdma* nodes. No hardware behavior, app hook, substitute
+    return value, host policy change or physical-device access was introduced. Experiment ports are closed.
+  corroboration: >-
+    VerifyLabeling.main.kts and VerifyStartup.main.kts pass on startup-01 plus static-02, checking all raw
+    checksums and independently matching exact stock instruction offsets to the live stack. Two proc samples
+    15 seconds apart independently observe main-thread nanosleep. Earlier clean labeling runs corroborate native
+    startup logs and persistent splash behavior. Failed optional debuggerd captures (exit 127) and the initial
+    static self-indexing mistake are retained and explicitly excluded as successful observations. No exact syscall
+    errno or retry-exhaustion result is claimed. Report docs/research/guest-startup.md SHA-256
+    d949de86d92b37a986f7667275692920763569959feb2dc8aea828139121b21a and manifest
+    experiments/guest-startup/results.toml SHA-256 fdcdcf308917da1db23267286f20e04afd73b488022bfbd4e5935c2ff1328988
+    record the observed hardware boundary, screenshots, collector limitations and reproduction.

@@ -1,0 +1,175 @@
+schema_version = "mho900-lab.guest-startup-results/1"
+classification = "observed-disposable-guest-experiment-with-static-corroboration"
+base_inputs = "experiments/guest-baseline/inputs.toml"
+instrumentation_inputs = "experiments/guest-admission/inputs.toml"
+labeling_inputs = "experiments/guest-labeling/results.toml"
+report = "docs/research/guest-startup.md"
+run = "startup-01"
+static_run = "static-02"
+started_at = "2026-09-25T01:28:04Z"
+finished_at = "2026-09-25T01:30:00Z"
+stock_apk_preserved = true
+stock_native_library_preserved = true
+observed_uid = 1000
+observed_process_domain = "u:r:system_app:s0"
+app_pid = 2527
+system_server_pid_before_after = 1039
+useful_ui = false
+native_execution = true
+observed_boundary = "Main thread in Dev_PCIeInit device-open retry"
+hardware_interface = "/dev/xdma0_bypass"
+requested_mapping_bytes = 16777216
+native_call_sites = ["0x232558", "0x239110", "0x27022c"]
+independent_corroboration = "Exact stock ELF instructions and device inventory match live ART stack and proc wait samples"
+exact_syscall_errno_captured = false
+retry_exhaustion_observed = false
+optional_debuggerd_capture = "exit 127; guest provides debuggerd64; failed samples retained"
+successful_stack_capture = "ART SIGQUIT dump"
+static_preliminary_index_error = "static-01 indexed itself; static-02 corrects index only"
+selinux_fidelity_limit = "Frida guest-policy modifications remain; no global enforcement disabling"
+physical_device_access = false
+host_security_policy_modified = false
+hardware_behavior_supplied = false
+terminal_condition = "Hardware interface resolution requires behavioral model or real hardware backend"
+operator_review_required_for_hardware_model = true
+successor_tasks_admitted = false
+
+[[source]]
+path = "tools/guest/startup-trace.sh"
+sha256 = "395490a0220ed48758f7c7cefd454553b2751449b0e693a0f77e048a85f696a4"
+
+[[source]]
+path = "tools/guest/inspect-startup.sh"
+sha256 = "f66a5b4a3e97e0aa191f82e38953c54994d7bdd86c4ebba48f91285d18db461f"
+
+[[source]]
+path = "tools/guest/VerifyStartup.main.kts"
+sha256 = "24c746bc1ec817491c79493b6ac0069830e25cb65bf14755ce35d434264e0194"
+
+[[source]]
+path = "tools/guest/VerifyLabeling.main.kts"
+sha256 = "b94b997050f311fde12ba2b1dbce7c869ba595d1416ac42ee52a8e1032507bfc"
+
+[[source]]
+path = "tools/guest/admission-label.sh"
+sha256 = "96996f99f84d8082bc8fae7a62f3405568e17e6fe830546d05fb379fffdf4999"
+
+[[source]]
+path = "tools/guest/run-admission.sh"
+sha256 = "cc3d268a89e3581b54aa44ffe0d68effd4d09587e3e1ab5d1235365d925e5c7f"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/evidence-sha256.txt"
+sha256 = "457b14a327d3af3e05e3958b636c7157342f86cf808b2f04d859e74da6f3fc0b"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/result.toml"
+sha256 = "b1104b3c7ea6434b07d5edec5386769069eaa9ba74cfc6767c55adfde478201f"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/admission-hook.txt"
+sha256 = "a0a1f7a7f8ef1e0ee9d0b07951b1f6ca9ff7458ee5dacd5cb2ff3ccd722d2573"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/system-server-pid.toml"
+sha256 = "5d4bd925d0ee12434dea2fd2704fc762d6d5e384b77e0f9fe6855ac84de469f3"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-process.txt"
+sha256 = "686570d3d5288b9388ee796db9331777ddb24018852cf3ae5395233f59291cfc"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-maps.txt"
+sha256 = "e84b28532d5368bcc46f6754bb9c6d13702216533b00bced5caedb3e349b22ac"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-files.txt"
+sha256 = "3a5273d702c944a11565ab58dd797af7328084d895bf0e8acbce2f917c256640"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-threads-1.txt"
+sha256 = "393f612816705c1404bd414c3d813185dcade30d5f9da2e7ad0870c633d28527"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-threads-2.txt"
+sha256 = "ad81746095b184e620bc62843d7ad9b26d37c8ff4abab87d3ccf27beef2487b4"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-native-1.txt"
+sha256 = "4c75ee8679f6f9654e035c23635555d019ce1ae74ddce34caa09de7951ae822f"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-native-2.txt"
+sha256 = "4c75ee8679f6f9654e035c23635555d019ce1ae74ddce34caa09de7951ae822f"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/startup-java.txt"
+sha256 = "b3c15f5cbeef7be338431adb9e6abb22bcbcedd77869e29dbc60f8dba3ce44d7"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/application-logcat.txt"
+sha256 = "f5219b8b33945f683b36c50449d2fe6a675b88e2aecd3fc7edbdf94ffb255970"
+
+[[evidence]]
+path = "out/guest-admission/startup-01/application.png"
+sha256 = "8786ea8fcd7366ca90eb9a1c49316f0cb1a40ce7595ce915f39a3a16b71c3004"
+
+[[evidence]]
+path = "out/guest-startup/static-02/auklet-symbols.txt"
+sha256 = "9d24311fa28d9512a16b6dd28b8c7847839f08267711bb1d80ef4bfb739b2387"
+
+[[evidence]]
+path = "out/guest-startup/static-02/checksums.txt"
+sha256 = "5651095115cf9ac259786f2c8c7212e98761efac805668313ea3490d02b2efc7"
+
+[[evidence]]
+path = "out/guest-startup/static-02/cil.API.java"
+sha256 = "0adebd95aaf75e62c4cd480b7d19396ab0769031949af2d63fd9b80cb47106b3"
+
+[[evidence]]
+path = "out/guest-startup/static-02/factory-init.txt"
+sha256 = "e5486c483ba33e64cda7c9a5ec1c6eb6e3b1800cd5777aea4230f256a6a73c4b"
+
+[[evidence]]
+path = "out/guest-startup/static-02/input-sha256.txt"
+sha256 = "043dd888a46744ef56e2d6552b5f19ffe971db8a11e59940e9a3c690050cfef5"
+
+[[evidence]]
+path = "out/guest-startup/static-02/inspect-startup.sh"
+sha256 = "f66a5b4a3e97e0aa191f82e38953c54994d7bdd86c4ebba48f91285d18db461f"
+
+[[evidence]]
+path = "out/guest-startup/static-02/jadx-cil.API.log"
+sha256 = "925df18dfb10efc19b8ca989359690ebf74b96ec105ba5273b9fcf7db5a2f3ba"
+
+[[evidence]]
+path = "out/guest-startup/static-02/jadx-SplashActivity.log"
+sha256 = "03f30198211d4aabdffb5a325d33fed8ae524d0a1eaf3fee7e9164c2a51748a6"
+
+[[evidence]]
+path = "out/guest-startup/static-02/jadx-version.txt"
+sha256 = "dab64e06c0817d77b4f887261832cbb34ba023cac7c74d72d81068553652d0c5"
+
+[[evidence]]
+path = "out/guest-startup/static-02/llvm-sha256.txt"
+sha256 = "6112619abcc7019671ed80fadfcda65577aace56caa586e5ed9bbcc93eb10cf6"
+
+[[evidence]]
+path = "out/guest-startup/static-02/llvm-version.txt"
+sha256 = "d53fedaab6a970efabdc293886b7c22a514a48a065d6b1eeb6cece822d4f2602"
+
+[[evidence]]
+path = "out/guest-startup/static-02/native-startup.txt"
+sha256 = "77846ecd738ef66d870877a889fe87809fea3165c200d20e22a70733dfad27bd"
+
+[[evidence]]
+path = "out/guest-startup/static-02/pcie-device-string.txt"
+sha256 = "72484db95b85233a0b2e1fb5a92685c69b570364827a92578c3a8aa28f51063a"
+
+[[evidence]]
+path = "out/guest-startup/static-02/program-headers.txt"
+sha256 = "12b856036165ba3a011a209a1093226f586c5edff6c31a518e34e7d296c454b3"
+
+[[evidence]]
+path = "out/guest-startup/static-02/SplashActivity.java"
+sha256 = "cbeeaeceb3554d5f3e108036547829dd02b02df9ad5597a221b9b1e80cfc17c1"
