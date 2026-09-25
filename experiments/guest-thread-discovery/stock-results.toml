@@ -1,0 +1,97 @@
+schema_version = "mho900-lab.stock-thread-coverage-results/1"
+run_id = "stock-thread-coverage-01"
+classification = "stock-current-live-stopped-set-verified"
+stock_threads = 21
+passes = 2
+clone_events = 0
+exit_races = 0
+all_threads_traced_and_stopped = true
+all_threads_reaped = true
+observer_matches_private_control_elf = true
+snapshot_map_rows = 988
+device_path_absent_before_and_after = true
+modeled_responses = 0
+stock_artifacts_preserved = true
+system_server_pid = 1081
+system_server_stable = true
+final_enforcing = true
+guest_torn_down = true
+physical_device_access = false
+process_wide_access_order_established = false
+next_question = "Repeat the known two-read post-store witness while all live threads resume under observation."
+
+[[artifacts]]
+path = "docs/research/stock-thread-coverage.md"
+sha256 = "dbf19b06ad85981c2d1cf384d8d9504c586e166eb9e5bdcba36d3c66bd01114d"
+
+[[artifacts]]
+path = "tools/guest/thread-group.h"
+sha256 = "e97d676a2c1aa1fbdf861530bf38e32bc95a6325ec916ce36bad66ddfefec26f"
+
+[[artifacts]]
+path = "tools/guest/thread-coverage.c"
+sha256 = "9262dd71858d80d5146023252474bf33e47e8e73fd88e7336b116aca3c9be276"
+
+[[artifacts]]
+path = "tools/guest/coverage-probe.sh"
+sha256 = "7d28bcaa3218f00baa29a4a6167f4657c7bce0a90695bcefb69ac024b7db8bf1"
+
+[[artifacts]]
+path = "tools/guest/VerifyCoverage.main.kts"
+sha256 = "064491b7ed70599de730b061e662f2df33a63e9abc6ff05917bce62199ae4cb9"
+
+[[artifacts]]
+path = "out/stock-thread-coverage/verification.toml"
+sha256 = "439215035897c7e6c186b51838a23ec33c06a79309b80fa6b1224a55f5ea9215"
+
+[[artifacts]]
+path = "out/guest-thread-discovery/review.toml"
+sha256 = "b7ff3fd2cf34cc95abb2eb0fd06853dfd638279da6e85d4a1fcfb0d55c780dbe"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/evidence-sha256.txt"
+sha256 = "581d96c254b4e79fbef50697a7c2bf47333d809685942aba4f1d47fcd8c75526"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/coverage-control.elf"
+sha256 = "dc49b0c44b70a6ae3b0c8fb60ee6b7df87506add5bbf0f99a4e3db92ca2530cf"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/coverage-executed.elf"
+sha256 = "dc49b0c44b70a6ae3b0c8fb60ee6b7df87506add5bbf0f99a4e3db92ca2530cf"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/native-events.toml"
+sha256 = "36a2a0849327ba3095f10072bcae51d0216223a14bc6fce64a7c96b90d84b5fc"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/native-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/native-snapshot-verification.toml"
+sha256 = "d0d1a5f858f23680bf18a1908949f3fd5e130b4b8c0973cdd2fd41ff46b8c32e"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/coverage-device-before.toml"
+sha256 = "53a5b21fcb3df1749ff57f34077704d0a083cde3d3fcf9ac08e6ac2bdfaa5abf"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/coverage-device-after.toml"
+sha256 = "53a5b21fcb3df1749ff57f34077704d0a083cde3d3fcf9ac08e6ac2bdfaa5abf"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/system-server-pid.toml"
+sha256 = "de654c774ccca914ba4337529bc78ae7d58235e370b6f041a14cd86ecdddcf7b"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/result.toml"
+sha256 = "e4c55b87ef5b50e5f3cf6750ef2975bcef68694550a05b6eeb76bfac1b1a5553"
+
+[[artifacts]]
+path = "out/guest-admission/stock-thread-coverage-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
