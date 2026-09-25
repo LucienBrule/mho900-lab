@@ -1,0 +1,114 @@
+schema_version = "mho900-lab.runner-finalization-result/1"
+result = "host-controls-accepted"
+cases = 7
+guest_launched = false
+mandatory_failures_skip_admission = true
+health_attempted_after_boot_collection_failure = true
+cleanup_exactly_once = true
+original_exit_and_phase_preserved = true
+indexes_verified = true
+stock_prediction_tested = false
+frozen_loader_verifier_unchanged = true
+native_observer_unchanged = true
+guest_command_retries_added = false
+index_failure_preserves_partial_and_corrects_result = true
+
+[[artifacts]]
+path = "docs/research/admission-runner-finalization.md"
+sha256 = "e741ee9439c80ec8516acc25878165ee220ef484aab69630328eda0419703773"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "fd8190d6cfe1a66383a15ec750db8708461e35a5b483972913bffdf57b4c4ee3"
+
+[[artifacts]]
+path = "tools/guest/admission-runtime.sh"
+sha256 = "e931d00a13fdf446b883d897728f54c0942d413cb47c671cf0ba087c7dc9ea16"
+
+[[artifacts]]
+path = "tools/guest/test-admission-runtime.sh"
+sha256 = "774c69376b778525f7a684470189089c7ec165819e4a04be993980a4499ceeca"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/results.toml"
+sha256 = "c6af836b271b4776bb262ef659a6f16a93c09bd0b22edcc28b5e130fbf7b8ba6"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/case-results.txt"
+sha256 = "09b79a60b21ea0ae80cafef1c0469fee0e26ceacf7d6791c0d2491e5db9613a4"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/cases/early-runtime-abort/run/evidence-sha256.txt"
+sha256 = "fd035c9b549baef032a71fa6b475cfcf904e34fddd523ecb7d73b869a7d2687d"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/cases/final-health-failure/run/evidence-sha256.txt"
+sha256 = "1b82b6678dd2489fe544d15f6ed7661df262798df7a04346e3924d2ac2005677"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/cases/getprop-output-then-255/run/evidence-sha256.txt"
+sha256 = "5e04ae50fff6704c5f7536d195383918a0db5fd42c893657c70b9cf2bcc48e66"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/cases/optional-collection-failure/run/evidence-sha256.txt"
+sha256 = "5c9d7389b4602b49b29a5aac2584d19a586b8f736f20fdc418d05dd280e6ec28"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/cases/success/run/evidence-sha256.txt"
+sha256 = "610a6f37fffd1c4b4719b8d39892c35d9e9baac6cd8691322e7865983209fbe7"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/cases/uname-failure/run/evidence-sha256.txt"
+sha256 = "c447a47308910f01075178aa1145f728435617a564298cee5b278623e9ef216f"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/review.md"
+sha256 = "026021f9715956b64dde0fc116c2f23ff031d4ab0ffab3bf0343f91049de8c04"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-01/review.toml"
+sha256 = "2c01101930ffcfe0449144fb983c695763a8342dcdb6b7097de84388e9f1f0d9"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/results.toml"
+sha256 = "7ef4eff814eaea43c9097b9ba1b75d802c478d34bda7ba936bc6023f2eac8f54"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/case-results.txt"
+sha256 = "85c8ebda2efe7854c2a6782f6f4eb25f09a9caed5b709159f6d4994c5f933b86"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/review.md"
+sha256 = "4f4c58d22cb35599518431f5b4d9f4556c56449d950891c86ec5cfe113de204c"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/review.toml"
+sha256 = "dbed0ceca54ddd8660e6f0695f628865330a20f3b8c937641c4b2986d4771d77"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/early-runtime-abort/run/evidence-sha256.txt"
+sha256 = "ed45e00b080a82908e7d7660801ca1cd0a555604a8607d9ae44d6ed3f8557fc0"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/final-health-failure/run/evidence-sha256.txt"
+sha256 = "a16bb8554071e90b0e339c5a3b86eb85226498417549c4c6ae6cc110a1d40ebe"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/getprop-output-then-255/run/evidence-sha256.txt"
+sha256 = "45f94e174db0510c85d4a98763202bce6b10178f102164afbdcff5c3ce2edf2a"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/index-hash-failure/run/evidence-sha256.txt"
+sha256 = "949aa8ec0a5aeb750dcd0500ebcda0b283a12657a2d50cd9948d2064cb8475d8"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/optional-collection-failure/run/evidence-sha256.txt"
+sha256 = "56592c225a153039f0fe64855af7640166ae31e6d9cfbc880ed2ae75a0d89cf3"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/success/run/evidence-sha256.txt"
+sha256 = "419933b58b8b7adec8a3c81ffbf43f6ca8fef41fd9001cf1fd6bc0905b30d8b3"
+
+[[artifacts]]
+path = "out/calibration-loaders/runner-controls-02/cases/uname-failure/run/evidence-sha256.txt"
+sha256 = "9c1e77f5e683eb4ea0f931847df11757ee2b4f46d6cdc2747e9e24eddefd62b6"

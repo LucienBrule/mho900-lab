@@ -1,0 +1,240 @@
+schema_version = "mho900-lab.calibration-stock-inputs/1"
+question = "Do the first three stock loaders match the recovered whole-loader contract under the verified file fixture?"
+task = "TASK.guest.calibration-stock-loaders-repeat"
+task_contract = "sha256:3fa8f560f95011dc4f7e01dbc84fb5dbaa090ccfc3b1fc87853133a741a2b0ce"
+mode = "loadermodel"
+run_id = "stock-calibration-loaders-02"
+expected_statuses = [192, 1794240, -1]
+terminal_relative_pc = 0x333ba8
+terminal_opcode = 0x97fb9b9e
+terminal_instruction_executes = false
+new_modeled_mmio_responses = 0
+adaptive_retry = false
+physical_instrument_access = false
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+
+[native]
+path = "local/guest-tools/group-observer/group-observer"
+sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+source_sha256 = "0c070a8c1683cc2be45eb02cdf4b2ecdc0b50651f95b805edb81273ae5cb4a86"
+header_sha256 = "78320d758756a0c7483bd29caf916251e93ab66b5a3883c4415e3cce0d4fd548"
+unchanged = true
+profile = 1
+loader_deadline_ms = 10000
+
+[derivative]
+path = "out/calibration-filesystem/build-04/ramdisk.img"
+sha256 = "98b4925f73aa77cd21a6d4e2a3f384056dba8b2d379162ad2c02f55f3a071398"
+
+[fixture]
+profile = "system-app-data"
+mount_command = "mount -t tmpfs -o rw,nosuid,nodev,noexec,size=4m tmpfs /rigol"
+stock_lsb_file_sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+stock_vertical_file_sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+lsb_payload_sha256 = "ed4d4016974a509c55530c8573c7e0ef1cb9c28d65536310c13ec8a437c52907"
+vertical_payload_sha256 = "1835df35ca11f040c15988e7cdb150198e98688e2472c0b608377b9a2357139b"
+expected_directory_context = "u:object_r:tmpfs:s0"
+original_file_context = "u:object_r:su_tmpfs:s0"
+expected_file_context = "u:object_r:system_app_data_file:s0"
+policy_changed = false
+file_modes = "0644"
+directory_modes = "0755"
+absent_paths = ["/rigol/data/cal_lsb.hex", "/rigol/data/cal_vertical.hex", "/rigol/data/cal_adc.hex", "/rigol/data/default/cal_adc.hex"]
+
+[observation]
+entry_captures = ["lsb", "adc"]
+terminal_captures = ["lsb", "adc", "vertical"]
+entry_adc_zero_is_required = false
+terminal_adc_equals_entry_required = true
+terminal_whole_group_convergence_required = true
+unexpected_access_clone_status_signal_deadline = "stop-preserve-evaluate"
+
+[prediction_lineage]
+path = "experiments/calibration-loaders/stock-inputs.toml"
+sha256 = "39e42e6de4a957b422af467c02315f622a024dd47b75ecc3528149a7d083cb3c"
+purpose = "Original unchanged prediction; repeat runtime identity and source pins are recorded separately."
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "fd8190d6cfe1a66383a15ec750db8708461e35a5b483972913bffdf57b4c4ee3"
+
+[[artifacts]]
+path = "tools/guest/admission-loadermodel.sh"
+sha256 = "97cfe4e4f2210095ec144ce4305e525811e355830dbec9ac427b488eaf24fc49"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "7eab06f83857b488da20fe24699f7a75bf5cc21ce5114232cd8f97d35fd78a47"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "c36d51d353676a88b6abddeb9d27683225fece89676c2a018639e7d7a969ba72"
+
+[[artifacts]]
+path = "tools/guest/admission-filesystem.sh"
+sha256 = "9dcee7f2b17ed0286eb940f35639fae092f1ae475920ec423c0e4cf9bf5408ac"
+
+[[artifacts]]
+path = "tools/guest/admission-final-health.sh"
+sha256 = "4709ae90fb20f1cc141a6524c7c67dfcabab9fa3f44cc4949b152e29c5e25809"
+
+[[artifacts]]
+path = "tools/guest/admission-inspect.sh"
+sha256 = "1f4287362ea52cec47862096935fa85a61bec1a42d161162096810cf31712097"
+
+[[artifacts]]
+path = "tools/guest/labeling-exception.js"
+sha256 = "254c9f3fa75eb789572120395102510966f6541bb7497b9611c502881d121274"
+
+[[artifacts]]
+path = "tools/guest/inspect-framework.js"
+sha256 = "d6c42c4d12d134dd3c014e87f7571d2ceb1d9f59172a2427ac940648a0a749cb"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationFilesystem.main.kts"
+sha256 = "6247912ee7ac1f9975a6154b8d414c1acaea64b23e1b9ef77b20c78b2d410228"
+
+[[artifacts]]
+path = "tools/guest/VerifySnapshot.main.kts"
+sha256 = "983f369ff59f9c1b703c0d1c81a89522a06a8d56c2f238ad2aa5240a5cb6e86c"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "0c070a8c1683cc2be45eb02cdf4b2ecdc0b50651f95b805edb81273ae5cb4a86"
+
+[[artifacts]]
+path = "tools/guest/calibration-loaders.h"
+sha256 = "78320d758756a0c7483bd29caf916251e93ab66b5a3883c4415e3cce0d4fd548"
+
+[[artifacts]]
+path = "tools/guest/thread-group.h"
+sha256 = "d68d2c6f5c53c99ba9997431c7d27a3798c9633f0029359f0dea4ea03947a2a1"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "551662afa8aa9b1f2b09c9d227b8dad50ff99802977a984005e75140d299ba3a"
+
+[[artifacts]]
+path = "tools/guest/native-post-store.h"
+sha256 = "f42905f26f5cad17e823c8dd2234cdcba39f357b568c6a265bec60871fc51846"
+
+[[artifacts]]
+path = "tools/guest/adc-transcript.h"
+sha256 = "31a837d9e92110c3f5d7b62e0f8909e6c17abd1588b66f3148a6fc550dc07448"
+
+[[artifacts]]
+path = "tools/guest/spu-transcript.h"
+sha256 = "5497f86ccf41d5e67912236ce8fce0b5a3d89569ca353127f14a6c07e096ac98"
+
+[[artifacts]]
+path = "tools/guest/remaining-init.h"
+sha256 = "afa661513a4dae2db07856a9d79546513bebffb09a1b59159b5290bd2ff872a6"
+
+[[artifacts]]
+path = "tools/guest/init-tail.h"
+sha256 = "bae1bc75a2a6551ba20b63531e160a62744ac9e8ddf34a8b00c66eb50ab7a150"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+sha256 = "205d0b982773fca8ade6a861ff1adc16de22d75ef788aadd07586a3ed052ba10"
+
+[[artifacts]]
+path = "tools/research/InspectCalibrationAssets.main.kts"
+sha256 = "0187caa8ff62133e8999ab7f52ea5ef1b0b8fb2069a89f1d9d3144dbb50aae14"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-decision.toml"
+sha256 = "577a7fa38ed99fae4afaab39cc676ca95b0820146b24602ff6e0c50dde35a006"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/run03-results.toml"
+sha256 = "d6d05bfd028c2723d129940b5a93eef9c4dcbb6ae550f9f0f484623326dad633"
+
+[[artifacts]]
+path = "experiments/calibration-access/label-run01-results.toml"
+sha256 = "43bd9716bee7a7894ee83b2120d11957ce362c03a258f6d26c9ebf189e268cf8"
+
+[[artifacts]]
+path = "experiments/guest-baseline/inputs.toml"
+sha256 = "74bf7d1c840e524bcd058b606ef929e49af085f7014c51311ac0b9a372a911ca"
+
+[[artifacts]]
+path = "experiments/guest-admission/inputs.toml"
+sha256 = "097f3195c2d0a4197ac7d0326b029770ef2d1ae6299c8606cf7dde54ccd70dd3"
+
+[[artifacts]]
+path = "local/guest-tools/group-observer/group-observer"
+sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+
+[[artifacts]]
+path = "local/guest-tools/group-observer/build-inputs.txt"
+sha256 = "f07b5c3f6a226735527c719f3f87583b1c88aa62f9bdb354b7e4f65c350bfda1"
+
+[[artifacts]]
+path = "local/guest-tools/group-observer/binary-sha256.txt"
+sha256 = "f329040aeeee40e7d257d72bd0be0d11bf8921736e417c53e6414e796419b468"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-native-readiness.md"
+sha256 = "f2d4425679af82233c3da634b745872c18e46c23277ebc90cc0b420b6b9042c9"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-native-readiness.toml"
+sha256 = "2674c4498a2660f9e1ba6530febb3f783e76bd73a93ae414224f7a48a7fbec93"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-harness-review.md"
+sha256 = "1fbc5eb178d6f7c5f12e5b08f2448ce2529a2101fad370eccfc82e050791514f"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-harness-review.toml"
+sha256 = "8fb999e96126c74042d777f6cbca6f42e743e72a6985114a18a39eeedc8980ce"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "871292de7cdbb7e43004ae7dcee302ec5b9ff94d1f23c5a481de3403eeba58b1"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockCalibrationLoaders.main.kts"
+sha256 = "bd4d8a5fae6b9ab48da6c296e8b45b53dbfe260fdaa53c45769587fb5b4d6c64"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-host-controls.toml"
+sha256 = "0b59a27eab4c47fd5e1cf8ac062183b25cbce83746375a3ba0f73ffb060b0f2a"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/host-control-recovery.toml"
+sha256 = "af3818ceee1b6f2ba12576fbf6cfd013f4079010d6b53b04dce09a60677daa30"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-review.md"
+sha256 = "f51b62e885090d5c973f2dd77bdee98e44898ddf312733ac555a7d4a87de5b85"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-review.toml"
+sha256 = "595c09950f4ebc65d0b15086af3d6711f0422abf466bffb30f4a860c93b308be"
+
+[[artifacts]]
+path = "tools/guest/admission-runtime.sh"
+sha256 = "e931d00a13fdf446b883d897728f54c0942d413cb47c671cf0ba087c7dc9ea16"
+
+[[artifacts]]
+path = "tools/guest/test-admission-runtime.sh"
+sha256 = "774c69376b778525f7a684470189089c7ec165819e4a04be993980a4499ceeca"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-inputs.toml"
+sha256 = "39e42e6de4a957b422af467c02315f622a024dd47b75ecc3528149a7d083cb3c"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/runner-finalization-results.toml"
+sha256 = "116bb8ce82fb698d4fc3afa009c0122aa89a821ff1f883041aeb718b59c116cb"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/finalization-decision.toml"
+sha256 = "315821d58f829711cd7b3bcc6fb2c3a4e613cddca8d7736944f767c13a391cc4"

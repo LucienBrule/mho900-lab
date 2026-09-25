@@ -37,8 +37,12 @@ if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel
         fi
     fi
     if [ "$mode" = loadermodel ]; then
-        fixture_manifest="$repo/experiments/calibration-loaders/stock-inputs.toml"
-        fixture_copy=calibration-stock-inputs.toml
+        fixture_manifest=${ADMISSION_LOADER_INPUTS:-"$repo/experiments/calibration-loaders/stock-inputs.toml"}
+        fixture_copy=calibration-stock-runtime-inputs.toml
+        [ "$(yq -p toml -o yaml -r '.run_id' "$fixture_manifest")" = "$run_id" ] || { echo 'Loader run identity mismatch' >&2; exit 2; }
+        # Keep the original prediction identity for its frozen verifier. The
+        # runtime manifest separately pins the actual harness and run identity.
+        cp "$repo/experiments/calibration-loaders/stock-inputs.toml" "$run/source/calibration-stock-inputs.toml"
     fi
     cp "$fixture_manifest" "$run/source/$fixture_copy"
     yq -p toml -o yaml -r '.artifacts[] | [.path, .sha256] | @tsv' "$fixture_manifest" |
@@ -105,7 +109,7 @@ tag.id=default
 tag.display=Default
 EOF
 cp "$image/userdata.img" "$run/userdata.img"
-adb() { "$timeout_bin" 15 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
+adb() { "$timeout_bin" -k 2 15 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"; }
 emulator_pid=
 logcat_pid=
 cleanup() {
@@ -114,15 +118,33 @@ cleanup() {
         wait "$logcat_pid" 2>/dev/null || true
     fi
     if [ -n "$emulator_pid" ]; then
-        adb emu kill >> "$run/cleanup.log" 2>&1 || true
-        kill "$emulator_pid" 2>/dev/null || true
-        wait "$emulator_pid" 2>/dev/null || true
+        cleanup_rc=0
+        adb emu kill >> "$run/cleanup.log" 2>&1 || cleanup_rc=$?
+        printf 'emulator_console_exit = %s\n' "$cleanup_rc" >> "$run/cleanup-status.toml"
+        cleanup_rc=0
+        kill "$emulator_pid" 2>/dev/null || cleanup_rc=$?
+        printf 'emulator_signal_exit = %s\n' "$cleanup_rc" >> "$run/cleanup-status.toml"
+        cleanup_rc=0
+        wait "$emulator_pid" 2>/dev/null || cleanup_rc=$?
+        printf 'emulator_wait_exit = %s\n' "$cleanup_rc" >> "$run/cleanup-status.toml"
     fi
-    "$timeout_bin" 10 "$sdk/platform-tools/adb" -P 5041 kill-server >> "$run/cleanup.log" 2>&1 || true
+    cleanup_rc=0
+    "$timeout_bin" -k 2 10 "$sdk/platform-tools/adb" -P 5041 kill-server >> "$run/cleanup.log" 2>&1 || cleanup_rc=$?
+    printf 'adb_server_exit = %s\n' "$cleanup_rc" >> "$run/cleanup-status.toml"
 }
-trap cleanup EXIT
-trap 'exit 130' INT TERM
+. "$run/source/admission-runtime.sh"
 started=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+boot=not_started
+install=not_reached
+launch=not_reached
+graphics=not_reached
+emulator_exit=not_observed
+inspection=not_reached
+health_attempted=false
+phase=adb_start
+export ADMISSION_RUN="$run" ADMISSION_REPO="$repo" ADMISSION_MODE="$mode"
+trap runner_finalize EXIT
+trap 'exit 130' INT TERM
 "$timeout_bin" 15 "$sdk/platform-tools/adb" -P 5041 start-server > "$run/adb-server.log" 2>&1
 set -- "$sdk/emulator/emulator" -avd baseline-api25 -sysdir "$image" \
     -data "$run/userdata.img" -cache "$run/cache.img" -port 5580 \
@@ -135,11 +157,7 @@ printf '%s\n' "$@" > "$run/emulator-argv.txt"
 "$timeout_bin" 600 "$@" > "$run/emulator.log" 2>&1 &
 emulator_pid=$!
 boot=timed_out
-install=not_reached
-launch=not_reached
-graphics=not_reached
-emulator_exit=not_observed
-inspection=not_reached
+phase=boot_wait
 deadline=$(( $(date +%s) + 180 ))
 while [ "$(date +%s)" -lt "$deadline" ]; do
     if ! kill -0 "$emulator_pid" 2>/dev/null; then
@@ -163,19 +181,8 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
 done
 adb devices -l > "$run/adb-devices.txt" 2>&1 || true
 if [ "$boot" = completed ]; then
-    adb shell getprop > "$run/getprop.txt" 2>&1
-    adb shell uname -a > "$run/guest-kernel.txt" 2>&1
-    adb shell dumpsys SurfaceFlinger > "$run/surfaceflinger.txt" 2>&1 || true
-    if adb exec-out screencap -p > "$run/boot.png" 2> "$run/boot-screenshot-error.txt"; then
-        graphics=screenshot_captured
-    else graphics=screenshot_failed; fi
-    adb pull /system/framework/framework-res.apk "$run/framework-res.apk" \
-        > "$run/platform-apk-pull.txt" 2>&1 || true
-    if [ -f "$run/framework-res.apk" ]; then
-        "$timeout_bin" 20 "$sdk/build-tools/35.0.0/apksigner" verify --print-certs \
-            "$run/framework-res.apk" > "$run/platform-signature.txt" 2>&1 || true
-    fi
-    export ADMISSION_RUN="$run" ADMISSION_REPO="$repo" ADMISSION_MODE="$mode"
+    runner_collect_boot
+    phase=admission_helper
     inspection=completed
     helper_mode=$mode
     case "$mode" in filelabel) helper_mode=fileaccess;; esac
@@ -184,43 +191,11 @@ if [ "$boot" = completed ]; then
     case "$mode" in spucontrol) helper_mode=spucontrol;; remainingcontrol) helper_mode=remainingcontrol;; esac
     case "$mode" in startup|mapping|syscall|native|coverage|groupmodel|nextmodel|writemodel|pairmodel|transcriptmodel|spumodel|remainingmodel|tailmodel) helper_mode=label;; esac
     "$run/source/admission-$helper_mode.sh" || inspection=failed
-    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel)
-        health_rc=0
-        "$run/source/admission-final-health.sh" || health_rc=$?
-        printf 'final_health_helper_exit = %s\n' "$health_rc" >> "$run/final-health-status.toml"
-        [ "$health_rc" = 0 ] || inspection=failed
-        ;;
-    esac
+    runner_health
     if [ -f "$run/probe-result.toml" ]; then
         install=$(yq -p toml -o yaml -r '.install' "$run/probe-result.toml")
         launch=$(yq -p toml -o yaml -r '.launch' "$run/probe-result.toml")
     fi
 fi
-adb logcat -b all -d > "$run/logcat-final.txt" 2>&1 || true
-finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-cat > "$run/result.toml" <<EOF
-schema_version = "mho900-lab.guest-run/1"
-run_id = "$run_id"
-started_at = "$started"
-finished_at = "$finished"
-boot = "$boot"
-graphics = "$graphics"
-install = "$install"
-launch = "$launch"
-emulator_exit = "$emulator_exit"
-mode = "$mode"
-inspection = "$inspection"
-EOF
-cleanup
-emulator_pid=
-logcat_pid=
-trap - EXIT
-for artifact in "$run"/*.txt "$run"/*.log "$run"/*.stderr "$run"/*.png "$run"/*.toml "$run"/*.policy \
-    "$run"/*.bin "$run"/*.tsv "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
-    "$run"/source/* "$run"/tombstones/* "$run"/fixture-ramdisk.img; do
-    [ "$artifact" != "$run/evidence-sha256.txt" ] || continue
-    [ -f "$artifact" ] || continue
-    shasum -a 256 "$artifact"
-done > "$run/evidence-sha256.txt"
-cat "$run/result.toml"
+phase=finished
 [ "$boot" = completed ] && [ "$inspection" = completed ]
