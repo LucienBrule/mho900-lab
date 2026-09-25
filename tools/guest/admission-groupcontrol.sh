@@ -23,8 +23,13 @@ cp "$repo/local/guest-tools/group-observer/group-observer" "$run/group-control.e
 cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
 adb shell chmod 755 /data/local/tmp/group-observer
+arms="0 1 2"
+if [ "${ADMISSION_MODE:-groupcontrol}" = nextcontrol ]; then
+    arms="0 1 2 3 4"
+    cp "$repo/experiments/group-observer/continuation.toml" "$run/continuation-fixture.toml"
+fi
 outcome=0
-for arm in 0 1 2; do
+for arm in $arms; do
     rc=0
     adb shell "/data/local/tmp/group-observer control $arm" > "$run/group-$arm.toml" 2>&1 || rc=$?
     printf 'exit_code = %s\n' "$rc" > "$run/group-$arm-status.toml"

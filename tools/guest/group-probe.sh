@@ -49,7 +49,14 @@ case "$base" in ''|*[!0-9a-f]*) exit 2;; esac
 
 adb shell 'test ! -e /dev/xdma0_bypass && rm -f /data/local/tmp/native-events.toml /data/local/tmp/native-status.toml /data/local/tmp/native-pid' \
     > "$run/native-marker-reset.txt" 2>&1
-adb shell "/data/local/tmp/group-observer stock $pid $base >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
+command=stock
+expected=0
+if [ "${ADMISSION_MODE:-groupmodel}" = nextmodel ]; then
+    command=stock-next
+    expected=78
+    cp "$repo/experiments/group-observer/continuation.toml" "$run/continuation-fixture.toml"
+fi
+adb shell "/data/local/tmp/group-observer $command $pid $base >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
 command_pid=$!
 ready=false
@@ -74,5 +81,5 @@ adb pull /data/local/tmp/native-status.toml "$run/native-status.toml" > "$run/na
 adb pull /data/local/tmp/group-observer "$run/group-executed.elf" > "$run/group-executed-pull.txt" 2>&1
 cmp "$run/group-control.elf" "$run/group-executed.elf"
 adb shell getenforce > "$run/native-enforcing.txt"
-grep -qx 'exit_code = 0' "$run/native-status.toml"
+grep -qx "exit_code = $expected" "$run/native-status.toml"
 sleep 2

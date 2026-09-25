@@ -141,7 +141,7 @@ if [ "${ADMISSION_MODE:-label}" = coverage ]; then
     "$run/source/coverage-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"
 fi
-if [ "${ADMISSION_MODE:-label}" = groupmodel ]; then
+if [ "${ADMISSION_MODE:-label}" = groupmodel ] || [ "${ADMISSION_MODE:-label}" = nextmodel ]; then
     native_rc=0
     "$run/source/group-probe.sh" || native_rc=$?
     printf 'exit_code = %s\n' "$native_rc" > "$run/native-helper-status.toml"

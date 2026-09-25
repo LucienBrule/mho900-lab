@@ -31,7 +31,7 @@ static void gm_wait_flag(unsigned *p) {
 static void gm_worker2(void) { gm_wait_flag(&gm->hold); quit(88); }
 static void gm_worker1(void) {
     gm_wait_flag(&gm->worker_go); gm_publish(&gm->worker_ack);
-    if(gm->arm==2) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
+    if(gm->arm==2 || gm->arm==4) { gm_wait_flag(&gm->mapped); gm->output=gm_worker_read(gm->mapping+0x4040); quit(88); }
     gm_wait_flag(&gm->hold); quit(88);
 }
 static void gm_private_leader(U observer) {
@@ -45,9 +45,12 @@ static void gm_private_leader(U observer) {
     U high=gm_first(mapping+0x4048);
     if(gm->arm==2) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
     U low=gm_second(mapping+(gm->arm==1?0x4040:0x4044));
-    gm_store(((high<<32)|low)&0x01ffffffffffffffUL,(U)&gm->output); quit(88);
+    gm_store(((high<<32)|low)&0x01ffffffffffffffUL,(U)&gm->output);
+    if(gm->arm==3) { gm->output=gm_second(mapping+0x4040); quit(88); }
+    if(gm->arm==4) { gm_publish(&gm->mapped); gm_wait_flag(&gm->hold); quit(88); }
+    quit(88);
 }
-static int gm_armed,gm_confirmed[128];
+static int gm_armed,gm_next,gm_confirmed[128];
 static U gm_base,gm_mapping,gm_target,gm_object,gm_responses,gm_wait_count;
 static int gm_private;
 static void gm_resume(struct TgThread *t) {
@@ -70,9 +73,9 @@ static void gm_registers(const char *kind,U tid,struct Regs *r) {
     hex("sp",r->sp); hex("pstate",r->pstate);
     for(int i=0;i<31;i++) { char key[]={'x',(char)('0'+i/10),(char)('0'+i%10),0}; hex(key,r->x[i]); }
 }
-static void gm_fault(U tid,const char *kind) {
+static void gm_fault(U tid,const char *kind,U signal) {
     U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"group-fault-siginfo"); struct Regs r={0}; registers(tid,&r,0);
-    event(kind); hex("tid",tid); hex("signal",11); hex("si_code",(unsigned)info[1]); hex("address",info[2]);
+    event(kind); hex("tid",tid); hex("signal",signal); hex("si_code",(unsigned)info[1]); hex("address",info[2]);
     hex("mapping",gm_mapping); hex("offset",info[2]-gm_mapping); hex("opcode",(unsigned)peek(tid,r.pc)); hex("responses",gm_responses);
     gm_registers("fault-registers",tid,&r);
 }
@@ -116,7 +119,8 @@ static void gm_quiesce(U stopping_tid) {
         int pending=0; for(U i=0;i<tg_count;i++) if(tg_threads[i].live && !tg_threads[i].stopped) pending=1;
         if(!pending) break;
         int status=0; U tid=gm_wait(&status); if(gm_meta(tid,status,1)) continue;
-        if(((status>>8)&255)==11) gm_fault(tid,"terminal-pending-fault");
+        U signal=(status>>8)&255;
+        if(signal==11 || signal==7) gm_fault(tid,"terminal-pending-fault",signal);
         else { event("terminal-pending-signal"); hex("tid",tid); hex("status",status); }
     }
     nps_inventory_for(tg_pid,"terminal",stopping_tid);
@@ -144,11 +148,17 @@ static void gm_observe(U pid,U base,int private) {
     for(;;) {
         int status=0; U tid=gm_wait(&status); if(gm_meta(tid,status,0)) continue;
         U signal=(status>>8)&255; struct TgThread *t=tg_find(tid); struct Regs r={0}; registers(tid,&r,0);
-        if(signal==11) {
-            gm_fault(tid,"mapped-fault"); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
+        if(signal==11 || (gm_next && signal==7)) {
+            gm_fault(tid,"mapped-fault",signal); U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"response-siginfo");
+            if(gm_next && gm_responses==2) {
+                int mapped=gm_mapping && info[2]>=gm_mapping && info[2]<gm_mapping+0x1000000;
+                event("unsupported-access"); hex("tid",tid); hex("responses",gm_responses);
+                put("classification = \""); put(mapped?"mapped":"nonmapped"); put("\"\n");
+                gm_quiesce(tid); quit(mapped?78:83);
+            }
             U expected_pc=private?(gm_responses==0?(U)gm_first_pc:(U)gm_second_pc):base+0x270604;
             U expected_offset=gm_responses==0?0x4048:0x4044;
-            if(tid!=pid || gm_responses>=2 || !gm_mapping || (unsigned)info[1]!=2 || info[2]!=gm_mapping+expected_offset ||
+            if(signal!=11 || tid!=pid || gm_responses>=2 || !gm_mapping || (unsigned)info[1]!=2 || info[2]!=gm_mapping+expected_offset ||
                 r.x[8]!=info[2] || r.pc!=expected_pc || (unsigned)peek(tid,r.pc)!=0xb9400109) {
                 event("response-guard-rejected"); hex("tid",tid); hex("responses",gm_responses);
                 gm_quiesce(tid); quit(78);
@@ -158,10 +168,15 @@ static void gm_observe(U pid,U base,int private) {
             for(int i=0;i<31;i++) if(after.x[i]!=r.x[i]) tg_fail("response-register",i);
             if(after.pc!=r.pc || after.sp!=r.sp || after.pstate!=r.pstate) tg_fail("response-state",0);
             event("modeled-read"); hex("tid",tid); hex("index",gm_responses); hex("value",value); gm_registers("response-registers",tid,&after);
-            if(++gm_responses==2) { int rc=nps_arm(pid,gm_target); if(rc) tg_fail("hardware-stop-setup",rc); gm_armed=1; }
+            if(++gm_responses==2) {
+                if(gm_next) {
+                    event("continuation-mode"); hex("responses",2); hex("hardware_breakpoint",0); hex("resume_operation",7);
+                    gm_armed=1;
+                } else { int rc=nps_arm(pid,gm_target); if(rc) tg_fail("hardware-stop-setup",rc); gm_armed=1; }
+            }
             gm_resume(t); continue;
         }
-        if(signal==5 && gm_armed && tid==pid) {
+        if(signal==5 && gm_armed && !gm_next && tid==pid) {
             U info[16]={0}; check(pt(0x4202,tid,0,(U)info),"terminal-siginfo");
             event("post-store-stop"); hex("tid",tid); hex("status",status); hex("signal",signal); hex("si_code",(unsigned)info[1]); hex("address",info[2]);
             hex("opcode",(unsigned)peek(tid,r.pc)); gm_registers("post-store-registers",tid,&r);
@@ -197,14 +212,15 @@ static void gm_observe(U pid,U base,int private) {
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
-    if(argc==4 && equal(argv[1],"stock")) {
-        U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); gm_observe(pid,base,0);
+    if(argc==4 && (equal(argv[1],"stock") || equal(argv[1],"stock-next"))) {
+        gm_next=equal(argv[1],"stock-next");
+        U pid=parse(argv[2],10),base=parse(argv[3],16); event("model-mode"); put("scope = \"stock\"\n"); hex("pid",pid); hex("continuation",gm_next); gm_observe(pid,base,0);
     }
-    if(argc!=3 || !equal(argv[1],"control")) quit(2); U arm=parse(argv[2],10); if(arm>2) quit(2);
+    if(argc!=3 || !equal(argv[1],"control")) quit(2); U arm=parse(argv[2],10); if(arm>4) quit(2); gm_next=arm>=3;
     tg_deadline=tg_now()+10000; S memory=sys(222,0,4096,3,0x21,(U)-1,0); check(memory,"model-shared-mmap"); gm=(struct GmShared *)memory;
     gm->arm=arm; gm->output=(U)-1; U observer=sys(172,0,0,0,0,0,0);
     S pid=sys(220,17,0,0,0,0,0); check(pid,"model-private-clone"); if(!pid) gm_private_leader(observer);
     while(!gm_load(&gm->ready)) tg_tick();
-    event("model-mode"); put("scope = \"private\"\n"); hex("arm",arm); hex("pid",pid); hex("fixture_worker",gm->worker);
+    event("model-mode"); put("scope = \"private\"\n"); hex("arm",arm); hex("pid",pid); hex("fixture_worker",gm->worker); hex("continuation",gm_next);
     gm_observe(pid,0,1); quit(2);
 }

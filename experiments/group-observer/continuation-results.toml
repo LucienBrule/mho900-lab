@@ -1,0 +1,95 @@
+schema_version = "mho900-lab.continuation-control-results/1"
+run_id = "group-continuation-01"
+classification = "private-continuation-and-regression-controls-pass"
+arm_responses = [2, 1, 1, 2, 2]
+continuation_arms = [3, 4]
+continuation_terminal_offset = "0x4040"
+continuation_terminal_threads = ["main", "existing worker"]
+continuation_global_value = "0x0123456789abcdef"
+continuation_hardware_breakpoint = false
+initial_threads_per_arm = 2
+terminal_threads_per_arm = 3
+clone_events_per_arm = 1
+all_terminal_threads_reaped = true
+system_server_stable = true
+enforcing_samples = 2
+stock_application_run = false
+physical_device_access = false
+guest_torn_down = true
+next_task = "TASK.hardware.next-mapped-access"
+
+[[artifacts]]
+path = "docs/research/guest-continuation-control.md"
+sha256 = "84df914a000c8b413550742034e12e80af9b15dad31b55edd34f6e07b87d9977"
+
+[[artifacts]]
+path = "experiments/group-observer/continuation.toml"
+sha256 = "3e961a3061d0114371ea73574414fb0d28af42ea664e7c7fe73c71287fa7cce0"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "19195723388449b8e81bbed18850645d7f5004a4cd64a956d51aff1ec90fd028"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "d17aef9e89fad59376efcb6acde1962e86b63a3a85bb22d4682c723bb834d5cd"
+
+[[artifacts]]
+path = "tools/guest/admission-groupcontrol.sh"
+sha256 = "9cfa892d9569d81621715bfc004761f9a00856e07e754c3e303fdbad2d798b0e"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "7f4f7b491e122f3cc7cb6ae84729ff0acdea22823ab0c215ee2e6a7ddfc77e78"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "9df0b543bbdade3f3957d29184cc19dcf8175de26bc489036201644ec8f0b8a5"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "67e5d8001bcc1f5a979e3e9d43fec9c01047b7bd59f94d33ee81fada7a8ae9a3"
+
+[[artifacts]]
+path = "out/group-observer/continuation-verification.toml"
+sha256 = "b57464ccff31998aac1d36b6c6cf8e05c0860e384cf4096ac67ebd7476279e38"
+
+[[artifacts]]
+path = "out/group-observer/continuation-regression-private.toml"
+sha256 = "9fc20ef46f130c63a651cf6e1dee9c80acbc54ae91564a3260d4411f63d3a89b"
+
+[[artifacts]]
+path = "out/group-observer/continuation-regression-stock.toml"
+sha256 = "4734331d7238ae3ba211f7980c11768834c62208877c2930079c5c9bc2c3b75c"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/evidence-sha256.txt"
+sha256 = "6721007060ac1f52d3d1ea61e6aa0f926a97a446fab88c7f3a042548e4729a66"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/group-control.elf"
+sha256 = "97ccca359a8825520ef3df074825baed29986134aceeb930e641a86fc6d0bcb0"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/group-3.toml"
+sha256 = "03513f68b3e923002ebafec9fd08bbef3b47167f4c28e8522305c80c3a53dc7b"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/group-4.toml"
+sha256 = "866c6bfc69deda10586a6375ba469b8cd711dd238e9bd99166e9d02526f5bc84"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/group-system-server.toml"
+sha256 = "e18eb55bfc086ee2c4309db25f4d235dc342519d4d1ce56282dcaf71173cbfcd"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/group-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/result.toml"
+sha256 = "35b5edbe033bc34579ae60913f3b613074626c1d61203cd4bef4f62690351964"
+
+[[artifacts]]
+path = "out/guest-admission/group-continuation-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"

@@ -6,9 +6,11 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.util.HexFormat
 import java.util.zip.ZipFile
-require(args.size in 1..2) { "Usage: VerifyGroupObserver.main.kts RUN_DIRECTORY [0|1|2|stock]" }
+require(args.size in 1..2) { "Usage: VerifyGroupObserver.main.kts RUN_DIRECTORY [0|1|2|3|4|stock|next-stock]" }
 val run=Path.of(args[0]).toAbsolutePath().normalize()
-val stock=args.getOrNull(1)=="stock"
+val stock=args.getOrNull(1) in setOf("stock","next-stock")
+val stockNext=args.getOrNull(1)=="next-stock"
+val continuationSuite=Files.exists(run.resolve("continuation-fixture.toml"))
 fun text(name:String)=Files.readString(run.resolve(name))
 fun hash(bytes:ByteArray)=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes))
 fun hash(file:Path)=hash(Files.readAllBytes(file))
@@ -36,14 +38,16 @@ fun regs(e:E)=R(e.u("tid"),e.u("pc"),e.u("relative_pc"),e.u("sp"),e.u("pstate"),
 data class T(var stopped:Boolean,var confirmed:Boolean,var live:Boolean=true)
 val binary=Files.readAllBytes(run.resolve("group-control.elf")); val binaryHash=hash(binary)
 require(binaryHash==text("binary-sha256.txt").take(64)); val control=Elf(binary)
-val arms=if(stock) listOf(-1) else if(args.size==2) listOf(args[1].toInt().also { require(it in 0..2) }) else listOf(0,1,2)
+val arms=if(stock) listOf(-1) else if(args.size==2) listOf(args[1].toInt().also { require(it in 0..4) }) else if(continuationSuite) listOf(0,1,2,3,4) else listOf(0,1,2)
 for(arm in arms) {
-    val positive=stock || arm==0; val prefix=if(stock) "native" else "group-$arm"
-    require(text("$prefix-status.toml").trim()=="exit_code = ${if(positive) 0 else 78}")
+    val continuation=stockNext || arm in 3..4
+    val positive=stock || arm==0 || continuation; val prefix=if(stock) "native" else "group-$arm"
+    require(text("$prefix-status.toml").trim()=="exit_code = ${if(positive && !continuation) 0 else 78}")
     require(hash(run.resolve(if(stock) "group-executed.elf" else "group-$arm.elf"))==binaryHash)
     val es=events(if(stock) "native-events.toml" else "$prefix.toml")
     val mode=es[0]; require(mode.kind=="model-mode" && mode.s("scope")==if(stock) "stock" else "private")
     if(!stock) require(mode.u("arm")==arm.toULong())
+    require((mode.f["continuation"]?.removePrefix("0x")?.toULong(16) ?: 0uL)==if(continuation) 1uL else 0uL)
     val setup=es[1]; require(setup.kind=="group-setup" && setup.u("options")==0x100009uL)
     val pid=setup.u("pid"); val observer=setup.u("observer_pid"); require(pid==mode.u("pid") && pid>1uL && observer>1uL && pid!=observer)
     require(setup.u("thread_limit")==128uL && setup.u("pass_limit")==16uL && setup.u("event_limit")==256uL && setup.u("deadline_ms")==10000uL)
@@ -110,6 +114,7 @@ for(arm in arms) {
     val ready=take("ready"); require(ready.u("pid")==pid && ready.u("observer_pid")==observer && ready.u("stopping_tid")==pid)
     var armed=false; var quiescing=false; var count=0; var waitIndex=0uL; var mapBase=0uL; var fd:ULong?=null
     var lastWait:E?=null; var lastCall:E?=null; var firstFault:R?=null; var finalFault:R?=null; var currentFault:E?=null
+    var unsupported:E?=null; var unsupportedRegs:R?=null
     var pendingUnknown:ULong?=null; val identities=mutableSetOf<ULong>(); val confirmed=initial.toMutableSet(); val clones=mutableSetOf<ULong>()
     val resumesBeforeWait=mutableSetOf<ULong>(); var rejected=false; var boundary:E?=null; var stopRegs:R?=null; var terminalTid=0uL
     while(at<es.size && es[at].kind!="thread-status") {
@@ -169,9 +174,17 @@ for(arm in arms) {
             "mapped-fault"->{
                 val w=requireNotNull(lastWait); require(!quiescing && w.u("tid")==e.u("tid") && w.u("status")==0xb7fuL)
                 require(e.u("signal")==11uL && e.u("si_code")==2uL && e.u("mapping")==mapBase && mapBase>0uL && e.u("address")==mapBase+e.u("offset") && e.u("responses")==count.toULong())
-                val r=regs(take("fault-registers")); require(r.tid==e.u("tid") && r.x[8]==e.u("address") && r.sp>0uL && r.sp and 15uL==0uL)
-                require(elf.word(r.pc-base)==e.u("opcode") && e.u("opcode")==0xb9400109uL)
+                val r=regs(take("fault-registers")); require(r.tid==e.u("tid") && r.sp>0uL && r.sp and 15uL==0uL)
+                require(elf.word(r.pc-base)==e.u("opcode"))
+                if(count<2) require(r.x[8]==e.u("address") && e.u("opcode")==0xb9400109uL)
                 if(count==0) { require(r.tid==pid && r.pc==binding.u("first_pc") && e.u("offset")==0x4048uL); firstFault=r }
+                else if(count==2) {
+                    require(continuation && armed && unsupported==null && e.u("offset")<0x1000000uL)
+                    if(!stock) { require(e.u("offset")==0x4040uL && r.x[8]==e.u("address") && e.u("opcode")==0xb9400109uL)
+                        require(r.tid==if(arm==4) mode.u("fixture_worker") else pid)
+                        require(r.pc==if(arm==4) binding.u("worker_pc") else binding.u("second_pc")) }
+                    unsupported=e; unsupportedRegs=r
+                }
                 else { require(count==1); finalFault=r; val wanted=if(positive) 0x4044uL else 0x4040uL; require(e.u("offset")==wanted)
                     require(r.pc==if(arm==2 && !stock) binding.u("worker_pc") else binding.u("second_pc"))
                     require(r.tid==if(arm==2 && !stock) mode.u("fixture_worker") else pid)
@@ -185,8 +198,14 @@ for(arm in arms) {
                 val after=regs(take("response-registers")); require(after.tid==pid && after.pc==before.pc+4uL && after.sp==before.sp && after.pstate==before.pstate)
                 require(after.x[9]==value && (0..30).filter { it!=9 }.all { after.x[it]==before.x[it] }); count++
             }
+            "continuation-mode"->{
+                require(continuation && count==2 && !armed && e.u("responses")==2uL && e.u("hardware_breakpoint")==0uL && e.u("resume_operation")==7uL); armed=true
+            }
+            "unsupported-access"->{
+                val f=requireNotNull(unsupported); require(continuation && count==2 && !rejected && e.u("tid")==f.u("tid") && e.u("responses")==2uL && e.s("classification")=="mapped"); rejected=true
+            }
             "debug-before"->{
-                require(count==2 && !armed && positive && e.u("result")==0uL && e.u("size")==264uL && e.u("info") and 255uL!=0uL)
+                require(!continuation && count==2 && !armed && positive && e.u("result")==0uL && e.u("size")==264uL && e.u("info") and 255uL!=0uL)
                 fun emptySlots(d:E,start:Int) { for(i in start..15) { val n=i.toString().padStart(2,'0'); require(d.u("a$n")==0uL && d.u("c$n")==0uL) } }
                 emptySlots(e,0); val p=take("debug-profile"); require(p.s("guest_profile")=="cached-enable" && p.u("requested_control")==0x1e5uL && p.u("expected_readback_control")==0x1e4uL)
                 val q=take("debug-request"); require(q.u("result")==0uL && q.u("size")==24uL && q.u("info")==e.u("info") && q.u("a00")==target && q.u("c00")==0x1e5uL); emptySlots(q,1)
@@ -194,17 +213,17 @@ for(arm in arms) {
                 val a=take("debug-after"); require(a.u("result")==0uL && a.u("size")==264uL && a.u("info")==e.u("info") && a.u("a00")==target && a.u("c00")==0x1e4uL); emptySlots(a,1); armed=true
             }
             "post-store-stop"->{
-                val w=requireNotNull(lastWait); require(positive && armed && count==2 && w.u("tid")==pid && w.u("status")==0x57fuL)
+                val w=requireNotNull(lastWait); require(!continuation && positive && armed && count==2 && w.u("tid")==pid && w.u("status")==0x57fuL)
                 require(e.u("tid")==pid && e.u("status")==0x57fuL && e.u("signal")==5uL && e.u("si_code")==4uL && e.u("address")==target && e.u("opcode")==binding.u("target_opcode"))
                 stopRegs=regs(take("post-store-registers")); require(stopRegs!!.tid==pid && stopRegs!!.pc==target && stopRegs!!.x[8]==0x0123456789abcdefuL && stopRegs!!.x[9]==obj)
             }
             "post-store-boundary"->{
-                require(positive && stopRegs!=null && boundary==null && e.u("target")==target && e.u("object")==obj && e.u("value")==0x0123456789abcdefuL && e.u("x8")==stopRegs!!.x[8] && e.u("x9")==stopRegs!!.x[9]); boundary=e
+                require(!continuation && positive && stopRegs!=null && boundary==null && e.u("target")==target && e.u("object")==obj && e.u("value")==0x0123456789abcdefuL && e.u("x8")==stopRegs!!.x[8] && e.u("x9")==stopRegs!!.x[9]); boundary=e
             }
             "response-guard-rejected"->{ require(!positive && !rejected && count==1 && e.u("responses")==1uL && e.u("tid")==requireNotNull(finalFault).tid); rejected=true }
             "terminal-quiesce"->{
-                require(!quiescing && pendingUnknown==null && if(positive) boundary!=null else rejected)
-                quiescing=true; terminalTid=e.u("stopping_tid"); require(terminalTid==(if(positive) pid else requireNotNull(finalFault).tid) && tracked.getValue(terminalTid).stopped)
+                require(!quiescing && pendingUnknown==null && if(positive && !continuation) boundary!=null else rejected)
+                quiescing=true; terminalTid=e.u("stopping_tid"); require(terminalTid==(if(continuation) requireNotNull(unsupportedRegs).tid else if(positive) pid else requireNotNull(finalFault).tid) && tracked.getValue(terminalTid).stopped)
             }
             "terminal-interrupt"->{ require(quiescing && tracked.getValue(e.u("tid")).let { it.live && !it.stopped } && e.u("result").toLong() in listOf(0L,-5L)) }
             "terminal-pending-signal"->{
@@ -224,12 +243,15 @@ for(arm in arms) {
     val cleanup=take("group-cleanup"); require(reaped==live && cleanup.u("expected_count")==live.size.toULong() && cleanup.u("reaped_count")==live.size.toULong() && cleanup.u("wait_result").toLong()==-10L && at==es.size)
     val label=if(stock) "stock" else "arm_$arm"
     println("${label}_observer = \"verified\""); println("${label}_responses = $count"); println("${label}_initial_threads = ${initial.size}"); println("${label}_terminal_threads = ${live.size}"); println("${label}_clone_events = ${clones.size}")
+    if(continuation) { val f=requireNotNull(unsupported); val r=requireNotNull(unsupportedRegs)
+        println("${label}_unsupported_offset = \"${f.s("offset")}\""); println("${label}_unsupported_tid = \"${f.s("tid")}\""); println("${label}_unsupported_pc = \"0x${(r.pc-base).toString(16)}\""); println("${label}_unsupported_opcode = \"${f.s("opcode")}\"")
+    }
     if(positive) println("${label}_global_value = \"0x0123456789abcdef\"")
 }
 if(args.size==1 || stock) {
     for(line in Files.readAllLines(run.resolve("evidence-sha256.txt"))) { require(line.length>66); val file=Path.of(line.substring(66)).normalize(); require(file.startsWith(run) && hash(file)==line.take(64)) }
     if(stock) {
-        require(text("result.toml").contains("mode = \"groupmodel\""))
+        require(text("result.toml").contains("mode = \"${if(stockNext) "nextmodel" else "groupmodel"}\""))
         for(script in listOf("VerifySnapshot.main.kts","VerifyNative.main.kts")) {
             val command=mutableListOf("kotlin",run.resolve("source/$script").toString(),run.toString()); if(script=="VerifyNative.main.kts") command.add("admission-only")
             val p=ProcessBuilder(command).redirectErrorStream(true).start(); val output=p.inputStream.bufferedReader().readText(); require(p.waitFor()==0) { "$script failed: $output" }; print(output)
@@ -237,10 +259,10 @@ if(args.size==1 || stock) {
         require(text("native-final-enforcing.txt").trim()=="Enforcing")
         val finalPid=text("native-final-system-server.txt").trim().toInt(); require(text("system-server-pid.toml").lineSequence().filter { it.isNotBlank() }.all { it.substringAfter("= ").toInt()==finalPid })
     } else {
-        require(text("result.toml").contains("mode = \"groupcontrol\"") && text("result.toml").contains("inspection = \"completed\""))
+        require(text("result.toml").contains("mode = \"${if(continuationSuite) "nextcontrol" else "groupcontrol"}\"") && text("result.toml").contains("inspection = \"completed\""))
         require(text("group-packages.txt").isBlank() && !text("group-processes-after.txt").contains("group-observer"))
         require(text("group-enforcing.txt").lineSequence().filter { it.isNotBlank() }.toList()==listOf("Enforcing","Enforcing"))
-        val pids=text("group-system-server.toml").lineSequence().filter { it.isNotBlank() }.map { it.substringAfter("= ").toInt() }.toList(); require(pids.size==5 && pids.distinct().size==1)
+        val pids=text("group-system-server.toml").lineSequence().filter { it.isNotBlank() }.map { it.substringAfter("= ").toInt() }.toList(); require(pids.size==(if(continuationSuite) 7 else 5) && pids.distinct().size==1)
         println("system_server_pid = ${pids.first()}"); println("stock_application_run = false")
     }
     println("evidence_index = \"verified\"")

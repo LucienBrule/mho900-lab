@@ -1,0 +1,13 @@
+schema_version = "mho900-lab.group-continuation-fixture/1"
+base_fixture = "experiments/group-observer/fixture.toml"
+regression_arms = [0, 1, 2]
+continuation_arms = [3, 4]
+arm_3 = "two main reads, composed store, unsupported third main read"
+arm_4 = "two main reads, composed store, unsupported worker read"
+terminal_offset_private = "0x4040"
+modeled_responses = 2
+hardware_breakpoint_after_second_response = false
+resume_operation_after_second_response = "PTRACE_CONT"
+terminal_classification = "mapped access inside the existing inaccessible 16 MiB mapping"
+terminal_action = "record, quiesce all observed threads, inspect and reap; no response"
+stock_terminal_access = "unknown until witnessed"
