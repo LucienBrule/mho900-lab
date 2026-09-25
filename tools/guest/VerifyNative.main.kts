@@ -9,9 +9,10 @@ import java.util.zip.ZipFile
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word]" }
+require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word|two-word-budget]" }
 val singleRead = args.size == 2 && args[1] == "single-read"
-val twoWord = args.size == 2 && args[1] == "two-word"
+val stepBudget = args.size == 2 && args[1] == "two-word-budget"
+val twoWord = args.size == 2 && args[1] in listOf("two-word", "two-word-budget")
 require(args.size == 1 || singleRead || twoWord) { "Unknown verification mode" }
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 fun text(name: String): String = Files.readString(run.resolve(name))
@@ -108,7 +109,7 @@ println("installed_apk_sha256 = \"$stockHash\"")
 println("uid = 1000")
 println("shared_uid_signer_preserved = true")
 require(text("native-helper-status.toml").trim() == "exit_code = 0")
-require(text("native-status.toml").trim() == "exit_code = 0")
+require(text("native-status.toml").trim() == "exit_code = ${if(stepBudget) 72 else 0}")
 require(text("app-pid.txt").isBlank())
 require(text("native-enforcing.txt").trim() == "Enforcing")
 require(!text("native-before.txt").contains("frida", ignoreCase = true))
@@ -278,7 +279,7 @@ if(singleRead) {
     require(before.map { it.index } == before.indices.map { it.toULong() })
     require(before.first().pc == responses.last().pcAfter)
     require(before.drop(1).map { it.pc } == after.dropLast(1).map { it.pc })
-    require(after.all { it.signal == 5uL && it.code == 2uL })
+    require(after.all { it.signal == 5uL && it.code == 4uL && it.address == it.pc })
     val libc = run.resolve("native-libc.so")
     require(Files.isRegularFile(libc))
     val libcManifest = text("native-libc-sha256.txt").lineSequence().first { it.isNotBlank() }
@@ -303,6 +304,35 @@ if(singleRead) {
         require(step.opcode == expected) { "step opcode mismatch at 0x${(step.pc - mapping.start).toString(16)}" }
     }
     require(before.none { it.pc == binding.base + 0x42a2b4uL })
+    if(stepBudget) {
+        require(before.size == 256 && records.none { it is Boundary || it is GlobalStore || it is Output })
+        val rejected = records.filterIsInstance<Rejected>().single()
+        val terminated = records.filterIsInstance<Terminated>().single()
+        require(rejected.reason == "step-budget-exhausted" && terminated.status == 9uL)
+        val sequence: List<Event> = listOf(binding, records.filterIsInstance<Ready>().single(),
+            records.filterIsInstance<Opened>().single(), records.filterIsInstance<Request>().single(),
+            records.filterIsInstance<Mapped>().single(), faults[0], responses[0], faults[1], responses[1]) +
+            before.zip(after).flatMap { (pre, post) -> listOf(pre, post) } + listOf(rejected, terminated)
+        require(records == sequence) { "Budget outcome event order or extra event" }
+        val libcMap = maps.single { it.path == "/system/lib64/libc.so" }
+        val loop = libcMap.start + 0x68cb0uL - libcMap.fileOffset
+        val firstLoop = before.indexOfFirst { it.pc == loop }
+        require(firstLoop >= 0 && before.size - firstLoop > 6)
+        val loopOpcodes = listOf(0x485f7e6auL, 0x480bfe68uL, 0x35ffffcbuL)
+        for(index in firstLoop until before.size) {
+            val phase = (index - firstLoop) % 3
+            require(before[index].pc == loop + phase.toULong() * 4uL)
+            require(before[index].opcode == loopOpcodes[phase])
+            require(after[index].pc == loop + ((phase + 1) % 3).toULong() * 4uL)
+        }
+        println("completed_reads = 2")
+        println("single_steps = 256")
+        println("exclusive_retry_loop_first_step = $firstLoop")
+        println("exclusive_retry_loop_steps = ${before.size - firstLoop}")
+        println("stop_reason = \"step-budget-exhausted\"")
+        println("stock_global_store_observed = false")
+        println("pre_converter_boundary = false")
+    } else {
     val boundary = records.filterIsInstance<Boundary>().single()
     require(boundary.pc == binding.base + 0x42a2b4uL && boundary.opcode == 0x97f7331fuL)
     require(boundary.gotSlot == binding.base + 0xb8d758uL && boundary.objectAddress == binding.base + 0xbbccf0uL)
@@ -329,6 +359,7 @@ if(singleRead) {
     println("two_word_value = \"0x0123456789abcdef\"")
     println("two_word_steps = ${before.size}")
     println("pre_converter_boundary = true")
+    }
 } else {
     require(captured.filterIsInstance<Fault>().size == 1 && captured.last() == fault)
     require(captured.none { it is Response || it is Output })

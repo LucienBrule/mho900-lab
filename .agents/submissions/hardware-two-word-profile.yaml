@@ -1,0 +1,25 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.two-word-profile
+contract: sha256:0a8557a61d67d1c25ec9fdab5107bdaf842de0ba4fb4dffbe4de344f7dc211dd
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T03:19:06Z"
+evidence:
+  profile-controls: >-
+    docs/research/xdma-two-word-profile.md SHA-256 6b5889d747a12538d06ccfaaa356728b6af28db5d7f18ba194251b5a12edced2
+    records the pinned code-4 guest profile and unchanged word fixture, response ceiling and step budget. All four
+    width/direction controls, positive composition control and unexpected-second-access control passed before
+    stock attachment. The positive control stored the predicted value; the negative control stopped after one response.
+  observation: >-
+    Stock received two guarded responses at offsets 0x4048 and 0x4044. After 256 verified instruction steps,
+    the observer exhausted its budget in guest libc pthread_mutex_unlock. Steps 20 through 255 repeat offsets
+    0x68cb0, 0x68cb4 and 0x68cb8, an exclusive-load/store retry sequence. There is no global-store or boundary
+    event. The supervisor killed the process, observed status 9 and exited 72. The post-run two-word-budget
+    verifier validates exact events, instructions against stock/libc bytes, termination and the bounded negative
+    outcome. Ordinary two-word success verification rejects this capture. No budget extension or rerun occurred.
+  preservation: >-
+    experiments/xdma-two-word/profile-results.toml SHA-256
+    2b03e7d102b4001d482f9d76b86fe7d6e8d1f905bef53584af0783c5c29d38f6 pins the runtime source snapshot,
+    raw index, native helper, libc, stock input hashes and independent verification. system_server remained
+    PID 1056 across three samples, SELinux remained enforcing, and guest teardown left experiment ports clear.
+    Stock APK/native bytes match inputs; no physical instrument or host policy change occurred.

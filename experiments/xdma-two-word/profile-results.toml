@@ -1,0 +1,148 @@
+schema_version = "mho900-lab.two-word-profile-results/1"
+classification = "bounded-negative-stock-observation"
+run_id = "two-word-profile-01"
+report = "docs/research/xdma-two-word-profile.md"
+active_task = "TASK.hardware.two-word-profile"
+decision_task = "TASK.hardware.two-word-profile-decision"
+profile_id = "api25-arm64-r02-step4"
+width_direction_controls_passed = 4
+positive_composition_control_passed = true
+unexpected_access_control_passed = true
+stock_completed_reads = 2
+first_response = "0xe1234567"
+second_response = "0x89abcdef"
+single_steps = 256
+exclusive_retry_loop_first_step = 20
+exclusive_retry_loop_steps = 236
+loop_library = "guest /system/lib64/libc.so"
+loop_offsets = ["0x68cb0", "0x68cb4", "0x68cb8"]
+final_pc_library_offset = "0x68cb8"
+stop_reason = "step-budget-exhausted"
+observer_exit = 72
+process_termination_status = 9
+stock_global_store_observed = false
+pre_converter_boundary_reached = false
+useful_ui = false
+system_server_pid = 1056
+system_server_stable = true
+selinux_enforcing = true
+application_threads_in_inventory = 21
+traced_threads = 1
+stock_apk_preserved = true
+stock_library_preserved = true
+physical_device_access = false
+guest_torn_down = true
+observer_disturbance = "leading hypothesis, causal comparison not performed"
+independent_review_completed = true
+post_run_verifier_added = "VerifyNative.main.kts two-word-budget mode"
+ordinary_success_verifier_rejects_capture = true
+next_question = "Compare identical private exclusive-operation sequence under stepping and uninterrupted execution."
+successor_admitted = false
+
+[[artifacts]]
+path = "docs/research/xdma-two-word-profile.md"
+sha256 = "6b5889d747a12538d06ccfaaa356728b6af28db5d7f18ba194251b5a12edced2"
+
+[[artifacts]]
+path = "experiments/xdma-two-word/fixture.toml"
+sha256 = "28e7e259bfcebb9d884e7d906f75c5029a1a8f1b65cecfdb0f63721c85a6196d"
+
+[[artifacts]]
+path = "experiments/xdma-two-word/profile.toml"
+sha256 = "9423cbbf9a3ba333fbb98bc5afb1039dc35d02d18d6bd58ebeb12e0c1a050e83"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "f6655ddff16c3255961984006c0ae9e9e31e5ce403a74524ed1b425c3971f18d"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "20a859a64f9e94a67318ef7dc234c961c6489f88e073bf8f71e2a9091def07a4"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+sha256 = "2466111a7a029c145ba234336d3be034da7cbd640ae8b8181770e7e9bf6ade8b"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "acdb9fe52c7790cfff42995cc7a0b26eaddc799ccad8f117ffc431e84f828d48"
+
+[[artifacts]]
+path = "tools/guest/VerifyPairControls.main.kts"
+sha256 = "c8b73a011d65423aa8c3b19831b4cbc1f40cdc5737cd98963ba109c7f3e5cae9"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/source/VerifyNative.main.kts"
+sha256 = "1d675aec4fa5f301214761103561c0bf63df0a552c68f42938d1a8c0be0ea3a9"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/evidence-sha256.txt"
+sha256 = "4f7e38d615e5d37ee63be4895625ff3eacb42d09323be29ac0e4fa569c52290f"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/native-probe.elf"
+sha256 = "727af06c1947d806e499116eb9335c78ec5b33a4057c3ef4736516f5f5700245"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/native-libc.so"
+sha256 = "86a9d02e853fbc9a5aaf29fab405e7d8542ccc9c891637105fa8032828bffb69"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/native-events.toml"
+sha256 = "ca4d040839f57afa1548f27089b479ad68188c22fc984ca91b7c5fe44379fc5c"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/native-pair-control.toml"
+sha256 = "8ece9d0482e6beed8d299c5c6da5cce4392c3e24fea498059812cb3aea0e97cd"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/native-pair-negative.toml"
+sha256 = "77d17c228152518e7b7615ed09cb0f0dfe41bea1a6a89e7b318602b6d456b56c"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/native-status.toml"
+sha256 = "94d3e6a9f1308e2fe5014b99720c20ca29db858296adbd2646272f19cdb3df22"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/system-server-pid.toml"
+sha256 = "7d4b49d1812d9938e590446e74cfcb9525541e884059224b965bd4a389cc492c"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/result.toml"
+sha256 = "1a672a64b0a1963905b0f4e3619e7670281c1956bfcf68314fc2b7d50e20bcd9"
+
+[[artifacts]]
+path = "out/guest-admission/two-word-profile-01/installed.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-budget-verification.toml"
+sha256 = "ec79ed7d5f3d098a1ef26a0c48bb2c0320dc7680b5af362ea2706920c65d1a2e"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-controls-verification.toml"
+sha256 = "701f914858dc5a57caac6a06a73199cdab7b1985626e3d465fc3d7821824265d"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-hash-verification.txt"
+sha256 = "328d0740d69e6a11133fce11c764de084bbec8557219ba405f47d671b81878c2"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-teardown.toml"
+sha256 = "3aad6f4457ae03fa601c570f1ab3232f87c59f5cb86973fa72365a7c5f49c2bf"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-success-rejection.txt"
+sha256 = "82b6c30cf8236b605e6a14e2b10af389974b136c3360ab2d5afae056f7b69360"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-success-rejection-status.toml"
+sha256 = "d26625b7482ca023b1d2fc9113f63c62af045da9fa9dd31f2d3a16733812d9ec"
+
+[[artifacts]]
+path = "out/xdma-two-word/profile-libc-unlock.txt"
+sha256 = "61bd607466f7ad501fcf4e8f085fa4db096e664423c562fd349ac53366135617"

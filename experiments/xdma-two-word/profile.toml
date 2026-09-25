@@ -1,0 +1,12 @@
+schema_version = "mho900-lab.guest-step-profile/1"
+profile_id = "api25-arm64-r02-step4"
+guest_release = "3.18.91+"
+guest_kernel_sha256 = "3112e2210d65c276b067e6cfdd1c26caa95e45061cb08893cccd03f82f76407b"
+single_step_signal = 5
+single_step_code = 4
+single_step_address_equals_pc = true
+maximum_steps = 256
+fixture = "experiments/xdma-two-word/fixture.toml"
+observation = "out/guest-admission/two-word-01/native-pair-control.toml"
+reference_revision = "b2776bf7149bddd1f4161f14f79520f17fc1d71d"
+reference_is_verified_guest_source = false

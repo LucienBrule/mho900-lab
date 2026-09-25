@@ -6,6 +6,8 @@ typedef long S;
 struct Regs { U x[31], sp, pc, pstate; };
 struct Iov { void *base; U size; };
 static volatile U control_output;
+/* Pinned API-25 guest: Linux 3.18 ARM64 single-step reports TRAP_HWBKPT. */
+enum { PROFILE_STEP_CODE = 4 };
 extern char control_pair_stop[];
 static S sys(S n, U a, U b, U c, U d, U e, U f) {
     register U x0 __asm__("x0")=a, x1 __asm__("x1")=b, x2 __asm__("x2")=c;
@@ -117,7 +119,7 @@ static void observe_composition(U pid,int child,U base) {
         event("step-after"); hex("index",steps); hex("pc",r.pc);
         hex("signal",(status>>8)&255); hex("si_code",(unsigned)info[1]);
         hex("address",info[2]);
-        if(((status>>8)&255)!=5 || (unsigned)info[1]!=2) {
+        if(((status>>8)&255)!=5 || (unsigned)info[1]!=PROFILE_STEP_CODE || info[2]!=r.pc) {
             event("step-rejected"); terminate_tracee(pid); quit(73);
         }
         if(store_object) {

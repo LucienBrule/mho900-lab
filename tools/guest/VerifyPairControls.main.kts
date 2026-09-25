@@ -91,7 +91,7 @@ fun verifyPositive(): Unit {
     require(stepsBefore.size == 3 && stepsAfter.size == 3) { "positive step count" }
     require(stepsBefore.map { it.index } == listOf(0uL, 1uL, 2uL))
     require(stepsAfter.map { it.index } == listOf(0uL, 1uL, 2uL))
-    require(stepsAfter.all { it.signal == 5uL && it.code == 2uL })
+    require(stepsAfter.all { it.signal == 5uL && it.code == 4uL && it.address == it.pc })
     require(stepsBefore[0].opcode == 0xb3607d69uL && stepsBefore[1].opcode == 0x9240e129uL)
     require(stepsBefore[2].opcode and 0xffc0001fuL == 0xf9000009uL)
     require(stepsBefore.first().pc == responses.last().afterPc)

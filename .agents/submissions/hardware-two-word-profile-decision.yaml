@@ -1,0 +1,18 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.two-word-profile-decision
+contract: sha256:6f3904bc7a825bda31447eefa18667b37685121abffed058a63014c275aa7675
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T03:19:06Z"
+evidence:
+  evaluation: >-
+    docs/research/xdma-two-word-profile.md SHA-256 6b5889d747a12538d06ccfaaa356728b6af28db5d7f18ba194251b5a12edced2
+    distinguishes six passing private controls, two actual stock responses, the observed exclusive retry loop,
+    and the still-unobserved stock composition/global store. Independent read-only review agreed. Observer
+    disturbance is the leading hypothesis, not an established cause; the inventory has 21 threads with only
+    the main thread traced. The unresolved converter and physical identity semantics remain outside the result.
+  next-question: >-
+    Propose an identical private exclusive-operation sequence under stepping versus uninterrupted execution,
+    with fixed inputs, finite retry bounds and a terminal stop. Isolate observer effects before changing the
+    stock observation method. Do not modify stock mutex code or supply new device responses to address a libc
+    retry loop. Close, commit and push this result before any successor experiment; no further run is admitted here.

@@ -22,6 +22,9 @@ if [ "$pair" = 1 ]; then
     [ -z "$word" ] || exit 2
     command=stock-pair
     cp "$repo/experiments/xdma-two-word/fixture.toml" "$run/native-pair-fixture.toml"
+    cp "$repo/experiments/xdma-two-word/profile.toml" "$run/native-pair-profile.toml"
+    release=$(adb shell uname -r | tr -d '\r')
+    [ "$release" = "$(yq -p toml -r '.guest_release' "$run/native-pair-profile.toml")" ] || exit 3
     adb shell '/data/local/tmp/native-probe control-pair 0' > "$run/native-pair-control.toml" 2>&1
     rc=0
     adb shell '/data/local/tmp/native-probe control-pair 1' > "$run/native-pair-negative.toml" 2>&1 || rc=$?
