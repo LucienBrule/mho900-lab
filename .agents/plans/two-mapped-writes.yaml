@@ -1,0 +1,54 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.two-write-control
+    title: Validate the exact two-store command pair
+    state: open
+    intent: Extend the tested write ledger by the second directly observed stock store.
+    requires: [TASK.hardware.one-write-decision]
+    requirements:
+      - Keep the existing two synthetic reads and group-wide continuous observation.
+      - Accept only two ordered main-thread 32-bit stores at offset 0x3000 with values 0x05630000 then 0x01630000, bound to exact PC and opcode.
+      - Complete each by PC-only advancement and observer-side ledger recording; keep the mapping inaccessible and supply no device side effect.
+      - Positive private arms stop at a following main-thread or worker access without completion.
+      - Negative private arms reject changed second value or offset after only one completed store.
+      - Re-run existing controls with the rebuilt executable and verify all thread/event/state/cleanup evidence.
+    acceptance:
+      - Independent verification establishes ordered write counts, exact register preservation, negative guards and terminal attribution.
+      - Preserve enforcement and system_server; commit and push controls before stock execution.
+    verification: [controls, write-contract, coverage, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.two-mapped-writes
+    title: Complete the observed command pair and capture the next stock access
+    state: open
+    intent: Follow stock initialization beyond the now-observed two-write prefix.
+    requires: [TASK.guest.two-write-control]
+    requirements:
+      - Use the controlled executable and unchanged stock artifacts in a fresh pinned guest.
+      - Permit only the two existing reads and two observed stores at ELF0x27043c opcode0xb9000109 offset0x3000 in the exact observed order.
+      - Run normally after each PC-only store completion and stop at the next unsupported access from any covered thread.
+      - Capture thread events, terminal state, preservation and cleanup or a precise negative outcome.
+    acceptance:
+      - Record the next access without supplying another response and separate it from static initialization predictions.
+      - No physical instrument, ADC-ready, timing-fidelity or acquisition claim.
+    verification: [stock-binding, write-contract, next-boundary, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.two-write-decision
+    title: Evaluate the confirmed command prefix and finite-sequence options
+    state: open
+    intent: Choose a bounded next hypothesis using runtime accesses and stock initialization data.
+    requires: [TASK.hardware.two-mapped-writes]
+    requirements:
+      - Distinguish observed/completed stores from static table-derived predictions and synthetic acceptance assumptions.
+      - Use bounded read-only stock table analysis to assess finite sequence modeling before broad write acceptance.
+    acceptance:
+      - Select a justified finite continuation or observer correction and commit and push results before another experiment.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
