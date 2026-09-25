@@ -1,0 +1,37 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.single-read
+    title: Compare one synthetic read completion and stop at the next stock access
+    state: open
+    intent: Test the smallest load-emulation primitive and the FPGA DNA consumer sequence without completing an identity.
+    requires: [TASK.hardware.native-decision]
+    requirements:
+      - Preserve stock APK and library bytes; change only the exact captured load destination register and PC once.
+      - Admit only read32 at offset 0x4048, stock PC 0x270604 and opcode b9400109.
+      - Explicitly label test values as synthetic and stop before completing any second hardware access.
+      - Do not access physical instruments, modify host policy or globally disable security controls.
+    acceptance:
+      - Validate 32-bit load zero extension and unchanged other registers with an independent private control.
+      - Compare fresh stock runs for responses zero and 0x11223344, recording original requests and both faults or explicit negative.
+      - Check whether stock code stores the supplied first word and reaches the statically predicted read at 0x4044.
+      - Preserve integrity, policy limits, complete teardown and system_server stability evidence.
+    verification: [load-control, paired-stock-results, integrity]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.single-read-decision
+    title: Evaluate the three-experiment exploration and state the next hardware question
+    state: open
+    intent: Close this exploration at a bounded evidence-backed checkpoint.
+    requires: [TASK.hardware.single-read]
+    requirements:
+      - Do not promote synthetic values into hardware semantics or continue into later identity processing.
+    acceptance:
+      - Separate syscall failure, reliable access observation, modeled completion and remaining physical unknowns.
+      - Report the next question and stop after the third experiment with results committed and pushed.
+    verification: [evaluation, checkpoint]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
