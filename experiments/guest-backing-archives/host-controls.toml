@@ -1,0 +1,55 @@
+schema_version = "mho900-lab.guest-backing-archive-controls/1"
+
+[[cases]]
+name = "positive-prepare"
+expected_success = true
+exit_code = 0
+matched = true
+
+[[cases]]
+name = "positive-retire"
+expected_success = true
+exit_code = 0
+matched = true
+
+[[cases]]
+name = "positive-restore"
+expected_success = true
+exit_code = 0
+matched = true
+
+[[cases]]
+name = "changed-source-prepare"
+expected_success = false
+exit_code = 3
+matched = true
+
+[[cases]]
+name = "changed-after-prepare-prepare"
+expected_success = true
+exit_code = 0
+matched = true
+
+[[cases]]
+name = "changed-after-prepare-retire"
+expected_success = false
+exit_code = 3
+matched = true
+
+[[cases]]
+name = "corrupt-archive-prepare"
+expected_success = true
+exit_code = 0
+matched = true
+
+[[cases]]
+name = "corrupt-archive-retire"
+expected_success = false
+exit_code = 3
+matched = true
+
+[[cases]]
+name = "active-user-prepare"
+expected_success = false
+exit_code = 3
+matched = true
