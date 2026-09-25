@@ -9,11 +9,12 @@ import java.util.zip.ZipFile
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word|two-word-budget]" }
+require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word|two-word-budget|admission-only]" }
+val admissionOnly = args.getOrNull(1) == "admission-only"
 val singleRead = args.size == 2 && args[1] == "single-read"
 val stepBudget = args.size == 2 && args[1] == "two-word-budget"
 val twoWord = args.size == 2 && args[1] in listOf("two-word", "two-word-budget")
-require(args.size == 1 || singleRead || twoWord) { "Unknown verification mode" }
+require(args.size == 1 || singleRead || twoWord || admissionOnly) { "Unknown verification mode" }
 val run = Path.of(args[0]).toAbsolutePath().normalize()
 fun text(name: String): String = Files.readString(run.resolve(name))
 fun sha256(path: Path): String {
@@ -113,6 +114,10 @@ require(text("native-status.toml").trim() == "exit_code = ${if(stepBudget) 72 el
 require(text("app-pid.txt").isBlank())
 require(text("native-enforcing.txt").trim() == "Enforcing")
 require(!text("native-before.txt").contains("frida", ignoreCase = true))
+if (admissionOnly) {
+    println("admission_preservation = \"verified\"")
+    kotlin.system.exitProcess(0)
+}
 sealed interface Event
 data class Ready(val pid: ULong) : Event
 data class Binding(val base: ULong, val got: ULong) : Event

@@ -87,6 +87,7 @@ static void terminate_tracee(U pid) {
     event("terminated"); hex("status",status);
     if((status&127)!=9) quit(76);
 }
+#include "native-post-store.h"
 static void observe_composition(U pid,int child,U base) {
     U target=child?(U)control_pair_stop:base+0x42a2b4;
     for(U steps=0;steps<=256;steps++) {
@@ -141,9 +142,21 @@ static void supervise(U pid,int child,U base,int respond,U response) {
         event("stock-binding"); hex("base",base); hex("mmap_got",peek(pid,base+0xb850f0));
         if(respond==2 && ((unsigned)peek(pid,base+0x42a2b4)!=0x97f7331fU ||
             peek(pid,base+0xb8d758)!=base+0xbbccf0)) quit(75);
+        if(respond==3) {
+            U object=peek(pid,base+0xb8d758);
+            if((unsigned)peek(pid,base+0x42a8ec)!=0xf9000128U ||
+               (unsigned)peek(pid,base+0x42a8f0)!=0x14000001U || object!=base+0xbbccf0) {
+                event("post-store-binding-rejected"); terminate_tracee(pid); quit(75);
+            }
+            event("post-store-binding"); hex("target",base+0x42a8f0); hex("target_opcode",0x14000001);
+            hex("store",base+0x42a8ec); hex("store_opcode",0xf9000128); hex("got_slot",base+0xb8d758);
+            hex("object",object); hex("initial_value",peek(pid,object));
+        }
     }
-    event("ready"); hex("pid",pid);
+    if(respond==3) nps_inventory(pid,"before-ready");
+    event("ready"); hex("pid",pid); hex("observer_pid",sys(172,0,0,0,0,0,0)); hex("stopping_tid",pid);
     U fd=(U)-1, mapped=0, output_address=0; int pending_open=0,pending_map=0, completed=0;
+    int response_limit=respond==3?2:respond;
     for(U stops=0;stops<200000;stops++) {
         check(pt(24,pid,0,0),"resume");
         check(sys(260,pid,(U)&status,0x40000000,0,0,0),"wait");
@@ -158,14 +171,15 @@ static void supervise(U pid,int child,U base,int respond,U response) {
             hex("pc",r.pc); hex("relative_pc",r.pc-base); hex("opcode",opcode);
             hex("sp",r.sp); hex("pstate",r.pstate);
             for(int i=0;i<31;i++) { char key[]={'x',(char)('0'+i/10),(char)('0'+i%10),0}; hex(key,r.x[i]); }
-            if(respond && completed<respond) {
+            if(respond && completed<response_limit) {
                 U expected_offset=completed==0?0x4048:0x4044;
-                U value=respond==2?(completed==0?0xe1234567UL:0x89abcdefUL):response;
+                U value=respond>=2?(completed==0?0xe1234567UL:0x89abcdefUL):response;
                 if(!mapped || address!=mapped+expected_offset ||
                    (child ? (opcode&0xffc0001fUL)!=0xb9400009UL :
                     (r.pc!=base+0x270604 || opcode!=0xb9400109UL))) {
                     event("response-guard-rejected");
-                    if(respond==2) terminate_tracee(pid); else pt(17,pid,0,11);
+                    if(respond>=2) { if(respond==3) nps_inventory(pid,"terminal"); terminate_tracee(pid); }
+                    else pt(17,pid,0,11);
                     quit(78);
                 }
                 output_address=child?(U)&control_output:peek(pid,r.x[29]-0x10);
@@ -180,6 +194,7 @@ static void supervise(U pid,int child,U base,int respond,U response) {
                 hex("other_registers_unchanged",1); hex("output_address",output_address);
                 completed++;
                 if(respond==2 && completed==2) observe_composition(pid,child,base);
+                if(respond==3 && completed==2) nps_terminal(pid,child,base);
                 continue; /* Suppress just this fault; the unchanged next stock instruction executes. */
             }
             if(completed) {
@@ -192,6 +207,12 @@ static void supervise(U pid,int child,U base,int respond,U response) {
         }
         if(sig!=133) {
             event("unexpected-signal"); hex("signal",sig);
+            if(respond==3) {
+                U info[16]={0}; check(pt(0x4202,pid,0,(U)info),"unexpected-siginfo");
+                hex("si_code",(unsigned)info[1]); hex("address",info[2]); hex("pc",r.pc);
+                for(int i=0;i<31;i++) { char key[]={'x',(char)('0'+i/10),(char)('0'+i%10),0}; hex(key,r.x[i]); }
+                nps_inventory(pid,"terminal"); terminate_tracee(pid); quit(83);
+            }
             check(pt(17,pid,0,sig),"detach-signal"); quit(83);
         }
         /* Linux ARM64 reports entry=0 / exit=1 in temporary x7 at syscall stops. */
@@ -222,7 +243,9 @@ static void supervise(U pid,int child,U base,int respond,U response) {
             }
         } else { event("invalid-phase"); hex("x7",r.x[7]); pt(17,pid,0,0); quit(80); }
     }
-    pt(17,pid,0,0); quit(79);
+    if(respond==3) { event("stop-budget-exhausted"); nps_inventory(pid,"terminal"); terminate_tracee(pid); }
+    else pt(17,pid,0,0);
+    quit(79);
 }
 void entry(U *stack) {
     U argc=stack[0]; char **argv=(char **)(stack+1);
@@ -241,6 +264,12 @@ void entry(U *stack) {
         S pid=sys(220,17,0,0,0,0,0); check(pid,"clone");
         if(!pid) control(5+which); else supervise(pid,1,0,2,0);
     } else if(argc==4 && equal(argv[1],"stock-pair")) supervise(parse(argv[2],10),0,parse(argv[3],16),2,0);
+    else if(argc==4 && equal(argv[1],"stock-post-store")) supervise(parse(argv[2],10),0,parse(argv[3],16),3,0);
+    else if(argc==3 && equal(argv[1],"control-post-store")) {
+        U which=parse(argv[2],10); if(which>1) quit(2);
+        S pid=sys(220,17,0,0,0,0,0); check(pid,"clone");
+        if(!pid) control(5+which); else supervise(pid,1,0,3,0);
+    }
     else if(argc==5 && equal(argv[1],"stock-step")) {
         U response=parse(argv[4],16); if(response!=0 && response!=0x11223344) quit(2);
         supervise(parse(argv[2],10),0,parse(argv[3],16),1,response);

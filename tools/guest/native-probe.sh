@@ -17,7 +17,25 @@ done
 command=stock
 word=${NATIVE_TEST_WORD:-}
 pair=${NATIVE_TWO_WORD:-0}
+post_store=${NATIVE_POST_STORE:-0}
 case "$pair" in 0|1) ;; *) exit 2;; esac
+case "$post_store" in 0|1) ;; *) exit 2;; esac
+if [ "$post_store" = 1 ]; then
+    [ "$pair" = 0 ] && [ -z "$word" ] || exit 2
+    command=stock-post-store
+    cp "$repo/experiments/xdma-post-store/fixture.toml" "$run/native-post-store-fixture.toml"
+    cp "$repo/experiments/guest-execution-stop/profile.toml" "$run/native-execution-profile.toml"
+    [ "$(adb shell uname -r | tr -d '\r')" = '3.18.91+' ] || exit 3
+    rc=0
+    adb shell '/data/local/tmp/native-probe control-post-store 0' > "$run/native-post-store-control.toml" 2>&1 || rc=$?
+    printf 'exit_code = %s\n' "$rc" > "$run/native-post-store-control-status.toml"
+    [ "$rc" = 0 ] || exit 3
+    rc=0
+    adb shell '/data/local/tmp/native-probe control-post-store 1' > "$run/native-post-store-negative.toml" 2>&1 || rc=$?
+    printf 'exit_code = %s\n' "$rc" > "$run/native-post-store-negative-status.toml"
+    [ "$rc" = 78 ] || exit 3
+    kotlin "$run/source/VerifyPostStore.main.kts" "$run" controls > "$run/native-post-store-controls-verification.toml"
+fi
 if [ "$pair" = 1 ]; then
     [ -z "$word" ] || exit 2
     command=stock-pair
@@ -42,7 +60,7 @@ pid=$(adb shell pidof com.rigol.scope | tr -d '\r')
 case "$pid" in ''|*[!0-9]*) exit 2;; esac
 printf 'pid = %s\n' "$pid" > "$run/native-app-pid.toml"
 adb shell "cat /proc/$pid/cmdline; cat /proc/$pid/attr/current; cat /proc/$pid/maps" > "$run/native-before.txt"
-if [ "$pair" = 1 ]; then
+if [ "$pair" = 1 ] || [ "$post_store" = 1 ]; then
     adb pull /system/lib64/libc.so "$run/native-libc.so" > "$run/native-libc-pull.txt" 2>&1
     shasum -a 256 "$run/native-libc.so" > "$run/native-libc-sha256.txt"
     adb shell "ls /proc/$pid/task" > "$run/native-thread-ids.txt"
@@ -52,6 +70,10 @@ actual=$(unzip -p "$run/installed.apk" lib/arm64-v8a/libscope-auklet.so | shasum
 # The pinned APK's stored ELF starts at ZIP data offset 0xf05000; verifier derives it independently.
 base=$(sed -n 's/^\([0-9a-f]*\)-.* r-xp 00f05000 .*com.rigol.scope.*\/base.apk$/\1/p' "$run/native-before.txt")
 case "$base" in ''|*[!0-9a-f]*) exit 2;; esac
+if [ "$post_store" = 1 ]; then
+    adb shell 'test ! -e /dev/xdma0_bypass && rm -f /data/local/tmp/native-events.toml /data/local/tmp/native-status.toml /data/local/tmp/native-pid' \
+        > "$run/native-marker-reset.txt" 2>&1
+fi
 adb shell "/data/local/tmp/native-probe $command $pid $base $word >/data/local/tmp/native-events.toml 2>&1 & tracer=\$!; echo \$tracer >/data/local/tmp/native-pid; wait \$tracer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
 command_pid=$!
@@ -74,5 +96,12 @@ adb shell 'p=$(cat /data/local/tmp/native-pid); if [ -r /proc/$p/cmdline ] && gr
 wait "$command_pid" || true
 adb pull /data/local/tmp/native-events.toml "$run/native-events.toml" > "$run/native-events-pull.txt" 2>&1
 adb pull /data/local/tmp/native-status.toml "$run/native-status.toml" > "$run/native-status-pull.txt" 2>&1
+if [ "$post_store" = 1 ]; then
+    adb pull /data/local/tmp/native-probe "$run/native-executed.elf" > "$run/native-executed-pull.txt" 2>&1
+    cmp "$run/native-probe.elf" "$run/native-executed.elf"
+fi
 adb shell 'getenforce' > "$run/native-enforcing.txt"
 sleep 2
+if [ "$post_store" = 1 ]; then
+    grep -qx 'exit_code = 0' "$run/native-status.toml"
+fi

@@ -20,6 +20,7 @@ The project is running initial guest experiments; no complete emulator or physic
 - [Private exclusive-operation observer comparison](docs/research/guest-exclusive-control.md)
 - [Private post-atomic execution-stop setup finding](docs/research/guest-execution-stop.md)
 - [Profiled post-atomic breakpoint delivery](docs/research/guest-execution-profile.md)
+- [Stock post-store observation and private inventory finding](docs/research/xdma-post-store.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

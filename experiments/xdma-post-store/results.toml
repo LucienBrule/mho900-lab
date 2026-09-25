@@ -1,0 +1,146 @@
+schema_version = "mho900-lab.post-store-results/1"
+classification = "private-inventory-gate-failure"
+run_id = "post-store-01"
+report = "docs/research/xdma-post-store.md"
+legacy_controls_completed = 4
+private_positive_reads = 2
+private_positive_value = "0x0123456789abcdef"
+private_positive_stop_pc = "0x214608"
+private_positive_stop_code = 4
+private_positive_exit = 0
+private_negative_reads = 1
+private_negative_second_offset = "0x4040"
+private_negative_exit = 78
+inventory_samples = 4
+inventory_counts = [0, 0, 0, 0]
+inventory_errors = [1, 1, 1, 1]
+precise_inventory_errno_recorded = false
+requested_directory_flag = "0x10000"
+reference_arm64_o_directory = "0x4000"
+controls_verifier_rejected = true
+native_helper_exit = 3
+stock_supervisor_started = false
+stock_device_responses = 0
+stock_global_store_observed = false
+stock_apk_and_library_preserved = true
+system_server_pid = 1044
+system_server_stable = true
+selinux_preflight_enforcing = true
+selinux_final_sample_reached = false
+enforcement_changed_by_fixture = false
+physical_device_access = false
+guest_torn_down = true
+negative_verifier_added_after_run = true
+next_question = "Validate ARM64 directory flags and precise inventory errors, then gate the unchanged stock post-store experiment on valid private inventories."
+
+[[artifacts]]
+path = "docs/research/xdma-post-store.md"
+sha256 = "fbf14b1dfd7254ad3d0a113c42a55a3643a41ffd1e3fe43530011e5049bfbf8f"
+
+[[artifacts]]
+path = "experiments/xdma-post-store/fixture.toml"
+sha256 = "52d33654de549d16ed0d01f1071e492b96e654528e638a56e0cca1d29b237fe6"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "8bddf8dde764ac5b582082b12a4c05cefac9336c664d837fa29dda333ecbd7d4"
+
+[[artifacts]]
+path = "tools/guest/native-post-store.h"
+sha256 = "88e19d1a38f5755688ba6010ef33a5a6be0ab38fa48f5d5ec3876bbb7c49d285"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+sha256 = "c12d56f6e0ae66a93e35887bf57f04dba7a459c97b554170234e5a2893951f92"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "57aa87da0488f225e2583a6cf3befc7617d2d76e8eab3d06f4aeb08d48ef1d83"
+
+[[artifacts]]
+path = "tools/guest/VerifyPostStore.main.kts"
+sha256 = "871e358f6096bce1e01d27da2340636ab22e0c9d4b5ed85126d65e7ef7f2584e"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "7ca66bd97a9bbc89a9459ddb7d39f5844879a9cdf7d2ab60822a510c88a610ac"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/evidence-sha256.txt"
+sha256 = "0aee393241c5b93bd939ab2d3b5d03ce8757a09d0262ed47f48e52fdbb4d0e83"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/source/VerifyPostStore.main.kts"
+sha256 = "cf3ad46a6e4b6c374ce928e282fad0939428e10f339c067a1ac721b2a7d08558"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/native-probe.elf"
+sha256 = "65933babc8795b00548b3a4c30debe282c01858ae2ed58ec25df50dee851a774"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/native-post-store-control.toml"
+sha256 = "ac6c9c00ca8a743b2b30e233e3cd6521f904b3a926f7c3bfdf0878b96519d66f"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/native-post-store-negative.toml"
+sha256 = "5157ba4816527cc57eb1a814f67fcafcd47adc8d99686f57b3e45dd4fe81285b"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/native-helper-status.toml"
+sha256 = "57eb0e44e9d047a6972321cb6a15d0567964c583cc67539c0add82e78624397f"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/system-server-pid.toml"
+sha256 = "1b79885676d9dba69d4d5a8903a3be808ef6b326054fb3f88b68d97338bde492"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/selinux-after.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/installed.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/result.toml"
+sha256 = "2526aea0350e683e9404659e0a9bfcfc57fe8c2b3dc0d095e26bb21376a94e83"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/xdma-post-store/inventory-failure-verification.toml"
+sha256 = "0feb9523d57d75889fb6cf13c602a90003aee901cb5292d2d7dcff376de35e06"
+
+[[artifacts]]
+path = "out/xdma-post-store/capture-rejection.toml"
+sha256 = "9111fbb98a3fb8c1608353e5ef40f79a1ff93b837191295dab7295155dc5a117"
+
+[[artifacts]]
+path = "out/xdma-post-store/stock-preservation.txt"
+sha256 = "382ec8cb86a59b005224a54ad6efc50442a0d4688e6c4153fd2519f2dd06dd37"
+
+[[artifacts]]
+path = "out/xdma-post-store/teardown.toml"
+sha256 = "720f1afa3bb452561d87210fd66575f6881c692835a980e6ee147a8bcb36691b"
+
+[[artifacts]]
+path = "out/xdma-post-store/disassembly.txt"
+sha256 = "5d9f67ef660f268aa2ea100aeaa2130cb9e37eb9120058a886676a9e432e7883"
+
+[[artifacts]]
+path = "out/xdma-post-store/elf.txt"
+sha256 = "e3a9f716d4e7c4865c58ff097a5b4d48393b7e92fd10236fe6696241aac4acc9"
+
+[[artifacts]]
+path = "out/xdma-post-store/CheckElfBinding.main.kts"
+sha256 = "9aa117fd072fbaa2bb3c8ff63aadfb12a83261dfe682f4c98ef9c9d427d74720"
+
+[[artifacts]]
+path = "out/xdma-post-store/elf-binding-preflight.toml"
+sha256 = "af8452262869a4d7ae82c0ef83bb4f970c89866d832956837c5cf8d3896020a1"
+
+[[artifacts]]
+path = "out/xdma-post-store/arm64-open-flags-reference.toml"
+sha256 = "40c87618eedfe02855b8818d9c5f48982489195c723081d10926005b56265c2e"
