@@ -40,3 +40,13 @@ sh tools/guest/test-admission-runtime.sh out/health-loader loadermodel
 sh tools/guest/test-admission-runtime.sh out/health-private adcinputcontrol
 sh tools/guest/test-admission-runtime.sh out/health-stock adcinputmodel
 ```
+
+## Admission evaluation
+
+The gate admits one stock capture using freeze revision 2. All eleven original
+native controls remain accepted; the repair changes only final-health routing,
+its host tests, and the corresponding stock verification pins. The preboot disk
+check still runs at execution time, and the selected run directory is unused.
+There are no new synthetic device responses and no execution past `0x333ba8`.
+Unexpected pointers, incomplete evidence, or changed state close the actual
+question as a negative result. No adaptive retry is included.
