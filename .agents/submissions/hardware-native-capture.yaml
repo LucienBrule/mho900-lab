@@ -1,0 +1,23 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.native-capture
+contract: sha256:6d47bff5b904786a27beed9c9e358ef1ce10b51a5caef1c9925945a7d1664c46
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:22:08Z"
+evidence:
+  controls: >-
+    Four native child controls pass protected 32/64-bit read/write capture under the guest Linux ARM64 x7
+    entry/exit protocol. VerifyNative independently decodes instructions and effective addresses. LLVM 23.1.1,
+    LLD 23.1.1, helper ELF and Linux v3.18 ABI references are pinned in experiments/xdma-native/inputs.toml.
+    Native C/assembly is confined to the ptrace ABI boundary; Kotlin verifies evidence.
+  stock-capture: >-
+    docs/research/xdma-native.md SHA-256 9be11e144613e016f0bb3d2b29e42afbe6e228c9eee821e42274dbccf6ec3782 records the exact original mmap tuple and call site,
+    protected anonymous substitution, kernel mapping return and complete first fault: read32 at offset 0x4048,
+    stock PC 0x270604 opcode b9400109. Native registers, siginfo and independent debuggerd stack corroborate
+    the access and identify its caller as DevSystemSCU_GetFPGADNA. No read response was supplied.
+  integrity: >-
+    experiments/xdma-native/results.toml SHA-256 e53918b9d92a2193cdb4f8aebe5363a29be916b93e5892d2d4a400e80642548a pins the immutable raw run, native binary,
+    source and verification. VerifyNative passed APK/native hashes, signers, shared UID, process label, admission
+    negative controls and stable system_server PID 1068. No Frida in stock process maps; guest enforcing remains.
+    An earlier root Binder-thread crash is separately disclosed with unknown process identity, not attributed
+    to MMIO. Guest and isolated listeners are gone. No host security changes or physical instrument access.

@@ -1,0 +1,69 @@
+schema_version = "mho900-lab.xdma-native-results/1"
+run = "native-01"
+hypothesis_supported = true
+private_controls_passed = 4
+stock_access = "read32 offset 0x4048, opcode b9400109 at ELF 0x270604"
+stock_consumer = "DevSystemSCU_GetFPGADNA"
+next_static_read_offset = "0x4044"
+next_read_observed = false
+hardware_values_supplied = false
+application_injection = false
+stock_bytes_preserved = true
+system_server_stable = true
+physical_device_access = false
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "3242b3d8ef4bbb977f3c0d5867ef6fcafcf125b6dbec7fbed5ed72bf9ef62042"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "9e27dafa0b53d5d3c9bae55bf28dc8a5e47f7e63d514f61b0f54f4e07290fd94"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+sha256 = "2466111a7a029c145ba234336d3be034da7cbd640ae8b8181770e7e9bf6ade8b"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "5e5f32c900bf6a8358825b17d41efcd3f1c822c8735d9da3d950e28ab020fe65"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "3d23ee4199b70b9ffa3bcee801e8f6a3b100a88181d9bec1fd450293ab0e0417"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "bece4ceba28fb602fa19b7e3abb515c0c619f796e902338371ef2f139963734c"
+
+[[artifacts]]
+path = "out/guest-admission/native-01/evidence-sha256.txt"
+sha256 = "13c2fad34352c3ce80717211c9840f292b8d882b28c58c43dd275c3c93d0e11e"
+
+[[artifacts]]
+path = "out/guest-admission/native-01/native-probe.elf"
+sha256 = "0de955d2f9371d9a01fcb5b9f64fff00f665651f12696e9082f72384fe37a8b6"
+
+[[artifacts]]
+path = "out/guest-admission/native-01/native-events.toml"
+sha256 = "cc0bc0a2e8057d2a8c5cad13be55b2ee3caad0f27bff55134e88f85537b6fdb1"
+
+[[artifacts]]
+path = "out/guest-admission/native-01/native-before.txt"
+sha256 = "95f3901546680158951cf34dbad5a3d50038f9fd71a7a9d6ca4b43d132352a8b"
+
+[[artifacts]]
+path = "out/guest-admission/native-01/crash-logcat.txt"
+sha256 = "0aa19723d8558c081d326f40ff6cc27aaa8aba7c9b4af42108cb1412ec2aff65"
+
+[[artifacts]]
+path = "out/xdma-native/verification.toml"
+sha256 = "16bef81e94015f2a86a22ef268dec90e49d10d9061b377a619b7b1263f23e803"
+
+[[artifacts]]
+path = "out/xdma-native/first-reader.txt"
+sha256 = "7438a9f36c95f942bfd72217133cc42131b9d88948ea95a4ee9a1e2f328f24ba"
+
+[[artifacts]]
+path = "out/xdma-native/first-consumer.txt"
+sha256 = "630bec305fff5a3b081ec047b76b2ac680e5347f6391925a814276e1f345053d"

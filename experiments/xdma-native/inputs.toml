@@ -1,0 +1,45 @@
+schema_version = "mho900-lab.native-probe-inputs/1"
+compiler = "LLVM clang 23.1.1"
+linker = "LLD 23.1.1"
+target = "aarch64-linux-gnu; freestanding static ELF; no libc dependency"
+runtime_kernel = "Android guest Linux 3.18.91+"
+abi_reference = "https://github.com/torvalds/linux/tree/v3.18"
+abi_reference_limit = "UAPI and tracing implementation reference, not a claim of exact guest source equality"
+entry_exit_protocol = "ARM64 temporary x7: 0 entry, 1 exit; validated by private controls"
+native_exception = "Guest ptrace and register ABI require native C/assembly; verification is Kotlin"
+
+[[artifacts]]
+path = "local/reference/linux-v3.18/linux-ptrace.h"
+sha256 = "d53dda260eaad1a9040b6e18cc1bf84b86c47e04fb63ed6f426144e98410940f"
+
+[[artifacts]]
+path = "local/reference/linux-v3.18/ptrace-uapi.h"
+sha256 = "8cd5a384c0059a656288717486bd3ae5975e8e1a5cf455ce98386bc68a59598b"
+
+[[artifacts]]
+path = "local/reference/linux-v3.18/ptrace.c"
+sha256 = "7e307edd1083f92cb42f026884441710fded6b4a2a8f146a6a3a3a13227dc0da"
+
+[[artifacts]]
+path = "local/reference/linux-v3.18/siginfo.h"
+sha256 = "ac134a275f529a9f1ffb1310490a25b460001246a59a3ad26b94cae41bd22ba0"
+
+[[artifacts]]
+path = "local/reference/linux-v3.18/unistd.h"
+sha256 = "2f44a0c379d3d969b04dc6ff0b6d9745c4c63808f91e80b495efc87d3a9639b6"
+
+[[artifacts]]
+path = "out/xdma-native/build/native-probe"
+sha256 = "0de955d2f9371d9a01fcb5b9f64fff00f665651f12696e9082f72384fe37a8b6"
+
+[[artifacts]]
+path = "out/xdma-native/build/compiler.txt"
+sha256 = "bf2f6a4c64eec7479c428ba60ba769d6b05ff8c824d8dc247c350555c8826533"
+
+[[artifacts]]
+path = "out/xdma-native/build/linker.txt"
+sha256 = "ea80675f4affbb6e9c99feb37309e005396e7d2497b9436e927cae0c2c82c6f7"
+
+[[artifacts]]
+path = "out/xdma-native/build/build-inputs.txt"
+sha256 = "f4f59890ea101d78b683eb9a2cd193afc6717453927cab1034c035333730fbae"

@@ -1,0 +1,18 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.native-decision
+contract: sha256:d41f39173cb585b2e37030c3393a7382a1554ff7b1db89be37087a79c680c606
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:22:08Z"
+evidence:
+  evaluation: >-
+    Report SHA-256 9be11e144613e016f0bb3d2b29e42afbe6e228c9eee821e42274dbccf6ec3782 establishes a working external first-access observer with explicit
+    main-thread-only and anonymous-backing fidelity limits. The unchanged accessor instruction, actual effective
+    address and kernel fault are observed together. No hardware state semantics were established. A syscall
+    supervisor has replaced the failed callback transport inside the selected logical boundary; no earlier
+    task contract or hardware architecture was revised.
+  next-question: >-
+    The third bounded question will compare two synthetic one-read responses at the exact observed instruction
+    and stop at the next protected access. Static stock code predicts a second read at 0x4044 within the FPGA
+    DNA routine. The experiment will test load completion and consumer sequencing without supplying a complete
+    identity or reaching later identity checks. It must have separate admission and committed tasking first.
