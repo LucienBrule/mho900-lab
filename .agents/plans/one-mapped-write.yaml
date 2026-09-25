@@ -1,0 +1,56 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.one-write-control
+    title: Validate one exact mapped store and the next-access stop
+    state: open
+    intent: Add the witnessed stock write as a bounded synthetic transaction without inventing device side effects.
+    requires: [TASK.hardware.next-access-decision]
+    requirements:
+      - Preserve the existing two read responses and group-wide continuous observation.
+      - Add a mode allowing exactly one main-thread 32-bit store at the witnessed offset 0x3000 and value 0x05630000, bound to its instruction PC and opcode.
+      - Record the accepted write in an observer-side ledger; advance PC by four with every other register unchanged and keep the mapping inaccessible.
+      - Private positive controls must stop without response at a subsequent main-thread store and a worker mapped access.
+      - Private negative controls must reject a changed write value and changed offset without completing a store.
+      - Re-run the five existing controls with the rebuilt native executable.
+      - Quiesce and account for all traced threads and exact cleanup; unknown accesses and bounds remain explicit negatives.
+    acceptance:
+      - Independent verification establishes two read responses, at most one modeled store, exact register preservation and terminal thread/state evidence.
+      - No new read values or modeled device side effects; preserve enforcement and system_server and push the result before stock execution.
+    verification: [controls, write-contract, coverage, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.one-mapped-write
+    title: Complete the witnessed stock store and capture the following access
+    state: open
+    intent: Test the next step of the stock initialization sequence with exactly one additional modeled transaction.
+    requires: [TASK.guest.one-write-control]
+    requirements:
+      - Use the private-controlled executable and byte-identical stock artifacts in a fresh pinned guest.
+      - Permit the two existing reads and exactly the main-thread store at ELF 0x27043c opcode 0xb9000109 offset 0x3000 value 0x05630000.
+      - Record the write and preserve all registers except PC; execute stock return and synchronization code normally.
+      - Stop at the next unsupported access from any covered thread without another response.
+      - Capture thread events, terminal state, preservation and cleanup or classify a precise negative outcome.
+    acceptance:
+      - Compare the next observed access with the static candidate 0x01630000 second write without treating the prediction as a pre-supplied result.
+      - Make no physical ADC, timing, completion or acquisition claim; commit and push the conclusion.
+    verification: [stock-binding, write-contract, next-boundary, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.one-write-decision
+    title: Evaluate the one-write model and the next device dependency
+    state: open
+    intent: Select the next bounded model question from observed stock behavior.
+    requires: [TASK.hardware.one-mapped-write]
+    requirements:
+      - Separate completed modeled transactions from uncompleted observations and static predictions.
+      - Retain the mapped-access boundary unless evidence identifies a concrete deficiency.
+    acceptance:
+      - Select a bounded continuation or correction, with results committed and pushed before another experiment.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
