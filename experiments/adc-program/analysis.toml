@@ -1,0 +1,69 @@
+schema_version = "mho900-lab.adc-program-analysis/1"
+classification = "conditional-static-software-transcript"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+address_table_elf = "0x994a5c"
+value_table_elf = "0x994c18"
+address_got_elf = "0xb8cfa0"
+value_got_elf = "0xb8d0c8"
+array_entries_each = 111
+loop_consumed_entries = 110
+modes_per_entry = 2
+writes_per_call = 2
+predicted_loop_writes = 440
+write_offset = "0x3000"
+first_entry_words = ["0x05630000", "0x01630000", "0x06630000", "0x02630000"]
+live_bindings_verified = false
+live_table_contents_verified = false
+full_loop_observed = false
+physical_semantics_established = false
+later_writable_state_operations_excluded = true
+original_index_self_reference_preserved = true
+corrected_index_validates = true
+
+[[artifacts]]
+path = "docs/research/adc-program.md"
+sha256 = "00f5f0630bcf8241ee6a8df24a3ea1ce82c5291e9747110bd887e1ecb80007c6"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/input-tool-sha256.txt"
+sha256 = "50fa42d648e38e7de8d45e561b4131257191b27fc6dc41886ce2ed0922b4d064"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/evidence-sha256.txt"
+sha256 = "b1bf2cd253de58e6dae6e96fa20e0185d4138514b994235badd9de812547510e"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static-verification.txt"
+sha256 = "237f6ac053cb5086fd7daec3bc1913bb8a68b13617fb6019a4e8bc91e52e1495"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static-index-corrected.txt"
+sha256 = "c2d6f058913f97e8a29b2274619fd4d8506335cabfdc40fcda4aff399aad7c82"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static-corrected-verification.txt"
+sha256 = "136aa4a8217ee1e23c918e9366c3dca383d8e2f680c391dbc65ba4a264557056"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-index-correction.toml"
+sha256 = "90437410046a9c9565fc75bfefcc90b7555752ffe90406c741deea9e7a98f0b3"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/adc-init.txt"
+sha256 = "8f5bb7df268d017f2789aa290f76b7d33ff5f097fa251214d8564730938fec77"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/got-relocations.txt"
+sha256 = "a651ac24152f3d28d91493deb74df207f74ce8d2c4540b5bfc95a3a642803453"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/table-symbols.txt"
+sha256 = "2a32d2003952d2af4a666ec6c51507c9a4fa59f7a0ac3de42580e59313441dbc"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/direct-write-transcript.tsv"
+sha256 = "1afbaebd4bbf60c56f141873bb0c89e0b1bb28050f28e046db089aece6eb8d79"
+
+[[artifacts]]
+path = "out/group-observer/adc-table-static/conditional-full-transcript.tsv"
+sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"

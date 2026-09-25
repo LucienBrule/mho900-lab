@@ -1,0 +1,85 @@
+schema_version = "mho900-lab.two-write-stock-results/1"
+run_id = "stock-two-writes-01"
+classification = "exact-pair-completed-next-mode-word-observed"
+modeled_reads = 2
+modeled_writes = 2
+completed_write_values = ["0x05630000", "0x01630000"]
+next_write_value = "0x06630000"
+next_write_completed = false
+write_offset = "0x3000"
+write_elf_pc = "0x27043c"
+write_opcode = "0xb9000109"
+initial_threads = 23
+terminal_threads = 24
+runtime_clone_events = 1
+all_terminal_threads_reaped = true
+system_server_pid = 1055
+system_server_stable = true
+final_enforcement = "Enforcing"
+composite_snapshot_exit = 255
+individual_snapshot_commands_verified = 3
+composite_failure_cause = "unresolved"
+stock_artifacts_preserved = true
+guest_torn_down = true
+physical_device_access = false
+next_hypothesis = "finite 440-store stock-table transcript with live binding checks"
+
+[[artifacts]]
+path = "docs/research/stock-two-mapped-writes.md"
+sha256 = "98e2c2a3c97ee755b53cfd18bc50a54ee965639f6dee36645c3f958e17ca6fd8"
+
+[[artifacts]]
+path = "experiments/group-observer/two-write-results.toml"
+sha256 = "8f0fdb693444f45625cec9d3aee3c306cb005ef38614bc5318beedce3936cbfc"
+
+[[artifacts]]
+path = "experiments/adc-program/analysis.toml"
+sha256 = "65219e051b5bd261d8855b33488a3123cbc6ef7d2fbfcc281c0aa52313649df0"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "ea86cb26b04721db67590ea4427abca9b867eac64dc6ef77819ba2f44a284497"
+
+[[artifacts]]
+path = "out/group-observer/two-write-stock-verification.toml"
+sha256 = "69aaf2a2e26660bdcd165762d908eb7bd16d9b4660ce2ca48b63f0cdeef7863c"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/evidence-sha256.txt"
+sha256 = "ef6b41252922d01d7c516df7d4a3a71ed9794e8734829001f8cf1039d4edf520"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/group-control.elf"
+sha256 = "4127986df6000f381112c15c9c844c79e131da4608b4e9ec574138894bbaa4b1"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/native-events.toml"
+sha256 = "bd69d3164ccfcd8fb01eba4061ecd02ac7a3452e3bc191f1430b8e3a60a92876"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/native-status.toml"
+sha256 = "56f847c1c1e37c158a9b0a64e6680d3f533d15d605743dd92b5d776c59b70cec"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/native-snapshot-composite-status.toml"
+sha256 = "357713f1b05ee9fe0b3187edd29b7ca80a47d62b0213c15db752b84c9e1c19e4"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/native-snapshot-verification.toml"
+sha256 = "d13d4052d28970206dc8bb02e31d187b0ad6dad6fd72d54a05ced3adf1b16f4c"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/system-server-pid.toml"
+sha256 = "405a4f21bf57f6d5f6b02497377b6483b323b1fd6cc77927251648a12ae6f7fd"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/result.toml"
+sha256 = "35c51373dbe5af890e66adbb46737fa1b9942647f661cbfced61e3f0260c01af"
+
+[[artifacts]]
+path = "out/guest-admission/stock-two-writes-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
