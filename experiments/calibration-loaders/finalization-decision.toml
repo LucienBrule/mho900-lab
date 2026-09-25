@@ -1,0 +1,30 @@
+schema_version = "mho900-lab.calibration-finalization-decision/1"
+result = "repair-runner-then-repeat-unchanged-candidate"
+stock_prediction_tested = false
+transport_cause_known = false
+observer_change_required = false
+new_modeled_register_responses = 0
+guest_attempts_authorized_in_batch = 1
+adaptive_retry = false
+terminal_relative_pc = 0x333ba8
+whole_subsystem_static_recovery_next_on_success = true
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-run01-results.toml"
+sha256 = "8e275191df3e223e61c635608d83070e4d22e325745db72ae557eb4c7f760bcd"
+
+[[artifacts]]
+path = "docs/research/calibration-stock-finalization-decision.md"
+sha256 = "7e73fb4adf2f13b95a109d4567dbb683b3df8456e70ddc1bb39e8612cdbc93d9"
+
+[[artifacts]]
+path = ".agents/plans/calibration-stock-finalization.yaml"
+sha256 = "c0d37638983d314fd7c640935ca54a23e209dde27a437d41addb110ccc6d9a49"
+
+[[artifacts]]
+path = "out/calibration-loaders/adc-static-scope-review.md"
+sha256 = "19df2901a6f3d2f48e59ce580cd8bf61203331488f98826389a37b71239a328b"
+
+[[artifacts]]
+path = "out/calibration-loaders/finalization-plan-01.txt"
+sha256 = "383d4a5638717c88a3805643f453bdeccb921f47cdba09c707713a8cb3318c79"

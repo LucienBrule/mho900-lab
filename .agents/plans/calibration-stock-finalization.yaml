@@ -1,0 +1,48 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.runner-finalization
+    title: Preserve boot collection failures with deterministic runner controls
+    state: open
+    intent: Make early guest collection failures produce precise statuses final health attempts teardown and a complete evidence index.
+    requires: [TASK.guest.calibration-stock-decision]
+    requirements:
+      - Preserve the aborted frozen run and its unknown transport cause; do not claim the stock loader hypothesis was tested.
+      - Bound changes to the outer runner; record mandatory boot command statuses and phases, skip stock admission when boot collection fails, and preserve result cleanup final health attempts and index on early runtime exit without adaptive command retry.
+      - Exercise the actual finalization logic using deterministic host controls for successful collection getprop failure after output subsequent collection failure and final health failure; no guest launch in these controls and no writable links to original evidence.
+      - Review the resulting mutation and freeze updated harness inputs while leaving stock APK native code observer binary register responses loader checkpoints and payload expectations unchanged; commit and push before the next guest attempt.
+    acceptance: [A checked failure-preserving runner and deterministic controls are committed and pushed.]
+    verification: [implementation, controls, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-stock-loaders-repeat
+    title: Repeat the unchanged whole-loader candidate with durable runner finalization
+    state: open
+    intent: Test the static three-loader prediction once under the repaired outer collection harness.
+    requires: [TASK.guest.runner-finalization]
+    requirements:
+      - Pin updated harness and unchanged stock observer candidate and verifier; prepare the same tested filesystem and two file labels with four absent paths and preserve source artifacts.
+      - Execute exactly one fresh guest attempt with no adaptive retry and no new modeled MMIO responses; preserve the complete inherited prefix and loader observations or the precise earliest failure.
+      - Retain predicted returns 192 1794240 and minus1, complete payload captures, entry-to-terminal ADC equality, convergence of all traced threads, and stop before SetADCParameter zero; distinguish absent observations from failed predictions.
+      - Run the frozen independent verifier and read-only raw audit; preserve final health command attempts cleanup statuses evidence index and stock hashes even on failure; commit and push the actual conclusion before further guest execution.
+    acceptance: [The one-attempt observation or explicit incomplete outcome is preserved reviewed committed and pushed.]
+    verification: [inputs, stock_observation, verification, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-repeat-decision
+    title: Evaluate whole-loader validation and select the next bounded subsystem
+    state: open
+    intent: Use actual observation to choose complete static ADC parameter recovery or resolve the witnessed earlier boundary.
+    requires: [TASK.guest.calibration-stock-loaders-repeat]
+    requirements:
+      - Evaluate loader statuses bytes actual ADC state thread coverage and final health against frozen predictions; do not infer stock behavior from private controls or source analysis.
+      - If loaders agree admit complete mode-zero SetADCParameter transitive static recovery through return with record fields tables loops branches helper algorithms and runtime or hardware ambiguities explicitly classified before any next model is built.
+      - Otherwise identify the earliest witnessed unsatisfied boundary and admit the smallest deliberate successor with no adaptive rerun; plan inspect admit commit and push tasking before execution.
+    acceptance: [A bounded evidence-supported continuation is admitted and committed with explicit remaining uncertainty.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
