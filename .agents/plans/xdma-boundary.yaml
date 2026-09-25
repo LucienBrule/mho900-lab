@@ -1,0 +1,40 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.mapping-probe
+    title: Test a guarded stock XDMA mapping and capture its first register access
+    state: open
+    intent: Validate the smallest observable mapped-access boundary using pinned public reference ABI evidence.
+    requires: [TASK.guest.startup-decision]
+    requirements:
+      - Preserve the stock APK and native library byte-for-byte, including their executable instructions.
+      - Keep public RE semantics, stock observations and modeled transport explicitly separate.
+      - Limit the adapter to the exact stock bypass open and mmap; stop rather than supply unknown register behavior.
+      - Do not access physical hardware, change host security, or globally disable guest security controls.
+    acceptance:
+      - Pin and compare Orange-Rigol source provenance, device ABI, mmap and DMA semantics against the stock consumer.
+      - Document the selected boundary, alternatives, fidelity limits, and future replay or hardware backend path.
+      - Validate fault capture with deterministic private read/write controls and an unrelated ordinary-memory control.
+      - Repeat fresh guest attempts, record exact mapping requests and first unsupported access or reproducible negative.
+      - Capture system_server stability, stock hashes, instrumentation limits and raw evidence without inventing hardware values.
+    verification: [reference-comparison, controlled-capture, repeated-stock-probe]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.mapping-decision
+    title: Evaluate mapped-access observability and bound the next hardware question
+    state: open
+    intent: Decide whether the chosen boundary is supported and identify the next smallest evidence-backed model question.
+    requires: [TASK.hardware.mapping-probe]
+    requirements:
+      - Evaluate actual evidence rather than whether Sparrow advanced or appeared functional.
+      - Reconcile any material architecture change before extending the model.
+    acceptance:
+      - Distinguish adapter success, unknown instrument behavior, and harness failure with durable evidence.
+      - State how much of the hardware contract is supplied by the public reference and what remains unknown.
+      - Close this bounded batch and report the proposed next question without silently adding register behaviors.
+    verification: [boundary-evaluation, next-question]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

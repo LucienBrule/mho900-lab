@@ -1,0 +1,122 @@
+schema_version = "mho900-lab.xdma-reference/1"
+classification = "public-third-party-reference-not-vendor-ground-truth"
+repository = "https://github.com/norbertkiszka/rigol-orangerigol-linux_4.4.179"
+revision = "d23adbd11626f12abaf4bc742e250204fe2b9f8a"
+xdma_import_commit = "8585c26df087c4e4c419b9ebf1edae8b48646c85"
+xdma_import_message = "xdma from Xilinx"
+xdma_version_macro = "2019.2.51"
+source_license_headers = "GPL-2.0; Xilinx copyright"
+local_root = "local/reference/orange-rigol-d23adbd"
+orange_repository = "https://github.com/norbertkiszka/Orange-Rigol"
+orange_revision = "2b89f9a662f1a564b712d7f625af5ef578b9ea4d"
+reported_test_device = "DHO924S; README claim, not MHO984 validation"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+
+[[files]]
+path = "drivers/rigol/xdma/cdev_bypass.c"
+sha256 = "f9215aa5d33f23091b66726321411861ad33ecb20fc4750edbca192d20b04c34"
+git_blob = "0608c666728e512632bc44ccc1e817bd6cdfe365"
+
+[[files]]
+path = "drivers/rigol/xdma/cdev_ctrl.c"
+sha256 = "293bbacf58276ded43947be3fc3baa29097a7dde86ca18ab092d78088047a667"
+git_blob = "e787d4c830d3c0884a4d6e298c5a18015dac0ddb"
+
+[[files]]
+path = "drivers/rigol/xdma/cdev_ctrl.h"
+sha256 = "55a4c269fd7416d56d29f9d00cfc66e9f13e8678d0ff95d01fdc52f6c8be8896"
+git_blob = "61d5cd1abd6bfbcc76456dc92187e8c7977da3aa"
+
+[[files]]
+path = "drivers/rigol/xdma/cdev_sgdma.c"
+sha256 = "32bd2e0af408b111e6f006ff830d06ba37655e5bac3d163ca482c56178748b75"
+git_blob = "881869805c4da99256b9f7dc4c5e6e9006718d8f"
+
+[[files]]
+path = "drivers/rigol/xdma/cdev_sgdma.h"
+sha256 = "4c3a296e83bc30b0c5329f6710b4c38f22d2b011501418712751164d1711aa05"
+git_blob = "f1437ede82b32c9f25ff51418928613c7703af03"
+
+[[files]]
+path = "drivers/rigol/xdma/libxdma_api.h"
+sha256 = "2fb28e40c6708fa1129274d11693b6eadfc3f0dcba39ca4bdf03d0c8d9c18d08"
+git_blob = "640a158684e838a3eb86c85218eb253fbcfd6a64"
+
+[[files]]
+path = "drivers/rigol/xdma/libxdma.c"
+sha256 = "19727383f7ac3cb542308909ba4146d08fce10d228e7e43ed175103dbdf9a15b"
+git_blob = "32b3ed1ba75fa15cc8aaad4aeee467e9c752cdb2"
+
+[[files]]
+path = "drivers/rigol/xdma/libxdma.h"
+sha256 = "10e645dae95d152a7c5c7258d650c8034e3191f2a7078301d108b4d64a19a850"
+git_blob = "e24528632ccb25be5bf3f53d77a3493c88c9311b"
+
+[[files]]
+path = "drivers/rigol/xdma/Makefile"
+sha256 = "2758d06f6fe477f0185c6677b29b0d0645f2dfc1ff92abfda9d987b4cfc6f282"
+git_blob = "2b1556419ca55b6cdd2bfa4973183ba30d880326"
+
+[[files]]
+path = "drivers/rigol/xdma/version.h"
+sha256 = "40e6c63a9063bc96fe9b2ae0612869d1f896fa8dced7bfb092ece46d7c477301"
+git_blob = "9c02818da950877190c845b0f7e63582267efb2b"
+
+[[files]]
+path = "drivers/rigol/xdma/xdma_cdev.c"
+sha256 = "2eba41335d64d8e685e0b88ca35acbae896dbce051342e0ec24aaf8cbd201740"
+git_blob = "b30a3ab82e346aa41b6e219d304e781277119dcd"
+
+[[files]]
+path = "drivers/rigol/xdma/xdma_cdev.h"
+sha256 = "23ee55284e8ecaf086ddc5c87773bccd8c45a7f926e5d84a21e6e87c99d7072e"
+git_blob = "4b2fc509862415f193f1f09781ec2b6d3d3f4e3e"
+
+[[files]]
+path = "drivers/rigol/xdma/xdma_mod.c"
+sha256 = "c94128351a85eb27915184eb5a5fb8e363dce11a8c8fe039477a77dbad9e3394"
+git_blob = "ef9b72d914b5d35bec1c60a482fa489fe79bac1b"
+
+[[files]]
+path = "drivers/rigol/xdma/xdma_mod.h"
+sha256 = "813caaed2311971b949fb15c5d50dab2907ce48fbe8412d8f947f59702f538ba"
+git_blob = "bc7c2ed02d60f18b510ce24a35381ef27946a5a5"
+
+[[files]]
+path = "drivers/rigol/libxdma/libxdma.c"
+sha256 = "ae2ccf14fed3d30740263a3f7dc79f0705b67ddddfc5d5ada26bd35688965ae8"
+git_blob = "0978d44af04b136aa5ab6f569dc91db903ad1bf8"
+
+[[files]]
+path = "drivers/rigol/libxdma/libxdma.h"
+sha256 = "ad04b86123cfee24b6565165051b62f9d767b7a893bef7308c184993d4bf19cd"
+git_blob = "47ee66acbe859e918910b5c9be5fc2e250371f3f"
+
+[[evidence]]
+path = "out/xdma-reference/kernel-main.json"
+sha256 = "4fb21633d16e1174370df4778c780bec6560e0f70687b97b4f0a4abc6e15d244"
+
+[[evidence]]
+path = "out/xdma-reference/orange-main.json"
+sha256 = "912f39a9d9a25373bf5c2d70e21b30b08ae6203763de07cf6e78f1e77f27fcbc"
+
+[[evidence]]
+path = "out/xdma-reference/xdma-history.json"
+sha256 = "c484030969809562e05d946afde267fbd3ce6292d9aae796c2f40a574f103bab"
+
+[[evidence]]
+path = "out/xdma-reference/directory.json"
+sha256 = "be02467da4cd958d0f3a844be529d1a22e78d5764df02b3424ef59c5aec680d9"
+
+[[evidence]]
+path = "out/xdma-reference/rigol-directory.json"
+sha256 = "a657c185131f8f44cd9174a8ffe72f219f0278ea9dbf432720e60429843cadb8"
+
+[[evidence]]
+path = "out/xdma-reference/kernel-README.md"
+sha256 = "55b6ed64cf86ce2bbd7ec573336c1859dc25375f0b7de4e664e334b0e42afb05"
+
+[[evidence]]
+path = "out/xdma-reference/stock/accessors.txt"
+sha256 = "d6537e9c05071edb6c3d9a737bd3391c434cd75c704dbdf80bc6f8c97a21fda1"
