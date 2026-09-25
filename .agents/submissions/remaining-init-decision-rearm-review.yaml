@@ -1,0 +1,17 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.hardware.remaining-init-decision
+reviewed_head: sha256:0642d9d9892ef35dcf1a6ba3fb9d77a9646511dd293ecc30c0af428e08172032
+observations:
+  - upstream: TASK.hardware.stock-remaining-init
+    contract: sha256:786b901e45eba99b19a124ef63c3ea7a8fd930e604283fc89d277f4847847bb4
+    revision: sha256:ddabfbd38cd2299317cb39c4ff8b245885bed02a2327dbaa298afd76efb410f2
+    inputs: sha256:ba5d4d304716348cbb5194d6e69cf8685402c46449df493c88273c0c533d4c19
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-09-25T09:31:00+00:00"
+rationale: The hardware decision still evaluates the future stock result. Its upstream stock contract now includes an explicit observer rearm gate, without changing the four-store ten-checkpoint hardware hypothesis. No hardware decision outcome is asserted.
+evidence:
+  evaluation: Reviewed the waiting decision contract against the revised stock prerequisite and preserved negative observer result. Evaluation and continuation remain pending until actual stock evidence exists.
+  continuation: Reviewed the waiting decision contract against the revised stock prerequisite and preserved negative observer result. Evaluation and continuation remain pending until actual stock evidence exists.
+successor: null

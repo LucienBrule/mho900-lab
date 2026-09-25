@@ -1,0 +1,62 @@
+schema_version = "mho900-lab.breakpoint-rearm-profile/1"
+task = "TASK.guest.breakpoint-rearm-contract"
+reference_revision = "b2776bf7149bddd1f4161f14f79520f17fc1d71d"
+reference_status = "Upstream Linux v3.18; not proven exact guest source"
+prior_negative_run = "out/guest-admission/group-remaining-init-01"
+guest_kernel_sha256 = "3112e2210d65c276b067e6cfdd1c26caa95e45061cb08893cccd03f82f76407b"
+metadata = 0x0606
+get_size = 264
+set_size = 24
+initial_address = 0
+initial_control = 0
+clear_requested_address = 0
+clear_requested_control = 0
+initial_clear_readback_control = 0x1e4
+armed_clear_readback_control = 0x1e5
+clear_readback_address = 0
+arm_requested_control = 0x1e5
+arm_readback_control = 0x1e4
+unused_slots_zero = true
+readback_retry = false
+accept_either_enable_bit = false
+actual_delivery_required = true
+atomic_completion_required = true
+old_site_revisit_required = true
+new_device_responses = 0
+hardware_contract_changed = false
+
+[[artifacts]]
+path = "docs/research/breakpoint-rearm-profile.md"
+sha256 = "07d03db401434b97fb2e0961bfd420687e730f56147bf7079a746e66cc5e246c"
+
+[[artifacts]]
+path = "experiments/remaining-init/control-results.toml"
+sha256 = "d65186f6c3ee8e8196b52a636522b44e7839eb616a37831d2515a1a107f2b40f"
+
+[[artifacts]]
+path = "experiments/guest-execution-stop/results.toml"
+sha256 = "c05d149023ddf702a95f586656bf3445b6626c028201eca657970e3fcb33db4e"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/ptrace.c"
+sha256 = "7e307edd1083f92cb42f026884441710fded6b4a2a8f146a6a3a3a13227dc0da"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/hw_breakpoint.c"
+sha256 = "6be92aa3d5082e95fbb49120431ec234b9f1c0e2bce9634b2327bd744c08bdb6"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/hw_breakpoint.h"
+sha256 = "d0f8dac5fa355e2d422ba8b5b71cc0c2a52c8b8cbad26987a3d6b71723cb9793"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/events-hw_breakpoint.c"
+sha256 = "fb6b7b1abe3bbb18c7394f438fa43f8564025877deed17e719bcf50d473ebd80"
+
+[[artifacts]]
+path = "out/remaining-init/rearm-reference-review-01.toml"
+sha256 = "9a88634b0f364d88367d477c437f1c1938362b2c3424567a081865c9c1b3fb83"
+
+[[artifacts]]
+path = "out/remaining-init/rearm-reference-review-01.md"
+sha256 = "ec3971dc6adb7b45bbefe8b0587ef65be36714e10ac7a93b4fc7a3991e612651"
