@@ -1,0 +1,219 @@
+schema_version = "mho900-lab.adc-parameter-main-grammar/1"
+stage = "static-recovery"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+function_start = 0x33efe0
+function_end_exclusive = 0x33fc80
+mode = 0
+normal_return = 0
+callee_status_controls_branch = false
+normal_completion_implies_hardware_success = false
+mode_zero_main_call_sites = 13
+mode_zero_main_call_invocations = 35
+stack_failure_call_is_additional_exceptional_edge = true
+record_reads_described_here = 62
+stary_matrix_reads_are_separate = true
+observed_record_offset = 0x8804
+observed_record_bytes = 1936
+observed_record_sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+observed_record_all_zero = true
+shadow_and_matrix_values_known = false
+
+[[nodes]]
+id = "reference"
+order = 0
+kind = "call"
+classification = "RUNTIME-SELECTED"
+callee = "DevAcquireADC_SetRef"
+callee_address = 0x2801ec
+call_pcs = [0x33f038, 0x33f058]
+iteration_variable = "chip"
+iterations = [0, 1]
+argument_types = ["u32", "s16-to-i32"]
+arguments = ["chip", "s16[adc+0x8854+2*chip]"]
+load_pcs = [0x33f024, 0x33f048]
+field_base = 0x8854
+field_stride = 2
+field_width = 2
+field_count = 2
+signed = true
+observed_field_values = [0, 0]
+return_use = "stored into unused stack temporaries"
+next = "spu-gain"
+
+[[nodes]]
+id = "spu-gain"
+order = 1
+kind = "call-with-gather"
+classification = "RUNTIME-SELECTED"
+callee = "CCalibration_ADC::SetSpuAdcGain(int)"
+callee_address = 0x33edac
+call_pcs = [0x33f06c]
+argument_types = ["ADC-object-pointer", "i32"]
+arguments = ["adc", "0"]
+gather_first_loop = "i=0..7: words[i]=u32[adc+0x8cd4+64*gain_pairs[0][0]+4*i]"
+gather_second_loop = "i=8..15: words[i]=u32[adc+0x8cd4+64*gain_pairs[0][1]+4*i]"
+gain_pairs_address = 0x99d210
+mode_zero_pair = [0, 0]
+field_base = 0x8cd4
+field_stride = 4
+field_width = 4
+field_count = 16
+signed = false
+load_pcs = [0x33ee74, 0x33eedc]
+loop_bound_pcs = [0x33ee3c, 0x33eea4]
+loop_bounds_inclusive = [7, 15]
+helper_call_pc = 0x33efb0
+helper_callee = "DevAcquireSpuH12S4_SetAdcGainFine"
+helper_callee_address = 0x275858
+observed_all_words_zero = true
+return_use = "ignored; helper result discarded; returns zero if stack check passes"
+next = "quad-gain"
+
+[[nodes]]
+id = "quad-gain"
+order = 2
+kind = "unrolled-nested-calls"
+classification = "RUNTIME-SELECTED"
+callee = "CCalibration_ADC::SetQuardAdcParameter(int,int)"
+callee_address = 0x33ec00
+call_pcs = [0x33f094, 0x33f0ac, 0x33f0c4, 0x33f0dc]
+channels = [0, 1, 2, 3]
+arguments = ["adc", "channel", "0"]
+helper_callee = "DevAcquireADC_SetADCCoreGain"
+helper_callee_address = 0x281a04
+helper_call_pcs = [0x33ec8c, 0x33ece4, 0x33ed3c, 0x33ed94]
+ordered_chip_arguments = [0, 0, 1, 1]
+ordered_core_arguments = ["channel", "channel+4", "channel", "channel+4"]
+ordered_field_indices = ["channel", "channel+4", "channel+8", "channel+12"]
+field_base = 0x8824
+field_stride = 2
+field_width = 2
+field_count = 16
+signed = true
+load_pcs = [0x33ec68, 0x33ecd8, 0x33ed30, 0x33ed88]
+helper_invocations = 16
+observed_all_fields_zero = true
+return_use = "all helper returns ignored; returns zero; caller stores unused result"
+next = "stary"
+
+[[nodes]]
+id = "stary"
+order = 3
+kind = "subgraph"
+classification = "RUNTIME-SELECTED"
+callee = "CCalibration_ADC::DrvCalibration_SetAdcStary(int)"
+callee_address = 0x33fc80
+call_pcs = [0x33f0f0]
+arguments = ["adc", "0"]
+inputs = ["separate matrix rooted at adc+0x4eb4", "runtime vertical-scale selector", "runtime impedance", "sample rate", "channel-delay outputs"]
+entry_record_does_not_cover_matrix = true
+return_use = "ignored; unconditional branch at0x33f0f4 to0x33f720"
+next = "core-offset"
+
+[[nodes]]
+id = "core-offset"
+order = 4
+kind = "loop"
+classification = "RUNTIME-SELECTED"
+callee = "DevAcquireADC_SetADCCoreOffset"
+callee_address = 0x281ed8
+call_pcs = [0x33f778]
+iteration_variable = "i"
+iteration_first = 0
+iteration_last_inclusive = 15
+iteration_stride = 1
+arguments = ["i>>3", "i&7", "s16[adc+0x8804+2*i]"]
+loop_bound_pc = 0x33f730
+loop_branch_pc = 0x33f734
+load_pcs = [0x33f774]
+field_base = 0x8804
+field_stride = 2
+field_width = 2
+field_count = 16
+signed = true
+observed_all_fields_zero = true
+return_use = "ignored"
+next = "sample-clock-delay"
+
+[[nodes]]
+id = "sample-clock-delay"
+order = 5
+kind = "nested-loop"
+classification = "RUNTIME-SELECTED"
+callee = "DevAcquireADC_SetDlySmpClk"
+callee_address = 0x2844b4
+call_pcs = [0x33f800]
+outer_variable = "chip"
+outer_first = 0
+outer_last_inclusive = 1
+inner_variable = "j"
+inner_first = 0
+inner_last_inclusive = 3
+arguments = ["chip", "sample_clock_order[j]", "s16[adc+0x8844+8*chip+2*j]"]
+sample_clock_order_address = 0x99c500
+sample_clock_order = [0, 2, 1, 3]
+loop_bound_pcs = [0x33f7ac, 0x33f7c8]
+loop_branch_pcs = [0x33f7b0, 0x33f7cc]
+load_pcs = [0x33f7fc]
+field_base = 0x8844
+field_stride = 2
+field_width = 2
+field_count = 8
+signed = true
+observed_all_fields_zero = true
+return_use = "ignored"
+next = "clock-delay"
+
+[[nodes]]
+id = "clock-delay"
+order = 6
+kind = "call"
+classification = "RUNTIME-SELECTED"
+callee = "DevAcquireADC_SetClockDelay"
+callee_address = 0x284554
+call_pcs = [0x33f84c, 0x33f878]
+iteration_variable = "chip"
+iterations = [0, 1]
+arguments = ["chip", "s16[adc+0x8a06+4*chip]", "s16[adc+0x8a04+4*chip]"]
+field_base = 0x8a04
+field_stride = 2
+field_width = 2
+field_count = 4
+signed = true
+load_pcs = [0x33f838, 0x33f844, 0x33f85c, 0x33f868]
+observed_all_fields_zero = true
+hardware_read_in_callee = true
+hardware_result_use = "readback is logged; wrapper returns zero without propagating read status"
+return_use = "first result stored unused; second result ignored"
+next = "synchronize"
+
+[[nodes]]
+id = "synchronize"
+order = 7
+kind = "call"
+classification = "STATIC-DETERMINED"
+callee = "DevAcquireSPU_SetAdcSync"
+callee_address = 0x2739c0
+call_pcs = [0x33fc4c]
+arguments = []
+return_use = "ignored"
+next = "return"
+
+[[nodes]]
+id = "return"
+order = 8
+kind = "branch-and-return"
+classification = "RUNTIME-SELECTED"
+branch_pc = 0x33fc60
+normal_return_pc = 0x33fc78
+normal_return_value = 0
+condition = "entry stack check value equals current TLS check value"
+exceptional_call_pc = 0x33fc7c
+exceptional_callee = "__stack_chk_fail"
+hardware_result_controls_condition = false
+
+[control_flow]
+mode_zero_ranges = ["0x33efe0..0x33f0f8", "0x33f720..0x33f880", "0x33fc4c..0x33fc80"]
+forced_fallthrough_pcs = [0x33f074, 0x33f794, 0x33ee24]
+mode_zero_arguments_at_those_tests = [0, 0, 0]
+transitive_hardware_effects = "See independently recovered helper and stary subgraphs; graph fields are software input formulas, not FPGA behavior."

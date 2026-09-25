@@ -1,0 +1,184 @@
+schema_version = "mho900-lab.adc-stary-static-refinements/1"
+base_grammar = "out/adc-parameter-static/stary-grammar.toml"
+base_grammar_sha256 = "9ea7bd9d912dd0d5ab5c243469f32ee0ed5de866c59f4a5f4f8830063b2f73b0"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+function_start = 0x33fc80
+function_end_exclusive = 0x341840
+function_sha256 = "c65f923e0b7c34eb342d67e60237aa7fdf452a93d480473f9a419a9ff987e78f"
+precedence = "These entries add omitted nonstack state and qualify sample-rate comparison semantics; other base-grammar fields remain unchanged."
+
+[[adc_state_accesses]]
+pc = 0x33ffd4
+operation = "read"
+width = 4
+address = "adc + 0x87f4 + 4*mode"
+mode_zero_address = "adc + 0x87f4"
+purpose = "diagnostic log argument only"
+controls_hardware = false
+
+[[adc_state_accesses]]
+pc = 0x34001c
+operation = "write"
+width = 4
+address = "adc + 0x4e94 + 8*mode"
+mode_zero_address = "adc + 0x4e94"
+value = "delay_bucket"
+
+[[adc_state_accesses]]
+pc = 0x340028
+operation = "read"
+width = 4
+address = "adc + 0x4e94 + 8*mode"
+mode_zero_address = "adc + 0x4e94"
+value = "delay_bucket"
+
+[[adc_state_accesses]]
+pc = 0x34002c
+operation = "write"
+width = 4
+address = "adc + 0x4e98 + 8*mode"
+mode_zero_address = "adc + 0x4e98"
+value = "copy of delay_bucket"
+
+[sample_rate]
+source_call_pc = 0x33fd60
+source = "CDrvParam::GetSampleRate() x0"
+representation = "signed int64 converted to IEEE754 double with SCVTF before each comparison"
+gate_load_pc = 0x34011c
+gate_convert_pc = 0x340120
+gate_compare_pc = 0x340130
+gate_branch_pc = 0x340134
+gate_double = 500000000.0
+gate_rule = "signed_double(sample_rate) <= 500000000 takes bypass-only path"
+rate4_load_pc = 0x340184
+rate4_convert_pc = 0x340188
+rate4_compare_pc = 0x340198
+rate4_branch_pc = 0x34019c
+rate4_double = 4000000000.0
+rate2_load_pc = 0x340880
+rate2_convert_pc = 0x340884
+rate2_compare_pc = 0x340894
+rate2_branch_pc = 0x340898
+rate2_double = 2000000000.0
+rate1_load_pc = 0x341034
+rate1_convert_pc = 0x341038
+rate1_compare_pc = 0x341048
+rate1_branch_pc = 0x34104c
+rate1_double = 1000000000.0
+qualification = "Comparisons are against the rounded double produced from signed x0; do not model them as unconstrained unsigned-integer comparisons for values outside exact double integer range."
+
+[bucket]
+delay_select_pc = 0x33fe98
+multiply1_pc = 0x33feb4
+shift1_pc = 0x33feb8
+add_120000_pc = 0x33fec4
+multiply2_pc = 0x33fec8
+extract_low4_pc = 0x33fecc
+store_pc = 0x33fed0
+formula = "low4(((((u32(channel_delay[mode]) * 0x10624dd3) >> 38) + 120000) * 0x10624dd3) >> 36)"
+
+[matrix_window]
+mode = 0
+root_offset = 0x4eb4
+mode_stride = 0xe40
+scale_stride = 0xc0
+cell_width = 4
+cell_min = 0
+cell_max = 15
+conservative_start = 0x4eb4
+conservative_end_exclusive = 0x5cf4
+accepted_capture_start = 0x8804
+accepted_capture_end_exclusive = 0x8f94
+disjoint = true
+
+[matrix_window.impedance_one]
+branch_pc = 0x3401a8
+scale_min = 0
+scale_max = 7
+field_offsets = [0x840,0x880,0x8c0]
+minimum_address = "adc+0x56f4"
+maximum_word_start = "adc+0x5cf0"
+end_exclusive = "adc+0x5cf4"
+proof = "0x4eb4 + 7*0xc0 + 15*4 + 0x8c0 + 4 = 0x5cf4"
+
+[matrix_window.other_impedance]
+branch_pc = 0x3401ac
+scale_min = 0
+scale_max = 10
+field_offsets = [0x0,0x40,0x80]
+minimum_address = "adc+0x4eb4"
+maximum_word_start = "adc+0x56f0"
+end_exclusive = "adc+0x56f4"
+proof = "0x4eb4 + 10*0xc0 + 15*4 + 0x80 + 4 = 0x56f4"
+
+[[loop_witnesses]]
+rate = 4000000000
+factor = 1
+outer_init_pc = 0x3401b4
+outer_test_pc = 0x3401c0
+outer_body_pc = 0x3401d0
+outer_increment_pc = 0x34050c
+outer_count = 16
+inner_count = 1
+
+[[loop_witnesses]]
+rate = 2000000000
+factor = 2
+factor_store_pc = 0x3408a4
+outer_init_pc = 0x3408b8
+outer_test_pc = 0x3408c4
+outer_body_pc = 0x3408d8
+inner_init_pc = 0x340974
+inner_test_pc = 0x340980
+inner_body_pc = 0x34099c
+outer_count = 8
+inner_count = 2
+
+[[loop_witnesses]]
+rate = 1000000000
+factor = 4
+factor_store_pc = 0x341058
+outer_init_pc = 0x34106c
+outer_test_pc = 0x341078
+outer_body_pc = 0x34108c
+inner_init_pc = 0x341128
+inner_test_pc = 0x341134
+inner_body_pc = 0x341150
+outer_count = 4
+inner_count = 4
+
+[[call_witnesses]]
+pc = 0x33fd18
+callee = "GetVerticalScale"
+
+[[call_witnesses]]
+pc = 0x33fd24
+callee = "Drv_GetSetting"
+
+[[call_witnesses]]
+pc = 0x33fd3c
+callee = "CChannel::getImpedance"
+
+[[call_witnesses]]
+pc = 0x33fd54
+callee = "Drv_GetScope"
+
+[[call_witnesses]]
+pc = 0x33fd5c
+callee = "CDrvScope::GetDrvParam"
+
+[[call_witnesses]]
+pc = 0x33fd60
+callee = "CDrvParam::GetSampleRate"
+
+[[call_witnesses]]
+pc = 0x33fd70
+callee = "CCalibration_ADC::DrvCalibration_GetChDly"
+
+[memory_audit]
+adc_nonmatrix_access_count = 4
+adc_matrix_read_families = 3
+adc_matrix_read_width = 4
+other_nonstack_reads = "runtime objects reached through the seven getter calls and seven adjustment shadows already parameterized in the base grammar"
+other_nonstack_writes = "only the two ADC delay-bucket stores and seven adjustment shadows; downstream mapped stores remain hardware boundaries"
+stack_and_logging_temporaries_excluded = true

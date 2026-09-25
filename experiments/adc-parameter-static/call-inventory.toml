@@ -1,0 +1,5336 @@
+schema_version = "mho900-lab.adc-parameter-inventory/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+scope = "Selected high-level functions and transport helpers; mode-zero pruning only at three byte-bound selector tests"
+transitive_complete = false
+semantic_formulas_machine_proven = false
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC15SetADCParameterEj"
+address = 0x33efe0
+size = 3232
+sha256 = "8abde0a3d3fb580a49e3136b033ffe19dca0a67fe6ae2cbd35009745765685d7"
+reachable_instruction_count = 171
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f038
+opcode = 0x97fae6ae
+form = "BL"
+branch_target = 0x1f8af0
+symbol = "DevAcquireADC_SetRef"
+resolved_target = 0x2801ec
+defined = true
+expanded = true
+relocation_slot = 0xb78c50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f058
+opcode = 0x97fae6a6
+form = "BL"
+branch_target = 0x1f8af0
+symbol = "DevAcquireADC_SetRef"
+resolved_target = 0x2801ec
+defined = true
+expanded = true
+relocation_slot = 0xb78c50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f06c
+opcode = 0x97fb7861
+form = "BL"
+branch_target = 0x21d1f0
+symbol = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+resolved_target = 0x33edac
+defined = true
+expanded = true
+relocation_slot = 0xb8afd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f094
+opcode = 0x97fb2857
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = true
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0ac
+opcode = 0x97fb2851
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = true
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0c4
+opcode = 0x97fb284b
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = true
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0dc
+opcode = 0x97fb2845
+form = "BL"
+branch_target = 0x2091f0
+symbol = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+resolved_target = 0x33ec00
+defined = true
+expanded = true
+relocation_slot = 0xb80fd0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0f0
+opcode = 0x97faed80
+form = "BL"
+branch_target = 0x1fa6f0
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+resolved_target = 0x33fc80
+defined = true
+expanded = true
+relocation_slot = 0xb79a50
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f778
+opcode = 0x97fb6fb6
+form = "BL"
+branch_target = 0x21b650
+symbol = "DevAcquireADC_SetADCCoreOffset"
+resolved_target = 0x281ed8
+defined = true
+expanded = true
+relocation_slot = 0xb8a200
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f800
+opcode = 0x97fb5e08
+form = "BL"
+branch_target = 0x217020
+symbol = "DevAcquireADC_SetDlySmpClk"
+resolved_target = 0x2844b4
+defined = true
+expanded = true
+relocation_slot = 0xb87ee8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f84c
+opcode = 0x97fafbf9
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = true
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f878
+opcode = 0x97fafbee
+form = "BL"
+branch_target = 0x1fe830
+symbol = "DevAcquireADC_SetClockDelay"
+resolved_target = 0x284554
+defined = true
+expanded = true
+relocation_slot = 0xb7baf0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc4c
+opcode = 0x97fb61d1
+form = "BL"
+branch_target = 0x218390
+symbol = "DevAcquireSPU_SetAdcSync"
+resolved_target = 0x2739c0
+defined = true
+expanded = true
+relocation_slot = 0xb888a0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc7c
+opcode = 0x97fb1f05
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f074
+opcode = 0x3500042b
+kind = "mode-zero-fallthrough"
+successors = [0x33f078]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f078
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f07c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f0f4
+opcode = 0x1400018b
+kind = "branch"
+successors = [0x33f720]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f728
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f72c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f734
+opcode = 0x540002ec
+kind = "conditional"
+successors = [0x33f738, 0x33f790]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f738
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f73c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f77c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f780]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f78c
+opcode = 0x17ffffe8
+kind = "branch"
+successors = [0x33f72c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f794
+opcode = 0x35000768
+kind = "mode-zero-fallthrough"
+successors = [0x33f798]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f798
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f79c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f7a4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f7a8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f7b0
+opcode = 0x540003ec
+kind = "conditional"
+successors = [0x33f7b4, 0x33f82c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f7b4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f7b8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f7c0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f7c4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f7cc
+opcode = 0x5400026c
+kind = "conditional"
+successors = [0x33f7d0, 0x33f818]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f7d0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f7d4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f804
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f808]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f814
+opcode = 0x17ffffec
+kind = "branch"
+successors = [0x33f7c4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f818
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33f81c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f828
+opcode = 0x17ffffe0
+kind = "branch"
+successors = [0x33f7a8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33f87c
+opcode = 0x140000f4
+kind = "branch"
+successors = [0x33fc4c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc60
+opcode = 0x540000e1
+kind = "conditional"
+successors = [0x33fc64, 0x33fc7c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc64
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33fc68]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC15SetADCParameterEj"
+pc = 0x33fc78
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+address = 0x33ec00
+size = 428
+sha256 = "e50d0178b76a9ce6fcfd352d53c5eae31a2e9bc1c9745a142e8d262e1c4a1920"
+reachable_instruction_count = 107
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+pc = 0x33ec8c
+opcode = 0x97fb3be1
+form = "BL"
+branch_target = 0x20dc10
+symbol = "DevAcquireADC_SetADCCoreGain"
+resolved_target = 0x281a04
+defined = true
+expanded = true
+relocation_slot = 0xb834e0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+pc = 0x33ece4
+opcode = 0x97fb3bcb
+form = "BL"
+branch_target = 0x20dc10
+symbol = "DevAcquireADC_SetADCCoreGain"
+resolved_target = 0x281a04
+defined = true
+expanded = true
+relocation_slot = 0xb834e0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+pc = 0x33ed3c
+opcode = 0x97fb3bb5
+form = "BL"
+branch_target = 0x20dc10
+symbol = "DevAcquireADC_SetADCCoreGain"
+resolved_target = 0x281a04
+defined = true
+expanded = true
+relocation_slot = 0xb834e0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+pc = 0x33ed94
+opcode = 0x97fb3b9f
+form = "BL"
+branch_target = 0x20dc10
+symbol = "DevAcquireADC_SetADCCoreGain"
+resolved_target = 0x281a04
+defined = true
+expanded = true
+relocation_slot = 0xb834e0
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC20SetQuardAdcParameterEii"
+pc = 0x33eda8
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+address = 0x33edac
+size = 564
+sha256 = "40ed9cddbf451dc702a50407609d950e261e6c5c1fef8dedeacdd4bd9ce8db4e"
+reachable_instruction_count = 98
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33efb0
+opcode = 0x97fb0900
+form = "BL"
+branch_target = 0x2013b0
+symbol = "DevAcquireSpuH12S4_SetAdcGainFine"
+resolved_target = 0x275858
+defined = true
+expanded = true
+relocation_slot = 0xb7d0b0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33efdc
+opcode = 0x97fb222d
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee24
+opcode = 0x540006ec
+kind = "mode-zero-fallthrough"
+successors = [0x33ee28]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee28
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33ee2c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee34
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33ee38]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee40
+opcode = 0x540002ac
+kind = "conditional"
+successors = [0x33ee44, 0x33ee94]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee44
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33ee48]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee80
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33ee84]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee90
+opcode = 0x17ffffea
+kind = "branch"
+successors = [0x33ee38]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33ee9c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33eea0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33eea8
+opcode = 0x540002ac
+kind = "conditional"
+successors = [0x33eeac, 0x33eefc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33eeac
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33eeb0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33eee8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33eeec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33eef8
+opcode = 0x17ffffea
+kind = "branch"
+successors = [0x33eea0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33eefc
+opcode = 0x1400002c
+kind = "branch"
+successors = [0x33efac]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33efc4
+opcode = 0x540000c1
+kind = "conditional"
+successors = [0x33efc8, 0x33efdc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33efc8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33efcc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC13SetSpuAdcGainEi"
+pc = 0x33efd8
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+address = 0x33fc80
+size = 7104
+sha256 = "c65f923e0b7c34eb342d67e60237aa7fdf452a93d480473f9a419a9ff987e78f"
+reachable_instruction_count = 1776
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd18
+opcode = 0x97fadc26
+form = "BL"
+branch_target = 0x1f6db0
+symbol = "_Z16GetVerticalScalei"
+resolved_target = 0x34b808
+defined = true
+expanded = true
+relocation_slot = 0xb77db0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd24
+opcode = 0x97fb1147
+form = "BL"
+branch_target = 0x204240
+symbol = "_Z14Drv_GetSettingj"
+resolved_target = 0x2f3db8
+defined = true
+expanded = true
+relocation_slot = 0xb7e7f8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd3c
+opcode = 0x97fb248d
+form = "BL"
+branch_target = 0x208f70
+symbol = "_ZN8CChannel12getImpedanceEv"
+resolved_target = 0x2fce24
+defined = true
+expanded = true
+relocation_slot = 0xb80e90
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd54
+opcode = 0x97fafd3f
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd5c
+opcode = 0x97fafee9
+form = "BL"
+branch_target = 0x1ff900
+symbol = "_ZN9CDrvScope11GetDrvParamEj"
+resolved_target = 0x2e83a4
+defined = true
+expanded = true
+relocation_slot = 0xb7c358
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd60
+opcode = 0x97fb5ba0
+form = "BL"
+branch_target = 0x216be0
+symbol = "_ZN9CDrvParam13GetSampleRateEv"
+resolved_target = 0x2f006c
+defined = true
+expanded = true
+relocation_slot = 0xb87cc8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd70
+opcode = 0x97faec80
+form = "BL"
+branch_target = 0x1faf70
+symbol = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+resolved_target = 0x347990
+defined = true
+expanded = true
+relocation_slot = 0xb79e90
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe0c
+opcode = 0x97fb77cd
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe28
+opcode = 0x97fb3f46
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe80
+opcode = 0x97fafdc0
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33ff50
+opcode = 0x97fb777c
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33ff6c
+opcode = 0x97fb3ef5
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fffc
+opcode = 0x97fafd61
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3400ac
+opcode = 0x97fb7725
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3400c8
+opcode = 0x97fb3e9e
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340118
+opcode = 0x97fafd1a
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34013c
+opcode = 0x97fb0be9
+form = "BL"
+branch_target = 0x2030e0
+symbol = "DevAcquireSpu_ResetAdjParam"
+resolved_target = 0x27e754
+defined = true
+expanded = true
+relocation_slot = 0xb7df48
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340150
+opcode = 0x97fb66c0
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340160
+opcode = 0x97fb3e70
+form = "BL"
+branch_target = 0x20fb20
+symbol = "DevAcquireSpu_SetAdjOffsetMode"
+resolved_target = 0x27e7dc
+defined = true
+expanded = true
+relocation_slot = 0xb84468
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340170
+opcode = 0x97fb2e90
+form = "BL"
+branch_target = 0x20bbb0
+symbol = "DevAcquireSpu_SetAdjOffsetBypass"
+resolved_target = 0x27e844
+defined = true
+expanded = true
+relocation_slot = 0xb824b0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340180
+opcode = 0x97fb66b4
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3402ec
+opcode = 0x97fb56dd
+form = "BL"
+branch_target = 0x215e60
+symbol = "DevAcquireSpu_SetAdjGain"
+resolved_target = 0x27e490
+defined = true
+expanded = true
+relocation_slot = 0xb87608
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34033c
+opcode = 0x97fb1d49
+form = "BL"
+branch_target = 0x207860
+symbol = "DevAcquireSpu_SetAdjOffset1"
+resolved_target = 0x27e57c
+defined = true
+expanded = true
+relocation_slot = 0xb80308
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34038c
+opcode = 0x97fb0965
+form = "BL"
+branch_target = 0x202920
+symbol = "DevAcquireSpu_SetAdjOffset2"
+resolved_target = 0x27e668
+defined = true
+expanded = true
+relocation_slot = 0xb7db68
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34040c
+opcode = 0x97fb764d
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340428
+opcode = 0x97fb3dc6
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340504
+opcode = 0x97fafc1f
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340654
+opcode = 0x97fb5603
+form = "BL"
+branch_target = 0x215e60
+symbol = "DevAcquireSpu_SetAdjGain"
+resolved_target = 0x27e490
+defined = true
+expanded = true
+relocation_slot = 0xb87608
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3406a4
+opcode = 0x97fb1c6f
+form = "BL"
+branch_target = 0x207860
+symbol = "DevAcquireSpu_SetAdjOffset1"
+resolved_target = 0x27e57c
+defined = true
+expanded = true
+relocation_slot = 0xb80308
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3406f4
+opcode = 0x97fb088b
+form = "BL"
+branch_target = 0x202920
+symbol = "DevAcquireSpu_SetAdjOffset2"
+resolved_target = 0x27e668
+defined = true
+expanded = true
+relocation_slot = 0xb7db68
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340774
+opcode = 0x97fb7573
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340790
+opcode = 0x97fb3cec
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340860
+opcode = 0x97fafb48
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340a14
+opcode = 0x97fb5513
+form = "BL"
+branch_target = 0x215e60
+symbol = "DevAcquireSpu_SetAdjGain"
+resolved_target = 0x27e490
+defined = true
+expanded = true
+relocation_slot = 0xb87608
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340a74
+opcode = 0x97fb1b7b
+form = "BL"
+branch_target = 0x207860
+symbol = "DevAcquireSpu_SetAdjOffset1"
+resolved_target = 0x27e57c
+defined = true
+expanded = true
+relocation_slot = 0xb80308
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340ad4
+opcode = 0x97fb0793
+form = "BL"
+branch_target = 0x202920
+symbol = "DevAcquireSpu_SetAdjOffset2"
+resolved_target = 0x27e668
+defined = true
+expanded = true
+relocation_slot = 0xb7db68
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340b68
+opcode = 0x97fb7476
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340b84
+opcode = 0x97fb3bef
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c60
+opcode = 0x97fafa48
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340dd4
+opcode = 0x97fb5423
+form = "BL"
+branch_target = 0x215e60
+symbol = "DevAcquireSpu_SetAdjGain"
+resolved_target = 0x27e490
+defined = true
+expanded = true
+relocation_slot = 0xb87608
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340e34
+opcode = 0x97fb1a8b
+form = "BL"
+branch_target = 0x207860
+symbol = "DevAcquireSpu_SetAdjOffset1"
+resolved_target = 0x27e57c
+defined = true
+expanded = true
+relocation_slot = 0xb80308
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340e94
+opcode = 0x97fb06a3
+form = "BL"
+branch_target = 0x202920
+symbol = "DevAcquireSpu_SetAdjOffset2"
+resolved_target = 0x27e668
+defined = true
+expanded = true
+relocation_slot = 0xb7db68
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340f28
+opcode = 0x97fb7386
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340f44
+opcode = 0x97fb3aff
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341014
+opcode = 0x97faf95b
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3411c8
+opcode = 0x97fb5326
+form = "BL"
+branch_target = 0x215e60
+symbol = "DevAcquireSpu_SetAdjGain"
+resolved_target = 0x27e490
+defined = true
+expanded = true
+relocation_slot = 0xb87608
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341228
+opcode = 0x97fb198e
+form = "BL"
+branch_target = 0x207860
+symbol = "DevAcquireSpu_SetAdjOffset1"
+resolved_target = 0x27e57c
+defined = true
+expanded = true
+relocation_slot = 0xb80308
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341288
+opcode = 0x97fb05a6
+form = "BL"
+branch_target = 0x202920
+symbol = "DevAcquireSpu_SetAdjOffset2"
+resolved_target = 0x27e668
+defined = true
+expanded = true
+relocation_slot = 0xb7db68
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34131c
+opcode = 0x97fb7289
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341338
+opcode = 0x97fb3a02
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341414
+opcode = 0x97faf85b
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341588
+opcode = 0x97fb5236
+form = "BL"
+branch_target = 0x215e60
+symbol = "DevAcquireSpu_SetAdjGain"
+resolved_target = 0x27e490
+defined = true
+expanded = true
+relocation_slot = 0xb87608
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3415e8
+opcode = 0x97fb189e
+form = "BL"
+branch_target = 0x207860
+symbol = "DevAcquireSpu_SetAdjOffset1"
+resolved_target = 0x27e57c
+defined = true
+expanded = true
+relocation_slot = 0xb80308
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341648
+opcode = 0x97fb04b6
+form = "BL"
+branch_target = 0x202920
+symbol = "DevAcquireSpu_SetAdjOffset2"
+resolved_target = 0x27e668
+defined = true
+expanded = true
+relocation_slot = 0xb7db68
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3416dc
+opcode = 0x97fb7199
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3416f8
+opcode = 0x97fb3912
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417c8
+opcode = 0x97faf76e
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417f8
+opcode = 0x97fb28ee
+form = "BL"
+branch_target = 0x20bbb0
+symbol = "DevAcquireSpu_SetAdjOffsetBypass"
+resolved_target = 0x27e844
+defined = true
+expanded = true
+relocation_slot = 0xb824b0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341808
+opcode = 0x97fb6112
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34183c
+opcode = 0x97fb1815
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd7c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33fd80]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd88
+opcode = 0x5400088c
+kind = "conditional"
+successors = [0x33fd8c, 0x33fe98]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fd8c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33fd90]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fdf4
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x33fdf8, 0x33fe1c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fdf8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33fdfc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe18
+opcode = 0x14000008
+kind = "branch"
+successors = [0x33fe38]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe34
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33fe38]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe84
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33fe88]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33fe94
+opcode = 0x17ffffbb
+kind = "branch"
+successors = [0x33fd80]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33ff38
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x33ff3c, 0x33ff60]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33ff3c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33ff40]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33ff5c
+opcode = 0x14000008
+kind = "branch"
+successors = [0x33ff7c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x33ff78
+opcode = 0x14000001
+kind = "branch"
+successors = [0x33ff7c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340094
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x340098, 0x3400bc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340098
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34009c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3400b8
+opcode = 0x14000008
+kind = "branch"
+successors = [0x3400d8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3400d4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3400d8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340134
+opcode = 0x5400b60d
+kind = "conditional"
+successors = [0x340138, 0x3417f4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340138
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34013c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34019c
+opcode = 0x54003721
+kind = "conditional"
+successors = [0x3401a0, 0x340880]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3401a0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3401a4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3401ac
+opcode = 0x54001ba1
+kind = "conditional"
+successors = [0x3401b0, 0x340520]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3401b0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3401b4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3401bc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3401c0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3401c8
+opcode = 0x54001aac
+kind = "conditional"
+successors = [0x3401cc, 0x34051c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3401cc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3401d0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3403f4
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x3403f8, 0x34041c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3403f8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3403fc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340418
+opcode = 0x14000008
+kind = "branch"
+successors = [0x340438]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340434
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340438]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340508
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34050c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340518
+opcode = 0x17ffff2a
+kind = "branch"
+successors = [0x3401c0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34051c
+opcode = 0x140000d8
+kind = "branch"
+successors = [0x34087c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340528
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34052c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340534
+opcode = 0x54001a2c
+kind = "conditional"
+successors = [0x340538, 0x340878]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340538
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34053c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34075c
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x340760, 0x340784]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340760
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340764]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340780
+opcode = 0x14000008
+kind = "branch"
+successors = [0x3407a0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34079c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3407a0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340864
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340868]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340874
+opcode = 0x17ffff2e
+kind = "branch"
+successors = [0x34052c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340878
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34087c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34087c
+opcode = 0x140003dd
+kind = "branch"
+successors = [0x3417f0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340898
+opcode = 0x54003ce1
+kind = "conditional"
+successors = [0x34089c, 0x341034]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34089c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3408a0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3408b0
+opcode = 0x54001e61
+kind = "conditional"
+successors = [0x3408b4, 0x340c7c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3408b4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3408b8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3408c0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3408c4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3408d0
+opcode = 0x54001d4a
+kind = "conditional"
+successors = [0x3408d4, 0x340c78]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3408d4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3408d8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34097c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340980]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340994
+opcode = 0x54000aca
+kind = "conditional"
+successors = [0x340998, 0x340aec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340998
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34099c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340ad8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340adc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340ae8
+opcode = 0x17ffffa6
+kind = "branch"
+successors = [0x340980]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340b50
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x340b54, 0x340b78]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340b54
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340b58]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340b74
+opcode = 0x14000008
+kind = "branch"
+successors = [0x340b94]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340b90
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340b94]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c64
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340c68]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c74
+opcode = 0x17ffff14
+kind = "branch"
+successors = [0x3408c4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c78
+opcode = 0x140000ee
+kind = "branch"
+successors = [0x341030]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c84
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340c88]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c94
+opcode = 0x54001cca
+kind = "conditional"
+successors = [0x340c98, 0x34102c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340c98
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340c9c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340d40
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340d44]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340d58
+opcode = 0x54000aaa
+kind = "conditional"
+successors = [0x340d5c, 0x340eac]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340d5c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340d60]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340e98
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340e9c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340ea8
+opcode = 0x17ffffa7
+kind = "branch"
+successors = [0x340d44]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340f10
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x340f14, 0x340f38]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340f14
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340f18]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340f34
+opcode = 0x14000008
+kind = "branch"
+successors = [0x340f54]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x340f50
+opcode = 0x14000001
+kind = "branch"
+successors = [0x340f54]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341018
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34101c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341028
+opcode = 0x17ffff18
+kind = "branch"
+successors = [0x340c88]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34102c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341030]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341030
+opcode = 0x140001ef
+kind = "branch"
+successors = [0x3417ec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34104c
+opcode = 0x54003ce1
+kind = "conditional"
+successors = [0x341050, 0x3417e8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341050
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341054]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341064
+opcode = 0x54001e61
+kind = "conditional"
+successors = [0x341068, 0x341430]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341068
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34106c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341074
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341078]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341084
+opcode = 0x54001d4a
+kind = "conditional"
+successors = [0x341088, 0x34142c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341088
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34108c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341130
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341134]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341148
+opcode = 0x54000aca
+kind = "conditional"
+successors = [0x34114c, 0x3412a0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34114c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341150]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34128c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341290]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34129c
+opcode = 0x17ffffa6
+kind = "branch"
+successors = [0x341134]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341304
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x341308, 0x34132c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341308
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34130c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341328
+opcode = 0x14000008
+kind = "branch"
+successors = [0x341348]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341344
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341348]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341418
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34141c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341428
+opcode = 0x17ffff14
+kind = "branch"
+successors = [0x341078]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34142c
+opcode = 0x140000ee
+kind = "branch"
+successors = [0x3417e4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341438
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34143c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341448
+opcode = 0x54001cca
+kind = "conditional"
+successors = [0x34144c, 0x3417e0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34144c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341450]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3414f4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3414f8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34150c
+opcode = 0x54000aaa
+kind = "conditional"
+successors = [0x341510, 0x341660]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341510
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341514]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34164c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341650]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34165c
+opcode = 0x17ffffa7
+kind = "branch"
+successors = [0x3414f8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3416c4
+opcode = 0x54000140
+kind = "conditional"
+successors = [0x3416c8, 0x3416ec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3416c8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3416cc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3416e8
+opcode = 0x14000008
+kind = "branch"
+successors = [0x341708]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341704
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341708]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417cc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3417d0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417dc
+opcode = 0x17ffff18
+kind = "branch"
+successors = [0x34143c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417e0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3417e4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417e4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3417e8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417e8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3417ec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417ec
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3417f0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x3417f0
+opcode = 0x14000008
+kind = "branch"
+successors = [0x341810]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x34180c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341810]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341820
+opcode = 0x540000e1
+kind = "conditional"
+successors = [0x341824, 0x34183c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341824
+opcode = 0x14000001
+kind = "branch"
+successors = [0x341828]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+pc = 0x341838
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetRef"
+address = 0x2801ec
+size = 148
+sha256 = "b2f3d06824fe15b1c6c531229b1a0af54e205aa1f95600b3679b6c024b4c7729"
+reachable_instruction_count = 37
+
+[[calls]]
+owner = "DevAcquireADC_SetRef"
+pc = 0x280260
+opcode = 0x97fe63e4
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetRef"
+pc = 0x28027c
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetADCCoreGain"
+address = 0x281a04
+size = 620
+sha256 = "f22c432c964b1134747443c985a774670079cbfe60d8a8d420cb06e87e2f4b6f"
+reachable_instruction_count = 155
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281ac0
+opcode = 0x97fe5dcc
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281af8
+opcode = 0x97fe5dbe
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281b30
+opcode = 0x97fe5db0
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281b68
+opcode = 0x97fe5da2
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281ba0
+opcode = 0x97fe5d94
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281bd8
+opcode = 0x97fe5d86
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281c10
+opcode = 0x97fe5d78
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281c48
+opcode = 0x97fe5d6a
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281a38
+opcode = 0x370000a8
+kind = "test-bit-branch"
+successors = [0x281a3c, 0x281a4c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281a48
+opcode = 0x37000088
+kind = "test-bit-branch"
+successors = [0x281a4c, 0x281a58]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281a54
+opcode = 0x14000083
+kind = "branch"
+successors = [0x281c60]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281a74
+opcode = 0x37000ee8
+kind = "test-bit-branch"
+successors = [0x281a78, 0x281c50]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281a8c
+opcode = 0xd61f0120
+kind = "table-branch"
+successors = [0x281a90, 0x281ac8, 0x281b00, 0x281b38, 0x281b70, 0x281ba8, 0x281be0, 0x281c18]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281ac4
+opcode = 0x14000066
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281afc
+opcode = 0x14000058
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281b34
+opcode = 0x1400004a
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281b6c
+opcode = 0x1400003c
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281ba4
+opcode = 0x1400002e
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281bdc
+opcode = 0x14000020
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281c14
+opcode = 0x14000012
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281c4c
+opcode = 0x14000004
+kind = "branch"
+successors = [0x281c5c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281c58
+opcode = 0x14000002
+kind = "branch"
+successors = [0x281c60]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreGain"
+pc = 0x281c6c
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetADCCoreOffset"
+address = 0x281ed8
+size = 620
+sha256 = "9fbbe98a5a36fe25352322afeaac1a6e8e74ca9af37b2d7b637fb19d759ea129"
+reachable_instruction_count = 155
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f94
+opcode = 0x97fe5c97
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281fcc
+opcode = 0x97fe5c89
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282004
+opcode = 0x97fe5c7b
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x28203c
+opcode = 0x97fe5c6d
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282074
+opcode = 0x97fe5c5f
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x2820ac
+opcode = 0x97fe5c51
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x2820e4
+opcode = 0x97fe5c43
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x28211c
+opcode = 0x97fe5c35
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f0c
+opcode = 0x370000a8
+kind = "test-bit-branch"
+successors = [0x281f10, 0x281f20]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f1c
+opcode = 0x37000088
+kind = "test-bit-branch"
+successors = [0x281f20, 0x281f2c]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f28
+opcode = 0x14000083
+kind = "branch"
+successors = [0x282134]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f48
+opcode = 0x37000ee8
+kind = "test-bit-branch"
+successors = [0x281f4c, 0x282124]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f60
+opcode = 0xd61f0120
+kind = "table-branch"
+successors = [0x281f64, 0x281f9c, 0x281fd4, 0x28200c, 0x282044, 0x28207c, 0x2820b4, 0x2820ec]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281f98
+opcode = 0x14000066
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x281fd0
+opcode = 0x14000058
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282008
+opcode = 0x1400004a
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282040
+opcode = 0x1400003c
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282078
+opcode = 0x1400002e
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x2820b0
+opcode = 0x14000020
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x2820e8
+opcode = 0x14000012
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282120
+opcode = 0x14000004
+kind = "branch"
+successors = [0x282130]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x28212c
+opcode = 0x14000002
+kind = "branch"
+successors = [0x282134]
+
+[[branches]]
+owner = "DevAcquireADC_SetADCCoreOffset"
+pc = 0x282140
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetDlySmpClk"
+address = 0x2844b4
+size = 160
+sha256 = "c3666ac8565690c559923a1722c1e6c6288bf9e47074775f24ee7a9b259a4f99"
+reachable_instruction_count = 40
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x28450c
+opcode = 0x97fe5409
+form = "BL"
+branch_target = 0x219530
+symbol = "DevAcquireADC_SetDlySmpClkA"
+resolved_target = 0x284274
+defined = true
+expanded = true
+relocation_slot = 0xb89170
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x28451c
+opcode = 0x97fdc749
+form = "BL"
+branch_target = 0x1f6240
+symbol = "DevAcquireADC_SetDlySmpClkB"
+resolved_target = 0x284304
+defined = true
+expanded = true
+relocation_slot = 0xb777f8
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x28452c
+opcode = 0x97fddac5
+form = "BL"
+branch_target = 0x1fb040
+symbol = "DevAcquireADC_SetDlySmpClkC"
+resolved_target = 0x284394
+defined = true
+expanded = true
+relocation_slot = 0xb79ef8
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x28453c
+opcode = 0x97fdee6d
+form = "BL"
+branch_target = 0x1ffef0
+symbol = "DevAcquireADC_SetDlySmpClkD"
+resolved_target = 0x284424
+defined = true
+expanded = true
+relocation_slot = 0xb7c650
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x2844e8
+opcode = 0x370002e8
+kind = "test-bit-branch"
+successors = [0x2844ec, 0x284544]
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x284500
+opcode = 0xd61f0120
+kind = "table-branch"
+successors = [0x284504, 0x284514, 0x284524, 0x284534, 0x284504, 0x284514, 0x284524, 0x284534]
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x284510
+opcode = 0x1400000d
+kind = "branch"
+successors = [0x284544]
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x284520
+opcode = 0x14000009
+kind = "branch"
+successors = [0x284544]
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x284530
+opcode = 0x14000005
+kind = "branch"
+successors = [0x284544]
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x284540
+opcode = 0x14000001
+kind = "branch"
+successors = [0x284544]
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClk"
+pc = 0x284550
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetClockDelay"
+address = 0x284554
+size = 560
+sha256 = "5e37c12c227e58cbc3c487a0f35a611ca472b422f75a3bce07b474b0724ac884"
+reachable_instruction_count = 140
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x2845d8
+opcode = 0x97fe5306
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284620
+opcode = 0x97fe65c8
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284634
+opcode = 0x97fe2d43
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x28468c
+opcode = 0x97fdebbd
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x2846b0
+opcode = 0x97fe4e9c
+form = "BL"
+branch_target = 0x218120
+symbol = "DevAcquireADC_GetADCReg"
+resolved_target = 0x27e920
+defined = true
+expanded = true
+relocation_slot = 0xb88768
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284704
+opcode = 0x97fe658f
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284718
+opcode = 0x97fe2d0a
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284754
+opcode = 0x97fdeb8b
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284780
+opcode = 0x97fe0c44
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x28460c
+opcode = 0x54000100
+kind = "conditional"
+successors = [0x284610, 0x28462c]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284610
+opcode = 0x14000001
+kind = "branch"
+successors = [0x284614]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284628
+opcode = 0x14000006
+kind = "branch"
+successors = [0x284640]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x28463c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x284640]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x2846f0
+opcode = 0x54000100
+kind = "conditional"
+successors = [0x2846f4, 0x284710]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x2846f4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x2846f8]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x28470c
+opcode = 0x14000006
+kind = "branch"
+successors = [0x284724]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284720
+opcode = 0x14000001
+kind = "branch"
+successors = [0x284724]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x284768
+opcode = 0x540000c1
+kind = "conditional"
+successors = [0x28476c, 0x284780]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x28476c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x284770]
+
+[[branches]]
+owner = "DevAcquireADC_SetClockDelay"
+pc = 0x28477c
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpuH12S4_SetAdcGainFine"
+address = 0x275858
+size = 520
+sha256 = "201d7394a4a06666e23e58a15ff1dd317aca9b6ae83810920295167ddc5354da"
+reachable_instruction_count = 130
+
+[[calls]]
+owner = "DevAcquireSpuH12S4_SetAdcGainFine"
+pc = 0x275a48
+opcode = 0x97fe794a
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpuH12S4_SetAdcGainFine"
+pc = 0x275a5c
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSPU_SetAdcSync"
+address = 0x2739c0
+size = 200
+sha256 = "989b286b62cf86c4b970202ad7ff610152f7bfa968350271befb77e104d67e31"
+reachable_instruction_count = 50
+
+[[calls]]
+owner = "DevAcquireSPU_SetAdcSync"
+pc = 0x273a08
+opcode = 0x97fe815a
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSPU_SetAdcSync"
+pc = 0x273a14
+opcode = 0x97fe988f
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "DevAcquireSPU_SetAdcSync"
+pc = 0x273a40
+opcode = 0x97fe814c
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSPU_SetAdcSync"
+pc = 0x273a4c
+opcode = 0x97fe9881
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "DevAcquireSPU_SetAdcSync"
+pc = 0x273a70
+opcode = 0x97fe8140
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSPU_SetAdcSync"
+pc = 0x273a84
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetADCReg"
+address = 0x27e8a8
+size = 120
+sha256 = "c9b47fa7dad0eef62046c6d2a72145997e9a41faa1b430a330d15292d3eeac9f"
+reachable_instruction_count = 30
+
+[[calls]]
+owner = "DevAcquireADC_SetADCReg"
+pc = 0x27e908
+opcode = 0x97fe38e2
+form = "BL"
+branch_target = 0x20cc90
+symbol = "Dev_AdcWrite"
+resolved_target = 0x2717c8
+defined = true
+expanded = true
+relocation_slot = 0xb82d20
+
+[[branches]]
+owner = "DevAcquireADC_SetADCReg"
+pc = 0x27e91c
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "Dev_AdcWrite"
+address = 0x2717c8
+size = 240
+sha256 = "9d10959082b86d08be81f4450b7a3b24175d3a1c83f7be3a6137a988777b254d"
+reachable_instruction_count = 60
+
+[[calls]]
+owner = "Dev_AdcWrite"
+pc = 0x271870
+opcode = 0x97fe2554
+form = "BL"
+branch_target = 0x1fadc0
+symbol = "Dev_WriteRegister"
+resolved_target = 0x2703c8
+defined = true
+expanded = true
+relocation_slot = 0xb79db8
+
+[[calls]]
+owner = "Dev_AdcWrite"
+pc = 0x27188c
+opcode = 0x97fea0f1
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "Dev_AdcWrite"
+pc = 0x27189c
+opcode = 0x97fe2549
+form = "BL"
+branch_target = 0x1fadc0
+symbol = "Dev_WriteRegister"
+resolved_target = 0x2703c8
+defined = true
+expanded = true
+relocation_slot = 0xb79db8
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x2717f4
+opcode = 0x340000e8
+kind = "compare-branch"
+successors = [0x2717f8, 0x271810]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x2717f8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x2717fc]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x271808
+opcode = 0x370000a9
+kind = "test-bit-branch"
+successors = [0x27180c, 0x27181c]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x27180c
+opcode = 0x14000007
+kind = "branch"
+successors = [0x271828]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x271818
+opcode = 0x14000009
+kind = "branch"
+successors = [0x27183c]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x271824
+opcode = 0x14000006
+kind = "branch"
+successors = [0x27183c]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x271838
+opcode = 0x1400001c
+kind = "branch"
+successors = [0x2718a8]
+
+[[branches]]
+owner = "Dev_AdcWrite"
+pc = 0x2718b4
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_GetADCReg"
+address = 0x27e920
+size = 144
+sha256 = "76a84f1af4141823125f1a6210818c9803d38bd00a76c5c06f8e2865d65c86c9"
+reachable_instruction_count = 36
+
+[[calls]]
+owner = "DevAcquireADC_GetADCReg"
+pc = 0x27e95c
+opcode = 0x97fe6e79
+form = "BL"
+branch_target = 0x21a340
+symbol = "Dev_AdcRead"
+resolved_target = 0x2718b8
+defined = true
+expanded = true
+relocation_slot = 0xb89878
+
+[[calls]]
+owner = "DevAcquireADC_GetADCReg"
+pc = 0x27e9ac
+opcode = 0x97fe23b9
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "DevAcquireADC_GetADCReg"
+pc = 0x27e994
+opcode = 0x540000c1
+kind = "conditional"
+successors = [0x27e998, 0x27e9ac]
+
+[[branches]]
+owner = "DevAcquireADC_GetADCReg"
+pc = 0x27e998
+opcode = 0x14000001
+kind = "branch"
+successors = [0x27e99c]
+
+[[branches]]
+owner = "DevAcquireADC_GetADCReg"
+pc = 0x27e9a8
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "Dev_AdcRead"
+address = 0x2718b8
+size = 372
+sha256 = "4679a161c58aa5d157b3ada2241d4fbbd784aa379ff1c7cb39553d6d23ff7d65"
+reachable_instruction_count = 93
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = 0x271968
+opcode = 0x97fe2516
+form = "BL"
+branch_target = 0x1fadc0
+symbol = "Dev_WriteRegister"
+resolved_target = 0x2703c8
+defined = true
+expanded = true
+relocation_slot = 0xb79db8
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = 0x271988
+opcode = 0x97fea0b2
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = 0x27199c
+opcode = 0x97fe2509
+form = "BL"
+branch_target = 0x1fadc0
+symbol = "Dev_WriteRegister"
+resolved_target = 0x2703c8
+defined = true
+expanded = true
+relocation_slot = 0xb79db8
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = 0x2719ac
+opcode = 0x97fea0a9
+form = "BL"
+branch_target = 0x219c50
+symbol = "usleep"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb89500
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = 0x2719c0
+opcode = 0x97fe26ac
+form = "BL"
+branch_target = 0x1fb470
+symbol = "Dev_ReadRegister"
+resolved_target = 0x270594
+defined = true
+expanded = true
+relocation_slot = 0xb7a110
+
+[[calls]]
+owner = "Dev_AdcRead"
+pc = 0x271a28
+opcode = 0x97fe579a
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x2718fc
+opcode = 0x340000c9
+kind = "compare-branch"
+successors = [0x271900, 0x271914]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x271900
+opcode = 0x14000001
+kind = "branch"
+successors = [0x271904]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x27190c
+opcode = 0x540000a0
+kind = "conditional"
+successors = [0x271910, 0x271920]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x271910
+opcode = 0x14000007
+kind = "branch"
+successors = [0x27192c]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x27191c
+opcode = 0x14000009
+kind = "branch"
+successors = [0x271940]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x271928
+opcode = 0x14000006
+kind = "branch"
+successors = [0x271940]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x27193c
+opcode = 0x1400002f
+kind = "branch"
+successors = [0x2719f8]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x2719c8
+opcode = 0x360000c8
+kind = "test-bit-branch"
+successors = [0x2719cc, 0x2719e0]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x2719cc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x2719d0]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x2719dc
+opcode = 0x14000004
+kind = "branch"
+successors = [0x2719ec]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x2719e8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x2719ec]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x2719f4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x2719f8]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x271a10
+opcode = 0x540000c1
+kind = "conditional"
+successors = [0x271a14, 0x271a28]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x271a14
+opcode = 0x14000001
+kind = "branch"
+successors = [0x271a18]
+
+[[branches]]
+owner = "Dev_AdcRead"
+pc = 0x271a24
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "Dev_ReadRegister"
+address = 0x270594
+size = 160
+sha256 = "63c6f6537b1e6d5b1a8e80daceca42e7679f696851a5faa83c3f264514d67de7"
+reachable_instruction_count = 40
+
+[[calls]]
+owner = "Dev_ReadRegister"
+pc = 0x2705c4
+opcode = 0x97fe70ff
+form = "BL"
+branch_target = 0x20c9c0
+symbol = "pthread_mutex_lock"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb82bb8
+
+[[calls]]
+owner = "Dev_ReadRegister"
+pc = 0x2705c8
+opcode = 0x9400063f
+form = "BL"
+branch_target = 0x271ec4
+symbol = "UNRESOLVED"
+resolved_target = 0x271ec4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "Dev_ReadRegister"
+pc = 0x27061c
+opcode = 0x97fe2ca9
+form = "BL"
+branch_target = 0x1fb8c0
+symbol = "pthread_mutex_unlock"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7a338
+
+[[branches]]
+owner = "Dev_ReadRegister"
+pc = 0x2705e8
+opcode = 0x3700016b
+kind = "test-bit-branch"
+successors = [0x2705ec, 0x270614]
+
+[[branches]]
+owner = "Dev_ReadRegister"
+pc = 0x270630
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "Dev_WriteRegister"
+address = 0x2703c8
+size = 156
+sha256 = "3cbc8ab721e7c4fa684e44d6e3e55ac42e6d082a02f81450a4df79bcc133c877"
+reachable_instruction_count = 39
+
+[[calls]]
+owner = "Dev_WriteRegister"
+pc = 0x2703f8
+opcode = 0x97fe7172
+form = "BL"
+branch_target = 0x20c9c0
+symbol = "pthread_mutex_lock"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb82bb8
+
+[[calls]]
+owner = "Dev_WriteRegister"
+pc = 0x2703fc
+opcode = 0x940006b2
+form = "BL"
+branch_target = 0x271ec4
+symbol = "UNRESOLVED"
+resolved_target = 0x271ec4
+defined = false
+expanded = false
+
+[[calls]]
+owner = "Dev_WriteRegister"
+pc = 0x27044c
+opcode = 0x97fe2d1d
+form = "BL"
+branch_target = 0x1fb8c0
+symbol = "pthread_mutex_unlock"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7a338
+
+[[branches]]
+owner = "Dev_WriteRegister"
+pc = 0x27041c
+opcode = 0x3700014b
+kind = "test-bit-branch"
+successors = [0x270420, 0x270444]
+
+[[branches]]
+owner = "Dev_WriteRegister"
+pc = 0x270460
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_WriteRegister"
+address = 0x272c2c
+size = 48
+sha256 = "cb653d202961cbffb4ace9a45ad4d9a3a6216fb0e63d998ab94a5659bcb71555"
+reachable_instruction_count = 12
+
+[[calls]]
+owner = "DevAcquireSpu_WriteRegister"
+pc = 0x272c4c
+opcode = 0x97fe205d
+form = "BL"
+branch_target = 0x1fadc0
+symbol = "Dev_WriteRegister"
+resolved_target = 0x2703c8
+defined = true
+expanded = true
+relocation_slot = 0xb79db8
+
+[[branches]]
+owner = "DevAcquireSpu_WriteRegister"
+pc = 0x272c58
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetDlySmpClkA"
+address = 0x284274
+size = 144
+sha256 = "ae6b0a64c6028d9efbee78563f49cd021a1920fbc214992728fd0bc6c27d636a"
+reachable_instruction_count = 36
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClkA"
+pc = 0x2842ec
+opcode = 0x97fe53c1
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClkA"
+pc = 0x284300
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetDlySmpClkB"
+address = 0x284304
+size = 144
+sha256 = "50e0d0a6d5cf4e507ae658f492c532fcc5bfd03c21de6fff726ad1d54444a969"
+reachable_instruction_count = 36
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClkB"
+pc = 0x28437c
+opcode = 0x97fe539d
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClkB"
+pc = 0x284390
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetDlySmpClkC"
+address = 0x284394
+size = 144
+sha256 = "e125012ee02fb33e4976c50beec243d336db2116a9e3ba9d4d6edf343a9d93b3"
+reachable_instruction_count = 36
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClkC"
+pc = 0x28440c
+opcode = 0x97fe5379
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClkC"
+pc = 0x284420
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireADC_SetDlySmpClkD"
+address = 0x284424
+size = 144
+sha256 = "967eb9df3ebb4ddb5eab69239ac43bfaeda479d44203e37345e53719ee1aaf8d"
+reachable_instruction_count = 36
+
+[[calls]]
+owner = "DevAcquireADC_SetDlySmpClkD"
+pc = 0x28449c
+opcode = 0x97fe5355
+form = "BL"
+branch_target = 0x2191f0
+symbol = "DevAcquireADC_SetADCReg"
+resolved_target = 0x27e8a8
+defined = true
+expanded = true
+relocation_slot = 0xb88fd0
+
+[[branches]]
+owner = "DevAcquireADC_SetDlySmpClkD"
+pc = 0x2844b0
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_SetAdjGain"
+address = 0x27e490
+size = 236
+sha256 = "718fc042b6f67f17ad157713dc1181e44c4cd62ae88873a39e2f624a0849bf3c"
+reachable_instruction_count = 59
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjGain"
+pc = 0x27e504
+opcode = 0x97fe569b
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjGain"
+pc = 0x27e540
+opcode = 0x97fe568c
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjGain"
+pc = 0x27e564
+opcode = 0x97fe5683
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpu_SetAdjGain"
+pc = 0x27e578
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_SetAdjOffset1"
+address = 0x27e57c
+size = 236
+sha256 = "8ca4b80021cc8d838aa48cd8e3a2e01a6eaf6aae202f4813b1a99aba0ea227a3"
+reachable_instruction_count = 59
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffset1"
+pc = 0x27e5f0
+opcode = 0x97fe5660
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffset1"
+pc = 0x27e62c
+opcode = 0x97fe5651
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffset1"
+pc = 0x27e650
+opcode = 0x97fe5648
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpu_SetAdjOffset1"
+pc = 0x27e664
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_SetAdjOffset2"
+address = 0x27e668
+size = 236
+sha256 = "1043183bceb6c35247db0e408524c5e39958fdb87faeb4e6cb0148307b14197a"
+reachable_instruction_count = 59
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffset2"
+pc = 0x27e6dc
+opcode = 0x97fe5625
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffset2"
+pc = 0x27e718
+opcode = 0x97fe5616
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffset2"
+pc = 0x27e73c
+opcode = 0x97fe560d
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpu_SetAdjOffset2"
+pc = 0x27e750
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_ResetAdjParam"
+address = 0x27e754
+size = 136
+sha256 = "dcdd8bb7bd039a021a8318a4e5e321a53a87635693db322ebd8d5c38458d5b18"
+reachable_instruction_count = 34
+
+[[calls]]
+owner = "DevAcquireSpu_ResetAdjParam"
+pc = 0x27e7a0
+opcode = 0x97fe55f4
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[calls]]
+owner = "DevAcquireSpu_ResetAdjParam"
+pc = 0x27e7c4
+opcode = 0x97fe55eb
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpu_ResetAdjParam"
+pc = 0x27e7d8
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_SetAdjOffsetMode"
+address = 0x27e7dc
+size = 104
+sha256 = "ee283e6226f5edfb5f6906b1a4665907dbc815a941029323a456633d45f9fa31"
+reachable_instruction_count = 26
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffsetMode"
+pc = 0x27e82c
+opcode = 0x97fe55d1
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpu_SetAdjOffsetMode"
+pc = 0x27e840
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "DevAcquireSpu_SetAdjOffsetBypass"
+address = 0x27e844
+size = 100
+sha256 = "14bbfef9e2e518194fb08690a7e2ab22e935f259ce23c7b86be9feb4ade52b90"
+reachable_instruction_count = 25
+
+[[calls]]
+owner = "DevAcquireSpu_SetAdjOffsetBypass"
+pc = 0x27e890
+opcode = 0x97fe55b8
+form = "BL"
+branch_target = 0x213f70
+symbol = "DevAcquireSpu_WriteRegister"
+resolved_target = 0x272c2c
+defined = true
+expanded = true
+relocation_slot = 0xb86690
+
+[[branches]]
+owner = "DevAcquireSpu_SetAdjOffsetBypass"
+pc = 0x27e8a4
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_Z16GetVerticalScalei"
+address = 0x34b808
+size = 1028
+sha256 = "5cfdc495a1d6979010c52e840b86c2a6c304af9b6335c3db9937705c5f225046"
+reachable_instruction_count = 257
+
+[[calls]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b830
+opcode = 0x97fae284
+form = "BL"
+branch_target = 0x204240
+symbol = "_Z14Drv_GetSettingj"
+resolved_target = 0x2f3db8
+defined = true
+expanded = true
+relocation_slot = 0xb7e7f8
+
+[[calls]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b84c
+opcode = 0x97fb2ad1
+form = "BL"
+branch_target = 0x216390
+symbol = "_ZN8CChannel8getScaleEv"
+resolved_target = 0x2fcd64
+defined = true
+expanded = false
+relocation_slot = 0xb878a0
+
+[[calls]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b858
+opcode = 0x97fae27a
+form = "BL"
+branch_target = 0x204240
+symbol = "_Z14Drv_GetSettingj"
+resolved_target = 0x2f3db8
+defined = true
+expanded = true
+relocation_slot = 0xb7e7f8
+
+[[calls]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b86c
+opcode = 0x97faf5c1
+form = "BL"
+branch_target = 0x208f70
+symbol = "_ZN8CChannel12getImpedanceEv"
+resolved_target = 0x2fce24
+defined = true
+expanded = true
+relocation_slot = 0xb80e90
+
+[[calls]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bc08
+opcode = 0x97faef22
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b87c
+opcode = 0x54000b81
+kind = "conditional"
+successors = [0x34b880, 0x34b9ec]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b880
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b884]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b898
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b89c, 0x34b8ac]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b89c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b8a0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8a8
+opcode = 0x140000cc
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8c0
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b8c4, 0x34b8d4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8c4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b8c8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8d0
+opcode = 0x140000c2
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8e8
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b8ec, 0x34b8fc]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8ec
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b8f0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b8f8
+opcode = 0x140000b8
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b910
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b914, 0x34b924]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b914
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b918]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b920
+opcode = 0x140000ae
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b938
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b93c, 0x34b94c]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b93c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b940]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b948
+opcode = 0x140000a4
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b960
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b964, 0x34b974]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b964
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b968]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b970
+opcode = 0x1400009a
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b988
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b98c, 0x34b99c]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b98c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b990]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b998
+opcode = 0x14000090
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9b0
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34b9b4, 0x34b9c4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9b4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9b8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9c0
+opcode = 0x14000086
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9c4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9c8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9c8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9cc]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9cc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9d0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9d0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9d4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9d4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9d8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9d8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9dc]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9dc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34b9e0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34b9e8
+opcode = 0x1400007c
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba00
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34ba04, 0x34ba14]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba04
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34ba08]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba10
+opcode = 0x14000072
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba28
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34ba2c, 0x34ba3c]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba2c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34ba30]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba38
+opcode = 0x14000068
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba50
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34ba54, 0x34ba64]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba54
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34ba58]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba60
+opcode = 0x1400005e
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba78
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34ba7c, 0x34ba8c]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba7c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34ba80]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34ba88
+opcode = 0x14000054
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34baa0
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34baa4, 0x34bab4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34baa4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34baa8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bab0
+opcode = 0x1400004a
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bac8
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34bacc, 0x34badc]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bacc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bad0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bad8
+opcode = 0x14000040
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34baf0
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34baf4, 0x34bb04]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34baf4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34baf8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb00
+opcode = 0x14000036
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb18
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34bb1c, 0x34bb2c]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb1c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bb20]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb28
+opcode = 0x1400002c
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb40
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34bb44, 0x34bb54]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb44
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bb48]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb50
+opcode = 0x14000022
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb68
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34bb6c, 0x34bb7c]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb6c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bb70]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb78
+opcode = 0x14000018
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb90
+opcode = 0x540000ac
+kind = "conditional"
+successors = [0x34bb94, 0x34bba4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bb94
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bb98]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bba0
+opcode = 0x1400000e
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bba4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bba8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bba8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbac]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbac
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbb0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbb0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbb4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbb4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbb8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbb8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbbc]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbbc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbc0]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbc0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbc4]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbc4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbc8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbc8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbcc]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbd4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbd8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbf0
+opcode = 0x540000c1
+kind = "conditional"
+successors = [0x34bbf4, 0x34bc08]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bbf4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x34bbf8]
+
+[[branches]]
+owner = "_Z16GetVerticalScalei"
+pc = 0x34bc04
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+address = 0x347990
+size = 1968
+sha256 = "c662e057dacd9ced50ed9b9f30f5bc6dcd846ca3487d22034e4bba67f39fdf0d"
+reachable_instruction_count = 492
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3479bc
+opcode = 0x97fade25
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3479cc
+opcode = 0x97fb50b5
+form = "BL"
+branch_target = 0x21bca0
+symbol = "_ZN9CDrvScope13GetDrvSettingEj"
+resolved_target = 0x2e5a68
+defined = true
+expanded = false
+relocation_slot = 0xb8a528
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3479f4
+opcode = 0x97fb2def
+form = "BL"
+branch_target = 0x2131b0
+symbol = "DevConfig_GetAdcsDly"
+resolved_target = 0x272668
+defined = true
+expanded = false
+relocation_slot = 0xb85fb0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347a40
+opcode = 0x97faf200
+form = "BL"
+branch_target = 0x204240
+symbol = "_Z14Drv_GetSettingj"
+resolved_target = 0x2f3db8
+defined = true
+expanded = true
+relocation_slot = 0xb7e7f8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347a50
+opcode = 0x97fb59a4
+form = "BL"
+branch_target = 0x21e0e0
+symbol = "_ZN8CTrigger15getMasterSourceEv"
+resolved_target = 0x31cba0
+defined = true
+expanded = false
+relocation_slot = 0xb8b748
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347a7c
+opcode = 0x97fade1d
+form = "BL"
+branch_target = 0x1ff2f0
+symbol = "_ZN11CDrvSetting12GetChanCountEi"
+resolved_target = 0x2f4108
+defined = true
+expanded = false
+relocation_slot = 0xb7c050
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347b70
+opcode = 0x97fb5874
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347b84
+opcode = 0x97fb1fef
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347bb8
+opcode = 0x97fade72
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347d64
+opcode = 0x97fb57f7
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347d78
+opcode = 0x97fb1f72
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347dd4
+opcode = 0x97faddeb
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347dec
+opcode = 0x97fb33f9
+form = "BL"
+branch_target = 0x214dd0
+symbol = "DevConfig_GetChDlyPointTime"
+resolved_target = 0x2726f4
+defined = true
+expanded = false
+relocation_slot = 0xb86dc0
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347e40
+opcode = 0x97fb4670
+form = "BL"
+branch_target = 0x219800
+symbol = "_ZN8CChannel8getDelayEv"
+resolved_target = 0x2fd0cc
+defined = true
+expanded = false
+relocation_slot = 0xb892d8
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347e5c
+opcode = 0x97faed19
+form = "BL"
+branch_target = 0x2032c0
+symbol = "_ZN8CCHProbe8getDelayEv"
+resolved_target = 0x308038
+defined = true
+expanded = false
+relocation_slot = 0xb7e038
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347f04
+opcode = 0x97fb578f
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347f18
+opcode = 0x97fb1f0a
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347f6c
+opcode = 0x97fadd85
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348034
+opcode = 0x97fb5743
+form = "BL"
+branch_target = 0x21dd40
+symbol = "__strrchr_chk"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb8b578
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348048
+opcode = 0x97fb1ebe
+form = "BL"
+branch_target = 0x20fb40
+symbol = "strrchr"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb84478
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348098
+opcode = 0x97fadd3a
+form = "BL"
+branch_target = 0x1ff580
+symbol = "__android_log_print"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb7c198
+
+[[calls]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x34813c
+opcode = 0x97fafdd5
+form = "BL"
+branch_target = 0x207890
+symbol = "__stack_chk_fail"
+resolved_target = 0x0
+defined = false
+expanded = false
+relocation_slot = 0xb80320
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347a84
+opcode = 0x54000f41
+kind = "conditional"
+successors = [0x347a88, 0x347c6c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347a88
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347a8c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347aa8
+opcode = 0x540002a8
+kind = "conditional"
+successors = [0x347aac, 0x347afc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ac0
+opcode = 0xd61f0120
+kind = "table-branch"
+successors = [0x347ac4, 0x347ad0, 0x347adc, 0x347aec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347acc
+opcode = 0x1400003d
+kind = "branch"
+successors = [0x347bc0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ad8
+opcode = 0x1400003a
+kind = "branch"
+successors = [0x347bc0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ae8
+opcode = 0x14000036
+kind = "branch"
+successors = [0x347bc0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347af8
+opcode = 0x14000032
+kind = "branch"
+successors = [0x347bc0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347b5c
+opcode = 0x54000100
+kind = "conditional"
+successors = [0x347b60, 0x347b7c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347b60
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347b64]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347b78
+opcode = 0x14000006
+kind = "branch"
+successors = [0x347b90]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347b8c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347b90]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347bbc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347bc0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347bc8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347bcc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347bd4
+opcode = 0x540001ac
+kind = "conditional"
+successors = [0x347bd8, 0x347c08]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347bd8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347bdc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347bf4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347bf8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c04
+opcode = 0x17fffff2
+kind = "branch"
+successors = [0x347bcc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c24
+opcode = 0x540000e1
+kind = "conditional"
+successors = [0x347c28, 0x347c40]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c28
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347c2c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c3c
+opcode = 0x1400000b
+kind = "branch"
+successors = [0x347c68]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c48
+opcode = 0x540000e1
+kind = "conditional"
+successors = [0x347c4c, 0x347c64]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c4c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347c50]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c60
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347c64]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c64
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347c68]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c68
+opcode = 0x1400001b
+kind = "branch"
+successors = [0x347cd4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c88
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347c8c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c94
+opcode = 0x540001ec
+kind = "conditional"
+successors = [0x347c98, 0x347cd0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347c98
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347c9c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347cbc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347cc0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ccc
+opcode = 0x17fffff0
+kind = "branch"
+successors = [0x347c8c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347cd0
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347cd4]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347cdc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347ce0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ce8
+opcode = 0x5400082c
+kind = "conditional"
+successors = [0x347cec, 0x347dec]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347cec
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347cf0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347d50
+opcode = 0x54000100
+kind = "conditional"
+successors = [0x347d54, 0x347d70]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347d54
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347d58]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347d6c
+opcode = 0x14000006
+kind = "branch"
+successors = [0x347d84]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347d80
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347d84]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347dd8
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347ddc]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347de8
+opcode = 0x17ffffbe
+kind = "branch"
+successors = [0x347ce0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347e14
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347e18]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347e20
+opcode = 0x5400148c
+kind = "conditional"
+successors = [0x347e24, 0x3480b0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347e24
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347e28]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ef0
+opcode = 0x54000100
+kind = "conditional"
+successors = [0x347ef4, 0x347f10]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347ef4
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347ef8]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347f0c
+opcode = 0x14000006
+kind = "branch"
+successors = [0x347f24]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x347f20
+opcode = 0x14000001
+kind = "branch"
+successors = [0x347f24]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348020
+opcode = 0x54000100
+kind = "conditional"
+successors = [0x348024, 0x348040]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348024
+opcode = 0x14000001
+kind = "branch"
+successors = [0x348028]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x34803c
+opcode = 0x14000006
+kind = "branch"
+successors = [0x348054]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348050
+opcode = 0x14000001
+kind = "branch"
+successors = [0x348054]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x34809c
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3480a0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3480ac
+opcode = 0x17ffff5b
+kind = "branch"
+successors = [0x347e18]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3480cc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3480d0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3480d8
+opcode = 0x540001cc
+kind = "conditional"
+successors = [0x3480dc, 0x348110]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3480dc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x3480e0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x3480fc
+opcode = 0x14000001
+kind = "branch"
+successors = [0x348100]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x34810c
+opcode = 0x17fffff1
+kind = "branch"
+successors = [0x3480d0]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348120
+opcode = 0x540000e1
+kind = "conditional"
+successors = [0x348124, 0x34813c]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348124
+opcode = 0x14000001
+kind = "branch"
+successors = [0x348128]
+
+[[branches]]
+owner = "_ZN16CCalibration_ADC23DrvCalibration_GetChDlyEPj"
+pc = 0x348138
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_Z12Drv_GetScopev"
+address = 0x2e5a40
+size = 12
+sha256 = "297cdd0fd774f8ce253993662166d281715c1c98101f515c2659317cd07bd7ff"
+reachable_instruction_count = 3
+
+[[branches]]
+owner = "_Z12Drv_GetScopev"
+pc = 0x2e5a48
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_Z14Drv_GetSettingj"
+address = 0x2f3db8
+size = 40
+sha256 = "68162b911a70db7656a80e18cd4ebf09aea1e4eee248e32b0248600617c86a50"
+reachable_instruction_count = 10
+
+[[calls]]
+owner = "_Z14Drv_GetSettingj"
+pc = 0x2f3dc8
+opcode = 0x97fc2d22
+form = "BL"
+branch_target = 0x1ff250
+symbol = "_Z12Drv_GetScopev"
+resolved_target = 0x2e5a40
+defined = true
+expanded = true
+relocation_slot = 0xb7c000
+
+[[calls]]
+owner = "_Z14Drv_GetSettingj"
+pc = 0x2f3dd0
+opcode = 0x97fc9fb4
+form = "BL"
+branch_target = 0x21bca0
+symbol = "_ZN9CDrvScope13GetDrvSettingEj"
+resolved_target = 0x2e5a68
+defined = true
+expanded = false
+relocation_slot = 0xb8a528
+
+[[branches]]
+owner = "_Z14Drv_GetSettingj"
+pc = 0x2f3ddc
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN8CChannel12getImpedanceEv"
+address = 0x2fce24
+size = 24
+sha256 = "541fad6e41d59e1c7a3a7bb3a6690a3cc394b3d8f951c6478d1224e4287b233d"
+reachable_instruction_count = 6
+
+[[branches]]
+owner = "_ZN8CChannel12getImpedanceEv"
+pc = 0x2fce38
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN9CDrvParam13GetSampleRateEv"
+address = 0x2f006c
+size = 24
+sha256 = "ba73b5e60fbb535afed33ffb01d9a2ae79d38a97286452126759b0f8a4901aac"
+reachable_instruction_count = 6
+
+[[branches]]
+owner = "_ZN9CDrvParam13GetSampleRateEv"
+pc = 0x2f0080
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[ranges]]
+name = "_ZN9CDrvScope11GetDrvParamEj"
+address = 0x2e83a4
+size = 76
+sha256 = "cc8314f30d120a4ac0976ee3fc07b1ef8e7e477040d1d826f1aefdc671b79e8d"
+reachable_instruction_count = 19
+
+[[branches]]
+owner = "_ZN9CDrvScope11GetDrvParamEj"
+pc = 0x2e83bc
+opcode = 0x350000c9
+kind = "compare-branch"
+successors = [0x2e83c0, 0x2e83d4]
+
+[[branches]]
+owner = "_ZN9CDrvScope11GetDrvParamEj"
+pc = 0x2e83d0
+opcode = 0x14000005
+kind = "branch"
+successors = [0x2e83e4]
+
+[[branches]]
+owner = "_ZN9CDrvScope11GetDrvParamEj"
+pc = 0x2e83ec
+opcode = 0xd65f03c0
+kind = "return"
+successors = []
+
+[[tables]]
+id = "sample-clock-order"
+address = 0x99c500
+bytes = 16
+element_width = 4
+signed = true
+sha256 = "3c52e07ea6f9c688f7921e6114ac155e13c5922f6fe7dd46e242c18e42262a1e"
+values = [0, 2, 1, 3]
+
+[[tables]]
+id = "gain-index-pairs"
+address = 0x99d210
+bytes = 80
+element_width = 4
+signed = true
+sha256 = "c8f65a8acee98e05edcd7e2b4ebc2bff286b7ad8f946775c4a006003cf0c0744"
+values = [0, 0, 1, 1, 2, 2, 3, 3, 0, 1, 0, 2, 0, 3, 1, 2, 1, 3, 2, 3]
+
+[[tables]]
+id = "adc-mask"
+address = 0x9948bc
+bytes = 416
+element_width = 4
+signed = true
+sha256 = "d9b88ca5b40ae86cc40dfa2a20cc3a6f49841c5d97cb0c309617c0dba6034b2d"
+values = [225, 0, 0, 0, 32896, 32896, 0, 0, 0, 10016, 32896, 0, 0, 12288, 128, 30720, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 1799, 3080, 10528, 7067, 0, 0, 0, 0, 2080, 2080, 2080, 2080, 4161, 4, 0, 0, 14676, 30748, 0, 0, 0, 0, 0, 0, 2053, 0, 0, 3072, 0, 0, 0, 0]
+
+[[tables]]
+id = "delay-map"
+address = 0x99d420
+bytes = 32
+element_width = 4
+signed = true
+sha256 = "4866c8cbca474f15e4f34dc44f97411ade60497227c9a68625f1dcec8dabc3d3"
+values = [0, 4, 2, 6, 1, 5, 3, 7]
+
+[[tables]]
+id = "lane-permutation"
+address = 0x99d518
+bytes = 64
+element_width = 4
+signed = true
+sha256 = "542ea85d660684b0157b73a77e2f075cce88d3f18d907171785c2ca43d4b43a2"
+values = [3, 2, 1, 0, 7, 6, 5, 4, 11, 10, 9, 8, 15, 14, 13, 12]
+
+[[tables]]
+id = "jump-0x281a8c"
+address = 0x9945cc
+bytes = 32
+element_width = 4
+signed = true
+sha256 = "0275b377e912d25753042a449f73a0fee3bddf3c4821c11d6ce2481291299c42"
+values = [-7416636, -7416580, -7416524, -7416468, -7416412, -7416356, -7416300, -7416244]
+
+[[tables]]
+id = "jump-0x281f60"
+address = 0x99460c
+bytes = 32
+element_width = 4
+signed = true
+sha256 = "0f563d4f2c7c6f22df23dcaf337c5d600dc24dcd5272f387255ea3328bbd275e"
+values = [-7415464, -7415408, -7415352, -7415296, -7415240, -7415184, -7415128, -7415072]
+
+[[tables]]
+id = "jump-0x284500"
+address = 0x9946fc
+bytes = 32
+element_width = 4
+signed = true
+sha256 = "b55764e1141f5fb34cd0dc899b9814129764d10f73b7e5cfca1c8351afdd2846"
+values = [-7406072, -7406056, -7406040, -7406024, -7406072, -7406056, -7406040, -7406024]
+
+[[tables]]
+id = "jump-0x347ac0"
+address = 0x99c558
+bytes = 16
+element_width = 4
+signed = true
+sha256 = "832fae21a07efa501cf00de8f9d71c02577910af9ca3a4f4e528684907fa8a2e"
+values = [-6638228, -6638216, -6638204, -6638188]

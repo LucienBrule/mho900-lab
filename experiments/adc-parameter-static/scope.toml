@@ -1,0 +1,100 @@
+schema_version = "mho900-lab.adc-parameter-scope/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+entry_pc = 0x33efe0
+mode = 0
+normal_return_pc = 0x33fc78
+caller_next_pc = 0x333bac
+guest_execution_in_this_batch = false
+new_model_responses = 0
+operation_classes = ["STATIC-DETERMINED", "RUNTIME-SELECTED", "HARDWARE-RETURNED", "ASYNCHRONOUS", "UNKNOWN"]
+software_graph_scope = "Mode-zero call schedule and transitive register helpers, with runtime getter inputs explicitly parameterized."
+inventory_scope = "Byte-bound control flow and direct-call provenance for selected ranges; omitted getter leaves and unnamed targets are explicit, not silently treated as absent."
+external_library_boundaries = ["pthread_mutex_lock", "pthread_mutex_unlock", "usleep", "__android_log_print", "strrchr", "__strrchr_chk", "__stack_chk_fail"]
+external_library_implementations_recovered = false
+generic_transitive_binary_inventory_complete = false
+semantic_prose_automatically_proven = false
+fpga_semantics_recovered = false
+
+[[boundaries]]
+id = "software-programming"
+classification = "STATIC-DETERMINED"
+description = "Call order, constant selectors, immutable tables, masks, bit packing, delays and loop bounds are recoverable from stock bytes."
+operands_require_runtime_inputs = true
+
+[[boundaries]]
+id = "captured-adc-record"
+classification = "RUNTIME-SELECTED"
+description = "The accepted 1936-byte zero record fixes 62 fields consumed by the main routine and its gain helpers for this captured state."
+observation_run = "stock-calibration-loaders-02"
+offset = 0x8804
+length = 1936
+revalidation_needed_in_a_future_run = true
+
+[[boundaries]]
+id = "stary-personality"
+classification = "RUNTIME-SELECTED"
+description = "Separate matrix, scale, impedance, sample rate and delay inputs select a fully described software branch and its operands."
+matrix_offset = 0x4eb4
+matrix_length = 3648
+matrix_end_exclusive = 0x5cf4
+matrix_observed = false
+getter_inputs_observed = false
+state_writes = ["u32[adc+0x4e94]=bucket", "u32[adc+0x4e98]=bucket"]
+diagnostic_read = "u32[adc+0x87f4]"
+
+[[boundaries]]
+id = "mutable-shadows"
+classification = "RUNTIME-SELECTED"
+description = "Fifteen writable shadow objects retain live input bits; BSS source zeros do not establish their later state."
+object_count = 15
+immutable_mask_is_excluded = true
+live_values_observed_at_new_entry = false
+
+[[boundaries]]
+id = "adc-readback"
+classification = "HARDWARE-RETURNED"
+description = "Two chip-specific reads of offset0x3004 after register1 command writes; bit16 selects protocol success and whether low16 are copied."
+read_count = 2
+read_offset = 0x3004
+read_width = 4
+ready_bit = 16
+protocol_status_controls_local_branch = true
+readback_controls_main_progress = false
+caller_use = "GetADCReg discards the protocol status; SetClockDelay logs its result and returns zero."
+hardware_reset_value_known = false
+hardware_ready_timing_known = false
+
+[[boundaries]]
+id = "concurrency"
+classification = "ASYNCHRONOUS"
+description = "No new thread or asynchronous hardware operation is called in the recovered subsystem. Existing process threads and mutex behavior still require the established observer discipline."
+new_async_operation_found = false
+all_existing_threads_proven_quiescent_during_normal_execution = false
+
+[[boundaries]]
+id = "physical-effect"
+classification = "UNKNOWN"
+description = "No waveform, conversion, analog calibration, physical register side effect, or successful FPGA action follows merely from software writes and zero wrapper returns."
+
+[predicted_counts]
+condition = "Mode0 and the captured zero main ADC record; valid mapped base and normal library returns; runtime Stary inputs select the branch."
+main_call_invocations = 35
+non_stary_writes = 96
+stary_bypass_writes = 1
+stary_unsupported_rate_setup_writes = 4
+stary_supported_rate_writes = 148
+total_writes_bypass = 97
+total_writes_unsupported_rate = 100
+total_writes_supported_rate = 244
+total_reads = 2
+non_stary_requested_delay_us = 5200
+bypass_requested_delay_us = 25200
+other_requested_delay_us = 45200
+delays_are_requests_not_measured_elapsed_time = true
+dynamic_validation_performed = false
+
+[next_input_question]
+question = "What matrix, selector, and shadow values does unchanged stock execution actually carry at the proven pre-SetADCParameter checkpoint?"
+per_write_rediscovery_needed = false
+hardware_model_selection_deferred = true
+candidate_full_sequence_possible_after_inputs_bound = true

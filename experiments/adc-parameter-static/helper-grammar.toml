@@ -1,0 +1,373 @@
+schema_version = "mho900-lab.adc-parameter-helper-grammar/1"
+stock_elf = "local/reversing/firmware-extracted/stock-0.26/sparrow/base/lib/arm64-v8a/libscope-auklet.so"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+scope = "hardware-facing helper closure reached by SetADCParameter(0), excluding SetAdcStary and high-level scheduling"
+asynchronous_boundary = false
+hardware_read_present = true
+hardware_read_control_use = false
+observed_adc_capture_bytes = 1936
+observed_adc_capture_nonzero_bytes = 0
+shadows_assumed_zero = false
+
+[[shadow]]
+name = "maskValue"
+got_slot = 0xb8eea8
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt16DevAcquireADCRT8847IQ_0x09"
+got_slot = 0xb8cb08
+element_width = 2
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt16DevAcquireADCRT8847IQ_GainAndDly"
+got_slot = 0xb8c9d0
+element_width = 2
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt16DevAcquireADCRT8847IQ_Offset"
+got_slot = 0xb8b940
+element_width = 2
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt16DevAcquireADCRT8847IQ_0x01"
+got_slot = 0xb8cae0
+element_width = 2
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt16DevAcquireADCRT8847IQ_0x04"
+got_slot = 0xb8ec98
+element_width = 2
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt16DevAcquireADCRT8847IQ_0x05"
+got_slot = 0xb8e680
+element_width = 2
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdcGainFine"
+got_slot = 0xb8da70
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuH12S4Ctrl"
+got_slot = 0xb8d288
+element_width = 4
+classification = "runtime-selected"
+
+[[function]]
+name = "DevAcquireADC_SetRef"
+start = 0x2801ec
+end = 0x280280
+sha256 = "b2f3d06824fe15b1c6c531229b1a0af54e205aa1f95600b3679b6c024b4c7729"
+formula = "shadow09[chip]=(shadow09[chip]&0xffc0)|(reference&0x3f)"
+register = 9
+return = "SetADCReg return; concretely zero"
+bounds_check = false
+
+[[function]]
+name = "DevAcquireADC_SetADCCoreGain"
+start = 0x281a04
+end = 0x281c70
+sha256 = "f22c432c964b1134747443c985a774670079cbfe60d8a8d420cb06e87e2f4b6f"
+selector_min = 0
+selector_max = 7
+value_min = -64
+value_max = 63
+value_mask = 0x7f
+preserve_mask = 0xff80
+registers = [0x15, 0x1d, 0x25, 0x2d, 0x35, 0x3d, 0x45, 0x4d]
+return = "-1 invalid; zero valid, child status discarded"
+jump_table = 0x9945cc
+jump_table_sha256 = "0275b377e912d25753042a449f73a0fee3bddf3c4821c11d6ce2481291299c42"
+
+[[function]]
+name = "DevAcquireADC_SetADCCoreOffset"
+start = 0x281ed8
+end = 0x282144
+sha256 = "9fbbe98a5a36fe25352322afeaac1a6e8e74ca9af37b2d7b637fb19d759ea129"
+selector_min = 0
+selector_max = 7
+value_min = -1024
+value_max = 1023
+value_mask = 0x7ff
+preserve_mask = 0xf800
+registers = [0x14, 0x1c, 0x24, 0x2c, 0x34, 0x3c, 0x44, 0x4c]
+return = "-1 invalid; zero valid, child status discarded"
+jump_table = 0x99460c
+jump_table_sha256 = "0f563d4f2c7c6f22df23dcaf337c5d600dc24dcd5272f387255ea3328bbd275e"
+
+[[function]]
+name = "DevAcquireADC_SetDlySmpClk"
+start = 0x2844b4
+end = 0x284554
+sha256 = "c3666ac8565690c559923a1722c1e6c6288bf9e47074775f24ee7a9b259a4f99"
+selector_min = 0
+selector_max = 7
+selector_children = ["A", "B", "C", "D", "A", "B", "C", "D"]
+return = "zero for valid and invalid selector"
+jump_table = 0x9946fc
+jump_table_sha256 = "b55764e1141f5fb34cd0dc899b9814129764d10f73b7e5cfca1c8351afdd2846"
+
+[[delay_child]]
+name = "A"
+start = 0x284274
+end = 0x284304
+sha256 = "ae6b0a64c6028d9efbee78563f49cd021a1920fbc214992728fd0bc6c27d636a"
+register = 4
+formula = "shadow04[chip]=(shadow04[chip]&0xff00)|(value&0xff)"
+
+[[delay_child]]
+name = "B"
+start = 0x284304
+end = 0x284394
+sha256 = "50e0d0a6d5cf4e507ae658f492c532fcc5bfd03c21de6fff726ad1d54444a969"
+register = 4
+formula = "shadow04[chip]=(shadow04[chip]&0x00ff)|((value&0xff)<<8)"
+
+[[delay_child]]
+name = "C"
+start = 0x284394
+end = 0x284424
+sha256 = "e125012ee02fb33e4976c50beec243d336db2116a9e3ba9d4d6edf343a9d93b3"
+register = 5
+formula = "shadow05[chip]=(shadow05[chip]&0xff00)|(value&0xff)"
+
+[[delay_child]]
+name = "D"
+start = 0x284424
+end = 0x2844b4
+sha256 = "967eb9df3ebb4ddb5eab69239ac43bfaeda479d44203e37345e53719ee1aaf8d"
+register = 5
+formula = "shadow05[chip]=(shadow05[chip]&0x00ff)|((value&0xff)<<8)"
+
+[[function]]
+name = "DevAcquireADC_SetClockDelay"
+start = 0x284554
+end = 0x284784
+sha256 = "5e37c12c227e58cbc3c487a0f35a611ca472b422f75a3bce07b474b0724ac884"
+formula = "shadow01[chip]=(shadow01[chip]&0xfc00)|(fine&0x3ff)|((coarse&7)<<10)"
+register = 1
+operation_order = ["shadow-update", "SetADCReg", "GetADCReg", "log-programmed-and-readback"]
+readback_classification = "hardware-returned"
+readback_use = "logging-only"
+return = "zero; SetADCReg and GetADCReg statuses discarded"
+bounds_check = false
+
+[[function]]
+name = "DevAcquireSpuH12S4_SetAdcGainFine"
+start = 0x275858
+end = 0x275a60
+sha256 = "201d7394a4a06666e23e58a15ff1dd317aca9b6ae83810920295167ddc5354da"
+input_count = 16
+input_width = 4
+formula = "sum((values[i]%4)<<(2*i),i=0..15)"
+spu_offset = 0x1058
+return = "SPU write status"
+
+[[function]]
+name = "DevAcquireSPU_SetAdcSync"
+start = 0x2739c0
+end = 0x273a88
+sha256 = "989b286b62cf86c4b970202ad7ff610152f7bfa968350271befb77e104d67e31"
+spu_offset = 0x1000
+bit = 1
+operation_order = ["clear-write", "delay-200us", "set-write", "delay-200us", "clear-write"]
+return = "third SPU write status; first two statuses overwritten"
+
+[[transport]]
+name = "DevAcquireADC_SetADCReg"
+start = 0x27e8a8
+end = 0x27e920
+sha256 = "c9b47fa7dad0eef62046c6d2a72145997e9a41faa1b430a330d15292d3eeac9f"
+formula = "encoded=(value&0xffff)^maskValue[index]"
+child = "Dev_AdcWrite(encoded,index,mode)"
+return = "zero; child status discarded"
+
+[[transport]]
+name = "Dev_AdcWrite"
+start = 0x2717c8
+end = 0x2718b8
+sha256 = "9d10959082b86d08be81f4450b7a3b24175d3a1c83f7be3a6137a988777b254d"
+valid_modes = [0, 1]
+mode_prefixes = [0x01000000, 0x02000000]
+command_set_mask = 0x04000000
+mmio_offset = 0x3000
+operation_order = ["write-command", "delay-100us", "write-command-and-0x03ffffff"]
+return = "-1 invalid mode; zero valid mode regardless of write statuses"
+
+[[transport]]
+name = "DevAcquireADC_GetADCReg"
+start = 0x27e920
+end = 0x27e9b0
+sha256 = "76a84f1af4141823125f1a6210818c9803d38bd00a76c5c06f8e2865d65c86c9"
+formula = "out32=raw16^maskValue[index]"
+child = "Dev_AdcRead(&raw16,index,mode)"
+return = "zero; child status discarded"
+
+[[transport]]
+name = "Dev_AdcRead"
+start = 0x2718b8
+end = 0x271a2c
+sha256 = "4679a161c58aa5d157b3ada2241d4fbbd784aa379ff1c7cb39553d6d23ff7d65"
+valid_modes = [0, 1]
+mode_prefixes = [0x01000000, 0x02000000]
+command_set_mask = 0x04800000
+write_offset = 0x3000
+read_offset = 0x3004
+ready_bit = 16
+result_mask = 0xffff
+operation_order = ["write-read-command", "delay-100us", "write-command-and-0x03ffffff", "delay-100us", "read-result"]
+return = "-1 invalid mode or ready bit clear; zero when ready bit set; transport statuses discarded"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjGain"
+got_slot = 0xb8de88
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjGainLoad"
+got_slot = 0xb8ed38
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjOffset1"
+got_slot = 0xb8dd30
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjOffset1Load"
+got_slot = 0xb8db70
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjOffset2"
+got_slot = 0xb8d5b8
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjOffset2Load"
+got_slot = 0xb8ddc0
+element_width = 4
+classification = "runtime-selected"
+
+[[shadow]]
+name = "gInt32DevAcquireSpuAdjCtrl"
+got_slot = 0xb8ccd8
+element_width = 4
+classification = "runtime-selected"
+
+[[function]]
+name = "DevAcquireSpu_SetAdjGain"
+start = 0x27e490
+end = 0x27e57c
+sha256 = "718fc042b6f67f17ad157713dc1181e44c4cd62ae88873a39e2f624a0849bf3c"
+value_offset = 0x155c
+load_offset = 0x1568
+value_formula = "value_shadow=(value_shadow&0xffff0000)|(value&0xffff)"
+load_formula = "load_shadow=(load_shadow&0xffff0000)|((1<<lane)&0xffff); write; load_shadow&=0xffff0000; write"
+write_count = 3
+return = "zero; child statuses discarded"
+
+[[function]]
+name = "DevAcquireSpu_SetAdjOffset1"
+start = 0x27e57c
+end = 0x27e668
+sha256 = "8ca4b80021cc8d838aa48cd8e3a2e01a6eaf6aae202f4813b1a99aba0ea227a3"
+value_offset = 0x1560
+load_offset = 0x156c
+value_formula = "value_shadow=(value_shadow&0xffff0000)|(value&0xffff)"
+load_formula = "load_shadow=(load_shadow&0xffff0000)|((1<<lane)&0xffff); write; load_shadow&=0xffff0000; write"
+write_count = 3
+return = "zero; child statuses discarded"
+
+[[function]]
+name = "DevAcquireSpu_SetAdjOffset2"
+start = 0x27e668
+end = 0x27e754
+sha256 = "1043183bceb6c35247db0e408524c5e39958fdb87faeb4e6cb0148307b14197a"
+value_offset = 0x1564
+load_offset = 0x1570
+value_formula = "value_shadow=(value_shadow&0xffff0000)|(value&0xffff)"
+load_formula = "load_shadow=(load_shadow&0xffff0000)|((1<<lane)&0xffff); write; load_shadow&=0xffff0000; write"
+write_count = 3
+return = "zero; child statuses discarded"
+
+[[function]]
+name = "DevAcquireSpu_ResetAdjParam"
+start = 0x27e754
+end = 0x27e7dc
+sha256 = "dcdd8bb7bd039a021a8318a4e5e321a53a87635693db322ebd8d5c38458d5b18"
+offset = 0x1574
+formula = "ctrl|=0x100; write; ctrl&=~0x100; write"
+write_count = 2
+return = "zero; child statuses discarded"
+
+[[function]]
+name = "DevAcquireSpu_SetAdjOffsetMode"
+start = 0x27e7dc
+end = 0x27e844
+sha256 = "ee283e6226f5edfb5f6906b1a4665907dbc815a941029323a456633d45f9fa31"
+offset = 0x1574
+formula = "ctrl=(ctrl&~0x10)|((value&1)<<4)"
+write_count = 1
+return = "zero; child status discarded"
+
+[[function]]
+name = "DevAcquireSpu_SetAdjOffsetBypass"
+start = 0x27e844
+end = 0x27e8a8
+sha256 = "14bbfef9e2e518194fb08690a7e2ab22e935f259ce23c7b86be9feb4ade52b90"
+offset = 0x1574
+formula = "ctrl=(ctrl&~1)|(value&1)"
+write_count = 1
+return = "zero; child status discarded"
+
+[adjustment_write_count]
+supported_path_lanes = 16
+reset = 2
+offset_mode = 1
+offset_bypass = 1
+per_lane_gain = 3
+per_lane_offset1 = 3
+per_lane_offset2 = 3
+total = 148
+
+[[transport]]
+name = "DevAcquireSpu_WriteRegister"
+start = 0x272c2c
+end = 0x272c5c
+sha256 = "cb653d202961cbffb4ace9a45ad4d9a3a6216fb0e63d998ab94a5659bcb71555"
+child = "Dev_WriteRegister(offset,value)"
+return = "child status"
+
+[[transport]]
+name = "Dev_WriteRegister"
+start = 0x2703c8
+end = 0x270464
+sha256 = "3cbc8ab721e7c4fa684e44d6e3e55ac42e6d082a02f81450a4df79bcc133c877"
+width = 4
+operation_order = ["lock-global-mutex", "get-mapped-base", "write-base-plus-offset-if-present", "unlock-global-mutex"]
+return = "zero when mapped base exists; -1 otherwise"
+
+[[transport]]
+name = "Dev_ReadRegister"
+start = 0x270594
+end = 0x270634
+sha256 = "63c6f6537b1e6d5b1a8e80daceca42e7679f696851a5faa83c3f264514d67de7"
+width = 4
+operation_order = ["lock-global-mutex", "get-mapped-base", "read-base-plus-offset-if-present", "unlock-global-mutex"]
+return = "zero when mapped base exists; -1 otherwise"

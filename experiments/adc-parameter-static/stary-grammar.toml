@@ -1,0 +1,278 @@
+schema_version = "mho900-lab.adc-stary-static/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+source_disassembly_sha256 = "f9bd4a0b93b6037faa6f9d9d78d54543aeab50079c388a6e468641fa08810d09"
+symbol = "_ZN16CCalibration_ADC26DrvCalibration_SetAdcStaryEi"
+start = 0x33fc80
+end_exclusive = 0x341840
+byte_length = 0x1bc0
+range_sha256 = "c65f923e0b7c34eb342d67e60237aa7fdf452a93d480473f9a419a9ff987e78f"
+admitted_mode = 0
+return_value = 0
+direct_mmio_reads = 0
+direct_ioctls = 0
+write_failures_propagated = false
+accepted_adc_capture_offset = 0x8804
+accepted_adc_capture_length = 1936
+accepted_adc_capture_covers_matrix = false
+
+[runtime_inputs]
+channel = "mode argument; exactly 0 on admitted caller path"
+vertical_scale = "GetVerticalScale(channel), derived from CChannel::getScale and impedance"
+impedance = "Drv_GetSetting(2)+channel*0xc0 -> CChannel::getImpedance"
+sample_rate = "Drv_GetScope()->GetDrvParam(0)->GetSampleRate()"
+channel_delay = "four u32 outputs from DrvCalibration_GetChDly"
+matrix = "ADC object +0x4eb4; not covered by ADC+0x8804 capture"
+shadows = "seven live SPU adjustment shadow objects"
+
+[[tables]]
+id = "delay-map"
+address = 0x99d420
+length = 32
+element_width = 4
+values = [0,4,2,6,1,5,3,7]
+sha256 = "4866c8cbca474f15e4f34dc44f97411ade60497227c9a68625f1dcec8dabc3d3"
+
+[[tables]]
+id = "delay-thresholds"
+address = 0x99d440
+length = 120
+element_width = 8
+values = [5,10,20,50,100,200,500,1000,5,10,20,50,100,200,500]
+sha256 = "af2f98f696f0396df36e2e17826f890f8cb91a3b2e5ea4527bad1f480d065cef"
+use = "logging/bucket arithmetic provenance; no claim of time units"
+
+[[tables]]
+id = "lane-permutation"
+address = 0x99d518
+length = 64
+element_width = 4
+values = [3,2,1,0,7,6,5,4,11,10,9,8,15,14,13,12]
+sha256 = "542ea85d660684b0157b73a77e2f075cce88d3f18d907171785c2ca43d4b43a2"
+
+[vertical_scale]
+function_start = 0x34b808
+function_end_exclusive = 0x34bc0c
+function_size = 0x404
+disassembly_extract_sha256 = "8677ae1b8b663deb6f673298fccd8adbbdc2d66295107fb013db23011352578c"
+setting_selector = 2
+channel_stride = 0xc0
+scale_width = 8
+impedance_width = 4
+thresholds = [5000000,10000000,20000000,50000000,100000000,200000000,500000000,1000000000,2000000000,5000000000,10000000000]
+impedance_one_buckets = "first threshold >= scale gives 0..7; values above 1e9 also give 7"
+other_impedance_buckets = "first threshold >= scale gives 0..10; values above 1e10 also give 10"
+
+[channel_delay]
+function_start = 0x347990
+function_end_exclusive = 0x348140
+function_size = 0x7b0
+disassembly_extract_sha256 = "263bd1d0c44b7f9f86ace72397f9dc27d630155e75651908f74246224c490969"
+setting_selector = 2
+master_source = "(Drv_GetSetting(2)->trigger(+0x1420)->getMasterSource()-1) signed-mod 4"
+adc_delay = "DevConfig_GetAdcsDly()"
+channel_count = "CDrvSetting::GetChanCount(-1)"
+two_channel_signs = [-1,-1,1,1]
+initial_four = "[0,-2*adc_delay,-adc_delay,-3*adc_delay]"
+two_channel_case = "all four = sign[master]*adc_delay; selected master becomes 0; master1 negates lane0; master2 negates lane3"
+other_channel_case = "four[i] = initial_four[i] - initial_four[master]"
+live_delay_addend = "CChannel[i].getDelay() + CCHProbe[i].getDelay(), i=0..3"
+quantum = "4 * DevConfig_GetChDlyPointTime()"
+output = "u32(trunc_toward_zero((four[i]+live_delay_addend[i])/quantum)*quantum), i=0..3"
+return_value = 0
+
+[selection]
+sample_rate_gate = "sample_rate <= 500000000 takes bypass-only path"
+supported_rates = [1000000000,2000000000,4000000000]
+unsupported_above_gate = "reset/mode/bypass setup occurs, no matrix loop, bypass remains cleared"
+factor_by_rate = [4,2,1]
+outer_count_by_rate = [4,8,16]
+inner_count_by_rate = [4,2,1]
+impedance_one_fields = [0x840,0x880,0x8c0]
+other_impedance_fields = [0x0,0x40,0x80]
+
+[index_formula]
+bucket = "low4((((u32(channel_delay[channel])*0x10624dd3)>>38)+120000)*0x10624dd3>>36)"
+factor = "1 for 4GHz, 2 for 2GHz, 4 for 1GHz"
+outer = "0 .. (16/factor)-1"
+inner = "0 .. factor-1"
+s = "signed_mod16(bucket + factor*outer)"
+parity = "signed_mod2(s+16)"
+half = "signed_mod8(trunc_toward_zero((s+16)/2))"
+cell = "delay_map[half] + 8*parity"
+lane = "lane_permutation[outer + (16/factor)*inner]"
+matrix_address = "adc + 0x4eb4 + mode*0xe40 + vertical_scale*0xc0 + cell*4 + selected_field"
+calls_per_supported_path = 48
+
+[[hardware_helpers]]
+name = "DevAcquireSpu_ResetAdjParam"
+start = 0x27e754
+size = 0x88
+logical_offsets = [0x1574,0x1574]
+formulas = ["(adj_ctrl&~0x100)|0x100","adj_ctrl&~0x100"]
+writes = 2
+
+[[hardware_helpers]]
+name = "DevAcquireSpu_SetAdjOffsetMode"
+start = 0x27e7dc
+size = 0x68
+logical_offsets = [0x1574]
+formulas = ["(adj_ctrl&~0x10)|((argument&1)<<4)"]
+writes = 1
+
+[[hardware_helpers]]
+name = "DevAcquireSpu_SetAdjOffsetBypass"
+start = 0x27e844
+size = 0x64
+logical_offsets = [0x1574]
+formulas = ["(adj_ctrl&~1)|(argument&1)"]
+writes = 1
+
+[[hardware_helpers]]
+name = "DevAcquireSpu_SetAdjGain"
+start = 0x27e490
+size = 0xec
+logical_offsets = [0x155c,0x1568,0x1568]
+formulas = ["(gain&0xffff0000)|(value&0xffff)","(gain_load&0xffff0000)|((1<<lane)&0xffff)","gain_load&0xffff0000"]
+writes = 3
+
+[[hardware_helpers]]
+name = "DevAcquireSpu_SetAdjOffset1"
+start = 0x27e57c
+size = 0xec
+logical_offsets = [0x1560,0x156c,0x156c]
+formulas = ["(offset1&0xffff0000)|(value&0xffff)","(offset1_load&0xffff0000)|((1<<lane)&0xffff)","offset1_load&0xffff0000"]
+writes = 3
+
+[[hardware_helpers]]
+name = "DevAcquireSpu_SetAdjOffset2"
+start = 0x27e668
+size = 0xec
+logical_offsets = [0x1564,0x1570,0x1570]
+formulas = ["(offset2&0xffff0000)|(value&0xffff)","(offset2_load&0xffff0000)|((1<<lane)&0xffff)","offset2_load&0xffff0000"]
+writes = 3
+
+[write_boundary]
+wrapper = "DevAcquireSpu_WriteRegister"
+wrapper_start = 0x272c2c
+downstream = "Dev_WriteRegister"
+semantics = "one W32 mapped register store at the supplied logical offset; no read/ioctl in this path"
+helper_returns = "zero; downstream status discarded"
+
+[path_counts]
+sample_rate_le_500mhz_writes = 1
+unsupported_rate_above_500mhz_writes = 4
+supported_rate_writes = 148
+supported_rate_sleeps = 2
+bypass_only_sleeps = 1
+sleep_microseconds = 20000
+
+[[bindings]]
+slot = 0xb8ccd8
+target = 0xbe1150
+name = "gInt32DevAcquireSpuAdjCtrl"
+
+[[bindings]]
+slot = 0xb8de88
+target = 0xbe1138
+name = "gInt32DevAcquireSpuAdjGain"
+
+[[bindings]]
+slot = 0xb8ed38
+target = 0xbe1144
+name = "gInt32DevAcquireSpuAdjGainLoad"
+
+[[bindings]]
+slot = 0xb8dd30
+target = 0xbe113c
+name = "gInt32DevAcquireSpuAdjOffset1"
+
+[[bindings]]
+slot = 0xb8db70
+target = 0xbe1148
+name = "gInt32DevAcquireSpuAdjOffset1Load"
+
+[[bindings]]
+slot = 0xb8d5b8
+target = 0xbe1140
+name = "gInt32DevAcquireSpuAdjOffset2"
+
+[[bindings]]
+slot = 0xb8ddc0
+target = 0xbe114c
+name = "gInt32DevAcquireSpuAdjOffset2Load"
+
+[[call_bindings]]
+slot = 0xb77db0
+target = 0x34b808
+name = "GetVerticalScale"
+
+[[call_bindings]]
+slot = 0xb7e7f8
+target = 0x2f3db8
+name = "Drv_GetSetting"
+
+[[call_bindings]]
+slot = 0xb80e90
+target = 0x2fce24
+name = "CChannel::getImpedance"
+
+[[call_bindings]]
+slot = 0xb7c000
+target = 0x2e5a40
+name = "Drv_GetScope"
+
+[[call_bindings]]
+slot = 0xb7c358
+target = 0x2e83a4
+name = "CDrvScope::GetDrvParam"
+
+[[call_bindings]]
+slot = 0xb87cc8
+target = 0x2f006c
+name = "CDrvParam::GetSampleRate"
+
+[[call_bindings]]
+slot = 0xb79e90
+target = 0x347990
+name = "CCalibration_ADC::DrvCalibration_GetChDly"
+
+[[call_bindings]]
+slot = 0xb7df48
+target = 0x27e754
+name = "DevAcquireSpu_ResetAdjParam"
+
+[[call_bindings]]
+slot = 0xb84468
+target = 0x27e7dc
+name = "DevAcquireSpu_SetAdjOffsetMode"
+
+[[call_bindings]]
+slot = 0xb824b0
+target = 0x27e844
+name = "DevAcquireSpu_SetAdjOffsetBypass"
+
+[[call_bindings]]
+slot = 0xb87608
+target = 0x27e490
+name = "DevAcquireSpu_SetAdjGain"
+
+[[call_bindings]]
+slot = 0xb80308
+target = 0x27e57c
+name = "DevAcquireSpu_SetAdjOffset1"
+
+[[call_bindings]]
+slot = 0xb7db68
+target = 0x27e668
+name = "DevAcquireSpu_SetAdjOffset2"
+
+[[call_bindings]]
+slot = 0xb86690
+target = 0x272c2c
+name = "DevAcquireSpu_WriteRegister"
+
+[limitations]
+matrix_values = "symbolic; accepted ADC+0x8804 capture is disjoint"
+runtime_getters = "symbolic software state; no stock observation in this task"
+shadow_initial_values = "symbolic"
+hardware_effect = "mapped stores do not establish FPGA semantics or success"

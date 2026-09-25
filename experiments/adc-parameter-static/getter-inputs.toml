@@ -1,0 +1,222 @@
+schema_version = "mho900-lab.adc-parameter-getter-inputs/1"
+stock_elf = "local/reversing/firmware-extracted/stock-0.26/sparrow/base/lib/arm64-v8a/libscope-auklet.so"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+scope = "remaining defined getter leaves and mapped-base accessor"
+asynchronous_boundary = false
+direct_mmio = false
+opaque_defined_getter_count = 0
+
+[[getter]]
+name = "CChannel::getScale"
+start = 0x2fcd64
+end = 0x2fcd7c
+sha256 = "ca6ea83e2c4f6cd8738b79dfaaa1615441bd0d0e9c3158d87e191a52ecf72447"
+input = "this"
+field_offset = 0x0
+field_width = 8
+formula = "load64(this+0x0)"
+
+[[getter]]
+name = "CChannel::getDelay"
+start = 0x2fd0cc
+end = 0x2fd0e4
+sha256 = "9a95e6745c19b60c93b681e2c3b880c6e980e65f70046a84f581797f280563fe"
+input = "this"
+field_offset = 0x28
+field_width = 8
+formula = "load64(this+0x28)"
+
+[[getter]]
+name = "CCHProbe::getDelay"
+start = 0x308038
+end = 0x308050
+sha256 = "987b4d1e298c1c081f2723642bcccbbd5d5069362728a56c4ed4c6101e4fbae5"
+input = "this"
+field_offset = 0x38
+field_width = 4
+formula = "load32(this+0x38)"
+
+[[getter]]
+name = "CTrigger::getMasterSource"
+start = 0x31cba0
+end = 0x31cbb8
+sha256 = "97f3bf8bfc58de39db743532361b7d921ad2ad21caeb8abfb6d2e0396e661d6d"
+input = "this"
+field_offset = 0x710
+field_width = 4
+formula = "load32(this+0x710)"
+
+[[getter]]
+name = "CDrvScope::GetDrvSetting"
+start = 0x2e5a68
+end = 0x2e5b54
+sha256 = "d7d5cae130e28c48f8e8727d5d8a40835548228a6635c0ac59955493a0adc2ab"
+selectors_base = [2, 3, 11, 12]
+base_result_offset = 0x18
+default_result_offset = 0x1e10
+copy_selector = 999
+copy_source_offset = 0x13a8
+copy_destination_offset = 0x4f98
+copy_length = 142
+copy_result_offset = 0x3c08
+jump_table = false
+
+[[getter]]
+name = "Drv_GetScope"
+start = 0x2e5a40
+end = 0x2e5a4c
+sha256 = "297cdd0fd774f8ce253993662166d281715c1c98101f515c2659317cd07bd7ff"
+formula = "return 0x10bee40"
+result = 0x10bee40
+
+[[getter]]
+name = "CDrvSetting::GetChanCount"
+start = 0x2f4108
+end = 0x2f4158
+sha256 = "40b2cee11eadf1602af59fbf2a231926366489543c407c0415be5591c48f75c1"
+sentinel_mask = -1
+sentinel_child = "CDrvSetting::GetSampleChanMask"
+final_child = "DevSystem_GetSampleChanCount"
+
+[[getter]]
+name = "CDrvSetting::GetSampleChanMask"
+start = 0x2f3e30
+end = 0x2f3f38
+sha256 = "18d93d813e4b7bc02f5a32e716be69c69f0fd17289d349d0f0da0ecbb74ddb78"
+channel_count = 4
+channel_stride = 0xc0
+channel_child = "CChannel::getOnOff"
+bode_setting_selector = 2
+bode_offset = 0x1c70
+bode_child = "CBode::getBodeEn"
+bode_enabled_mask = 0xf
+
+[[getter]]
+name = "CChannel::getOnOff"
+start = 0x2fc3c4
+end = 0x2fc448
+sha256 = "4c1cf5c11908c65aac9efa8037b0537a026f5abec464430d5801c3cb821ec532"
+field_first_offset = 0xb4
+field_count = 8
+field_width = 1
+formula = "any((load8(this+0xb4+i)&1)!=0,i=0..7)"
+
+[[getter]]
+name = "CBode::getBodeEn"
+start = 0x396b84
+end = 0x396ba4
+sha256 = "7fd178095d5b069630522d441385277adf04ab8d153a9ea429d95d1b965914c4"
+field_offset = 0
+field_width = 1
+formula = "load8(this)&1"
+
+[[getter]]
+name = "Drv_GetSetting"
+start = 0x2f3db8
+end = 0x2f3de0
+sha256 = "68162b911a70db7656a80e18cd4ebf09aea1e4eee248e32b0248600617c86a50"
+scope_child = "Drv_GetScope"
+setting_child = "CDrvScope::GetDrvSetting"
+
+[[getter]]
+name = "DevSystem_GetSampleChanCount"
+start = 0x272500
+end = 0x272524
+sha256 = "1f1d693a113f2e6f12f752c957329b0168fbc83ac61dbb67c8c1b9209395d92e"
+formula = "return DevSystem_GetSampleMode(mask)"
+
+[[getter]]
+name = "DevSystem_GetSampleMode"
+start = 0x272490
+end = 0x272500
+sha256 = "0da6225a8e5e369beb458fb76e78d00cb921315a599bac9a56bf3a53619a33e4"
+series_child = "DevSystem_GetSeriesParam"
+channel_count_offset = 0x10
+channel_table_pointer_offset = 0x8
+channel_entry_stride = 0x10
+mode_field_offset = 0x4
+invalid_mask_substitute = 0
+
+[[getter]]
+name = "DevSystem_GetSeriesParam"
+start = 0x272244
+end = 0x272364
+sha256 = "f27934487bc0496d026e51f6e0fadd67e0d76bc99931d6fab68122edf90c511e"
+row_table = 0xb8f4f0
+row_count = 9
+row_stride = 0x20
+selector0 = 0xb8f4e4
+selector1 = 0xb8f4e8
+special_selector1 = 4000
+special_flag = 0xbe1134
+special_flag_value = 1
+special_substitute1 = 2000
+row_selector0_offset = 0
+row_selector1_offset = 4
+fallback = 0xb8f4f0
+
+[[getter]]
+name = "DevConfig_GetAdcsDly"
+start = 0x272668
+end = 0x272684
+sha256 = "da24439242a440797b239037f2a9ad886e61ca2956d215bbdf2872c303153dca"
+series_child = "DevSystem_GetSeriesParam"
+config_pointer_offset = 0x18
+field_offset = 0x20
+field_width = 4
+
+[[getter]]
+name = "DevConfig_GetChDlyPointTime"
+start = 0x2726f4
+end = 0x272710
+sha256 = "af5a8e0d56261dab0eb598da066e23ead2c58eac7aec27439ff2aa978d4c4e33"
+series_child = "DevSystem_GetSeriesParam"
+config_pointer_offset = 0x18
+field_offset = 0x38
+field_width = 4
+
+[[getter]]
+name = "mapped-base-accessor"
+start = 0x271ec4
+end = 0x271f0c
+sha256 = "e0912dd3e8020e123b547c3d6a375237853ca0eab971d0aa5d61160f6ffa2cc7"
+pointer_global = 0xbe1128
+pointer_width = 8
+formula = "return load64(0xbe1128), including null"
+direct_callees = []
+
+[[runtime_input]]
+name = "mapped_base"
+address = 0xbe1128
+width = 8
+classification = "runtime-global"
+
+[[runtime_input]]
+name = "series_selector0"
+address = 0xb8f4e4
+width = 4
+classification = "runtime-global"
+
+[[runtime_input]]
+name = "series_selector1"
+address = 0xb8f4e8
+width = 4
+classification = "runtime-global"
+
+[[runtime_input]]
+name = "series_rows"
+address = 0xb8f4f0
+width = 288
+classification = "runtime-table"
+
+[[runtime_input]]
+name = "series_special_flag"
+address = 0xbe1134
+width = 4
+classification = "runtime-global"
+
+[limits]
+primitive_runtime_values_retained = true
+object_pointer_validity_assumed = true
+physical_semantics_claimed = false
+unrelated_subsystems_expanded = false

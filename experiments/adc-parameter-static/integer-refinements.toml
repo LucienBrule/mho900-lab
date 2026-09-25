@@ -1,0 +1,70 @@
+schema_version = "mho900-lab.adc-parameter-integer-refinements/1"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+precedence = "These entries specify primitive getter layouts and machine-width delay arithmetic omitted from the higher-level formulas."
+
+[[getter]]
+name = "CChannel::getImpedance"
+start = 0x2fce24
+end = 0x2fce3c
+sha256 = "541fad6e41d59e1c7a3a7bb3a6690a3cc394b3d8f951c6478d1224e4287b233d"
+load_pc = 0x2fce30
+load_opcode = 0xb9401d00
+field_offset = 0x1c
+width = 4
+
+[[getter]]
+name = "CDrvParam::GetSampleRate"
+start = 0x2f006c
+end = 0x2f0084
+sha256 = "ba73b5e60fbb535afed33ffb01d9a2ae79d38a97286452126759b0f8a4901aac"
+load_pc = 0x2f0078
+load_opcode = 0xf9400500
+field_offset = 8
+width = 8
+consumer_interpretation = "signed int64 converted to double in SetAdcStary"
+
+[[getter]]
+name = "CDrvScope::GetDrvParam"
+start = 0x2e83a4
+end = 0x2e83f0
+sha256 = "cc8314f30d120a4ac0976ee3fc07b1ef8e7e477040d1d826f1aefdc671b79e8d"
+selector_branch_pc = 0x2e83bc
+selector_branch_opcode = 0x350000c9
+zero_selector_offset = 0x5a00
+nonzero_selector_offset = 0x5e90
+admitted_selector = 0
+
+[channel_delay]
+probe_object_formula = "setting+0x300+0x40*channel"
+channel_object_formula = "setting+0xc0*channel"
+probe_delay_signed_at_addition = true
+probe_add_pc = 0x347e64
+probe_add_opcode = 0x8b20c109
+probe_add_rule = "64-bit channel-delay bits plus sign-extended 32-bit probe delay, modulo2^64"
+quantum_shift_pc = 0x347e04
+quantum_shift_opcode = 0x531e7508
+quantum_rule = "u32(config_delay_point_time << 2), then zero-extended for signed64 division"
+division_pc = 0x347f88
+division_opcode = 0x9acc0d6b
+division_rule = "AArch64 SDIV64: signed numerator, nonnegative zero-extended quantum; quotient truncates toward zero; zero divisor yields zero"
+multiply_pc = 0x347f8c
+multiply_opcode = 0x1b0a7d6a
+output_rule = "u32(low32(quotient)*quantum), stored as u32"
+intermediate_additions_wrap_at_64_bits = true
+source_scale_comparisons_are_signed_64 = true
+scale_first_compare_pc = 0x34b894
+scale_first_compare_opcode = 0xeb0a0108
+scale_first_branch_pc = 0x34b898
+scale_first_branch_opcode = 0x540000ac
+
+[series_channel_table]
+row_field_offset = 0x10
+meaning = "mask table entry bound, not independently established physical channel count"
+valid_mask_rule = "i32(mask)>=0 and u32(mask)<=u32(bound-1); otherwise substitute zero"
+entry_stride = 0x10
+mode_offset = 4
+
+[limits]
+valid_master_source_index_required = true
+runtime_values_observed = false
+full_abstract_interpretation_performed = false

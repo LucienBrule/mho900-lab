@@ -1,0 +1,139 @@
+schema_version = "mho900-lab.adc-parameter-static-result/1"
+result = "bounded-whole-subsystem-software-contract-recovered"
+task = "TASK.guest.adc-parameter-static"
+mode = 0
+selected_inventory_ranges = 35
+selected_inventory_reachable_instructions = 4368
+selected_inventory_calls = 181
+additional_getter_ranges = 17
+unique_inventory_and_getter_ranges = 50
+main_call_sites = 13
+main_call_invocations = 35
+main_record_fields = 62
+matrix_unobserved_bytes = 3648
+live_shadow_objects = 15
+conditional_write_counts = [97, 100, 244]
+hardware_reads = 2
+requested_delay_us = [25200, 45200]
+checker_result = "accepted"
+checker_semantic_proof = false
+component_review_result = "counts and main field layout accepted; final integrated semantic review follows as separate task"
+guest_runs = 0
+new_synthetic_responses = 0
+stock_artifacts_preserved = true
+physical_instrument_access = false
+fpga_behavior_recovered = false
+next_input_boundary = "Live matrix, mutable shadows, object fields and series-selector dependencies at the established pre-call checkpoint."
+correction = "Impedance-one matrix minimum is adc+0x56f4; adc+0x4eb4 remains the conservative union start. Original component artifact preserved."
+
+[[artifacts]]
+path = "tools/research/RecoverAdcParameter.main.kts"
+sha256 = "dd5e928cca43ae4c7e26e8457a0ce788247143e863cd5f28524205b419de0d6a"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcParameter.main.kts"
+sha256 = "d7796225cf464bcc6b24c7500ab247ed08ad913cc2ed833bc74a272583d480f0"
+
+[[artifacts]]
+path = "docs/research/adc-parameter-static.md"
+sha256 = "85c366a77ce7101fc8a0babf8a3201ffd6f6d1038efbe198a9de38cf484db57d"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/call-inventory.toml"
+sha256 = "4e5e6cd34c8a01759154f757aad5f6a02fbb396453dcbf66cf89f4d1a499d8b2"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/main-grammar.toml"
+sha256 = "65e346f18029530832ed7f684199d20a04812ad033cd7f4d0561b73b9a142c2c"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/stary-grammar.toml"
+sha256 = "9ea7bd9d912dd0d5ab5c243469f32ee0ed5de866c59f4a5f4f8830063b2f73b0"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/stary-refinements.toml"
+sha256 = "368a10344670f3346e6c04fb4ac0f8eb9ff2eb3510faa3463a202c39fe8a81bc"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/helper-grammar.toml"
+sha256 = "b74b4edeb422ac85b9a0b3ab96a13caf276a28d27dc227f0259b7a2ddbc28bc9"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/helper-refinements.toml"
+sha256 = "709c4b340b74b71e32f7ff7338d3af2c2425d9cb9e2b4575310b2a93a668ac71"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/getter-inputs.toml"
+sha256 = "9daa0d606744a98f0fd96bfd0962dc324934caab09530f43fb2faacae44cf3f8"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/integer-refinements.toml"
+sha256 = "d268a5b111373edbe78501ef7ff6e1fb28496fc3ebf1f5c99ce8f55e189c5355"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/scope.toml"
+sha256 = "170b6b99f14143944c9a682ac56bf8680c33480dc2bca0328f3c6ac4ff3d0f09"
+
+[[artifacts]]
+path = "out/adc-parameter-static/root/extraction-02.toml"
+sha256 = "79ec4207b8fcd48f51ccab3b7fb708615c603f7559a7f62c2d5ccbef15c947c3"
+
+[[artifacts]]
+path = "out/adc-parameter-static/root/extraction-02/reachable-instructions.tsv"
+sha256 = "15cb334b67af27ba97ee1bb79e57bc9beae11812437be8d7b888f6f10d7f3c1f"
+
+[[artifacts]]
+path = "out/adc-parameter-static/root/check-integrated01.toml"
+sha256 = "575374bcbbf7d9d65792266797b55b4e2968981025aa409bdb8be5a87e4cc943"
+
+[[artifacts]]
+path = "out/adc-parameter-static/root/check-integrated01.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/adc-parameter-static/root/preservation/inputs.sha256"
+sha256 = "a18463b137acd930bd60eb696e1f9ca6e6c92381f06578309c55970cab9da267"
+
+[[artifacts]]
+path = "out/adc-parameter-static/stary-notes.md"
+sha256 = "285c628a64e652d6f84d3d31e916602a2e98119c97b28f2615e4613c3b2d4f71"
+
+[[artifacts]]
+path = "out/adc-parameter-static/stary-refinements.md"
+sha256 = "50d87aada91b236f62274d63b25245632aa4412958a9f6333d4896881df8f9f9"
+
+[[artifacts]]
+path = "out/adc-parameter-static/helper-notes.md"
+sha256 = "a3e536456700771f099588a23edf208f662eadee914238e72766d601541fb685"
+
+[[artifacts]]
+path = "out/adc-parameter-static/helper-refinements.md"
+sha256 = "493f2b5e7f89aaef598e9dfc24fddb7695edf156b9c39f3dca50e5e85cae4773"
+
+[[artifacts]]
+path = "out/adc-parameter-static/getter-inputs.md"
+sha256 = "98ae446f19063e72b384e2bef4af7c56337926b260bf9f0fc5a97a49fc4b44d1"
+
+[[artifacts]]
+path = "out/adc-parameter-static/getter/range-hashes.txt"
+sha256 = "9d8124ea19f9ac5e022b04aa4f5d8fc18d640fae6808747b7476319e26a5248a"
+
+[[artifacts]]
+path = "out/adc-parameter-static/main-count-check.toml"
+sha256 = "42805dbb63498c9be24a725fd70223dd31efbdeebf6a4a99da6ac14e21f61bbf"
+
+[[artifacts]]
+path = "out/adc-parameter-static/main-count-check.md"
+sha256 = "a2df6ec1e61ca156bfd19bf4f099f9a7f31216f63138d342f6f757c372d1f606"
+
+[[artifacts]]
+path = "out/adc-parameter-static/checker/summary.toml"
+sha256 = "f442866a797bed33f5b265b8c32fa6dc95aa4cb0ba578b3d78be59c1c38edeb4"
+
+[[artifacts]]
+path = "out/adc-parameter-static/checker/checker-sha256.txt"
+sha256 = "94957b799f0a34d88b4b2f660a7d82ff5e5180949276e70a32582cbd9dc42171"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-run02-results.toml"
+sha256 = "d26cbe3d0157c6514d1cd06082fdd3e150c23b6a4749a5371147ed9f49d19727"

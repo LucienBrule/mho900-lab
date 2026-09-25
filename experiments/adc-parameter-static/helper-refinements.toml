@@ -1,0 +1,211 @@
+schema_version = "mho900-lab.adc-parameter-helper-refinements/1"
+base_grammar = "out/adc-parameter-static/helper-grammar.toml"
+stock_elf_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+binding_count = 16
+mutable_object_count = 15
+hardware_read_protocol_count = 1
+hardware_read_invocation_count = 2
+hardware_read_chips = [0, 1]
+hardware_read_control_use_inside_protocol = true
+hardware_read_control_use_after_getter = false
+hardware_read_after_getter_use = "logging-only"
+asynchronous_boundary = false
+
+[mask_table]
+name = "maskValue"
+classification = "static-table-with-runtime-relocation-guard"
+address = 0x9948bc
+symbol_size = 416
+entry_width = 4
+entry_count = 104
+section = ".rodata"
+section_allocatable = true
+section_writable = false
+containing_load_flags = "R E"
+full_sha256 = "d9b88ca5b40ae86cc40dfa2a20cc3a6f49841c5d97cb0c309617c0dba6034b2d"
+maximum_referenced_index = 77
+required_capture_width = 312
+required_prefix_sha256 = "89f750567afedca443cf3750aa4c2133b43bcb8ab94cbfff8f92bd7ff58fe3df"
+relocation_guard_required = true
+prior_provenance = "DeriveAdcTranscript and accepted ADC prefix"
+
+[read_protocol_branch]
+source = "Dev_ReadRegister(0x3004)"
+ready_bit = 16
+ready_set_effect = "copy bits15:0 to raw16 and return zero"
+ready_clear_effect = "leave initialized raw16 zero and return -1"
+getter_status_effect = "discarded"
+getter_value_formula = "raw16 ^ maskValue[index]"
+caller_effect = "logged only"
+
+[shared_selector_arrays]
+gain_and_delay_shared_across_chips = true
+offset_shared_across_chips = true
+selector_count = 8
+chip_selects_transport_destination = true
+
+[[binding]]
+index = 0
+name = "maskValue"
+got_slot = 0xb8eea8
+expected_target = 0x9948bc
+symbol_size = 416
+required_capture_width = 312
+source_initialization = "immutable-rodata"
+
+[[binding]]
+index = 1
+name = "gInt16DevAcquireADCRT8847IQ_0x09"
+got_slot = 0xb8cb08
+expected_target = 0x3cb45bc
+symbol_size = 4
+required_capture_width = 4
+layout = "two chip-indexed u16"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 2
+name = "gInt16DevAcquireADCRT8847IQ_GainAndDly"
+got_slot = 0xb8c9d0
+expected_target = 0x3cb45a6
+symbol_size = 16
+required_capture_width = 16
+layout = "eight shared selector u16"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 3
+name = "gInt16DevAcquireADCRT8847IQ_Offset"
+got_slot = 0xb8b940
+expected_target = 0x3cb457c
+symbol_size = 16
+required_capture_width = 16
+layout = "eight shared selector u16"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 4
+name = "gInt16DevAcquireADCRT8847IQ_0x01"
+got_slot = 0xb8cae0
+expected_target = 0x3cb45b8
+symbol_size = 4
+required_capture_width = 4
+layout = "two chip-indexed u16"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 5
+name = "gInt16DevAcquireADCRT8847IQ_0x04"
+got_slot = 0xb8ec98
+expected_target = 0x3cb45ec
+symbol_size = 4
+required_capture_width = 4
+layout = "two chip-indexed u16"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 6
+name = "gInt16DevAcquireADCRT8847IQ_0x05"
+got_slot = 0xb8e680
+expected_target = 0x3cb45d8
+symbol_size = 4
+required_capture_width = 4
+layout = "two chip-indexed u16"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 7
+name = "gInt32DevAcquireSpuAdcGainFine"
+got_slot = 0xb8da70
+expected_target = 0x3cb4534
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 8
+name = "gInt32DevAcquireSpuH12S4Ctrl"
+got_slot = 0xb8d288
+expected_target = 0x3cb44fc
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 9
+name = "gInt32DevAcquireSpuAdjGain"
+got_slot = 0xb8de88
+expected_target = 0xbe1138
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 10
+name = "gInt32DevAcquireSpuAdjGainLoad"
+got_slot = 0xb8ed38
+expected_target = 0xbe1144
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 11
+name = "gInt32DevAcquireSpuAdjOffset1"
+got_slot = 0xb8dd30
+expected_target = 0xbe113c
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 12
+name = "gInt32DevAcquireSpuAdjOffset1Load"
+got_slot = 0xb8db70
+expected_target = 0xbe1148
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 13
+name = "gInt32DevAcquireSpuAdjOffset2"
+got_slot = 0xb8d5b8
+expected_target = 0xbe1140
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 14
+name = "gInt32DevAcquireSpuAdjOffset2Load"
+got_slot = 0xb8ddc0
+expected_target = 0xbe114c
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[[binding]]
+index = 15
+name = "gInt32DevAcquireSpuAdjCtrl"
+got_slot = 0xb8ccd8
+expected_target = 0xbe1150
+symbol_size = 4
+required_capture_width = 4
+layout = "one u32"
+source_initialization = "zero-bss"
+
+[minimum_missing_inputs]
+live_mutable_objects = 15
+hardware_returned_words = 2
+runtime_calibration_arguments = true
+binding_guards = 16
+source_zero_is_live_zero = false
