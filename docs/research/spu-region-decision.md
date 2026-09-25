@@ -11,7 +11,7 @@ on the false initialization branch, and two LA reset stores. The mapped operands
 conditional on separate writable SCU and LA shadows. The intervening transport is a
 material ambiguity: `/dev/ttyS0` open failure is ignored, but a nonpositive board-power
 write terminates the process. GD32 may reopen a cached descriptor after obtaining a
-four-byte value from `/dev/hdcode_gpio`. That device read precedes the later mapped
+one-byte value from `/dev/hdcode_gpio` into a four-byte integer. That read precedes the mapped
 version reads. A mapped-only transcript would omit an important hardware-returned input.
 
 Recover this entire region, including delegated UART setup and version consumers,
@@ -33,3 +33,6 @@ The initial static review is retained at
 Its transitive setup paths remain inputs to recovery, not completed evidence. Commit
 and push this decision and admitted tasking before execution; commit and push each
 subsequent conclusion before dependent work.
+
+The original review confused requested count with buffer capacity; the
+[completed static recovery](remaining-initialization-grammar.md) records the correction.

@@ -1,0 +1,182 @@
+schema_version = "mho900-lab.remaining-init-result/1"
+result = "static-grammar-recovered"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+grammar_sha256 = "986d04385cfbc7a27ea83d4fd05bfe0563c28d122dfead1ee3a8c6fe6a0a8161"
+nodes = 27
+edges = 34
+ranges = 22
+bindings = 24
+conditional_writes = 5
+final_derivations_identical = true
+independent_verifier_accepted = true
+final_negative_controls_rejected = 7
+new_guest_runs = 0
+new_synthetic_responses = 0
+stock_bytes_modified = false
+physical_instrument_access = false
+read_count_correction = "GPIO read requests one byte into a zeroed four-byte integer; checked-read capacity is four"
+correction_basis = "Stock call arguments x2=1 x3=4 plus Android 7.1.1 Bionic checked-read signature"
+source_url = "https://android.googlesource.com/platform/bionic/+/android-7.1.1_r1/libc/bionic/__read_chk.cpp"
+source_sha256 = "cb16372979a1873d12a94ea3d34e01bf1c217d515e21d86f7cbc6daaa1e800f1"
+limitations = [
+  "Semantic annotations are manually reviewed; byte checks are not general symbolic proof",
+  "Initial BSS and data values remain live runtime hypotheses",
+  "UART termios structures depend on inherited state and ignored tcgetattr errors",
+  "Kernel syscall ABI beneath imported libc calls is not inferred from Auklet alone",
+  "DDR body and true initialization branch remain explicit recovery boundaries",
+  "No FPGA or UART behavioral model is validated by this static result"
+]
+intermediate_outcomes = [
+  "Initial draft retained mistaken GPIO READ4 interpretation; final grammar and verifier require READ1",
+  "First refined derivation rejected literal pins because helper emitted escaped text instead of newline and NUL; corrected before final deterministic derivations",
+  "First final-control helper changed root library hash instead of first range hash; rejected, corrected anchored match and rerun in new directory",
+  "Early review overstated a unique board checkpoint and need for group quiescence at each breakpoint; root rejected those unsupported necessities"
+]
+
+[[artifacts]]
+path = "tools/research/RecoverRemainingInit.main.kts"
+sha256 = "c32708177de472869ecb62da30a87837747f606e3fd36c693211ee6d015c2fc7"
+
+[[artifacts]]
+path = "tools/research/VerifyRemainingInit.main.kts"
+sha256 = "c7b655a53462abdf4952f41863c59f01f1237331136b0564755cd4fe8d4f934c"
+
+[[artifacts]]
+path = "experiments/remaining-init/grammar.toml"
+sha256 = "986d04385cfbc7a27ea83d4fd05bfe0563c28d122dfead1ee3a8c6fe6a0a8161"
+
+[[artifacts]]
+path = "docs/research/remaining-initialization-grammar.md"
+sha256 = "81eeebee8992c872b952798e276599e125c9a59617102137e2d39aff8d69ff63"
+
+[[artifacts]]
+path = "out/remaining-init/derived-draft-01/grammar.toml"
+sha256 = "7206d2691cb692478a9c2a49f7b4ed4182e1042dfcab9b5f03bb820b70261056"
+
+[[artifacts]]
+path = "out/remaining-init/derived-01.stderr"
+sha256 = "06b807e278677c799847671371d5b9bf689ed64b713039fb3c255dcd24d43e48"
+
+[[artifacts]]
+path = "out/remaining-init/derived-03/grammar.toml"
+sha256 = "986d04385cfbc7a27ea83d4fd05bfe0563c28d122dfead1ee3a8c6fe6a0a8161"
+
+[[artifacts]]
+path = "out/remaining-init/derived-04/grammar.toml"
+sha256 = "986d04385cfbc7a27ea83d4fd05bfe0563c28d122dfead1ee3a8c6fe6a0a8161"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-01/results.toml"
+sha256 = "654e28cc6a2015bc29c80cbe9a4b8b58103ffa7a519b0234446c3ec8940661a7"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-01/bad-range.stderr"
+sha256 = "6d69a0e2cb980ca6bbbc9adabe54d7a7ff99902394ac7e330f0d88292f5b3f65"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/results.toml"
+sha256 = "843f485382f38d65fbcd55257201b10a38b385fca5cafded3fd507bc73cbd565"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/valid.stdout"
+sha256 = "875bc73bdf124b4057925c33e68d5cd71fcec85307d6ee044667a96b9a52d62d"
+
+[[artifacts]]
+path = "out/remaining-init/check-final.main.kts"
+sha256 = "33fa9af2248098a9d765af9646d7b6c0a9ff9eae3b16e59bf1e1e4bd8e37ec17"
+
+[[artifacts]]
+path = "out/remaining-init/bionic-read-chk.cpp"
+sha256 = "cb16372979a1873d12a94ea3d34e01bf1c217d515e21d86f7cbc6daaa1e800f1"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-binding.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-opcode.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-operand.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-range.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/blank-condition.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/missing-failure.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/wrong-read-count.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-binding.stderr"
+sha256 = "5ce8d164c6e32cd5b9fdf646b44663762be962e2a8e49b4b50168106a2d48059"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-opcode.stderr"
+sha256 = "1adc4084da90ba6f41f5df114e6e62ea223c59fc77178c42160de93f6fb9bd91"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-operand.stderr"
+sha256 = "f80b0866a88d7df725aa49b06ac00efaa63ac900095af3dc7de6cbef36cac412"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-range.stderr"
+sha256 = "6b0ce49f0ca5e40ce13586eccac186bfe5950815782e0c762f4f6ea02055352b"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/blank-condition.stderr"
+sha256 = "f80b0866a88d7df725aa49b06ac00efaa63ac900095af3dc7de6cbef36cac412"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/missing-failure.stderr"
+sha256 = "86aa01895912f5d0efc1853892824a7c5f832d4a41486b03f047c1533fa27ed3"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/valid.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/wrong-read-count.stderr"
+sha256 = "3b5782e65cc02a65df056971950b04b767e47f6ceba6a64a5e6644a83e3f0176"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-binding.toml"
+sha256 = "4dd35a06545aee243f2aff8e68cd68880890841320b0f75804885682a0911cf0"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-opcode.toml"
+sha256 = "d2c2519bb7f993c6e238e1423ac296fd4e5d68e690f1b1733d5b10a5a58f7b28"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-operand.toml"
+sha256 = "a2f0852b9786626dead3881875d24f0e8b950cf38d93080ccbf885aa98a69f1e"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/bad-range.toml"
+sha256 = "d804d4325fdf41cff677bf358ad49c5fa612981eb54e0138c8ab4687710cc9cb"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/blank-condition.toml"
+sha256 = "8b75889c046c4aa58cff7619ad4ba2f655e8cad1ffb1f167e7c0d8160400671c"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/missing-failure.toml"
+sha256 = "30bba9d0cf9c9e3be0c3f71ab156e3963dace3b6d771080418aaada3e32e85f6"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/valid.toml"
+sha256 = "986d04385cfbc7a27ea83d4fd05bfe0563c28d122dfead1ee3a8c6fe6a0a8161"
+
+[[artifacts]]
+path = "out/remaining-init/final-check-02/wrong-read-count.toml"
+sha256 = "8c19a4e84a64482aed49a71f3fe38a2138148b15456d6a402e0ce33023985f34"

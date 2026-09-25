@@ -1,0 +1,729 @@
+schema_version = "mho900-lab.remaining-init-grammar/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+method = "Reviewed semantic graph bound to pinned ELF; not automatic symbolic execution or runtime evidence"
+entry = "SCU"
+candidate_semantics = "Conditional projection; intervening branches and reads remain in graph"
+
+[[ranges]]
+name = "Dev_Init"
+address = 0x272860
+size = 312
+sha256 = "ee5dd755372c8432f4e01dd5fef3f181111429bce4edce4c6c90737cbd900c91"
+
+[[ranges]]
+name = "_Z8Drv_Initb"
+address = 0x2e5228
+size = 2072
+sha256 = "db413bd6cfb64dd06e5369b73b4b20e0a584d08dfe4a8a13003c966f5ce7e70f"
+
+[[ranges]]
+name = "DevSystemSCU_Init"
+address = 0x2851e4
+size = 184
+sha256 = "1b436aacd9d4057f4262199a3799030f9d59d0e96f6d8dc0bf24d3a4abcf07e6"
+
+[[ranges]]
+name = "DevSystemScu_WriteRegister"
+address = 0x285184
+size = 48
+sha256 = "f023d01232aaa2f51ac5fdb552694c29e8fc7547d1a0e9eaada846ee3a9b387e"
+
+[[ranges]]
+name = "DevSystemScu_ReadRegister"
+address = 0x2851b4
+size = 48
+sha256 = "7a533e7de704039d12a952b579ba4599c9ceb4a39bc35cde6695d14b5c2c4ecd"
+
+[[ranges]]
+name = "DevBoardPower_SendAppUILoadStatus"
+address = 0x297e1c
+size = 364
+sha256 = "4b563cb70114b2f5590acab572d64a1a8b29b2fc714ca8d78ecfa5f8da5ab40f"
+
+[[ranges]]
+name = "UART_OPen"
+address = 0x295584
+size = 104
+sha256 = "7bd1eb09110658add5277bce8dfa688044f406b01600cbe81722a389c69751a6"
+
+[[ranges]]
+name = "uartDataSeed"
+address = 0x295708
+size = 180
+sha256 = "e299d090b493d368ee3b207bccfd61f11b7faeddb90b2f53cc2232adc50b9c09"
+
+[[ranges]]
+name = "Uart_Close"
+address = 0x295d68
+size = 36
+sha256 = "b0711c57d147dc7b837348a4c56f3af7280b6ca079bb005de13dd25f5951c12a"
+
+[[ranges]]
+name = "crc7_mmc"
+address = 0x2955ec
+size = 284
+sha256 = "f7d5bce13a7a9b387690051ba80ca72393e062d2a92db03a286dbbf8ef9394f8"
+
+[[ranges]]
+name = "Dev_SetGD32Reset"
+address = 0x2ad668
+size = 184
+sha256 = "962c960e6369cafbb3a6d6664f6e966df311ef3af97e546bbf480f1d71e3520f"
+
+[[ranges]]
+name = "Dev_WriteCommand"
+address = 0x2ad0b8
+size = 332
+sha256 = "17de2484b93fef714cfb3b1a9deb4f48a0ea063e1b524a4f336cbb00d4d1d08e"
+
+[[ranges]]
+name = "Dev_GetHardwareVersion"
+address = 0x2ad520
+size = 328
+sha256 = "82da67755fec5dfcfcab2d87f8053fa719fd9ff419575578c401a83542b5326c"
+
+[[ranges]]
+name = "uartXSetup"
+address = 0x2aea08
+size = 1320
+sha256 = "d8dc1ed06040740698c11c04f22c59be45ab3ce5a23a3776f49c68f4469928f2"
+
+[[ranges]]
+name = "DevLaDisplaySpu_SetAccRst"
+address = 0x294df8
+size = 128
+sha256 = "fa37b5a38679828c061764bd5bbf7faad789feaea57b8e9fa2802b2919db61c9"
+
+[[ranges]]
+name = "DevLaDisplayWpu_WriteRegister"
+address = 0x2949d0
+size = 48
+sha256 = "4a60964929e800a2dcb7d6d1ad338bfb2a1cc27796a42cef811b517ca51a6762"
+
+[[ranges]]
+name = "DevSystemSCU_GetVersion"
+address = 0x2852c4
+size = 176
+sha256 = "7950d0c8ae4574f63df37d53c26b51de06f84d1de927ee81c85fdc6332b4fc00"
+
+[[ranges]]
+name = "DevSystemSCU_GetHardwareVersion"
+address = 0x285374
+size = 56
+sha256 = "bf83efbb12cd54327d569168f13abd21e93189524c5184f6b01418b5f012c69c"
+
+[[ranges]]
+name = "DevAcquireSpu_SetDacPolling"
+address = 0x27dcf0
+size = 176
+sha256 = "39b0705a764b0238957286d15fc2e60537b8db14d7826469b15f340b31ed63a0"
+
+[[ranges]]
+name = "DevConfig_GetDdrCalSkip"
+address = 0x272844
+size = 28
+sha256 = "44150519dd7e491a5d26d9a7fe844b72ea74f6b86526d3c188b91830cf659c4b"
+
+[[ranges]]
+name = "internal-gd32-reopen"
+address = 0x2acfb8
+size = 256
+sha256 = "a0311ab3193a72c823f2b8c00b537b7afead09a4a96a57b368cd7a996fd3b4ab"
+
+[[ranges]]
+name = "internal-version-path"
+address = 0x2aef30
+size = 72
+sha256 = "f4d02a687805e67a925ba8ca7e780951e3a0ae321eec7d33a618c7227095704e"
+
+[[bindings]]
+slot = 0xb78790
+type = 0x402
+symbol = "DevConfig_GetDdrCalSkip"
+target = 0x272844
+
+[[bindings]]
+slot = 0xb789e8
+type = 0x402
+symbol = "DevBoardPower_SendAppUILoadStatus"
+target = 0x297e1c
+
+[[bindings]]
+slot = 0xb79410
+type = 0x402
+symbol = "Uart_Close"
+target = 0x295d68
+
+[[bindings]]
+slot = 0xb7aa98
+type = 0x402
+symbol = "uartDataSeed"
+target = 0x295708
+
+[[bindings]]
+slot = 0xb7fb88
+type = 0x402
+symbol = "DevAcquireSpu_SetDacPolling"
+target = 0x27dcf0
+
+[[bindings]]
+slot = 0xb83e28
+type = 0x402
+symbol = "DevSystemScu_WriteRegister"
+target = 0x285184
+
+[[bindings]]
+slot = 0xb84520
+type = 0x402
+symbol = "crc7_mmc"
+target = 0x2955ec
+
+[[bindings]]
+slot = 0xb845c0
+type = 0x402
+symbol = "DevSystemScu_ReadRegister"
+target = 0x2851b4
+
+[[bindings]]
+slot = 0xb847b8
+type = 0x402
+symbol = "UART_OPen"
+target = 0x295584
+
+[[bindings]]
+slot = 0xb84960
+type = 0x402
+symbol = "Dev_GetHardwareVersion"
+target = 0x2ad520
+
+[[bindings]]
+slot = 0xb85ce0
+type = 0x402
+symbol = "DevLaDisplayWpu_WriteRegister"
+target = 0x2949d0
+
+[[bindings]]
+slot = 0xb860f8
+type = 0x402
+symbol = "Dev_SetGD32Reset"
+target = 0x2ad668
+
+[[bindings]]
+slot = 0xb86128
+type = 0x402
+symbol = "DevSystemSCU_Init"
+target = 0x2851e4
+
+[[bindings]]
+slot = 0xb86f98
+type = 0x402
+symbol = "DevSystemSCU_GetHardwareVersion"
+target = 0x285374
+
+[[bindings]]
+slot = 0xb87630
+type = 0x402
+symbol = "_Z8Drv_Initb"
+target = 0x2e5228
+
+[[bindings]]
+slot = 0xb89e08
+type = 0x402
+symbol = "DevSystemSCU_GetVersion"
+target = 0x2852c4
+
+[[bindings]]
+slot = 0xb89f88
+type = 0x402
+symbol = "Dev_WriteCommand"
+target = 0x2ad0b8
+
+[[bindings]]
+slot = 0xb8aaf0
+type = 0x402
+symbol = "uartXSetup"
+target = 0x2aea08
+
+[[bindings]]
+slot = 0xb8b480
+type = 0x402
+symbol = "Dev_Init"
+target = 0x272860
+
+[[bindings]]
+slot = 0xb8cf08
+type = 0x401
+symbol = "gInt32TDevSystemScuCtrl"
+target = 0x3cb4620
+
+[[bindings]]
+slot = 0xb8d830
+type = 0x401
+symbol = "DevLaDisplaySpu_SetAccRst"
+target = 0x294df8
+
+[[bindings]]
+slot = 0xb8e020
+type = 0x401
+symbol = "afg_uart_fd"
+target = 0xbb127c
+
+[[bindings]]
+slot = 0xb8e068
+type = 0x401
+symbol = "stUartXInfo"
+target = 0xbb1280
+
+[[bindings]]
+slot = 0xb8e118
+type = 0x401
+symbol = "gInt32DevAcquireDacTime"
+target = 0x3cb4550
+
+[[nodes]]
+id = "SCU"
+classification = "STATIC-DETERMINED"
+operation = "W32_PAIR"
+semantics = "S1=S|0x80000000; S2=S1&0x7ffffffb. Writes offset0x4004 twice. Returns second status; parent ignores it."
+pcs = [0x285250, 0x285284]
+opcodes = [0x97fe2714, 0x97fe2707]
+inputs = ["SCU shadow at0x3cb4620 via GOT0xb8cf08; observed operand matches S1=0x80000000"]
+
+[[nodes]]
+id = "BOARD_OPEN"
+classification = "RUNTIME-SELECTED"
+operation = "OPEN"
+semantics = "UART_OPen ignores its argument and opens literal /dev/ttyS0 with flags1. Negative descriptor makes board notification return-1; parent continues."
+pcs = [0x297e44, 0x2955b8]
+opcodes = [0x97fde0df, 0x97fdef02]
+inputs = []
+
+[[nodes]]
+id = "BOARD_FRAME"
+classification = "STATIC-DETERMINED"
+operation = "FRAME"
+semantics = "Construct fa050027af; stock crc7_mmc processes payload0500 using polynomial0x12 then shifts right once."
+pcs = [0x295698, 0x29569c, 0x2956d4, 0x297f3c]
+opcodes = [0x52800249, 0x4a080528, 0x53017d08, 0x97fd9211]
+inputs = []
+
+[[nodes]]
+id = "BOARD_WRITE"
+classification = "RUNTIME-SELECTED"
+operation = "WRITE"
+semantics = "uartDataSeed issues checked write of five bytes; result<=0 calls exit(0). Positive short write also continues."
+pcs = [0x295778, 0x29578c, 0x2957ac]
+opcodes = [0x97fd958a, 0x7100011f, 0x97fdf8e5]
+inputs = []
+
+[[nodes]]
+id = "BOARD_CLOSE"
+classification = "RUNTIME-SELECTED"
+operation = "CLOSE"
+semantics = "Close returned UART descriptor; close status is ignored and board notification returns0."
+pcs = [0x297f44, 0x295d7c]
+opcodes = [0x97fd86cb, 0x97fd9881]
+inputs = []
+
+[[nodes]]
+id = "EXIT"
+classification = "UNKNOWN"
+operation = "PROCESS_EXIT"
+semantics = "No continuation through LA if board-power write terminates the process. Runtime termination and cleanup remain evidence."
+pcs = [0x2957ac]
+opcodes = [0x97fdf8e5]
+inputs = []
+
+[[nodes]]
+id = "RESET_SELECT"
+classification = "RUNTIME-SELECTED"
+operation = "BRANCH"
+semantics = "Original Dev_Init bool selects GD32 reset when false and JESD/DAC-sync path when true."
+pcs = [0x2728e4, 0x2728e8]
+opcodes = [0x37000069, 0x97fe82d6]
+inputs = ["Dev_Init original bool, saved in stack"]
+
+[[nodes]]
+id = "GD32_FD"
+classification = "RUNTIME-SELECTED"
+operation = "CACHED_DESCRIPTOR"
+semantics = "afg_uart_fd at0xbb127c starts-1; runtime negative value calls reopen helper. Nonnegative cached descriptor skips reopen."
+pcs = [0x2ad0b8]
+opcodes = [0xd101c3ff]
+inputs = ["GOT0xb8e020 and cached descriptor"]
+
+[[nodes]]
+id = "GPIO_OPEN"
+classification = "RUNTIME-SELECTED"
+operation = "OPEN"
+semantics = "Dev_GetHardwareVersion opens /dev/hdcode_gpio flags0x802. Open failure returns-3 and reopen translates negative version to-7."
+pcs = [0x2ad564, 0x2ad574]
+opcodes = [0x52810049, 0x97fd8f13]
+inputs = []
+
+[[nodes]]
+id = "GPIO_READ"
+classification = "HARDWARE-RETURNED"
+operation = "READ1"
+semantics = "Request ONE byte into zeroed four-byte int: __read_chk x2=count1 x3=capacity4. Negative read returns-5; zero bytes leaves0; ordinary one-byte result gives0..255. No returned value or side effect inferred."
+pcs = [0x2ad53c, 0x2ad5a4, 0x2ad5b0, 0x2ad5e4, 0x2ad5e8, 0x2ad5ec]
+opcodes = [0xb81f43a9, 0x52800088, 0x52800028, 0xf9401fe2, 0xf9401be3, 0x97fd605d]
+inputs = []
+
+[[nodes]]
+id = "GPIO_CLOSE"
+classification = "RUNTIME-SELECTED"
+operation = "CLOSE"
+semantics = "Close descriptor on completed read path, return read int or error. Distinct from mapped SCU hardware-version interface."
+pcs = [0x2ad60c, 0x2ad624, 0x2ad628]
+opcodes = [0x97fd3a5d, 0x97fd3a57, 0xb85f43a8]
+inputs = []
+
+[[nodes]]
+id = "GD32_PATH"
+classification = "RUNTIME-SELECTED"
+operation = "PATH_SELECT"
+semantics = "Version1 selects /dev/uart_simulate; every other nonnegative version selects /dev/ttyS4. Negative version stops reopen earlier."
+pcs = [0x2aef3c, 0x2aef54, 0x2aef64]
+opcodes = [0x7100051f, 0x91020908, 0x91025508]
+inputs = ["GPIO returned integer"]
+
+[[nodes]]
+id = "GD32_OPEN"
+classification = "RUNTIME-SELECTED"
+operation = "OPEN"
+semantics = "Open selected GD32 UART with O_RDWR=2. Failed open returns-3. Version>=2 requires uartXSetup."
+pcs = [0x2ad034, 0x2ad07c]
+opcodes = [0x97fd9063, 0x97fdbded]
+inputs = []
+
+[[nodes]]
+id = "GD32_SETUP"
+classification = "RUNTIME-SELECTED"
+operation = "TERMIOS"
+semantics = "uartXSetup ignores tcgetattr and cfset speed statuses, calls tcsetattr twice with action0, either nonzero returns-1; tcflush(fd,0) ignored. Initial tcgetattr failure leaves partly undefined termios. Default config115200,8,N,1; inherited flags remain runtime inputs."
+pcs = [0x2ad07c, 0x2aea40, 0x2aebc0, 0x2aebd4, 0x2aecec, 0x2aeeb4, 0x2aeecc]
+opcodes = [0x97fdbded, 0x97fd25e8, 0x97fd5d1c, 0x97fd5a5f, 0x97fd4e65, 0x97fd5fd3, 0x97fd4ded]
+inputs = ["stUartXInfo at0xbb1280 via GOT0xb8e068"]
+
+[[nodes]]
+id = "GD32_WRITE"
+classification = "RUNTIME-SELECTED"
+operation = "WRITE"
+semantics = "Write *RST newline through cached/reopened descriptor. Negative write returns-4; short nonnegative write is treated as success."
+pcs = [0x2ad198]
+opcodes = [0x97fd3702]
+inputs = []
+
+[[nodes]]
+id = "GD32_VERSION"
+classification = "HARDWARE-RETURNED"
+operation = "VERSION_REQUERY"
+semantics = "After nonnegative command write, call Dev_GetHardwareVersion again; includes another GPIO open/read/close. This new result selects delay, including negative errors."
+pcs = [0x2ad1c4]
+opcodes = [0x97fd8cd3]
+inputs = []
+
+[[nodes]]
+id = "GD32_DELAY"
+classification = "RUNTIME-SELECTED"
+operation = "DELAY"
+semantics = "Request usleep1000 for second version>=2, else220000; timing/completion is not established. Dev_SetGD32Reset reduces command result to0/-1; parent ignores it."
+pcs = [0x2ad1c4, 0x2ad1ec]
+opcodes = [0x97fd8cd3, 0x97fdb299]
+inputs = []
+
+[[nodes]]
+id = "LA"
+classification = "STATIC-DETERMINED"
+operation = "W32_PAIR"
+semantics = "Set then clear bit0 with exact mask0xfffffffe in writable LA shadow at0x106d4d8; wrapper adds0x7000 to selector0x34. Zero initial shadow predicts1,0. Parent ignores indeterminate child status loaded from uninitialized stack local."
+pcs = [0x294e0c, 0x294e3c, 0x294e60, 0x2949e8]
+opcodes = [0x12800029, 0x97fdf775, 0x97fdf76c, 0x11401d00]
+inputs = ["GOT0xb8d830 must bind0x294df8; live shadow"]
+
+[[nodes]]
+id = "VERSION4"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "First post-Dev_Init mapped read is offset4 through SCU read wrapper (no0x4000 base addition)."
+pcs = [0x285300]
+opcodes = [0x97fe2ab4]
+inputs = []
+
+[[nodes]]
+id = "VERSION0"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read offset0. Second read status overwrites first status; neither selects a branch in Drv_Init."
+pcs = [0x285310]
+opcodes = [0x97fe2ab0]
+inputs = []
+
+[[nodes]]
+id = "VERSION_COMPOSE"
+classification = "STATIC-DETERMINED"
+operation = "PACK"
+semantics = "Write ((R4&0xffffff)<<8)|(R0&0xff) through output pointer. Drv_Init output is stack[x29-0x48]."
+pcs = [0x285324, 0x285334, 0x28533c, 0x2e526c]
+opcodes = [0x12005d4a, 0x2a0a216a, 0xb900010a, 0xd10123a8]
+inputs = []
+
+[[nodes]]
+id = "VERSION_HW"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read offset0x401c directly into Drv_Init stack[x29-0x4c]. Status stored but not branched upon in immediate consumer."
+pcs = [0x285394, 0x2e527c]
+opcodes = [0x97fe2a8f, 0xd10133a8]
+inputs = []
+
+[[nodes]]
+id = "VERSION_LOG"
+classification = "RUNTIME-SELECTED"
+operation = "LOG"
+semantics = "Both version integers are passed to __android_log_print. Immediate code continues independently of those values or returned read status."
+pcs = [0x2e5334, 0x2e5358, 0x2e5410, 0x2e5434]
+opcodes = [0xb85b83a6, 0x97fc688a, 0xb85b43a6, 0x97fc6853]
+inputs = []
+
+[[nodes]]
+id = "DAC_TIME"
+classification = "STATIC-DETERMINED"
+operation = "W32"
+semantics = "SetDacPolling(5000000000,5500000000) divides by50000000 and replaces low16 shadow bits with0x646e; upper16 preserved. Write0x1428 uses entire u32 shadow."
+pcs = [0x2e5468, 0x27dd2c, 0x27dd3c, 0x27dd80, 0x27dd88]
+opcodes = [0x97fc853e, 0x9acc0929, 0x9acc0929, 0xb9400141, 0x97fe587a]
+inputs = ["GOT0xb8e118 to gInt32DevAcquireDacTime at0x3cb4550; live upper16"]
+
+[[nodes]]
+id = "DDR_SELECT"
+classification = "RUNTIME-SELECTED"
+operation = "CONFIG_SELECT"
+semantics = "GetDdrCalSkip obtains selected series configuration pointer+0x18, then int+0x68. MHO900Conf image default is1; writable inputs require live validation."
+pcs = [0x272850, 0x272854, 0x2e547c]
+opcodes = [0xf9400c08, 0xb9406900, 0x340008ea]
+inputs = ["series selector and configuration record"]
+
+[[nodes]]
+id = "DDR_BODY"
+classification = "UNKNOWN"
+operation = "RECOVERY_BOUNDARY"
+semantics = "Nonzero config calls GetDdrSkipTap and SetMemReset before SelfTest; zero skips first block. Full DDR polling/data grammar is not recovered here."
+pcs = [0x2e54a0, 0x2e5590, 0x2e55a4]
+opcodes = [0x97fcbfbc, 0x97fcb7d4, 0x97fcbad7]
+inputs = []
+
+[[nodes]]
+id = "TRUE_INIT"
+classification = "UNKNOWN"
+operation = "EXCLUDED_BRANCH"
+semantics = "True Dev_Init path performs JESD/DAC-sync work. Excluded from false-branch candidate; reaching it is divergence."
+pcs = [0x2728f0]
+opcodes = [0x52800788]
+inputs = []
+
+[[edges]]
+from = "SCU"
+to = "BOARD_OPEN"
+condition = "two writes return"
+
+[[edges]]
+from = "BOARD_OPEN"
+to = "RESET_SELECT"
+condition = "open<0"
+
+[[edges]]
+from = "BOARD_OPEN"
+to = "BOARD_FRAME"
+condition = "open>=0"
+
+[[edges]]
+from = "BOARD_FRAME"
+to = "BOARD_WRITE"
+condition = "frame constructed"
+
+[[edges]]
+from = "BOARD_WRITE"
+to = "EXIT"
+condition = "write<=0"
+
+[[edges]]
+from = "BOARD_WRITE"
+to = "BOARD_CLOSE"
+condition = "write>0 including short"
+
+[[edges]]
+from = "BOARD_CLOSE"
+to = "RESET_SELECT"
+condition = "any close result"
+
+[[edges]]
+from = "RESET_SELECT"
+to = "GD32_FD"
+condition = "false"
+
+[[edges]]
+from = "RESET_SELECT"
+to = "TRUE_INIT"
+condition = "true"
+
+[[edges]]
+from = "GD32_FD"
+to = "GPIO_OPEN"
+condition = "cached fd<0"
+
+[[edges]]
+from = "GD32_FD"
+to = "GD32_WRITE"
+condition = "cached fd>=0"
+
+[[edges]]
+from = "GPIO_OPEN"
+to = "LA"
+condition = "open<0 leads command failure ignored by parent"
+
+[[edges]]
+from = "GPIO_OPEN"
+to = "GPIO_READ"
+condition = "open>=0"
+
+[[edges]]
+from = "GPIO_READ"
+to = "GPIO_CLOSE"
+condition = "read returned"
+
+[[edges]]
+from = "GPIO_CLOSE"
+to = "LA"
+condition = "version<0 leads reopen failure"
+
+[[edges]]
+from = "GPIO_CLOSE"
+to = "GD32_PATH"
+condition = "version>=0"
+
+[[edges]]
+from = "GD32_PATH"
+to = "GD32_OPEN"
+condition = "selected path"
+
+[[edges]]
+from = "GD32_OPEN"
+to = "LA"
+condition = "open failed"
+
+[[edges]]
+from = "GD32_OPEN"
+to = "GD32_SETUP"
+condition = "fd>=0 and version>=2"
+
+[[edges]]
+from = "GD32_OPEN"
+to = "GD32_WRITE"
+condition = "fd>=0 and version<2"
+
+[[edges]]
+from = "GD32_SETUP"
+to = "LA"
+condition = "setup failed and descriptor closed"
+
+[[edges]]
+from = "GD32_SETUP"
+to = "GD32_WRITE"
+condition = "setup succeeded"
+
+[[edges]]
+from = "GD32_WRITE"
+to = "LA"
+condition = "write<0"
+
+[[edges]]
+from = "GD32_WRITE"
+to = "GD32_VERSION"
+condition = "write>=0"
+
+[[edges]]
+from = "GD32_VERSION"
+to = "GD32_DELAY"
+condition = "second version result including negative"
+
+[[edges]]
+from = "GD32_DELAY"
+to = "LA"
+condition = "sleep returns"
+
+[[edges]]
+from = "LA"
+to = "VERSION4"
+condition = "two LA writes and Dev_Init return"
+
+[[edges]]
+from = "VERSION4"
+to = "VERSION0"
+condition = "read returns"
+
+[[edges]]
+from = "VERSION0"
+to = "VERSION_COMPOSE"
+condition = "read returns"
+
+[[edges]]
+from = "VERSION_COMPOSE"
+to = "VERSION_HW"
+condition = "version returns"
+
+[[edges]]
+from = "VERSION_HW"
+to = "VERSION_LOG"
+condition = "read returns"
+
+[[edges]]
+from = "VERSION_LOG"
+to = "DAC_TIME"
+condition = "log calls return"
+
+[[edges]]
+from = "DAC_TIME"
+to = "DDR_SELECT"
+condition = "write returns"
+
+[[edges]]
+from = "DDR_SELECT"
+to = "DDR_BODY"
+condition = "config branch"
+
+[[candidate_writes]]
+ordinal = 0
+node = "SCU"
+offset = 0x4004
+value = 0x80000000
+condition = "live SCU checkpoint=0x80000000"
+
+[[candidate_writes]]
+ordinal = 1
+node = "SCU"
+offset = 0x4004
+value = 0x00000000
+condition = "no intervening shadow mutation"
+
+[[candidate_writes]]
+ordinal = 2
+node = "LA"
+offset = 0x7034
+value = 0x00000001
+condition = "false branch transport returns; LA initial shadow0"
+
+[[candidate_writes]]
+ordinal = 3
+node = "LA"
+offset = 0x7034
+value = 0x00000000
+condition = "LA second phase; no intervening shadow mutation"
+
+[[candidate_writes]]
+ordinal = 4
+node = "DAC_TIME"
+offset = 0x1428
+value = 0x0000646e
+condition = "version reads returned; live DAC upper16=0"
