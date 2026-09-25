@@ -126,6 +126,11 @@ if [ "${ADMISSION_MODE:-label}" = mapping ]; then
     "$run/source/mapping-probe.sh" || mapping_rc=$?
     printf 'exit_code = %s\n' "$mapping_rc" > "$run/mapping-helper-status.toml"
 fi
+if [ "${ADMISSION_MODE:-label}" = syscall ]; then
+    syscall_rc=0
+    "$run/source/syscall-probe.sh" || syscall_rc=$?
+    printf 'exit_code = %s\n' "$syscall_rc" > "$run/syscall-helper-status.toml"
+fi
 adb shell pidof com.rigol.scope > "$run/app-pid.txt" 2>&1 || true
 adb shell ps > "$run/processes.txt" 2>&1
 adb shell dumpsys activity activities > "$run/activities.txt" 2>&1

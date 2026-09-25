@@ -1,0 +1,57 @@
+schema_version = "mho900-lab.xdma-syscall-results/1"
+run = "syscall-01"
+hypothesis_supported = true
+observer = "guest /system/xbin/strace 4.11"
+application_injection = false
+mmap_errno = "ENODEV"
+fault_pc = "libscope-auklet.so+0x270604"
+fault_address = "0x4047"
+interpretation = "Stock null-only mmap check admits MAP_FAILED; first observed load addresses -1 plus 0x4048"
+hardware_values_supplied = false
+physical_device_access = false
+stock_bytes_preserved = true
+system_server_stable = true
+
+[[artifacts]]
+path = "tools/guest/syscall-probe.sh"
+sha256 = "b6c2eb7af935e92ad0ecf0583ab9db7980e18a8b76c09768de695934e582b2b7"
+
+[[artifacts]]
+path = "tools/guest/VerifySyscall.main.kts"
+sha256 = "ef6ad838824267a801b5410db140ce1f014dd81a56424e8391f419074af266d2"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "5fa7266224d6ccf4faa736ccb39e37eb964f6783c5fee6ddf7e72e237b67accb"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "1aaad7c738879e0f2086b496cfd323c2319593131b9d5926837bc475701dcfa5"
+
+[[artifacts]]
+path = "out/guest-admission/syscall-01/evidence-sha256.txt"
+sha256 = "cc3e2ea85db263dd519256e6e39c85a27a733a4b7188eafc37c7f2a25bbb58a7"
+
+[[artifacts]]
+path = "out/guest-admission/syscall-01/strace"
+sha256 = "c93693dd1d22a81fdb514774bc4a3e5e0b48c580255bf1cab88f1d2b2806d784"
+
+[[artifacts]]
+path = "out/guest-admission/syscall-01/syscall-stock.txt"
+sha256 = "70fcc763c10f036e62fc4e0d3a2a5697542c2c11dcb780a3c8566462ffbd6dc4"
+
+[[artifacts]]
+path = "out/guest-admission/syscall-01/syscall-before.txt"
+sha256 = "95bb43729c36e0e7d934a38e3c510e77a34ee6c55cc201d926d06770622a7e86"
+
+[[artifacts]]
+path = "out/guest-admission/syscall-01/syscall-control.txt"
+sha256 = "b1f117ce89b94155dbe5575999e478faca60a1c0fd5f1cc93634a1edb5c52318"
+
+[[artifacts]]
+path = "out/xdma-syscall/verification.toml"
+sha256 = "6533059c4520700374a56749de892ed72042c2fd24807f0537d123fc8c818244"
+
+[[artifacts]]
+path = "out/guest-startup/static-02/native-startup.txt"
+sha256 = "77846ecd738ef66d870877a889fe87809fea3165c200d20e22a70733dfad27bd"

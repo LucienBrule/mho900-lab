@@ -1,0 +1,17 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.syscall-decision
+contract: sha256:5792d04ce9a0bdd702916fff45a7efabce611de6007de124de3e2966c380d664
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:15:14Z"
+evidence:
+  evaluation: >-
+    Report SHA-256 41964f71a00b0ce1fde628ed06bf1206cb308a7aecfabd2a6effc27719230438 supports failed-mmap error-path interpretation without stock process
+    injection. It does not retrospectively explain why prior hooks failed. Native kernel tracing is available
+    and useful; unknown register contents remain entirely unmodeled.
+  next-question: >-
+    Test a scoped native ptrace supervisor that substitutes only the exact observed mapping with PROT_NONE
+    anonymous backing and stops on the first access. Validate private read/write controls before stock capture.
+    This is a transport change inside the selected mapped-access boundary, not a new hardware architecture.
+    No earlier task contract is revised; successor tasking will be planned, inspected, admitted, committed and
+    pushed before implementation. This experiment is concluded before beginning that successor.

@@ -1,0 +1,20 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.syscall-control
+contract: sha256:4653d10a5f530ffad9a776ac37b484cb5cdb365a719498cc2450dfeb4a68d929
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:15:14Z"
+evidence:
+  observer-control: >-
+    Native guest strace 4.11 was pinned and captured cat opening dev-null and exiting zero. It attached to all
+    22 stock threads before the disposable bypass alias was created. No application injection was used.
+  stock-observation: >-
+    docs/research/xdma-syscall.md SHA-256 41964f71a00b0ce1fde628ed06bf1206cb308a7aecfabd2a6effc27719230438 records successful stock open, exact 16 MiB shared RW
+    mmap returning ENODEV, and SIGSEGV at ELF offset 0x270604 with address 0x4047. Stock disassembly's null-only
+    mmap check explains MAP_FAILED plus offset 0x4048. This is an error-path control, not register behavior.
+  integrity: >-
+    experiments/xdma-syscall/results.toml SHA-256 e99956b6502d06c658e791af51757590c2aa5d8903e87123dfee2538d3615eaf pins source, observer, raw evidence and Kotlin
+    verification. VerifySyscall passed checksum, APK/native byte, signer, shared UID, label, negative controls,
+    trace sequence and server checks. system_server stayed PID 1057. Enforcing mode remained, app maps contain
+    no Frida, and the disposable alias and guest were removed. Prior guest admission policy changes remain
+    disclosed. No physical device or host security change occurred.
