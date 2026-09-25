@@ -1,0 +1,205 @@
+schema_version = "mho900-lab.kernel-abi-contract/1"
+task = "TASK.hardware.kernel-abi-contract"
+method = "static-read-only"
+fpga_behavior = "unresolved"
+
+[stock_module]
+path = "local/reversing/firmware-extracted/stock-0.26/firmware/driver/xdma.ko"
+sha256 = "83d5064ae48c495a64ae329007e3c87e0dbc0391979b4d5ce6c1f02509a4a6e7"
+build_id = "27105347d6b1d314fdf40c1d05a1cc288f232f16"
+architecture = "aarch64"
+stripped = false
+debug_info = true
+module_version = "2019.2.51"
+
+[public_reference]
+classification = "public-third-party-reference-not-vendor-ground-truth"
+root = "local/reference/orange-rigol-d23adbd"
+revision = "d23adbd11626f12abaf4bc742e250204fe2b9f8a"
+correspondence = "strong-structural-not-build-provenance"
+
+[[device]]
+path_template = "/dev/xdma%d_bypass"
+binary_name = "xdma%d_bypass"
+kind = "base-bypass-bar"
+open = true
+release = true
+read = "requires-engine-base-created-without-engine"
+write = "requires-engine-base-created-without-engine"
+mmap = "bridge_mmap"
+ioctl = "absent"
+
+[[device]]
+path_template = "/dev/xdma%d_c2h_%d"
+binary_name = "xdma%d_c2h_%d"
+kind = "c2h-sgdma"
+read = "scatter-gather-dma-from-device"
+write = "direction-rejected"
+file_position = "endpoint-byte-address"
+async_vector_io = true
+ioctl_family = "sgdma-q"
+
+[[device]]
+path_template = "/dev/xdma%d_h2c_%d"
+binary_name = "xdma%d_h2c_%d"
+kind = "h2c-sgdma"
+read = "direction-rejected"
+write = "scatter-gather-dma-to-device"
+file_position = "endpoint-byte-address"
+async_vector_io = true
+ioctl_family = "sgdma-q"
+
+[mmap]
+stock_function = "bridge_mmap"
+stock_text_offset = "0x84b8"
+offset_unit = "page"
+physical_base = "selected-pci-bar-plus-offset"
+maximum_extent = "runtime-pci-resource-remainder"
+cache = "noncached"
+vma = "io-pfnmap-dontexpand-dontdump"
+oversize_errno = "EINVAL"
+remap_errno = "EAGAIN"
+stock_consumer_offset = 0
+stock_consumer_length = 16777216
+stock_consumer_protection = "read-write"
+stock_consumer_sharing = "shared"
+
+[[control_ioctl]]
+name = "XDMA_IOCINFO"
+request = "0xc0287801"
+payload_size = 40
+direction = "read-write"
+input_magic = "0x586c0c6c"
+
+[[control_ioctl]]
+name = "XDMA_IOCOFFLINE"
+request = "0x00007802"
+payload_size = 0
+direction = "none"
+
+[[control_ioctl]]
+name = "XDMA_IOCONLINE"
+request = "0x00007803"
+payload_size = 0
+direction = "none"
+
+[[sgdma_ioctl]]
+name = "IOCTL_XDMA_PERF_START"
+request = "0x40087101"
+encoded_argument_size = 8
+pointed_record_size = 40
+
+[[sgdma_ioctl]]
+name = "IOCTL_XDMA_PERF_STOP"
+request = "0x40087102"
+encoded_argument_size = 8
+pointed_record_size = 40
+
+[[sgdma_ioctl]]
+name = "IOCTL_XDMA_PERF_GET"
+request = "0x80087103"
+encoded_argument_size = 8
+pointed_record_size = 40
+
+[[sgdma_ioctl]]
+name = "IOCTL_XDMA_ADDRMODE_SET"
+request = "0x40047104"
+encoded_argument_size = 4
+
+[[sgdma_ioctl]]
+name = "IOCTL_XDMA_ADDRMODE_GET"
+request = "0x80047105"
+encoded_argument_size = 4
+
+[[sgdma_ioctl]]
+name = "IOCTL_XDMA_ALIGN_GET"
+request = "0x80047106"
+encoded_argument_size = 4
+
+[dma_alignment]
+fixed_mode = "host-and-endpoint-aligned-to-runtime-addr_align; length-multiple-of-runtime-len_granularity"
+incrementing_mode = "host-and-endpoint-low-bits-match-runtime-addr_align"
+fixed_values_known = false
+
+[[userspace]]
+interface = "/dev/xdma0_bypass"
+function = "Dev_PCIeInit"
+elf_address = "0x27017c"
+operation = "open-and-map"
+
+[[userspace]]
+interface = "/dev/xdma0_c2h_0"
+function = "DevAnalyzeTrace_Read"
+elf_address = "0x270634"
+operation = "read"
+
+[[userspace]]
+interface = "/dev/dma_auklet"
+function = "DrvDMA_Init"
+elf_address = "0x37de94"
+operation = "map-256MiB-destination-at-plus-128MiB"
+provider = "unidentified"
+
+[[userspace]]
+interface = "/dev/dma_auklet"
+function = "DrvDMA_Copy"
+elf_address = "0x37dfc8"
+operation = "ioctl-sequence"
+requests = ["0x80086165", "0x80086163"]
+provider = "unidentified"
+
+[[unknown]]
+id = "dma-auklet-provider"
+statement = "No exact supplied stock module and no pinned public driver source exposes dma_auklet."
+
+[[unknown]]
+id = "runtime-topology"
+statement = "BAR roles and sizes, engine count, direction, address mode, alignment and granularity are discovered at runtime."
+
+[[unknown]]
+id = "hardware-semantics"
+statement = "Register effects, reset values, ordering, completion, interrupts, timing and sample data are not implied by this ABI."
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-module-sha256.txt"
+kind = "stock-inventory"
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-xdma-readelf.txt"
+kind = "stock-sections-symbols-relocations"
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-xdma-ctrl-disassembly.txt"
+kind = "stock-control-mmap-ioctl"
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-xdma-sgdma-ioctl-disassembly.txt"
+kind = "stock-sgdma-ioctl"
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-xdma-bypass-disassembly.txt"
+kind = "stock-bypass"
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-userspace-xdma.txt"
+kind = "stock-consumer-xdma"
+
+[[evidence]]
+path = "out/static-contract/kernel/stock-userspace-dma-auklet.txt"
+kind = "stock-consumer-dma-auklet"
+
+[[evidence]]
+path = "out/static-contract/kernel/evidence-sha256.txt"
+kind = "raw-capture-index-excludes-self"
+
+[[artifacts]]
+path = "docs/research/kernel-abi-contract.md"
+sha256 = "58da22ada6fae4deb5b5476f3a1ce1e5a24a07ed31174f3d5ba367b7bcd5478d"
+
+[[artifacts]]
+path = "out/static-contract/kernel/evidence-sha256.txt"
+sha256 = "4c5b1bec8dcfbfeeb73a19417b79f46621280e540c62a1e878d402df6ae56490"
+
+[[artifacts]]
+path = "out/static-contract/kernel-verification.txt"
+sha256 = "eb82762b2b0e83d7a48ac3b07a05c993c38d1617f702a9d61b53348e28ea48fd"
