@@ -1,0 +1,303 @@
+schema_version = "mho900-lab.spu-transcript-derivation/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+candidate = "fixed-domain8-series900-record2-count16-Mg1-Mr4"
+write_count = 8
+control_checkpoint = "post-first-bitset"
+pre_spu_control_unique = false
+
+[protocol]
+magic = "MHOSPUT1"
+version = 1
+byte_order = "little-endian"
+total_size = 1064
+header_offset = 0
+header_size = 64
+bindings_offset = 64
+binding_count = 15
+binding_size = 24
+globals_offset = 424
+global_count = 3
+global_size = 16
+derived_offset = 472
+series_offset = 488
+series_count = 9
+series_size = 32
+samples_offset = 776
+sample_count = 3
+sample_size = 32
+shadows_offset = 872
+shadow_count = 4
+shadow_size = 32
+writes_offset = 1000
+write_count = 8
+write_size = 8
+repeat_count = 2
+
+[[bindings]]
+name = "DevAcquireSPU_Init"
+kind = 1
+relocation_type = "0x401"
+slot_relative = "0xb8cb50"
+expected_relative = "0x272f40"
+
+[[bindings]]
+name = "DevAcquireSPU_Reset"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb7ca38"
+expected_relative = "0x272c8c"
+
+[[bindings]]
+name = "DevAcquireSPU_TxReset"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb78630"
+expected_relative = "0x272da8"
+
+[[bindings]]
+name = "DevAcquireSpuH12S4_SetAdcGain"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb85af0"
+expected_relative = "0x273018"
+
+[[bindings]]
+name = "DevAcquireSpu_SetAdcBitRange"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb785a8"
+expected_relative = "0x2732d0"
+
+[[bindings]]
+name = "chn2log"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb820f8"
+expected_relative = "0x274f04"
+
+[[bindings]]
+name = "DevSystem_ChnMode"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb8ab80"
+expected_relative = "0x27254c"
+
+[[bindings]]
+name = "DevSystem_GetSampleMode"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb7a568"
+expected_relative = "0x272490"
+
+[[bindings]]
+name = "DevSystem_GetSeriesParam"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb7bb08"
+expected_relative = "0x272244"
+
+[[bindings]]
+name = "DevAcquireSpu_WriteRegister"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb86690"
+expected_relative = "0x272c2c"
+
+[[bindings]]
+name = "Dev_WriteRegister"
+kind = 1
+relocation_type = "0x402"
+slot_relative = "0xb79db8"
+expected_relative = "0x2703c8"
+
+[[bindings]]
+name = "gInt32DevAcquireSpuH12S4Ctrl"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8d288"
+expected_relative = "0x3cb44fc"
+
+[[bindings]]
+name = "gInt32DevAcquireSpuH12S4AdcGain"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8bb48"
+expected_relative = "0x3cb44a0"
+
+[[bindings]]
+name = "gInt32DevAcquireSpuTx"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8d060"
+expected_relative = "0x3cb44f0"
+
+[[bindings]]
+name = "gInt32DevAcquireSpuCtrlAdc"
+kind = 2
+relocation_type = "0x401"
+slot_relative = "0xb8be90"
+expected_relative = "0x3cb44b0"
+
+[[function_pins]]
+name = "DevAcquireSPU_Init"
+address = "0x272f40"
+size = 216
+sha256 = "947f11b940914edcd82774be418801b22cc558c6bb1642ae674482fcb51fa302"
+
+[[function_pins]]
+name = "DevAcquireSPU_Reset"
+address = "0x272c8c"
+size = 132
+sha256 = "d571bad3a20d8fc7ca2805e7c2c51746612e2beb19f5f9f008b5f6eb54eae313"
+
+[[function_pins]]
+name = "DevAcquireSPU_TxReset"
+address = "0x272da8"
+size = 168
+sha256 = "cb6e74d81ea13d92687f6e97a7bb378fbb4a069368cab5359cc406d6ac95bcf6"
+
+[[function_pins]]
+name = "DevAcquireSpuH12S4_SetAdcGain"
+address = "0x273018"
+size = 696
+sha256 = "b5d1a6d0874f417ffd9cb55ef2bd53abf0b4c5afe6ee509d5c00ac7e9d0b1f73"
+
+[[function_pins]]
+name = "DevAcquireSpu_SetAdcBitRange"
+address = "0x2732d0"
+size = 172
+sha256 = "d255744c01a416653b2c7468d769bc8eb55ae898200d53674ce3a87404a80257"
+
+[[function_pins]]
+name = "chn2log"
+address = "0x274f04"
+size = 1012
+sha256 = "5e27da3d64e573f8bf5bf0c479ed3a22cdf77b0afe95711912261e46f2e0956d"
+
+[[function_pins]]
+name = "DevSystem_ChnMode"
+address = "0x27254c"
+size = 60
+sha256 = "4d76eba59afa2b8ad5c38af6463be59665948eaf59f4e63e550a776388357d7d"
+
+[[function_pins]]
+name = "DevSystem_GetSampleMode"
+address = "0x272490"
+size = 112
+sha256 = "0da6225a8e5e369beb458fb76e78d00cb921315a599bac9a56bf3a53619a33e4"
+
+[[function_pins]]
+name = "DevSystem_GetSeriesParam"
+address = "0x272244"
+size = 288
+sha256 = "f27934487bc0496d026e51f6e0fadd67e0d76bc99931d6fab68122edf90c511e"
+
+[[function_pins]]
+name = "DevAcquireSpu_WriteRegister"
+address = "0x272c2c"
+size = 48
+sha256 = "cb653d202961cbffb4ace9a45ad4d9a3a6216fb0e63d998ab94a5659bcb71555"
+
+[[function_pins]]
+name = "Dev_WriteRegister"
+address = "0x2703c8"
+size = 156
+sha256 = "3cbc8ab721e7c4fa684e44d6e3e55ac42e6d082a02f81450a4df79bcc133c877"
+
+[[instruction_pins]]
+address = "0x2724a0"
+word = "0x97fe30f0"
+purpose = "series-call"
+
+[[instruction_pins]]
+address = "0x2724c0"
+word = "0xb940112a"
+purpose = "sample-count"
+
+[[instruction_pins]]
+address = "0x2724dc"
+word = "0xf9400508"
+purpose = "sample-pointer"
+
+[[instruction_pins]]
+address = "0x2724e4"
+word = "0xd280020a"
+purpose = "sample-stride"
+
+[[instruction_pins]]
+address = "0x2724f0"
+word = "0xb9400500"
+purpose = "sample-mode"
+
+[[instruction_pins]]
+address = "0x27304c"
+word = "0xb85ec3a0"
+purpose = "gain-selector"
+
+[[instruction_pins]]
+address = "0x273054"
+word = "0x97fea63f"
+purpose = "gain-chnmode-call"
+
+[[instruction_pins]]
+address = "0x272fc0"
+word = "0x528001e0"
+purpose = "range-selector15"
+
+[[instruction_pins]]
+address = "0x272fc8"
+word = "0x97fe1376"
+purpose = "range-helper-call"
+
+[[instruction_pins]]
+address = "0x274f34"
+word = "0xb94037e0"
+purpose = "range-selector-reload"
+
+[[instruction_pins]]
+address = "0x274f40"
+word = "0x97fe9e84"
+purpose = "range-chnmode-call"
+
+[[instruction_pins]]
+address = "0x27043c"
+word = "0xb9000109"
+purpose = "mapped-w32"
+
+[[files]]
+path = "spu-transcript.tsv"
+size = 313
+sha256 = "c810767228981ecaf439fb2fb532f3c4568eb7f006d14dae922a89863b18e698"
+
+[[files]]
+path = "spu-stock.bin"
+size = 1064
+sha256 = "34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6"
+
+[[files]]
+path = "spu-private.bin"
+size = 1064
+sha256 = "d55b7d70b4bcd1e3e95cd48fc7a7e791c2a16fc52cea32398b3799b94fb7aac6"
+
+[limits]
+classification = "fixed-conditional-software-transcript"
+live_deviation_is_rejection = true
+threshold_object_included = false
+runtime_bindings_verified = false
+concurrent_mutation_excluded = false
+hardware_effects_inferred = false
+
+[provenance]
+generator = "tools/research/DeriveSpuTranscript.main.kts"
+generator_sha256 = "f8d994e4d45a19fb1c8fae88573d24c24457122e1b11907c0da708fbccfca0f0"
+protocol = "docs/research/spu-transcript-protocol.md"
+protocol_sha256 = "0b7a816442049451bd405863c1df36c829c774c0e0b52f5261579c77ba83fcfb"
+independent_verifier = "tools/research/VerifySpuTranscript.main.kts"
+independent_verifier_sha256 = "a5d57e5d979c60380f0d68f0a874930b6488cc1898e3806190c6c90cc47b5dec"
+canonical_output = "out/spu-transcript/derived-01"
+reproducible_output = "out/spu-transcript/derived-02"
+deterministic = true
+independent_stock_fixture_verified = true
+independent_private_fixture_verified = true
+independent_negative_mutations_rejected = 17
+guest_executed = false

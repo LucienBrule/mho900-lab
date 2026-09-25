@@ -1,0 +1,91 @@
+schema_version = "mho900-lab.spu-transcript-results/1"
+task = "TASK.hardware.spu-transcript"
+classification = "conditional-static-software-transcript"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+canonical_output = "out/spu-transcript/derived-01"
+deterministic_repeat = "out/spu-transcript/derived-02"
+write_count = 8
+function_ranges = 11
+instruction_witnesses = 12
+binding_count = 15
+series_record_count = 9
+sample_record_count = 3
+shadow_count = 4
+fixture_bytes = 1064
+stock_fixture_sha256 = "34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6"
+private_fixture_sha256 = "d55b7d70b4bcd1e3e95cd48fc7a7e791c2a16fc52cea32398b3799b94fb7aac6"
+guest_executed = false
+stock_artifacts_unchanged = true
+runtime_selection_proven = false
+fpga_behavior_established = false
+
+[verification]
+repeat_byte_identical = true
+independent_fixtures_accepted = 2
+independent_negative_inputs_rejected = 17
+input_directory = "out/spu-transcript/check-02"
+inputs_equal_canonical = true
+report = "out/spu-transcript/host-check-01/verification.toml"
+negative_inputs = ["magic", "version", "profile", "count", "reserved", "binding", "global", "derived", "series-pointer", "series-config-pointer", "sample", "shadow", "terminal-shadow", "offset", "operand", "truncated", "trailing"]
+
+[limits]
+control_checkpoint = "After first bit-set; earlier control0 and1 are indistinguishable"
+concurrent_mutation = "Repeated non-atomic capture cannot exclude change and restoration"
+threshold_capture = "Excluded software-only object; static stores separately documented"
+initial_derivation_failure = "Draft expected ABS64 pointers in file bytes; corrected to relocation-derived targets. Failure stderr was overwritten by rerun; only task execution history retains it. Not counted as standalone negative evidence."
+
+[[artifacts]]
+path = "tools/research/DeriveSpuTranscript.main.kts"
+sha256 = "f8d994e4d45a19fb1c8fae88573d24c24457122e1b11907c0da708fbccfca0f0"
+
+[[artifacts]]
+path = "tools/research/VerifySpuTranscript.main.kts"
+sha256 = "a5d57e5d979c60380f0d68f0a874930b6488cc1898e3806190c6c90cc47b5dec"
+
+[[artifacts]]
+path = "docs/research/spu-transcript.md"
+sha256 = "348fed78034e39f02c74ea44be08bc141be34764ea13aa329735e28937805aeb"
+
+[[artifacts]]
+path = "docs/research/spu-transcript-protocol.md"
+sha256 = "0b7a816442049451bd405863c1df36c829c774c0e0b52f5261579c77ba83fcfb"
+
+[[artifacts]]
+path = "experiments/spu-transcript/derivation.toml"
+sha256 = "db100fb42672f86c6ce4dcae993651125b9080343bc6bb95758647a6d5d01b28"
+
+[[artifacts]]
+path = "out/spu-transcript/derived-01/manifest.toml"
+sha256 = "2b6d3847bda06d5ef2bea591183f1740329644135de92ccf003556681ff561f6"
+
+[[artifacts]]
+path = "out/spu-transcript/derived-01/spu-stock.bin"
+sha256 = "34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6"
+
+[[artifacts]]
+path = "out/spu-transcript/derived-01/spu-private.bin"
+sha256 = "d55b7d70b4bcd1e3e95cd48fc7a7e791c2a16fc52cea32398b3799b94fb7aac6"
+
+[[artifacts]]
+path = "out/spu-transcript/derived-01/spu-transcript.tsv"
+sha256 = "c810767228981ecaf439fb2fb532f3c4568eb7f006d14dae922a89863b18e698"
+
+[[artifacts]]
+path = "out/spu-transcript/independent-static-review.md"
+sha256 = "0c65de2ad9121a8988702135c2838ffa278c3ce2b5b136baff99edb250b637ca"
+
+[[artifacts]]
+path = "out/spu-transcript/derivation-review.md"
+sha256 = "c2fd3dad9a97556ff3a0b79b7d2fd86bb6143519e9b09ddeac7e5d19be1a7258"
+
+[[artifacts]]
+path = "out/spu-transcript/host-verifier-review.md"
+sha256 = "db591fb8546196c0475aa0cba187e3027117ad4681c3bb6730223b145384e2c5"
+
+[[artifacts]]
+path = "out/spu-transcript/check-fixtures.main.kts"
+sha256 = "e67af5c32df89467847bff6910c8d8da92562114c07ade48eb2f8f7ade00c106"
+
+[[artifacts]]
+path = "out/spu-transcript/host-check-01/verification.toml"
+sha256 = "b0c40ff9f99f27f4527eae2ff94bee49053c3b1d70c913989c2b79bb0e113f22"
