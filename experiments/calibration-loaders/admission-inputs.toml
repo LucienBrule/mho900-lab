@@ -1,0 +1,101 @@
+schema_version = "mho900-lab.calibration-loader-inputs/1"
+stage = "private-controls-after-host-admission-repair"
+task = "TASK.guest.calibration-loader-admission"
+run_id = "group-calibration-loaders-02"
+previous_run_id = "group-calibration-loaders-01"
+native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+native_changed_from_previous_run = false
+private_tail_verifier_profile = "loader-private-build11"
+default_tail_native_sha256 = "fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182"
+loader_modeled_write_count = 466
+loader_modeled_write_index_first = 0
+loader_modeled_write_index_last = 465
+new_modeled_reads = 0
+new_modeled_writes = 0
+legacy_runtime_controls = 76
+new_runtime_controls = 14
+legacy_malformed_controls = 30
+runtime_deadline_ms = 10000
+guest_deadline_seconds = 600
+positive_capture_bytes = 1798496
+maximum_chunk_bytes = 65536
+hard_single_limit_bytes = 1835008
+hard_total_limit_bytes = 2097152
+entry_capture_group_atomic = false
+terminal_capture_requires_group_convergence = true
+guest_fixture_files = 2
+guest_fixture_absent_paths = 4
+stock_application_installed = false
+stock_continuation_admitted = false
+
+[[artifacts]]
+path = "experiments/calibration-loaders/run01-results.toml"
+sha256 = "0cae60267545e1d0347e12102d69ff0a9fcb81edc8901e606abff9044b6f32c6"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/controls.toml"
+sha256 = "a135578c6f14acdd8423cd16359667572c8260b03c0fcc5482adf0b3cec933f9"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/native-protocol.md"
+sha256 = "bc77979cf5e7fc6ccf3e00951450f229908babf6996c3cf2ff3ea4298f787d86"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "0c070a8c1683cc2be45eb02cdf4b2ecdc0b50651f95b805edb81273ae5cb4a86"
+
+[[artifacts]]
+path = "tools/guest/calibration-loaders.h"
+sha256 = "78320d758756a0c7483bd29caf916251e93ab66b5a3883c4415e3cce0d4fd548"
+
+[[artifacts]]
+path = "tools/guest/VerifyInitTailObserver.main.kts"
+sha256 = "cd2e305e3edb4f7d1d393c017bc7ec4f0da3ff66390a345a10f90b961fddb715"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationLoaders.main.kts"
+sha256 = "8ae9a083f5c7c6c97de7bda3a054d7fe4b2dc11d52241d5c1289ca617cf0bede"
+
+[[artifacts]]
+path = "tools/guest/admission-tailcontrol.sh"
+sha256 = "4e15fc5df47931cbfdbb2b7a791d842eed863819263db7e63841a6141fca1073"
+
+[[artifacts]]
+path = "tools/guest/admission-loadercontrol.sh"
+sha256 = "e1bbc733e4809fcc45bb797a8665020d36677489ef2c322e8013b727097ee0d9"
+
+[[artifacts]]
+path = "tools/guest/calibration-fixture.sh"
+sha256 = "2afde07844f19bebc6109616214ea10256fb6eba9e62fcd14445235964669880"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "30f61b7b1428d8bff3b011dad0bbdddd6461d1dfcc8db581cc58a68d3cda76ca"
+
+[[artifacts]]
+path = "tools/research/CheckCalibrationLoaderEvidence.main.kts"
+sha256 = "18ac2acdc7a53b04ebd1392b2ae089aaba0f684f42378325da07a6ccdbf8af6c"
+
+[[artifacts]]
+path = "tools/research/InspectCalibrationAssets.main.kts"
+sha256 = "0187caa8ff62133e8999ab7f52ea5ef1b0b8fb2069a89f1d9d3144dbb50aae14"
+
+[[artifacts]]
+path = "out/calibration-loaders/candidate-01.elf"
+sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+
+[[artifacts]]
+path = "out/calibration-loaders/check-profile-01.sh"
+sha256 = "6fc371b27283b7f204b553abffe5146f1aa992c44c3bd4a8cc0c9f6c8913b202"
+
+[[artifacts]]
+path = "out/calibration-loaders/profile-checks-01/results.toml"
+sha256 = "07a0488334cd6abeeed972c22b95cd91c776b4a0805c1784589e3f3a49445d50"
+
+[[artifacts]]
+path = "out/calibration-loaders/admission-verifier-compile-01.stderr"
+sha256 = "5c6df0fc6c6ef0fe4280bc698f83c9003d2676d75da4207cc7e61b00224bb1ed"

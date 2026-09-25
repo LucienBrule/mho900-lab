@@ -39,7 +39,9 @@ for arm in $arms; do
     sample_pid "after_arm_$arm"
     [ "$pid" = "$system_pid" ]
     if [ "$rc" != 78 ]; then outcome=3; break; fi
-    kotlin "$run/source/VerifyInitTailObserver.main.kts" "$run" "$arm" \
+    set -- "$run" "$arm"
+    if [ "${ADMISSION_MODE:-tailcontrol}" = loadercontrol ]; then set -- "$@" loader-private-build11; fi
+    kotlin "$run/source/VerifyInitTailObserver.main.kts" "$@" \
         > "$run/tail-$arm-verification.toml" 2> "$run/tail-$arm-verification.stderr" || { outcome=3; break; }
 done
 

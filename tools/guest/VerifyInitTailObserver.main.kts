@@ -7,9 +7,13 @@ import java.security.MessageDigest
 import java.util.HexFormat
 import java.util.zip.ZipFile
 
-require(args.size in 1..2){"Usage: VerifyInitTailObserver.main.kts RUN_DIRECTORY [59..75|tail-stock]"}
+require(args.size in 1..3){"Usage: VerifyInitTailObserver.main.kts RUN_DIRECTORY [59..75|tail-stock] [loader-private-build11]"}
 val run=Path.of(args[0]).toAbsolutePath().normalize();val stock=args.getOrNull(1)=="tail-stock"
 require(!stock){"tail-stock verification is not enabled in the private-control task"}
+val loaderProfile=args.size==3
+require(!loaderProfile||(args[2]=="loader-private-build11"&&args[1].toIntOrNull() in 59..75))
+val expectedNative=if(loaderProfile)"3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+ else "fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182"
 fun bytes(name:String)=Files.readAllBytes(run.resolve(name));fun text(name:String)=Files.readString(run.resolve(name))
 fun hash(b:ByteArray)=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(b));fun hash(name:String)=hash(bytes(name))
 data class E(val kind:String,val f:Map<String,String>){fun s(k:String)=f.getValue(k);fun u(k:String)=s(k).removePrefix("0x").toULong(16)}
@@ -44,9 +48,9 @@ if(args.size==1){
 val selected=if(stock)null else arms.single{it.id==args[1].toInt().also{n->require(n in 59..75)}}
 
 fun verify(contract:A?){
- require(hash("group-control.elf")=="fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182")
+ require(hash("group-control.elf")==expectedNative)
  val arm=contract?.id?:-1;val prefix=if(stock)"native" else "tail-$arm";require(text("$prefix-status.toml").trim()=="exit_code = 78")
- val binary=bytes("group-control.elf");require(hash(binary)=="fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182"&&hash(binary)==text("binary-sha256.txt").take(64));require(hash(if(stock)"group-executed.elf" else "tail-$arm.elf")==hash(binary));val control=Elf(binary)
+ val binary=bytes("group-control.elf");require(hash(binary)==expectedNative&&hash(binary)==text("binary-sha256.txt").take(64));require(hash(if(stock)"group-executed.elf" else "tail-$arm.elf")==hash(binary));val control=Elf(binary)
  val es=events(if(stock)"native-events.toml" else "$prefix.toml");require(es.isNotEmpty());val mode=es.single{it.kind=="model-mode"};require(mode.s("scope")== (if(stock)"stock" else "private") &&mode.u("tail")==1uL&&mode.u("tail_read_count")==10uL&&mode.u("tail_write_count")==2uL&&mode.u("tail_checkpoint_count")==3uL);if(!stock)require(mode.u("arm")==arm.toULong())
  val binding=es.single{it.kind=="model-binding"};val pid=binding.u("pid");val base=binding.u("base");val obj=binding.u("object");val shared=if(stock)0uL else (obj-48uL).also{require(it and 4095uL==0uL)};val elf=if(stock){require(hash("installed.apk")=="6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b");Elf(ZipFile(run.resolve("installed.apk").toFile()).use{z->z.getInputStream(z.getEntry("lib/arm64-v8a/libscope-auklet.so")).readBytes()})}else control
  val readyEvent=es.single{it.kind=="ready"};val observer=readyEvent.u("observer_pid");require(readyEvent.u("pid")==pid&&readyEvent.u("stopping_tid")==pid)

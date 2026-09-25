@@ -1,0 +1,88 @@
+schema_version = "mho900-lab.calibration-loader-results/1"
+result = "no-go-filesystem-precondition"
+run_id = "group-calibration-loaders-02"
+started_at = "2026-09-25T11:50:05Z"
+finished_at = "2026-09-25T11:52:39Z"
+native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+native_changed_from_run01 = false
+native_runtime_failure_observed = false
+legacy_runtime_controls_passed = 76
+legacy_malformed_controls_passed = 30
+private_profile_host_cases_passed = 8
+new_loader_arms_executed = 0
+unexecuted_loader_arms = "76..89"
+guest_calibration_files_installed = 0
+complete_loader_capture_demonstrated = false
+altered_loader_evidence_controls_executed = false
+stock_continuation_authorized_by_result = false
+indexed_artifacts = 675
+system_server_pid_in_recorded_samples = 1045
+system_server_samples = 85
+guest_enforcement_enabled_through_fixture_entry = true
+post_fixture_failure_health_sample = false
+stock_artifacts_unchanged = true
+dedicated_listeners_absent = true
+
+[finding]
+failed_command = "mount -o remount,rw /"
+observed_error = "mount: 'rootfs'->'/': No such device"
+subsequent_mkdir_and_push_executed = false
+live_mount_flags_captured = false
+static_ramdisk_indication = "init.rc remounts rootfs read-only during boot; live flags remain unobserved."
+next_question = "Validate private captures independently and resolve the filesystem fixture with complete failure health evidence."
+
+[[artifacts]]
+path = "experiments/calibration-loaders/admission-inputs.toml"
+sha256 = "1378e80c499c0ebfe8db7e71553b27308a8d7ee651dcddda1278d748b243be13"
+
+[[artifacts]]
+path = "docs/research/calibration-loader-admission-results.md"
+sha256 = "7e1725a36bc940c69d904926a5350866404d45706763dff48802197b3d5a1c27"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-02/result.toml"
+sha256 = "387fe7964b2f503c4e2abe6fb7a1cc63b012b9e41034024f838588cadb93fcc2"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-02/evidence-sha256.txt"
+sha256 = "e7fb3f2542b936c6ce645f332a7e55b5bb600465b7e8fb97c9379b2e30a2fe0e"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-02/calibration-fixture-setup.txt"
+sha256 = "67be62148e6d3af47f547512a92d25d4c998be573af6313d3050bcbe9dad0b27"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-02/source/calibration-fixture.sh"
+sha256 = "2afde07844f19bebc6109616214ea10256fb6eba9e62fcd14445235964669880"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-02/source/VerifyInitTailObserver.main.kts"
+sha256 = "cd2e305e3edb4f7d1d393c017bc7ec4f0da3ff66390a345a10f90b961fddb715"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-02/source/VerifyCalibrationLoaders.main.kts"
+sha256 = "8ae9a083f5c7c6c97de7bda3a054d7fe4b2dc11d52241d5c1289ca617cf0bede"
+
+[[artifacts]]
+path = "out/calibration-loaders/check-profile-01.sh"
+sha256 = "6fc371b27283b7f204b553abffe5146f1aa992c44c3bd4a8cc0c9f6c8913b202"
+
+[[artifacts]]
+path = "out/calibration-loaders/profile-checks-01/results.toml"
+sha256 = "07a0488334cd6abeeed972c22b95cd91c776b4a0805c1784589e3f3a49445d50"
+
+[[artifacts]]
+path = "out/calibration-loaders/audit-run02.main.kts"
+sha256 = "24a1e0ee25758f218ddb7127ea1e99586a13e158b624367197404f76de91947d"
+
+[[artifacts]]
+path = "out/calibration-loaders/run02-audit.toml"
+sha256 = "e36655f7a7685ff38d142350b416c6e7b7aaa4d90aed553b30ab7b390db1a750"
+
+[[artifacts]]
+path = "out/calibration-loaders/run02-filesystem-review.md"
+sha256 = "ed3aaf185d73a956b5de5975e12d25f75db797b207c69804b110b8ff1bafc871"
+
+[[artifacts]]
+path = "out/calibration-loaders/run02-evidence-review.md"
+sha256 = "ac822767559aa58befd1252a5cefb03d6e28a071b25e87a2c4aef0ea1675c318"

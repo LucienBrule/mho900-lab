@@ -7,7 +7,7 @@ adb() { gtimeout -k 2 30 "$sdk/platform-tools/adb" -P 5041 -s emulator-5580 "$@"
 
 # Re-run the existing 0..75 controls against this executable first.
 "$run/source/admission-tailcontrol.sh"
-cp "$repo/experiments/calibration-loaders/inputs.toml" "$run/source/calibration-loader-inputs.toml"
+cp "$repo/experiments/calibration-loaders/admission-inputs.toml" "$run/source/calibration-loader-inputs.toml"
 cp "$repo/experiments/calibration-static/loader-candidate.toml" "$run/calibration-loader-candidate.toml"
 cp "$repo/experiments/calibration-loaders/controls.toml" "$run/calibration-loader-controls.toml"
 cp "$repo/experiments/calibration-loaders/native-protocol.md" "$run/calibration-loader-protocol.txt"
