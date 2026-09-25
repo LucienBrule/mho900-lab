@@ -1,0 +1,224 @@
+schema_version = "mho900-lab.stock-loader-host-control-results/1"
+result = "accepted-with-independent-file-isolation"
+verifier_sha256 = "bd4d8a5fae6b9ab48da6c296e8b45b53dbfe260fdaa53c45769587fb5b4d6c64"
+fixture_kind = "synthetic-host-only"
+stock_loader_execution_observed = false
+canonical_positive_accepted = true
+nonzero_unchanged_adc_accepted = true
+optional_unavailable_dmesg_accepted = true
+altered_cases_rejected = 11
+altered_case_indexes_regenerated = true
+independent_regular_files = true
+symbolic_links = 0
+shared_inodes = 0
+source_indexes_unchanged = true
+source_index_counts = [192, 177, 183]
+prior_unsafe_fixture_excluded = true
+
+[[artifacts]]
+path = "tools/guest/VerifyStockCalibrationLoaders.main.kts"
+sha256 = "bd4d8a5fae6b9ab48da6c296e8b45b53dbfe260fdaa53c45769587fb5b4d6c64"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/host-control-recovery.toml"
+sha256 = "af3818ceee1b6f2ba12576fbf6cfd013f4079010d6b53b04dce09a60677daa30"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/Prepare.main.kts"
+sha256 = "f3d529f53db8e603fd2febab627b91b100fa8aa7a5cef804e37ec50d3c75407a"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/Controls.executed.main.kts"
+sha256 = "2b221962e04b08290dabd1bd60ddd29dd949bf824450807a15d6f167f6253383"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/Controls.main.kts"
+sha256 = "18a612255b17349f40b378595f2b549445b0631264f59262378c0e5d4ab7a0fb"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/preparation.toml"
+sha256 = "e501e1349d7329693ec31faa1ebe5a23a630583d02d09ac2be65ccbc9b4bded4"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/results.toml"
+sha256 = "f7ac3c40b596bc9a926da5608a6bea6e1ea5944817ecaadeccfcba5526e09385"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/results-original.txt"
+sha256 = "687082b9865761b2355a62b17a7a21573924e8c3c219fe60af8420aca097f404"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/report-format-note.toml"
+sha256 = "6bb30f64f1b2d818a8302d8d7d8c7fc70a7189e97ad636c31cd60bd251294dc4"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/positive.toml"
+sha256 = "b2462bbbfbb6701a7179709a58d1596e8ff688cce9e8b3fda0cc914e50f3cf15"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/base/evidence-sha256.txt"
+sha256 = "10297714d09edaedac6d61de3329b1f08848f3001d0f28613895fedf890d4da1"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/original-stock-tail-index-after.txt"
+sha256 = "8e0088ee32052a2de39e2ebbfeffc466e9d8f565e10d1e2f5bf49e3a25ab7683"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/original-file-access-index-after.txt"
+sha256 = "4f2a383deeba91d208740592e9c33bda843479bb135e66dfae592fffd7b6de3d"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/original-file-label-index-after.txt"
+sha256 = "5a97d265728968d64f09c7e1ab0598ce29775aa3eb230f809481e576837310fa"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-review.md"
+sha256 = "f51b62e885090d5c973f2dd77bdee98e44898ddf312733ac555a7d4a87de5b85"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-review.toml"
+sha256 = "595c09950f4ebc65d0b15086af3d6711f0422abf466bffb30f4a860c93b308be"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/changed-terminal-adc/run/evidence-sha256.txt"
+sha256 = "9813ebc5f3e1e6f3c24924e89fea9f79973849b41477a9cce88bc38bd12f8cb0"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/changed-terminal-adc/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/changed-terminal-adc/verification.stderr"
+sha256 = "c14284c93ab779e51152a3abfe3a4889de0a900dcb5bbf906840a5ebfaf45667"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/changed-vertical-payload/run/evidence-sha256.txt"
+sha256 = "ee3bde02e76366e9f5e7e8ae316b276e5de28c647c5202e03d385c0ea450adb3"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/changed-vertical-payload/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/changed-vertical-payload/verification.stderr"
+sha256 = "64d254c31028a75599c5aaa679a36ca2ca53ccbf66a6020f6e41ab4ae426d7a7"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/debug-set-before-request/run/evidence-sha256.txt"
+sha256 = "dd7658a574efdbdc6bd9c8a483042103ba78e246af03dd368e58712becc879cd"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/debug-set-before-request/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/debug-set-before-request/verification.stderr"
+sha256 = "392806fa74d04263ca911f631efbc3b9e3701c4e72d52a281596b17b05b9e63a"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/dmesg-unavailable/run/evidence-sha256.txt"
+sha256 = "808d72b15af0a57ad2baaaca2575bbce7cbbaab475f62f3805ea1d8ef0836bea"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/dmesg-unavailable/verification.toml"
+sha256 = "b2462bbbfbb6701a7179709a58d1596e8ff688cce9e8b3fda0cc914e50f3cf15"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/dmesg-unavailable/verification.stderr"
+sha256 = "313b145ab20e1c03d00d9e66f6eea7f49de693da0a86832fcbd2493edf5dc50c"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/duplicate-index-entry/run/evidence-sha256.txt"
+sha256 = "3a6338d4dcab3daa13d11796b49f81549e5294882b12f3706db4ddf336b70c5e"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/duplicate-index-entry/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/duplicate-index-entry/verification.stderr"
+sha256 = "8eb2b9407f075901c9bbd144d6a88b880e1b41cd44926b11a7e0eb1f6d278313"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/missing-final-health-key/run/evidence-sha256.txt"
+sha256 = "eba7f0bae6702f62fd8d358b9f7b6a116384d332db7bb12c2e70d2716465a9f8"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/missing-final-health-key/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/missing-final-health-key/verification.stderr"
+sha256 = "05ba2b67c922a02f167571686dcbc494f78dbca82ecef75349f99abe2bd93f5a"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/worker-resume-after-terminal/run/evidence-sha256.txt"
+sha256 = "a89df1d0317ef8fb6429fdd79327f0791a9a66441d724b7a53123c9ff8ae36b8"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/worker-resume-after-terminal/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/worker-resume-after-terminal/verification.stderr"
+sha256 = "876aa0a4853c493abc56d263bf9ca42101a5b13146b29f177cf52828e56bc8d3"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/worker-stop-after-capture/run/evidence-sha256.txt"
+sha256 = "12b6c08bbe54137a77881c65068d97fcce656fb349bd850489b31f8d305ba6c3"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/worker-stop-after-capture/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/worker-stop-after-capture/verification.stderr"
+sha256 = "cbe024b862b182369d5c25ade425ceafb92121b6748568ebca0bb159216c0c66"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-checkpoint-opcode/run/evidence-sha256.txt"
+sha256 = "3916ce4bf983c12291dfda997ed3de57f97c430825900333ae294fcf1e5c4055"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-checkpoint-opcode/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-checkpoint-opcode/verification.stderr"
+sha256 = "4a28752221846cc93272a646b53b9e4ea51226090522babafa6791a2f94891a0"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-raw-return-upper-bits/run/evidence-sha256.txt"
+sha256 = "757b9f86ea72e9abdfb8fbfc588c8143008dce2335cf0738ab33250067385b8b"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-raw-return-upper-bits/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-raw-return-upper-bits/verification.stderr"
+sha256 = "cec2e7441356198562bd7541430269406510b6c7cc0efc0138195e9cd4e2b425"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-selected-file-label/run/evidence-sha256.txt"
+sha256 = "96ae4566bca03c24779fb655d4bfc6f86496d388993645f60e771c31d1e35239"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-selected-file-label/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/wrong-selected-file-label/verification.stderr"
+sha256 = "cd033d87e2d3920f9e845ecb8dc0ffb19695c220c0b7298b7839ecafbb1af0dd"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/zero-extended-status-event/run/evidence-sha256.txt"
+sha256 = "4792a996862b2bd2eca8451dc3cf7a659b7843546592639e4116cd57fcfb6cc7"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/zero-extended-status-event/verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-verifier-host-controls-02/cases/zero-extended-status-event/verification.stderr"
+sha256 = "2dffac67d6bf07d6fa2f34bcf4a295365e3a3ca6388b95278b37e5866e38a538"

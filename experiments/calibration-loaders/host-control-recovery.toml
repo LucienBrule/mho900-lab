@@ -87,3 +87,7 @@ sha256 = "c09b12598f34386f14929a284a1691e2ba0b583677e26fcf2daca487eb196360"
 [[artifacts]]
 path = "out/evidence-recovery/stock-loader-host-control-01/recovery-review.toml"
 sha256 = "8d0a8f21fb59abf1b1952d89254f15f831e803124ca6729b01e001a372f329a1"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/setup-accounting.md"
+sha256 = "c5c2b5be1dd219b9bccac9bd7b6f597f8db67eb3f10dfa3192d1a4635c7652bd"

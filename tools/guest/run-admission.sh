@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -26,15 +26,19 @@ mkdir -p "$run"
 mkdir "$run/source"
 cp "$repo"/tools/guest/* "$run/source/"
 cp "$admission_manifest" "$run/source/admission-inputs.toml"
-if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ]; then
+if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ]; then
     fixture_manifest="$repo/experiments/calibration-filesystem/inputs.toml"
     fixture_copy=calibration-filesystem-inputs.toml
-    if [ "$mode" = fileaccess ] || [ "$mode" = filelabel ]; then
+    if [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ]; then
         fixture_manifest="$repo/experiments/calibration-access/inputs.toml"
         fixture_copy=calibration-access-inputs.toml
         if [ "$mode" = filelabel ]; then
             fixture_manifest="$repo/experiments/calibration-access/label-inputs.toml"
         fi
+    fi
+    if [ "$mode" = loadermodel ]; then
+        fixture_manifest="$repo/experiments/calibration-loaders/stock-inputs.toml"
+        fixture_copy=calibration-stock-inputs.toml
     fi
     cp "$fixture_manifest" "$run/source/$fixture_copy"
     yq -p toml -o yaml -r '.artifacts[] | [.path, .sha256] | @tsv' "$fixture_manifest" |
@@ -124,7 +128,7 @@ set -- "$sdk/emulator/emulator" -avd baseline-api25 -sysdir "$image" \
     -data "$run/userdata.img" -cache "$run/cache.img" -port 5580 \
     -no-window -no-snapshot -no-boot-anim -no-audio -no-metrics \
     -gpu swiftshader -memory 2048 -cores 2 -verbose -show-kernel
-if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ]; then
+if [ "$mode" = filesystem ] || [ "$mode" = fileaccess ] || [ "$mode" = filelabel ] || [ "$mode" = loadermodel ]; then
     set -- "$@" -ramdisk "$run/fixture-ramdisk.img"
 fi
 printf '%s\n' "$@" > "$run/emulator-argv.txt"
@@ -180,7 +184,7 @@ if [ "$boot" = completed ]; then
     case "$mode" in spucontrol) helper_mode=spucontrol;; remainingcontrol) helper_mode=remainingcontrol;; esac
     case "$mode" in startup|mapping|syscall|native|coverage|groupmodel|nextmodel|writemodel|pairmodel|transcriptmodel|spumodel|remainingmodel|tailmodel) helper_mode=label;; esac
     "$run/source/admission-$helper_mode.sh" || inspection=failed
-    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel)
+    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel)
         health_rc=0
         "$run/source/admission-final-health.sh" || health_rc=$?
         printf 'final_health_helper_exit = %s\n' "$health_rc" >> "$run/final-health-status.toml"

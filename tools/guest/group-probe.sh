@@ -19,6 +19,8 @@ transcript=false
 spu=false
 remaining=false
 tail=false
+loaders=false
+if [ "${ADMISSION_MODE:-groupmodel}" = loadermodel ]; then loaders=true; tail=true; remaining=true; spu=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = tailmodel ]; then tail=true; remaining=true; spu=true; fi
 if [ "${ADMISSION_MODE:-groupmodel}" = remainingmodel ]; then remaining=true; spu=true; fi
 [ "${ADMISSION_MODE:-groupmodel}" != spumodel ] || spu=true
@@ -47,6 +49,7 @@ if [ "$transcript" = true ]; then
     [ "$spu" != true ] || expected_binary=ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae
     [ "$remaining" != true ] || expected_binary=8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d
     [ "$tail" != true ] || expected_binary=fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182
+    [ "$loaders" != true ] || expected_binary=3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa
     [ "$actual" = "$expected_binary" ]
 fi
 if [ "$remaining" = true ]; then
@@ -120,9 +123,15 @@ if [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
 fi
 [ "$remaining" != true ] || command=stock-remaining
 [ "$tail" != true ] || command=stock-tail
+[ "$loaders" != true ] || command=stock-loaders
 command_args="$pid $base"
 if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
 if [ "$spu" = true ]; then command_args="$command_args /data/local/tmp/spu-stock.bin"; fi
+if [ "$loaders" = true ]; then
+    adb shell 'test ! -e /data/local/tmp/stock-loader-captures && mkdir /data/local/tmp/stock-loader-captures' \
+        > "$run/native-loader-directory.txt" 2>&1
+    command_args="$command_args /data/local/tmp/stock-loader-captures"
+fi
 adb shell "/data/local/tmp/group-observer $command $command_args >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
 command_pid=$!
@@ -146,6 +155,17 @@ wait "$command_pid" || true
 adb pull /data/local/tmp/native-events.toml "$run/native-events.toml" > "$run/native-events-pull.txt" 2>&1
 adb pull /data/local/tmp/native-status.toml "$run/native-status.toml" > "$run/native-status-pull.txt" 2>&1
 adb pull /data/local/tmp/group-observer "$run/group-executed.elf" > "$run/group-executed-pull.txt" 2>&1
+if [ "$loaders" = true ]; then
+    pulls_failed=false
+    for capture in entry-lsb entry-adc terminal-lsb terminal-adc terminal-vertical; do
+        pull_rc=0
+        adb pull "/data/local/tmp/stock-loader-captures/loader-$capture.bin" \
+            "$run/native-loader-$capture.bin" > "$run/native-loader-$capture-pull.txt" 2>&1 || pull_rc=$?
+        printf '%s = %s\n' "$capture" "$pull_rc" >> "$run/native-loader-pulls.toml"
+        [ "$pull_rc" = 0 ] || pulls_failed=true
+    done
+    [ "$pulls_failed" = false ] || exit 1
+fi
 cmp "$run/group-control.elf" "$run/group-executed.elf"
 adb shell getenforce > "$run/native-enforcing.txt"
 grep -qx "exit_code = $expected" "$run/native-status.toml"
