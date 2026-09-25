@@ -18,6 +18,7 @@ The project is running initial guest experiments; no complete emulator or physic
 - [Two-word observation and guest single-step control finding](docs/research/xdma-two-word.md)
 - [Pinned guest step profile and stock mutex retry observation](docs/research/xdma-two-word-profile.md)
 - [Private exclusive-operation observer comparison](docs/research/guest-exclusive-control.md)
+- [Private post-atomic execution-stop setup finding](docs/research/guest-execution-stop.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

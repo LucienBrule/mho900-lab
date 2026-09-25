@@ -1,0 +1,169 @@
+schema_version = "mho900-lab.execution-stop-results/1"
+classification = "bounded-negative-setup-finding"
+run_id = "execution-stop-01"
+report = "docs/research/guest-execution-stop.md"
+guest_boots = 1
+arms_executed = 2
+arm_0_mode = "cont"
+arm_0_attempts = 1
+arm_0_store_status = 0
+arm_0_final_word = 0
+arm_0_stop_code = 1
+arm_1_mode = "break"
+arm_1_debug_info = "0x0606"
+arm_1_requested_control = "0x1e5"
+arm_1_returned_control = "0x1e4"
+arm_1_target_pc = "0x211084"
+arm_1_set_result = 0
+arm_1_get_result = 0
+arm_1_resumed_after_setup = false
+arm_1_terminal_observed = false
+arm_1_exit_code = 82
+arm_1_child_termination = 9
+remaining_arms_executed = false
+hardware_breakpoint_delivery_established = false
+reference_revision = "b2776bf7149bddd1f4161f14f79520f17fc1d71d"
+reference_matches_exact_guest_source = false
+system_server_pid = 1060
+system_server_stable = true
+selinux_enforcing = true
+stock_artifacts_preserved = true
+sparrow_launched = false
+device_responses = 0
+physical_device_access = false
+guest_torn_down = true
+success_verifier_rejected_incomplete_capture = true
+negative_verifier_added_after_run = true
+next_question = "Test actual breakpoint delivery with explicit cached-enable-bit readback profile and unchanged continuous/nonmatching controls."
+
+[[artifacts]]
+path = "docs/research/guest-execution-stop.md"
+sha256 = "d18615e8b0ed74a9fe0f581f972d21cea04c5a898a7c4e03e9041d9ebca5de25"
+
+[[artifacts]]
+path = "experiments/guest-execution-stop/fixture.toml"
+sha256 = "737e1ca50c12cc6a3890947d75be9ceb8cff2a46a3af9a435e4a3b050c3fb9c6"
+
+[[artifacts]]
+path = "experiments/guest-baseline/inputs.toml"
+sha256 = "74bf7d1c840e524bcd058b606ef929e49af085f7014c51311ac0b9a372a911ca"
+
+[[artifacts]]
+path = "experiments/guest-admission/inputs.toml"
+sha256 = "097f3195c2d0a4197ac7d0326b029770ef2d1ae6299c8606cf7dde54ccd70dd3"
+
+[[artifacts]]
+path = "tools/guest/execution-stop.c"
+sha256 = "1641a9304e07f8301b9ec3df059a3021f54514cc9e3b5adb3334ed4b6c857586"
+
+[[artifacts]]
+path = "tools/guest/exclusive-control.c"
+sha256 = "86d0c35fde52689205c424595856b4fa1c349463d3d7587d79c3ba717fe5c901"
+
+[[artifacts]]
+path = "tools/guest/build-execution-stop.sh"
+sha256 = "e48deda32f87ddb207546c923863ee70dd95485fc8446cb0efb2d83dd0946c74"
+
+[[artifacts]]
+path = "tools/guest/admission-execution.sh"
+sha256 = "ca1485ec904ed10dea39553a8a56a1a84287855a23b36ac0962b54a185d507db"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "f49eb100e485d66db39df18b7c4584e6e30de65fabb652a537a55b2ca61b0deb"
+
+[[artifacts]]
+path = "tools/guest/VerifyExecutionStop.main.kts"
+sha256 = "11c399839b11a235f24509f1fde48c97991d62907324da9fd38cc413036640e9"
+
+[[artifacts]]
+path = "tools/research/pin-artifacts.sh"
+sha256 = "cb7b24f677ab48c7854b86321f9b1fa42f11e1c84d2c371fdd76524122f09a70"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/evidence-sha256.txt"
+sha256 = "a825362931120ce812478f5f6c34b6a3790677461236e8881874b7b864f75cc2"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/source/VerifyExecutionStop.main.kts"
+sha256 = "040bd95adb9d0f1f8ebd56036e196028c1b9500d86419d49969179ec1b354f98"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/execution-control.elf"
+sha256 = "466e5f22b95ca135e741fecc163d84d53231adf33d7b70ef579a90a04a3c926f"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/execution-0.toml"
+sha256 = "aede6006e50a6e4ed189f540243ad8d06da377b99bab509e8d4ff968c4558468"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/execution-1.toml"
+sha256 = "0a981ffec7d952885f9e567dc0d3a89c2617d3fd30715447d1d27eefc5bd4490"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/execution-1-status.toml"
+sha256 = "78ce2f83a7f5cd8669751422b769b60a789a22c2b3ff43ecd99c3326c09e37a8"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/execution-system-server.toml"
+sha256 = "ade34da96e78346d3080703365f83a74624ecb9808d3ec79d9005a28766e22c2"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/guest-admission/execution-stop-01/result.toml"
+sha256 = "41adacb0fd79c347937db31ef8c349fb3684fc473c1e2b3b32e433d1b2525049"
+
+[[artifacts]]
+path = "out/guest-execution-stop/negative-verification.toml"
+sha256 = "fa1eadde031f10f9580c9460d8d46a8cb96eea143745cb5603097440aea123ba"
+
+[[artifacts]]
+path = "out/guest-execution-stop/success-verifier-rejection.txt"
+sha256 = "a266e131f2f55cc42656fdb0c410d5fd5c1d35b1aa2954d1fca42a82981fcfba"
+
+[[artifacts]]
+path = "out/guest-execution-stop/success-verifier-status.toml"
+sha256 = "57eb0e44e9d047a6972321cb6a15d0567964c583cc67539c0add82e78624397f"
+
+[[artifacts]]
+path = "out/guest-execution-stop/stock-preservation.txt"
+sha256 = "a35d313640a9577675ad00a41d839c60797bac93f363fa37eda9a25cb299d398"
+
+[[artifacts]]
+path = "out/guest-execution-stop/teardown.toml"
+sha256 = "9102b5944f3596584cd89c0cdce040bd3ee6773262f906cf3c5868638ca4ea7b"
+
+[[artifacts]]
+path = "out/guest-execution-stop/disassembly.txt"
+sha256 = "0d420eb81bca9050732638c65dafc3d0ca05e67544754b54a16470cd5398d6a9"
+
+[[artifacts]]
+path = "out/guest-execution-stop/elf.txt"
+sha256 = "26f824e91f28e26073d84f11f24d72407e06d7ab5e43ee669e4ef0efa3825065"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/ptrace.c"
+sha256 = "7e307edd1083f92cb42f026884441710fded6b4a2a8f146a6a3a3a13227dc0da"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/ptrace.h"
+sha256 = "8cd5a384c0059a656288717486bd3ae5975e8e1a5cf455ce98386bc68a59598b"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/hw_breakpoint.c"
+sha256 = "6be92aa3d5082e95fbb49120431ec234b9f1c0e2bce9634b2327bd744c08bdb6"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/hw_breakpoint.h"
+sha256 = "d0f8dac5fa355e2d422ba8b5b71cc0c2a52c8b8cbad26987a3d6b71723cb9793"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/events-hw_breakpoint.c"
+sha256 = "fb6b7b1abe3bbb18c7394f438fa43f8564025877deed17e719bcf50d473ebd80"
+
+[[artifacts]]
+path = "out/guest-execution-stop/reference/elf.h"
+sha256 = "9ecdbdb94a7d2c3f42c38493941f202a38800975597ca58ecb4a8b8133e89fdc"
