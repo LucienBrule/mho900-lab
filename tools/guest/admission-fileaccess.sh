@@ -31,6 +31,9 @@ finalize() {
         capture "final_${name}_pull" "access-final-$name-pull.txt" pull \
             "/rigol/data/default/cal_$name.hex" "$run/access-final-$name.bin" || outcome=1
     done
+    if [ "${ADMISSION_MODE:-fileaccess}" = filelabel ]; then
+        capture final_absent access-final-absent.txt shell 'test ! -e /rigol/data/cal_lsb.hex && test ! -e /rigol/data/cal_vertical.hex && test ! -e /rigol/data/cal_adc.hex && test ! -e /rigol/data/default/cal_adc.hex' || outcome=1
+    fi
     exit "$outcome"
 }
 trap finalize EXIT
@@ -41,6 +44,18 @@ printf 'fixture_exit = %s\n' "$fixture_rc" >> "$run/access-command-status.toml"
 kotlin "$run/source/VerifyCalibrationFilesystem.main.kts" "$run" fixture \
     > "$run/access-fixture-verification.toml" 2> "$run/access-fixture-verification.stderr"
 manifest="$run/source/calibration-access-inputs.toml"
+if [ "${ADMISSION_MODE:-fileaccess}" = filelabel ]; then
+    [ "$(yq -p toml -o yaml -r '.fixture.profile' "$manifest")" = system-app-data ]
+    for name in lsb vertical; do
+        capture "label_$name" "access-label-$name.txt" shell chcon u:object_r:system_app_data_file:s0 \
+            "/rigol/data/default/cal_$name.hex"
+    done
+    capture label_inventory access-labelled-labels.txt shell ls -ldZ /rigol /rigol/data /rigol/data/default \
+        /rigol/data/default/cal_lsb.hex /rigol/data/default/cal_vertical.hex
+    capture label_metadata access-labelled-stat.txt shell "stat -c '%n %a %u %g' /rigol /rigol/data /rigol/data/default /rigol/data/default/cal_lsb.hex /rigol/data/default/cal_vertical.hex"
+    capture label_absent access-labelled-absent.txt shell 'test ! -e /rigol/data/cal_lsb.hex && test ! -e /rigol/data/cal_vertical.hex && test ! -e /rigol/data/cal_adc.hex && test ! -e /rigol/data/default/cal_adc.hex'
+    cmp "$run/fixture-after-stat.txt" "$run/access-labelled-stat.txt"
+fi
 apk=$(yq -p toml -o yaml -r '.probe.apk_path' "$manifest")
 expected=$(yq -p toml -o yaml -r '.probe.apk_sha256' "$manifest")
 cp "$repo/$apk" "$run/access-control.apk"

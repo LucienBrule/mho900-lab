@@ -1,0 +1,92 @@
+schema_version = "mho900-lab.calibration-file-label-results/1"
+result = "complete-observation-files-readable"
+run_id = "calibration-file-label-01"
+started_at = "2026-09-25T12:32:00Z"
+finished_at = "2026-09-25T12:32:19Z"
+probe_apk_sha256 = "f1aadc9fefc4278f86a9839a8917a2ce42ee5c1fedbd52562b5187ef2bd2dec0"
+probe_uid = 1000
+probe_pid = 2482
+probe_context = "u:r:system_app:s0"
+directory_metadata_operations_succeeded = 3
+file_metadata_operations_succeeded = 2
+file_readonly_open_operations_succeeded = 2
+file_complete_reads_succeeded = 2
+file_close_operations_succeeded = 2
+file_read_bytes = [220, 1794268]
+file_sha256 = ["ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2", "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"]
+file_context = "u:object_r:system_app_data_file:s0"
+file_label_assignments = 2
+directory_labels_unchanged = true
+file_metadata_unchanged = true
+policy_changed = false
+probe_uninstalled = true
+helper_command_statuses_zero = 26
+final_health_statuses_zero = 5
+system_server_pid = 1093
+system_server_samples = 3
+stock_files_preserved = 2
+absent_paths_preserved = 4
+stock_application_executed = false
+indexed_artifacts = 183
+frozen_aggregate_accepted = true
+stock_artifacts_unchanged = true
+original_ramdisk_unchanged = true
+dedicated_listeners_absent = true
+fixture_unmount_observed = false
+fixture_discarded_with_guest = true
+
+[[artifacts]]
+path = "experiments/calibration-access/label-inputs.toml"
+sha256 = "5fbf794823b693c1e408554e12c1c6b14d8a7f498f4ac60d2da63794b30de78d"
+
+[[artifacts]]
+path = "docs/research/calibration-file-label-results.md"
+sha256 = "d6c4f96a9e46a63ba3f1b9e29ddca28399ff59229382f7a841832906b49c5985"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/result.toml"
+sha256 = "04007a6a07a7bbbfa48d180a5df1dd0742ec630eeb2e2913fbf3777af7011b56"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/evidence-sha256.txt"
+sha256 = "fa966ece1f9d8f0f64b65c55e9b25ec0fba61345d5ba210d06fbfff657b81442"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/access-report.toml"
+sha256 = "9396552917daf6af9df033432b24fef521b33bec59a1752759942a16c7290439"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/access-command-status.toml"
+sha256 = "20610ea48b6ecc9ac1ad35bad592c5e1b9c1b7bb9ebbc6270f14d11db1539b0c"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/access-labelled-labels.txt"
+sha256 = "557395830bfbb21ec0a6f0b0a419598d8db78854c02cb485dcfebeffc3144254"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/access-final-labels.txt"
+sha256 = "557395830bfbb21ec0a6f0b0a419598d8db78854c02cb485dcfebeffc3144254"
+
+[[artifacts]]
+path = "out/guest-admission/calibration-file-label-01/final-health-status.toml"
+sha256 = "edf937ff07c06eeee07035140479692de6342d260051080d3816fdab6ea9dd4a"
+
+[[artifacts]]
+path = "out/calibration-access/label-run01-verification.toml"
+sha256 = "6c892daa2a9e900634e4f34768864ebb2ac080f1692613e5eaba9d7e92d6dfe3"
+
+[[artifacts]]
+path = "out/calibration-access/label-run01-review/summary.toml"
+sha256 = "7ba3064743e5e6e034e757804a0f3eae10a847bd760692403822ff4ce5212859"
+
+[[artifacts]]
+path = "out/calibration-access/label-run01-review/review.md"
+sha256 = "9a240d8ff9401cda3724de3d4f70249960f26efe55c1fce748bafd3cea3d2da5"
+
+[[artifacts]]
+path = "out/calibration-access/label-run01-index-check.txt"
+sha256 = "5a97d265728968d64f09c7e1ab0598ce29775aa3eb230f809481e576837310fa"
+
+[[artifacts]]
+path = "out/calibration-access/label-run01-preservation-hashes.txt"
+sha256 = "65e2671273a1e617c5066744a1c692db64501f19f5129c1136f61cec406f9944"

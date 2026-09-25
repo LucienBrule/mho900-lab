@@ -30,6 +30,10 @@ fun section(content: String, name: String): Map<String, String> {
 val input = text("source/calibration-access-inputs.toml")
 val probe = section(input, "probe")
 val derivative = section(input, "derivative")
+val fixtureProfile = section(input, "fixture")
+val outerResult = text("result.toml")
+val runMode = Regex("(?m)^mode = \"(fileaccess|filelabel)\"$").find(outerResult)?.groupValues?.get(1) ?: error("unsupported access mode")
+require(if (runMode == "filelabel") fixtureProfile["profile"] == "system-app-data" else "profile" !in fixtureProfile)
 val apkHash = "f1aadc9fefc4278f86a9839a8917a2ce42ee5c1fedbd52562b5187ef2bd2dec0"
 val signerHash = "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8"
 require(probe.getValue("apk_sha256") == apkHash && probe.getValue("signer_sha256") == signerHash)
@@ -124,9 +128,10 @@ val outcomes = files.mapIndexed { index, f ->
 val observedAccess = when { outcomes.all { it == "readable" } -> "readable"; outcomes.all { it == "denied" } -> "denied"; else -> "mixed" }
 require(text("access-audit-logcat.txt").contains("MhoCalibrationAccess") && text("access-audit-logcat.txt").contains("probe-complete report=report.toml"))
 
-val statusKeys = listOf("fixture_exit", "before_packages", "install", "package_state", "package_path", "installed_pull", "launch", "pid",
+val labelStatusKeys = listOf("label_lsb", "label_vertical", "label_inventory", "label_metadata", "label_absent")
+val statusKeys = listOf("fixture_exit") + (if (runMode == "filelabel") labelStatusKeys else emptyList()) + listOf("before_packages", "install", "package_state", "package_path", "installed_pull", "launch", "pid",
     "proc_status", "proc_label", "report_pull", "audit_logcat", "audit_dmesg", "force_stop", "uninstall", "final_packages", "final_processes",
-    "final_labels", "final_lsb_pull", "final_vertical_pull")
+    "final_labels", "final_lsb_pull", "final_vertical_pull") + (if (runMode == "filelabel") listOf("final_absent") else emptyList())
 val statuses = exactStatus("access-command-status.toml")
 require(statuses.map { it.first } == statusKeys)
 statuses.forEach { (key, code) -> if (key == "audit_dmesg") require(code >= 0) else require(code == 0) }
@@ -137,12 +142,19 @@ fun labelRows(name: String): List<Pair<String, String>> = lines(name).filterNot 
     fields.last() to context
 }
 val labelPaths = expectedDirs + expectedFiles.map { it.path }
-val labelContexts = List(3) { "u:object_r:tmpfs:s0" } + List(2) { "u:object_r:su_tmpfs:s0" }
-for (name in listOf("fixture-after-labels.txt", "access-final-labels.txt")) {
-    val observed = labelRows(name)
-    require(observed.map { it.first } == labelPaths && observed.map { it.second } == labelContexts)
-}
-require(text("access-final-labels.txt") == text("fixture-after-labels.txt"))
+val baselineContexts = List(3) { "u:object_r:tmpfs:s0" } + List(2) { "u:object_r:su_tmpfs:s0" }
+val targetContexts = List(3) { "u:object_r:tmpfs:s0" } + List(2) { "u:object_r:system_app_data_file:s0" }
+val baselineLabels = labelRows("fixture-after-labels.txt")
+require(baselineLabels.map { it.first } == labelPaths && baselineLabels.map { it.second } == baselineContexts)
+val finalLabels = labelRows("access-final-labels.txt")
+require(finalLabels.map { it.first } == labelPaths && finalLabels.map { it.second } == if (runMode == "filelabel") targetContexts else baselineContexts)
+if (runMode == "filelabel") {
+    val labelled = labelRows("access-labelled-labels.txt")
+    require(labelled.map { it.first } == labelPaths && labelled.map { it.second } == targetContexts)
+    require(text("access-labelled-labels.txt") == text("access-final-labels.txt"))
+    require(text("access-labelled-stat.txt") == text("fixture-after-stat.txt") && text("access-labelled-absent.txt").isBlank() &&
+        text("access-final-absent.txt").isBlank())
+} else require(text("access-final-labels.txt") == text("fixture-after-labels.txt"))
 expectedFiles.forEach { f ->
     val id = if (f.size == 220L) "lsb" else "vertical"
     require(hash("access-final-$id.bin") == f.sha256 && bytes("access-final-$id.bin").contentEquals(bytes("calibration-$id-stock.bin")))
@@ -164,8 +176,7 @@ val health = exactStatus("final-health-status.toml")
 require(health.map { it.first } == listOf("pid_exit", "enforcing_exit", "processes_exit", "packages_exit", "final_health_helper_exit") && health.all { it.second == 0 })
 require(text("final-system-server.txt").trim().toInt() == stablePid && lines("final-enforcing.txt") == listOf("Enforcing") && text("final-packages.txt").isBlank())
 require(!Regex("lab\\.mho900\\.calibration\\.access|Sparrow|group-observer|frida").containsMatchIn(text("final-processes.txt")))
-val result = text("result.toml")
-require(result.contains("mode = \"fileaccess\"") && result.contains("inspection = \"completed\""))
+require(outerResult.contains("inspection = \"completed\""))
 
 val indexRows = lines("evidence-sha256.txt").map { line ->
     require(line.length > 66 && line.substring(64, 66) == "  " && line.take(64).matches(Regex("[0-9a-f]{64}")))
@@ -181,7 +192,8 @@ val required = setOf("access-control.apk", "access-installed.apk", "access-signa
     "source/VerifyCalibrationAccess.main.kts", "source/VerifyCalibrationFilesystem.main.kts", "fixture-ramdisk.img", "result.toml", "access-before-packages.txt", "access-install.txt",
     "access-installed-pull.txt", "access-report-pull.txt", "access-force-stop.txt", "access-uninstall.txt", "access-final-lsb-pull.txt",
     "access-final-vertical-pull.txt", "access-fixture-verification.toml", "access-fixture-verification.stderr")
-require(required.all { run.resolve(it).toAbsolutePath().normalize() in indexRows })
+val labelRequired = if (runMode == "filelabel") setOf("access-labelled-labels.txt", "access-labelled-stat.txt", "access-labelled-absent.txt", "access-final-absent.txt") else emptySet()
+require((required + labelRequired).all { run.resolve(it).toAbsolutePath().normalize() in indexRows })
 
 println("schema_version = \"mho900-lab.calibration-access-verification/1\"")
 println("result = \"accepted\"")
@@ -190,5 +202,5 @@ println("observed_access = \"$observedAccess\"")
 files.forEachIndexed { index, f ->
     println("file_${index}_stat = \"${if (f.b("stat_ok")) "success" else "denied"}\"")
     println("file_${index}_open = \"${if (f.b("open_ok")) "success" else "denied"}\"")
-    println("file_${index}_read = \"${outcomes[index]}\"")
+    println("file_${index}_read = \"${if (f.b("read_attempted")) outcomes[index] else "not_attempted"}\"")
 }
