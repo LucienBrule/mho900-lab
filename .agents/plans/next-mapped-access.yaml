@@ -1,0 +1,56 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.continuation-control
+    title: Validate continuous execution after the two modeled reads
+    state: open
+    intent: Remove the proven post-store stop without losing bounded access observation or thread accounting.
+    requires: [TASK.hardware.group-post-store-decision]
+    requirements:
+      - Retain the two existing guarded main-thread responses and all-thread discovery and runtime event handling.
+      - Add an explicit continuation mode that installs no post-store breakpoint and resumes all threads normally after the second response.
+      - Private controls must store the composed value and then cause a third unsupported main-thread or worker mapped access.
+      - Supply no response to either terminal access; capture fault and registers, quiesce the group, inspect state and reap all members.
+      - Preserve the old positive and negative observer controls as regression checks with the rebuilt executable.
+      - Classify nonmapped faults and unexpected signals separately; unknown events or exhausted bounds preserve a negative result.
+    acceptance:
+      - Independent checks validate exactly two responses, continuous execution, terminal thread attribution and the composed state in both continuation arms.
+      - Preserve enforcement and system_server; commit and push the private conclusion before stock continuation.
+    verification: [controls, continuation, coverage, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.next-mapped-access
+    title: Follow stock initialization to its next unsupported access
+    state: open
+    intent: Discover the next actual environment dependency after the established two-word identity input.
+    requires: [TASK.guest.continuation-control]
+    requirements:
+      - Use the controlled native executable, pinned fresh guest and byte-identical stock artifacts.
+      - Retain exactly the existing two synthetic words, thread coverage and original open/mmap evidence.
+      - Run continuously after the second response without a post-store breakpoint.
+      - Capture the first unsupported mapped access on any covered thread without supplying another value.
+      - Distinguish another process fault, signal, exit or observation-bound exhaustion from a mapped-device dependency.
+      - Account for runtime thread events, terminal pending stops and cleanup; preserve all partial evidence if the observer fails.
+    acceptance:
+      - Report the reached boundary with its instruction, thread and state evidence, or an explicit reproducible negative.
+      - No physical instrument access, stock artifact modification or new register response.
+    verification: [stock-binding, boundary, coverage, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.hardware.next-access-decision
+    title: Evaluate the next witnessed initialization boundary
+    state: open
+    intent: Choose a bounded continuation from actual stock behavior instead of expanding the model speculatively.
+    requires: [TASK.hardware.next-mapped-access]
+    requirements:
+      - Separate directly observed accesses, static stock semantics, public reference semantics and synthetic assumptions.
+      - Do not analyze more identity transformation without a witnessed need.
+    acceptance:
+      - Select the smallest justified next hypothesis or observer correction and commit and push results before the next experiment.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
