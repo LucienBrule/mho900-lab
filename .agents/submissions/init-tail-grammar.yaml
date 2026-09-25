@@ -1,0 +1,30 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.init-tail-grammar
+contract: sha256:d1e7747b5822cc51e988c60d5f1aa0dfd5119175b3b144e70da3307f0b29f9c2
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T09:59:22Z"
+evidence:
+  provenance: >-
+    experiments/init-tail/results.toml SHA-256 79649bde32234df4ae4205b4e38676a61b0d4a4d7855e8c9cb698b7a9e017377
+    pins stock4e7eb0bb...b2894e, producer/verifier/control driver, identical final derivations02/03,
+    independent reviews and preserved damaged-case evidence. Grammar54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b
+    binds22 symbol ranges and32 relocations. No guest run, device response implementation or stock mutation.
+  graph: >-
+    Typed graph contains40 nodes43 conditional edges21 known access records. It recovers the parent flow to
+    return while explicitly marking calibration alignment scale startup and other transitive boundaries UNKNOWN.
+    Independent verifier checks ELF identity bytes ranges bindings classes access ABI and graph shape,
+    accepts final grammar and rejects missing R1210 flattened fallback altered opcode and wrong retry count.
+    Four damaged grammars commands exits stdout and stderr are preserved; free-form semantics remain manual review.
+  semantics: >-
+    docs/research/initialization-tail-grammar.md explains three version reads and logging DAC0x646e lowhalf
+    writable DDR selector five masked skip-tap reads reset bits2/3 and SelfTest pairedR1008/R1210.
+    Completion uses post-read-object bit29; strict binary32 clock predicate accepts62494..62506 but only logs.
+    Parent permits201 pairs402reads200sleeps before bit31 fallback write from last shared object; normal
+    return always0 and both immediate callers ignore it. Separate review corroborated masks PCs and dependencies.
+  boundaries: >-
+    Complete pre-calibration region uses existing mapped32 ABI with no new device ioctl DMA or IRQ contract.
+    Pinned XDMA reference remains mapping evidence only. Candidate needs live selector/shadow validation and
+    coherent explicitly synthetic version/tap/completion/clock words; calibration is next unresolved subsystem.
+    Eight later known write records remain conditional on UNKNOWN callees returning, not an admitted transcript.
+    Commit and push static conclusion before successor implementation.

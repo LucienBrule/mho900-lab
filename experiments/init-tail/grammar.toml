@@ -1,0 +1,1178 @@
+schema_version = "mho900-lab.init-tail-grammar/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+method = "Reviewed semantic graph bound to ELF; independent byte/shape checks are not a semantic proof"
+entry = "VERSION4"
+parent_flow_complete = true
+transitive_recovery_complete = false
+candidate_boundary = "CALIBRATION"
+exception_scope = "Parent canary edge explicit; helper canary/process exceptions are terminal outside ordinary operation graph"
+
+[[ranges]]
+name = "_Z8Drv_Initb"
+address = 0x2e5228
+size = 2072
+sha256 = "db413bd6cfb64dd06e5369b73b4b20e0a584d08dfe4a8a13003c966f5ce7e70f"
+
+[[ranges]]
+name = "DevSystemSCU_GetVersion"
+address = 0x2852c4
+size = 176
+sha256 = "7950d0c8ae4574f63df37d53c26b51de06f84d1de927ee81c85fdc6332b4fc00"
+
+[[ranges]]
+name = "DevSystemSCU_GetHardwareVersion"
+address = 0x285374
+size = 56
+sha256 = "bf83efbb12cd54327d569168f13abd21e93189524c5184f6b01418b5f012c69c"
+
+[[ranges]]
+name = "DevSystemScu_ReadRegister"
+address = 0x2851b4
+size = 48
+sha256 = "7a533e7de704039d12a952b579ba4599c9ceb4a39bc35cde6695d14b5c2c4ecd"
+
+[[ranges]]
+name = "DevAcquireSpu_ReadRegister"
+address = 0x272c5c
+size = 48
+sha256 = "d7fa9fe8cf603ad3e7ae6e762fc04257c1498a0abaa4f13e6ec9b8f679eba0cf"
+
+[[ranges]]
+name = "DevAcquireSpu_WriteRegister"
+address = 0x272c2c
+size = 48
+sha256 = "cb653d202961cbffb4ace9a45ad4d9a3a6216fb0e63d998ab94a5659bcb71555"
+
+[[ranges]]
+name = "DevAcquireSpu_SetDacPolling"
+address = 0x27dcf0
+size = 176
+sha256 = "39b0705a764b0238957286d15fc2e60537b8db14d7826469b15f340b31ed63a0"
+
+[[ranges]]
+name = "DevConfig_GetDdrCalSkip"
+address = 0x272844
+size = 28
+sha256 = "44150519dd7e491a5d26d9a7fe844b72ea74f6b86526d3c188b91830cf659c4b"
+
+[[ranges]]
+name = "DevSystem_GetSeriesParam"
+address = 0x272244
+size = 288
+sha256 = "f27934487bc0496d026e51f6e0fadd67e0d76bc99931d6fab68122edf90c511e"
+
+[[ranges]]
+name = "DevAcquireSPU_GetDdrSkipTap"
+address = 0x27d448
+size = 1212
+sha256 = "1bff63954f220214fb32921827363312cb29bb042215451248b9016b680dc54f"
+
+[[ranges]]
+name = "DevAcquireSPU_SetMemReset"
+address = 0x277d08
+size = 156
+sha256 = "e497fd2170fb8a3871e5574acc291403ee6716bdcb745157b1fe5fced891c07b"
+
+[[ranges]]
+name = "DevAcquireSpu_SelfTest"
+address = 0x27357c
+size = 980
+sha256 = "39dd6db74832ab5d7b43ecf573516338916985e4877ac36c7017578a91b4a6e2"
+
+[[ranges]]
+name = "DevAcquireSpu_GetCheckAdcClk"
+address = 0x273484
+size = 248
+sha256 = "60c438e4b88b2cc4ecb88b919c127067ef184a0fbef0af9fdf267730b61fe5c2"
+
+[[ranges]]
+name = "DevAcquireSpu_MemoryBram"
+address = 0x273950
+size = 112
+sha256 = "4be57117e07e8f8a578f0ed9148a6eb04590830c9d9a2f14ec1beb8fad12aabf"
+
+[[ranges]]
+name = "_ZN12CCalibration4InitEv"
+address = 0x333afc
+size = 712
+sha256 = "50d0478e110c488dcd2ae46366a5605dca3a2eaa69250b3fdf3f2f4b0c55872b"
+
+[[ranges]]
+name = "_ZN11CApiFactory8Api_InitEv"
+address = 0x2390cc
+size = 552
+sha256 = "81dcd59662eb0b7dc156cb95f12058136d263f31732ae45435d6eb2e9f6072f1"
+
+[[ranges]]
+name = "_ZN11CApiUtility28ApiUtility_SetLowPowerStatusEi"
+address = 0x41b710
+size = 2540
+sha256 = "e84109107cdfcb09ffc7713160d1dbd0952f3de5fbeb35b239fb131ab1904422"
+
+[[ranges]]
+name = "DevAcquireSpu_SetAfeOffset"
+address = 0x27dda0
+size = 200
+sha256 = "d8d66ffa1ad6401ece01b2c7cdb2a3be5f134354609e7f537555754d939c9a65"
+
+[[ranges]]
+name = "DevAcquireSpu_SetAdcBitRange"
+address = 0x2732d0
+size = 172
+sha256 = "d255744c01a416653b2c7468d769bc8eb55ae898200d53674ce3a87404a80257"
+
+[[ranges]]
+name = "DevSystemSCU_SetLaEanble"
+address = 0x2867d4
+size = 108
+sha256 = "5e870bb754bcb7ff78bafc178f4c7bdd1c6148df3b52952129dbcfd2d0905514"
+
+[[ranges]]
+name = "DevSystemSCU_SetProcLaEn"
+address = 0x28654c
+size = 108
+sha256 = "c06bf51cd9e368bb1c580b3d9c314d52ed96c7b8c52f2fdfcd30f2c6583a46c4"
+
+[[ranges]]
+name = "DevSystemSCU_SetProcChEn"
+address = 0x2865b8
+size = 108
+sha256 = "0dc93287220127641deebe9a5638e2973fc4e4fff636e8bbd243c3f1a36f2c45"
+
+[[bindings]]
+slot = 0xb785a8
+type = 0x402
+symbol = "DevAcquireSpu_SetAdcBitRange"
+target = 0x2732d0
+
+[[bindings]]
+slot = 0xb78790
+type = 0x402
+symbol = "DevConfig_GetDdrCalSkip"
+target = 0x272844
+
+[[bindings]]
+slot = 0xb7bb08
+type = 0x402
+symbol = "DevSystem_GetSeriesParam"
+target = 0x272244
+
+[[bindings]]
+slot = 0xb7d7a8
+type = 0x402
+symbol = "_ZN12CCalibration4InitEv"
+target = 0x333afc
+
+[[bindings]]
+slot = 0xb7fb88
+type = 0x402
+symbol = "DevAcquireSpu_SetDacPolling"
+target = 0x27dcf0
+
+[[bindings]]
+slot = 0xb7ff00
+type = 0x402
+symbol = "DevAcquireSpu_SetAfeOffset"
+target = 0x27dda0
+
+[[bindings]]
+slot = 0xb833c0
+type = 0x402
+symbol = "DevSystemSCU_SetLaEanble"
+target = 0x2867d4
+
+[[bindings]]
+slot = 0xb83f18
+type = 0x402
+symbol = "DevAcquireSpu_GetCheckAdcClk"
+target = 0x273484
+
+[[bindings]]
+slot = 0xb84018
+type = 0x402
+symbol = "DevAcquireSpu_MemoryBram"
+target = 0x273950
+
+[[bindings]]
+slot = 0xb84548
+type = 0x402
+symbol = "DevSystemSCU_SetProcLaEn"
+target = 0x28654c
+
+[[bindings]]
+slot = 0xb845c0
+type = 0x402
+symbol = "DevSystemScu_ReadRegister"
+target = 0x2851b4
+
+[[bindings]]
+slot = 0xb85098
+type = 0x402
+symbol = "DevSystemSCU_SetProcChEn"
+target = 0x2865b8
+
+[[bindings]]
+slot = 0xb86148
+type = 0x402
+symbol = "DevAcquireSPU_SetMemReset"
+target = 0x277d08
+
+[[bindings]]
+slot = 0xb86690
+type = 0x402
+symbol = "DevAcquireSpu_WriteRegister"
+target = 0x272c2c
+
+[[bindings]]
+slot = 0xb86758
+type = 0x402
+symbol = "DevAcquireSpu_SelfTest"
+target = 0x27357c
+
+[[bindings]]
+slot = 0xb86820
+type = 0x402
+symbol = "_ZN11CApiFactory8Api_InitEv"
+target = 0x2390cc
+
+[[bindings]]
+slot = 0xb86f98
+type = 0x402
+symbol = "DevSystemSCU_GetHardwareVersion"
+target = 0x285374
+
+[[bindings]]
+slot = 0xb870a0
+type = 0x402
+symbol = "DevAcquireSPU_GetDdrSkipTap"
+target = 0x27d448
+
+[[bindings]]
+slot = 0xb87630
+type = 0x402
+symbol = "_Z8Drv_Initb"
+target = 0x2e5228
+
+[[bindings]]
+slot = 0xb883b8
+type = 0x402
+symbol = "DevAcquireSpu_ReadRegister"
+target = 0x272c5c
+
+[[bindings]]
+slot = 0xb89e08
+type = 0x402
+symbol = "DevSystemSCU_GetVersion"
+target = 0x2852c4
+
+[[bindings]]
+slot = 0xb8ba20
+type = 0x401
+symbol = "gInt32DevAcquireSpuDqIdelayHCnt"
+target = 0x3cb4494
+
+[[bindings]]
+slot = 0xb8be90
+type = 0x401
+symbol = "gInt32DevAcquireSpuCtrlAdc"
+target = 0x3cb44b0
+
+[[bindings]]
+slot = 0xb8c9f0
+type = 0x401
+symbol = "gInt32DevAcquireSpuPrbsDqsHCnt"
+target = 0x3cb44d4
+
+[[bindings]]
+slot = 0xb8d288
+type = 0x401
+symbol = "gInt32DevAcquireSpuH12S4Ctrl"
+target = 0x3cb44fc
+
+[[bindings]]
+slot = 0xb8d3a8
+type = 0x401
+symbol = "gInt32TDevSystemScuMode"
+target = 0x3cb4624
+
+[[bindings]]
+slot = 0xb8d640
+type = 0x401
+symbol = "gInt32DevAcquireSpuCptHCnt"
+target = 0x3cb4520
+
+[[bindings]]
+slot = 0xb8d850
+type = 0x401
+symbol = "gInt32DevAcquireSpuWrlvlCoarseCnt"
+target = 0x3cb4528
+
+[[bindings]]
+slot = 0xb8de08
+type = 0x401
+symbol = "gInt32DevAcquireSpuCtrlMem"
+target = 0x3cb4540
+
+[[bindings]]
+slot = 0xb8e050
+type = 0x401
+symbol = "gInt32DevAcquireSpuPrbsFirstEdgeTapsH"
+target = 0x3cb4544
+
+[[bindings]]
+slot = 0xb8e118
+type = 0x401
+symbol = "gInt32DevAcquireDacTime"
+target = 0x3cb4550
+
+[[bindings]]
+slot = 0xbbc1c0
+type = 0x101
+symbol = "_ZN11CApiUtility28ApiUtility_SetLowPowerStatusEi"
+target = 0x41b710
+
+[[nodes]]
+id = "VERSION4"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read offset4 into initialized local. First unanswered stock access; returned value remains a model input."
+pcs = [0x2852f0, 0x285300]
+opcodes = [0x52800080, 0x97fe2ab4]
+inputs = []
+
+[[nodes]]
+id = "VERSION0"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read offset0; its wrapper status overwrites first status, without a value-dependent branch."
+pcs = [0x28530c, 0x285310]
+opcodes = [0xb94007e0, 0x97fe2ab0]
+inputs = []
+
+[[nodes]]
+id = "VERSION_PACK"
+classification = "STATIC-DETERMINED"
+operation = "PACK"
+semantics = "Output=((R4&0xffffff)<<8)|(R0&0xff), written to Drv_Init stack[x29-0x48]."
+pcs = [0x285318, 0x285324, 0x285334, 0x28533c]
+opcodes = [0x385f43aa, 0x12005d4a, 0x2a0a216a, 0xb900010a]
+inputs = []
+
+[[nodes]]
+id = "VERSION_HW"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read offset0x401c into Drv_Init stack[x29-0x4c]. Distinct from GPIO version interface."
+pcs = [0x285380, 0x285394]
+opcodes = [0x52880388, 0x97fe2a8f]
+inputs = []
+
+[[nodes]]
+id = "VERSION_LOG"
+classification = "STATIC-DETERMINED"
+operation = "CONSUME"
+semantics = "Both versions are logged; immediate control flow does not depend on these values or read statuses."
+pcs = [0x2e5334, 0x2e5358, 0x2e5410, 0x2e5434]
+opcodes = [0xb85b83a6, 0x97fc688a, 0xb85b43a6, 0x97fc6853]
+inputs = []
+
+[[nodes]]
+id = "DAC_TIME"
+classification = "STATIC-DETERMINED"
+operation = "W32"
+semantics = "Unsigned division by50000000 gives100 and110; replace low16 with0x646e, preserve live upper16, write full u32 to0x1428. Parent ignores status."
+pcs = [0x27dd2c, 0x27dd3c, 0x27dd60, 0x27dd7c, 0x27dd88]
+opcodes = [0x9acc0929, 0x9acc0929, 0x79000148, 0x79000148, 0x97fe587a]
+inputs = ["live DAC shadow via GOT0xb8e118"]
+
+[[nodes]]
+id = "DDR_SELECT"
+classification = "RUNTIME-SELECTED"
+operation = "BRANCH"
+semantics = "Selected series record config pointer+0x18, field+0x68 controls skip-tap/reset block. Writable MHO900Conf image value1 is not a live observation."
+pcs = [0x272850, 0x272854, 0x2e547c]
+opcodes = [0xf9400c08, 0xb9406900, 0x340008ea]
+inputs = ["DevSystem_GetSeriesParam selection and writable config"]
+
+[[nodes]]
+id = "TAP0"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "GetDdrSkipTap(true): read0x14a0; output1 = R&0x3f as u32. Caller logs this output."
+pcs = [0x27d4cc, 0x27d4e0, 0x27d4f0]
+opcodes = [0x97fe693d, 0x0a0a0129, 0xb9000169]
+inputs = []
+
+[[nodes]]
+id = "TAP1"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read0x14a4; output3 = R&0xfff widened to u64."
+pcs = [0x27d5a0, 0x27d5b4, 0x27d5d0]
+opcodes = [0x97fe6908, 0x0a0b014a, 0xf9000189]
+inputs = []
+
+[[nodes]]
+id = "TAP2"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read0x1498; output2 = R&0xfff widened to u64."
+pcs = [0x27d678, 0x27d68c, 0x27d6a8]
+opcodes = [0x97fe68d2, 0x0a0b014a, 0xf9000189]
+inputs = []
+
+[[nodes]]
+id = "TAP3"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read0x14ac; output4 = R&0xfff widened to u64."
+pcs = [0x27d750, 0x27d764, 0x27d780]
+opcodes = [0x97fe689c, 0x0a0b014a, 0xf9000189]
+inputs = []
+
+[[nodes]]
+id = "TAP4"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Read0x14b4; output5 = R&0x3ff widened to u64."
+pcs = [0x27d828, 0x27d83c, 0x27d858]
+opcodes = [0x97fe6866, 0x0a0b014a, 0xf9000189]
+inputs = []
+
+[[nodes]]
+id = "TAP_OUTPUT"
+classification = "STATIC-DETERMINED"
+operation = "OUTPUT"
+semantics = "Output6 is zero; return last read status, parent ignores it. No read-value branch in true skip-tap body; false helper branch performs no reads or output stores."
+pcs = [0x27d4b4, 0x27d8e8, 0x27d8ec, 0x27d8f0]
+opcodes = [0x370021e8, 0xf94033e8, 0xb900011f, 0xb9405fe0]
+inputs = []
+
+[[nodes]]
+id = "MEM_RESET"
+classification = "STATIC-DETERMINED"
+operation = "W32"
+semantics = "SetMemReset(false,false) clears bits2 and3 of live SPU control shadow, preserves other bits, writes full u32 to0x1000. Parent ignores status."
+pcs = [0x2e5588, 0x2e5590, 0x277d5c, 0x277d80, 0x277d8c]
+opcodes = [0x2a0503e0, 0x97fcb7d4, 0x79000128, 0x79000128, 0x97fe7079]
+inputs = ["live SPU control shadow via GOT0xb8d288"]
+
+[[nodes]]
+id = "SELF_READ"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Attempt read0x1008 into uncleared global status shadow. Extract from post-call object; if failed read leaves it unchanged the state may be stale. No physical completion inferred."
+pcs = [0x2735b0, 0x2735c0]
+opcodes = [0x52820100, 0x97fe9100]
+inputs = ["status shadow via GOT0xb8de08"]
+
+[[nodes]]
+id = "SELF_PREDICATE"
+classification = "STATIC-DETERMINED"
+operation = "EXTRACT"
+semantics = "Output bool=(R1008>>29)&1. SelfTest logs either outcome then checks ADC clock; eventually returns first read status. Parent branches on completion bool, not status."
+pcs = [0x2735d0, 0x2735d8, 0x2e5688, 0x2e568c]
+opcodes = [0x531d754a, 0x3900012a, 0x385883aa, 0x37000b6a]
+inputs = []
+
+[[nodes]]
+id = "CLOCK_READ"
+classification = "HARDWARE-RETURNED"
+operation = "R32"
+semantics = "Every SelfTest also reads0x1210 through GetCheckAdcClk. Raw u32 is returned to SelfTest local; not the completion bool."
+pcs = [0x2734c0, 0x2734c8, 0x2734d8]
+opcodes = [0x52824200, 0x97fe913e, 0xb9000109]
+inputs = []
+
+[[nodes]]
+id = "CLOCK_PREDICATE"
+classification = "STATIC-DETERMINED"
+operation = "FLOAT_RANGE"
+semantics = "Convert u32 to float; strict comparison62500f*(1f-0.0001f)<value<62500f*(1f+0.0001f). SelfTest logs predicate/raw word; ignores helper status and returns R1008 status. No readiness branch uses clock predicate here."
+pcs = [0x2734ec, 0x273500, 0x273508, 0x273510, 0x273518]
+opcodes = [0x7e21d800, 0x1e240824, 0x1a9fd7e9, 0x1e220821, 0x1a9f57ea]
+inputs = []
+
+[[nodes]]
+id = "POLL_SELECT"
+classification = "RUNTIME-SELECTED"
+operation = "BRANCH"
+semantics = "If first completion bool false, initialize retry counter200; while !bool && counter>0, sleep then decrement and call SelfTest. Maximum201 invocations:201 reads at each of0x1008/0x1210,402 mapped read attempts."
+pcs = [0x2e5694, 0x2e56ac, 0x2e56bc, 0x2e56cc]
+opcodes = [0x52801908, 0x370000e8, 0x1a9fd7e9, 0x36000888]
+inputs = ["post-read-object completion bit"]
+
+[[nodes]]
+id = "POLL_DELAY"
+classification = "ASYNCHRONOUS"
+operation = "DELAY"
+semantics = "Request usleep50000 before each repeated read, ignore status. At most200 requests, nominal10 seconds; no actual FPGA latency inferred."
+pcs = [0x2e56d4, 0x2e56d8, 0x2e56e0]
+opcodes = [0x52986a00, 0x97fcd15e, 0x71000508]
+inputs = []
+
+[[nodes]]
+id = "POLL_TEST"
+classification = "HARDWARE-RETURNED"
+operation = "REPEAT_SELFTEST"
+semantics = "Call same SelfTest R1008 then R1210; log and return to retry condition. At most200 repeated pairs. Response sequence remains modeled."
+pcs = [0x2e56f4, 0x2e57d8]
+opcodes = [0x97fcba83, 0x17ffffb2]
+inputs = []
+
+[[nodes]]
+id = "FALLBACK_SELECT"
+classification = "RUNTIME-SELECTED"
+operation = "BRANCH"
+semantics = "After retry loop, false bool invokes MemoryBram(true); true skips it. Both paths continue to calibration."
+pcs = [0x2e57dc, 0x2e57e0, 0x2e57e8, 0x2e57ec]
+opcodes = [0x385883a8, 0x370000a8, 0x52800020, 0x97fca6a5]
+inputs = []
+
+[[nodes]]
+id = "BRAM"
+classification = "STATIC-DETERMINED"
+operation = "W32"
+semantics = "MemoryBram(true): set bit31 of live status shadow, write full u32 to0x1008, return write status ignored by parent. Physical memory behavior remains unknown."
+pcs = [0x2e57ec, 0x2739a8]
+opcodes = [0x97fca6a5, 0x97fe8172]
+inputs = ["live status shadow via GOT0xb8de08"]
+
+[[nodes]]
+id = "CALIBRATION"
+classification = "UNKNOWN"
+operation = "SUBSYSTEM_BOUNDARY"
+semantics = "CDrvScope::GetCalibration then CCalibration::Init. This graph records parent continuation only; transitive calibration effects are not admitted."
+pcs = [0x2e57f8, 0x2e57fc, 0x2e5800]
+opcodes = [0x97fc6696, 0x97fc5141, 0x97fc7268]
+inputs = []
+
+[[nodes]]
+id = "ADC_MODE"
+classification = "UNKNOWN"
+operation = "CALL_PAIR"
+semantics = "If calibration returns, SetDataMode(0,4), SetDataMode(1,4); statuses ignored. Transitive operations require separate recovery."
+pcs = [0x2e581c, 0x2e5834]
+opcodes = [0x97fc8211, 0x97fc820b]
+inputs = []
+
+[[nodes]]
+id = "ALIGN"
+classification = "UNKNOWN"
+operation = "BOUNDED_CALL"
+semantics = "One iteration CalAdcCoreAlign(1,1,out), then usleep1000. Status and output are not branched on here; effects remain outside candidate."
+pcs = [0x2e5854, 0x2e5870, 0x2e5880, 0x2e5894]
+opcodes = [0x6b090108, 0x97fca5d4, 0x97fcd0f4, 0x17ffffee]
+inputs = []
+
+[[nodes]]
+id = "AFE_OFFSET"
+classification = "STATIC-DETERMINED"
+operation = "LOOP"
+semantics = "SetAfeOffset(channel,32768) for channel0..3 writes0x8000 to0x1418,0x141c,0x1420,0x1424; statuses ignored. Conditional on earlier unknown calls returning."
+pcs = [0x2e5898, 0x2e58b4, 0x2e58c4, 0x2e58d8]
+opcodes = [0x52900008, 0x54000148, 0x97fc85e3, 0x17fffff5]
+inputs = []
+
+[[nodes]]
+id = "SAMPLE_MASK"
+classification = "RUNTIME-SELECTED"
+operation = "SELECT"
+semantics = "GetDrvSetting(2)->GetSampleChanMask supplies runtime channel mask."
+pcs = [0x2e5908, 0x2e590c]
+opcodes = [0x97fcd8e6, 0x97fc9985]
+inputs = []
+
+[[nodes]]
+id = "ADC_RANGE"
+classification = "RUNTIME-SELECTED"
+operation = "W32"
+semantics = "chn2log(mask,bytes[1,1,1,1]) supplies selector; W1014=((live_shadow|1)&0xff0fffff)|((selector&15)<<20). Status ignored, no constant selector presumed."
+pcs = [0x2e5914, 0x27330c, 0x273330, 0x273340]
+opcodes = [0x97fc4923, 0x97fe604d, 0x330c0d4b, 0x97fe830c]
+inputs = ["chn2log output and shadow via GOT0xb8be90"]
+
+[[nodes]]
+id = "CHANNEL_SCALE"
+classification = "UNKNOWN"
+operation = "CALL"
+semantics = "DrvChannel_SetScale(0,100000000); status ignored; transitive effects not admitted."
+pcs = [0x2e5918, 0x2e591c, 0x2e5930]
+opcodes = [0x529c2008, 0x72a0bea8, 0x97fcb248]
+inputs = []
+
+[[nodes]]
+id = "SINC"
+classification = "UNKNOWN"
+operation = "CALL_PAIR"
+semantics = "SetSinc(1,1,2,200,1), then(1,1,3,200,1); statuses ignored; transitive effects not admitted."
+pcs = [0x2e595c, 0x2e597c]
+opcodes = [0x97fc4b01, 0x97fc4af9]
+inputs = []
+
+[[nodes]]
+id = "FAN"
+classification = "UNKNOWN"
+operation = "CALL"
+semantics = "DrvMonitor_SetFanSpeed(0,1.0); status ignored; transitive transport not admitted."
+pcs = [0x2e5980, 0x2e5990]
+opcodes = [0x1e6e1000, 0x97fc6b74]
+inputs = []
+
+[[nodes]]
+id = "SCOPE_START"
+classification = "UNKNOWN"
+operation = "SUBSYSTEM_BOUNDARY"
+semantics = "CDrvScope::Start(original bool) introduces larger application/thread lifecycle; effects not admitted."
+pcs = [0x2e599c, 0x2e59a4]
+opcodes = [0x3942c3e8, 0x97fce097]
+inputs = ["original Drv_Init bool"]
+
+[[nodes]]
+id = "AFE_ENABLE"
+classification = "UNKNOWN"
+operation = "LOOP"
+semantics = "DevInOutAFE_SetHzEnable(channel,true), channel0..3. Four calls, ignored statuses, transitive effects not admitted."
+pcs = [0x2e59bc, 0x2e59cc, 0x2e59e0]
+opcodes = [0x5400014c, 0x97fc886d, 0x17fffff5]
+inputs = []
+
+[[nodes]]
+id = "LA_DISABLE"
+classification = "RUNTIME-SELECTED"
+operation = "W32"
+semantics = "W4008=S1=S0&0xfbffffff; clear bit26 of live shared shadow. Status ignored."
+pcs = [0x2e59ec, 0x286828]
+opcodes = [0x97fc9ff9, 0x97fe219e]
+inputs = ["shared shadow via GOT0xb8d3a8"]
+
+[[nodes]]
+id = "PROC_LA_DISABLE"
+classification = "RUNTIME-SELECTED"
+operation = "W32"
+semantics = "W4008=S2=S1&0xfeffffff; clear bit24 of same live shadow. Status ignored."
+pcs = [0x2e59fc, 0x2865a0]
+opcodes = [0x97fca8b9, 0x97fe2240]
+inputs = ["shared shadow via GOT0xb8d3a8"]
+
+[[nodes]]
+id = "PROC_CH_ENABLE"
+classification = "RUNTIME-SELECTED"
+operation = "W32"
+semantics = "W4008=S3=S2|0x00800000; set bit23 of same live shadow. Status ignored. No intervening mutation presumed by formula chaining."
+pcs = [0x2e5a0c, 0x28660c]
+opcodes = [0x97fcae5d, 0x97fe2225]
+inputs = ["shared shadow via GOT0xb8d3a8"]
+
+[[nodes]]
+id = "RETURN"
+classification = "STATIC-DETERMINED"
+operation = "RETURN"
+semantics = "Normal Drv_Init return is always0 after all calls return; it is not evidence of hardware success."
+pcs = [0x2e5a28, 0x2e5a38]
+opcodes = [0x2a1f03e0, 0xd65f03c0]
+inputs = []
+
+[[nodes]]
+id = "STACK_FAILURE"
+classification = "UNKNOWN"
+operation = "TERMINATE"
+semantics = "Stack canary mismatch calls __stack_chk_fail. Function and helper stack checks are runtime exceptional edges, not modeled hardware outcomes."
+pcs = [0x2e5a20, 0x2e5a3c]
+opcodes = [0x540000e1, 0x97fc8795]
+inputs = []
+
+[[nodes]]
+id = "UPSTREAM"
+classification = "STATIC-DETERMINED"
+operation = "IGNORED_RETURN"
+semantics = "Factory Api_Init calls Drv_Init(false) and forces own result0. Low-power restore calls Drv_Init(true) and continues without inspecting result. Direct callers do not establish successful hardware initialization."
+pcs = [0x2392dc, 0x2392e0, 0x41be5c, 0x41be60]
+opcodes = [0x97ff72f5, 0x52800008, 0x97f7e815, 0xf94087e8]
+inputs = []
+
+[[edges]]
+from = "VERSION4"
+to = "VERSION0"
+condition = "operation returns normally"
+
+[[edges]]
+from = "VERSION0"
+to = "VERSION_PACK"
+condition = "operation returns normally"
+
+[[edges]]
+from = "VERSION_PACK"
+to = "VERSION_HW"
+condition = "operation returns normally"
+
+[[edges]]
+from = "VERSION_HW"
+to = "VERSION_LOG"
+condition = "operation returns normally"
+
+[[edges]]
+from = "VERSION_LOG"
+to = "DAC_TIME"
+condition = "operation returns normally"
+
+[[edges]]
+from = "DAC_TIME"
+to = "DDR_SELECT"
+condition = "operation returns normally"
+
+[[edges]]
+from = "DDR_SELECT"
+to = "TAP0"
+condition = "live config nonzero; helper mode=true"
+
+[[edges]]
+from = "DDR_SELECT"
+to = "SELF_READ"
+condition = "live config zero"
+
+[[edges]]
+from = "TAP0"
+to = "TAP1"
+condition = "operation returns normally"
+
+[[edges]]
+from = "TAP1"
+to = "TAP2"
+condition = "operation returns normally"
+
+[[edges]]
+from = "TAP2"
+to = "TAP3"
+condition = "operation returns normally"
+
+[[edges]]
+from = "TAP3"
+to = "TAP4"
+condition = "operation returns normally"
+
+[[edges]]
+from = "TAP4"
+to = "TAP_OUTPUT"
+condition = "operation returns normally"
+
+[[edges]]
+from = "TAP_OUTPUT"
+to = "MEM_RESET"
+condition = "operation returns normally"
+
+[[edges]]
+from = "MEM_RESET"
+to = "SELF_READ"
+condition = "operation returns normally"
+
+[[edges]]
+from = "SELF_READ"
+to = "SELF_PREDICATE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "SELF_PREDICATE"
+to = "CLOCK_READ"
+condition = "operation returns normally"
+
+[[edges]]
+from = "CLOCK_READ"
+to = "CLOCK_PREDICATE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "CLOCK_PREDICATE"
+to = "POLL_SELECT"
+condition = "operation returns normally"
+
+[[edges]]
+from = "POLL_SELECT"
+to = "CALIBRATION"
+condition = "completion bool true"
+
+[[edges]]
+from = "POLL_SELECT"
+to = "POLL_DELAY"
+condition = "completion false; remaining retries>0 (initially200)"
+
+[[edges]]
+from = "POLL_DELAY"
+to = "POLL_TEST"
+condition = "operation returns normally"
+
+[[edges]]
+from = "POLL_TEST"
+to = "POLL_SELECT"
+condition = "same SelfTest read pair completed; counter already decremented"
+
+[[edges]]
+from = "POLL_SELECT"
+to = "FALLBACK_SELECT"
+condition = "completion false; remaining retries=0"
+
+[[edges]]
+from = "FALLBACK_SELECT"
+to = "BRAM"
+condition = "completion remains false"
+
+[[edges]]
+from = "FALLBACK_SELECT"
+to = "CALIBRATION"
+condition = "completion bool true on final branch recheck"
+
+[[edges]]
+from = "BRAM"
+to = "CALIBRATION"
+condition = "operation returns normally"
+
+[[edges]]
+from = "CALIBRATION"
+to = "ADC_MODE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "ADC_MODE"
+to = "ALIGN"
+condition = "operation returns normally"
+
+[[edges]]
+from = "ALIGN"
+to = "AFE_OFFSET"
+condition = "operation returns normally"
+
+[[edges]]
+from = "AFE_OFFSET"
+to = "SAMPLE_MASK"
+condition = "operation returns normally"
+
+[[edges]]
+from = "SAMPLE_MASK"
+to = "ADC_RANGE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "ADC_RANGE"
+to = "CHANNEL_SCALE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "CHANNEL_SCALE"
+to = "SINC"
+condition = "operation returns normally"
+
+[[edges]]
+from = "SINC"
+to = "FAN"
+condition = "operation returns normally"
+
+[[edges]]
+from = "FAN"
+to = "SCOPE_START"
+condition = "operation returns normally"
+
+[[edges]]
+from = "SCOPE_START"
+to = "AFE_ENABLE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "AFE_ENABLE"
+to = "LA_DISABLE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "LA_DISABLE"
+to = "PROC_LA_DISABLE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "PROC_LA_DISABLE"
+to = "PROC_CH_ENABLE"
+condition = "operation returns normally"
+
+[[edges]]
+from = "PROC_CH_ENABLE"
+to = "RETURN"
+condition = "callee returns; stack canary matches"
+
+[[edges]]
+from = "PROC_CH_ENABLE"
+to = "STACK_FAILURE"
+condition = "stack canary differs"
+
+[[edges]]
+from = "RETURN"
+to = "UPSTREAM"
+condition = "operation returns normally"
+
+[[accesses]]
+id = "version4"
+node = "VERSION4"
+direction = "READ"
+offset = 0x4
+width = 4
+expression = "R4"
+condition = "always at entry"
+call_pc = 0x285300
+call_opcode = 0x97fe2ab4
+
+[[accesses]]
+id = "version0"
+node = "VERSION0"
+direction = "READ"
+offset = 0x0
+width = 4
+expression = "R0"
+condition = "version4 returned"
+call_pc = 0x285310
+call_opcode = 0x97fe2ab0
+
+[[accesses]]
+id = "hardware_version"
+node = "VERSION_HW"
+direction = "READ"
+offset = 0x401c
+width = 4
+expression = "R401c"
+condition = "packed version stored"
+call_pc = 0x285394
+call_opcode = 0x97fe2a8f
+
+[[accesses]]
+id = "dac_time"
+node = "DAC_TIME"
+direction = "WRITE"
+offset = 0x1428
+width = 4
+expression = "(live_dac&0xffff0000)|0x646e"
+condition = "version calls/logging returned"
+call_pc = 0x27dd88
+call_opcode = 0x97fe587a
+
+[[accesses]]
+id = "tap0"
+node = "TAP0"
+direction = "READ"
+offset = 0x14a0
+width = 4
+expression = "R14a0&0x3f -> out1:u32"
+condition = "config!=0; mode=true"
+call_pc = 0x27d4cc
+call_opcode = 0x97fe693d
+
+[[accesses]]
+id = "tap1"
+node = "TAP1"
+direction = "READ"
+offset = 0x14a4
+width = 4
+expression = "R14a4&0xfff -> out3:u64"
+condition = "config!=0; mode=true"
+call_pc = 0x27d5a0
+call_opcode = 0x97fe6908
+
+[[accesses]]
+id = "tap2"
+node = "TAP2"
+direction = "READ"
+offset = 0x1498
+width = 4
+expression = "R1498&0xfff -> out2:u64"
+condition = "config!=0; mode=true"
+call_pc = 0x27d678
+call_opcode = 0x97fe68d2
+
+[[accesses]]
+id = "tap3"
+node = "TAP3"
+direction = "READ"
+offset = 0x14ac
+width = 4
+expression = "R14ac&0xfff -> out4:u64"
+condition = "config!=0; mode=true"
+call_pc = 0x27d750
+call_opcode = 0x97fe689c
+
+[[accesses]]
+id = "tap4"
+node = "TAP4"
+direction = "READ"
+offset = 0x14b4
+width = 4
+expression = "R14b4&0x3ff -> out5:u64"
+condition = "config!=0; mode=true"
+call_pc = 0x27d828
+call_opcode = 0x97fe6866
+
+[[accesses]]
+id = "mem_reset"
+node = "MEM_RESET"
+direction = "WRITE"
+offset = 0x1000
+width = 4
+expression = "live_ctrl&0xfffffff3"
+condition = "config!=0; tap helper returned"
+call_pc = 0x277d8c
+call_opcode = 0x97fe7079
+
+[[accesses]]
+id = "self_status"
+node = "SELF_READ"
+direction = "READ"
+offset = 0x1008
+width = 4
+expression = "(R1008>>29)&1 -> completion"
+condition = "initial and each repeated SelfTest"
+call_pc = 0x2735c0
+call_opcode = 0x97fe9100
+
+[[accesses]]
+id = "self_clock"
+node = "CLOCK_READ"
+direction = "READ"
+offset = 0x1210
+width = 4
+expression = "u32_to_float(R1210) -> clock predicate; logged only"
+condition = "every SelfTest after self_status"
+call_pc = 0x2734c8
+call_opcode = 0x97fe913e
+
+[[accesses]]
+id = "bram"
+node = "BRAM"
+direction = "WRITE"
+offset = 0x1008
+width = 4
+expression = "(post_last_selftest_object&0x7fffffff)|0x80000000"
+condition = "201st SelfTest still incomplete"
+call_pc = 0x2739a8
+call_opcode = 0x97fe8172
+
+[[accesses]]
+id = "afe0"
+node = "AFE_OFFSET"
+direction = "WRITE"
+offset = 0x1418
+width = 4
+expression = "0x8000"
+condition = "earlier UNKNOWN calls return; channel0"
+call_pc = 0x27ddfc
+call_opcode = 0x97fe585d
+
+[[accesses]]
+id = "afe1"
+node = "AFE_OFFSET"
+direction = "WRITE"
+offset = 0x141c
+width = 4
+expression = "0x8000"
+condition = "earlier UNKNOWN calls return; channel1"
+call_pc = 0x27de10
+call_opcode = 0x97fe5858
+
+[[accesses]]
+id = "afe2"
+node = "AFE_OFFSET"
+direction = "WRITE"
+offset = 0x1420
+width = 4
+expression = "0x8000"
+condition = "earlier UNKNOWN calls return; channel2"
+call_pc = 0x27de24
+call_opcode = 0x97fe5853
+
+[[accesses]]
+id = "afe3"
+node = "AFE_OFFSET"
+direction = "WRITE"
+offset = 0x1424
+width = 4
+expression = "0x8000"
+condition = "earlier UNKNOWN calls return; channel3"
+call_pc = 0x27de38
+call_opcode = 0x97fe584e
+
+[[accesses]]
+id = "adc_range"
+node = "ADC_RANGE"
+direction = "WRITE"
+offset = 0x1014
+width = 4
+expression = "((live_shadow|1)&0xff0fffff)|((selector&15)<<20)"
+condition = "earlier UNKNOWN calls and chn2log return"
+call_pc = 0x273340
+call_opcode = 0x97fe830c
+
+[[accesses]]
+id = "la_disable"
+node = "LA_DISABLE"
+direction = "WRITE"
+offset = 0x4008
+width = 4
+expression = "live_scu&0xfbffffff"
+condition = "earlier UNKNOWN calls return"
+call_pc = 0x286828
+call_opcode = 0x97fe219e
+
+[[accesses]]
+id = "proc_la_disable"
+node = "PROC_LA_DISABLE"
+direction = "WRITE"
+offset = 0x4008
+width = 4
+expression = "live_scu&0xfeffffff"
+condition = "LA disable returned"
+call_pc = 0x2865a0
+call_opcode = 0x97fe2240
+
+[[accesses]]
+id = "proc_ch_enable"
+node = "PROC_CH_ENABLE"
+direction = "WRITE"
+offset = 0x4008
+width = 4
+expression = "live_scu|0x00800000"
+condition = "processor LA disable returned"
+call_pc = 0x28660c
+call_opcode = 0x97fe2225
+
+[clock_predicate]
+nominal_bits = 0x47742400
+tolerance_bits = 0x38d1b717
+strict = true
+first_accepted_u32 = 62494
+last_accepted_u32 = 62506
+controls_parent_retry = false
+
+[[poll_projections]]
+name = "first_ready"
+ready_at = 1
+read_pairs = 1
+sleep_requests = 0
+fallback_write = false
+observed = false
+
+[[poll_projections]]
+name = "second_ready"
+ready_at = 2
+read_pairs = 2
+sleep_requests = 1
+fallback_write = false
+observed = false
+
+[[poll_projections]]
+name = "last_ready"
+ready_at = 201
+read_pairs = 201
+sleep_requests = 200
+fallback_write = false
+observed = false
+
+[[poll_projections]]
+name = "never_ready"
+ready_at = 0
+read_pairs = 201
+sleep_requests = 200
+fallback_write = true
+observed = false

@@ -1,0 +1,229 @@
+schema_version = "mho900-lab.init-tail-static-results/1"
+task = "TASK.hardware.init-tail-grammar"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+grammar_sha256 = "54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b"
+conclusion = "version-dac-ddr-selftest-grammar-recovered-with-explicit-calibration-boundary"
+identical_final_derivations = ["out/init-tail/derived-02", "out/init-tail/derived-03"]
+code_ranges = 22
+relocation_bindings = 32
+operation_nodes = 40
+conditional_edges = 43
+known_access_records = 21
+pre_calibration_access_records = 13
+post_calibration_conditional_access_records = 8
+parent_flow_recovered_through_return = true
+full_transitive_recovery_claimed = false
+independent_structural_verification = true
+independent_manual_semantic_review = true
+damaged_grammars_rejected = 4
+new_device_abi = false
+guest_run = false
+new_device_response_implemented = false
+stock_modified = false
+fpga_semantics_established = false
+
+[self_test]
+read_offsets = [0x1008, 0x1210]
+completion_source_bit = 29
+completion_source_offset = 0x1008
+clock_controls_completion = false
+clock_accepted_integer_min = 62494
+clock_accepted_integer_max = 62506
+max_invocations = 201
+max_read_attempts = 402
+max_sleep_requests = 200
+sleep_request_us = 50000
+fallback_offset = 0x1008
+fallback_set_bit = 31
+normal_parent_return = 0
+normal_parent_return_proves_initialization = false
+
+[boundary]
+next_subsystem = "CCalibration::Init"
+parent_pc_before_scope_lookup = 0x2e57f8
+parent_pc_call = 0x2e5800
+observation_choice = "region-scale mapped responses with native state checkpoints; exact batch requires decision task"
+
+[[artifacts]]
+path = "tools/research/RecoverInitTail.main.kts"
+sha256 = "8797503c9016918be638bf41e4cb7942bf499f984d68101da1b58d75fa8e952a"
+
+[[artifacts]]
+path = "tools/research/VerifyInitTail.main.kts"
+sha256 = "ce2c841f79ed7fb1f3cf94989cd7a48e7278d34de0bc5eb9b69deebdfb5fb7cf"
+
+[[artifacts]]
+path = "tools/research/CheckInitTailVerifier.main.kts"
+sha256 = "7bd11c1198c6469fc2a0ec477644bd1168d35a0072ffd2efcbf1a8ab00ab8f7c"
+
+[[artifacts]]
+path = "experiments/init-tail/grammar.toml"
+sha256 = "54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b"
+
+[[artifacts]]
+path = "docs/research/initialization-tail-grammar.md"
+sha256 = "03d75a9ea296b8be1ff23eb5459c5b848bc28bd7953c793e88f209ab140d9ece"
+
+[[artifacts]]
+path = "experiments/xdma-boundary/reference.toml"
+sha256 = "6bac7755279de52f0c6acab8564b46f723238548fc2326251cdaa70e2e6e5ba5"
+
+[[artifacts]]
+path = "out/init-tail/derive-01.toml"
+sha256 = "8c51a76ebf6b7bface6f4638f23658e15f2c7789b478d26ee4e82495934fe6a8"
+
+[[artifacts]]
+path = "out/init-tail/derived-01/grammar.toml"
+sha256 = "16bee47d9a4c4e1874f5edef9465508fc62d6d61184d480abc7561189278c402"
+
+[[artifacts]]
+path = "out/init-tail/derive-02.toml"
+sha256 = "b26ea1b88cbe3d2669259182f580f1ae88ce406a2201affd87c7f65cd3c309e9"
+
+[[artifacts]]
+path = "out/init-tail/derive-03.toml"
+sha256 = "b26ea1b88cbe3d2669259182f580f1ae88ce406a2201affd87c7f65cd3c309e9"
+
+[[artifacts]]
+path = "out/init-tail/derived-02/grammar.toml"
+sha256 = "54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b"
+
+[[artifacts]]
+path = "out/init-tail/derived-03/grammar.toml"
+sha256 = "54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b"
+
+[[artifacts]]
+path = "out/init-tail/final-verification-01.toml"
+sha256 = "c8fcee53ef4170e4db2c3e2e8e1cb562ec93edd44a86c8c229b325b6fd3ad6c5"
+
+[[artifacts]]
+path = "out/init-tail/final-verification-01.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/ddr-static-review-01.md"
+sha256 = "04318be5c18ef6bf71835c0d0c5493adb2bea6f8460ab609563ed836f5bd2f52"
+
+[[artifacts]]
+path = "out/init-tail/ddr-static-review-01.toml"
+sha256 = "3878f305bbfe6bf6b0c50d7c5982a474af82012212c6eb55972c7513da5de2c4"
+
+[[artifacts]]
+path = "out/init-tail/post-ddr-review-01.md"
+sha256 = "cc656f605fdad06659c30089759495816f84b79c1253c27e742cf859fc3d7574"
+
+[[artifacts]]
+path = "out/init-tail/post-ddr-review-01.toml"
+sha256 = "69c4c0d371ca37f9a3f93d61a73765f5291c29245bf2bb542605320e02d670c3"
+
+[[artifacts]]
+path = "out/init-tail/semantic-audit-01.md"
+sha256 = "8c92526ad1caec278e36ed1a5eca61f56ab757c64db90f1a53eb5da282d6af10"
+
+[[artifacts]]
+path = "out/init-tail/verifier-review-01.md"
+sha256 = "736f9a06e3d12db56d1d61f8435e7cae6828ce58f168f9a2bb4898f51c2f04f1"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/accepted.command"
+sha256 = "ee5f599e42af839843cb62e8b7206ef3f00316873ff6ac5c1485faf930d76027"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/accepted.exit"
+sha256 = "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/accepted.grammar.toml"
+sha256 = "54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/accepted.stderr"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/accepted.stdout"
+sha256 = "c8fcee53ef4170e4db2c3e2e8e1cb562ec93edd44a86c8c229b325b6fd3ad6c5"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-access-opcode.command"
+sha256 = "206c88e11e3ee6b35b9ed76df8e82f005e4f29516cf6bdeccf67817fcb2d5ec2"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-access-opcode.exit"
+sha256 = "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-access-opcode.grammar.toml"
+sha256 = "6d326fa188a30457b0562af637891d16f3ecc5055cef3b1082397293c025940f"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-access-opcode.stderr"
+sha256 = "f14bfaaaf653de4189866bfbcd293903cbedf2b0aaf097bd4f0fa1011a7a888d"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-access-opcode.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-retry-bound.command"
+sha256 = "f8ba0eaea0b99b84b1cf77f3d820350cb298bcc7599ca1266657f69e109b5a41"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-retry-bound.exit"
+sha256 = "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-retry-bound.grammar.toml"
+sha256 = "36201939c2375d47f8fa0f47a3a449ba01467ff17b5286d9a08687a96dd89dc8"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-retry-bound.stderr"
+sha256 = "c18ece4ebaa226cbbbae3f50228daa1044a0350913fb9529e82442ce33eabf2d"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/bad-retry-bound.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/flattened-fallback.command"
+sha256 = "3cdc3cfdefb59e8ad21e7bc5e11b15208f553cca88f6830ae8de5c150f66710e"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/flattened-fallback.exit"
+sha256 = "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/flattened-fallback.grammar.toml"
+sha256 = "60a84f362e11296920d454e1a82b43d768ebc14a9387a3a04dcea4bc9941faa5"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/flattened-fallback.stderr"
+sha256 = "14dea92275b7e02d4922ac48046119b8c6a518d44822c9375bc169aaee5467b3"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/flattened-fallback.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/missing-r1210.command"
+sha256 = "f5414a01df93684161b2891d8c00728cefad61e58b413fd5c735dfbb253c1adc"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/missing-r1210.exit"
+sha256 = "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/missing-r1210.grammar.toml"
+sha256 = "7729f954d5e270190e3d9d25267472d36dd3f91d106d18ae1158923ac36de75c"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/missing-r1210.stderr"
+sha256 = "001108d24bb698f9d2c62d4e094b3421ea21a3830a6b5e1febd41ac10be961e4"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/missing-r1210.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/init-tail/verifier-tests-02/results.toml"
+sha256 = "74be061e3fa4c2a3f1525510dcca895384ef3f1d309a316d4b4fb17b35dd8646"
