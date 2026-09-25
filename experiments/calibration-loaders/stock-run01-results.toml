@@ -1,0 +1,72 @@
+schema_version = "mho900-lab.calibration-stock-result/1"
+run_id = "stock-calibration-loaders-01"
+result = "pre-admission-harness-abort"
+runner_exit = 255
+frozen_verifier_exit = 3
+boot_completed_property = true
+last_collected_file = "getprop.txt"
+next_missing_file = "guest-kernel.txt"
+suspected_failed_command = "adb shell getprop"
+exact_command_status_captured = false
+transport_cause = "unknown"
+fixture_setup_observed = false
+stock_launch_observed = false
+loader_prediction_tested = false
+native_observer_started = false
+final_guest_health_available = false
+runner_result_available = false
+runner_index_available = false
+post_run_preservation_index = true
+dedicated_listeners_absent_at_review = true
+disposable_emulator_absent_at_review = true
+stock_artifact_hashes_preserved = true
+adaptive_retry_performed = false
+continuation = "repair-and-control-runner-finalization-before-same-candidate"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-inputs.toml"
+sha256 = "39e42e6de4a957b422af467c02315f622a024dd47b75ecc3528149a7d083cb3c"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-host-controls.toml"
+sha256 = "0b59a27eab4c47fd5e1cf8ac062183b25cbce83746375a3ba0f73ffb060b0f2a"
+
+[[artifacts]]
+path = "docs/research/calibration-stock-loader-run01.md"
+sha256 = "9ee1cfe0aaee4e3d0412a17fa09f8625082f5029cc2ce74758ae2374acb85adc"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01.stdout"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01.stderr"
+sha256 = "c881b93e5e6a651561a45563f1937db1d90a20a935becff14ed5a6d092a67142"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-verification.toml"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-verification.stderr"
+sha256 = "5bdac9afb1dcaaddf37cace0338795339bbaec74cfb4adf11f42b33c4e4ffb4c"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-partial-review.md"
+sha256 = "f8f0532031138213cc576c2b9a896cbc7eb9e2d7af626e27752d16ab4aaa852f"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-partial-review.toml"
+sha256 = "3747632f8f72dcc1baae3a6d629371718d5369a8c60849bf19a2a2bf0d8b7e87"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-preservation/evidence-sha256.txt"
+sha256 = "03a156d4e1c1c70dd85321f0c4875232e6e0f944ddfbaf6092541d11c87298ce"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-preservation/stock-hashes.txt"
+sha256 = "68a955e13a86ec088ac0e646efa61074d0ea4db31d5847bed2c877953e58a9e8"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run01-preservation/ports.toml"
+sha256 = "4d03e1f1cc5006af35e37e39ad63f50753a117ddbe09935148cecaee72f6e549"
