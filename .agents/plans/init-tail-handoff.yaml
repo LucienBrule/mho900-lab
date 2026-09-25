@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.init-tail-handoff-control
+    title: Validate direct checkpoint arming from the inherited disabled slot
+    state: open
+    intent: Remove the falsified redundant clear while retaining the fixed version and DDR consumer hypothesis.
+    requires: [TASK.guest.init-tail-control]
+    requirements:
+      - Preserve group-init-tail-01 and its executable; implement only docs/research/init-tail-handoff-decision.md and verification corrections with the hardware candidate unchanged.
+      - Require exact inherited address0 control1e5 info606 empty unused slots then direct SET24 and GET264 target control1e4 with full register invariance; retain established post-checkpoint clear and rearm.
+      - Run one fresh disposable private suite for controls59..74 plus occupied-inherited-slot control75 and all prior regressions and malformed inputs with the same pinned executable.
+      - Independently verify ordered accesses live guards outputs checkpoint delivery atomic progress old-site revisit negative witnesses and exact thread cleanup; preserve any unexpected outcome without adapting it.
+      - Preserve stock inputs enforcement system_server and host state; stock application remains absent and no new hardware behavior is introduced.
+    acceptance: [Commit and push the positive or negative conclusion before another experiment.]
+    verification: [implementation, controls, rejection, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.init-tail-handoff-decision
+    title: Evaluate the handoff controls and gate the waiting stock region
+    state: open
+    intent: Release the stock test only after a complete private pass or admit a bounded successor for the observed failure.
+    requires: [TASK.guest.init-tail-handoff-control]
+    requirements:
+      - Evaluate raw private evidence and separate confirmed guest behavior from reference-kernel explanations and synthetic instrument values.
+      - Require a complete private pass and identical executable before the waiting stock-init-tail task; negative results keep stock gated.
+      - Commit a precise gate record or explicit bounded successor while retaining static-first subsystem recovery and selective runtime falsification.
+    acceptance: [Commit and push the decision before successor execution.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

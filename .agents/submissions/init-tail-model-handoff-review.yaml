@@ -1,0 +1,17 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.hardware.init-tail-model-decision
+reviewed_head: sha256:6fc25f2ec8739874275eb1cdd8ec90b76738ef7e04db804895ce51367ea60a45
+observations:
+  - upstream: TASK.hardware.stock-init-tail
+    contract: sha256:5cd102e093ca84cc485d376f9345ecf4d4e967f3eb8135722ca1b15d0e64763f
+    revision: sha256:87209dc1fb8ccb5320fa40dc94a3d35de50bad52392cd522cde62455ec612e66
+    inputs: sha256:2a85e271a96a1c892aea37fd4ebc85f96689161b51f662f60b127a32136f0dc0
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-09-25T10:34:00+00:00"
+rationale: The future hardware evaluation still depends on actual stock evidence. Its upstream now includes the explicit observer handoff gate. Hardware semantics and the ten-read two-write candidate are unchanged; no model decision outcome is asserted.
+evidence:
+  evaluation: Reviewed the unchanged pending evaluation obligations against the revised stock contract and preserved private negative.
+  continuation: Static calibration recovery or a bounded response to a stock divergence remains pending behind the observer gate and actual stock result.
+successor: null

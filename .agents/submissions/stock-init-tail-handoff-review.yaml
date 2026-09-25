@@ -1,0 +1,23 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.hardware.stock-init-tail
+reviewed_head: sha256:23323364fca66feccf45b99c225766be7d51934a1264d2afa96608c21cc04e06
+observations:
+  - upstream: TASK.guest.init-tail-control
+    contract: sha256:729c668351c9f04e46f3dfb4750697dadc50a8e60bfced56adebfee207779dd5
+    revision: sha256:2840b2e169a2e7745a2575faed2e45527aaec52f662dfd30f4cbc86140078391
+    inputs: sha256:974056e4650aa6319570967ed55b56fb9143533c62b95160f02773fae1ab1cd0
+  - upstream: TASK.guest.init-tail-handoff-decision
+    contract: sha256:9b45a5f47d250e7e20c06cac1fdb6228daf54cab423b1555d45544f9b27a0e2b
+    revision: sha256:1e9331f9c80f9f0ca093032a1521750529e7182b5cfd7cb666de8389284dda93
+    inputs: sha256:f62c66ef3020a74bb205ae0740647ce7565189f1c0951a5a6b6e12d845a4374c
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-09-25T10:34:00+00:00"
+rationale: The open stock contract now explicitly waits for the handoff decision. The initial private negative does not authorize stock execution. This review establishes semantic currency only and asserts no stock outcome.
+evidence:
+  inputs: The revised prerequisite requires the identical executable from a future complete private pass; stock artifacts and candidate remain fixed.
+  sequence: The ten-read two-write three-checkpoint hypothesis is unchanged; the new gate addresses observer setup only.
+  state: Version tap completion and calibration-boundary capture obligations remain pending until actual stock execution.
+  preservation: Existing stock preservation and cleanup obligations remain unchanged; no guest execution accompanies this review.
+successor: null
