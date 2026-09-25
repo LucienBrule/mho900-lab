@@ -1,0 +1,50 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-loader-isolated-controls
+    title: Validate whole-loader capture independently of guest filesystem preparation
+    state: open
+    intent: Run the unchanged private loader observer without the unrelated stock-file fixture prerequisite.
+    requires: [TASK.guest.calibration-loader-admission-gate]
+    requirements:
+      - Carry forward the complete run02 legacy pass for the byte-identical build11 observer; pin exact observer ADC and SPU inputs candidate controls and independent verifier before execution.
+      - Prepare a minimal private-control guest harness for arms76..89 with no stock application and no rigol filesystem fixture; preserve exact inherited native transport and add no modeled response.
+      - Capture final PID enforcement process package and command-status evidence on helper success or failure before teardown; missing or failed health checks must remain explicit failures.
+      - Run one bounded fresh private suite and independently verify complete buffers post-atomic checkpoints signed statuses debug rotation actual worker rejection convergence and cleanup; test verification with isolated altered evidence and regenerated indexes.
+      - Preserve all raw outcomes and stop on divergence without changing native behavior; commit and push the conclusion before another guest experiment.
+    acceptance: [Commit and push complete loader-control evidence or a precise no-go finding.]
+    verification: [inputs, controls, evidence, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-filesystem-fixture
+    title: Resolve the guest rootfs precondition and validate exact stock-file installation
+    state: open
+    intent: Test a statically justified filesystem setup separately from observer controls.
+    requires: [TASK.guest.calibration-loader-admission-gate]
+    requirements:
+      - Inspect pinned guest init and mount-tool evidence before selecting a fixture setup form; distinguish boot configuration from current mount flags and preserve the failed run02 command.
+      - Freeze one bounded candidate with live mount inventory and explicit branches for already-writable versus read-only root; if a remount form is justified use only that predeclared guest-scoped form and stop on failure without retrying alternatives.
+      - Install only the two byte-identical stock default assets at logical paths when preconditions pass; preserve absent primary and ADC paths and verify complete roundtrip hashes permissions and mount state.
+      - Capture before and final PID enforcement process package and command-status evidence regardless of setup outcome; keep host policy and official artifacts unchanged and execute no stock application.
+      - Preserve the exact executed subset and limitations including unobserved stock UID access; commit and push the result before another guest experiment.
+    acceptance: [Commit and push an explicit filesystem-fixture result with reproducible evidence.]
+    verification: [provenance, precondition, fixture, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-loader-ready-gate
+    title: Combine independent capture and filesystem results for the next stock decision
+    state: open
+    intent: Require both observation fidelity and a reproducible filesystem fixture before stock validation.
+    requires: [TASK.guest.calibration-loader-isolated-controls, TASK.guest.calibration-filesystem-fixture]
+    requirements:
+      - Evaluate both independent results and their full health evidence; do not promote an unexecuted case or missing final sample into success.
+      - If both are supported freeze and admit a bounded stock first-three-loader experiment and evaluation; otherwise admit only the specific unresolved observer or filesystem question.
+      - Draft plan inspect admit and commit successor tasking before execution while preserving byte-identical stock artifacts and the no-physical-instrument boundary.
+    acceptance: [Commit and push a supported decision and any bounded successor.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
