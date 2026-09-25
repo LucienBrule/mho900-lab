@@ -245,7 +245,7 @@ for(arm in arms) {
     var unsupported:E?=null; var unsupportedRegs:R?=null
     var remainingMode=false; var remainingBinding=0; var remainingLiteral=0; var remainingInitial=false
     var remainingWrite=0; var remainingCheckpoint=0
-    var negativeClearWitness=false; var debugCycleComplete=false; var debugPhase=0; var debugInfo=0uL; var debugTarget=0uL; var checkpointBefore:R?=null; var pendingDebugRegisters:String?=null; var remainingStoppingTid:ULong?=null; var lastWriteRegs:R?=null
+    var remainingDeadlineSeen=false; var negativeClearWitness=false; var debugCycleComplete=false; var debugPhase=0; var debugInfo=0uL; var debugTarget=0uL; var checkpointBefore:R?=null; var pendingDebugRegisters:String?=null; var remainingStoppingTid:ULong?=null; var lastWriteRegs:R?=null
     val remainingOffsets=listOf(0x4004uL,0x4004uL,0x7034uL,0x7034uL)
     val remainingValues=listOf(0x80000000uL,0uL,1uL,0uL)
     val stockCheckpointPc=listOf(0x2955b8uL,0x2955bcuL,0x2728e0uL,0x2ad0b8uL,0x2ad574uL,0x2ad578uL,0x2acfc8uL,0x2ad120uL,0x2ad6ecuL,0x2728ecuL)
@@ -261,6 +261,7 @@ for(arm in arms) {
         when(e.kind) {
             "remaining-mode"->{
                 require(!remainingMode && writes==0 && e.u("checkpoint_count")==10uL && e.u("write_count")==4uL && e.u("binding_count")==12uL && e.u("deadline_ms")==10000uL)
+                if(!clearNegative) require(e.s("debug_profile")=="phase-specific-clear-v1")
                 remainingMode=true
             }
             "remaining-binding"->{
@@ -299,12 +300,12 @@ for(arm in arms) {
                 require(pendingDebugRegisters!=null && !debugCycleComplete)
                 val expectedPhase=mapOf("remaining-debug-before" to 0,"remaining-debug-clear-request" to 1,"remaining-debug-clear-after" to 3,"remaining-debug-arm-request" to 4,"remaining-debug-arm-after" to 6).getValue(e.kind)
                 require(debugPhase==expectedPhase && e.u("result")==0uL && e.u("size")==if(e.kind.endsWith("request")) 24uL else 264uL)
-                if(e.kind=="remaining-debug-before") { debugInfo=e.u("info"); require(debugInfo and 255uL!=0uL) }
+                if(e.kind=="remaining-debug-before") { debugInfo=e.u("info"); require(debugInfo==0x0606uL) }
                 else require(e.u("info")==debugInfo)
                 for(i in 1..15) { val n=i.toString().padStart(2,'0'); require(e.u("a$n")==0uL && e.u("c$n")==0uL) }
                 val a0=e.u("a00"); val c0=e.u("c00")
                 if(e.kind=="remaining-debug-before") { val previous=if(remainingCheckpoint==0) 0uL else if(stock) base+stockCheckpointPc[remainingCheckpoint-1] else privateCheckpointPc[remainingCheckpoint-1]; require(a0==previous && c0==if(previous==0uL) 0uL else 0x1e4uL) }
-                if(e.kind.contains("clear")) { val expectedControl=if(clearNegative && e.kind=="remaining-debug-clear-after") 0x1e4uL else 0uL; require(a0==0uL && c0==expectedControl); if(clearNegative && e.kind=="remaining-debug-clear-after") negativeClearWitness=true }
+                if(e.kind.contains("clear")) { val expectedControl=if(e.kind=="remaining-debug-clear-after") (if(clearNegative || remainingCheckpoint==0) 0x1e4uL else 0x1e5uL) else 0uL; require(a0==0uL && c0==expectedControl); if(clearNegative && e.kind=="remaining-debug-clear-after") negativeClearWitness=true }
                 if(e.kind.contains("arm")) require(a0==debugTarget && c0==if(e.kind.endsWith("request")) 0x1e5uL else 0x1e4uL)
                 debugPhase=expectedPhase+1
             }
@@ -347,10 +348,10 @@ for(arm in arms) {
             }
             "remaining-debug-registers"->{ val after=regs(e); val before=requireNotNull(checkpointBefore); require(pendingDebugRegisters=="checkpoint" && (remainingCheckpoint==10 || debugCycleComplete) && debugPhase== (if(remainingCheckpoint==10) 4 else 0) && after==before); debugPhase=0; debugCycleComplete=false; checkpointBefore=null; pendingDebugRegisters=null }
             "remaining-initial-debug-registers"->{ require(pendingDebugRegisters=="initial" && debugCycleComplete && debugPhase==0 && regs(e)==requireNotNull(lastWriteRegs)); debugCycleComplete=false; pendingDebugRegisters=null }
-            "remaining-deadline"->{ require(!stock && arm==52 && e.u("checkpoint")==0uL && e.u("remaining_writes")==2uL && e.u("stopping_tid")==0uL); rejected=true; remainingStoppingTid=0uL }
+            "remaining-deadline"->{ require(!remainingDeadlineSeen && !stock && arm==52 && e.u("checkpoint")==0uL && e.u("remaining_writes")==2uL && e.u("stopping_tid")==0uL); remainingDeadlineSeen=true; rejected=true; remainingStoppingTid=0uL }
             "remaining-rejected"->{
                 require(e.u("tid") in tracked && e.u("checkpoint")==remainingCheckpoint.toULong())
-                val expectedReason=if(clearNegative) "debug-initial" else when(arm) { 41,42,43,44,54,58->"checkpoint-state"; else->e.s("reason") }
+                val expectedReason=if(clearNegative) "debug-initial" else when(arm) { 41,42,43,44,54,58->"checkpoint-state"; else->if(stock) e.s("reason") else error("Unexpected remaining rejection for arm $arm") }
                 require(e.s("reason")==expectedReason)
                 if(clearNegative) { require(negativeClearWitness && debugPhase==4 && pendingDebugRegisters=="initial" && remainingCheckpoint==0 && remainingWrite==2 && e.u("actual")==0uL && e.u("expected")==1uL); pendingDebugRegisters=null; debugPhase=0 }
                 if(expectedReason=="checkpoint-state") { val r=requireNotNull(checkpointBefore); require(e.u("actual")==r.x[0] && e.u("expected")==0uL) }
@@ -623,6 +624,7 @@ for(arm in arms) {
             else->error("Unsupported runtime evidence: ${e.kind}")
         }
     }
+    require(remainingDeadlineSeen==(!stock && arm==52))
     require(quiescing && debugPhase==0 && !debugCycleComplete && pendingDebugRegisters==null && pendingUnknown==null && fd!=null && mapBase>0uL && count==if(positive) 2 else 1)
     inventory("terminal",terminalTid)
     val terminal=take("terminal-state"); require(terminal.u("object")==obj && terminal.u("value")==0x0123456789abcdefuL)
@@ -733,6 +735,7 @@ if(args.size==1 || stock) {
             val rejection=events("spu-invalid-$name.toml")
             require(rejection.size==3 && rejection.map { it.kind }==listOf("transcript-input","transcript-input-accepted","spu-input-rejected"))
         }
+        require(hash(run.resolve("remaining-rearm-profile.toml"))=="3481d6991f6fa000fb2dbce292e17ceca5b2c2cd039cd44c4037548c29c7ba4e")
         require(Files.exists(run.resolve("remaining-control-fixture.toml")) && Files.exists(run.resolve("remaining-grammar.toml")))
         require(text("remaining-packages.txt").isBlank())
         for(name in listOf("remaining-processes-before.txt","remaining-processes-after.txt")) require(listOf("Sparrow","frida","group-observer").none { it in text(name) })

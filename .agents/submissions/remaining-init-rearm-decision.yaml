@@ -1,0 +1,19 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.remaining-init-rearm-decision
+contract: sha256:7029213b90023fb56568f6eab5cb6fd3488c6902a66b566c55891943e8d1bc17
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T09:40:17Z"
+evidence:
+  evaluation: >-
+    experiments/remaining-init/stock-gate.toml SHA-256 13119de46c78d7b15770177de5acbc368be066bd03b303369d7bdb5a62efd4a6
+    records the gate decision. The complete controls establish actual ten-checkpoint delivery, atomic progress,
+    old-site revisit, successful-open stopping and deadline cleanup under the predicted cached readbacks.
+    This supports combined observer rotation in this guest, not a claim that the reference is exact guest
+    source or that cached enable bits continuously reveal physical state. The earlier negative remains preserved.
+  continuation: >-
+    Execute waiting TASK.hardware.stock-remaining-init only with binary8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d
+    and the unchanged APK/library. Retain460 prior stores and permit only4 SCU/LA stores,10 exact native
+    checkpoints and2 existing DNA responses. Do not create device nodes or results to force the predicted
+    transport branch. Stop on any divergence or the uncompleted R4. Stock outcome remains unknown.
+    Commit and push the control result and this decision before that run.

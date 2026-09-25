@@ -22,6 +22,7 @@ adb shell pm path com.rigol.scope > "$run/remaining-packages.txt" 2>&1 || true
 adb shell ps > "$run/remaining-processes-before.txt"
 ! rg -q 'Sparrow|frida|group-observer' "$run/remaining-processes-before.txt"
 cp "$repo/experiments/remaining-init/controls.toml" "$run/remaining-control-fixture.toml"
+cp "$repo/experiments/remaining-init/rearm-profile.toml" "$run/remaining-rearm-profile.toml"
 cp "$repo/experiments/remaining-init/grammar.toml" "$run/remaining-grammar.toml"
 
 outcome=0

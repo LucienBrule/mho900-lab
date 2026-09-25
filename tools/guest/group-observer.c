@@ -393,12 +393,12 @@ static U gm_ri_private_target(unsigned i) {
 }
 static int gm_ri_debug(U tid,int next) {
     struct NpsDebugState before={0}; struct Iov io={&before,sizeof(before)}; S rc=pt(0x4204,tid,0x402,(U)&io); nps_debug_dump("remaining-debug-before",rc,&io,&before);
-    if(rc<0||io.size!=sizeof(before)||!(before.info&255))return 0;
+    if(rc<0||io.size!=sizeof(before)||before.info!=0x0606)return 0;
     if(gm_ri_checkpoint==0) { for(int i=0;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0; }
     else if(before.slots[0].address!=(gm_private?gm_ri_private_pc(gm_ri_checkpoint-1):gm_base+ri_stock_pc[gm_ri_checkpoint-1])||before.slots[0].control!=0x1e4)return 0;
     for(int i=1;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
     before.slots[0].address=0; before.slots[0].control=0; io.size=24; nps_debug_dump("remaining-debug-clear-request",0,&io,&before); rc=pt(0x4205,tid,0x402,(U)&io); event("remaining-debug-clear-set"); hex("result",rc); if(rc<0)return 0;
-    struct NpsDebugState clear={0}; struct Iov cio={&clear,sizeof(clear)}; rc=pt(0x4204,tid,0x402,(U)&cio); nps_debug_dump("remaining-debug-clear-after",rc,&cio,&clear); if(rc<0||cio.size!=sizeof(clear)||clear.info!=before.info)return 0; for(int i=0;i<16;i++)if(clear.slots[i].address||clear.slots[i].control)return 0;
+    struct NpsDebugState clear={0}; struct Iov cio={&clear,sizeof(clear)}; rc=pt(0x4204,tid,0x402,(U)&cio); nps_debug_dump("remaining-debug-clear-after",rc,&cio,&clear); if(rc<0||cio.size!=sizeof(clear)||clear.info!=before.info||clear.slots[0].address||clear.slots[0].control!=(gm_ri_checkpoint?0x1e5U:0x1e4U))return 0; for(int i=1;i<16;i++)if(clear.slots[i].address||clear.slots[i].control)return 0;
     if(!next)return 1; U target=gm_private?gm_ri_private_pc(gm_ri_checkpoint):gm_base+ri_stock_pc[gm_ri_checkpoint]; clear.slots[0].address=target; clear.slots[0].control=0x1e5; cio.size=24; nps_debug_dump("remaining-debug-arm-request",0,&cio,&clear); rc=pt(0x4205,tid,0x402,(U)&cio); event("remaining-debug-arm-set"); hex("result",rc); if(rc<0)return 0;
     struct NpsDebugState after={0}; struct Iov aio={&after,sizeof(after)}; rc=pt(0x4204,tid,0x402,(U)&aio); nps_debug_dump("remaining-debug-arm-after",rc,&aio,&after); if(rc<0||aio.size!=sizeof(after)||after.info!=before.info||after.slots[0].address!=target||after.slots[0].control!=0x1e4)return 0; for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;
     event("remaining-debug-ready"); hex("checkpoint",gm_ri_checkpoint); hex("tid",tid); hex("target",target); hex("opcode",(unsigned)peek(tid,target)); return 1;
@@ -502,7 +502,7 @@ static void gm_observe(U pid,U base,int private) {
     if(!private) { hex("got_slot",base+0xb8d758); hex("mmap_got",peek(pid,base+0xb850f0)); }
     nps_inventory(pid,"before-ready");
     event("ready"); hex("pid",pid); hex("observer_pid",tg_observer); hex("stopping_tid",pid);
-    if(gm_remaining) { event("remaining-mode"); hex("checkpoint_count",RI_CHECKPOINTS); hex("write_count",RI_WRITES); hex("binding_count",RI_BINDINGS); hex("deadline_ms",10000); }
+    if(gm_remaining) { event("remaining-mode"); put("debug_profile = \"phase-specific-clear-v1\"\n"); hex("checkpoint_count",RI_CHECKPOINTS); hex("write_count",RI_WRITES); hex("binding_count",RI_BINDINGS); hex("deadline_ms",10000); }
     if(private) gm_publish(&gm->release);
     for(U i=0;i<tg_count;i++) if(tg_threads[i].live) gm_resume(&tg_threads[i]);
     U fd=(U)-1; int pending_open=0,pending_map=0;

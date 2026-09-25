@@ -1,0 +1,112 @@
+schema_version = "mho900-lab.remaining-init-rearm-results/1"
+task = "TASK.guest.remaining-init-rearm-control"
+run = "out/guest-admission/group-remaining-rearm-01"
+started_at = "2026-09-25T09:35:51Z"
+finished_at = "2026-09-25T09:37:37Z"
+conclusion = "private-region-and-rearm-verified"
+native_sha256 = "8314d10b48c3cc69a4f51e28f61836dacd2f2b0c7a7831f2614a39fa3bf71e0d"
+new_runtime_controls = 19
+prior_runtime_controls = 40
+malformed_inputs_rejected = 30
+complete_region_controls = [40, 53]
+accepted_remaining_writes = 30
+accepted_total_writes = 8770
+synthetic_reads_per_arm = 2
+new_device_responses = 0
+checkpoints_per_complete_region = 10
+atomic_increments_per_complete_region = 10
+old_site_revisit_completed = true
+initial_clear_control = 0x1e4
+armed_clear_control = 0x1e5
+rearm_control = 0x1e4
+system_server_pid = 1080
+system_server_samples = 65
+initial_threads_per_arm = 2
+clones_per_arm = 1
+reaped_threads_per_arm = 3
+enforcement_preserved = true
+stock_application_installed = false
+stock_artifacts_modified = false
+guest_services_stopped = true
+frozen_verifier_passed = true
+indexed_artifacts_verified = 532
+current_sources_match_frozen = true
+altered_evidence_copies_rejected = 10
+stock_branch_established = false
+fpga_behavior_established = false
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "3048d0035c459d32f1123a308554a49328a8c64c1d2e9e014cd34628d67503d9"
+
+[[artifacts]]
+path = "tools/guest/remaining-init.h"
+sha256 = "afa661513a4dae2db07856a9d79546513bebffb09a1b59159b5290bd2ff872a6"
+
+[[artifacts]]
+path = "tools/guest/VerifyRemainingObserver.main.kts"
+sha256 = "a6eacbad3aa1f32446851d30cb4be18c4fb1e8649984b11a2adecf1ff33c4c32"
+
+[[artifacts]]
+path = "tools/guest/admission-remainingcontrol.sh"
+sha256 = "46faf464f1b43e3adaf59a6462b3d2d9972ac38b6371e835dd8b0d414beb5a05"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "feb1cb650e4ccc781f61a7a897616f69da52d46920f06c820f68a53b967d2828"
+
+[[artifacts]]
+path = "experiments/remaining-init/rearm-profile.toml"
+sha256 = "3481d6991f6fa000fb2dbce292e17ceca5b2c2cd039cd44c4037548c29c7ba4e"
+
+[[artifacts]]
+path = "experiments/remaining-init/controls.toml"
+sha256 = "53757544404e6098ca823ac7081c6fab94abb4c5aad5b5803c8f884311c223cf"
+
+[[artifacts]]
+path = "docs/research/remaining-init-rearm-controls.md"
+sha256 = "29a340f3ee52099e4df7913d8cabc66f18bd5600dd78cdc48af2f6db2ca81705"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-rearm-01/evidence-sha256.txt"
+sha256 = "3e1f0e9944dfb1ae317b9dfa3e5f46de71ff94ada39adb01c20ca32d4639e156"
+
+[[artifacts]]
+path = "out/guest-admission/group-remaining-rearm-01/result.toml"
+sha256 = "db345a98bbda393708aaf8f8ac46c77747cd6e54ea0ccd44a86d376cfc3a980f"
+
+[[artifacts]]
+path = "out/remaining-init/private-rearm-01-verification.toml"
+sha256 = "480f9222e004551a4d7b9619a12753a51a8dbfe554d18fe914f02ed7ff9f7d25"
+
+[[artifacts]]
+path = "out/remaining-init/rearm-preservation-01.toml"
+sha256 = "4f0f2919e59c39485f44da8a9672fb94051b01617238655872e7e7fe65b90d5f"
+
+[[artifacts]]
+path = "out/remaining-init/rearm-preservation-01.md"
+sha256 = "e9a7a105ba1ca529be5b23e50e577365e60b42eca6440356b9edfa9ecbafefcb"
+
+[[artifacts]]
+path = "out/remaining-init/rearm-mutations-01.toml"
+sha256 = "48d525a09a5779e09553dccfeb05ee74d2c9cdf41bed34edbab41593dc44f031"
+
+[[artifacts]]
+path = "out/remaining-init/CheckRearmEvidence.main.kts"
+sha256 = "c293105f430d60b5b4cc9db9644b47d6a19f513b16cae6273627c5cd4dc882b7"
+
+[[artifacts]]
+path = "out/remaining-init/rearm-verifier-review-01.md"
+sha256 = "1be743eb77040c40993545ca929ee223a59751f6c617a7edac7a782b28751759"
+
+[[artifacts]]
+path = "out/remaining-init/native-private-audit-rearm-01.toml"
+sha256 = "2660f7e3f6c0f89cd4dc9d6595b952adabaeb50730750543435412e4e42e2c2d"
+
+[[artifacts]]
+path = "out/remaining-init/native-private-audit-rearm-01.md"
+sha256 = "f0092b7fd333f560bea00b317105e3d51284482730b5f1db6f48ab40683a89fb"
+
+[[artifacts]]
+path = "out/remaining-init/private-negative-recheck-03.toml"
+sha256 = "9cf40a371275854c82504a4d404b202505fcf31d746cbd2cbad4bbc6dcf3d2f8"
