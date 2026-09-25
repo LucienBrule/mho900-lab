@@ -21,6 +21,8 @@ The project is running initial guest experiments; no complete emulator or physic
 - [Private post-atomic execution-stop setup finding](docs/research/guest-execution-stop.md)
 - [Profiled post-atomic breakpoint delivery](docs/research/guest-execution-profile.md)
 - [Stock post-store observation and private inventory finding](docs/research/xdma-post-store.md)
+- [ARM64 thread-inventory controls](docs/research/xdma-thread-inventory.md)
+- [Stock register responses reach application state](docs/research/xdma-post-store-witness.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

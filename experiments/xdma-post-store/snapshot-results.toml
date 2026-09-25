@@ -1,0 +1,96 @@
+schema_version = "mho900-lab.post-store-snapshot-results/1"
+run_id = "post-store-snapshot-01"
+classification = "stock-device-to-global-state-witness"
+composite_snapshot_exit = 0
+individual_snapshot_exits = [0, 0, 0]
+previous_snapshot_failure_reproduced = false
+snapshot_map_rows = 994
+legacy_controls_passed = 4
+private_controls_verified_before_stock = true
+stock_responses = 2
+response_offsets = ["0x4048", "0x4044"]
+response_values = ["0xe1234567", "0x89abcdef"]
+initial_global_value = "0xffffffffffffffff"
+final_global_value = "0x0123456789abcdef"
+terminal_elf_pc = "0x42a8f0"
+terminal_opcode = "0x14000001"
+terminal_signal = 5
+terminal_signal_code = 4
+x8_matches_global = true
+x9_matches_object = true
+stock_store_elf_pc = "0x42a8ec"
+threads_before_ready = 22
+threads_terminal = 22
+traced_threads = 1
+process_wide_order_established = false
+stock_artifacts_preserved = true
+system_server_pid = 1061
+system_server_stable = true
+final_enforcing = true
+guest_torn_down = true
+physical_device_access = false
+next_question = "Validate existing and new thread observation before advancing stock to its next unsatisfied dependency."
+
+[[artifacts]]
+path = "docs/research/xdma-post-store-witness.md"
+sha256 = "ffba8ed64618a6f7a25af4852b4dab1257fc6a71eae70cf1edff5a4a69f13977"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "de2090dbad7a1d00aa5328ef37c9d24091030fd7e1c894e4aa7e152e31fec091"
+
+[[artifacts]]
+path = "tools/guest/VerifySnapshot.main.kts"
+sha256 = "983f369ff59f9c1b703c0d1c81a89522a06a8d56c2f238ad2aa5240a5cb6e86c"
+
+[[artifacts]]
+path = "tools/guest/VerifyPostStore.main.kts"
+sha256 = "b35d1ef734f9491ccc98d9b94680de13ca82951913b204ee05f3b1a7bb107971"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/evidence-sha256.txt"
+sha256 = "5461aa9196c820fdd719623caf2d7201d516580638b115eafe706241f0487a83"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-probe.elf"
+sha256 = "93ecefa863c3067445b041ccaed9f9417cf5751131c7e74f96020fd215096ccb"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-executed.elf"
+sha256 = "93ecefa863c3067445b041ccaed9f9417cf5751131c7e74f96020fd215096ccb"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-events.toml"
+sha256 = "2e7f9dda7545600b63f425f19110048ace29b08087c3a668d8493088eb303a6e"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-post-store-controls-verification.toml"
+sha256 = "4327f577898b051da7928a24ddbb19be576d506b8e89c224f879e8eb3d402fe7"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-snapshot-verification.toml"
+sha256 = "e98c8d2079b31f13d5a3bb58f4677a8e40db3e7173f16b753a45a900fbe8230d"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/system-server-pid.toml"
+sha256 = "4b7db8b60fe04502584be543cd9e63fa0c8cfb68fdb45b5c26b01c89b075d4ce"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/result.toml"
+sha256 = "e604fb80e5eaaefe0e49ede704b899099f6a728ac79cd1c9f00eaa3e6cd3c0e9"
+
+[[artifacts]]
+path = "out/guest-admission/post-store-snapshot-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
+
+[[artifacts]]
+path = "out/xdma-post-store-snapshot/verification.toml"
+sha256 = "d39e2daef8fbde12ab2b0233546131e40785fd4893ba866c3b31c2fd07f1448f"

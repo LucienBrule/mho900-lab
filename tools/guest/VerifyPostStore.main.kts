@@ -225,6 +225,9 @@ if(inventoryFailure || preAttachFailure) {
     println("stock_supervisor_started = false")
 }
 if(!controlsOnly) {
+    val snapshot=ProcessBuilder("kotlin",run.resolve("source/VerifySnapshot.main.kts").toString(),run.toString()).redirectErrorStream(true).start()
+    val snapshotOutput=snapshot.inputStream.bufferedReader().readText()
+    require(snapshot.waitFor()==0) { "Snapshot verification failed: $snapshotOutput" }; print(snapshotOutput)
     // Reuse the captured admission verifier; its source and every input are in the sealed raw index.
     val p=ProcessBuilder("kotlin",run.resolve("source/VerifyNative.main.kts").toString(),run.toString(),"admission-only").redirectErrorStream(true).start()
     val output=p.inputStream.bufferedReader().readText(); require(p.waitFor()==0) { "Admission verification failed: $output" }; print(output)

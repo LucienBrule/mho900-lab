@@ -70,7 +70,26 @@ fi
 pid=$(adb shell pidof com.rigol.scope | tr -d '\r')
 case "$pid" in ''|*[!0-9]*) exit 2;; esac
 printf 'pid = %s\n' "$pid" > "$run/native-app-pid.toml"
-adb shell "cat /proc/$pid/cmdline; cat /proc/$pid/attr/current; cat /proc/$pid/maps" > "$run/native-before.txt"
+if [ "$post_store" = 1 ]; then
+    snapshot_rc=0
+    adb shell "cat /proc/$pid/cmdline; cat /proc/$pid/attr/current; cat /proc/$pid/maps" \
+        > "$run/native-snapshot-composite.txt" 2> "$run/native-snapshot-composite-error.txt" || snapshot_rc=$?
+    printf 'exit_code = %s\n' "$snapshot_rc" > "$run/native-snapshot-composite-status.toml"
+    for part in cmdline label maps; do
+        node=$part
+        [ "$part" != label ] || node=attr/current
+        snapshot_rc=0
+        adb shell "cat /proc/$pid/$node" > "$run/native-snapshot-$part.txt" \
+            2> "$run/native-snapshot-$part-error.txt" || snapshot_rc=$?
+        printf 'exit_code = %s\n' "$snapshot_rc" > "$run/native-snapshot-$part-status.toml"
+    done
+    kotlin "$run/source/VerifySnapshot.main.kts" "$run" > "$run/native-snapshot-verification.toml"
+    cat "$run/native-snapshot-cmdline.txt" "$run/native-snapshot-label.txt" > "$run/native-before.txt"
+    printf '\n' >> "$run/native-before.txt"
+    cat "$run/native-snapshot-maps.txt" >> "$run/native-before.txt"
+else
+    adb shell "cat /proc/$pid/cmdline; cat /proc/$pid/attr/current; cat /proc/$pid/maps" > "$run/native-before.txt"
+fi
 if [ "$pair" = 1 ] || [ "$post_store" = 1 ]; then
     adb pull /system/lib64/libc.so "$run/native-libc.so" > "$run/native-libc-pull.txt" 2>&1
     shasum -a 256 "$run/native-libc.so" > "$run/native-libc-sha256.txt"
