@@ -1,0 +1,35 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-loader-admission
+    title: Repair explicit private verifier admission and complete loader controls
+    state: open
+    intent: Test the unchanged observer after fixing host-only admission and index-count errors.
+    requires: [TASK.guest.calibration-loader-gate]
+    requirements:
+      - Preserve run01 and native build11 SHA256 3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa unchanged; add no mapped responses and execute no stock application.
+      - Add a narrowly named private-only legacy tail verifier profile for the frozen build; keep default baseline and stock digest pins unchanged and reject profile use with stock or unsupported modes.
+      - Correct the loader verifier write-index range to match its existing 466-write count; independently check the profile against preserved raw tail59 evidence and freeze all host changes before a fresh run.
+      - Run one fresh bounded full private suite with the same observer and fixtures; retain stop-on-divergence and exact evidence capture without adapting the candidate during the run.
+      - Complete legacy and new controls, two-file guest installation with roundtrip hashes and absent paths, exact full-buffer capture, signed returns, uninterrupted atomic sequences, actual worker stops, convergence and cleanup; explicitly report anything not reached.
+      - Independently verify raw captures and altered evidence; preserve stock hashes guest enforcement system_server identity and teardown evidence. A failed suite is a no-go finding rather than permission for stock execution.
+    acceptance: [Commit and push the complete private conclusion or a precise preserved no-go result.]
+    verification: [profile, controls, evidence, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-loader-admission-gate
+    title: Evaluate corrected loader controls before stock continuation
+    state: open
+    intent: Select stock validation only if the complete frozen private evidence supports it.
+    requires: [TASK.guest.calibration-loader-admission]
+    requirements:
+      - Review complete results and distinguish host admission failures from observer or environment failures; do not infer coverage for unexecuted controls.
+      - Admit a bounded stock-loader experiment and evaluation only after the exact native candidate complete buffers debug transitions thread coverage fixture and independent verifier are supported; otherwise select a precise bounded instrumentation follow-up.
+      - Draft plan inspect admit and commit successor tasking before execution; preserve byte-identical stock artifacts and the no-physical-instrument boundary.
+    acceptance: [Commit and push the decision and any admitted successor.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
