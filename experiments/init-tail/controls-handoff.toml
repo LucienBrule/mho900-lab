@@ -1,0 +1,146 @@
+schema_version = "mho900-lab.init-tail-handoff-controls/1"
+classification = "private-observer-controls-not-stock-or-hardware-evidence"
+candidate_sha256 = "54554db2ff6e0948fcf4476d54ebde60877503f641c7eaac68e94cf4b1b19666"
+mode = "control-tail"
+debug_profile = "inherited-direct-arm-v1"
+prior_runtime_controls = 59
+prior_malformed_controls = 30
+expected_native_exit = 78
+stock_application_absent = true
+terminal_before_private_calibration = true
+
+[[arms]]
+id = 59
+purpose = "Complete candidate; three atomic sequences finish before their checkpoints"
+expected = "complete"
+reads = 10
+writes = 2
+checkpoints = 3
+
+[[arms]]
+id = 60
+purpose = "Wrong first read offset/order"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 61
+purpose = "Wide first read"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 62
+purpose = "Worker thread attempts first read"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 63
+purpose = "Wrong DAC write operand after three valid reads"
+expected = "reject"
+reads = 3
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 64
+purpose = "Nonzero DAC upper half before first response"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 65
+purpose = "Nonzero SPU control before first response"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 66
+purpose = "Config zero at initial live guard"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 67
+purpose = "Changed first binding target"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0
+
+[[arms]]
+id = 68
+purpose = "Corrupted packed-version parent output at checkpoint zero"
+expected = "reject"
+reads = 3
+writes = 1
+checkpoints = 0
+
+[[arms]]
+id = 69
+purpose = "Corrupted masked tap output at checkpoint one"
+expected = "reject"
+reads = 10
+writes = 2
+checkpoints = 1
+
+[[arms]]
+id = 70
+purpose = "Ready byte cleared at checkpoint one"
+expected = "reject"
+reads = 10
+writes = 2
+checkpoints = 1
+
+[[arms]]
+id = 71
+purpose = "Extra self-test read after checkpoint one"
+expected = "reject"
+reads = 10
+writes = 2
+checkpoints = 2
+
+[[arms]]
+id = 72
+purpose = "Complete candidate with old breakpoint site revisited after rotation"
+expected = "complete"
+reads = 10
+writes = 2
+checkpoints = 3
+
+[[arms]]
+id = 73
+purpose = "Deadline while waiting after checkpoint zero"
+expected = "deadline"
+reads = 3
+writes = 1
+checkpoints = 1
+
+[[arms]]
+id = 74
+purpose = "Config changes after initial live guard but before checkpoint-zero branch"
+expected = "reject"
+reads = 3
+writes = 1
+checkpoints = 0
+
+[[arms]]
+id = 75
+purpose = "Occupied inherited breakpoint slot rejected before any tail response"
+expected = "reject"
+reads = 0
+writes = 0
+checkpoints = 0

@@ -40,7 +40,8 @@ val cases=listOf(
     Case("changed-parent-upper-half",change("tail-parent-output",6,"actual","0x100000345")),
     Case("missing-thread-reap",remove("group-reaped",0)),
     Case("wrong-checkpoint-pc",flip("tail-checkpoint",2,"pc")),
-    Case("wrong-initial-clear",change("tail-debug-clear-after",0,"c00","0x1e5")),
+    Case("wrong-inherited-control",change("tail-debug-before",0,"c00","0x1e4")),
+    Case("wrong-post-checkpoint-clear",change("tail-debug-clear-after",0,"c00","0x1e4")),
     Case("changed-binding",flip("tail-binding",0,"actual_target")),
     Case("changed-summary",flip("tail-summary",0,"total_writes"))
 )

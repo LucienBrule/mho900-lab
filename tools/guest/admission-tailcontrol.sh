@@ -21,7 +21,8 @@ adb shell pm path com.rigol.scope > "$run/tail-packages.txt" 2>&1 || true
 adb shell ps > "$run/tail-processes-before.txt"
 ! rg -q 'Sparrow|frida|group-observer' "$run/tail-processes-before.txt"
 cp "$repo/experiments/init-tail/candidate.toml" "$run/tail-candidate.toml"
-cp "$repo/experiments/init-tail/controls.toml" "$run/tail-control-fixture.toml"
+cp "$repo/experiments/init-tail/controls-handoff.toml" "$run/tail-control-fixture.toml"
+cp "$repo/experiments/init-tail/handoff-profile.toml" "$run/tail-handoff-profile.toml"
 cp "$repo/experiments/init-tail/grammar.toml" "$run/tail-grammar.toml"
 
 arms=$(yq -p toml -o yaml -r '.arms[].id' "$run/tail-control-fixture.toml")

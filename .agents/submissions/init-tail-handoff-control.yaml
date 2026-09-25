@@ -1,0 +1,26 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.init-tail-handoff-control
+contract: sha256:3e93301ee12ef67e4e3ffa01048c3ec30eba174e90d794ba515dbe789223f64f
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T10:44:33Z"
+evidence:
+  implementation: >-
+    experiments/init-tail/handoff-results.toml SHA-256 331b6c4f54fad17b381fefe4a3a8abfb016b7f1a0f4d5a4431c6667f52310ea8
+    pins executable fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182 and frozen sources.
+    Only initial direct arming and private occupied-slot control changed; the hardware candidate and
+    subsequent clear/rearm behavior stayed fixed. Prior negative run and executable remain preserved.
+  controls: >-
+    Fresh group-init-tail-handoff-01 passed all17 tail controls all59 prior runtime controls and30 malformed
+    inputs. Positive arms59/72 reached ten reads two writes three checkpoints with atomic count3 and no
+    calibration execution. Frozen aggregate verifier and separate raw-event audit accepted the results.
+  rejection: >-
+    Occupied inherited slot arm75 was prepared with exact GET/SET/GET and register witness then rejected
+    before any tail response. All changed input state output thread width order and deadline controls
+    produced their specified outcomes. The frozen verifier accepted an unchanged evidence copy and rejected
+    twelve isolated altered copies, including a changed upper half of a64-bit parent output.
+  preservation: >-
+    Independent auditor verified647 indexed artifacts and83 stable system_server samples at PID1085.
+    Enforcement package absence stock hashes frozen source digests and absent dedicated listeners passed.
+    Every new control reaped exactly its three registered threads with final wait-10. Stock was not run.
+    The conclusion and state are committed and pushed before the stock decision or another experiment.

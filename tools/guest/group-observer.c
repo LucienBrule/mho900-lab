@@ -422,6 +422,7 @@ static void gm_fault(U tid,const char *kind,U signal) {
 }
 static U gm_ri_private_pc(unsigned i) { static const U p[RI_CHECKPOINTS]={(U)gm_ri_cp0,(U)gm_ri_cp1,(U)gm_ri_cp2,(U)gm_ri_cp3,(U)gm_ri_cp4,(U)gm_ri_cp5,(U)gm_ri_cp6,(U)gm_ri_cp7,(U)gm_ri_cp8,(U)gm_ri_cp9}; return p[i]; }
 static U gm_it_private_pc(unsigned i) { static const U p[IT_CHECKPOINTS]={(U)gm_it_cp0,(U)gm_it_cp1,(U)gm_it_cp2}; return p[i]; }
+static int gm_regs_same(struct Regs *a,struct Regs *b);
 static U gm_ri_private_target(unsigned i) {
     if(i==0)return (U)&gm->ri_scu; if(i==1)return (U)gm_remaining_private; if(i==2||i==10||i==11)return (U)gm_write;
     if(i==3||i==4)return (U)gm_ri_cp0; if(i==5)return (U)&gm->ri_cached; if(i==6)return (U)gm_ri_cp8;
@@ -442,7 +443,14 @@ static int gm_ri_debug(U tid,int next) {
 static int gm_it_debug(U tid,int next) {
     struct NpsDebugState before={0}; struct Iov io={&before,sizeof(before)}; S rc=pt(0x4204,tid,0x402,(U)&io); nps_debug_dump("tail-debug-before",rc,&io,&before);
     if(rc<0||io.size!=sizeof(before)||before.info!=0x0606)return 0;
-    if(!gm_it_checkpoint) { if(before.slots[0].address||before.slots[0].control!=0x1e5U)return 0; }
+    if(!gm_it_checkpoint) {
+        if(before.slots[0].address||before.slots[0].control!=0x1e5U)return 0;
+        for(int i=1;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
+        if(!next)return 1;
+        U target=gm_private?gm_it_private_pc(0):gm_base+it_stock_pc[0];before.slots[0].address=target;before.slots[0].control=0x1e5;io.size=24;nps_debug_dump("tail-debug-arm-request",0,&io,&before);rc=pt(0x4205,tid,0x402,(U)&io);event("tail-debug-arm-set");hex("result",rc);if(rc<0)return 0;
+        struct NpsDebugState after={0};struct Iov aio={&after,sizeof(after)};rc=pt(0x4204,tid,0x402,(U)&aio);nps_debug_dump("tail-debug-arm-after",rc,&aio,&after);if(rc<0||aio.size!=sizeof(after)||after.info!=before.info||after.slots[0].address!=target||after.slots[0].control!=0x1e4U)return 0;for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;
+        event("tail-debug-ready");hex("checkpoint",0);hex("tid",tid);hex("target",target);hex("opcode",(unsigned)peek(tid,target));return 1;
+    }
     else if(before.slots[0].address!=(gm_private?gm_it_private_pc(gm_it_checkpoint-1):gm_base+it_stock_pc[gm_it_checkpoint-1])||before.slots[0].control!=0x1e4U)return 0;
     for(int i=1;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
     before.slots[0].address=0;before.slots[0].control=0;io.size=24;nps_debug_dump("tail-debug-clear-request",0,&io,&before);rc=pt(0x4205,tid,0x402,(U)&io);event("tail-debug-clear-set");hex("result",rc);if(rc<0)return 0;
@@ -450,6 +458,14 @@ static int gm_it_debug(U tid,int next) {
     if(!next)return 1;U target=gm_private?gm_it_private_pc(gm_it_checkpoint):gm_base+it_stock_pc[gm_it_checkpoint];clear.slots[0].address=target;clear.slots[0].control=0x1e5;cio.size=24;nps_debug_dump("tail-debug-arm-request",0,&cio,&clear);rc=pt(0x4205,tid,0x402,(U)&cio);event("tail-debug-arm-set");hex("result",rc);if(rc<0)return 0;
     struct NpsDebugState after={0};struct Iov aio={&after,sizeof(after)};rc=pt(0x4204,tid,0x402,(U)&aio);nps_debug_dump("tail-debug-arm-after",rc,&aio,&after);if(rc<0||aio.size!=sizeof(after)||after.info!=before.info||after.slots[0].address!=target||after.slots[0].control!=0x1e4U)return 0;for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;
     event("tail-debug-ready");hex("checkpoint",gm_it_checkpoint);hex("tid",tid);hex("target",target);hex("opcode",(unsigned)peek(tid,target));return 1;
+}
+static int gm_it_prepare_nonempty(U tid,struct Regs *before_regs) {
+    struct NpsDebugState before={0};struct Iov io={&before,sizeof(before)};S rc=pt(0x4204,tid,0x402,(U)&io);nps_debug_dump("tail-debug-prep-before",rc,&io,&before);
+    if(rc<0||io.size!=sizeof(before)||before.info!=0x0606||before.slots[0].address||before.slots[0].control!=0x1e5U)return 0;for(int i=1;i<16;i++)if(before.slots[i].address||before.slots[i].control)return 0;
+    U target=gm_it_private_pc(0);before.slots[0].address=target;before.slots[0].control=0x1e5;io.size=24;nps_debug_dump("tail-debug-prep-arm-request",0,&io,&before);rc=pt(0x4205,tid,0x402,(U)&io);event("tail-debug-prep-arm-set");hex("result",rc);if(rc<0)return 0;
+    struct NpsDebugState after={0};struct Iov aio={&after,sizeof(after)};rc=pt(0x4204,tid,0x402,(U)&aio);nps_debug_dump("tail-debug-prep-arm-after",rc,&aio,&after);if(rc<0||aio.size!=sizeof(after)||after.info!=before.info||after.slots[0].address!=target||after.slots[0].control!=0x1e4U)return 0;for(int i=1;i<16;i++)if(after.slots[i].address||after.slots[i].control)return 0;
+    struct Regs after_regs={0};registers(tid,&after_regs,0);gm_registers("tail-debug-prep-registers",tid,&after_regs);if(!gm_regs_same(before_regs,&after_regs))return 0;
+    event("tail-debug-prep-ready");hex("checkpoint",0);hex("tid",tid);hex("target",target);hex("opcode",(unsigned)peek(tid,target));return 1;
 }
 static int gm_ri_binding(void) {
     for(unsigned i=0;i<RI_BINDINGS;i++) { U actual=gm_private?gm->ri_slots[i]:peek(tg_pid,gm_base+ri_binding_slot[i]); U expected=gm_private?gm_ri_private_target(i):gm_base+ri_binding_target[i];
@@ -583,7 +599,7 @@ static void gm_observe(U pid,U base,int private) {
     nps_inventory(pid,"before-ready");
     event("ready"); hex("pid",pid); hex("observer_pid",tg_observer); hex("stopping_tid",pid);
     if(gm_remaining) { event("remaining-mode"); put("debug_profile = \"phase-specific-clear-v1\"\n"); hex("checkpoint_count",RI_CHECKPOINTS); hex("write_count",RI_WRITES); hex("binding_count",RI_BINDINGS); hex("deadline_ms",10000); }
-    if(gm_tail) { event("tail-mode");put("debug_profile = \"phase-specific-clear-v1\"\n");hex("read_count",IT_READS);hex("write_count",IT_WRITES);hex("checkpoint_count",IT_CHECKPOINTS);hex("binding_count",IT_BINDINGS);hex("deadline_ms",10000); }
+    if(gm_tail) { event("tail-mode");put("debug_profile = \"inherited-direct-arm-v1\"\n");hex("read_count",IT_READS);hex("write_count",IT_WRITES);hex("checkpoint_count",IT_CHECKPOINTS);hex("binding_count",IT_BINDINGS);hex("deadline_ms",10000); }
     if(private) gm_publish(&gm->release);
     for(U i=0;i<tg_count;i++) if(tg_threads[i].live) gm_resume(&tg_threads[i]);
     U fd=(U)-1; int pending_open=0,pending_map=0;
@@ -620,7 +636,7 @@ static void gm_observe(U pid,U base,int private) {
                     unsigned step=gm_it_reads+gm_it_writes,read_index=99,write_index=99;int expect_read=0,expect_write=0;
                     if(step<3){expect_read=1;read_index=step;}else if(step==3){expect_write=1;write_index=0;}else if(step>=4&&step<=8){expect_read=1;read_index=step-1;}else if(step==9){expect_write=1;write_index=1;}else if(step>=10&&step<=11){expect_read=1;read_index=step-2;}
                     int phase=(step<4?gm_it_checkpoint==0:step<12?gm_it_checkpoint==1:gm_it_checkpoint==2);
-                    if(!gm_it_reads&&!gm_it_writes&&tid==pid&&signal==11&&(unsigned)info[1]==2&&offset==it_read_offset[0]&&r.x[8]==info[2]&&r.pc==(private?(U)gm_first_pc:base+0x270604)&&(unsigned)peek(tid,r.pc)==0xb9400109) { if(!gm_it_live("initial"))gm_it_reject(tid,"live-state","initial",0,1);if(!gm_it_debug(tid,1))gm_it_reject(tid,"debug-initial","initial",0,1);struct Regs da={0};registers(tid,&da,0);gm_registers("tail-initial-debug-registers",tid,&da);if(!gm_regs_same(&r,&da))gm_it_reject(tid,"debug-registers","initial",da.pc,r.pc); }
+                    if(!gm_it_reads&&!gm_it_writes&&tid==pid&&signal==11&&(unsigned)info[1]==2&&offset==it_read_offset[0]&&r.x[8]==info[2]&&r.pc==(private?(U)gm_first_pc:base+0x270604)&&(unsigned)peek(tid,r.pc)==0xb9400109) { if(private&&gm->arm==75&&!gm_it_prepare_nonempty(tid,&r))gm_it_reject(tid,"debug-preparation","initial",0,1);if(!gm_it_live("initial"))gm_it_reject(tid,"live-state","initial",0,1);if(!gm_it_debug(tid,1))gm_it_reject(tid,"debug-initial","initial",0,1);struct Regs da={0};registers(tid,&da,0);gm_registers("tail-initial-debug-registers",tid,&da);if(!gm_regs_same(&r,&da))gm_it_reject(tid,"debug-registers","initial",da.pc,r.pc); }
                     U read_pc=private?(U)gm_first_pc:base+0x270604,actual_opcode=(unsigned)peek(tid,r.pc);int mapped=gm_mapping&&info[2]>=gm_mapping&&info[2]<gm_mapping+0x1000000;
                     if(expect_read&&phase&&tid==pid&&signal==11&&(unsigned)info[1]==2&&offset==it_read_offset[read_index]&&r.x[8]==info[2]&&r.pc==read_pc&&actual_opcode==0xb9400109) {
                         struct Regs before=r;r.x[9]=it_read_value[read_index];r.pc+=4;registers(tid,&r,1);struct Regs after={0};registers(tid,&after,0);if(!gm_regs_same(&r,&after))gm_it_reject(tid,"read-registers","read",after.pc,r.pc);gm_it_reads++;
@@ -762,7 +778,7 @@ void entry(U *stack) {
     put("schema_version = \"mho900-lab.group-observer/1\"\n");
     int tail_control=argc==5&&equal(argv[1],"control-tail"),tail_stock=argc==6&&equal(argv[1],"stock-tail");
     if(tail_control||tail_stock) {
-        U arm=tail_control?parse(argv[2],10):0;if(tail_control&&(arm<59||arm>74))quit(2);unsigned profile=tail_stock?1:2;
+        U arm=tail_control?parse(argv[2],10):0;if(tail_control&&(arm<59||arm>75))quit(2);unsigned profile=tail_stock?1:2;
         if(!gm_at_load(argv[tail_stock?4:3],profile,AT_FULL_WRITES))quit(2);if(!gm_st_load(argv[tail_stock?5:4],profile))quit(2);
         gm_transcript=1;gm_spu=1;gm_remaining=1;gm_tail=1;gm_next=1;tg_deadline=tg_now()+10000;
         if(tail_stock){U pid=parse(argv[2],10),base=parse(argv[3],16);event("model-mode");put("scope = \"stock\"\n");hex("pid",pid);hex("continuation",1);hex("one_write",0);hex("pair_write",0);hex("transcript",1);hex("spu",1);hex("remaining",1);hex("tail",1);hex("profile",1);hex("write_count",AT_FULL_WRITES);hex("spu_write_count",ST_WRITES);hex("remaining_write_count",RI_WRITES);hex("tail_read_count",IT_READS);hex("tail_write_count",IT_WRITES);hex("tail_checkpoint_count",IT_CHECKPOINTS);gm_observe(pid,base,0);quit(2);}

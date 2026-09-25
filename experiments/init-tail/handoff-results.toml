@@ -1,0 +1,116 @@
+schema_version = "mho900-lab.init-tail-handoff-results/1"
+task = "TASK.guest.init-tail-handoff-control"
+run = "out/guest-admission/group-init-tail-handoff-01"
+started_at = "2026-09-25T10:40:44Z"
+finished_at = "2026-09-25T10:43:17Z"
+conclusion = "private-inherited-direct-arm-controls-pass"
+complete_private_pass = true
+stock_executed = false
+native_sha256 = "fd54590d662b0219459edd1e8dce8ad58738262bfcce346c9af2b4eadbc24182"
+prior_native_sha256 = "e56d8a929de3455f5adb0aa14e9fed4d8c65eb2ebca9658b01c8f79216bb4d83"
+hardware_candidate_sha256 = "54554db2ff6e0948fcf4476d54ebde60877503f641c7eaac68e94cf4b1b19666"
+new_controls_passed = 17
+prior_runtime_controls_passed = 59
+malformed_input_controls_passed = 30
+positive_tail_reads = 10
+positive_tail_writes = 2
+positive_tail_checkpoints = 3
+positive_atomic_count = 3
+calibration_sentinels_executed = 0
+occupied_slot_rejected_before_response = true
+aggregate_tail_reads = 62
+aggregate_tail_writes = 13
+aggregate_total_writes = 7901
+reaped_threads_per_control = 3
+final_wait_result = -10
+system_server_pid = 1085
+system_server_samples = 83
+indexed_artifacts_verified = 647
+altered_evidence_copies_rejected = 12
+stock_artifacts_unchanged = true
+enforcement_preserved = true
+dedicated_listeners_absent = true
+
+[[artifacts]]
+path = "docs/research/init-tail-handoff-controls.md"
+sha256 = "dd15ff6ac7c2e01457f229d51f95566bcb7bfa6285e0b16c838ae9352c345651"
+
+[[artifacts]]
+path = "experiments/init-tail/candidate.toml"
+sha256 = "54554db2ff6e0948fcf4476d54ebde60877503f641c7eaac68e94cf4b1b19666"
+
+[[artifacts]]
+path = "experiments/init-tail/controls-handoff.toml"
+sha256 = "a4083d2cefc96508630c1dec05f4c9e1914afa294dca0d8c73b58d0a0b459e0b"
+
+[[artifacts]]
+path = "experiments/init-tail/handoff-profile.toml"
+sha256 = "05fa1d0ae6d771c5616cf09c2241d0ea282607c7b1a9e8caaf4d2b90402fc0cb"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "cbcd292fc91ba993362d028f3259f9d78d9bd8254d776223708f12e33acb7656"
+
+[[artifacts]]
+path = "tools/guest/init-tail.h"
+sha256 = "bae1bc75a2a6551ba20b63531e160a62744ac9e8ddf34a8b00c66eb50ab7a150"
+
+[[artifacts]]
+path = "tools/guest/VerifyInitTailObserver.main.kts"
+sha256 = "61b2b0c9a7083d64981f2a3fd9f04d6a799ca55e8bc489bfe9a03aef0889dc02"
+
+[[artifacts]]
+path = "tools/guest/admission-tailcontrol.sh"
+sha256 = "22486f1002ffe653c97e15eec24058347ae9f55bfa37ffc43b304dbd8fd79100"
+
+[[artifacts]]
+path = "tools/research/CheckInitTailObserver.main.kts"
+sha256 = "edd51628ea3e17e4575e28023ccb95e513dc7468ff763c4f9c2f23cd594e2fa6"
+
+[[artifacts]]
+path = "out/guest-admission/group-init-tail-handoff-01/evidence-sha256.txt"
+sha256 = "df159115590ce7e212b13bd23b8a324be1f834f4d3927307906d4c4918969c6c"
+
+[[artifacts]]
+path = "out/guest-admission/group-init-tail-handoff-01/result.toml"
+sha256 = "3565a4c8be700a93938cc456da0bb26071c7c4704b0ceee922db05b38c9894f3"
+
+[[artifacts]]
+path = "out/init-tail/handoff-verification-01.toml"
+sha256 = "9442f7357961afcf2384fbd6fcbf6df56a94a348cbc056ca20ed83d73c9e6a30"
+
+[[artifacts]]
+path = "out/init-tail/handoff-preservation-01.toml"
+sha256 = "723a10a628650daf314ce6f88ee3ae89e8a7daa0526396e35aa4a239f2986aa4"
+
+[[artifacts]]
+path = "out/init-tail/audit-handoff-preservation-01.main.kts"
+sha256 = "a3ebcb74b7677f2123eaabe02f68063df76ac4b0d9d47c984dc612ce63a7814b"
+
+[[artifacts]]
+path = "out/init-tail/handoff-verifier-controls-01/results.toml"
+sha256 = "ee94d84925782d3274edcde32b3936f7ac299b7e13dce1afbf00af3ae0bcae29"
+
+[[artifacts]]
+path = "out/init-tail/handoff-independent-audit-01.md"
+sha256 = "620b42eb79f6c59bf1ea62908790f980c39dea96f7e41bec7136559bd444801f"
+
+[[artifacts]]
+path = "out/init-tail/handoff-independent-audit-01.toml"
+sha256 = "062eddcb011dcb37ac9a4936dd0d8eb4630306896dbea9de052fe6bdeff373ef"
+
+[[artifacts]]
+path = "out/init-tail/handoff-build-pins-01.txt"
+sha256 = "26eaeb24d40d8be19f70b0a595584e1fb01b557096f48fc129f7e5392ce0eaa8"
+
+[[artifacts]]
+path = "out/init-tail/handoff-native-protocol-01.md"
+sha256 = "a554313a0e7af85c948faf885a345b42ad42eb9734f87eead7e0d2f3f259e4c9"
+
+[[artifacts]]
+path = "out/init-tail/handoff-native-disassembly-01.txt"
+sha256 = "e4de8de58ae62baee70219d9c3169bd7289a3927a26e7cfe68e5d30b8b607ec2"
+
+[[artifacts]]
+path = "out/init-tail/handoff-verifier-review-01.md"
+sha256 = "b15c2171302b628ad58ab97bc676e2f5a678484313166cc51f31d2885537d8de"
