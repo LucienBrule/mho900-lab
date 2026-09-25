@@ -24,13 +24,17 @@ cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
 adb shell chmod 755 /data/local/tmp/group-observer
 arms="0 1 2"
-if [ "${ADMISSION_MODE:-groupcontrol}" = nextcontrol ] || [ "${ADMISSION_MODE:-groupcontrol}" = writecontrol ]; then
+if [ "${ADMISSION_MODE:-groupcontrol}" = nextcontrol ] || [ "${ADMISSION_MODE:-groupcontrol}" = writecontrol ] || [ "${ADMISSION_MODE:-groupcontrol}" = paircontrol ]; then
     arms="0 1 2 3 4"
     cp "$repo/experiments/group-observer/continuation.toml" "$run/continuation-fixture.toml"
 fi
-if [ "${ADMISSION_MODE:-groupcontrol}" = writecontrol ]; then
+if [ "${ADMISSION_MODE:-groupcontrol}" = writecontrol ] || [ "${ADMISSION_MODE:-groupcontrol}" = paircontrol ]; then
     arms="0 1 2 3 4 5 6 7 8"
     cp "$repo/experiments/group-observer/one-write.toml" "$run/write-fixture.toml"
+fi
+if [ "${ADMISSION_MODE:-groupcontrol}" = paircontrol ]; then
+    arms="0 1 2 3 4 5 6 7 8 9 10 11 12"
+    cp "$repo/experiments/group-observer/two-writes.toml" "$run/pair-write-fixture.toml"
 fi
 outcome=0
 for arm in $arms; do

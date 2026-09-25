@@ -1,0 +1,105 @@
+schema_version = "mho900-lab.two-write-control-results/1"
+run_id = "group-two-writes-01"
+classification = "exact-pair-and-regression-controls-pass"
+regression_arms = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+pair_arms = [9, 10, 11, 12]
+pair_arm_write_counts = [2, 2, 1, 1]
+pair_arm_read_responses = [2, 2, 2, 2]
+ordered_write_values = ["0x05630000", "0x01630000"]
+write_completion_changes_pc_only = true
+peripheral_side_effects_modeled = false
+initial_threads_per_arm = 2
+terminal_threads_per_arm = 3
+clone_events_per_arm = 1
+all_terminal_threads_reaped = true
+system_server_pid = 1050
+system_server_stable = true
+enforcing_samples = 2
+stock_application_run = false
+guest_torn_down = true
+physical_device_access = false
+next_task = "TASK.hardware.two-mapped-writes"
+
+[[artifacts]]
+path = "docs/research/guest-two-write-control.md"
+sha256 = "687d7e1efd1bf64419006f71545203c8348b6bb5c1aeff5a9fadfc34c7cf7949"
+
+[[artifacts]]
+path = "experiments/group-observer/two-writes.toml"
+sha256 = "f3a52976a9c68c5870c3eeb973336aad74f63281c46d358c5ff8dcac52c38b8d"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "9946cc9b8dc81e051e6a720c2daa08be35b7ca3702c9546439687e778de4d263"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "ea86cb26b04721db67590ea4427abca9b867eac64dc6ef77819ba2f44a284497"
+
+[[artifacts]]
+path = "tools/guest/admission-groupcontrol.sh"
+sha256 = "c785698e0441d5dc6f826f77ef829cc1c08bf2db5d9565817285c4e42e709f89"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "b7660b470b3a3ea512cf10a5d565cd11cf58f3321ed0ca994535c2c373581f4d"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "73135f2360dda64a49a3233e48123e560edadd8a02fb949887e5137e40bf9d09"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "1f596005f92d35db8248c164d71970ff371a89161ba5e010f08338232f8e13e9"
+
+[[artifacts]]
+path = "out/group-observer/two-write-verification.toml"
+sha256 = "97b99b0cb136ce9fb60e072f193e9f464cf9e16d115471c94061f0d8334aa996"
+
+[[artifacts]]
+path = "out/group-observer/pair-checker-regression-private.toml"
+sha256 = "98767faeef11995c287eecef27b0c70c22916ae6f5ad81baec3cd7a427920642"
+
+[[artifacts]]
+path = "out/group-observer/pair-checker-regression-stock.toml"
+sha256 = "8e6eb16f5608df04a77bcaafc57b322c0a9d86965c1f45fcbd1806a98dee2ec1"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/evidence-sha256.txt"
+sha256 = "dcf3891ab49e10c47d0742c1450a406235ff89221ee8ed64b0cc9214ea51e942"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-control.elf"
+sha256 = "4127986df6000f381112c15c9c844c79e131da4608b4e9ec574138894bbaa4b1"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-9.toml"
+sha256 = "082ae4b18ec3520fc6d46a521bc7b326ca56734d3a314f441e9275ad6f57e76d"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-10.toml"
+sha256 = "00d504c52584a761b77d92a0eaf3f314abbfdebdec97aaa64513900b146b4efd"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-11.toml"
+sha256 = "49c0e0a6385c37df8ffeac9a0dbb6738c34453cc6a986bbb97a65bf450afab28"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-12.toml"
+sha256 = "06037c427de2c4e889f9e3be2641d9f87f49f71dd407c7765b9a5261a407cc1d"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-system-server.toml"
+sha256 = "9c68e7b60a5ff447a524d2f246ba68b607d15fa50dcbf238e554cd706d029b7d"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/group-enforcing.txt"
+sha256 = "d182a69e1830cac98beeca9fa3ce3502deff8361b5540d2b2fc64102693932dd"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/result.toml"
+sha256 = "275d6c54177b8571f17f4bd0f22ae4d17d4c9abbf907381b3376e6cf41f6390e"
+
+[[artifacts]]
+path = "out/guest-admission/group-two-writes-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
