@@ -1,0 +1,113 @@
+schema_version = "mho900-lab.calibration-stock-result/1"
+run_id = "stock-calibration-loaders-02"
+result = "whole-loader-prediction-accepted"
+runner_exit = 0
+native_exit = 78
+native_helper_exit = 0
+frozen_verifier_exit = 0
+independent_review = "accepted"
+indexed_artifacts = 292
+all_indexed_hashes_match = true
+started_at = "2026-09-25T13:16:28Z"
+finished_at = "2026-09-25T13:18:20Z"
+loader_statuses = [192, 1794240, -1]
+loader_checkpoints = 4
+full_captures = 5
+lsb_payload_bytes = 192
+vertical_payload_bytes = 1794240
+adc_record_bytes = 1936
+entry_adc_nonzero_bytes = 0
+terminal_adc_equals_entry = true
+adc_entry_and_terminal_sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+lsb_payload_sha256 = "ed4d4016974a509c55530c8573c7e0ef1cb9c28d65536310c13ec8a437c52907"
+vertical_payload_sha256 = "1835df35ca11f040c15988e7cdb150198e98688e2472c0b608377b9a2357139b"
+terminal_relative_pc = 0x333ba8
+terminal_instruction_executed = false
+inherited_dna_reads = 2
+inherited_writes = 466
+inherited_tail_reads = 10
+new_modeled_loader_reads = 0
+new_modeled_loader_writes = 0
+threads_reaped = 23
+terminal_whole_group_converged = true
+system_server_pid = 1048
+enforcing = true
+stock_artifact_hashes_preserved = true
+dedicated_listeners_absent = true
+adaptive_retry = false
+physical_instrument_access = false
+useful_ui_proven = false
+acquisition_proven = false
+next_question = "Complete static mode-zero ADC parameter grammar through return and its unresolved hardware inputs."
+
+[[artifacts]]
+path = "docs/research/calibration-stock-loader-run02.md"
+sha256 = "f01f15e186625f982bf5d14d9630a828ea2a7cbfb7da5ce5e78a2e4380a21c53"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-repeat-inputs.toml"
+sha256 = "7cd3abc6b5fedd15eece1ea3a93992d31d5896c96621d234b3d1cadbd68fe448"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/stock-inputs.toml"
+sha256 = "39e42e6de4a957b422af467c02315f622a024dd47b75ecc3528149a7d083cb3c"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/evidence-sha256.txt"
+sha256 = "c1a17b37bab02a729c49421e102fb32abfd16645d858ea561336297f39807056"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/result.toml"
+sha256 = "bc8e51bd423c7bce32916f7a2cc29377038fa7e8ad37e062643e0969e3da852e"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-events.toml"
+sha256 = "0e396ae4b4549cacda83abacba480d33af545c893a6d6cbb2675c6daad6c6058"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-loader-entry-adc.bin"
+sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-loader-terminal-adc.bin"
+sha256 = "3fcb1e1041f63f752bdebe8f875700003bd95e3fc507c2143555443c145c9769"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-loader-terminal-lsb.bin"
+sha256 = "ed4d4016974a509c55530c8573c7e0ef1cb9c28d65536310c13ec8a437c52907"
+
+[[artifacts]]
+path = "out/guest-admission/stock-calibration-loaders-02/native-loader-terminal-vertical.bin"
+sha256 = "1835df35ca11f040c15988e7cdb150198e98688e2472c0b608377b9a2357139b"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02.stdout"
+sha256 = "bc8e51bd423c7bce32916f7a2cc29377038fa7e8ad37e062643e0969e3da852e"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02.stderr"
+sha256 = "b9d61686c6aa03a55e8becb40cac2833097dd9a0239b487751c8ca379addf30d"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02-verification.toml"
+sha256 = "b2462bbbfbb6701a7179709a58d1596e8ff688cce9e8b3fda0cc914e50f3cf15"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02-verification.stderr"
+sha256 = "747e1b5e91e3e2103fa521777b7d237b5b8334f78f08c9d98bf28130fd731e98"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02-review.md"
+sha256 = "a527cfba3ae08235e26c2734da4b347ddd24ac3373550470ad0ae375507a3fbe"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02-review.toml"
+sha256 = "c29aa7183d7311e0c7932fa2a152d0a6a5c31bd4f06fc9fd27d07bd82fb05bc7"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02-preservation/stock-hashes.txt"
+sha256 = "68a955e13a86ec088ac0e646efa61074d0ea4db31d5847bed2c877953e58a9e8"
+
+[[artifacts]]
+path = "out/calibration-loaders/stock-run02-preservation/ports.toml"
+sha256 = "4d03e1f1cc5006af35e37e39ad63f50753a117ddbe09935148cecaee72f6e549"
