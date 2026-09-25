@@ -1,0 +1,67 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-capture-implementation
+    title: Implement bounded bulk ADC input observation at the existing checkpoint
+    state: open
+    intent: Add capture-only observation of the complete reviewed ADC software inputs without advancing stock initialization.
+    requires: [TASK.guest.adc-parameter-decision]
+    requirements:
+      - Pin the reviewed static contract and implement a separate opt-in capture profile at the existing whole-group pre-SetADCParameter checkpoint 0x333ba8 after group convergence; preserve inherited register transcript and loader checkpoints.
+      - Capture the complete ADC matrix and bucket state, existing main record, runtime setting and rate fields, series selectors and rows, selected config and normalized-mask mode entry, fifteen live shadows and their relocation bindings; capture diagnostic state or explicitly separate it from required operands.
+      - Validate every object address and relocation before capture and every selected pointer before following it; use checked arithmetic, explicit pointer ranges, selected mask bounds, bounded capture sizes and fail-closed short reads. Do not read the modeled MMIO mapping as ordinary memory.
+      - Preserve all-thread convergence, unchanged stock instructions and registers, synchronization behavior, no post-terminal resume, bounded cleanup and system_server health. Add no device response and execute no SetADCParameter instruction.
+      - Implement deterministic positive and negative private fixtures and typed independent verification with explicit inherited-check coverage; freeze source and binary identity plus stock and control contracts before any guest run.
+      - Add narrowly scoped copy-on-write staging for new disposable userdata files where supported and verify byte identity and independent inode ownership; preserve existing evidence and stock images and refuse a run with insufficient disk space.
+      - Verify host-side decoding, pointer selection, signedness, missing or truncated captures and tampered evidence using independent regular copies. Commit and push the implementation and frozen input contracts before the private guest controls.
+    acceptance: [A byte-pinned bounded capture profile with meaningful host controls is committed and pushed without guest execution.]
+    verification: [implementation, host_controls, freeze, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-capture-controls
+    title: Validate bulk input capture and rejection in a private guest fixture
+    state: open
+    intent: Establish correct capture selection bounds and terminal behavior independently of Sparrow before the stock observation.
+    requires: [TASK.guest.adc-input-capture-implementation]
+    requirements:
+      - Run the frozen private control suite once in a disposable API25 ARM64 guest with a fresh run identity and reproducible patterned software state.
+      - Include positive capture and invalid binding or pointer, selector bound, short read or buffer mismatch controls; establish all-thread convergence, atomic sequence completion, unexecuted terminal instruction, no post-terminal resume and complete thread reap.
+      - Preserve raw events captures exit statuses health and source identities and evaluate using the frozen verifier; unexpected outcomes close the actual question instead of triggering an adaptive rerun.
+      - Require stable system_server and final cleanup with stock artifacts unchanged. Commit and push the conclusion before any stock run; failed controls do not authorize stock execution.
+    acceptance: [A reproducible positive or negative private control conclusion is committed and pushed.]
+    verification: [controls, terminal, health, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-capture-stock
+    title: Capture stock ADC runtime inputs at the established pre-call stop
+    state: open
+    intent: Resolve the software input ambiguity for the complete ADC candidate sequence in one bounded stock observation.
+    requires: [TASK.guest.adc-input-capture-controls]
+    requirements:
+      - Execute only if every required private control was accepted; run one frozen stock capture profile under the accepted calibration file fixture with unchanged APK and native library.
+      - Require the inherited two DNA reads, complete programming transcript and remaining and tail checkpoints, accepted loader statuses and payloads, then stop with all threads converged before stock instruction 0x333ba8 executes.
+      - Capture and independently decode the bounded matrix selector shadow and selected-series inputs; validate live relocations and source pins and preserve point-in-time uncertainty for any concurrent mutable state.
+      - Add no synthetic register responses or new filesystem fixture and do not execute the ADC call. Reject unexpected accesses pointers state statuses or incomplete capture with preserved evidence.
+      - Record stable system_server identity, final guest health, thread reap, package teardown and released experiment ports. Commit and push the conclusion before further guest work.
+    acceptance: [A verified stock input snapshot or reproducible negative result is committed and pushed.]
+    verification: [inherited, captures, terminal, health, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-capture-decision
+    title: Select a whole-sequence ADC hypothesis from the captured software inputs
+    state: open
+    intent: Instantiate the static candidate or isolate a specific missing input before admitting another bounded experiment.
+    requires: [TASK.guest.adc-input-capture-stock]
+    requirements:
+      - Evaluate whether the snapshot selects a complete 97 100 or 244 write candidate with two readbacks, and separate software operands from physical behavior.
+      - If inputs are complete prefer whole-sequence prediction and selective falsification through the routine return with an explicitly synthetic readback hypothesis and no claim of acquisition; otherwise name the precise unresolved dependency.
+      - Reconcile unexpected architectural evidence before continuation. Draft plan inspect admit against expected revision and commit and push any successor batch before implementation or execution.
+    acceptance: [The evidence-supported successor or genuine blocking condition is explicitly recorded and committed.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

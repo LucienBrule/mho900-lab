@@ -1,0 +1,134 @@
+schema_version = "mho900-lab.adc-input-capture-decision/1"
+selected_boundary = "stopped-group software input capture at existing pre-ADC checkpoint"
+review_commit = "fa1359e"
+question = "Which complete ADC programming candidate is selected by actual stock software state?"
+terminal_relative_pc = 0x333ba8
+terminal_opcode = 0x97fb9b9e
+terminal_instruction_executes = false
+new_modeled_reads = 0
+new_modeled_writes = 0
+physical_access = false
+stock_artifact_modification = false
+existing_checkpoint_and_loader_profile_retained = true
+capture_after_all_five_loader_captures = true
+capture_before_loader_summary = true
+whole_group_convergence_required = true
+no_post_terminal_resume = true
+raw_capture_count = 9
+raw_capture_maximum_total_bytes = 16384
+maps_maximum_records = 2048
+maps_maximum_bytes = 262144
+maps_snapshot_saved_separately = true
+previous_stock_maps_records = 988
+previous_stock_maps_bytes = 101422
+reuse_terminal_adc_record_bytes = 1936
+existing_evidence_deletion = false
+new_userdata_copy_on_write_if_supported = true
+independent_inode_and_hash_checks_required = true
+preboot_free_space_gate_required = true
+
+[alternatives]
+whole_sequence_execution_now = "Defer until unobserved matrix and live shadows are bound; inventing them would confound software input and device response."
+one_write_at_a_time = "Rejected: complete deterministic software grammar already recovered and reviewed."
+emulator_or_kernel_device_change = "No deficiency requiring a boundary change has been established; existing stop already supplies the required observation window."
+higher_function_substitution = "Would bypass the stock state transition that the later whole-sequence experiment should test."
+
+[pointer_rules]
+row_count = 9
+row_stride = 32
+mask_entry_bound_min = 1
+mask_entry_bound_max = 16
+bound_is_safety_requirement = true
+bound_is_physical_channel_count = false
+row_selection = "First exact selector match after stock4000-to2000 substitution; otherwise row0."
+mask_selection = "Recompute four channel enable flags and Bode override, then apply stock signed and unsigned normalization."
+selected_entry_bytes = 8
+selected_config_bytes = 60
+pointer_relocation_allowlist_required = true
+readable_map_containment_required = true
+arithmetic_overflow_rejected = true
+mmio_pointer_value_captured_but_not_dereferenced = true
+
+[[captures]]
+index = 0
+name = "matrix"
+file = "adc-input-matrix.bin"
+address = "adc+0x4e94"
+length = 0xe60
+
+[[captures]]
+index = 1
+name = "setting"
+file = "adc-input-setting.bin"
+address = "scope+0x18"
+length = 0x1c71
+
+[[captures]]
+index = 2
+name = "drvparam"
+file = "adc-input-drvparam.bin"
+address = "scope+0x5a00"
+length = 0x10
+
+[[captures]]
+index = 3
+name = "series"
+file = "adc-input-series.bin"
+address = "base+0xb8f4e4"
+length = 0x12c
+
+[[captures]]
+index = 4
+name = "config"
+file = "adc-input-config.bin"
+address = "validated selected_row.config"
+length = 0x3c
+
+[[captures]]
+index = 5
+name = "sample-entry"
+file = "adc-input-sample-entry.bin"
+address = "validated selected_row.table+16*normalized_mask"
+length = 8
+
+[[captures]]
+index = 6
+name = "shadow-low"
+file = "adc-input-shadow-low.bin"
+address = "base+0x3cb44fc"
+length = 0x3c
+
+[[captures]]
+index = 7
+name = "shadow-high"
+file = "adc-input-shadow-high.bin"
+address = "base+0x3cb457c"
+length = 0x74
+
+[[captures]]
+index = 8
+name = "global-inputs"
+file = "adc-input-global-inputs.bin"
+address = "base+0xbe1128"
+length = 0x2c
+
+[diagnostic_state]
+unobserved_adc_offset = 0x87f4
+needed_for_write_operand_prediction = false
+use = "logging only; outside required input snapshot, explicitly not claimed captured"
+
+[verification]
+old_stock_loader_verifier = "Preserved unchanged as provenance; its complete checks copied and explicitly adapted into a separate new-profile verifier."
+no_fabricated_old_profile_view = true
+independent_address_and_selection_derivation = true
+native_match_flags_not_proof = true
+required_raw_file_index_hash_validation = true
+required_final_health_and_cleanup = true
+private_failure_blocks_stock_run = true
+adaptive_guest_retry = false
+
+[continuation]
+implementation = "TASK.guest.adc-input-capture-implementation"
+private_controls = "TASK.guest.adc-input-capture-controls"
+stock_capture = "TASK.guest.adc-input-capture-stock"
+evaluation = "TASK.guest.adc-input-capture-decision"
