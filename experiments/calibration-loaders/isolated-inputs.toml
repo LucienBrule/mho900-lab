@@ -1,0 +1,112 @@
+schema_version = "mho900-lab.calibration-loader-inputs/1"
+stage = "isolated-private-loader-controls"
+task = "TASK.guest.calibration-loader-isolated-controls"
+run_id = "group-calibration-loaders-03"
+mode = "loaderisolated"
+native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+native_changed_from_previous_runs = false
+carried_forward_legacy_run = "group-calibration-loaders-02"
+carried_forward_legacy_result_sha256 = "60b7084c9efbc28df7661bd14c0e9d771b1b0ea240770898b793478b77ee47d7"
+carried_forward_legacy_runtime_controls = 76
+carried_forward_malformed_controls = 30
+new_runtime_controls = 14
+first_arm = 76
+last_arm = 89
+new_modeled_reads = 0
+new_modeled_writes = 0
+runtime_deadline_ms = 10000
+guest_deadline_seconds = 600
+positive_capture_bytes = 1798496
+maximum_chunk_bytes = 65536
+hard_single_limit_bytes = 1835008
+hard_total_limit_bytes = 2097152
+entry_capture_group_atomic = false
+terminal_capture_requires_group_convergence = true
+filesystem_fixture_attempted = false
+stock_application_installed = false
+stock_continuation_admitted = false
+final_health_even_on_helper_failure = true
+
+[[artifacts]]
+path = "experiments/calibration-loaders/run02-results.toml"
+sha256 = "60b7084c9efbc28df7661bd14c0e9d771b1b0ea240770898b793478b77ee47d7"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/controls.toml"
+sha256 = "a135578c6f14acdd8423cd16359667572c8260b03c0fcc5482adf0b3cec933f9"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/native-protocol.md"
+sha256 = "bc77979cf5e7fc6ccf3e00951450f229908babf6996c3cf2ff3ea4298f787d86"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "0c070a8c1683cc2be45eb02cdf4b2ecdc0b50651f95b805edb81273ae5cb4a86"
+
+[[artifacts]]
+path = "tools/guest/calibration-loaders.h"
+sha256 = "78320d758756a0c7483bd29caf916251e93ab66b5a3883c4415e3cce0d4fd548"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationLoaders.main.kts"
+sha256 = "7147d7f1460003d418ee901002b8dc2ff97a0dfcc605d4753fc93de18a4ec22b"
+
+[[artifacts]]
+path = "tools/research/CheckCalibrationLoaderEvidence.main.kts"
+sha256 = "374707631860865c7db700c33bd7ec8682c742d1bbf7634cf4caf411fe73b0ae"
+
+[[artifacts]]
+path = "tools/guest/admission-loaderisolated.sh"
+sha256 = "783b297c45d521f3415abd31b6195729bc8980e3ed35e82fd4b60d6d7caa2f4f"
+
+[[artifacts]]
+path = "tools/guest/admission-final-health.sh"
+sha256 = "4709ae90fb20f1cc141a6524c7c67dfcabab9fa3f44cc4949b152e29c5e25809"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "2abb5603abf5723483d0a7e7efa994794867d755e75d19052f7e959aea235f8d"
+
+[[artifacts]]
+path = "experiments/adc-transcript/derivation.toml"
+sha256 = "492b4e56a77dd10b367238d86c06054654fab54ebc7e49d083226bf4fc4e0534"
+
+[[artifacts]]
+path = "experiments/spu-transcript/derivation.toml"
+sha256 = "db100fb42672f86c6ce4dcae993651125b9080343bc6bb95758647a6d5d01b28"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/adc-private.bin"
+sha256 = "28471720179d4bf0e41911c0a4d29e108c89bbb4279d264793efb5f8ff9e866d"
+
+[[artifacts]]
+path = "out/spu-transcript/derived-01/spu-private.bin"
+sha256 = "d55b7d70b4bcd1e3e95cd48fc7a7e791c2a16fc52cea32398b3799b94fb7aac6"
+
+[[artifacts]]
+path = "experiments/adc-transcript/reference.tsv"
+sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+
+[[artifacts]]
+path = "out/calibration-loaders/candidate-01.elf"
+sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+
+[[artifacts]]
+path = "out/calibration-loaders/isolated-verifier-review-01.md"
+sha256 = "a7c2ccfcd358bad628edd6e63b370a8e8093d269412c58eacc32d208832d22b1"
+
+[[artifacts]]
+path = "out/calibration-loaders/final-health-control-01/check.sh"
+sha256 = "b61207586f1512dc9b4f43a9406749f7a1f2166acf51762606ef0af4b08ce82d"
+
+[[artifacts]]
+path = "out/calibration-loaders/final-health-control-01/results.toml"
+sha256 = "70126219376dc6e65f192a10781b059ce81f746ff16e62065db9d68dc9d935e5"
+
+[[artifacts]]
+path = "out/calibration-loaders/final-health-control-01/sdk/platform-tools/adb"
+sha256 = "a1c0cbc2d4fe1badfd5d00b934d991d80c5a262e93f0affbd86a5111aa5c1dfc"

@@ -1,0 +1,92 @@
+schema_version = "mho900-lab.calibration-loader-results/1"
+result = "accepted-private-loader-controls"
+run_id = "group-calibration-loaders-03"
+started_at = "2026-09-25T12:00:35Z"
+finished_at = "2026-09-25T12:01:22Z"
+native_sha256 = "3c045ce88aeebf61da55e6026216995bbf562bf5ddd12560b9e4ce4296df40fa"
+native_changed_from_run02 = false
+legacy_runtime_controls_carried_forward = 76
+legacy_malformed_controls_carried_forward = 30
+private_loader_controls_passed = 14
+raw_capture_files = 37
+raw_capture_bytes = 9005056
+private_threads_reaped = 43
+indexed_artifacts = 307
+frozen_aggregate_passed = false
+frozen_aggregate_failure = "Canonical reference.tsv omitted from evidence index."
+reference_sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+corrected_offline_aggregate_passed = true
+corrected_verifier_controls_passed = 9
+corrected_verifier_negative_controls = 8
+system_server_pid = 1059
+system_server_samples_including_final = 17
+final_health_passed = true
+stock_application_executed = false
+filesystem_fixture_executed = false
+stock_continuation_authorized_by_result = false
+stock_artifacts_unchanged = true
+dedicated_listeners_absent = true
+
+[[artifacts]]
+path = "experiments/calibration-loaders/isolated-inputs.toml"
+sha256 = "43599d0e7e0605110482df6304fe94645208283db3b67c22ad140da74fed2eb5"
+
+[[artifacts]]
+path = "experiments/calibration-loaders/run02-results.toml"
+sha256 = "60b7084c9efbc28df7661bd14c0e9d771b1b0ea240770898b793478b77ee47d7"
+
+[[artifacts]]
+path = "docs/research/calibration-loader-isolated-results.md"
+sha256 = "7786b09ea47a4eeab4905f0ba00ffa505f59e65e2eafad3aa0cc07d119abc76e"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-03/result.toml"
+sha256 = "bbb7c1adf9978798bffe5db4d32dc4445587d3d88171a883a99b5e9f966e5749"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-03/evidence-sha256.txt"
+sha256 = "c4017c823632b483f5a50e7197978d843b24936ba83e6fb11b6578db09ea857d"
+
+[[artifacts]]
+path = "out/guest-admission/group-calibration-loaders-03/source/VerifyCalibrationLoaders.main.kts"
+sha256 = "7147d7f1460003d418ee901002b8dc2ff97a0dfcc605d4753fc93de18a4ec22b"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-verification.stderr"
+sha256 = "61634890bd6d739d654a538104c70f0a07eb2bbcd10dea662e3e7ecb6e5718fc"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-verifier-controls/results.toml"
+sha256 = "da0e31637f8148750cc6f792aa598c734c0f8c407f4e1bd1abe41308f99245b4"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationLoaders.main.kts"
+sha256 = "bb730eabbcb1232da2d1a20e57a239bdcaea8bfd94860eb0143871e2f26629be"
+
+[[artifacts]]
+path = "tools/research/CheckCalibrationLoaderEvidence.main.kts"
+sha256 = "23438c2051d6def39012b41c1f80c8886ab0b08089b3c90ce74ebc7e3fa90894"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-verification-02.toml"
+sha256 = "93394a0724a14a4ccb3a539ac6dce27c304274b101ded2c8baff275255e50aa2"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-verifier-controls-02/results.toml"
+sha256 = "8940e4b1effb0faaa37c6074b19fc1624dd0817abbf876d695c1fa28ca111d09"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-review.md"
+sha256 = "16d0fda63663b0b7b777af38cbc2b990f47eaf23f9e5aa9b9286e3a07bd40c5b"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-review.toml"
+sha256 = "cef9f88257b54b6dc3aa3572f01cdbdc27d5481989dce71dd6bef4ee45547106"
+
+[[artifacts]]
+path = "out/calibration-loaders/audit-run03.main.kts"
+sha256 = "0777ee9389ac636b9668be15804f09a4b713b2e676e0288ffda75868273c42cb"
+
+[[artifacts]]
+path = "out/calibration-loaders/run03-audit.toml"
+sha256 = "40862c8ee9c0771077a759c08656407e270559ae861b46967439674e39e3fa06"

@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -154,6 +154,13 @@ if [ "$boot" = completed ]; then
     case "$mode" in spucontrol) helper_mode=spucontrol;; remainingcontrol) helper_mode=remainingcontrol;; esac
     case "$mode" in startup|mapping|syscall|native|coverage|groupmodel|nextmodel|writemodel|pairmodel|transcriptmodel|spumodel|remainingmodel|tailmodel) helper_mode=label;; esac
     "$run/source/admission-$helper_mode.sh" || inspection=failed
+    case "$mode" in loadercontrol|loaderisolated)
+        health_rc=0
+        "$run/source/admission-final-health.sh" || health_rc=$?
+        printf 'final_health_helper_exit = %s\n' "$health_rc" >> "$run/final-health-status.toml"
+        [ "$health_rc" = 0 ] || inspection=failed
+        ;;
+    esac
     if [ -f "$run/probe-result.toml" ]; then
         install=$(yq -p toml -o yaml -r '.install' "$run/probe-result.toml")
         launch=$(yq -p toml -o yaml -r '.launch' "$run/probe-result.toml")
@@ -179,7 +186,7 @@ emulator_pid=
 logcat_pid=
 trap - EXIT
 for artifact in "$run"/*.txt "$run"/*.log "$run"/*.stderr "$run"/*.png "$run"/*.toml "$run"/*.policy \
-    "$run"/*.bin "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
+    "$run"/*.bin "$run"/*.tsv "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
     "$run"/source/* "$run"/tombstones/*; do
     [ "$artifact" != "$run/evidence-sha256.txt" ] || continue
     [ -f "$artifact" ] || continue
