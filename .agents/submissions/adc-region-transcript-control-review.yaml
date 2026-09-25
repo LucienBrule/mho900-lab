@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.guest.transcript-control"
+reviewed_head: "sha256:a1b64c567ffcccf9827779e2dc4b96d4ddb4a2a30169d1252330f978742abd7b"
+observations: [{"upstream":"TASK.hardware.adc-transcript","contract":"sha256:b440d7a5825926df5b43bda8a0658b662d8de75a1529824e96acbac83f0c30eb","revision":"sha256:65586a63783b86e1b214450348c853bc539f0745e6a294b732a328ad1303c37b","inputs":"sha256:0ce46cc514e971b497b0e0ab43d1f69c1b380fa522df577ea79e92f0062e9978"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-09-25T07:50:18Z"
+rationale: "Review of revised OPEN contract only. Full452-store inputs, binding/state checks and negative controls match the static decision. No task completion asserted; remain waiting on prerequisite execution."
+evidence: {"controls":"Contract scope reviewed against .agents/plans/adc-region and docs/research/static-contract-decision.md. Execution evidence for controls remains pending; this records semantic currency only.","transcript-contract":"Contract scope reviewed against .agents/plans/adc-region and docs/research/static-contract-decision.md. Execution evidence for transcript-contract remains pending; this records semantic currency only.","coverage":"Contract scope reviewed against .agents/plans/adc-region and docs/research/static-contract-decision.md. Execution evidence for coverage remains pending; this records semantic currency only.","preservation":"Contract scope reviewed against .agents/plans/adc-region and docs/research/static-contract-decision.md. Execution evidence for preservation remains pending; this records semantic currency only."}
+successor: null

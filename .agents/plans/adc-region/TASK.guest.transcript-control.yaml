@@ -1,0 +1,11 @@
+protocol: "tasking/core-draft-2"
+id: "TASK.guest.transcript-control"
+title: "Validate a bounded ordered-write transcript consumer"
+state: "open"
+intent: "Execute only a predeclared finite command transcript while retaining complete access and thread observation."
+requires: ["TASK.hardware.adc-transcript"]
+requirements: ["Load a bounded versioned immutable transcript before tracing; reject malformed, oversized, inconsistent-count or trailing input before target creation.","Retain exactly the existing two read responses and continuous group observer; accept only exact ordered main-thread32-bit stores at the known PC/opcode and offset0x3000.","Record every accepted operand and pre/post register state; only PC advances, with no memory backing or peripheral effect introduced.","Implement read-only stock binding and table checks before the first modeled write, initialized ADC shadow checks, and terminal ADC shadow captures; private controls exercise good and mismatched binding/state inputs.","Private controls cover a full452-operation sequence, main/worker next access, wrong value/order/offset, count exhaustion, a worker attempting the expected store and a64-bit store.","Re-run existing controls with the rebuilt executable and validate malformed-input rejection before target creation.","Preserve explicit thread/event/count/wall-clock bounds; check runtime deadline even while wait events remain available.","Preserve enforcement/system_server and commit and push controls before stock execution."]
+acceptance: ["Independent checks prove ordered prefix/count, unchanged non-PC registers, input and state guards, thread attribution and complete successful cleanup. Unexpected outcomes remain preserved negatives."]
+verification: ["controls","transcript-contract","coverage","preservation"]
+required_extensions: []
+extensions: {}

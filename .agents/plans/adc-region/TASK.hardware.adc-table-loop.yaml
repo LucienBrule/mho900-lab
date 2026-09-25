@@ -1,0 +1,11 @@
+protocol: "tasking/core-draft-2"
+id: "TASK.hardware.adc-table-loop"
+title: "Validate the full452-store stock ADC initialization region"
+state: "open"
+intent: "Falsify the complete static ADC prediction and identify the next environmental ambiguity."
+requires: ["TASK.guest.transcript-control"]
+requirements: ["Use the controlled executable, pinned full452-word transcript, fresh guest and unchanged stock APK/library.","Verify live table/function/shadow GOT bindings and all111 words of each source table against the pinned ELF before completing the first modeled write.","Require the initialized ADC index9/index8 software shadows used by the tail prediction; capture them initially and after terminal quiescence.","Permit only the existing two read responses and exact452-word ordered main-thread W32 program at the witnessed instruction and offset0x3000.","Stop immediately on mismatch, other access, signal or bound. After452 stores stop at the following access without answering it; predicted next offset0x1000 is not assumed.","Capture runtime thread events, terminal state, available SPU shadow bindings/values for the next static region, and exact cleanup or an explicit negative with partial evidence.","Do not adapt the fixture during this experiment; no physical ADC, ready, timing, DMA or acquisition claim.","Commit and push the conclusion before a successor experiment."]
+acceptance: ["Verify completed prefix and live inputs against independent derivation, report the next dependency and distinguish observation from predicted call order."]
+verification: ["stock-binding","transcript","boundary","preservation"]
+required_extensions: []
+extensions: {}

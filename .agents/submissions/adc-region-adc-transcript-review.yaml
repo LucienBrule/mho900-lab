@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.hardware.adc-transcript"
+reviewed_head: "sha256:9f211985782a10504ede1feaa6ab8860cc40a0438043d994172f2643b4339ba1"
+observations: [{"upstream":"TASK.hardware.static-contract-decision","contract":"sha256:079c15d87b965e80be28f150c93f3654e8887696b3d1baf62d42950c8dc0aa93","revision":"sha256:934d3661e498f15bbef76605b872f8bba8de1b497085550b2991b11b461a69a4","inputs":"sha256:15069416e941a8c13b4b5f7535cf3d5044ee48d96c1dc9e4a768d9ea7aad8b98"},{"upstream":"TASK.hardware.two-write-decision","contract":"sha256:f1bd8fc121cc52430643066682862b767d1e39428822f290b6a430ea183b29e8","revision":"sha256:f24034ac21570c93b61d18ffeeaefc78573b34b32ce1eecf44823d0523ada2ab","inputs":"sha256:db55f372ce0b8c3d281989dfb3461a7576e73229d198c82800433cbebcca53a7"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-09-25T07:50:08Z"
+rationale: "Review of revised OPEN contract only. Closed static-contract decision selects full452-store ADC validation. Original440 scope is superseded. No implementation, guest execution or completion is asserted; prerequisites still govern readiness."
+evidence: {"provenance":"Revised contract and docs/research/static-contract-decision.md reviewed against closed static recovery. This is semantic currency review, not execution evidence; required provenance evidence remains to be produced by this open task.","derivation":"Revised contract and docs/research/static-contract-decision.md reviewed against closed static recovery. This is semantic currency review, not execution evidence; required derivation evidence remains to be produced by this open task.","protocol":"Revised contract and docs/research/static-contract-decision.md reviewed against closed static recovery. This is semantic currency review, not execution evidence; required protocol evidence remains to be produced by this open task.","preservation":"Revised contract and docs/research/static-contract-decision.md reviewed against closed static recovery. This is semantic currency review, not execution evidence; required preservation evidence remains to be produced by this open task."}
+successor: null

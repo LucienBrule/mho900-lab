@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.hardware.adc-loop-decision"
+reviewed_head: "sha256:96912d0f93de644912f7c7b290babae6ef0b0e927cb89eca4a95a745119eab3e"
+observations: [{"upstream":"TASK.hardware.adc-table-loop","contract":"sha256:e751a0036a5bb9f49aaa158410a5e3f8ef19d0c4e474009c4bd4015a6fd8d679","revision":"sha256:d5be887cefa4f9cbeccc85718e215c7dd3ada5b24359c195a139277cb9b06a0a","inputs":"sha256:779aa81ca90d3e6a1fbfa59b991cfe7d77425a9fb26985d285ddac0b9428b572"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-09-25T07:50:38Z"
+rationale: "Revised OPEN decision contract now evaluates a wholeADC region and selects named graph ambiguities including separate SPU mode selections. No evaluation outcome or completion exists before predecessor execution."
+evidence: {"evaluation":"Future evaluation contract scope reviewed against the revised whole-region stock experiment. Its result is pending, so this actor assertion revalidates only semantic currency.","continuation":"Future continuation contract scope reviewed against the revised whole-region stock experiment. Its result is pending, so this actor assertion revalidates only semantic currency."}
+successor: null

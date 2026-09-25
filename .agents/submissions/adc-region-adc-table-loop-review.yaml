@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.hardware.adc-table-loop"
+reviewed_head: "sha256:d15095601da05bbddad4066af32cca163d1abef2321291c8f610271862979c6f"
+observations: [{"upstream":"TASK.guest.transcript-control","contract":"sha256:7dfeb9f297409a9a84dda219ff1d925a7d78a9f44c80fe2665030cc794787916","revision":"sha256:2ea9fe6a626768f30c40e727e35d145428021319fdc2b0fa4b29934085eff931","inputs":"sha256:cf74cea18cb434338e66354deb3871dc2785da8271efc8725dd3d2aef7d9f54a"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-09-25T07:50:28Z"
+rationale: "Revised OPEN task now validates the complete452-store ADC region with live inputs, software state and immediate divergence stop. Historic identifier is retained. No stock run or completion is asserted; private controls remain a prerequisite."
+evidence: {"stock-binding":"Contract and dependency scope reviewed against fullADC static recovery and decision. Evidence for stock-binding is still required during execution; currency review does not satisfy closure.","transcript":"Contract and dependency scope reviewed against fullADC static recovery and decision. Evidence for transcript is still required during execution; currency review does not satisfy closure.","boundary":"Contract and dependency scope reviewed against fullADC static recovery and decision. Evidence for boundary is still required during execution; currency review does not satisfy closure.","preservation":"Contract and dependency scope reviewed against fullADC static recovery and decision. Evidence for preservation is still required during execution; currency review does not satisfy closure."}
+successor: null
