@@ -1,0 +1,27 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.labeling-probe
+contract: sha256:390016eac9aa464c727637c9fc88ac43d7509381480a5d21314c2dbaecd7b0a6
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T01:27:00Z"
+evidence:
+  scoped-labeling: >-
+    docs/research/guest-labeling.md SHA-256 c8de756997f902a10c4242000a87b3d21203e79ccb984694a032744a2bbd622b
+    records the guest-domain assumption and actual framework field and DEX ordering. The exact-stock hook
+    assigns ApplicationInfo.seinfo only after the original -8 rejection and all prior guards, requires default
+    and UID 1000, and assigns platform. No app method, certificate or permission grant is changed.
+    experiments/guest-labeling/results.toml SHA-256 53a95bf67c7ba768bfe07db6a796ba697ecd5ee33037c05cc0045eb2285ae2e2
+    indexes source and raw evidence; original input manifests remain pinned and checked before each run.
+  controls: >-
+    Fresh label-01 and label-02 both reject unrelated-package, different-signer and changed-byte same-signer
+    controls without a LABEL event. Only exact stock is admitted and labeled. Installed bytes retain SHA-256
+    6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b, stock package signer and original
+    platform shared-UID signer remain distinct and unchanged, and UID is 1000. Reinstall after normal detach
+    rejects stock again. Both runs pass independent VerifyLabeling.main.kts checks including all raw checksums.
+  repeated-outcome: >-
+    label-01 at 01:22:36Z to 01:24:21Z and label-02 at 01:24:55Z to 01:26:35Z on 2026-09-25 both show
+    u:r:system_app:s0, SplashActivity resume/display, a surviving process and empty crash buffers. system_server
+    remains PID 1064 and 1042 respectively before/after detach and observation. Frida is absent from Zygote maps
+    and stopped before launch. Screenshots reviewed: logo plus spinner in the first, spinner alone in the second.
+    Neither demonstrates useful instrument UI. Sampling is bounded by the 30-second ADB timeout. All four private
+    experiment ports are closed after teardown. Guest Frida policy changes remain explicitly disclosed.

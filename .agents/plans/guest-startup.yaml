@@ -1,0 +1,39 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.startup-trace
+    title: Identify the stock splash screen's startup wait
+    state: open
+    intent: Locate the first unresolved initialization dependency after scoped admission and labeling.
+    requires: [TASK.guest.labeling-decision]
+    requirements:
+      - Keep the APK, official firmware and original guest image byte-identical.
+      - Observe framework, JNI, native stacks and filesystem or device boundaries without substituting behavior.
+      - Preserve stable system_server teardown, exact-stock controls and fresh guest state.
+      - Stop before introducing a hardware behavioral model or changing host security or physical devices.
+    acceptance:
+      - Inspect the exact stock DEX and relevant native code with reproducible local provenance.
+      - Capture a bounded live startup trace, process maps and stacks that explain the surviving splash screen.
+      - Repeat the decisive observation on fresh guest state or provide an independent corroborating witness.
+      - Separate missing environment state, blocking instrument IO, rendering failure and instrumentation effects.
+    verification: [stock-startup-path, live-boundary, corroboration]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.startup-decision
+    title: Evaluate the startup dependency against the hardware stop condition
+    state: open
+    intent: Stop at a useful UI or hardware modeling boundary, otherwise select one bounded environment reconstruction.
+    requires: [TASK.guest.startup-trace]
+    requirements:
+      - Do not replace real program behavior merely to make the UI appear functional.
+      - Treat unexpected material architecture evidence as a decision requiring reconciliation.
+      - Keep work local and preserve all negative evidence.
+    acceptance:
+      - State the observed dependency, supporting evidence and unresolved uncertainty.
+      - Record a terminal operator report or draft one small successor batch under standing authorization.
+    verification: [boundary-evaluation, continuation-decision]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

@@ -9,7 +9,7 @@ Java.perform(function () {
         const description = method.toString();
         if (/verifySignatures|compareSignatures/.test(description)) console.log(description);
     }
-    for (const type of [setting, parsed]) {
+    for (const type of [setting, parsed, Java.use('android.content.pm.ApplicationInfo')]) {
         for (const field of type.class.getDeclaredFields()) console.log(field.toString());
     }
 });

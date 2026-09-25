@@ -1,0 +1,122 @@
+schema_version = "mho900-lab.guest-labeling-results/1"
+classification = "observed-disposable-guest-experiment"
+base_inputs = "experiments/guest-baseline/inputs.toml"
+instrumentation_inputs = "experiments/guest-admission/inputs.toml"
+report = "docs/research/guest-labeling.md"
+runner = "tools/guest/run-admission.sh"
+mode = "label"
+verifier = "tools/guest/VerifyLabeling.main.kts"
+stock_apk_preserved = true
+assigned_seinfo = "platform"
+observed_process_domain = "u:r:system_app:s0"
+observed_activity = "com.rigol.scope/.SplashActivity"
+useful_ui_established = false
+hardware_dependency_established = false
+signature_controls_rejected_per_run = 3
+shared_uid_certificate_preserved = true
+stock_package_certificate_preserved = true
+normal_instrumentation_detach = true
+physical_device_access = false
+host_security_policy_modified = false
+frida_guest_policy_change = true
+app_methods_intercepted = false
+sampler_limit_seconds = 30
+successor_plan = ".agents/plans/guest-startup.yaml"
+
+[[source]]
+path = "tools/guest/labeling-exception.js"
+sha256 = "254c9f3fa75eb789572120395102510966f6541bb7497b9611c502881d121274"
+
+[[source]]
+path = "tools/guest/admission-label.sh"
+sha256 = "1a19aa644f81b980f929e5486415a770dfe9734c78e1c34cab561d58079d04b0"
+
+[[source]]
+path = "tools/guest/run-admission.sh"
+sha256 = "ee2bb39040e8cbc92294f680d82ff2875dff831ec77e61607d2e6ebee7d86b9a"
+
+[[source]]
+path = "tools/guest/inspect-framework.js"
+sha256 = "d6c42c4d12d134dd3c014e87f7571d2ceb1d9f59172a2427ac940648a0a749cb"
+
+[[source]]
+path = "tools/guest/VerifyLabeling.main.kts"
+sha256 = "b94b997050f311fde12ba2b1dbce7c869ba595d1416ac42ee52a8e1032507bfc"
+
+[[runs]]
+id = "label-01"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/result.toml"
+sha256 = "6891e6854a19bd1b7a2e8708b03fc028806a115de551d983d724b6253deaf198"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/evidence-sha256.txt"
+sha256 = "efbf9b95bd56293d9e42fefcde1059ab150c65351b38a55226a4515e4146a93e"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/admission-hook.txt"
+sha256 = "a0a1f7a7f8ef1e0ee9d0b07951b1f6ca9ff7458ee5dacd5cb2ff3ccd722d2573"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/system-server-pid.toml"
+sha256 = "8271d048aff7ebd39523526b1ead0ee47edc70439168eca41aace2574408bb4f"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/process-labels.txt"
+sha256 = "56ba6f648a264c931ec3a1a3eb1b1f2a79cecaef05a2284c904191fcad8f1cba"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/application-logcat.txt"
+sha256 = "3e9f5e3943486f432e022c760f9b01c2fab0dbd4f6193677c584ec84d890987a"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/application.png"
+sha256 = "3072f4b92a16840605e3464afcc753832daf68729848f70181f8730a79a6cca0"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/scan-package-oatdump.txt"
+sha256 = "bfbbc1f04b9f809d8b3fbd394c80962742d23454200b74a300af393175c0e594"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-01/frida-inspection.txt"
+sha256 = "e1285cb0a504874444f30d7dfc1efe48f007043e873711cc7caf35dcb6d2647b"
+
+[[runs]]
+id = "label-02"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/result.toml"
+sha256 = "bb11c0c719b9c9d81c6b7d4d1218b9ad6b44707ebd6bd84f81b2a556fad67315"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/evidence-sha256.txt"
+sha256 = "933d54602f5e39031eda3a8877fb58f3de213c9440a9533a54bdd091728a2647"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/admission-hook.txt"
+sha256 = "a0a1f7a7f8ef1e0ee9d0b07951b1f6ca9ff7458ee5dacd5cb2ff3ccd722d2573"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/system-server-pid.toml"
+sha256 = "7dc8a37a862e54f8ff83a102e853bba5399e6d18d6e3c792fdf38ee71a495956"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/process-labels.txt"
+sha256 = "cbf3a8b9d592e200d1c3cf1afc4b85875d957a718ba317d818d0c4dd467a7688"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/application-logcat.txt"
+sha256 = "6688668d64a25c3a963f5dc6c78c3a5360f5561a62bc1d872a15318f4d5a6ce8"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/application.png"
+sha256 = "37acb96bb8ab68080f328f4b2130c93f65f57deffe1e9b80ccd64825cdb9969e"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/scan-package-oatdump.txt"
+sha256 = "bfbbc1f04b9f809d8b3fbd394c80962742d23454200b74a300af393175c0e594"
+
+[[runs.evidence]]
+path = "out/guest-admission/label-02/frida-inspection.txt"
+sha256 = "e1285cb0a504874444f30d7dfc1efe48f007043e873711cc7caf35dcb6d2647b"
