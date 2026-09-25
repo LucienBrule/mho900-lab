@@ -1,0 +1,40 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.execution-profile
+    title: Test post-atomic execution breakpoint delivery under the observed readback profile
+    state: open
+    intent: Use actual trap delivery to evaluate hardware breakpoint support despite cached enable-bit readback.
+    requires: [TASK.guest.execution-stop-decision]
+    requirements:
+      - Fresh pinned disposable guest, private child only, unchanged stock artifacts and guest enforcement.
+      - Preserve the prior setup-negative run and fixture; successor profile permits only the observed enable-bit difference.
+      - Keep exact target address, control type/length/privilege, metadata and unused-slot checks.
+      - Continuous, matching, nonmatching, matching, continuous arm order with the same ELF and fixed private inputs.
+      - Resume continuously after the full setup; breakpoint remains after the complete exclusive sequence.
+      - Eight-attempt child limit, one terminal stop per arm and 30-second host command bound remain fixed.
+      - Do not reprogram until desired readback or delivery occurs; preserve unexpected stops and close the tested question.
+    acceptance:
+      - Record requested/readback debug state and distinguish setup acceptance from actual delivery.
+      - Verify whether matching breakpoints fire after successful atomic completion and nonmatching controls reach fallback BRK.
+      - Independently verify terminal memory, status, PC, signal metadata, executable identity and preservation.
+    verification: [profile, outcomes, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.execution-profile-decision
+    title: Decide stock observation continuation from breakpoint delivery controls
+    state: open
+    intent: Select a bounded stock dataflow observation or an evidence-supported observer alternative.
+    requires: [TASK.guest.execution-profile]
+    requirements:
+      - No stock or physical-hardware conclusions from private controls alone.
+      - Thread coverage must be explicit before the modeled device surface grows.
+    acceptance:
+      - State the supported observation boundary and remaining limitations.
+      - Commit and push the conclusion before executing a successor batch.
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
