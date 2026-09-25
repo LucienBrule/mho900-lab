@@ -1,0 +1,20 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.single-read-decision
+contract: sha256:1e60f22bb669fc26da891ea1abc8ff39e9b5abc96093ef73d13b624e47e0519b
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:40:44Z"
+evidence:
+  evaluation: >-
+    docs/research/xdma-single-read.md SHA-256 8740fc1b88d9ceba60b9dd857b7c6a2a712d7967c39773e655ad9587807a1140 separates the three findings: native syscall
+    evidence explains failed-mmap behavior; an external supervisor reliably captures the first mapped-register
+    access; and two synthetic one-read responses are consumed by unchanged stock code before the same next
+    access. This establishes a scoped load-emulation primitive, not a full XDMA device or physical identity.
+    Only the two selected words and the observed main-thread sequence are supported. Mapping attributes,
+    concurrency, ordering, DMA, IRQs, timing, later initialization and physical register values remain unknown.
+  checkpoint: >-
+    Stop after the third experiment. Neither run completes the second read or supplies a complete FPGA identity.
+    The next proposed question is how stock code assembles and consumes the two words and where the first
+    value-dependent decision occurs, before choosing any coherent identity fixture. No fourth experiment is
+    admitted. Both guests are torn down; current evidence and task closure will be committed and pushed as
+    directed. Future work must begin from taskctl state and explicit new bounded tasking.

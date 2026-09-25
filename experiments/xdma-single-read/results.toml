@@ -1,0 +1,134 @@
+schema_version = "mho900-lab.single-read-results/1"
+classification = "paired-synthetic-device-response-experiment"
+report = "docs/research/xdma-single-read.md"
+historical_checkpoint = "experiments/xdma-single-read/checkpoint.toml"
+active_task = "TASK.hardware.single-read"
+decision_task = "TASK.hardware.single-read-decision"
+hypothesis_supported = true
+runtime_sources_identical = true
+native_binary_identical = true
+first_read_offset = "0x4048"
+next_read_offset = "0x4044"
+stock_pc = "0x270604"
+stock_opcode = "b9400109"
+width_bytes = 4
+completed_stock_reads_per_run = 1
+physical_register_values_established = false
+complete_identity_supplied = false
+stock_bytes_preserved = true
+physical_device_access = false
+fourth_experiment_admitted = false
+
+[[runs]]
+id = "single-read-zero"
+synthetic_response = "0x00000000"
+caller_output_word = "0x00000000"
+private_access_controls_passed = 4
+private_load_completion_control_passed = true
+system_server_pid = 1053
+system_server_stable = true
+
+[[runs]]
+id = "single-read-pattern"
+synthetic_response = "0x11223344"
+caller_output_word = "0x11223344"
+private_access_controls_passed = 4
+private_load_completion_control_passed = true
+system_server_pid = 1063
+system_server_stable = true
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+sha256 = "0a9c6b286e356fe2b376aff6b683350a688e6661bdd51534856dcbac5e6d5695"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+sha256 = "710507b4cdb38edc8a75350f3283a4159130932ee0aa03c61ce980aa52251a32"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+sha256 = "2466111a7a029c145ba234336d3be034da7cbd640ae8b8181770e7e9bf6ade8b"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "4b2702ec07d1d99d04680e909b87fc4a660964802c6c676825d4a006f8940b9f"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "3d23ee4199b70b9ffa3bcee801e8f6a3b100a88181d9bec1fd450293ab0e0417"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "bece4ceba28fb602fa19b7e3abb515c0c619f796e902338371ef2f139963734c"
+
+[[artifacts]]
+path = "out/xdma-single-read/zero-final-verification.toml"
+sha256 = "ef5aff36342aa114b78e92199770ac1e00cf6dd2c946fe5f220c15314059405d"
+
+[[artifacts]]
+path = "out/xdma-single-read/pattern-verification.toml"
+sha256 = "fbbabd9959915032c060d45ee5352a2eb61cb96d10164992980e1c559baa2e44"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/evidence-sha256.txt"
+sha256 = "df8654f4095bcff0c8172df56fb6b7d8f807c2065fdfa6f9bf66029240e78415"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-probe.elf"
+sha256 = "1b6ea47016c6cb28162c1737fea258d7a378803b233dd60b39966d5a5039491b"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-events.toml"
+sha256 = "9ec1d39f2339ceeef9d923e4c88a87332f0d05b4e2465fdeed87db4bf11e6c5c"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-step-control.toml"
+sha256 = "51552ba72e46ff63aaba08472e91448296f3dafab0fb60da99c7c9c4b9c9b3c5"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/native-before.txt"
+sha256 = "b2366a79a87376dea544944da38dad6d96ce42be065269bd7d1eddd0bdfb4747"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/result.toml"
+sha256 = "1b40954015939d23e313092c66a690db2c80a5e7825eceea3e8b917565cae280"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/system-server-pid.toml"
+sha256 = "46a8e5d8e2a73d00bccc5ae406509f4337fd3b36d219e5d8a5f3eb16fe0749e3"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-zero/crash-logcat.txt"
+sha256 = "7b6c56345484c4ce25c328fb0ca97b2461f5bc2c946012b09f73284c6b56a88f"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/evidence-sha256.txt"
+sha256 = "ded0637c1d22b8005ba3cb52c5e1a8d10c34b44077def2efc70ba18278e8d545"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/native-probe.elf"
+sha256 = "1b6ea47016c6cb28162c1737fea258d7a378803b233dd60b39966d5a5039491b"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/native-events.toml"
+sha256 = "9db2c6e90ec441439b51739cb3192ba338d367ade5befa446dc25187e7f6d2b0"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/native-step-control.toml"
+sha256 = "fe8311b81fc37f80bea15adf2dea29003282bd607d1889f1fa12753ddea2ff8f"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/native-before.txt"
+sha256 = "84333151191f4928fcabf44786df64666d6b6dae13ad584e0fa5de1e8eac1694"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/result.toml"
+sha256 = "7255f7cdcdf17a012c3eed9d968d42371d84df3e181f01b061e9864738c7cf5e"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/system-server-pid.toml"
+sha256 = "70e80c9a8f4bc2aba93109d5525c3c48a755ebd81bef6c487e3e4869e1f99560"
+
+[[artifacts]]
+path = "out/guest-admission/single-read-pattern/crash-logcat.txt"
+sha256 = "01940c925bfa062981f9a72dd7ce6d9d3e81285215e7a7ac97258d1700bd08af"

@@ -1,12 +1,13 @@
 schema_version: mho900-lab.research-checkpoint/1
-recorded_at: "2026-09-25T02:31:03Z"
-status: paused-at-operator-request
-ledger_revision: sha256:fe12af235822c60d88dbfcc39506f47d4d4b7982d9bb8ad253e69acf31fb0068
-active_task: TASK.hardware.single-read
-decision_task: TASK.hardware.single-read-decision
-completed_run: single-read-zero
-pending: Fresh same-source comparison with NATIVE_TEST_WORD=11223344; no second arm started.
+recorded_at: "2026-09-25T02:40:56Z"
+status: complete
+ledger_revision: sha256:b83c9b7f9ee43f397a2988d77076f1fe4cfe60777f6bfff671569ed7b0b6a733
+completed_tasks: [TASK.hardware.single-read, TASK.hardware.single-read-decision]
+completed_runs: [single-read-zero, single-read-pattern]
+pending: None within the admitted three-experiment exploration.
 report: docs/research/xdma-single-read.md
-manifest: experiments/xdma-single-read/checkpoint.toml
-resume: Read taskctl doctor, context, frontier and both task contracts before resuming.
-limit: Complete this third experiment, conclude, commit and push; no fourth experiment admitted.
+manifest: experiments/xdma-single-read/results.toml
+historical_pause_manifest: experiments/xdma-single-read/checkpoint.toml
+resume: Read taskctl doctor, context and frontier; no successor is admitted.
+next_question: How stock code assembles and consumes the two words and where its first value-dependent decision occurs.
+limit: Three experiments concluded; no fourth experiment admitted or executed.
