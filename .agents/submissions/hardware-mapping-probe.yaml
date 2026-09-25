@@ -1,0 +1,33 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.mapping-probe
+contract: sha256:1843c7cedd572e91da144b938c704ed004523955706a88838466e76f7cb60a4e
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:02:13Z"
+evidence:
+  reference-comparison: >-
+    docs/research/xdma-boundary.md SHA-256 2c2f7ef550009a08c3baba735605d336e6234fe4199b4133ead260c038ba9439
+    compares stock ARM64 accessors and observed bypass open/mmap against kernel revision
+    d23adbd11626f12abaf4bc742e250204fe2b9f8a. experiments/xdma-boundary/reference.toml SHA-256
+    6bac7755279de52f0c6acab8564b46f723238548fc2326251cdaa70e2e6e5ba5 pins inspected source, Git blob IDs,
+    symlink targets, API provenance and stock disassembly. The XDMA import is attributed to Xilinx; no vendor
+    equivalence or MHO984 hardware validation is claimed. BAR transport, base-node engine checks and SGDMA
+    semantics are distinguished from unknown Rigol register behavior. All reference hashes were verified.
+  controlled-capture: >-
+    Each final fresh guest run passed four private 32/64-bit read/write protection-fault controls, an ordinary
+    memory control and three negative APK admission controls. No stock instruction was skipped or hardware
+    response supplied. VerifyMapping.main.kts explicitly separates strict capture from observed negative profiles.
+    Both negative verifications passed; both strict capture verifications rejected the incomplete evidence.
+    Shell syntax and injected JavaScript syntax checks passed. These controls validate the private detector
+    fixture, not reliable observation of stock mapped accesses.
+  repeated-stock-probe: >-
+    experiments/xdma-boundary/results.toml SHA-256 f647a1d614278ca6c7ec77f80ea5f6e38d405ba053ea5c2a4f7e33bb73241b4e
+    pins all four raw run indexes, important logs, source hashes and verification outputs. Final mapping-03 and
+    mapping-04 used identical runtime helpers. The former recorded open then an unhandled read fault at 0x4047
+    without a mapping event; the latter recorded the exact 16 MiB shared RW request and protected backing, then
+    a signal-11 process exit with no fault metadata. Neither captured a complete unsupported access. Earlier
+    runs and identified harness defects remain preserved. Stock APK and packaged native library match their
+    original hashes. system_server remained stable in every run; final guests and isolated listeners are gone.
+    No physical instrument access, host policy change or global enforcement disabling occurred. Frida guest
+    policy changes remain an explicit fidelity limit. This closes a reproducible negative under the task contract,
+    not a successful adapter implementation or a proven hardware register transaction.

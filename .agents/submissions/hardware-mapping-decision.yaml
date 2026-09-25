@@ -1,0 +1,24 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.hardware.mapping-decision
+contract: sha256:9c2a828398e9ac3dd8c6924f4abd2b15a32ec5b5051ab8b07de27eb2ac2d5340
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T02:02:26Z"
+evidence:
+  boundary-evaluation: >-
+    docs/research/xdma-boundary.md SHA-256 2c2f7ef550009a08c3baba735605d336e6234fe4199b4133ead260c038ba9439
+    evaluates the final repeated negative and preliminary harness defects. The chosen mapped-access contract
+    remains the smallest justified logical boundary; the current Frida transport is not validated for live stock
+    accesses. Private detector success does not establish application capture. Public XDMA code provides
+    transport and DMA plumbing, not Rigol register values, side effects or acquisition state. Full-driver reuse
+    adds PCI/DMA/IRQ requirements; higher native interception risks missing direct accesses and hiding startup.
+    Neither alternative is presently supported as a better resolution of the observed capture failure. No broad
+    architectural claim was falsified or replacement architecture implemented, so no contract reconciliation is
+    required. A future transport replacement must receive its own bounded tasking before execution.
+  next-question: >-
+    Close this batch as negative without supplying register responses. The next proposed question is independent
+    observation of the stock mmap target, fd, arguments and return, followed by first signal/register state,
+    outside this adapter callback path. The static mmap GOT location is a diagnostic lead, not runtime evidence.
+    A native syscall/fault supervisor is a candidate for a separate controlled experiment. No successor task or
+    behavioral extension is admitted here. Original bytes and raw negative evidence remain preserved; no physical
+    instrument or host policy was changed. Work is committed locally under the existing publication boundary.

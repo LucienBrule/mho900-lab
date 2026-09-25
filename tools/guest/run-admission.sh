@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -149,7 +149,7 @@ if [ "$boot" = completed ]; then
     export ADMISSION_RUN="$run" ADMISSION_REPO="$repo" ADMISSION_MODE="$mode"
     inspection=completed
     helper_mode=$mode
-    if [ "$mode" = startup ]; then helper_mode=label; fi
+    case "$mode" in startup|mapping) helper_mode=label;; esac
     "$run/source/admission-$helper_mode.sh" || inspection=failed
     if [ -f "$run/probe-result.toml" ]; then
         install=$(yq -p toml -o yaml -r '.install' "$run/probe-result.toml")

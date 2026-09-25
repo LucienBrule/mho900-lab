@@ -120,3 +120,11 @@ sha256 = "55b6ed64cf86ce2bbd7ec573336c1859dc25375f0b7de4e664e334b0e42afb05"
 [[evidence]]
 path = "out/xdma-reference/stock/accessors.txt"
 sha256 = "d6537e9c05071edb6c3d9a737bd3391c434cd75c704dbdf80bc6f8c97a21fda1"
+
+[[evidence]]
+path = "out/xdma-reference/xdma-tree.json"
+sha256 = "14fd1d92b33539dac88b8b64a80815c105d612545ee0f6ccf6f62fe1d0d5a3b6"
+
+[[evidence]]
+path = "out/xdma-reference/libxdma-directory.json"
+sha256 = "1599692613a6200276f0df6f8983f66f1787781b2b64ad5bf6ee1f404837a01e"

@@ -14,6 +14,12 @@ It is a hypothesis about an observable boundary, not a claim of a complete faith
 XDMA device. Production reuse of kernel code remains an option once evidence
 requires DMA or kernel semantics that this adapter cannot preserve.
 
+**Batch result:** the public-source comparison supports this narrow logical
+boundary, but the initial Frida adapter failed reliable live-access capture.
+Private controls passed; neither final fresh run produced a complete unsupported
+access record. No register behavior was supplied. See the evaluation below before
+using the prototype.
+
 ## Reference provenance
 
 The [kernel repository][kernel] is pinned at
@@ -39,9 +45,9 @@ downloaded and pinned separately. External source stays under ignored
 
 | Contract element | Stock consumer evidence | Public reference evidence |
 | --- | --- | --- |
-| Device open | Live JNI wait; static `/dev/xdma0_bypass`, flags `0x101002`. | `xdma_cdev.c` names the base bypass node. |
+| Device open | Live JNI wait; static bypass path, flags `0x101002`. | `xdma_cdev.c` names the base bypass node. |
 | Mapping | Offset 0, 16 MiB, `PROT_READ|PROT_WRITE`, `MAP_SHARED`. | `bridge_mmap` exposes a selected PCI BAR. |
-| Register writes | `Dev_WriteRegister`: 32-bit store at base + byte offset. | BAR mapping passes CPU writes to hardware. |
+| Register writes | `Dev_WriteRegister`: 32-bit store at base + offset. | BAR mapping passes CPU writes to hardware. |
 | Register reads | `Dev_ReadRegister`: 32-bit load at base + byte offset. | No callback defines register read values. |
 | Wider write | `Dev_WriteAfgRegister` stores 64 bits. | Mapping does not prescribe access width or meaning. |
 | Acquisition stream | Static `DevAnalyzeTrace_Read` calls `read` on C2H. | SGDMA read submits an engine transfer. |
@@ -81,17 +87,17 @@ will eventually be needed to validate modeled responses.
 
 | Direction | Assessment |
 | --- | --- |
-| Reuse the entire driver now | Requires a synthetic PCI endpoint, BAR discovery, DMA engines and IRQs before app evidence. |
-| Small mapped-access adapter | Preserves actual load/store instructions and exposes offset, width, value and call site. |
-| Replace `Dev_Read/WriteRegister` | Convenient, but can miss direct accesses and changes the executed instruction path. |
+| Reuse the entire driver now | Requires synthetic PCI, BAR discovery, DMA engines and IRQs before app evidence. |
+| Small mapped-access adapter | Keeps actual load/store instructions; exposes offset, width, value and call site. |
+| Replace `Dev_Read/WriteRegister` | Can miss direct accesses and changes the executed instruction path. |
 | Intercept JNI or higher API | Hides initialization and its failure behavior; too broad for the present question. |
-| QEMU/device implementation | Strong future MMIO isolation; larger platform investment before the reached register set is known. |
+| QEMU/device implementation | Strong MMIO isolation; larger platform investment before the register set is known. |
 
 The selected experiment intercepts libc only in the exact installed stock process.
 It binds the bypass open to its stock call site and flags, uses a real disposable
 descriptor as transport, and accepts only the observed mapping tuple from the
 stock mmap call site. The backing mapping is deliberately inaccessible anonymous
-memory. A fault reports the actual instruction, offset and registers, then stops;
+memory. The intended fault record reports the instruction, offset and registers, then stops;
 it does not complete the unknown access. Original APK and native-library bytes
 remain unchanged, including native accessor instructions.
 
@@ -121,6 +127,108 @@ The mechanism uses Frida's [documented exception and memory APIs][frida]; their
 behavior must be tested on the pinned 16.7.19 runtime. The APIs are a transport
 choice, not a source of instrument semantics. Its mandatory injected JavaScript
 bridge is the ecosystem exception to Kotlin-first tooling; verification is Kotlin.
+
+## Preliminary harness observations
+
+`mapping-01` passed the private access controls but admitted the device open before
+the adapter-ready event, with no captured mmap request. Its event writes also
+arrived out of sequence. The app faulted; `system_server` remained stable. This
+run is excluded from validating the mapped-access hypothesis. Hook activation is
+now gated until all hooks are installed, and evidence writes keep the JS lock.
+
+`mapping-02` captured the exact stock mmap tuple and the inaccessible mapping,
+then the app faulted at mapping base + `0x4048`. It did not capture a complete
+access record and is likewise excluded from a successful observation claim.
+The adapter retained an `onLeave` return-value wrapper, contrary to Frida's
+documented lifetime rule. The correction copies the address value. These are
+harness corrections, not changes to modeled register behavior. Original runs
+and their source snapshots remain preserved.
+
+## Final repeat and evaluation
+
+The final runtime helpers are byte-identical between `mapping-03` and `mapping-04`.
+Both used fresh guest data and passed four private 32/64-bit read/write fault
+controls, an ordinary-memory control and three APK-admission rejection controls.
+The installed stock APK and packaged native library retain their pinned hashes.
+
+| Run | Recorded live outcome |
+| --- | --- |
+| `mapping-03` | Open returned fd 56; no mmap event; read fault at `0x4047`, with no adapter region. |
+| `mapping-04` | Exact mmap tuple; protected 16 MiB region; Zygote reports app PID 2513 exited on signal 11. |
+
+The first run does not establish whether the stock mmap call bypassed the hook,
+failed, or encountered an instrumentation fault. The second does not establish
+fault address, instruction, width, register value or device-relative offset.
+
+The second run's crash buffer and tombstone directory are empty. Its event journal
+ends at `mapping-ready`; its CLI exit code is zero despite the app dying. Neither
+CLI success nor helper completion validates a capture. The synchronous guest
+journal contains more events than the console and is the primary adapter record.
+No complete `unsupported-mmio` record exists in either final run.
+
+`system_server` retained PID 1051 across all three samples in `mapping-03`, and
+PID 1068 in `mapping-04`. Both apps terminated and both guests were torn down.
+Zygote maps show no Frida injection. The existing scoped admission and process
+labeling fixtures remain necessary; Frida's guest SELinux policy changes remain
+a fidelity limit, with enforcing mode retained. No host policy or instrument was
+changed.
+
+This is a repeat failure to establish reliable end-to-end observation, with
+different failure stages. It is not a reproducible first-register trace or proof
+that Frida cannot implement the boundary. The preliminary `mapping-02` address
+difference, `0x4048`, is a candidate offset only: that run had a known harness
+defect and no complete instruction witness. Do not use it to invent a register
+name, reset value or response.
+
+**Decision:** retain the mapped-access contract as the smallest justified model
+boundary, reject this adapter as ready for behavioral modeling, and close this
+batch as a negative experiment. The public driver still supplies transport
+semantics rather than the missing register behavior. There is no evidence yet
+that importing the PCI/DMA backend or replacing a higher native API would resolve
+the actual observation failure with better fidelity.
+
+The next bounded question is whether an independent observer can record the
+stock mmap target, fd, arguments and return, followed by the first signal and
+register state, outside this callback path. Static relocation inspection locates
+the stock mmap GOT entry at ELF virtual address `0xb850f0`; runtime resolution is
+unverified. A native syscall/fault supervisor is a candidate to evaluate, not a
+validated implementation. Its first contract should prove deterministic capture
+on private controls and the unchanged stock process before supplying any hardware
+response. No successor behavioral model is admitted in this batch.
+
+## Reproduction and evidence
+
+`experiments/xdma-boundary/results.toml` pins source snapshots, raw evidence indexes
+and verifier outputs. Raw logs may contain private machine information and remain
+ignored; the tracked manifests use project-relative paths. Reference files can
+be retrieved and checked with:
+
+```sh
+tools/guest/fetch-xdma-reference.sh
+```
+
+With the previously pinned guest inputs and `ANDROID_SDK_ROOT` configured locally,
+a new disposable run uses a fresh identifier:
+
+```sh
+tools/guest/run-admission.sh mapping-new mapping
+kotlin tools/guest/VerifyMapping.main.kts out/guest-admission/mapping-new capture
+```
+
+The default `capture` verifier must fail for this batch: it requires the missing
+complete access witness and checks its opcode against the installed stock ELF.
+The explicit `negative` mode checks the two recorded failure profiles without
+promoting them to successful captures:
+
+```sh
+kotlin tools/guest/VerifyMapping.main.kts out/guest-admission/mapping-03 negative
+kotlin tools/guest/VerifyMapping.main.kts out/guest-admission/mapping-04 negative
+```
+
+It verifies raw-file hashes, stock bytes and signers, UID and process label,
+admission controls, event ordering, process death and server stability. A new
+failure shape requires review rather than being accepted as a generic negative.
+No further guest runs or register responses were added after the final repeat.
 
 [kernel]: https://github.com/norbertkiszka/rigol-orangerigol-linux_4.4.179
 [frida]: https://frida.re/docs/javascript-api/

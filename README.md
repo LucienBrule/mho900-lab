@@ -10,6 +10,7 @@ The project is running initial guest experiments; no complete emulator or physic
 - [Scoped APK admission and startup boundary](docs/research/guest-admission.md)
 - [Scoped process labeling and splash rendering](docs/research/guest-labeling.md)
 - [Live stock startup and the PCIe hardware stop condition](docs/research/guest-startup.md)
+- [XDMA reference comparison and negative mapping-adapter experiment](docs/research/xdma-boundary.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

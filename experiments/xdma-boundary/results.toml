@@ -1,0 +1,230 @@
+schema_version = "mho900-lab.xdma-boundary-results/1"
+classification = "negative-transport-experiment-not-hardware-validation"
+reference = "experiments/xdma-boundary/reference.toml"
+base_inputs = "experiments/guest-baseline/inputs.toml"
+instrumentation_inputs = "experiments/guest-admission/inputs.toml"
+report = "docs/research/xdma-boundary.md"
+selected_boundary = "Exact stock bypass open/mmap and actual mapped load/store instructions"
+adapter = "Frida 16.7.19 libc hooks with inaccessible anonymous backing"
+hypothesis_supported = false
+complete_live_access_records = 0
+final_runtime_sources_identical = true
+stock_apk_preserved = true
+stock_native_library_preserved = true
+hardware_values_supplied = false
+physical_device_access = false
+host_security_policy_modified = false
+selinux_fidelity_limit = "Frida modifies disposable guest policy; enforcing mode retained"
+decision = "Retain logical mapped-access boundary; reject current adapter readiness"
+next_question = "Independently observe mmap target, arguments, return and first fault outside adapter callback path"
+successor_tasks_admitted = false
+
+[[runs]]
+id = "mapping-01"
+classification = "preliminary-harness-defect"
+outcome = "Private controls passed; open before adapter-ready; out-of-order journal; no mmap record"
+system_server_pid = 1047
+system_server_stable = true
+
+[[runs]]
+id = "mapping-02"
+classification = "preliminary-harness-defect"
+outcome = "Exact mmap recorded; signal fault at mapping base plus 0x4048; no complete access record"
+retained_return_wrapper_defect = true
+candidate_offset_is_validated = false
+system_server_pid = 1051
+system_server_stable = true
+
+[[runs]]
+id = "mapping-03"
+classification = "final-negative"
+started_at = "2026-09-25T01:51:56Z"
+finished_at = "2026-09-25T01:53:36Z"
+app_pid = 2515
+outcome = "Guarded open; no mmap record; unhandled read fault address 0x4047; region none"
+private_access_controls_passed = 4
+ordinary_memory_control_passed = true
+negative_admission_controls_rejected = 3
+system_server_pid = 1051
+system_server_stable = true
+verification = "out/xdma-reference/verification/mapping-03.toml"
+
+[[runs]]
+id = "mapping-04"
+classification = "final-negative-unchanged-repeat"
+started_at = "2026-09-25T01:54:49Z"
+finished_at = "2026-09-25T01:56:29Z"
+app_pid = 2513
+outcome = "Exact mmap recorded; protected mapping created; signal-11 exit; fault metadata absent"
+requested_mapping_bytes = 16777216
+requested_protection = 3
+requested_flags = 1
+requested_offset = 0
+private_access_controls_passed = 4
+ordinary_memory_control_passed = true
+negative_admission_controls_rejected = 3
+system_server_pid = 1068
+system_server_stable = true
+crash_buffer_empty = true
+tombstone_present = false
+verification = "out/xdma-reference/verification/mapping-04.toml"
+
+[[source]]
+path = "tools/guest/mapping-adapter.js"
+sha256 = "01f1c9e897197bfb34a025219c5786efc1cb24c484b8d23edd013b717994be95"
+
+[[source]]
+path = "tools/guest/mapping-probe.sh"
+sha256 = "b8913f15737e5a7c8a60cf41f2e330fd2c83e2ae11c1a422a75226dca4ecebc5"
+
+[[source]]
+path = "tools/guest/VerifyMapping.main.kts"
+sha256 = "bab44698fd8cc9f195971fb64c3dd5429f616bc20856b3e77c25ba7cc49a5167"
+
+[[source]]
+path = "tools/guest/admission-label.sh"
+sha256 = "894d7a6496b58ce1718c8fc331a62701ac72732eda922b25e522799e9559824b"
+
+[[source]]
+path = "tools/guest/run-admission.sh"
+sha256 = "1d096c4c0c3f7f459c24a7f015c1e7661c6cadcf645079887d9b748a6ecaa8d3"
+
+[[source]]
+path = "tools/guest/fetch-xdma-reference.sh"
+sha256 = "e4cdb6878fe997271dca9a447df2be1ab600846ad2bf973c52a3da0938c46330"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/evidence-sha256.txt"
+sha256 = "d0f8bdc3a2dbba534095d0719ba16f3a195be6ac43fe866d1ce10f96988dd145"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/result.toml"
+sha256 = "a1b3c524c2f5e1957d2d1ecc1079ed172fbcae6d3d188c34d05d35b6977936e9"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/mapping-events.toml"
+sha256 = "6d60d8820950a172b70790cd01c10318d09103d6b1fac03d32293ff3e9db3dc4"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/system-server-pid.toml"
+sha256 = "2e80d5c442933eff880e108db1f27099a211ed47c2f38ce4c4675e3a8fc9b140"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/application-logcat.txt"
+sha256 = "323dbbac3798344ca79eeda9c069ca86e5965955bde7af91dca6cd565ac646b8"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/crash-logcat.txt"
+sha256 = "b1c9705c3ddf4c9c2cb4e8cdf61f84fe62655c15b0c08fadf3b94e4a6b2a558a"
+
+[[evidence]]
+path = "out/guest-admission/mapping-01/mapping-cli-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/evidence-sha256.txt"
+sha256 = "b95a8cb16a0a93d6b3e13ed08a1fa457a308f97ec92dcc24d57f4c4ef605bdfc"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/result.toml"
+sha256 = "0c298c11c36bafb6fffffe109e7d38a0e7aed80e49b8d384cdb2853ea1a63d04"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/mapping-events.toml"
+sha256 = "6b604c4ced5bcd97df5eedb453eac0e04910923547e4277bbec5fe06fa493127"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/system-server-pid.toml"
+sha256 = "68fc72ae1091ba58070963094108d43d73c97324e5aeb2eb0a2bb9876859aab8"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/application-logcat.txt"
+sha256 = "13473ccf6b41e301657115afbcf3a3355e6df84cac2a1c2c074cdda9c1e10c52"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/crash-logcat.txt"
+sha256 = "1bdc6bc054b4950f4a445590a3eda6a2915ae9f83ee93acce98aecc75e78cb2c"
+
+[[evidence]]
+path = "out/guest-admission/mapping-02/mapping-cli-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/evidence-sha256.txt"
+sha256 = "73b646c326744abfda52ad7767bb9c40304d387dcbdd956e7dbd1ae036767e88"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/result.toml"
+sha256 = "4851d0b1cd0f343f5127df9e3871aebc8f30ac7557fc1ecc90bf8e1f88610efb"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/mapping-events.toml"
+sha256 = "78f27078517c0b1fbfa94246d24823d499ca59fc6e6d1afb5c452cf6cbda9605"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/system-server-pid.toml"
+sha256 = "68fc72ae1091ba58070963094108d43d73c97324e5aeb2eb0a2bb9876859aab8"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/application-logcat.txt"
+sha256 = "1e3001a98d093b461bccf1ad3b6286f66c9d73f5ecf9be93ebd9eb9757cb9421"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/crash-logcat.txt"
+sha256 = "5ebb86eebb4e2e75d5dc58ce3283afd03978ec9cbac28fab7e27040472fa70cc"
+
+[[evidence]]
+path = "out/guest-admission/mapping-03/mapping-cli-status.toml"
+sha256 = "c1462a517121ba4c0b31b7d4029dde0b6ab2cdd27ea90e207eca641842a87b56"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/evidence-sha256.txt"
+sha256 = "fb034901a10adf1d6249d0c6a12b815270ed843ed1982d7d427b18569c2de93e"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/result.toml"
+sha256 = "b307ad953770fdf001f5a566a43bdaca2d04e030d6a814f008f4f28f1027ebc6"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/mapping-events.toml"
+sha256 = "221ebbb8479c95097134e751411600e3929c96ac73991fc473692eb6ce785beb"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/system-server-pid.toml"
+sha256 = "c46c793df58b51c49836e4e6a20fb40ad85135661d62c5a7804354a9572ccd7c"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/application-logcat.txt"
+sha256 = "5d1b07f63fd1ec1db0e675e28a2e3de8f1886feed38166ee6b7451fe3a4a988e"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/crash-logcat.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[evidence]]
+path = "out/guest-admission/mapping-04/mapping-cli-status.toml"
+sha256 = "043958a085c4de4e29c4739533f304d0eff2fdf00ccd972a49ec15540af5ad57"
+
+[[evidence]]
+path = "out/xdma-reference/verification/mapping-01-checksums.txt"
+sha256 = "21a9293fade10808b20f523c563b877eee83dad3749aff7736f16f7e5aa781df"
+
+[[evidence]]
+path = "out/xdma-reference/verification/mapping-02-checksums.txt"
+sha256 = "949bfe94a6e04ea0b81bedac0a8fe2aac0ba95bb0485d997d5ecccb9dcb254d9"
+
+[[evidence]]
+path = "out/xdma-reference/verification/mapping-03-capture.txt"
+sha256 = "515782d0954fcf64870383fd403c1bd92cff3ac6734744f9880c9653f0faa31d"
+
+[[evidence]]
+path = "out/xdma-reference/verification/mapping-03.toml"
+sha256 = "5253dca7d9cd52a248e12ab8b8830cb2d6282e107f51d1270f3549b9c315388c"
+
+[[evidence]]
+path = "out/xdma-reference/verification/mapping-04-capture.txt"
+sha256 = "c66d37e09647c128e2ff3706035dfe7adb26b182594ae57ef09e63b6d3224879"
+
+[[evidence]]
+path = "out/xdma-reference/verification/mapping-04.toml"
+sha256 = "e13a05d1b1c32f2fb3ec8fe3fe5eb3615e1360979a6a70dc63b6d93569b39ae2"
