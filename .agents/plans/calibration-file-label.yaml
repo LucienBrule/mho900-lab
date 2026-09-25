@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-file-label
+    title: Test one existing application-data type on the two calibration fixture files
+    state: open
+    intent: Resolve the observed file-label failure without changing the guest policy or stock bytes.
+    requires: [TASK.guest.calibration-access-decision]
+    requirements:
+      - Pin the preceding EACCES observation and static type review; distinguish matching-source permissions and compiled symbol presence from unconfirmed compiled allow rules or constraints.
+      - Freeze one new fixture profile using the same byte-identical private probe APK stock assets and derived ramdisk; preserve the original su_tmpfs evidence and apply system_app_data_file:s0 only to the two explicit default file paths after the unchanged filesystem preconditions pass.
+      - Perform no recursive labeling directory label change permission relaxation policy modification or alternate retry. Capture both command results and pre/post labels metadata complete bytes and the fixed absent paths; stop on a failed label precondition or assignment.
+      - Run the same private UID1000 system_app probe once and verify each metadata open and complete bounded read outcome independently; support an honest negative outcome and test verification against altered evidence with regenerated indexes.
+      - Remove the private package and capture final system_server enforcement process package filesystem and teardown evidence even on failure; preserve stock artifacts and commit and push the conclusion before another guest experiment.
+    acceptance: [Commit and push a precise result for the two-file label hypothesis.]
+    verification: [inputs, controls, observation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.calibration-label-decision
+    title: Evaluate complete file reads and admit stock whole-loader validation if supported
+    state: open
+    intent: Advance from a verified environment fixture to actual stock loader behavior.
+    requires: [TASK.guest.calibration-file-label]
+    requirements:
+      - Evaluate actual identity file outcomes complete hashes and final health; do not promote expected source behavior or an unexecuted read to success.
+      - If both files are fully readable freeze and admit a bounded stock first-three-loader validation using unchanged native observer and explicit terminal stop before SetADCParameter; otherwise select only the witnessed unresolved label or observation question.
+      - Preserve the distinction between a guest data fixture and physical instrument behavior; draft plan inspect admit commit and push successor tasking before execution.
+    acceptance: [Commit and push the supported stock-continuation decision or precise unresolved question.]
+    verification: [evaluation, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

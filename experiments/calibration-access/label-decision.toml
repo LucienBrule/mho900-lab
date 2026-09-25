@@ -1,0 +1,32 @@
+schema_version = "mho900-lab.calibration-label-decision/1"
+result = "two-file-existing-type-control"
+observed_previous_file_access = "EACCES"
+selected_context = "u:object_r:system_app_data_file:s0"
+selected_file_count = 2
+directory_context_unchanged = true
+policy_unchanged = true
+reference_permissions = ["getattr", "open", "read", "ioctl", "lock"]
+compiled_rule_and_constraint_decoding_complete = false
+probe_apk_unchanged = true
+stock_application_execution_admitted = false
+successor = "TASK.guest.calibration-file-label"
+
+[[artifacts]]
+path = "experiments/calibration-access/run01-results.toml"
+sha256 = "50d6a0be5352e8500e0ade98edd289faee5ee5ee3fe49a8edeeb3df811554940"
+
+[[artifacts]]
+path = "out/calibration-access/label-decision-review.toml"
+sha256 = "02370e24561529fcee80a7cfa09f799c34ebc5064df9c7e41abf79080ce931c4"
+
+[[artifacts]]
+path = "out/calibration-access/label-decision-review.md"
+sha256 = "3768f06140a2c7098c0da9489b4cc50fe04e55e94c9881e52644753cf8dfe952"
+
+[[artifacts]]
+path = "docs/research/calibration-file-label-decision.md"
+sha256 = "782011c37e61b558cef0b4f2383a2fea2b9da99910a5d5e14b9fb02510b62a69"
+
+[[artifacts]]
+path = ".agents/plans/calibration-file-label.yaml"
+sha256 = "d124ef952b45b93b1d3d3cdfaaa10a8cf4f66563441457ebcb612569f5b11ab7"
