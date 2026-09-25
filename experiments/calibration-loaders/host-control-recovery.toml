@@ -1,0 +1,89 @@
+schema_version = "mho900-lab.host-control-evidence-recovery/1"
+result = "five-original-files-restored-to-preexisting-digests"
+incident = "stock-loader-synthetic-fixture-write-through"
+new_guest_run_started = false
+original_indexes_modified = false
+original_stock_tail_files_changed = 1
+original_file_access_files_changed = 4
+changed_bytes_preserved = true
+recovery_candidates_verified_before_write = true
+stock_tail_index_entries_verified = 192
+file_access_index_entries_verified = 177
+file_label_index_entries_verified = 183
+affected_frozen_verifiers_accepted = 2
+linked_control_indexes_verified = 6
+file_label_run_affected = false
+native_events_affected = false
+stock_program_artifacts_affected = false
+unsafe_synthetic_fixture_quarantined = true
+synthetic_positive_result_accepted = false
+stock_loader_task_closed = false
+replacement_requires_independent_writable_files = true
+
+[[artifacts]]
+path = "docs/research/stock-loader-host-control-recovery.md"
+sha256 = "4e8dff5dc39ec6814995965ddfb9051cc28e0e4455cec163103afcffd78264e3"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/Restore.main.kts"
+sha256 = "c6399c31f91c5fe5b53fad73990b7d5d7306fb4e5da257682dda889688f97027"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/restoration.toml"
+sha256 = "4294a01ef551e853942b88ae47235490269567215be2a90105973dd7ab7ec89c"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/changed-sha256.txt"
+sha256 = "8206b74a60056718a5908198ac80792b11b3e98f354b23db8fbd3b500d681e8c"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/setup/setup.sh"
+sha256 = "71919b04e8f39c1cc5a51c22c3453b48ccb00d45cdb0b069ebd14cbb3c344491"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/setup/Generate.main.kts"
+sha256 = "58d03f73aa8c85b5d99e78f58d44b441b324d085b991def63ca50d38909fe941"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/setup/synthetic-index.txt"
+sha256 = "4537f1362d52db9bf66947d530a30a4231a579c450d89ac1363ea3bc98fcd132"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/setup/symlinks.txt"
+sha256 = "355bcc17776f8c9251beb60bb0f044c2c1280cc70439167ac8c5ea1a3bbdff83"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/stock-tail-index-before.txt"
+sha256 = "2398a2b46ba304d14cb7e29e6a239f4a6e15d3eeac1923ff72c972725e0dbca4"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/file-access-index-before.txt"
+sha256 = "3ebd32f3787ef7e53c28ab849b67362b42fbfb2a53bf8179e4f4d8fc3eac7e24"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/stock-tail-index-after.txt"
+sha256 = "8e0088ee32052a2de39e2ebbfeffc466e9d8f565e10d1e2f5bf49e3a25ab7683"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/file-access-index-after.txt"
+sha256 = "4f2a383deeba91d208740592e9c33bda843479bb135e66dfae592fffd7b6de3d"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/file-label-index-after.txt"
+sha256 = "5a97d265728968d64f09c7e1ab0598ce29775aa3eb230f809481e576837310fa"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/stock-tail-verification.toml"
+sha256 = "763393ffd465627918dcf56cba5a064723fd9b1da5068d5f221663c858d0d44c"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/file-access-verification.toml"
+sha256 = "ad3dff82b3d6de1b9afab69d1ba496b92d0cb96089263ef7a0d67e1b46f46a42"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/recovery-review.md"
+sha256 = "c09b12598f34386f14929a284a1691e2ba0b583677e26fcf2daca487eb196360"
+
+[[artifacts]]
+path = "out/evidence-recovery/stock-loader-host-control-01/recovery-review.toml"
+sha256 = "8d0a8f21fb59abf1b1952d89254f15f831e803124ca6729b01e001a372f329a1"
