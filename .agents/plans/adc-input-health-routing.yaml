@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-health-routing
+    title: Include ADC capture modes in final guest health dispatch
+    state: open
+    intent: Correct the observed runner mode omission without changing the accepted native capture experiment.
+    requires: [TASK.guest.adc-input-capture-controls]
+    requirements:
+      - Preserve the accepted private suite and original frozen manifests as historical evidence; add adcinputcontrol and adcinputmodel to the shared final-health dispatch.
+      - Extend host runtime controls to exercise both new modes on success and failure, including boot failure and finalization paths, while retaining the existing mode controls. Do not launch a guest in this task.
+      - Preserve the stock APK library capture binary and capture semantics; update only the runner route and its verification and frozen stock source identities as required.
+      - Freeze a revised unexecuted stock input contract and matching stock verifier with mandatory generic health artifacts; retain the original stock freeze and cite the private result.
+      - Verify the full stock profile against a synthetic independent-copy fixture and reject the stale runtime identity; preserve original evidence indexes. Commit and push before evaluation or guest execution.
+    acceptance: [The routing repair and revised stock freeze are verified and pushed without a guest rerun.]
+    verification: [routing, host_controls, freeze, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.adc-input-health-gate
+    title: Evaluate revised ADC stock capture admission
+    state: open
+    intent: Decide whether accepted native controls and repaired health finalization support the bounded stock observation.
+    requires: [TASK.guest.adc-input-health-routing]
+    requirements:
+      - Confirm all original private native controls remain accepted and the source-reviewed repair affects orchestration only; do not reinterpret omitted generic private health as a measurement.
+      - Confirm new-mode success and failure controls, mandatory stock health verification, source pins and the preboot disk gate. Admit stock only if this bounded continuation is supported; otherwise record the exact blocker.
+      - Record and push the admission decision before any stock guest execution. No new hardware response or ADC call execution is authorized by this gate.
+    acceptance: [A committed evidence-based stock admission or explicit blocker is recorded.]
+    verification: [evaluation, admission]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
