@@ -1,0 +1,23 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.guest.spu-region-control
+contract: sha256:37fa57452131bc868168f8a82ba8dec02dc77dcd6421f04bf4686efef5ba7def
+actor: mho900-lab-investigation
+recorded_at: "2026-09-25T08:41:00Z"
+evidence:
+  controls: >-
+    experiments/spu-transcript/control-results.toml SHA-256 384cfe2a374a3c1555bd3ff40a8ee9802ae9b6b8335a0430fda7cc22f63e6b38
+    pins single fresh group-spu-region-01. All15 new runtime controls and25 prior controls passed frozen independent
+    verification. Each new control retains2 reads and452 ADC stores; three completeSPU8 cases and two1-write
+    prefixes yielded26 acceptedSPU writes. Exact PC width operands order thread attribution and non-PC registers
+    were independently checked. Canonical compiled SPU fixture matches the separately verified input.
+  rejection: >-
+    Seventeen malformed SPU and13 prior malformed ADC inputs were rejected before target creation. Runtime
+    mismatches covered binding global pointer count sample shadow repeated-capture order operand offset width
+    thread and exhaustion, with no adaptive candidate changes. Corrupted selector and post-store register evidence
+    copies were rejected. Initial evidence-mutator parsing failure is preserved separately; original captures unchanged.
+  preservation: >-
+    Native executable ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae is the tested stock-run candidate.
+    Every new arm tracked2 initial threads plus1 clone and exactly reaped all3. All45 system_server samples were1065;
+    enforcement enabled throughout checkpoints; stock application absent and stock artifacts unmodified. Guest
+    services stopped and current sources equal frozen sources. Commit and push this conclusion before stock execution.

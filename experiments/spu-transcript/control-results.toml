@@ -1,0 +1,117 @@
+schema_version = "mho900-lab.spu-observer-results/1"
+task = "TASK.guest.spu-region-control"
+run = "out/guest-admission/group-spu-region-01"
+started_at = "2026-09-25T08:38:19Z"
+finished_at = "2026-09-25T08:39:30Z"
+native_sha256 = "ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae"
+spu_runtime_controls = 15
+prior_runtime_controls = 25
+spu_parser_rejections = 17
+prior_parser_rejections = 13
+accepted_adc_writes_new_controls = 6780
+accepted_spu_writes = 26
+accepted_total_writes_new_controls = 6806
+initial_threads_per_new_control = 2
+runtime_clones_per_new_control = 1
+terminal_threads_per_new_control = 3
+system_server_pid = 1065
+system_server_samples = 45
+enforcement_preserved = true
+stock_application_installed = false
+stock_artifacts_modified = false
+guest_services_stopped = true
+frozen_verifier_passed = true
+current_sources_match_frozen = true
+compiled_reference_matches_fixture = true
+altered_evidence_copies_rejected = 2
+fpga_behavior_established = false
+
+[limits]
+snapshots = "Two non-atomic captures; change-and-restoration not excluded"
+function_bindings = "Checked at SPU checkpoint, not continuously"
+terminal_shadows = "Expected pending-access software phase, including stores before the uncompleted mapped access"
+evidence_mutation_helper_failure = "First helper could not parse0x prefix before mutation; original script and stderr retained; corrected helper used new output"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+sha256 = "c67b29bc055c58158641183f9fed2b9dff880cdbfea14965c24d3d65312cbc95"
+
+[[artifacts]]
+path = "tools/guest/spu-transcript.h"
+sha256 = "5497f86ccf41d5e67912236ce8fce0b5a3d89569ca353127f14a6c07e096ac98"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+sha256 = "ed197478e470bad66c75083bdbffc4c0bb5e731dfbefe0611fbec6d4ff35b409"
+
+[[artifacts]]
+path = "tools/guest/VerifySpuObserver.main.kts"
+sha256 = "9e9e0e310d5c119bf3e1ced243368e4a0ce004cb8c1caffc5c799992f5cb8050"
+
+[[artifacts]]
+path = "tools/guest/PrepareSpuInputControls.main.kts"
+sha256 = "b5fe1f06b8fc89749b43b3e47d602287dec8784ba88562e8bfe0131dfc07988b"
+
+[[artifacts]]
+path = "tools/guest/admission-spucontrol.sh"
+sha256 = "b229ca2ad2e659edd0e1d9a8dac68b875cd7bbb87170f4296e5e2b5483b570d7"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "92e2f3be8b8bda8c9b8d040b167a05f92fac186ffbdd56d6467a24b4faf41c54"
+
+[[artifacts]]
+path = "experiments/spu-transcript/controls.toml"
+sha256 = "3d678fc667b87613515b548ed29ca71bf4650a2a32c3272e1c609e48e7a80b42"
+
+[[artifacts]]
+path = "docs/research/spu-transcript-controls.md"
+sha256 = "4a84133e25ecd3b85bd78bdedb3b43e9ef402a3a2e8a090e4595f1607a2bb7b9"
+
+[[artifacts]]
+path = "out/guest-admission/group-spu-region-01/evidence-sha256.txt"
+sha256 = "a2994a76c33dab87fa80202c98946e524f9324d682bb9b345d2818978007baea"
+
+[[artifacts]]
+path = "out/guest-admission/group-spu-region-01/result.toml"
+sha256 = "f1e685310f6506f36b7e0230921a0f738c696e5f9235a3e10f68f4d4fb6721d1"
+
+[[artifacts]]
+path = "out/guest-admission/group-spu-region-01/spu-system-server.toml"
+sha256 = "02185d28967cf65e98a06ecba2ed44df96d852359aad4196a98fbc83f3f4780b"
+
+[[artifacts]]
+path = "out/spu-transcript/private-run-01-verification.toml"
+sha256 = "f48a133fab16f6fba5c6ed69750eb366cea689cb862e31d24352db9a42c1d490"
+
+[[artifacts]]
+path = "out/spu-transcript/compiled-reference-verification.toml"
+sha256 = "3c9fb140fe20afb50d902e05f339231fecc729e85944e19247241e4d8f4cbaf3"
+
+[[artifacts]]
+path = "out/spu-transcript/check-compiled-reference.main.kts"
+sha256 = "f6ad36abd68068d149a35a5719080097911dd87405f7de925a4a3fe9131fb312"
+
+[[artifacts]]
+path = "out/spu-transcript/native-control-review.md"
+sha256 = "16a5105652e2e6217c65efb0ddba1bc5707dc5c8c338f1a59f38071d781ab43f"
+
+[[artifacts]]
+path = "out/spu-transcript/observer-verifier-review.md"
+sha256 = "c612f8353bbef403a95ac8ddb3d9e5abbe512f9ce297caf8342f7c3d32f300bb"
+
+[[artifacts]]
+path = "out/spu-transcript/check-evidence-mutations-01.main.kts"
+sha256 = "fdbe88d8d4d1b3fcfe375158b4790a4e16c9ccabec2a9a39981c328ca32bef02"
+
+[[artifacts]]
+path = "out/spu-transcript/evidence-mutations-01.stderr.txt"
+sha256 = "1841f1049962d39119c0f9fad34705a79eadf25c6c011fb88755af3886e248dd"
+
+[[artifacts]]
+path = "out/spu-transcript/check-evidence-mutations.main.kts"
+sha256 = "92c39de9cace8507667ef7aa0c976c25cf2cf5cfab2e3a158c48989f377aa1cf"
+
+[[artifacts]]
+path = "out/spu-transcript/evidence-mutations-02/verification.toml"
+sha256 = "e035337bbfff2d5f42a99709f2fe6b63a610541dc28d67053d723d386b8a12eb"

@@ -1,0 +1,73 @@
+schema_version = "mho900-lab.spu-observer-controls/1"
+task = "TASK.guest.spu-region-control"
+scope = "Disposable guest private fixture; stock application absent"
+adc_prefix = 452
+spu_writes = 8
+synthetic_reads = 2
+stock_input_sha256 = "34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6"
+private_input_sha256 = "d55b7d70b4bcd1e3e95cd48fc7a7e791c2a16fc52cea32398b3799b94fb7aac6"
+runtime_exit = 78
+parser_exit = 2
+prior_regression_arms = "0..24"
+candidate_changes_during_run = false
+
+[[arms]]
+id = 25
+purpose = "Complete ADC and SPU; stop before main SCU-shaped W32 at0x4004"
+accepted_spu_writes = 8
+[[arms]]
+id = 26
+purpose = "Complete ADC and SPU; stop on worker R32 at0x4040"
+accepted_spu_writes = 8
+[[arms]]
+id = 27
+purpose = "Reject changed second SPU operand"
+accepted_spu_writes = 1
+[[arms]]
+id = 28
+purpose = "Reject changed second SPU offset"
+accepted_spu_writes = 1
+[[arms]]
+id = 29
+purpose = "Reject second word attempted first with otherwise valid checkpoint"
+accepted_spu_writes = 0
+[[arms]]
+id = 30
+purpose = "Reject worker attempting expected first SPU store"
+accepted_spu_writes = 0
+[[arms]]
+id = 31
+purpose = "Reject W64 at expected first SPU location"
+accepted_spu_writes = 0
+[[arms]]
+id = 32
+purpose = "Reject changed function binding"
+accepted_spu_writes = 0
+[[arms]]
+id = 33
+purpose = "Reject changed domain global"
+accepted_spu_writes = 0
+[[arms]]
+id = 34
+purpose = "Reject changed selected sample table pointer before following it"
+accepted_spu_writes = 0
+[[arms]]
+id = 35
+purpose = "Reject changed selected sample count"
+accepted_spu_writes = 0
+[[arms]]
+id = 36
+purpose = "Reject changed gain sample mode"
+accepted_spu_writes = 0
+[[arms]]
+id = 37
+purpose = "Reject changed checkpoint control shadow"
+accepted_spu_writes = 0
+[[arms]]
+id = 38
+purpose = "Reject explicitly recorded private mutation between capture passes"
+accepted_spu_writes = 0
+[[arms]]
+id = 39
+purpose = "Stop on extra otherwise recognized SPU write after transcript exhaustion"
+accepted_spu_writes = 8
