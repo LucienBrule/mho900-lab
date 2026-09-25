@@ -6,10 +6,11 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.util.HexFormat
 import java.util.zip.ZipFile
-require(args.size in 1..2) { "Usage: VerifyGroupObserver.main.kts RUN_DIRECTORY [0|1|2|3|4|stock|next-stock]" }
+require(args.size in 1..3) { "Usage: VerifyGroupObserver.main.kts RUN_DIRECTORY [0|1|2|3|4|stock|next-stock] [ADMISSION_VERIFIER_OVERRIDE]" }
 val run=Path.of(args[0]).toAbsolutePath().normalize()
 val stock=args.getOrNull(1) in setOf("stock","next-stock")
 val stockNext=args.getOrNull(1)=="next-stock"
+require(args.size<3 || stock) { "Verifier override is only for stock evidence" }
 val continuationSuite=Files.exists(run.resolve("continuation-fixture.toml"))
 fun text(name:String)=Files.readString(run.resolve(name))
 fun hash(bytes:ByteArray)=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes))
@@ -253,7 +254,9 @@ if(args.size==1 || stock) {
     if(stock) {
         require(text("result.toml").contains("mode = \"${if(stockNext) "nextmodel" else "groupmodel"}\""))
         for(script in listOf("VerifySnapshot.main.kts","VerifyNative.main.kts")) {
-            val command=mutableListOf("kotlin",run.resolve("source/$script").toString(),run.toString()); if(script=="VerifyNative.main.kts") command.add("admission-only")
+            val verifier=if(script=="VerifyNative.main.kts" && args.size==3) Path.of(args[2]).toAbsolutePath().normalize() else run.resolve("source/$script")
+            if(script=="VerifyNative.main.kts") println("admission_verifier_sha256 = \"${hash(verifier)}\"")
+            val command=mutableListOf("kotlin",verifier.toString(),run.toString()); if(script=="VerifyNative.main.kts") command.add(if(stockNext) "admission-next-access" else "admission-only")
             val p=ProcessBuilder(command).redirectErrorStream(true).start(); val output=p.inputStream.bufferedReader().readText(); require(p.waitFor()==0) { "$script failed: $output" }; print(output)
         }
         require(text("native-final-enforcing.txt").trim()=="Enforcing")

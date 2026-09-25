@@ -9,8 +9,9 @@ import java.util.zip.ZipFile
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word|two-word-budget|admission-only]" }
-val admissionOnly = args.getOrNull(1) == "admission-only"
+require(args.size in 1..2) { "Usage: VerifyNative.main.kts RUN_DIRECTORY [single-read|two-word|two-word-budget|admission-only|admission-next-access]" }
+val admissionNext = args.getOrNull(1) == "admission-next-access"
+val admissionOnly = args.getOrNull(1) == "admission-only" || admissionNext
 val singleRead = args.size == 2 && args[1] == "single-read"
 val stepBudget = args.size == 2 && args[1] == "two-word-budget"
 val twoWord = args.size == 2 && args[1] in listOf("two-word", "two-word-budget")
@@ -110,7 +111,7 @@ println("installed_apk_sha256 = \"$stockHash\"")
 println("uid = 1000")
 println("shared_uid_signer_preserved = true")
 require(text("native-helper-status.toml").trim() == "exit_code = 0")
-require(text("native-status.toml").trim() == "exit_code = ${if(stepBudget) 72 else 0}")
+require(text("native-status.toml").trim() == "exit_code = ${if(stepBudget) 72 else if(admissionNext) 78 else 0}")
 require(text("app-pid.txt").isBlank())
 require(text("native-enforcing.txt").trim() == "Enforcing")
 require(!text("native-before.txt").contains("frida", ignoreCase = true))

@@ -1,0 +1,116 @@
+schema_version = "mho900-lab.next-stock-access-results/1"
+run_id = "stock-next-access-01"
+classification = "next-mapped-write-captured-without-response"
+initial_threads = 21
+terminal_threads = 22
+runtime_clone_events = 1
+runtime_exit_events = 0
+modeled_reads = 2
+modeled_writes = 0
+terminal_thread = "main"
+terminal_elf_pc = "0x27043c"
+terminal_opcode = "0xb9000109"
+terminal_offset = "0x3000"
+terminal_write_value = "0x05630000"
+global_value = "0x0123456789abcdef"
+all_terminal_threads_reaped = true
+system_server_pid = 1058
+system_server_stable = true
+final_enforcement = "Enforcing"
+stock_artifacts_preserved = true
+guest_torn_down = true
+physical_device_access = false
+initial_full_verification_exit = 3
+corrected_full_verification_exit = 0
+checker_correction_only = true
+runtime_caller = "not captured"
+static_candidate = "Dev_AdcWrite mode-zero command during ADC initialization"
+next_hypothesis = "accept exactly the observed store and stop at the following access"
+
+[[artifacts]]
+path = "docs/research/stock-next-mapped-access.md"
+sha256 = "90edb262b7d4de862d77b9713b595f2fb87d141c95f6071e1384790d83cae4aa"
+
+[[artifacts]]
+path = "experiments/group-observer/continuation-results.toml"
+sha256 = "57b18534e4af0ae02dafc5ea115584486f7d457cbb16c2c6930ee3e604bc6219"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+sha256 = "4525b7eaa59f009f9f74eddd5d10c22ee061df25a424064a43dc98e36684ef44"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+sha256 = "871292de7cdbb7e43004ae7dcee302ec5b9ff94d1f23c5a481de3403eeba58b1"
+
+[[artifacts]]
+path = "out/group-observer/next-stock-verification-initial.toml"
+sha256 = "c0b7308c49be44d0deaa738af9c50d1af8c61e73eaa67babafb7142a16dc6d83"
+
+[[artifacts]]
+path = "out/group-observer/next-stock-verification-initial-status.toml"
+sha256 = "16c47e1b4321bb217889a5ce91900141ae5179ced87680a98679b8fac42a80c6"
+
+[[artifacts]]
+path = "out/group-observer/next-stock-verification-corrected.toml"
+sha256 = "a6dfdded6fd24db0931352314d59d0f1779de14f8486552c5c690528eee0ba69"
+
+[[artifacts]]
+path = "out/group-observer/admission-checker-correction.toml"
+sha256 = "4956d12ec8550992b9365a6bfcdc447ea1cd00516cbf25f6dcd82b1c8460cbc2"
+
+[[artifacts]]
+path = "out/group-observer/admission-regression-zero.toml"
+sha256 = "be8a00d63c9c5ffcea947c9aa9e06a70f24012960aaf4d9ebca4ad4bb858fbe3"
+
+[[artifacts]]
+path = "out/group-observer/admission-zero-negative.txt"
+sha256 = "f2af48eadbc0e22f61d270900fa635e1cec11d750f17a9320de67cda6a2df9c1"
+
+[[artifacts]]
+path = "out/group-observer/continuation-review.toml"
+sha256 = "b19c105ae606ee0a4b7d7046389816da78c6446e987de7a8252bbb8de0dcc857"
+
+[[artifacts]]
+path = "out/group-observer/next-write-static/evidence-sha256.txt"
+sha256 = "c6d15db5fe3ccbaf7974b43c6cdaf74033818389d9046a9c7027ed5c2bfbd0d5"
+
+[[artifacts]]
+path = "out/group-observer/next-write-static-verification.txt"
+sha256 = "ae20923bcf12710604db8eea7ad09dd6408f211e87a5f382cdc1cd7d6226bcbd"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/evidence-sha256.txt"
+sha256 = "d40f45593acfee8d0d4aefc1304496faac8fcfcd220ab39bddc395362607ccdc"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/group-control.elf"
+sha256 = "97ccca359a8825520ef3df074825baed29986134aceeb930e641a86fc6d0bcb0"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/native-events.toml"
+sha256 = "4b89d950c2ab6dad0b954d4dbbb2253c9ba96d11f29c1cba4dc971f1a44ea7bb"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/native-status.toml"
+sha256 = "56f847c1c1e37c158a9b0a64e6680d3f533d15d605743dd92b5d776c59b70cec"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/system-server-pid.toml"
+sha256 = "53001eb64c3485ee323d45d996b786da9fdf2f3c58529a18373a9a2bef507560"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/native-final-enforcing.txt"
+sha256 = "4fefafd0dcddf54b31a0fef448083e7b77576d86a9ec97c14bfd92479c404290"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/native-final-system-server.txt"
+sha256 = "a1c5b11c00922be248f2e57db643c1148f5a3573e32cfcd44b19197085679d8c"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/result.toml"
+sha256 = "6c4fbc26f3a68b63b8c2c0107f688f7149b06aa16a51ad9affb6c7d77e78d676"
+
+[[artifacts]]
+path = "out/guest-admission/stock-next-access-01/cleanup.log"
+sha256 = "c8688fc34ee1d36f2e975dad0607555ba84d8951ccb39e69b7ab7a5d159ec81f"
