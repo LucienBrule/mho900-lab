@@ -16,7 +16,9 @@ final_sample() {
 trap final_sample EXIT
 
 transcript=false
-if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ]; then
+spu=false
+[ "${ADMISSION_MODE:-groupmodel}" != spumodel ] || spu=true
+if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ] || [ "$spu" = true ]; then
     transcript=true
     canonical="$repo/out/adc-transcript/derived-01"
     cp "$canonical/adc-stock.bin" "$run/adc-stock.bin"
@@ -27,11 +29,19 @@ if [ "${ADMISSION_MODE:-groupmodel}" = transcriptmodel ]; then
     actual=$(shasum -a 256 "$run/reference.tsv"); actual=${actual%% *}
     [ "$actual" = 6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9 ]
 fi
+if [ "$spu" = true ]; then
+    cp "$repo/out/spu-transcript/derived-01/spu-stock.bin" "$run/spu-stock.bin"
+    cp "$repo/experiments/spu-transcript/derivation.toml" "$run/spu-derivation.toml"
+    actual=$(shasum -a 256 "$run/spu-stock.bin"); actual=${actual%% *}
+    [ "$actual" = 34ee0cb515117c91adc89ed065a66628e8f52283d0863a4b7f87b6cfb23be9a6 ]
+fi
 cp "$repo/local/guest-tools/group-observer/"*.txt "$run/"
 cp "$repo/local/guest-tools/group-observer/group-observer" "$run/group-control.elf"
 if [ "$transcript" = true ]; then
     actual=$(shasum -a 256 "$run/group-control.elf"); actual=${actual%% *}
-    [ "$actual" = 00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a ]
+    expected_binary=00cbc04e947881cecacfde64e9162e0f408f70cc15651a9d4185605ac3b13e7a
+    [ "$spu" != true ] || expected_binary=ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae
+    [ "$actual" = "$expected_binary" ]
 fi
 cp "$repo/experiments/group-observer/fixture.toml" "$run/group-fixture.toml"
 adb push "$run/group-control.elf" /data/local/tmp/group-observer > "$run/group-push.txt"
@@ -73,6 +83,10 @@ if [ "$transcript" = true ]; then
     expected=78
     adb push "$run/adc-stock.bin" "$input" > "$run/adc-stock-push.txt"
 fi
+if [ "$spu" = true ]; then
+    command=stock-spu
+    adb push "$run/spu-stock.bin" /data/local/tmp/spu-stock.bin > "$run/spu-stock-push.txt"
+fi
 if [ "${ADMISSION_MODE:-groupmodel}" = nextmodel ] || [ "${ADMISSION_MODE:-groupmodel}" = writemodel ] || [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
     command=stock-next
     expected=78
@@ -88,6 +102,7 @@ if [ "${ADMISSION_MODE:-groupmodel}" = pairmodel ]; then
 fi
 command_args="$pid $base"
 if [ "$transcript" = true ]; then command_args="$command_args $input"; fi
+if [ "$spu" = true ]; then command_args="$command_args /data/local/tmp/spu-stock.bin"; fi
 adb shell "/data/local/tmp/group-observer $command $command_args >/data/local/tmp/native-events.toml 2>&1 & observer=\$!; echo \$observer >/data/local/tmp/native-pid; wait \$observer; rc=\$?; echo exit_code = \$rc >/data/local/tmp/native-status.toml" \
     > "$run/native-command.txt" 2>&1 &
 command_pid=$!

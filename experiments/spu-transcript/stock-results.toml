@@ -1,0 +1,90 @@
+schema_version = "mho900-lab.stock-spu-region/1"
+task = "TASK.hardware.stock-spu-region"
+run = "out/guest-admission/stock-spu-region-01"
+started_at = "2026-09-25T08:42:46Z"
+finished_at = "2026-09-25T08:44:27Z"
+native_sha256 = "ac86c83927a0bba752491c388e371d811d7bce9013007a51d2568837659311ae"
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+synthetic_reads = 2
+accepted_adc_writes = 452
+accepted_spu_writes = 8
+accepted_writes = 460
+spu_bindings_checked = 15
+software_capture_passes = 2
+series_records_per_pass = 9
+sample_records_per_pass = 3
+shadow_records_per_pass = 4
+domain = 8
+series = 900
+power_mode = 0
+selected_record = 2
+sample_count = 16
+gain_mode = 1
+range_mode = 4
+initial_threads = 22
+runtime_clones = 1
+terminal_threads = 23
+system_server_pid = 1093
+enforcement_preserved = true
+stock_artifacts_unchanged = true
+guest_services_stopped = true
+independent_verification_passed = true
+fpga_behavior_established = false
+useful_ui_established = false
+
+[boundary]
+thread = "main"
+access = "W32"
+offset = "0x4004"
+value = "0x80000000"
+relative_pc = "0x27043c"
+opcode = "0xb9000109"
+completed = false
+interpretation = "Consistent with statically recovered first SCU initialization write; no complete internal call trace"
+
+[terminal_shadows]
+control = "0x00000000"
+gain = "0x55555555"
+tx = "0x20000000"
+adc_control = "0x00f00001"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+sha256 = "caf92c6273bcf98d104b9be288776864af6cce59b7f0bd0fd8322398ef04036d"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+sha256 = "49f7fcd0d36ceda4b93f7283268dbc51379eed1b76394ca06533fb1bdaeb4802"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+sha256 = "3731da319845bf5c781a9df46feaf4e84c2ee97509c8b37a64e6597115dc35a1"
+
+[[artifacts]]
+path = "docs/research/stock-spu-region.md"
+sha256 = "45e51c7a6223cdb49ee4477cb9e4a04c6ea9b0a96b38176230ed2e7bca1ab162"
+
+[[artifacts]]
+path = "out/guest-admission/stock-spu-region-01/evidence-sha256.txt"
+sha256 = "0792cb5afc5902f7e37d78748d976a78f4099a17252460d514647d7a53aa98f1"
+
+[[artifacts]]
+path = "out/guest-admission/stock-spu-region-01/result.toml"
+sha256 = "ec9412b274426e9cc8f508eebb3bd4665bbc5a284da93670d680bf62c8dec8b3"
+
+[[artifacts]]
+path = "out/guest-admission/stock-spu-region-01/native-events.toml"
+sha256 = "99faf3c9d2bb57c2bc3d2d029a25e03307af2db988365a6b6fd788a559e29cef"
+
+[[artifacts]]
+path = "out/guest-admission/stock-spu-region-01/native-status.toml"
+sha256 = "56f847c1c1e37c158a9b0a64e6680d3f533d15d605743dd92b5d776c59b70cec"
+
+[[artifacts]]
+path = "out/guest-admission/stock-spu-region-01/source/VerifySpuObserver.main.kts"
+sha256 = "9e9e0e310d5c119bf3e1ced243368e4a0ce004cb8c1caffc5c799992f5cb8050"
+
+[[artifacts]]
+path = "out/spu-transcript/stock-run-01-verification.toml"
+sha256 = "37b5b29110f602126d1abf6f6533a9d902b17248e05cfa7d024f700c7804e825"
