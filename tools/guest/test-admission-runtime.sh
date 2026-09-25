@@ -2,9 +2,9 @@
 # Host-only controls for the sourced admission runtime. No guest is launched.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-out=${1:?Usage: test-admission-runtime.sh OUTPUT_DIRECTORY [loadermodel|adcinputcontrol|adcinputmodel]}
+out=${1:?Usage: test-admission-runtime.sh OUTPUT_DIRECTORY [loadermodel|adcinputcontrol|adcinputmodel|adcsequencecontrol]}
 control_mode=${2:-loadermodel}
-case "$control_mode" in loadermodel|adcinputcontrol|adcinputmodel) ;; *) exit 2;; esac
+case "$control_mode" in loadermodel|adcinputcontrol|adcinputmodel|adcsequencecontrol) ;; *) exit 2;; esac
 [ ! -e "$out" ] || { echo "Output exists: $out" >&2; exit 2; }
 mkdir -p "$out/cases"
 runtime="$repo/tools/guest/admission-runtime.sh"

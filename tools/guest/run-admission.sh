@@ -2,9 +2,9 @@
 # Native SDK process orchestration only; all guest state and raw evidence stay local.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel]}
+run_id=${1:?Usage: run-admission.sh RUN_ID [inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel|adcsequencecontrol]}
 mode=${2:-inspect}
-case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel) ;; *) exit 2;; esac
+case "$mode" in inspect|probe|label|startup|mapping|syscall|native|exclusive|execution|threads|discovery|coverage|groupcontrol|groupmodel|nextcontrol|nextmodel|writecontrol|writemodel|paircontrol|pairmodel|transcriptcontrol|transcriptmodel|spucontrol|spumodel|remainingmodel|remainingcontrol|tailcontrol|tailmodel|loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel|adcsequencecontrol) ;; *) exit 2;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) echo 'Invalid run ID' >&2; exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 timeout_bin=${TIMEOUT_BIN:-gtimeout}
@@ -26,6 +26,19 @@ mkdir -p "$run"
 mkdir "$run/source"
 cp "$repo"/tools/guest/* "$run/source/"
 cp "$admission_manifest" "$run/source/admission-inputs.toml"
+if [ "$mode" = adcsequencecontrol ]; then
+    sequence_manifest="$repo/experiments/adc-sequence/control-inputs.toml"
+    [ "$(yq -p toml -o yaml -r '.run_id' "$sequence_manifest")" = "$run_id" ]
+    [ "$(yq -p toml -o yaml -r '.mode' "$sequence_manifest")" = "$mode" ]
+    cp "$sequence_manifest" "$run/source/adc-sequence-control-inputs.toml"
+    yq -p toml -o yaml -r '.artifacts[] | [.path, .sha256, .run_path] | @tsv' "$sequence_manifest" |
+    while IFS="$(printf '\t')" read -r artifact_path expected run_path; do
+        actual=$(shasum -a 256 "$repo/$artifact_path"); actual=${actual%% *}
+        [ "$actual" = "$expected" ] || { echo "Sequence input mismatch: $artifact_path" >&2; exit 2; }
+        mkdir -p "$(dirname "$run/$run_path")"
+        cp "$repo/$artifact_path" "$run/$run_path"
+    done
+fi
 if [ "$mode" = adcinputcontrol ] || [ "$mode" = adcinputmodel ]; then
     capture_manifest="$repo/experiments/adc-input-capture/stock-inputs.toml"
     capture_copy=adc-input-capture-inputs.toml
@@ -128,7 +141,7 @@ image.sysdir.1=$image/
 tag.id=default
 tag.display=Default
 EOF
-if [ "$mode" = adcinputcontrol ] || [ "$mode" = adcinputmodel ]; then
+if [ "$mode" = adcinputcontrol ] || [ "$mode" = adcinputmodel ] || [ "$mode" = adcsequencecontrol ]; then
     "$run/source/stage-userdata.sh" "$image/userdata.img" "$run/userdata.img" "$run/userdata-staging.toml" 2097152
 else
     cp "$image/userdata.img" "$run/userdata.img"

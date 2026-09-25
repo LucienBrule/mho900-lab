@@ -7,7 +7,7 @@ require(args.size==1){"Usage: test-admission-index.main.kts NEW_OUTPUT"}
 val out=Path.of(args[0]).toAbsolutePath();require(!Files.exists(out));Files.createDirectories(out)
 val runtime=Path.of("tools/guest/admission-runtime.sh").toAbsolutePath()
 fun digest(b:ByteArray)=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(b))
-val nested=listOf("scope","main-grammar","stary-grammar","stary-refinements","integer-refinements","helper-grammar","helper-refinements","getter-inputs").map{"adc-parameter-static/$it.toml"}
+val nested=listOf("scope","main-grammar","stary-grammar","stary-refinements","integer-refinements","helper-grammar","helper-refinements","getter-inputs").map{"adc-parameter-static/$it.toml"}+listOf("adc-candidate/candidate.toml","adc-candidate/sequence.tsv","adc-sequence/profile.toml")
 val expected=(nested+"result.toml"+"source/control.sh").associateWith{"fixture = \"$it\"\n".toByteArray()}
 fun verify(dir:Path){
     val lines=Files.readAllLines(dir.resolve("evidence-sha256.txt"))

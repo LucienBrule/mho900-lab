@@ -26,7 +26,7 @@ runner_collect_boot() {
 }
 
 runner_health() {
-    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel)
+    case "$mode" in loadercontrol|loaderisolated|filesystem|fileaccess|filelabel|loadermodel|adcinputcontrol|adcinputmodel|adcsequencecontrol)
         if [ "$boot" = completed ] && [ "$health_attempted" = false ]; then
             health_attempted=true
             health_rc=0
@@ -43,7 +43,8 @@ runner_index() {
     : > "$run/evidence-sha256.txt"
     for artifact in "$run"/*.txt "$run"/*.log "$run"/*.stderr "$run"/*.png "$run"/*.toml "$run"/*.policy \
         "$run"/*.bin "$run"/*.tsv "$run"/*.jar "$run"/*.odex "$run"/*.apk "$run"/*.xml "$run"/*.elf "$run"/seapp_contexts \
-        "$run"/source/* "$run"/adc-parameter-static/*.toml "$run"/tombstones/* "$run"/fixture-ramdisk.img; do
+        "$run"/source/* "$run"/adc-parameter-static/*.toml "$run"/adc-candidate/*.toml "$run"/adc-candidate/*.tsv \
+        "$run"/adc-sequence/*.toml "$run"/tombstones/* "$run"/fixture-ramdisk.img; do
         [ "$artifact" != "$run/evidence-sha256.txt" ] || continue
         [ -f "$artifact" ] || continue
         shasum -a 256 "$artifact" >> "$run/evidence-sha256.txt" || index_rc=1

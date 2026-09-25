@@ -1,0 +1,764 @@
+schema_version = "mho900-lab.adc-sequence-controls/1"
+frozen_at = "2026-09-25T19:03:04.640086Z"
+task = "TASK.guest.adc-sequence-private-run"
+task_contract = "sha256:0e64756e6b6e8de319960b59666850fee0f6e9ec853a4239a675fe38a591546d"
+mode = "adcsequencecontrol"
+run_id = "private-adc-sequence-01"
+stock_application_launched = false
+expected_native_exit = 78
+stop_suite_on_unexpected_result = true
+adaptive_retry = false
+physical_access = false
+
+[native]
+path = "out/adc-sequence-profile/native-build02/group-observer"
+sha256 = "960b91e1b3cd7de8f49d47833c6e13ec43afcc597bb0d205c379f471a2bcda37"
+profile = 2
+
+[[arms]]
+arm = 101
+question = "complete sequence and worker/read-protocol/atomic/precise-stop controls"
+
+[[arms]]
+arm = 102
+question = "changed first operand"
+
+[[arms]]
+arm = 103
+question = "reordered first two accesses"
+
+[[arms]]
+arm = 104
+question = "omitted first access"
+
+[[arms]]
+arm = 105
+question = "unknown read"
+
+[[arms]]
+arm = 106
+question = "wrong terminal PC"
+
+[[arms]]
+arm = 107
+question = "entry config mismatch"
+
+[[arms]]
+arm = 108
+question = "second-thread mapped read"
+
+[[arms]]
+arm = 109
+question = "clone coverage"
+
+[[arms]]
+arm = 110
+question = "deadline"
+
+[[arms]]
+arm = 111
+question = "missing atomic completion"
+
+[[arms]]
+arm = 112
+question = "wrong final shadow"
+
+[[artifacts]]
+path = "tools/guest/BuildCalibrationRamdisk.main.kts"
+run_path = "source/BuildCalibrationRamdisk.main.kts"
+sha256 = "fe2926c0a48db5e450c7f007f4ea873976f3a3228d764f8d013f5f9f79d1ef8b"
+
+[[artifacts]]
+path = "tools/guest/ChangedApkControl.main.kts"
+run_path = "source/ChangedApkControl.main.kts"
+sha256 = "d2b97a968074e586f56c4a26f212b47466b59bcf641cd741eb1b87145f8d2b74"
+
+[[artifacts]]
+path = "tools/guest/PrepareAdcInputControls.main.kts"
+run_path = "source/PrepareAdcInputControls.main.kts"
+sha256 = "b159e4c4b45fb66cb247dc28cd5b34a3c9c01047317f740e253bcaa2c8575c65"
+
+[[artifacts]]
+path = "tools/guest/PrepareSpuInputControls.main.kts"
+run_path = "source/PrepareSpuInputControls.main.kts"
+sha256 = "b5fe1f06b8fc89749b43b3e47d602287dec8784ba88562e8bfe0131dfc07988b"
+
+[[artifacts]]
+path = "tools/guest/PrepareStockAdcInputControls.main.kts"
+run_path = "source/PrepareStockAdcInputControls.main.kts"
+sha256 = "973b8102752f9b2818a56637aed9597aedd74ec6beb8da8767a610263cf9d349"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcInputCapture.main.kts"
+run_path = "source/VerifyAdcInputCapture.main.kts"
+sha256 = "cc6fbe8e2e0bab9c78b6908e7d014ca100be078d9481a36f76baee76c38d9401"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcObserver.main.kts"
+run_path = "source/VerifyAdcObserver.main.kts"
+sha256 = "f6bbc72f056b1d907d079c68fb379014de4291699a738e5eb13530f80e65046b"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcSequence.main.kts"
+run_path = "source/VerifyAdcSequence.main.kts"
+sha256 = "ee4f4728377dd97f2b5bbc0adf68fff406cffade3ff70966c082f0420081af0c"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdcSequenceRun.main.kts"
+run_path = "source/VerifyAdcSequenceRun.main.kts"
+sha256 = "1432288dab4819bd9279d520813d2b7d32268174e107fa422d50d6d84e69be68"
+
+[[artifacts]]
+path = "tools/guest/VerifyAdmission.main.kts"
+run_path = "source/VerifyAdmission.main.kts"
+sha256 = "b925b2e4007e04b996e597bc043abd3de018f5794d1d358be5320d939fcab408"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationAccess.main.kts"
+run_path = "source/VerifyCalibrationAccess.main.kts"
+sha256 = "e81862894eb298c0e948de98387dd0d4845ae0f99b736474006a82336fb2f4d9"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationFilesystem.main.kts"
+run_path = "source/VerifyCalibrationFilesystem.main.kts"
+sha256 = "6247912ee7ac1f9975a6154b8d414c1acaea64b23e1b9ef77b20c78b2d410228"
+
+[[artifacts]]
+path = "tools/guest/VerifyCalibrationLoaders.main.kts"
+run_path = "source/VerifyCalibrationLoaders.main.kts"
+sha256 = "bb730eabbcb1232da2d1a20e57a239bdcaea8bfd94860eb0143871e2f26629be"
+
+[[artifacts]]
+path = "tools/guest/VerifyCoverage.main.kts"
+run_path = "source/VerifyCoverage.main.kts"
+sha256 = "064491b7ed70599de730b061e662f2df33a63e9abc6ff05917bce62199ae4cb9"
+
+[[artifacts]]
+path = "tools/guest/VerifyExclusive.main.kts"
+run_path = "source/VerifyExclusive.main.kts"
+sha256 = "a9e07697528a74b347f9273208f66f816a5004ad62e8fb09232fda1778ad2aef"
+
+[[artifacts]]
+path = "tools/guest/VerifyExecutionStop.main.kts"
+run_path = "source/VerifyExecutionStop.main.kts"
+sha256 = "155b75bdad585cced2c620683d01e22d8e044cf64f784825ff795359eec69ed1"
+
+[[artifacts]]
+path = "tools/guest/VerifyGroupObserver.main.kts"
+run_path = "source/VerifyGroupObserver.main.kts"
+sha256 = "ea86cb26b04721db67590ea4427abca9b867eac64dc6ef77819ba2f44a284497"
+
+[[artifacts]]
+path = "tools/guest/VerifyInitTailClearNegative.main.kts"
+run_path = "source/VerifyInitTailClearNegative.main.kts"
+sha256 = "b022ed479866a26a218913c0b8d1ac79135b72dec75916a860df8982cd95c89d"
+
+[[artifacts]]
+path = "tools/guest/VerifyInitTailObserver.main.kts"
+run_path = "source/VerifyInitTailObserver.main.kts"
+sha256 = "cd2e305e3edb4f7d1d393c017bc7ec4f0da3ff66390a345a10f90b961fddb715"
+
+[[artifacts]]
+path = "tools/guest/VerifyLabeling.main.kts"
+run_path = "source/VerifyLabeling.main.kts"
+sha256 = "b94b997050f311fde12ba2b1dbce7c869ba595d1416ac42ee52a8e1032507bfc"
+
+[[artifacts]]
+path = "tools/guest/VerifyMapping.main.kts"
+run_path = "source/VerifyMapping.main.kts"
+sha256 = "bab44698fd8cc9f195971fb64c3dd5429f616bc20856b3e77c25ba7cc49a5167"
+
+[[artifacts]]
+path = "tools/guest/VerifyNative.main.kts"
+run_path = "source/VerifyNative.main.kts"
+sha256 = "871292de7cdbb7e43004ae7dcee302ec5b9ff94d1f23c5a481de3403eeba58b1"
+
+[[artifacts]]
+path = "tools/guest/VerifyPairControls.main.kts"
+run_path = "source/VerifyPairControls.main.kts"
+sha256 = "c8b73a011d65423aa8c3b19831b4cbc1f40cdc5737cd98963ba109c7f3e5cae9"
+
+[[artifacts]]
+path = "tools/guest/VerifyPostStore.main.kts"
+run_path = "source/VerifyPostStore.main.kts"
+sha256 = "b35d1ef734f9491ccc98d9b94680de13ca82951913b204ee05f3b1a7bb107971"
+
+[[artifacts]]
+path = "tools/guest/VerifyRemainingObserver.main.kts"
+run_path = "source/VerifyRemainingObserver.main.kts"
+sha256 = "2536f7d135d1d591a5ef1ff6aff58e628b8d60338fb27f156ae892d0aaa8ab93"
+
+[[artifacts]]
+path = "tools/guest/VerifySnapshot.main.kts"
+run_path = "source/VerifySnapshot.main.kts"
+sha256 = "983f369ff59f9c1b703c0d1c81a89522a06a8d56c2f238ad2aa5240a5cb6e86c"
+
+[[artifacts]]
+path = "tools/guest/VerifySpuObserver.main.kts"
+run_path = "source/VerifySpuObserver.main.kts"
+sha256 = "9e9e0e310d5c119bf3e1ced243368e4a0ce004cb8c1caffc5c799992f5cb8050"
+
+[[artifacts]]
+path = "tools/guest/VerifyStartup.main.kts"
+run_path = "source/VerifyStartup.main.kts"
+sha256 = "24c746bc1ec817491c79493b6ac0069830e25cb65bf14755ce35d434264e0194"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockAdcInputs.main.kts"
+run_path = "source/VerifyStockAdcInputs.main.kts"
+sha256 = "d1580db76854905dd98f51673c74133d1ddbc57292c2d562978fea580773313d"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockCalibrationLoaders.main.kts"
+run_path = "source/VerifyStockCalibrationLoaders.main.kts"
+sha256 = "bd4d8a5fae6b9ab48da6c296e8b45b53dbfe260fdaa53c45769587fb5b4d6c64"
+
+[[artifacts]]
+path = "tools/guest/VerifyStockInitTail.main.kts"
+run_path = "source/VerifyStockInitTail.main.kts"
+sha256 = "8e49595576b300025cd936d7890a322e8a534ccdbdab88a4a67f7c700c21c258"
+
+[[artifacts]]
+path = "tools/guest/VerifySyscall.main.kts"
+run_path = "source/VerifySyscall.main.kts"
+sha256 = "ef6ad838824267a801b5410db140ce1f014dd81a56424e8391f419074af266d2"
+
+[[artifacts]]
+path = "tools/guest/VerifyThreads.main.kts"
+run_path = "source/VerifyThreads.main.kts"
+sha256 = "6dff7390636c985a13f6b2580f9b533abc1a9c6c2c8b13a8afd10953babe65a9"
+
+[[artifacts]]
+path = "tools/guest/adc-parameter-capture.h"
+run_path = "source/adc-parameter-capture.h"
+sha256 = "086b2f0bb35bf340a7b4fb37e112d3b648c618e85043795c00014508b4b77b82"
+
+[[artifacts]]
+path = "tools/guest/adc-sequence-observer.h"
+run_path = "source/adc-sequence-observer.h"
+sha256 = "777cb11accd99e9d0d366a0ad48ce6bd126c1b58653abf8c2419313af6575f37"
+
+[[artifacts]]
+path = "tools/guest/adc-sequence-private.h"
+run_path = "source/adc-sequence-private.h"
+sha256 = "40bf537ae120d9e04cf3bf60b8054ed5a5705a860fa7a8d8b657ed88afbb12b2"
+
+[[artifacts]]
+path = "tools/guest/adc-sequence-profile.h"
+run_path = "source/adc-sequence-profile.h"
+sha256 = "e3a80852517fc033a065a599e729c028269d383250ec77e8c40c6a0ae1bce841"
+
+[[artifacts]]
+path = "tools/guest/adc-transcript.h"
+run_path = "source/adc-transcript.h"
+sha256 = "31a837d9e92110c3f5d7b62e0f8909e6c17abd1588b66f3148a6fc550dc07448"
+
+[[artifacts]]
+path = "tools/guest/admission-adcinputcontrol.sh"
+run_path = "source/admission-adcinputcontrol.sh"
+sha256 = "0ab27f2311d28515e56bfdb24d1295a18f8e2dada96b1d448659cfb157113d01"
+
+[[artifacts]]
+path = "tools/guest/admission-adcsequencecontrol.sh"
+run_path = "source/admission-adcsequencecontrol.sh"
+sha256 = "ca1137d7848f11ce425e48dad0e970db1b4bca96e0d3fc33ae1316fea1a334db"
+
+[[artifacts]]
+path = "tools/guest/admission-discovery.sh"
+run_path = "source/admission-discovery.sh"
+sha256 = "47c5f8c16d5e251a82b3e5e3c5fe816c08cbc03465875c3e5bc2e7b223b59f06"
+
+[[artifacts]]
+path = "tools/guest/admission-exception.js"
+run_path = "source/admission-exception.js"
+sha256 = "abb4d1f6a4103dc34bb66895bbb13fa3ebc0473057d439462225c05f43987ad9"
+
+[[artifacts]]
+path = "tools/guest/admission-exclusive.sh"
+run_path = "source/admission-exclusive.sh"
+sha256 = "d2acb0e3ca0888a86e7a34a4aabd58231084ef6b61d2666d68293ffa4c49f796"
+
+[[artifacts]]
+path = "tools/guest/admission-execution.sh"
+run_path = "source/admission-execution.sh"
+sha256 = "027cac2f9c070b78057f9ee639281935bc0e77aec3a96b2a81893e47eae2ddc6"
+
+[[artifacts]]
+path = "tools/guest/admission-fileaccess.sh"
+run_path = "source/admission-fileaccess.sh"
+sha256 = "4391a0c1748e75c162d1d002697cb32b2003ee5fab8946e59b08a2c477a8744e"
+
+[[artifacts]]
+path = "tools/guest/admission-filesystem.sh"
+run_path = "source/admission-filesystem.sh"
+sha256 = "9dcee7f2b17ed0286eb940f35639fae092f1ae475920ec423c0e4cf9bf5408ac"
+
+[[artifacts]]
+path = "tools/guest/admission-final-health.sh"
+run_path = "source/admission-final-health.sh"
+sha256 = "4709ae90fb20f1cc141a6524c7c67dfcabab9fa3f44cc4949b152e29c5e25809"
+
+[[artifacts]]
+path = "tools/guest/admission-groupcontrol.sh"
+run_path = "source/admission-groupcontrol.sh"
+sha256 = "c785698e0441d5dc6f826f77ef829cc1c08bf2db5d9565817285c4e42e709f89"
+
+[[artifacts]]
+path = "tools/guest/admission-inspect.sh"
+run_path = "source/admission-inspect.sh"
+sha256 = "1f4287362ea52cec47862096935fa85a61bec1a42d161162096810cf31712097"
+
+[[artifacts]]
+path = "tools/guest/admission-label.sh"
+run_path = "source/admission-label.sh"
+sha256 = "48559c82b85393369bae7c28885bd154b5744b3f7ac8c15f03a7569a13c1a7bd"
+
+[[artifacts]]
+path = "tools/guest/admission-loadercontrol.sh"
+run_path = "source/admission-loadercontrol.sh"
+sha256 = "e1bbc733e4809fcc45bb797a8665020d36677489ef2c322e8013b727097ee0d9"
+
+[[artifacts]]
+path = "tools/guest/admission-loaderisolated.sh"
+run_path = "source/admission-loaderisolated.sh"
+sha256 = "783b297c45d521f3415abd31b6195729bc8980e3ed35e82fd4b60d6d7caa2f4f"
+
+[[artifacts]]
+path = "tools/guest/admission-loadermodel.sh"
+run_path = "source/admission-loadermodel.sh"
+sha256 = "97cfe4e4f2210095ec144ce4305e525811e355830dbec9ac427b488eaf24fc49"
+
+[[artifacts]]
+path = "tools/guest/admission-probe.sh"
+run_path = "source/admission-probe.sh"
+sha256 = "2944239f3ffa64c4f795128e03d52121f7a5673d20dc83e409627ca25bc29070"
+
+[[artifacts]]
+path = "tools/guest/admission-remainingcontrol.sh"
+run_path = "source/admission-remainingcontrol.sh"
+sha256 = "46faf464f1b43e3adaf59a6462b3d2d9972ac38b6371e835dd8b0d414beb5a05"
+
+[[artifacts]]
+path = "tools/guest/admission-runtime.sh"
+run_path = "source/admission-runtime.sh"
+sha256 = "c1517d3c88b917498b4833be8b7cbdb56c2868c53a9cfea4400cb80485503622"
+
+[[artifacts]]
+path = "tools/guest/admission-spucontrol.sh"
+run_path = "source/admission-spucontrol.sh"
+sha256 = "b229ca2ad2e659edd0e1d9a8dac68b875cd7bbb87170f4296e5e2b5483b570d7"
+
+[[artifacts]]
+path = "tools/guest/admission-tailcontrol.sh"
+run_path = "source/admission-tailcontrol.sh"
+sha256 = "4e15fc5df47931cbfdbb2b7a791d842eed863819263db7e63841a6141fca1073"
+
+[[artifacts]]
+path = "tools/guest/admission-threads.sh"
+run_path = "source/admission-threads.sh"
+sha256 = "123ea3347a268b121728e1f58627f43bf1dce3775f4d6628c6248aa835411ed6"
+
+[[artifacts]]
+path = "tools/guest/admission-transcriptcontrol.sh"
+run_path = "source/admission-transcriptcontrol.sh"
+sha256 = "75bc3f0b7f531197950793be832024521eaeb0d0af80500c2a258ec897addbf5"
+
+[[artifacts]]
+path = "tools/guest/build-admission-controls.sh"
+run_path = "source/build-admission-controls.sh"
+sha256 = "bcbdd2c218a7f2bb900ebbee62ed78aabe81dae5c82b5351c926d7f56dc12e5e"
+
+[[artifacts]]
+path = "tools/guest/build-calibration-access.sh"
+run_path = "source/build-calibration-access.sh"
+sha256 = "86e62c0e7378cb82df100acf77b3daf5a3b8fb82e93a90428623bbea4e6b0df4"
+
+[[artifacts]]
+path = "tools/guest/build-exclusive-control.sh"
+run_path = "source/build-exclusive-control.sh"
+sha256 = "83f3680513a715e31c30bfbf8d068626c6a1fa2efce714efa36085f489e9c401"
+
+[[artifacts]]
+path = "tools/guest/build-execution-stop.sh"
+run_path = "source/build-execution-stop.sh"
+sha256 = "2b6f6e6baf41acdab33716f76fc8104500de2856d9e6ce4d80b11988cadbf93e"
+
+[[artifacts]]
+path = "tools/guest/build-group-observer.sh"
+run_path = "source/build-group-observer.sh"
+sha256 = "11b925ace9ccb87f6a57f0490dc868867eb3fdc8566af6879cdf26ecf1ab4d76"
+
+[[artifacts]]
+path = "tools/guest/build-native-probe.sh"
+run_path = "source/build-native-probe.sh"
+sha256 = "c12d56f6e0ae66a93e35887bf57f04dba7a459c97b554170234e5a2893951f92"
+
+[[artifacts]]
+path = "tools/guest/build-thread-control.sh"
+run_path = "source/build-thread-control.sh"
+sha256 = "e50af87c6869210153d634c5ad680f49cb78c9f9578bfdff6b08fd425d6e1907"
+
+[[artifacts]]
+path = "tools/guest/build-thread-coverage.sh"
+run_path = "source/build-thread-coverage.sh"
+sha256 = "ff8699216014cdbe074f4a2a345f0761421358208535ebc70ba1f790b1ff8ece"
+
+[[artifacts]]
+path = "tools/guest/calibration-fixture.sh"
+run_path = "source/calibration-fixture.sh"
+sha256 = "2afde07844f19bebc6109616214ea10256fb6eba9e62fcd14445235964669880"
+
+[[artifacts]]
+path = "tools/guest/calibration-loaders.h"
+run_path = "source/calibration-loaders.h"
+sha256 = "78320d758756a0c7483bd29caf916251e93ab66b5a3883c4415e3cce0d4fd548"
+
+[[artifacts]]
+path = "tools/guest/coverage-probe.sh"
+run_path = "source/coverage-probe.sh"
+sha256 = "7d28bcaa3218f00baa29a4a6167f4657c7bce0a90695bcefb69ac024b7db8bf1"
+
+[[artifacts]]
+path = "tools/guest/exclusive-control.c"
+run_path = "source/exclusive-control.c"
+sha256 = "86d0c35fde52689205c424595856b4fa1c349463d3d7587d79c3ba717fe5c901"
+
+[[artifacts]]
+path = "tools/guest/execution-stop.c"
+run_path = "source/execution-stop.c"
+sha256 = "6386bf2038a70fe607dae9bd63d46bb15e6bb03693c213a159bc56473e0d5eab"
+
+[[artifacts]]
+path = "tools/guest/fetch-xdma-reference.sh"
+run_path = "source/fetch-xdma-reference.sh"
+sha256 = "e4cdb6878fe997271dca9a447df2be1ab600846ad2bf973c52a3da0938c46330"
+
+[[artifacts]]
+path = "tools/guest/group-observer.c"
+run_path = "source/group-observer.c"
+sha256 = "200cdcf01b07055f83bfa97f9bbe3e7f19b573a93df975bddf8048852a57bd90"
+
+[[artifacts]]
+path = "tools/guest/group-probe.sh"
+run_path = "source/group-probe.sh"
+sha256 = "7dc57f09dac8cc66e3580927558448a211c6eeb8cf4899bfff2c855d2312dbc2"
+
+[[artifacts]]
+path = "tools/guest/init-tail.h"
+run_path = "source/init-tail.h"
+sha256 = "bae1bc75a2a6551ba20b63531e160a62744ac9e8ddf34a8b00c66eb50ab7a150"
+
+[[artifacts]]
+path = "tools/guest/inspect-framework.js"
+run_path = "source/inspect-framework.js"
+sha256 = "d6c42c4d12d134dd3c014e87f7571d2ceb1d9f59172a2427ac940648a0a749cb"
+
+[[artifacts]]
+path = "tools/guest/inspect-identity-flow.sh"
+run_path = "source/inspect-identity-flow.sh"
+sha256 = "fe9337d3c8d4afb76a55a81f985400bf83328eb200481c7dd75092ed5241aa2f"
+
+[[artifacts]]
+path = "tools/guest/inspect-startup.sh"
+run_path = "source/inspect-startup.sh"
+sha256 = "f66a5b4a3e97e0aa191f82e38953c54994d7bdd86c4ebba48f91285d18db461f"
+
+[[artifacts]]
+path = "tools/guest/labeling-exception.js"
+run_path = "source/labeling-exception.js"
+sha256 = "254c9f3fa75eb789572120395102510966f6541bb7497b9611c502881d121274"
+
+[[artifacts]]
+path = "tools/guest/mapping-adapter.js"
+run_path = "source/mapping-adapter.js"
+sha256 = "01f1c9e897197bfb34a025219c5786efc1cb24c484b8d23edd013b717994be95"
+
+[[artifacts]]
+path = "tools/guest/mapping-probe.sh"
+run_path = "source/mapping-probe.sh"
+sha256 = "b8913f15737e5a7c8a60cf41f2e330fd2c83e2ae11c1a422a75226dca4ecebc5"
+
+[[artifacts]]
+path = "tools/guest/native-post-store.h"
+run_path = "source/native-post-store.h"
+sha256 = "f42905f26f5cad17e823c8dd2234cdcba39f357b568c6a265bec60871fc51846"
+
+[[artifacts]]
+path = "tools/guest/native-probe.c"
+run_path = "source/native-probe.c"
+sha256 = "551662afa8aa9b1f2b09c9d227b8dad50ff99802977a984005e75140d299ba3a"
+
+[[artifacts]]
+path = "tools/guest/native-probe.sh"
+run_path = "source/native-probe.sh"
+sha256 = "de2090dbad7a1d00aa5328ef37c9d24091030fd7e1c894e4aa7e152e31fec091"
+
+[[artifacts]]
+path = "tools/guest/prepare-admission.sh"
+run_path = "source/prepare-admission.sh"
+sha256 = "a449c3b8cb2fd48d5abe39f961b73c23b34dfc39cb989fe32424376b50ad93f0"
+
+[[artifacts]]
+path = "tools/guest/remaining-init.h"
+run_path = "source/remaining-init.h"
+sha256 = "afa661513a4dae2db07856a9d79546513bebffb09a1b59159b5290bd2ff872a6"
+
+[[artifacts]]
+path = "tools/guest/run-admission.sh"
+run_path = "source/run-admission.sh"
+sha256 = "fa4386cc1187c69ee599d4ff41f327895545939c50e7406f5d3aed9d640c3208"
+
+[[artifacts]]
+path = "tools/guest/run-baseline.sh"
+run_path = "source/run-baseline.sh"
+sha256 = "519a9ad0a8dcce83ef4d607365b3c31ec569f154713eb9080bc01b2ef8373eca"
+
+[[artifacts]]
+path = "tools/guest/spu-transcript.h"
+run_path = "source/spu-transcript.h"
+sha256 = "5497f86ccf41d5e67912236ce8fce0b5a3d89569ca353127f14a6c07e096ac98"
+
+[[artifacts]]
+path = "tools/guest/stage-userdata.sh"
+run_path = "source/stage-userdata.sh"
+sha256 = "91e27fa3deeebd30e5535409527e04b8603ea8dd1bd426b941b11e1ec36ed47c"
+
+[[artifacts]]
+path = "tools/guest/startup-trace.sh"
+run_path = "source/startup-trace.sh"
+sha256 = "395490a0220ed48758f7c7cefd454553b2751449b0e693a0f77e048a85f696a4"
+
+[[artifacts]]
+path = "tools/guest/syscall-probe.sh"
+run_path = "source/syscall-probe.sh"
+sha256 = "b6c2eb7af935e92ad0ecf0583ab9db7980e18a8b76c09768de695934e582b2b7"
+
+[[artifacts]]
+path = "tools/guest/test-adc-input-capture.main.kts"
+run_path = "source/test-adc-input-capture.main.kts"
+sha256 = "288b0dbb2f9144ed39ab16e27e4248a57d9597bb921ab257eb475837fb5242fe"
+
+[[artifacts]]
+path = "tools/guest/test-adc-sequence-run.main.kts"
+run_path = "source/test-adc-sequence-run.main.kts"
+sha256 = "6da1ef1e6eb6835ed6f0446b3c0155b1b06167c884fa752f6ec9660424cc3f1c"
+
+[[artifacts]]
+path = "tools/guest/test-adc-sequence.main.kts"
+run_path = "source/test-adc-sequence.main.kts"
+sha256 = "ccabec999541f8051ce6b4bcdadb3ec118644abdb894cd7c67b505dfcd8011b8"
+
+[[artifacts]]
+path = "tools/guest/test-admission-index.main.kts"
+run_path = "source/test-admission-index.main.kts"
+sha256 = "509be1fb66bd4ea4d012d2ffecdc141296b2be296488a4b9058854a255c7e378"
+
+[[artifacts]]
+path = "tools/guest/test-admission-runtime.sh"
+run_path = "source/test-admission-runtime.sh"
+sha256 = "c1dbd6e9ff57283709fc2838247157a27f4b3cefb05197da7538b3e688d89311"
+
+[[artifacts]]
+path = "tools/guest/test-stock-adc-inputs.main.kts"
+run_path = "source/test-stock-adc-inputs.main.kts"
+sha256 = "ad6d2501d713f8fb0d9cb1bdf84b168021ddac4f1189193e2c199b0eeb772aaf"
+
+[[artifacts]]
+path = "tools/guest/test-userdata-staging.sh"
+run_path = "source/test-userdata-staging.sh"
+sha256 = "b10631f4b7fcac78e0e60ab008568265bf0b68368dc5dd1bee9379af57d87596"
+
+[[artifacts]]
+path = "tools/guest/thread-control.c"
+run_path = "source/thread-control.c"
+sha256 = "d80e2cdcc383e2708a5a652533f8daf7f91579ac9d289acfa7d3408e6262122d"
+
+[[artifacts]]
+path = "tools/guest/thread-coverage.c"
+run_path = "source/thread-coverage.c"
+sha256 = "9262dd71858d80d5146023252474bf33e47e8e73fd88e7336b116aca3c9be276"
+
+[[artifacts]]
+path = "tools/guest/thread-group.h"
+run_path = "source/thread-group.h"
+sha256 = "d68d2c6f5c53c99ba9997431c7d27a3798c9633f0029359f0dea4ea03947a2a1"
+
+[[artifacts]]
+path = "tools/research/BuildAdcSequenceProfile.main.kts"
+run_path = "source/BuildAdcSequenceProfile.main.kts"
+sha256 = "3a34fe6264be65af2781115ce3b71a0a180b0fea858a14e2f08f165f8f2d6414"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcSequenceImage.main.kts"
+run_path = "source/VerifyAdcSequenceImage.main.kts"
+sha256 = "084d707448d8564a4d156d7a9466c4e85840e61e4956c58445ae7c863e9f83d0"
+
+[[artifacts]]
+path = "tools/research/test-adc-sequence-image.main.kts"
+run_path = "source/test-adc-sequence-image.main.kts"
+sha256 = "9ccddebacf8a4e04d3a94c6c804d87469f05841f80f30d8f65030c9a326749ca"
+
+[[artifacts]]
+path = "tools/research/FreezeAdcSequence.main.kts"
+run_path = "source/FreezeAdcSequence.main.kts"
+sha256 = "f71efb7544c7f1fee6e7e0fd1251dd308444c41a978aae5e766f6d75e96ed99b"
+
+[[artifacts]]
+path = "tools/research/InstantiateAdcCandidate.main.kts"
+run_path = "source/InstantiateAdcCandidate.main.kts"
+sha256 = "05d1ba7b7f294944342407b012b0a56556695a2b3e446ec5d19754c6334461e9"
+
+[[artifacts]]
+path = "tools/research/VerifyAdcCandidate.main.kts"
+run_path = "source/VerifyAdcCandidate.main.kts"
+sha256 = "4a63803e1a127415b02f41b3ca44140b5bbf426aa931c327099660012eef4967"
+
+[[artifacts]]
+path = "tools/research/ReviewAdcInputEvidence.main.kts"
+run_path = "source/ReviewAdcInputEvidence.main.kts"
+sha256 = "56976cf9d53bba767d1262cafdd9a913941438f585dcbae9c7c8a29e581c5f94"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/call-inventory.toml"
+run_path = "adc-parameter-static/call-inventory.toml"
+sha256 = "4e5e6cd34c8a01759154f757aad5f6a02fbb396453dcbf66cf89f4d1a499d8b2"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/getter-inputs.toml"
+run_path = "adc-parameter-static/getter-inputs.toml"
+sha256 = "9daa0d606744a98f0fd96bfd0962dc324934caab09530f43fb2faacae44cf3f8"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/helper-grammar.toml"
+run_path = "adc-parameter-static/helper-grammar.toml"
+sha256 = "b74b4edeb422ac85b9a0b3ab96a13caf276a28d27dc227f0259b7a2ddbc28bc9"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/helper-refinements.toml"
+run_path = "adc-parameter-static/helper-refinements.toml"
+sha256 = "709c4b340b74b71e32f7ff7338d3af2c2425d9cb9e2b4575310b2a93a668ac71"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/integer-refinements.toml"
+run_path = "adc-parameter-static/integer-refinements.toml"
+sha256 = "d268a5b111373edbe78501ef7ff6e1fb28496fc3ebf1f5c99ce8f55e189c5355"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/main-grammar.toml"
+run_path = "adc-parameter-static/main-grammar.toml"
+sha256 = "65e346f18029530832ed7f684199d20a04812ad033cd7f4d0561b73b9a142c2c"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/results.toml"
+run_path = "adc-parameter-static/results.toml"
+sha256 = "d641a121826745aade98beda10c7cf94ebf13fec4805c441dabd0234f793a196"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/review-refinements.toml"
+run_path = "adc-parameter-static/review-refinements.toml"
+sha256 = "b82df0a2b0aa74748f02e2c422126e01c0ce40b781cd4e869df907bb155f6d01"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/review-results.toml"
+run_path = "adc-parameter-static/review-results.toml"
+sha256 = "2b740877455668272694c1e1bf75f25644f10dc1b2c008b9df52908f6f35792d"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/scope.toml"
+run_path = "adc-parameter-static/scope.toml"
+sha256 = "170b6b99f14143944c9a682ac56bf8680c33480dc2bca0328f3c6ac4ff3d0f09"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/stary-grammar.toml"
+run_path = "adc-parameter-static/stary-grammar.toml"
+sha256 = "9ea7bd9d912dd0d5ab5c243469f32ee0ed5de866c59f4a5f4f8830063b2f73b0"
+
+[[artifacts]]
+path = "experiments/adc-parameter-static/stary-refinements.toml"
+run_path = "adc-parameter-static/stary-refinements.toml"
+sha256 = "368a10344670f3346e6c04fb4ac0f8eb9ff2eb3510faa3463a202c39fe8a81bc"
+
+[[artifacts]]
+path = "experiments/adc-candidate/candidate.toml"
+run_path = "adc-candidate/candidate.toml"
+sha256 = "5339cbe2af98ce52f99776f9eeba3b5dc391d8f1269b094123a3eec4caf19d70"
+
+[[artifacts]]
+path = "experiments/adc-candidate/sequence.tsv"
+run_path = "adc-candidate/sequence.tsv"
+sha256 = "d43f2f307125cd70b11c0164412ad846abc51b6b30ad092497b5ae103f8741cd"
+
+[[artifacts]]
+path = "experiments/adc-sequence/profile.toml"
+run_path = "adc-sequence/profile.toml"
+sha256 = "1fd5ffcf09094da41bd7aa08ed60974b6a6f4c3be9ba7f0f92eebdab087d8abb"
+
+[[artifacts]]
+path = "experiments/guest-admission/inputs.toml"
+run_path = "source/admission-inputs.toml"
+sha256 = "097f3195c2d0a4197ac7d0326b029770ef2d1ae6299c8606cf7dde54ccd70dd3"
+
+[[artifacts]]
+path = "experiments/guest-baseline/inputs.toml"
+run_path = "source/baseline-inputs.toml"
+sha256 = "74bf7d1c840e524bcd058b606ef929e49af085f7014c51311ac0b9a372a911ca"
+
+[[artifacts]]
+path = "experiments/adc-transcript/reference.tsv"
+run_path = "reference.tsv"
+sha256 = "6b9f7b8cdfba8d99fa720b2771cd741f285a05d5f9a77f0aa7173fbf5a2e39c9"
+
+[[artifacts]]
+path = "experiments/calibration-static/loader-candidate.toml"
+run_path = "calibration-loader-candidate.toml"
+sha256 = "6f84cda746319f02b701065bdbfe27b8e051d26b5b6a2eacba8309f85ae3dcb3"
+
+[[artifacts]]
+path = "out/adc-transcript/derived-01/adc-private.bin"
+run_path = "adc-private.bin"
+sha256 = "28471720179d4bf0e41911c0a4d29e108c89bbb4279d264793efb5f8ff9e866d"
+
+[[artifacts]]
+path = "experiments/adc-transcript/derivation.toml"
+run_path = "source/adc-transcript-derivation.toml"
+sha256 = "492b4e56a77dd10b367238d86c06054654fab54ebc7e49d083226bf4fc4e0534"
+
+[[artifacts]]
+path = "out/spu-transcript/derived-01/spu-private.bin"
+run_path = "spu-private.bin"
+sha256 = "d55b7d70b4bcd1e3e95cd48fc7a7e791c2a16fc52cea32398b3799b94fb7aac6"
+
+[[artifacts]]
+path = "experiments/spu-transcript/derivation.toml"
+run_path = "source/spu-transcript-derivation.toml"
+sha256 = "db100fb42672f86c6ce4dcae993651125b9080343bc6bb95758647a6d5d01b28"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/group-observer"
+run_path = "group-control.elf"
+sha256 = "960b91e1b3cd7de8f49d47833c6e13ec43afcc597bb0d205c379f471a2bcda37"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/build-inputs.txt"
+run_path = "build-inputs.txt"
+sha256 = "3d4d6c64b64416f07ae41fcd686ae155283a2d32f3a872d3221a8ffc56bd05a7"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/adc-sequence-inputs.txt"
+run_path = "adc-sequence-inputs.txt"
+sha256 = "c369f4116d82bde1c3961c3842229d7bb662cb2f38053622b950f2a9b6e19267"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/compiler.txt"
+run_path = "compiler.txt"
+sha256 = "bf2f6a4c64eec7479c428ba60ba769d6b05ff8c824d8dc247c350555c8826533"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/linker.txt"
+run_path = "linker.txt"
+sha256 = "ea80675f4affbb6e9c99feb37309e005396e7d2497b9436e927cae0c2c82c6f7"
+
+[[artifacts]]
+path = "out/adc-sequence-profile/native-build02/binary-sha256.txt"
+run_path = "binary-sha256.txt"
+sha256 = "352920167f083a2769c503d22433b569d4abdac94f89dcc2216d99307f944695"

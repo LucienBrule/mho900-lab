@@ -1,0 +1,58 @@
+schema_version = "mho900-lab.adc-sequence-freeze/1"
+result = "frozen-for-one-private-suite"
+task = "TASK.guest.adc-sequence-control-freeze"
+manifest_sha256 = "cd75cdcfdc6f2bde8c1a1b52bbb92e8b35c00908518370f203726dcb269568f5"
+frozen_artifacts = 140
+private_run_id = "private-adc-sequence-01"
+private_arms = 12
+native_sha256 = "960b91e1b3cd7de8f49d47833c6e13ec43afcc597bb0d205c379f471a2bcda37"
+verifier_sha256 = "ee4f4728377dd97f2b5bbc0adf68fff406cffade3ff70966c082f0420081af0c"
+whole_trace_host_positive = 1
+whole_trace_host_negative = 5
+suite_audit_host_positive = 1
+suite_audit_host_negative = 10
+production_index_positive = 1
+production_index_negative = 4
+runtime_host_cases = 7
+compiled_image_positive = 1
+compiled_image_negative = 3
+all_host_controls_matched = true
+prior_private_index_artifacts_verified = 436
+stock_apk_sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+guest_runs = 0
+runtime_atomic_behavior_verified = false
+physical_access = false
+failed_host_development_outputs_preserved = true
+
+[[evidence]]
+path = "experiments/adc-sequence/control-inputs.toml"
+sha256 = "cd75cdcfdc6f2bde8c1a1b52bbb92e8b35c00908518370f203726dcb269568f5"
+
+[[evidence]]
+path = "out/adc-sequence-profile/verifier-controls-review01/results.toml"
+sha256 = "35d98a1d1a1519f1c656221d4e6ec8b203ea71003e99fee2f7c183b386f309d7"
+
+[[evidence]]
+path = "out/adc-sequence-profile/suite-audit-controls02/results.toml"
+sha256 = "cb2762c807764c9c7787c066d6b8c1818285675fa734499e8e72708f9be6394e"
+
+[[evidence]]
+path = "out/adc-sequence-profile/runtime-controls01/results.toml"
+sha256 = "88cfaf6b62980b4347d5e54fd18293ba869223e5b9d249517b248caac7aed113"
+
+[[evidence]]
+path = "out/adc-sequence-profile/index-controls01/results.toml"
+sha256 = "02361736d8af2869382bc2d4308181572ab851344acf779b13462a03e759c68f"
+
+[[evidence]]
+path = "out/adc-sequence-profile/image-verification.toml"
+sha256 = "4af605bc27c898f894e43dcad885f394cbb6afa2615ac1221f35d1b5fd092b2c"
+
+[[evidence]]
+path = "out/adc-sequence-profile/image-controls01/results.toml"
+sha256 = "2c2a4140ba3b5d4e795afd000fe615d59ce8dc610823f1b485304613d83c7f9e"
+
+[[evidence]]
+path = "out/adc-sequence-profile/seed-index-audit.txt"
+sha256 = "adfbc41758e6dc0087384c037fa4cea5606b0702b1360a96169f09eac3c5ba17"
