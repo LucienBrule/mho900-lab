@@ -1,0 +1,68 @@
+schema_version = "mho900-lab.adc-input-private-result/1"
+run_id = "private-adc-input-capture-01"
+result = "native-private-controls-accepted-stock-routing-repair-required"
+started_at = "2026-09-25T15:05:23Z"
+finished_at = "2026-09-25T15:05:59Z"
+runner_exit = 0
+arms = [90,91,92,93,94,95,96,97,98,99,100]
+accepted_frozen_verifications = 11
+expected_native_exit = 78
+indexed_files = 436
+all_index_hashes_match = true
+system_server_pid = 1086
+system_server_stable = true
+final_enforcing = true
+health_source = "private helper finalization"
+generic_final_health_attempted = false
+all_threads_reaped = true
+all_cleanup_commands_zero = true
+experiment_listeners_released = true
+stock_application_launched = false
+stock_run_attempted = false
+physical_instrument_access = false
+native_control_rerun = false
+stock_admission = "deferred-pending-explicit-health-routing-repair"
+
+[[artifacts]]
+path = "experiments/adc-input-capture/control-inputs.toml"
+sha256 = "54dadfd31d8856ba6d30533094d385c3ea0239e0e2bbe4862aded9920ceda4f9"
+
+[[artifacts]]
+path = "docs/research/adc-input-private-run01.md"
+sha256 = "46265055e832b4df266c4a8a698f060c714df3004ad24c841d8356fcf2a9c6b8"
+
+[[artifacts]]
+path = "out/guest-admission/private-adc-input-capture-01/evidence-sha256.txt"
+sha256 = "f4c0abf1904d9b9565d5ecd5282cfc395c1e11a86b4c6ae71831efdd282e551e"
+
+[[artifacts]]
+path = "out/guest-admission/private-adc-input-capture-01/result.toml"
+sha256 = "472ac5b89cd04f32204409282623a6ced40f8b090310386d9f0c38d988c2622f"
+
+[[artifacts]]
+path = "out/guest-admission/private-adc-input-capture-01/adcinput-system-server.toml"
+sha256 = "24035d145ea847bfaa6c96edf16c85ee76606f81f6e2078fe760b58ccda37dec"
+
+[[artifacts]]
+path = "out/guest-admission/private-adc-input-capture-01/cleanup-status.toml"
+sha256 = "a09c6552df63fef58b85327bbfb2fa13f7669d0e5caacd78029cc26d7b4d1855"
+
+[[artifacts]]
+path = "out/guest-admission/private-adc-input-capture-01/userdata-staging.toml"
+sha256 = "487b36691c9ad830e74dfa288e74199142d834677ab5ce5051782920f40f5fe1"
+
+[[artifacts]]
+path = "out/adc-input-capture/private-run01-audit02.toml"
+sha256 = "8e5373acd713caf21e8de6b4833dec55860d9823846ca55c94d575b6b5a7cf59"
+
+[[artifacts]]
+path = "out/adc-input-capture/private-run01-audit.stderr"
+sha256 = "095fe805e8c40eca8cda35f49f52673475c13aecff0d8dd569e8451b72ea0297"
+
+[[artifacts]]
+path = "out/adc-input-capture/audit-private01.main.kts"
+sha256 = "b8c0eb3cbaa64995948a905dd56018dd832060ed665284dca3d13c0747fd57a1"
+
+[[artifacts]]
+path = "out/adc-input-capture/audit-private02.main.kts"
+sha256 = "13ae741c5ed6b5678a57b672b13d0e6abad57b81b27846fab5eb74d8c06f8adc"
