@@ -24,6 +24,7 @@ The project is running initial guest experiments; no complete emulator or physic
 - [ARM64 thread-inventory controls](docs/research/xdma-thread-inventory.md)
 - [Stock register responses reach application state](docs/research/xdma-post-store-witness.md)
 - [Private worker and new-thread observation controls](docs/research/guest-thread-control.md)
+- [Bounded thread-set discovery controls](docs/research/guest-thread-discovery.md)
 
 Authored source and research belong here. Proprietary inputs remain outside the source tree, exposed locally through
 the untracked `local/reversing/` location. Generated evidence and emulator state belong in ignored output directories.

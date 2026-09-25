@@ -1,0 +1,11 @@
+schema_version = "mho900-lab.thread-discovery-fixture/1"
+private_arms = ["stable two-thread set", "third thread appears after first enumeration"]
+thread_limit = 128
+pass_limit = 16
+event_limit = 256
+deadline_ms = 10000
+seize_options = "0x100008"
+directory_flag = "0x4000"
+convergence = "unchanged enumeration of live, traced, stopped TIDs with matching thread group"
+stock_scope = "coverage-only while device path remains absent"
+modeled_responses = 0
