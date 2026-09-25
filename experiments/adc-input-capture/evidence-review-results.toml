@@ -1,0 +1,52 @@
+schema_version = "mho900-lab.adc-input-evidence-review-result/1"
+result = "offline-consumed-coverage-reviewed"
+original_experiment_result = "frozen-full-verifier-rejected"
+original_full_verifier_exit = 3
+original_capture_phase_exit = 0
+original_index_entries_verified = 325
+separately_pinned_static_contracts = 8
+reviewed_artifacts = 333
+original_run_files_unchanged = true
+original_index_unchanged = true
+actual_runner_index_used_in_controls = true
+index_positive_cases = 1
+index_negative_cases = 4
+all_index_controls_matched = true
+runtime_cases = 7
+all_runtime_controls_matched = true
+native_capture_binary_sha256 = "c30ebe79fcc31512231c2c0a5d3a4b5795fba7179af70a22acb412db49bf0dbf"
+guest_runs = 0
+new_hardware_responses = 0
+physical_instrument_access = false
+
+[[artifacts]]
+path = "docs/research/adc-input-evidence-review.md"
+sha256 = "fbb5e6714bb636a90d53c98413c028b6742db9ad73bfaa383f7d5f72be4718b9"
+
+[[artifacts]]
+path = "tools/research/ReviewAdcInputEvidence.main.kts"
+sha256 = "56976cf9d53bba767d1262cafdd9a913941438f585dcbae9c7c8a29e581c5f94"
+
+[[artifacts]]
+path = "tools/guest/admission-runtime.sh"
+sha256 = "ee3e655b1624562f7efe5d325e93e33edd260955c291d6969ae920b044b7027f"
+
+[[artifacts]]
+path = "tools/guest/test-admission-index.main.kts"
+sha256 = "eef7bd96790853bee3970d0f3d32a80c087acc8e22127effb2e24b2eb91d13d2"
+
+[[artifacts]]
+path = "out/adc-input-evidence-review/review01/review.toml"
+sha256 = "b34cf1a86a01dc54cbc14e28de60989352579423224e7ddfb8096d1990b0810b"
+
+[[artifacts]]
+path = "out/adc-input-evidence-review/review01/frozen-full.stderr"
+sha256 = "07b61faf65ea1dd78f19550256197a7616075cacea62aaf9c0da082bbb9afc9d"
+
+[[artifacts]]
+path = "out/adc-input-evidence-review/index-controls01/results.toml"
+sha256 = "85981ee726bd30fdc27a0ee2e7a3a67fc0a26730679ddc7a003b8fa2a6ef4f2d"
+
+[[artifacts]]
+path = "out/adc-input-evidence-review/runtime-controls01/results.toml"
+sha256 = "fc388fe4176f23cf826fe0af248af08b79f8bf8ffd9e91ca4ad79a057afeb39d"
