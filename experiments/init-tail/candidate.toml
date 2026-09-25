@@ -1,0 +1,55 @@
+schema_version = "mho900-lab.init-tail-candidate/1"
+classification = "synthetic-software-consumer-hypothesis-not-instrument-values"
+grammar_sha256 = "54c3cd02634e020c20c69b5f3aeee8990740eba5aed69628bbc15f7a36bbde1b"
+prior_writes = 464
+prior_identity_reads = 2
+additional_reads = 10
+additional_writes = 2
+total_writes = 466
+register_width = 4
+read_offsets = [0x4,0x0,0x401c,0x14a0,0x14a4,0x1498,0x14ac,0x14b4,0x1008,0x1210]
+read_values = [0xa1123456,0xbbaa0078,0x10203040,0xa5a50021,0xb6b61234,0xc7c72345,0xd8d83456,0xe9e94567,0x20000000,62500]
+write_offsets = [0x1428,0x1000]
+write_values = [0x646e,0]
+operation_order = ["R0","R1","R2","W0","CP0","R3","R4","R5","R6","R7","W1","R8","R9","CP1","CP2"]
+packed_version = 0x12345678
+hardware_version = 0x10203040
+tap_outputs_argument_order = [0x21,0x345,0x234,0x456,0x167,0]
+completion_byte = 1
+clock_predicate_expected = true
+clock_predicate_runtime_capture_required = false
+clock_local_after_return_is_valid = false
+
+[live_guards]
+dac_upper16 = 0
+spu_control = 0
+series = 900
+series_record = 2
+config_image_target = 0xb8f478
+config_field_offset = 0x68
+config_field_value = 1
+live_values_are_process_wide_atomic_snapshot = false
+
+[[checkpoints]]
+index = 0
+pc = 0x2e547c
+opcode = 0x340008ea
+reads = 3
+writes = 1
+requirement = "w10==1; bound live config remains1; parent version locals and DAC shadow match"
+
+[[checkpoints]]
+index = 1
+pc = 0x2e55a8
+opcode = 0x900035a9
+reads = 10
+writes = 2
+requirement = "SelfTest w0==0; parent versions six tap outputs readybyte and live status/control/DAC shadows match"
+
+[[checkpoints]]
+index = 2
+pc = 0x2e57f8
+opcode = 0x97fc6696
+reads = 10
+writes = 2
+requirement = "parent fixture state unchanged; no extra mapped access; clear final slot and terminate before executing target"
