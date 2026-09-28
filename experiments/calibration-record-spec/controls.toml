@@ -1,0 +1,124 @@
+schema_version = "mho900-lab.checked-record-controls/1"
+inspector_sha256 = "9a41ad784a5c5e927e7b801212fcf95edddcf909df0e0832f0445b44fd36b309"
+guest_runs = 0
+physical_access = false
+
+[[cases]]
+name = "valid"
+exit_code = 0
+expected_outcome = true
+
+[[cases]]
+name = "one-byte"
+exit_code = 0
+expected_outcome = true
+
+[[cases]]
+name = "opaque-metadata"
+exit_code = 0
+expected_outcome = true
+
+[[cases]]
+name = "trailing"
+exit_code = 0
+expected_outcome = true
+
+[[cases]]
+name = "empty"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "short-header"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "body-length"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "header-crc"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "declared-length"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "requested-length"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "short-payload"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "payload-crc"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "huge-declared-length"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "big-endian-body-length"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "precedence-body-crc"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "precedence-crc-length"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "precedence-length-truncation"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "precedence-truncation-payload-crc"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "zero-expected"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "nonnumeric-expected"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "resource-limit"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "missing"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "symlink"
+exit_code = 2
+expected_outcome = true
+
+[[cases]]
+name = "directory"
+exit_code = 2
+expected_outcome = true

@@ -1,0 +1,16 @@
+schema_version = "mho900-lab.checked-record-inspection/1"
+format_profile = "stock-0.26-checked-record"
+reference_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+physical_calibration_validated = false
+maximum_file_bytes = 16777216
+file_bytes = 1794268
+file_sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+result = "valid-envelope"
+raw_metadata_word = 0
+time_metadata_hex = "273a0e0309e90700"
+payload_bytes = 1794240
+header_crc32 = 333711369
+payload_crc32 = 3491948123
+payload_sha256 = "1835df35ca11f040c15988e7cdb150198e98688e2472c0b608377b9a2357139b"
+trailing_bytes = 0
+trailing_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

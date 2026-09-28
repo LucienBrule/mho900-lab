@@ -1,0 +1,76 @@
+schema_version = "mho900-lab.checked-record-result/1"
+classification = "host-conformance-of-recovered-byte-envelope"
+result = "accepted"
+new_guest_runs = 0
+physical_instrument_access = false
+stock_artifacts_modified = false
+calibration_values_modeled = false
+synthetic_control_cases = 24
+public_byte_vectors = 20
+stock_positive_files = 2
+kotlin_version = "2.3.21-release-298"
+java_version = "23.0.2+7-jvmci-b01"
+controls_command = "kotlin tools/calibration/test-checked-record.main.kts NEW_OUTPUT_DIRECTORY"
+controls_local_path = "out/calibration-record-spec/controls03"
+development_evidence = "controls01 preserved: Kotlin nullable script property compile failure before any parsing; controls02 passed 20 cases; controls03 passed 24 after raw metadata labels, reference identity, no-follow open and compound precedence controls"
+independent_review = "read-only review against pinned stock load/save found no acceptance bug; compound malformed cases and clearer provenance/metadata wording added"
+stock_success_scope = "recovered envelope predicate within inspector bounds; no execution of stock loader in this batch"
+stock_error_scope = "own stable rejection categories; stock early size check and partial destination writes are deliberately not reproduced"
+physical_limit = "valid envelope is not calibrated instrument behavior"
+bench_question = "docs/research/afe-calibration-decision.md"
+
+[[evidence]]
+path = "docs/interfaces/checked-calibration-record.md"
+sha256 = "f70d8e888a4cfd929e6a852968a74c62302f8ee360b84694aac79feff6b5edf2"
+
+[[evidence]]
+path = "tools/calibration/InspectCheckedRecord.main.kts"
+sha256 = "9a41ad784a5c5e927e7b801212fcf95edddcf909df0e0832f0445b44fd36b309"
+
+[[evidence]]
+path = "tools/calibration/test-checked-record.main.kts"
+sha256 = "b3ecc4495a280576bf6981e9dfde6a72decedada50bdfd0c9f65fbad881e4ce2"
+
+[[evidence]]
+path = "experiments/calibration-record-spec/vectors.toml"
+sha256 = "5715e1c86bc46def9211dd3a195d6485daef085695b39a726656ef1bb227f563"
+
+[[evidence]]
+path = "experiments/calibration-record-spec/controls.toml"
+sha256 = "6f89aa8d31976970af84d9f4f6f48f01059ec2236567fd71dcb7608c672ecc50"
+
+[[evidence]]
+path = "experiments/calibration-record-spec/lsb-inspection.toml"
+sha256 = "b393eb75c0e9ad43ac94e6f0655faafbcb004306c667f32039b9e7526fc2be76"
+
+[[evidence]]
+path = "experiments/calibration-record-spec/vertical-inspection.toml"
+sha256 = "8eecd0ceba7edd05dff43731b57de8ffabc0b14ab36ed37d8211c94547a6d5c1"
+
+[[evidence]]
+path = "experiments/afe-calibration-static/inventory.toml"
+sha256 = "75f1b3b012178bcb972e4d0caf43799d06d1eb960a8967552e43b54c1d3e70ff"
+
+[[evidence]]
+path = "experiments/calibration-static/checked-stream.toml"
+sha256 = "234771630ef3051315f8f32399bcea536b32e6e31f062ef51f1f80e473eba186"
+
+[[preserved_originals]]
+path = "local/guest-inputs/Sparrow.apk"
+sha256 = "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+matches_prior_evidence = true
+
+[[preserved_originals]]
+path = "local/reversing/firmware-extracted/stock-0.26/sparrow/base/lib/arm64-v8a/libscope-auklet.so"
+sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+matches_prior_evidence = true
+
+[[preserved_originals]]
+path = "local/reversing/firmware-extracted/stock-0.26/firmware/data/default/cal_lsb.hex"
+sha256 = "ee8fcfad06a5c3a18a265b0a46c2385c487bab4dcf5c04a398647358750bc4a2"
+matches_prior_evidence = true
+
+[[preserved_originals]]
+path = "local/reversing/firmware-extracted/stock-0.26/firmware/data/default/cal_vertical.hex"
+sha256 = "ad347e84e76e258ecb894c77fd22e089c35e817e8052340c6ac3d3b8b4cce55c"
+matches_prior_evidence = true

@@ -1,0 +1,143 @@
+schema_version = "mho900-lab.checked-record-vectors/1"
+classification = "public-synthetic-no-instrument-calibration"
+crc_reference = "bit-at-a-time reflected IEEE;123456789=cbf43926"
+
+[[cases]]
+name = "valid"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "valid-envelope"
+file_sha256 = "0b4a70cb8a82beb309f75612f9a6d40fee8fc96fc619dd57b45a19b7a68c5000"
+
+[[cases]]
+name = "one-byte"
+file_hex = "28546d5914000000123456780102030405060708010000008def02d200"
+expected_payload_argument = "1"
+expected_result = "valid-envelope"
+file_sha256 = "8b88f71b5d89759506205ce5397bb34edb996dac4af097c03d1ea6fd9f848699"
+
+[[cases]]
+name = "opaque-metadata"
+file_hex = "92785ba514000000ffffffffffffffffffffffff090000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "valid-envelope"
+file_sha256 = "5b45fdc0dc1a35b98bd067d744d732835ddae23b07f6a85f2c7e04bfbe7185ef"
+
+[[cases]]
+name = "trailing"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb313233343536373839cafe0001"
+expected_payload_argument = "9"
+expected_result = "valid-envelope"
+file_sha256 = "d95a6b649793911ff5d5accdde1107044d3b977a3a61030533aad64f36d3f15d"
+
+[[cases]]
+name = "empty"
+file_hex = ""
+expected_payload_argument = "9"
+expected_result = "truncated_header"
+file_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[cases]]
+name = "short-header"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4"
+expected_payload_argument = "9"
+expected_result = "truncated_header"
+file_sha256 = "149902a4582effccbc2b0cd5cb30357f58df22eef412af030bff935b5dfe2315"
+
+[[cases]]
+name = "body-length"
+file_hex = "e0766bbf13000000123456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "unsupported_body_length"
+file_sha256 = "ec3d5567ce9d7a04dabf7a99e0278ccac4886215539d857b5680a69359d62a3b"
+
+[[cases]]
+name = "header-crc"
+file_hex = "e0766bbf14000000133456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "header_crc_mismatch"
+file_sha256 = "49b3221688f1ec320653d9d6b38b2ff6f79e3b59de872e9218749ef84ae1616e"
+
+[[cases]]
+name = "declared-length"
+file_hex = "7e76c17314000000123456780102030405060708080000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "expected_length_mismatch"
+file_sha256 = "3d578ee7baaa2faca421de44c6783d234cf993c2a02fe8a4117f03d4d965122f"
+
+[[cases]]
+name = "requested-length"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "8"
+expected_result = "expected_length_mismatch"
+file_sha256 = "0b4a70cb8a82beb309f75612f9a6d40fee8fc96fc619dd57b45a19b7a68c5000"
+
+[[cases]]
+name = "short-payload"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb3132333435363738"
+expected_payload_argument = "9"
+expected_result = "truncated_payload"
+file_sha256 = "4cfc262a2d4c3f99295c532a23942abdc97c39eb31595b07efc7166707a6886b"
+
+[[cases]]
+name = "payload-crc"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb313233343536373838"
+expected_payload_argument = "9"
+expected_result = "payload_crc_mismatch"
+file_sha256 = "6f0bb2ce3f386db99dd5d72962a018bbfae4c4a25dcb6bc97ec71405f9d19121"
+
+[[cases]]
+name = "huge-declared-length"
+file_hex = "5d4df93a14000000123456780102030405060708ffffffff2639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "expected_length_mismatch"
+file_sha256 = "986e186a1a1f300c0fc88e76c70026680e02bce6a7d18dfcdc1e952d1696bc41"
+
+[[cases]]
+name = "big-endian-body-length"
+file_hex = "e0766bbf00000014123456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "unsupported_body_length"
+file_sha256 = "8d96a1bffc541c517f116589382176155a9255bef7b033a532fd15a99b624114"
+
+[[cases]]
+name = "precedence-body-crc"
+file_hex = "e0766bbf13000000003456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "unsupported_body_length"
+file_sha256 = "d48da357e23670c20fbc0c809744edc22ec37ef4cc5814af79908bb160efc8dd"
+
+[[cases]]
+name = "precedence-crc-length"
+file_hex = "e0766bbf14000000123456780102030405060708080000002639f4cb313233343536373839"
+expected_payload_argument = "9"
+expected_result = "header_crc_mismatch"
+file_sha256 = "03b22416452a99038ae328f2a4cf39a0fc61540cc0915a80388ea3da0787877b"
+
+[[cases]]
+name = "precedence-length-truncation"
+file_hex = "7e76c17314000000123456780102030405060708080000002639f4cb"
+expected_payload_argument = "9"
+expected_result = "expected_length_mismatch"
+file_sha256 = "e5f98fed124332843e55aedf150683859901a600372f370d2d51664373036213"
+
+[[cases]]
+name = "precedence-truncation-payload-crc"
+file_hex = "9c67ee6d1400000012345678010203040506070809000000000000003132333435363738"
+expected_payload_argument = "9"
+expected_result = "truncated_payload"
+file_sha256 = "37d5072465c79f9e3b131b29605eeae02762720d2edfa64f3a71fb24e0379ad6"
+
+[[cases]]
+name = "zero-expected"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "0"
+expected_result = "invalid_argument"
+file_sha256 = "0b4a70cb8a82beb309f75612f9a6d40fee8fc96fc619dd57b45a19b7a68c5000"
+
+[[cases]]
+name = "nonnumeric-expected"
+file_hex = "e0766bbf14000000123456780102030405060708090000002639f4cb313233343536373839"
+expected_payload_argument = "n/a"
+expected_result = "invalid_argument"
+file_sha256 = "0b4a70cb8a82beb309f75612f9a6d40fee8fc96fc619dd57b45a19b7a68c5000"
