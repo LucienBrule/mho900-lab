@@ -1,0 +1,200 @@
+schema_version = "mho900-lab.afe-calibration-contract/1"
+stock_library_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+evidence_kind = "static-recovery-with-prior-guest-environment-witnesses"
+new_guest_runs = 0
+physical_instrument_access = false
+entry_pc = 0x333bac
+proposed_exit_pc = 0x333bdc
+exit_instruction_executes = false
+clock_call_excluded = 0x333bf4
+operation_classes = ["STATIC-DETERMINED", "RUNTIME-SELECTED", "HARDWARE-RETURNED", "ASYNCHRONOUS", "UNKNOWN"]
+normal_path_new_mmio_operations = 0
+new_hardware_responses = 0
+whole_program_transitive_proof = false
+
+[layout]
+afe_from_parent = 0x242838
+zero_from_afe = 0x29e8
+zero_payload_bytes = 560
+bandwidth_from_afe = 0x2728
+bandwidth_payload_bytes = 320
+save_from_global_calibration = 0x244f60
+scope_global_va = 0x10bee40
+calibration_from_scope = 0x60d8
+save_global_va = 0x1309e78
+live_parent_equals_global = "not independently captured in this task"
+unknown_initial_payload_must_not_be_zero_assumed = true
+
+[[operations]]
+id = "dispatch-zero"
+classification = "STATIC-DETERMINED"
+pc = 0x333bcc
+kind = "CALL"
+callee = 0x350614
+arguments = "AFE=this+0x242838"
+next = "zero-primary"
+
+[[operations]]
+id = "zero-primary"
+classification = "RUNTIME-SELECTED"
+pc = 0x350680
+kind = "CHECKED_FILE_LOAD"
+path = "/rigol/data/cal_afe_zero.hex"
+bytes = 560
+destination_offset = 0x29e8
+negative_next = "zero-fallback"
+nonnegative_next = "dispatch-bandwidth"
+
+[[operations]]
+id = "zero-fallback"
+classification = "RUNTIME-SELECTED"
+pc = 0x3506bc
+kind = "CHECKED_FILE_LOAD"
+path = "/rigol/data/default/cal_afe_zero.hex"
+bytes = 560
+destination_offset = 0x29e8
+next = "dispatch-bandwidth"
+result = "fallback return retained; dispatcher stores then ignores it"
+
+[[operations]]
+id = "dispatch-bandwidth"
+classification = "STATIC-DETERMINED"
+pc = 0x333bd8
+kind = "CALL"
+callee = 0x350e44
+next = "bandwidth-primary"
+
+[[operations]]
+id = "bandwidth-primary"
+classification = "RUNTIME-SELECTED"
+pc = 0x350eb0
+kind = "CHECKED_FILE_LOAD"
+path = "/rigol/data/cal_afe_bandwidth.hex"
+bytes = 320
+destination_offset = 0x2728
+negative_next = "bandwidth-fallback"
+nonnegative_next = "bandwidth-patch"
+
+[[operations]]
+id = "bandwidth-fallback"
+classification = "RUNTIME-SELECTED"
+pc = 0x350eec
+kind = "CHECKED_FILE_LOAD"
+path = "/rigol/data/default/cal_afe_bandwidth.hex"
+bytes = 320
+destination_offset = 0x2728
+next = "bandwidth-patch"
+result = "fallback return retained even if negative"
+
+[[operations]]
+id = "bandwidth-patch"
+classification = "STATIC-DETERMINED"
+pc = 0x350f24
+kind = "OBJECT_STORES"
+width = 4
+value = 115
+offsets = [0x2738,0x2750,0x2768,0x2788,0x27a0,0x27b8,0x27d8,0x27f0,0x2808,0x2828,0x2840,0x2858]
+condition = "unconditional after normal load/fallback return, including negative result"
+next = "save-global-source"
+
+[[operations]]
+id = "save-global-source"
+classification = "STATIC-DETERMINED"
+pc = 0x350f5c
+kind = "CALL"
+callee = 0x350fbc
+source = "Drv_GetScope()->GetCalibration()+0x244f60; does not take loader this"
+next = "timestamp"
+
+[[operations]]
+id = "timestamp"
+classification = "RUNTIME-SELECTED"
+pc = 0x3dcc74
+kind = "HOSTED_TIME_QUERY"
+semantics = "time/localtime/strftime plus BCD conversion; environment-dependent metadata, not a hardware response"
+next = "checked-header"
+
+[[operations]]
+id = "checked-header"
+classification = "STATIC-DETERMINED"
+pc = 0x3dcc90
+kind = "CHECKED_HEADER"
+semantics = "CRC32 of320 source bytes; metadata version0, time8 bytes, payload length320, payload CRC; header body20 bytes; header CRC and body length precede it"
+next = "save-open"
+
+[[operations]]
+id = "save-open"
+classification = "RUNTIME-SELECTED"
+pc = 0x3dcd80
+kind = "FILE_OPEN_WITH_PROCESS_SIDE_EFFECT"
+path = "/rigol/data/cal_afe_bandwidth.hex"
+rfile_mode = 2
+open_flags = 0x42
+create_mode = 0x1b6
+truncates = false
+process_umask = 0
+restores_umask = false
+negative_next = "save-error"
+nonnegative_next = "save-writes"
+
+[[operations]]
+id = "save-writes"
+classification = "RUNTIME-SELECTED"
+pc = 0x3dcdd8
+kind = "FILE_WRITES"
+component_lengths = [4,4,20,320]
+short_component_result = -2
+retry_short_write = false
+semantics = "four writes from offset0; pre-existing trailing bytes may survive; partial file may remain on failure"
+next = "save-sync"
+
+[[operations]]
+id = "save-sync"
+classification = "RUNTIME-SELECTED"
+pc = 0x3dcf28
+kind = "FILE_SYNC_CLOSE"
+semantics = "RFile::flush is no-op returning1; fsync and close are called; return values ignored; exact writes lead to return320 regardless of these outcomes"
+next = "return"
+
+[[operations]]
+id = "save-error"
+classification = "STATIC-DETERMINED"
+pc = 0x351048
+kind = "ERROR_MAPPING"
+semantics = "CheckedStream open=-1 or short write=-2 maps to helper=-9; nonnegative maps to0; bandwidth loader ignores helper result"
+next = "return"
+
+[[operations]]
+id = "return"
+classification = "STATIC-DETERMINED"
+pc = 0x350f94
+kind = "RETURN_LOAD_STATUS"
+semantics = "return saved primary/fallback load status; caller checkpoint333bdc precedes storing it"
+next = "exit"
+
+[[operations]]
+id = "exit"
+classification = "STATIC-DETERMINED"
+pc = 0x333bdc
+kind = "UNEXECUTED_CHECKPOINT"
+semantics = "whole AFE loader pair completed; clock loading has not begun"
+
+[[unknowns]]
+classification = "UNKNOWN"
+question = "Initial live560-byte zero and320-byte bandwidth records, and equality of loader parent with global save source"
+resolution = "capture existing guest state before continuation; never fill unknown words with guessed zeroes"
+
+[[unknowns]]
+classification = "UNKNOWN"
+question = "Untouched physical unit file presence, contents, ownership, labels and whether primary bandwidth was already rewritten"
+resolution = "exact bench question in decision document; no physical probe or factory fixture chosen in this batch"
+
+[[unknowns]]
+classification = "ASYNCHRONOUS"
+question = "Other process threads could change process umask or shared state; this recovery does not prove whole-program isolation"
+resolution = "future entry/exit captures and thread coverage; no timing behavior modeled here"
+
+[[unknowns]]
+classification = "UNKNOWN"
+question = "Allocation failures, C++ exception unwinding and standard-library implementation details at listed unexpanded boundaries"
+resolution = "preserve boundaries in inventory; unexpected execution must stop instead of claiming total transitive recovery"

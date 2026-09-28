@@ -1,0 +1,95 @@
+schema_version = "mho900-lab.afe-static-constants/1"
+zero_payload_bytes = 560
+bandwidth_payload_bytes = 320
+patch_value = 115
+save_rfile_mode = 2
+save_open_flags = 0x42
+save_create_mode = 0x1b6
+
+[[patches]]
+pc = 0x350f2c
+offset = 0x2738
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f30
+offset = 0x2750
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f34
+offset = 0x2768
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f38
+offset = 0x2788
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f3c
+offset = 0x27a0
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f40
+offset = 0x27b8
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f44
+offset = 0x27d8
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f48
+offset = 0x27f0
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f4c
+offset = 0x2808
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f50
+offset = 0x2828
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f54
+offset = 0x2840
+width = 4
+value = 115
+
+[[patches]]
+pc = 0x350f58
+offset = 0x2858
+width = 4
+value = 115
+
+[[paths]]
+address = 0x99d9b3
+value = "/rigol/data/cal_afe_zero.hex"
+
+[[paths]]
+address = 0x99d9d0
+value = "/rigol/data/default/cal_afe_zero.hex"
+
+[[paths]]
+address = 0x99d9f5
+value = "/rigol/data/cal_afe_bandwidth.hex"
+
+[[paths]]
+address = 0x99da17
+value = "/rigol/data/default/cal_afe_bandwidth.hex"

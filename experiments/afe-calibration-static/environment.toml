@@ -1,0 +1,42 @@
+schema_version = "mho900-lab.afe-environment-correlation/1"
+prior_guest_run = "stock-adc-sequence-01"
+new_guest_runs = 0
+physical_access = false
+corpus_afe_paths_present = 0
+corpus_afe_paths_checked = 4
+physical_file_presence = "unknown"
+physical_file_contents = "unknown"
+prior_guest_afe_specific_absence_probe = false
+guest_absence_basis = "fresh empty tmpfs plus frozen construction of only LSB and vertical files; no complete AFE-specific live inventory was captured"
+guest_data_directory_mode = "0755"
+guest_data_directory_uid = 0
+guest_data_directory_gid = 0
+guest_data_directory_label = "u:object_r:tmpfs:s0"
+stock_application_uid = 1000
+expected_primary_save = "ordinary file creation denied by root-owned0755 directory for uid1000; prediction conditional on actual credentials/capabilities/policy and path absence, not an observed AFE outcome"
+expected_loads = "both AFE primary and fallback opens fail if construction-derived absence holds"
+zero_record_prediction = "unchanged from entry if both opens fail"
+bandwidth_record_prediction = "twelve u32 fields become115; all other bytes retain entry state if both opens fail"
+save_source_identity_requires_witness = true
+save_attempt_changes_process_umask_even_if_open_fails = true
+physical_default_fixture_authorized = false
+
+[[witnesses]]
+path = "out/guest-admission/stock-adc-sequence-01/loader-final-stat.txt"
+sha256 = "3c2a566e1f973730ec5feae6f9fe3b8f9c1ba3518dd2569a41c6e252c7f62466"
+
+[[witnesses]]
+path = "out/guest-admission/stock-adc-sequence-01/loader-final-labels.txt"
+sha256 = "7a03bdff7e48d00b5c26ccabe6ef24646582c2005fe41a36ac9f634347404495"
+
+[[witnesses]]
+path = "out/guest-admission/stock-adc-sequence-01/source/admission-filesystem.sh"
+sha256 = "2a927980cdf57cbf0bfd057f9d2d258933e069f38de9cb89b2311739403e8ea0"
+
+[[witnesses]]
+path = "out/guest-admission/stock-adc-sequence-01/source/admission-loadermodel.sh"
+sha256 = "97cfe4e4f2210095ec144ce4305e525811e355830dbec9ac427b488eaf24fc49"
+
+[[witnesses]]
+path = "out/guest-admission/stock-adc-sequence-01/evidence-sha256.txt"
+sha256 = "c2a65ab2d2eb0b505d869dc9f86eb5a166282275d0383a0ccf1e5731c2a279b2"

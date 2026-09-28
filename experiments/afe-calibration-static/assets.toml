@@ -1,0 +1,19 @@
+schema_version = "mho900-lab.afe-asset-inventory/1"
+classification = "provided-extracted-corpus-only"
+physical_presence_established = false
+
+[[assets]]
+path = "firmware/data/cal_afe_zero.hex"
+present = false
+
+[[assets]]
+path = "firmware/data/default/cal_afe_zero.hex"
+present = false
+
+[[assets]]
+path = "firmware/data/cal_afe_bandwidth.hex"
+present = false
+
+[[assets]]
+path = "firmware/data/default/cal_afe_bandwidth.hex"
+present = false
