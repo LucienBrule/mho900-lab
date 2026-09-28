@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.interface.calibration-record-spec
+    title: Specify the recovered checked calibration record and build a read-only inspector
+    state: open
+    intent: Turn verified file-format knowledge into a reusable boundary without inventing instrument calibration values.
+    requires: [TASK.guest.afe-calibration-decision]
+    requirements:
+      - Work on host-side source and existing local evidence only. No physical access, guest run, new device response or modification of stock artifacts. Retain the recorded AFE bench question.
+      - Specify byte layout, endianness, checksum coverage, size and trailing-byte behavior, metadata uncertainty and known stock load/save side effects. Separate format validity from calibration correctness and from exact stock acceptance semantics.
+      - Implement a bounded read-only Kotlin inspector with typed results and TOML output. Report hashes and lengths without emitting proprietary payloads or host paths. Validate before presenting parsed payload metadata and never rewrite input records.
+      - Exercise synthetic public conformance vectors for valid, truncated, corrupt, wrong-length and trailing-data cases, and verify the two existing stock LSB/vertical files read-only. Preserve fixture provenance and original hashes.
+      - Commit and push specification, inspector and verification results before review.
+    acceptance: [A scoped reusable checked-record specification and read-only inspector have reproducible conformance evidence.]
+    verification: [specification, implementation, controls, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.interface.calibration-record-review
+    title: Review checked-record interface maturity and preserve the bench handoff
+    state: open
+    intent: Decide what the independent format boundary can support without promoting unknown physical semantics.
+    requires: [TASK.interface.calibration-record-spec]
+    requirements:
+      - Review the spec and inspector against pinned source evidence and independently generated or computed checksum expectations. Identify implementation policy that differs from stock behavior.
+      - State the reusable C ABI and Kotlin semantic boundary without freezing unverified acquisition or calibration semantics. Record limitations and a concrete bench-file analysis handoff.
+      - Close with a committed and pushed conclusion. No successor guest or physical task is admitted in this short host-only batch.
+    acceptance: [The interface scope is reviewed and its reuse limits and handoff are recorded.]
+    verification: [review, boundary, handoff]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
