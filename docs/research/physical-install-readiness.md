@@ -1,5 +1,12 @@
 # Physical installation readiness
 
+Historical readiness analysis. The proposed loader control and physical stages
+have since completed; see the [native-loader control](native-library-deployment-control.md),
+[ordinary-option results](physical-ordinary-options.md), and
+[D-capability persistence](physical-d-capability.md). The alternatives below
+explain the decision at the time and are not outstanding work.
+
+
 The ordinary-option path is concrete: use the documented SCPI installer with the
 exact acquired-input candidates already accepted by stock code in the disposable
 guest. Persistent D-capability deployment is a separate question. The component

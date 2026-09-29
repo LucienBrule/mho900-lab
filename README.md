@@ -1,11 +1,20 @@
 # MHO900 Lab
 
 Research harness for the RIGOL MHO900 platform, initially the MHO984.
-Physical accession has pinned the specimen's software to the analyzed stock corpus. Disposable ART guests
-now demonstrate ordinary option acceptance and component persistence, plus a separate software capability
-comparison. A complete emulator, physical entitlement installation and analog bandwidth validation remain open.
+Physical enablement is established: all ten individual ordinary options survived a normal
+instrument reboot, and a separate native capability selection produced repeated 18/18
+readings across deployment and an independent reboot. The signed stock APK and public
+MHO984 identity remain unchanged.
 
-- [Current entitlement results, limits and next bench question](docs/research/specimen-entitlement-checkpoint.md)
+**RF characterization remains outstanding.** Software capability selection does not establish
+1 GHz analog performance or validate every enabled feature. The enablement experiments are
+complete; the next bench objective is the prepared RF comparison. A complete emulator and
+independent instrument implementation remain longer-term research.
+
+- [Physical ordinary-option installation and persistence](docs/research/physical-ordinary-options.md)
+- [Physical D-capability deployment and independent reboot](docs/research/physical-d-capability.md)
+- [RF characterization plan and remaining bench inputs](docs/research/rf-performance-evaluation-plan.md)
+- [Earlier guest entitlement checkpoint](docs/research/specimen-entitlement-checkpoint.md)
 - [Physical logical acquisition and software identity](docs/research/physical-specimen-logical-acquisition.md)
 - [Physical raw storage acquisition](docs/research/physical-specimen-raw-acquisition.md)
 - [Kernel-reported SD storage classification](docs/research/physical-storage-classification.md)

@@ -1,5 +1,14 @@
 # Specimen-derived entitlement checkpoint — 2026-09-29
 
+Historical checkpoint: this records the guest/component stage before physical
+installation. Its next bench questions were subsequently answered by the
+[physical ordinary-option program](physical-ordinary-options.md),
+[FRAM baseline](physical-fram-baseline.md), and
+[physical D-capability deployment](physical-d-capability.md). See the
+[RF evaluation plan](rf-performance-evaluation-plan.md) for the current remaining
+objective. The original scope and conclusions below are retained.
+
+
 The acquired-input component program now covers the complete ordinary individual
 catalog, its process/reboot persistence, and its interaction with the separately
 derived MHO984D capability record. Further repetition of those same component

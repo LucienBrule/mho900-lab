@@ -25,3 +25,7 @@ local.properties
 # macOS
 .DS_Store
 
+
+# Local Python bytecode
+__pycache__/
+*.py[cod]

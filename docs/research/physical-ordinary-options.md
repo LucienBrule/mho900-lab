@@ -62,7 +62,7 @@ restored host isolation and did not repeat the request. No reboot completion,
 new lease or postboot persistence is claimed from this run. No reader was staged.
 
 The complete capture contains53,689frames with zero reported kernel drops and
-graceful recorder exit0. The exact `reboot:` service request appears once; a TCP
+graceful recorder exit 0. The exact `reboot:` service request appears once; a TCP
 acknowledgement and matching ADB OKAY establish delivery to ADB, not a completed
 boot. The next bounded question is read-only reconciliation against the preserved
 preboot identity, without another reboot or option installation.
@@ -82,20 +82,22 @@ embedded native mapping and read repeated raw/effective17/17 in16total bytes.
 One necessary postboot ADB daemon root restart was recorded. No native capability
 change, reset or calibration command was issued.
 
-The raw SCPI transcripts contain24 documented queries across two streams and no
-install request. The capture has108,445 complete frames, zero reported kernel
-drops and graceful recorder exit0; host preferences and isolation were restored.
-There is an explicit265.858-second gap between recorder witnesses. Boot
+The raw SCPI transcripts contain 24 documented queries across two streams and no
+install request. The capture has 108,445 complete frames, zero reported kernel
+drops and graceful recorder exit 0; host preferences and isolation were restored.
+There is an explicit 265.858-second gap between recorder witnesses. Boot
 completion is established by the changed boot ID and subsequent observations;
 continuous boot timing or uninterrupted traffic observation is not claimed.
 
-The UI scale displayed50mV/div after boot versus52mV/div beforehand. Two logical
+The UI scale displayed 50 mV/div after boot versus 52 mV/div beforehand. Two logical
 files changed: the bandwidth calibration record's header timestamp/checksum and
-a startup identity-fallback cache. The320-byte bandwidth payload itself is identical.
+a startup identity-fallback cache. The 320-byte bandwidth payload itself is identical.
 The separate startup-data reconciliation records the scope of this finding.
 
 Evidence seal: `526628e2db6504925c44e61536d24e8b377243b364772de10b14a414b0f1ecc1`. Raw capture SHA-256:
 `d943a790e7b41fc2a21c4b299eb26ce33ed8be7d18d605a890b1dff8b6128998`.
 
-This closes ordinary-option persistence on the physical unit. It does not yet
-establish the separate D capability transition or measured analog bandwidth.
+This closes ordinary-option persistence on the physical unit. The separate
+[D-capability transition and reboot](physical-d-capability.md) subsequently passed.
+Measured analog bandwidth remains the subject of the
+[RF evaluation plan](rf-performance-evaluation-plan.md).
