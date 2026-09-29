@@ -54,3 +54,8 @@ The original evidence remains unchanged under seal `09cdcff4fc47ede14a08195c908d
 The next bounded task repairs only controller admission of this reload-only
 terminal, tests it against the retained terminal and invalid variants, and then
 uses a new stock run identity. No fixture or native behavior change is indicated.
+
+The controller repair accepted the retained combined terminal and the earlier
+catalog terminal, and rejected twelve invalid variants. Guest fixture and native
+bytes were unchanged. Repair-control seal: `c9ff4897e0be5560e9ac6eafe001f45f45dfc4104d677d14e28812d1760f2f72`. The original failed
+run remains failed; a fresh stock control is required.

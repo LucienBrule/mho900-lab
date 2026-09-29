@@ -29,6 +29,30 @@ def accepted_stop(payload):
                 and all(checks.get(name) is True for name in (
                     "key_outputs_exact", "file_keys_exact", "key_file_unchanged",
                     "fresh_private_store", "catalog_complete", "no_installer", "started_false")))
+    if payload.get("reason") == "acquired-combined-phase-complete":
+        checks = payload.get("expected_checks")
+        required = {"started_false", "catalog_complete", "seed_catalog_matches", "seed_inputs_preserved",
+                    "private_reloaded", "catalog_unchanged", "no_installer", "no_token_regeneration",
+                    "capability_identity_preserved", "capability_bandwidth_selected", "capability_record_selected",
+                    "capability_option_policy_preserved", "capability_queries_succeeded"}
+        names = {0: "BND", 1: "EMBD", 2: "COMP", 3: "AUTO", 4: "AUTOA", 5: "FlexA",
+                 6: "AUDIOA", 7: "AEROA", 19: "RLU05", 30: "AFG50", 29: "AFG100",
+                 22: "BWU03T05", 23: "BWU03T08", 24: "BWU05T08"}
+        before, after = payload.get("catalog_before"), payload.get("catalog_after")
+        return (payload.get("phase") == os.environ.get("ENTITLEMENT_PHASE") == "reload"
+                and payload.get("acquired_combined_experiment") is True
+                and payload.get("physical_contact") is False
+                and payload.get("persistence_backend") == "stock-memfile-harness-directed-file"
+                and payload.get("exit_code") == 77 and payload.get("terminal_ack") is True
+                and isinstance(checks, dict) and required <= set(checks)
+                and all(value is True for value in checks.values())
+                and isinstance(before, list) and len(before) == 14 and before == after
+                and all(isinstance(item, dict) and type(item.get("option_type")) is int
+                        and item["option_type"] in names
+                        and item.get("option_name") == names[item["option_type"]]
+                        and item.get("valid") is (item["option_type"] != 0)
+                        and type(item.get("status")) is int and item["status"] == 0 for item in before)
+                and {item["option_type"] for item in before} == set(names))
     if payload.get("reason") in ("option-catalog-phase-complete", "acquired-option-phase-complete"):
         phase = payload.get("phase")
         common = {"started_false", "catalog_complete", "seed_catalog_matches", "seed_inputs_preserved",
