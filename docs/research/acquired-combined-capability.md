@@ -100,3 +100,17 @@ and the established guest policy checks. Full run seal:
 The three accepted bandwidth-option licenses did not reduce derived enum18
 during this original option-policy path. This is software capability interaction
 evidence; physical RF response and physical installation remain untested.
+
+## Decision
+
+The complete acquired ordinary catalog coexists with the separately derived
+MHO984D capability in this component harness, including after guest reboot.
+Independent cross-arm review rejoined actual consumer key/decode/plaintext
+witnesses, all persistent files and native ancestry. The failed first stock
+run remains separately recorded as a controller integration failure.
+
+The next bounded offline question is whether the permanent files still validate
+with the exact older pre-install private stream. Existing installs changed only
+saved-time record16192; their reloads used the newer stream. A one-file contrast
+can isolate that dependency. It will cover component initialization, not full
+License.start timers or physical asynchronous FRAM persistence.
