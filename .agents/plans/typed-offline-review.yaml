@@ -1,0 +1,54 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.review-contract
+    title: Compose sealed capture and SCPI evidence into one bounded offline review
+    state: open
+    intent: Bind each interpretation to exact sealed inputs rather than unrelated individually valid files.
+    requires: [TASK.tooling.scpi-decision]
+    requirements:
+      - Add a reusable library with strict versioned TOML role configuration and a required caller-pinned manifest digest; every capture statistics and ordered transcript role must be a distinct member of one exact evidence inventory.
+      - Verify the inventory before and after interpretation; bind consumer hashes and sizes to sealed members and compare selected reconstructed TCP bytes exactly with ordered raw transcript members before SCPI decoding.
+      - Return named stage-specific outcomes with explicit evidence facts; do not promote membership to common physical origin or count agreement to graceful recorder exit delivery or complete traffic acquisition.
+      - Provide bounded file inputs and resource limits; preserve original evidence and perform no physical network process-launch or device operations.
+    acceptance: [Synthetic positive and adversarial consistency controls demonstrate the composed contract.]
+    verification: [contract, controls, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.review-consumer
+    title: Expose sealed offline review through a delegated redacted CLI
+    state: open
+    intent: Make the independent libraries useful together without coupling them to a bench runner.
+    requires: [TASK.tooling.scpi-decision]
+    requirements:
+      - Add a Click endpoint calling a typed delegate and reusable review library with explicit root manifest expected digest and role configuration arguments.
+      - Render a bounded TOML result with input hashes and stage-specific failures; hide all identity strings and private endpoint paths by default.
+      - Compare the preserved identity run without modifying its original files and demonstrate installed-wheel consumption outside the checkout.
+      - Document role assertions and unresolved origin lifecycle and timing claims separately from verified byte consistency.
+    acceptance: [Preserved comparison and independent CLI packaging controls pass without physical contact.]
+    verification: [consumer, private_comparison, packaging]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.review-decision
+    title: Evaluate the composed review surface and remaining migration work
+    state: open
+    intent: Choose the next useful bounded offline step from demonstrated library composition.
+    requires: [TASK.tooling.review-contract, TASK.tooling.review-consumer]
+    requirements:
+      - Independently challenge file binding and failure semantics, verify strict checks installed distributions and remote CI, and commit and push conclusions.
+      - Recheck the authorized time window and identify any remaining value in migration tooling documentation or targeted corrections before admitting another batch.
+    acceptance: [A concrete evidence-backed successor or final checkpoint is recorded.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-offline-review
+    title: Sealed offline capture and SCPI review
+    scope: Explicit byte binding and redacted observations from retained evidence without bench execution.
+    tasks: [TASK.tooling.review-contract, TASK.tooling.review-consumer, TASK.tooling.review-decision]
+    required_extensions: []
+    extensions: {}

@@ -129,3 +129,9 @@ gate, including actual codec/executor calls and the default-redacted CLI. Eviden
 is under `out/tooling/installed-packages-06/`. Strict quality gates and 277 tests
 passed after the final review additions. The [SCPI contract](../runbooks/scpi-contract.md)
 states the grammar and ownership limits independently of the research notes.
+
+The [SCPI workflow run](https://github.com/LucienBrule/mho900-lab/actions/runs/36647210465)
+passed both platform gates for `23da684`. The next bounded step binds these
+separate consumers to a caller-pinned exact inventory and explicit role map.
+This addresses accidental mixing of valid files; it cannot authenticate a
+physical origin merely because a bundle was sealed.
