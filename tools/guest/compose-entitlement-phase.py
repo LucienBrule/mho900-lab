@@ -15,7 +15,10 @@ def main():
     parser.add_argument('--checkpoint', choices=('negative', 'install', 'capability', 'process-reload', 'reboot-reload'))
     args = parser.parse_args()
     fixture = tomllib.loads(args.config.read_text())
-    if fixture.get('schema_version') != 'mho900-lab.synthetic-entitlement-fixture/1':
+    acquired = fixture.get('schema_version') == 'mho900-lab.acquired-option-fixture/1'
+    if acquired and (fixture.get('acquired_option_experiment') is not True or args.phase not in ('positive','reload')):
+        raise ValueError('Invalid acquired-input phase')
+    if not acquired and fixture.get('schema_version') != 'mho900-lab.synthetic-entitlement-fixture/1':
         raise ValueError('Unknown fixture schema')
     if fixture.get('capability_experiment') is True and args.phase != 'reload':
         raise ValueError('Capability experiments only reload the verified seed')

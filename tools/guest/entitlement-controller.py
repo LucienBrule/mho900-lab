@@ -29,7 +29,7 @@ def accepted_stop(payload):
                 and all(checks.get(name) is True for name in (
                     "key_outputs_exact", "file_keys_exact", "key_file_unchanged",
                     "fresh_private_store", "catalog_complete", "no_installer", "started_false")))
-    if payload.get("reason") == "option-catalog-phase-complete":
+    if payload.get("reason") in ("option-catalog-phase-complete", "acquired-option-phase-complete"):
         phase = payload.get("phase")
         common = {"started_false", "catalog_complete", "seed_catalog_matches", "seed_inputs_preserved",
                   "private_reloaded", "catalog_delta_exact", "candidate_file_matches",

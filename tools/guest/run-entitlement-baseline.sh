@@ -8,7 +8,9 @@ controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|acquired-baseline|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|acquired-baseline|acquired-option|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+acquired_option=false
+if [ "$trial_mode" = acquired-option ]; then acquired_option=true; fi
 reader_mode=false
 if [ "$trial_mode" = identity-reader ]; then reader_mode=true; fi
 trial_enabled=true
@@ -17,10 +19,12 @@ capability_mode=false
 case "$trial_mode" in capability-*) capability_mode=true;; esac
 catalog_mode=false
 case "$trial_mode" in catalog-*) catalog_mode=true;; esac
+if [ "$acquired_option" = true ]; then catalog_mode=true; fi
 seeded_mode=false
 if [ "$capability_mode" = true ] || [ "$catalog_mode" = true ]; then seeded_mode=true; fi
 trial_verifier=verify-synthetic-entitlement.py
 if [ "$catalog_mode" = true ]; then trial_verifier=verify-option-catalog.py; fi
+if [ "$acquired_option" = true ]; then trial_verifier=verify-acquired-option.py; fi
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 frida_home=${ENTITLEMENT_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19-r02"}
@@ -50,6 +54,12 @@ if [ "$trial_enabled" = true ]; then
     if [ "$seeded_mode" = false ]; then
         [ -z "$(find "$fixture/rigol" -type f -print)" ]
         [ -z "$(find "$fixture/model" -mindepth 1 -print)" ]
+    elif [ "$acquired_option" = true ]; then
+        cp "$repo/tools/guest/prepare-acquired-option.py" "$repo/tools/guest/prepare-option-catalog-fixture.py" \
+            "$repo/tools/guest/verify-acquired-option.py" "$repo/tools/guest/verify-synthetic-entitlement.py" \
+            "$repo/tools/guest/entitlement-acquired-consumer.js" "$repo/tools/guest/entitlement-acquired-option.js" \
+            "$repo/tools/guest/entitlement-capability.js" "$run/source/"
+        "$python" "$run/source/prepare-acquired-option.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
     elif [ "$capability_mode" = true ]; then
         cp "$repo/tools/guest/prepare-capability-fixture.py" "$repo/tools/guest/entitlement-capability.js" "$run/source/"
         "$python" "$run/source/prepare-capability-fixture.py" --verify-fixture "$fixture" > "$run/capability-fixture-verification.toml"
@@ -369,6 +379,11 @@ if [ "$trial_enabled" = true ]; then
             "$run/source/entitlement.js" "$ENTITLEMENT_PHASE" "$active_phase_dir/entitlement.js" --checkpoint "$label"
         shasum -a 256 "$active_phase_dir/entitlement.js" > "$active_phase_dir/source-sha256.txt"
         adb shell 'cat /proc/sys/kernel/random/boot_id; pidof system_server; getenforce' > "$active_phase_dir/health-before.txt"
+        if [ "$acquired_option" = true ]; then
+            adb exec-out cat /sys/fs/selinux/policy > "$active_phase_dir/policy-before.bin"
+            before_policy=$(shasum -a 256 "$active_phase_dir/policy-before.bin"); before_policy=${before_policy%% *}
+            case "$before_policy" in d42d4591e6a44551d969db387403b751aef0bb1bb0654f8e05ae7c9a10d224bc|9fc3a821a681116e425f87b9a4eeb73f62b1e299e025709e6f566236761b2181) ;; *) exit 2;; esac
+        fi
         controller_started=true
         controller_rc=0
         offline "$timeout_bin" -k 5 90 "$python" "$run/source/entitlement-controller.py" "$active_phase_dir/entitlement.js" \
@@ -390,6 +405,10 @@ if [ "$trial_enabled" = true ]; then
         fi
         adb shell 'cat /proc/sys/kernel/random/boot_id; pidof system_server; getenforce' > "$active_phase_dir/health-after.txt"
         cmp "$active_phase_dir/health-before.txt" "$active_phase_dir/health-after.txt"
+        if [ "$acquired_option" = true ]; then
+            adb exec-out cat /sys/fs/selinux/policy > "$active_phase_dir/policy-after.bin"
+            check_hash "$active_phase_dir/policy-after.bin" 9fc3a821a681116e425f87b9a4eeb73f62b1e299e025709e6f566236761b2181 known-frida-guest-policy
+        fi
         printf 'controller_exit = %s\nphase = "%s"\nlabel = "%s"\n' "$controller_rc" "$ENTITLEMENT_PHASE" "$label" > "$active_phase_dir/result.toml"
         "$python" "$run/source/verify-entitlement-journal.py" "$active_phase_dir/guest-events.jsonl" \
             "$active_phase_dir/controller.stdout" --expect stock > "$active_phase_dir/journal-verification.toml"
