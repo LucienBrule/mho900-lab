@@ -1,0 +1,66 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-capability-prepare
+    title: Freeze acquired-input capability comparison
+    state: open
+    intent: Reuse the accepted FlexA persistence seed for separate stock and derived capability arms.
+    requires: [TASK.specimen.acquired-option-record-decision]
+    requirements:
+      - Commit tasking before implementation. Work offline on preserved files and disposable guests only.
+      - Verify acquired-option-03 seal and all three successful phase results. Preserve exact key, license, witness and modeled private stream.
+      - Preserve stock APK and native ancestor. Bound the derived library to the previously verified 32-byte parser replacement and full-file digest.
+      - Freeze reload-only stock and derived arms with actual model, selected record, raw/effective bandwidth and full option catalog observations. No installer or producer.
+      - Preserve original consumer observations, exact established guest policy checks and host-loopback confinement. Require stock control before derived execution.
+      - Verify fixture and evidence controls locally; commit and push preparation before either run.
+    acceptance: [Two auditable fixtures and guarded observations are prepared without specimen contact.]
+    verification: [lineage, transformation, controls, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-capability-stock
+    title: Run acquired-input stock capability control
+    state: open
+    intent: Verify MHO984 identity and enum17 with the acquired-input persisted FlexA seed.
+    requires: [TASK.specimen.acquired-capability-prepare]
+    requirements:
+      - Execute one frozen stock guest control under loopback confinement with no physical contact.
+      - Require original selected record, identity, bandwidth before and after ParseOption, full catalog and original license consumer evidence.
+      - Require exact retained seed bytes, no installation or regeneration, stock pins and healthy guest policy/state.
+      - Stop and preserve any discrepancy. Seal, commit and push the conclusion before derived execution.
+    acceptance: [The stock control passes or its first failure is recorded.]
+    verification: [execution, capability, persistence, isolation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-capability-derived
+    title: Run acquired-input derived capability comparison
+    state: open
+    intent: Test identity and option preservation while selecting MHO984D software capability.
+    requires: [TASK.specimen.acquired-capability-stock]
+    requirements:
+      - Execute only if the stock control passed; otherwise record the blocked arm without launching it.
+      - Run one derived-copy guest experiment with fresh-process and same-guest reboot reloads.
+      - Require MHO984 identity, MHO984D selected record, raw/effective enum18 before and after ParseOption, unchanged entire option catalog and exact seed files.
+      - Require the exact admitted native transformation, original consumer observations, no installer/regeneration, healthy guest state and complete journals.
+      - Stop on discrepancies; seal, commit and push results before evaluation. No physical access or RF claim.
+    acceptance: [A verified comparison or bounded failure is preserved.]
+    verification: [execution, capability, persistence, isolation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-capability-decision
+    title: Evaluate acquired-input capability comparison
+    state: open
+    intent: Distinguish native software policy from physical instrument performance.
+    requires: [TASK.specimen.acquired-capability-derived]
+    requirements:
+      - Compare stock and derived arms, ordinary license acceptance and capability transformation separately.
+      - Record the next smallest useful question without inferring physical persistence or RF performance from guest results.
+      - Commit and push the decision. No physical operation is admitted by this task.
+    acceptance: [The next bounded direction follows the actual evidence.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
