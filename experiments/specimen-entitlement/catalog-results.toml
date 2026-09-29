@@ -134,3 +134,25 @@ verification_sha256 = "8b21273385bb95fb64579c9c4db6c79e97290319161eed45485d41694
 license_sha256 = "bf37a40779f5a671744f72946e04d9244e341836a8923291a4e89fa4ddcba230"
 key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
 private_sha256 = "f351a5fa31a025efe314ce56ed6f12f86d2406e4d2c93c74e6514721e326ac86"
+
+[[runs]]
+run_id = "catalog-rlu05-01"
+option_name = "RLU05"
+option_type = 19
+started_at = "2026-09-29T07:28:15Z"
+finished_at = "2026-09-29T07:28:36Z"
+trial_mode = "catalog-positive"
+evidence_index_sha256 = "3f765434d566293b043162fc6ba88cab977a5ba066c250ade23f2407bd7af785"
+result_sha256 = "e9dc4b68612bff557024d310f75505b17b4365ad0d3e2ee65c4a621ef21a699c"
+config_sha256 = "42f2380b6ebd01b74e7b802f7aedd3b522423bdd68512f2da0a7b48f9d376a6f"
+
+[[runs.phases]]
+label = "install"
+journal_records = 963
+enabled = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU05T08"]
+ordinary_install_calls = 1
+journal_sha256 = "8edff48dc7b2a1934b1ebc81d84598aea4aab502b7ba82867c4a788580b68d19"
+verification_sha256 = "e4984b0d399802cb04491eb47255f359e2260029bf3f5ebc0f99a264d655514d"
+license_sha256 = "b65d8ecf97e1eae9878b009ca3279ef0648eb2161f078bf4f32e5492809b5aea"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "94f9f7914f95a7cd4f1cd8adafb474ca024be7b9adb9d1da9d1986af3e58fae5"
