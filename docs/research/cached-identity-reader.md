@@ -66,3 +66,37 @@ Key.data when evaluated offline. It does not establish full private-store conten
 physical feature operation or a valid entitlement mutation procedure by itself.
 
 [linux-proc]: https://github.com/torvalds/linux/blob/v3.18/fs/proc/base.c#L566-L659
+
+## First control: mapping rejection before reading
+
+Run `out/specimen-entitlement/cached-identity-reader-01` ran from 07:47:24 to 07:47:40 UTC on
+2026-09-29. Stock setup completed with 49 factory services and 156 contiguous, exactly delivered journal
+records. Setup was unloaded and detached before all four reader commands. No License initialization or
+hardware-facing initialization occurred.
+
+The wrong-pin and stale-starttime controls rejected at their intended gates. The invalid-range and positive
+arms both rejected at `target-ranges`, before opening process memory or requesting any memory bytes.
+The invalid-range guest control is confounded by the same mapping defect; its isolated rejection is
+established by host controls, not this guest run.
+
+Nine library map rows, spanning ten original executable pages, remained `rwxp` after instrumentation
+unloaded. The two requested data ranges were still correctly file-backed and `rw-p`. The reader deliberately
+rejects writable executable mappings anywhere in the pinned library. An independent resolver reproduces
+the rejection; normalizing only those recorded code permissions in an in-memory analysis resolves the
+expected addresses. This does not establish whether code bytes also differed.
+
+The unchanged setup policy, final enforcing state, stable system-server PID and empty crash log were
+preserved. The failure occurred before the after-read snapshot, so this run cannot establish a complete
+post-read policy comparison or sample stability. Aggregate controller success flags are false; the ordered
+journal, rather than those flags, establishes completed detach and the three negative-arm rejections.
+
+| Artifact, relative to the run | SHA-256 |
+| --- | --- |
+| `result.toml` | `b35ab888dc5c1515942a16c404a4d489645bc7099ab0bad08b7cfcf919b5397a` |
+| `evidence-sha256.txt` | `a14d870b1f0dcd6ed1abbd6a99cb1fa12c933c3089106ebee1204065886e8b30` |
+| `reader/positive/manifest.toml` | `b793c7d2fd7e68bcfedc3ff78c454319bc4b17990177168562485bb36e6b3af9` |
+
+The selected continuation is a setup-only restoration control. Capture the original library code mappings
+and bytes before installing hooks; remove owned hooks, verify byte restoration, and restore only their
+original executable-page permissions before detaching. Keep the compiled reader and its strict checks
+unchanged. This is a new bounded hypothesis, not a reinterpretation of the failed run as a pass.
