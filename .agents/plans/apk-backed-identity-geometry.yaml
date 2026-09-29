@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.apk-backed-identity-geometry
+    title: Resolve pinned APK-backed Auklet geometry from preserved physical maps
+    state: open
+    intent: Establish a bounded container-aware mapping contract offline before changing the process reader.
+    requires: [TASK.bench.cached-identity-decision]
+    requirements:
+      - Commit and push admitted tasking before implementation. Use only preserved files; no physical or guest connection in this task.
+      - Pin the previously acquired APK and embedded stock ELF; verify unique unencrypted stored ZIP entry, local and central header agreement, alignment, sizes, bounds and payload hash.
+      - Resolve Auklet uniquely from APK-relative map offsets while distinguishing other mappings sharing the APK inode. Require coherent PT_LOAD bias, exact private permissions and file-backed cached-range geometry.
+      - Reject ambiguity, wrong backing identity, incorrect offsets, unsafe permissions and malformed containers with deterministic controls. Preserve observations separately from predictions; do not claim fresh specimen APK identity or memory permissions.
+      - Preserve a private result and publish only geometry, method, artifact hashes and limits. Commit and push the conclusion before successor execution.
+    acceptance: [Pinned offline geometry and meaningful negative controls establish a candidate mapping contract or a precise retained failure.]
+    verification: [inputs, geometry, controls, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.apk-backed-identity-geometry-decision
+    title: Evaluate APK mapping contract and admit the smallest reader control
+    state: open
+    intent: Choose the next bounded offline or disposable-guest experiment from the geometry evidence.
+    requires: [TASK.specimen.apk-backed-identity-geometry]
+    requirements:
+      - Reconcile geometry, negative controls and remaining dynamic assumptions before changing the reader.
+      - If supported admit a bounded APK-aware reader implementation and disposable-guest control with explicit hashes and exact read budget; no automatic physical retry.
+      - Commit and push the decision and any successor tasking before execution. Physical entitlement and capability mutation remain outside this batch.
+    acceptance: [A concrete continuation or precise blocker is recorded without physical access.]
+    verification: [finding, continuation, limits]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
