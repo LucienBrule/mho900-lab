@@ -45,3 +45,15 @@ or stock Java bytecode change is required.
 The preserved guest journal SHA-256 is `60e306d5ee413959e4221b73f342b8f7c0aaf27f395633ace9a495dd154e2f18`;
 the evidence index is `97b1e9269ea047620bbfe1c70fca259afa23fbfcce14845526b14ce25a462a1c`.
 Runner exit was 3. This remains readiness preparation; the admitted stock factory trial has not begun.
+
+## Readiness control 3: passed
+
+`art-readiness-03` passed at 06:16:02 UTC. The original API initializer loaded all three native libraries from
+the pinned fixture paths. Stock JNI registration populated the real VM, class global, redraw and error method
+references. Calling stock `_JavaVM::GetEnv` on the attached thread returned zero and a nonnull environment.
+No callback substitution or factory call occurred. All 13 journal events match the host record, the terminal
+was durably acknowledged, and the runner returned zero. Copied instrument files remained unchanged.
+
+Journal SHA-256: `fee345aebc1344f65469e0aa81be0694e86abb8fbe8de22342f8057150b5e77f`.
+Evidence-index SHA-256: `d30e16cc09f762a3fabf096faa83cd0e537e157dac170a4f59cf4c70a110ff0b`.
+The single stock factory trial can now proceed in a fresh guest using this caller contract.
