@@ -71,6 +71,9 @@ controls passed with `UV_OFFLINE=1` using cached tooling. Build constraints also
 pin the backend and its dependencies through the workspace lock. Outputs are under
 `out/tooling/installed-packages-02/`.
 
-A Linux/macOS GitHub Actions workflow now defines these gates using pinned action
-commits, Python 3.12.13 and uv 0.6.17. At this checkpoint local macOS results are
-established; remote workflow completion must be checked separately after push.
+A Linux/macOS GitHub Actions workflow defines these gates using pinned action
+commits and uv 0.6.17. Its first Linux run passed; macOS stopped during interpreter
+setup because setup-python does not distribute Python 3.12.13 for macOS. The
+corrected matrix uses 3.12.13 on Linux and the available 3.12.10 binary on macOS;
+local macOS checks use 3.12.13. Remote completion of the corrected matrix must be
+checked separately after push.
