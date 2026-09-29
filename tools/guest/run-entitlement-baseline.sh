@@ -8,19 +8,21 @@ controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|acquired-baseline|acquired-option|acquired-catalog-negative|acquired-catalog-positive|acquired-capability-stock|acquired-capability-derived|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|acquired-baseline|acquired-option|acquired-catalog-negative|acquired-catalog-positive|acquired-capability-stock|acquired-capability-derived|acquired-combined-stock|acquired-combined-derived|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
 acquired_option=false
-case "$trial_mode" in acquired-option|acquired-catalog-*|acquired-capability-*) acquired_option=true;; esac
+case "$trial_mode" in acquired-option|acquired-catalog-*|acquired-capability-*|acquired-combined-*) acquired_option=true;; esac
 acquired_catalog=false
 case "$trial_mode" in acquired-catalog-*) acquired_catalog=true;; esac
 acquired_capability=false
 case "$trial_mode" in acquired-capability-*) acquired_capability=true;; esac
+acquired_combined=false
+case "$trial_mode" in acquired-combined-*) acquired_combined=true;; esac
 reader_mode=false
 if [ "$trial_mode" = identity-reader ]; then reader_mode=true; fi
 trial_enabled=true
 if [ "$trial_mode" = baseline ] || [ "$trial_mode" = acquired-baseline ] || [ "$reader_mode" = true ]; then trial_enabled=false; fi
 capability_mode=false
-case "$trial_mode" in capability-*|acquired-capability-*) capability_mode=true;; esac
+case "$trial_mode" in capability-*|acquired-capability-*|acquired-combined-*) capability_mode=true;; esac
 catalog_mode=false
 case "$trial_mode" in catalog-*) catalog_mode=true;; esac
 if [ "$acquired_option" = true ]; then catalog_mode=true; fi
@@ -30,6 +32,7 @@ trial_verifier=verify-synthetic-entitlement.py
 if [ "$catalog_mode" = true ]; then trial_verifier=verify-option-catalog.py; fi
 if [ "$acquired_option" = true ]; then trial_verifier=verify-acquired-option.py; fi
 if [ "$acquired_catalog" = true ]; then trial_verifier=verify-acquired-catalog.py; fi
+if [ "$acquired_combined" = true ]; then trial_verifier=verify-acquired-combined.py; fi
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 frida_home=${ENTITLEMENT_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19-r02"}
@@ -64,7 +67,14 @@ if [ "$trial_enabled" = true ]; then
             "$repo/tools/guest/verify-acquired-option.py" "$repo/tools/guest/verify-synthetic-entitlement.py" \
             "$repo/tools/guest/entitlement-acquired-consumer.js" "$repo/tools/guest/entitlement-acquired-option.js" \
             "$repo/tools/guest/entitlement-capability.js" "$run/source/"
-        if [ "$acquired_catalog" = true ]; then
+        if [ "$acquired_combined" = true ]; then
+            cp "$repo/tools/guest/prepare-acquired-combined.py" "$repo/tools/guest/verify-acquired-combined.py" \
+               "$repo/tools/guest/prepare-acquired-catalog.py" "$repo/tools/guest/verify-acquired-catalog.py" \
+               "$repo/tools/guest/prepare-capability-fixture.py" \
+               "$repo/tools/guest/entitlement-acquired-combined.js" "$repo/tools/guest/entitlement-acquired-combined-consumer.js" "$run/source/"
+            "$python" "$run/source/prepare-acquired-combined.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
+            [ "$(yq -p toml -o yaml -r '.capability_arm' "$fixture/synthetic.toml")" = "${trial_mode#acquired-combined-}" ]
+        elif [ "$acquired_catalog" = true ]; then
             cp "$repo/tools/guest/prepare-acquired-catalog.py" "$repo/tools/guest/verify-acquired-catalog.py" \
                "$repo/tools/guest/entitlement-acquired-catalog.js" "$repo/tools/guest/entitlement-acquired-catalog-consumer.js" "$run/source/"
             "$python" "$run/source/prepare-acquired-catalog.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
@@ -147,7 +157,7 @@ fi
 native_pin=4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e
 if [ "$capability_mode" = true ]; then
     check_hash "$run/fixture/ancestor/libscope-auklet.so" "$native_pin" stock-native-ancestor
-    if { [ "$trial_mode" = capability-derived ] || [ "$trial_mode" = acquired-capability-derived ]; }; then
+    if { [ "$trial_mode" = capability-derived ] || [ "$trial_mode" = acquired-capability-derived ] || [ "$trial_mode" = acquired-combined-derived ]; }; then
         native_pin=09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e
     fi
     [ "$(yq -p toml -o yaml -r '.expected_native_sha256' "$run/fixture/synthetic.toml")" = "$native_pin" ]
@@ -440,10 +450,10 @@ if [ "$trial_enabled" = true ]; then
         run_trial_phase negative negative
     elif [ "$trial_mode" = catalog-positive ]; then
         run_trial_phase install positive
-    elif { [ "$trial_mode" = capability-stock ] || [ "$trial_mode" = acquired-capability-stock ]; }; then
+    elif { [ "$trial_mode" = capability-stock ] || [ "$trial_mode" = acquired-capability-stock ] || [ "$trial_mode" = acquired-combined-stock ]; }; then
         run_trial_phase capability reload
     else
-        if { [ "$trial_mode" = capability-derived ] || [ "$trial_mode" = acquired-capability-derived ]; }; then
+        if { [ "$trial_mode" = capability-derived ] || [ "$trial_mode" = acquired-capability-derived ] || [ "$trial_mode" = acquired-combined-derived ]; }; then
             run_trial_phase capability reload
         else
             run_trial_phase install positive
