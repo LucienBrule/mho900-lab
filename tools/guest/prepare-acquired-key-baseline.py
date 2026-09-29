@@ -43,7 +43,9 @@ def main():
     identity = response.decode('ascii').strip().split(',')
     left, right = plain.rstrip(b'\0').split(b';')
     assert len(identity) == 4 and identity[1].strip() == 'MHO984'
-    assert left.decode('ascii') == identity[2].strip(), 'key identity differs from physical IDN'
+    # Recovered verifier ignores its left-field argument; startup requires it nonempty.
+    # Preserve public identity and file metadata separately rather than forcing equality.
+    assert left and identity[2].strip()
     assert len(right) == 130 and len(cipher) == 148 and len(sample) == 24
     a.output.mkdir(parents=True, mode=0o700)
     for name in ('lib', 'art'):
@@ -53,7 +55,8 @@ def main():
     (a.output/'rigol/data').mkdir(parents=True)
     (a.output/'rigol/data/Key.data').write_bytes(cipher)
     (a.output/'model').mkdir()
-    cfg = dict(schema_version=1, model='MHO984', serial=left.decode('ascii'),
+    cfg = dict(schema_version=2, model='MHO984', serial=identity[2].strip(),
+               key_left=left.decode('ascii'),
                dna_hex=f'{int.from_bytes(sample[:8], "little"):016x}', file_keys_hex=sample[8:].hex(),
                key_field_hex=right.hex(), key_ciphertext_hex=cipher.hex(),
                private_store='fresh-modeled', physical_contact=False)
@@ -64,7 +67,8 @@ def main():
     (a.output/'entitlement.js').write_text('const acquiredKeyFixture = '+json.dumps(cfg)+';\n'+
                                         '\n'.join((source/name).read_text() for name in parts))
     manifest = dict(schema_version=1, physical_contact=False, specimen_private_fram=False,
-                    identity_matches_physical_idn=True, coherent_acquired_key=True,
+                    public_identity_from_physical_idn=True, key_left_preserved_separately=True,
+                    key_left_equals_public_serial=left.decode('ascii') == identity[2].strip(), coherent_acquired_key=True,
                     library_sha256=sha(a.output/'lib/libscope-auklet.so'),
                     key_ciphertext_sha256=hashlib.sha256(cipher).hexdigest(),
                     idn_response_sha256=hashlib.sha256(response).hexdigest())
@@ -74,7 +78,7 @@ def main():
         (a.output/name).write_bytes((source/name).read_bytes())
     files = sorted(x for x in a.output.rglob('*') if x.is_file())
     (a.output/'evidence-sha256.txt').write_text(''.join(sha(x)+'  '+str(x.relative_to(a.output))+'\n' for x in files))
-    print('Private acquired-key baseline prepared; physical IDN matches key identity.')
+    print('Private acquired-key baseline prepared; public serial and key metadata preserved separately.')
 
 
 if __name__ == '__main__':

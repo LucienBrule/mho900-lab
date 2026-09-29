@@ -6,7 +6,7 @@ function entitlementExperiment() {
     try {
         const cfg = acquiredKeyFixture;
         const phase = 'acquired-baseline';
-        if (cfg.schema_version !== 1 || cfg.physical_contact !== false ||
+        if (cfg.schema_version !== 2 || cfg.physical_contact !== false ||
             cfg.private_store !== 'fresh-modeled' || cfg.key_field_hex.length !== 260 ||
             cfg.key_ciphertext_hex.length !== 296 || cfg.file_keys_hex.length !== 32)
             throw new Error('Unexpected acquired baseline fixture');
@@ -141,7 +141,7 @@ function entitlementExperiment() {
                 const n = Number(countString(this.key));
                 if (n > 512) throw new Error('Unexpected key field length');
                 const output = { key_length: n, key_hex: hex(bytes(cstr(this.key), n)),
-                    identity: cstr(this.identity).readUtf8String() };
+                    left_field: cstr(this.identity).readUtf8String() };
                 keyOutputs.push(output);
                 event('acquired-key-outputs', output);
             }
@@ -161,7 +161,7 @@ function entitlementExperiment() {
         });
         event('option-catalog', { options: options, private_state: 'fresh-modeled', specimen_options_unknown: true });
         const checks = {
-            key_outputs_exact: keyOutputs.length === 1 && keyOutputs[0].key_length === 130 && keyOutputs[0].key_hex === cfg.key_field_hex && keyOutputs[0].identity === cfg.serial,
+            key_outputs_exact: keyOutputs.length === 1 && keyOutputs[0].key_length === 130 && keyOutputs[0].key_hex === cfg.key_field_hex && keyOutputs[0].left_field === cfg.key_left,
             file_keys_exact: hex(bytes(fileKeys, 16)) === cfg.file_keys_hex,
             key_file_unchanged: hex(readFile(keyPath, false)) === cfg.key_ciphertext_hex,
             fresh_private_store: true,

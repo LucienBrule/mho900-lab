@@ -37,3 +37,51 @@ the startup verifier and ordinary install caller before revising the fixture.
 Preserve the physical public serial and the acquired left field separately
 unless stock code demonstrates a relationship. This can be resolved from
 the preserved library before considering another bench observation.
+
+## Separate-field baseline passed
+
+The [left-field recovery](key-left-field-semantics.md) resolved the failed
+assumption. Its conclusion was pushed in `325a064` before the corrected guest
+run. Preparation schema 2 preserves physical public serial and key metadata
+as separate values; it changes neither the acquired file nor the specimen.
+
+Run `out/specimen-entitlement/acquired-key-baseline-02` completed on
+2026-09-29 from 12:44:47 to 12:45:03 UTC. The original ART-loaded stock
+component returned from License initialization. Its parser produced the exact
+130-byte right field and original left field, and stock identity derivation
+matched the captured 16 file-key bytes. The full 148-byte Key.data ciphertext
+was unchanged before and after. No installer or token producer ran.
+
+The initially empty modeled private store acquired exactly one record:
+2337, containing the exact 148-byte ciphertext. The fourteen-entry option
+catalog returned true only for EMBD, COMP and AUTO; the other eleven were
+false. These are **fresh modeled-store results**, not the physical scope's
+option state. No license file was created. Persistence has not yet been
+tested with these acquired inputs.
+
+All 467 guest journal records matched delivered host payloads and the durable
+terminal acknowledgement. The pinned APK/native files round-tripped exactly.
+The network isolation control passed, including inherited restrictions;
+the dedicated emulator, instrumentation and ADB processes were stopped.
+System-server identity stayed stable and SELinux remained enforcing.
+
+An initial verifier incorrectly demanded identical pre/post guest-policy
+bytes. Its source and failed replay are retained. The exact pair instead
+matches the already documented [Frida fixture limitation](specimen-entitlement-baseline.md):
+before `d42d4591e6a44551d969db387403b751aef0bb1bb0654f8e05ae7c9a10d224bc`,
+after `9fc3a821a681116e425f87b9a4eeb73f62b1e299e025709e6f566236761b2181`.
+The reconciled verifier requires those exact hashes, not arbitrary policy
+changes. No guest rerun or experiment modification was used to obtain this
+result. No host security policy was changed.
+
+The independent verifier checks raw parser output inside the original init
+call, acquired identity and key bytes, the private stream record contents,
+catalog completeness, artifact pins, journal delivery and guest health.
+It does not independently implement stock private-record CRC validation or
+prove every absent operation from event absence alone; the frozen script
+also installs stop observers at the installer and crypto-producer entries.
+
+`sealed-evidence-sha256.txt` covers retained evidence and source/fixture
+snapshots. Ephemeral guest disks, AVD runtime files and fresh ADB home state
+are excluded; their pulled logical state and logs are the retained witnesses.
+Private key fields, public unit serial and file-key bytes remain local.
