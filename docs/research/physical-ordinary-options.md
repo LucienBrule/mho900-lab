@@ -52,3 +52,20 @@ and a stable postboot process through a sixty-second observation interval. The
 fixed stock observer must then independently establish repeated17/17 from sixteen
 read-only process-memory bytes. Host controls passed for carrier loss, bounded
 DHCP RELEASE handling, malformed streams and single reboot/root-call limits.
+
+### First reboot observation: transport timeout
+
+The sole `adb reboot` request on2026-09-29 at17:48:07UTC reached the
+specimen's ADB transport and received a matching ADB acknowledgement. The client
+did not complete within ten seconds, so the controller stopped observation,
+restored host isolation and did not repeat the request. No reboot completion,
+new lease or postboot persistence is claimed from this run. No reader was staged.
+
+The complete capture contains53,689frames with zero reported kernel drops and
+graceful recorder exit0. The exact `reboot:` service request appears once; a TCP
+acknowledgement and matching ADB OKAY establish delivery to ADB, not a completed
+boot. The next bounded question is read-only reconciliation against the preserved
+preboot identity, without another reboot or option installation.
+
+Evidence seal: `aa84e900ae872173b43d56b4ab95d5cc170252c733df9f46cfe62ba2ea450e6e`. Raw capture SHA-256:
+`d2e6d407e650a695dd730a8acd0c1538f0955f710a1683bdbb9308e76491ef2e`.
