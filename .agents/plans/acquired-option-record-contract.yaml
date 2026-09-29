@@ -1,0 +1,50 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-record-contract
+    title: Reconcile permanent option private-record contract
+    state: open
+    intent: Recover the storage branches behind the failed record expectation.
+    requires: [TASK.specimen.acquired-option-retry-decision]
+    requirements:
+      - Commit tasking before execution. Preserve the failed run unchanged.
+      - Inspect stock activeOpt and related storage branches; distinguish permanent, trial and rejected paths with pinned static evidence.
+      - Compare retained earlier synthetic records. Correct the verifier only if stock control flow supports a precise expectation; validate offline against retained evidence and a negative control. No guest launch.
+      - Keep option fixture and stock execution semantics frozen; commit and push preparation before the next run.
+    acceptance: [A specific private-state expectation is supported or the ambiguity is recorded as a blocker.]
+    verification: [implementation, control, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-record-run
+    title: Execute acquired-input persistence with reconciled storage contract
+    state: open
+    intent: Obtain one bounded original-consumer installation and persistence result.
+    requires: [TASK.specimen.acquired-option-record-contract]
+    requirements:
+      - Use a fresh run identity and unchanged acquired-option fixture with stock APK and native file pins.
+      - Execute one frozen guest-only loopback-confined run; no physical contact.
+      - Record one FlexA installer call and original consumer witnesses plus exact catalog and file deltas.
+      - If accepted, reload in a new component process and after the same guest reboots without regeneration, reinstall or formatting.
+      - Stop on first discrepancy. Preserve and independently verify evidence with the existing verifier; do not change an experiment to force acceptance.
+      - Commit and push the actual conclusion before successor execution.
+    acceptance: [A sealed success or first reproducible failure is recorded.]
+    verification: [execution, consumer, catalog, persistence, isolation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-record-decision
+    title: Evaluate reconciled acquired-input persistence run
+    state: open
+    intent: Choose the next bounded step from the actual result.
+    requires: [TASK.specimen.acquired-option-record-run]
+    requirements:
+      - Distinguish harness behavior, stock consumer acceptance, modeled durability and physical feature operation.
+      - Select a bounded offline continuation or exact bench question. This task admits no physical operation.
+      - Commit and push the decision.
+    acceptance: [The next step follows evidence and preserves uncertainty.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
