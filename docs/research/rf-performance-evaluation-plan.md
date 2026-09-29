@@ -1,8 +1,39 @@
 # Stage 5: RF performance evaluation plan
 
-Status: prepared offline on 2026-09-29; **no RF test executed**. This plan makes no firmware changes and does not authorize a deployment, calibration write, or hardware operation. The operator must supply the RF equipment and a separately accepted stock/derived/rollback transition. The smallest useful result is a paired, corrected sine-response measurement on one channel at one gain setting. It is not a complete instrument certification.
+Status: **ready for operator evaluation** on 2026-09-29 following the accepted
+[physical D-capability deployment and independent reboot](physical-d-capability.md).
+No RF test has been executed. The instrument currently retains MHO984 identity,
+the original signed APK, ten ordinary options, and the derived 18/18 native policy.
+This completes Stage 4's software checkpoint; it establishes no analog bandwidth.
 
-Software selection and physical performance are separate evidence. The [capability component](specimen-d-capability-component.md) and [acquired comparison](acquired-capability-comparison.md) associate enum17 with `BW_800M` and enum18 with `BW_1G`, while retaining MHO984 public identity. Those results establish software policy. They do not establish an analog transfer function, calibration accuracy, or 1GHz performance. Before testing, attach the current physical software-state evidence; earlier guest reports are not a substitute.
+The operator must supply the RF equipment and approve the measurement and its
+stock/derived/rollback transitions. Physical rollback remains untested; its
+mechanism was validated in the disposable guest and is specified in the linked
+physical report. The smallest useful result is a paired, corrected sine-response
+measurement on one channel at one gain setting, not complete instrument certification.
+
+The two physical run seals are `d30a25d29ec889aee369645f966d24dd8cc214237af3d2f1081ee52e39d04fa2`
+and `42cc6a5277bb8adb15bad73d85c505a279afb2b913589256b20c512efa239727`.
+Their complete inventories and the reference-document hashes below were rechecked
+at this evaluation gate. Calibration coefficients and protected identity/license
+files remained unchanged; known startup metadata/cache rewrites are explicit in
+the physical report.
+
+The remaining bench decisions are concrete:
+
+| Input needed | Effect on the experiment |
+| --- | --- |
+| Generator, calibrated usable range and level accuracy | Whether the 1.2 GHz sweep can be supplied |
+| Power sensor/reference receiver and cable/pad characterization | Whether corrected absolute response is supportable |
+| Mismatch and uncertainty budget | Whether a 1 GHz point can be classified or only an A/B change reported |
+| Warm-up, temperature and calibration provenance | Whether the three arms are comparable without a calibration intervention |
+| Verified waveform export and actual sample-rate evidence | Whether amplitude estimation uses full acquisition data |
+| Accepted stock/derived/rollback sequence | Whether the planned A1/B/A2 comparison may proceed |
+
+Equipment availability is unknown. These are evaluation inputs, not reasons to
+invent a result or run an RF test with an uncharacterized source.
+
+Software selection and physical performance are separate evidence. The [capability component](specimen-d-capability-component.md) and [acquired comparison](acquired-capability-comparison.md) associate enum17 with `BW_800M` and enum18 with `BW_1G`, while retaining MHO984 public identity. Those results establish software policy. They do not establish an analog transfer function, calibration accuracy, or 1GHz performance. The current physical software-state evidence is linked above; earlier guest reports are not a substitute.
 
 ## Evidence and applicable conditions
 
@@ -81,4 +112,6 @@ Before execution, fill in equipment availability and calibrated range, exact cab
 
 Retain a TOML run manifest with source-document hashes; software/calibration/configuration hashes per arm; generator/sensor identifiers and calibration dates; frequency, setpoint and corrected input level; raw waveforms and preambles; fit amplitudes/residuals; repeated-reference drift; uncertainty calculations; UI/setting witnesses; source output state on completion; and actual rollback result. Keep specimen identifiers and raw private evidence in ignored run output. Publish only a sanitized table/plot and scoped conclusion: one channel, selected scale, acquisition mode, temperature, sampled frequencies, uncertainty, and what was or was not established.
 
-Stage5 is ready for operator preparation. No RF measurement, hardware access, firmware modification or calibration action was performed in producing this plan.
+Stage 5 is ready for operator evaluation. This gate performed only offline
+reconciliation and planning. No RF, probe, USB or calibration action was performed;
+the separately recorded physical software transitions belong to Stage 4.
