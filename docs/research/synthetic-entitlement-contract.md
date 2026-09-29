@@ -4,7 +4,8 @@ Static recovery now supports a bounded ordinary-installer experiment using the u
 and wholly synthetic identity/key material. It does not establish the physical unit's entitlement state.
 The original [candidate](../../experiments/specimen-entitlement/synthetic-fixture.toml) was rejected in both
 arms because its producer omitted the stock wire-codec convention. The [trial report](synthetic-entitlement-trial.md)
-preserves those results and the bounded correction. This contract includes that subsequent static finding.
+preserves those results and the bounded correction. The corrected wire fixture subsequently passed ordinary FlexA installation, process reload and guest reboot;
+see the same trial report for the exact persistence boundary and evidence. This contract includes the correction.
 
 The active specimen Auklet hash is
 `4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e`. Addresses below refer to that library.

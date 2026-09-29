@@ -130,3 +130,45 @@ invocation and file observations. No positive call or reload occurred in this ru
 | `result.toml` | `ba91902221b5a5acd0c0f3a31aac9c3f332fc83dab5e8fae86120a9e84f53152` |
 
 This corrected negative conclusion is committed before the matching positive arm.
+
+## Ordinary installation and guest persistence passed
+
+Run `out/specimen-entitlement/synthetic-wire-positive-01` completed from 06:51:48 to 06:52:34 UTC.
+The corrected positive fixture was accepted by the unchanged stock consumer. Captured decoder output, actual
+AES key and decrypted blocks matched the declared fixture. `activeOpt` returned 24531, the original notification
+reported success, the stock writer created `FlexA.lic`, and the native validity query changed false to true.
+
+| Checkpoint | FlexA before | FlexA after | Installer calls | Matching journal events |
+| --- | --- | --- | ---: | ---: |
+| Fresh installation | false | true | 1 | 611 |
+| Fresh process, retained guest storage | true | true | 0 | 545 |
+| Rebooted guest, retained userdata | true | true | 0 | 545 |
+
+All other catalog entries retained their baseline query state. Reloads did not regenerate key/token files,
+format private storage or invoke the installer. The guest boot identity changed before the third phase.
+Each reload validated the complete private stream, used stock `serialIn`, required exact reserialization,
+and then ran the original License initializer and validator.
+
+The following hashes remained identical across all three phases:
+
+| Synthetic artifact | SHA-256 |
+| --- | --- |
+| `Key.data` | `45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b` |
+| `FlexA.lic` | `29e9eb1a280cd51f1c85188938442ea8ac009e9f5e3bd3867635b6840938f76b` |
+| Canonical private stream | `dfdd48665fb2da96e384a4c27e7821c322acce89859171e9fea6f44cc642179a` |
+
+| Artifact, relative to the positive wire run | SHA-256 |
+| --- | --- |
+| `phases/install/guest-events.jsonl` | `9125e572153060eef12598770253be1820ba4fc30d681048383578cb675c888d` |
+| `phases/process-reload/guest-events.jsonl` | `ee70d5f28d9454bd6d3005136f80a57a4ba8e0fefdce1788bcc27c8511d3fbb9` |
+| `phases/reboot-reload/guest-events.jsonl` | `9eec6bda2e7f9018b98519e00f2d6805cfcf0e5984aea6d22de8afca2206b895` |
+| `evidence-sha256.txt` | `779c52dcc1530d8e3b02a686579fff04dc8460bd94ae135b65b222424035c7d1` |
+| `result.toml` | `3c514492309c793bfe27e41c062e50efa4cc84ef83f0382a28b9db09423d8fd6` |
+
+This proves ordinary synthetic FlexA acceptance and persistence in an ART component guest using specimen-identical
+software. The stock APK and native library remain byte-identical. It does not prove full Sparrow UI startup,
+other option families, trial expiration, exact unit-specific entitlement state, or physical FRAM scheduling.
+Private persistence is explicitly harness-directed serialization to durable guest storage.
+
+The next separate question is whether the bounded MHO984-to-MHO984D capability selection preserves identity
+and the same established entitlement state while changing the actual stock bandwidth-policy getters.
