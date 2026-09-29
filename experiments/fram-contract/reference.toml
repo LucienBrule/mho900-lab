@@ -1,0 +1,29 @@
+schema_version = "mho900-lab.i2c-reference/1"
+repository = "https://github.com/norbertkiszka/rigol-orangerigol-linux_4.4.179"
+revision = "d23adbd11626f12abaf4bc742e250204fe2b9f8a"
+classification = "public-reference-not-specimen-kernel-proof"
+physical_contact = false
+
+[[files]]
+path = "include/uapi/linux/i2c.h"
+sha256 = "992aa734c9772e526a218c73ae59c7094af51075ec8262c5fe7131b0829b3f24"
+git_blob = "b0a7dd61eb353a273e3009a01e0682495064e643"
+url = "https://raw.githubusercontent.com/norbertkiszka/rigol-orangerigol-linux_4.4.179/d23adbd11626f12abaf4bc742e250204fe2b9f8a/include/uapi/linux/i2c.h"
+
+[[files]]
+path = "include/uapi/linux/i2c-dev.h"
+sha256 = "3bd30bc96d3b75087fcd4b249523bbdb2336157311db6c63c30d962f147ea44f"
+git_blob = "2f05e66de01ed8817be123ef3b13e982c04c5da0"
+url = "https://raw.githubusercontent.com/norbertkiszka/rigol-orangerigol-linux_4.4.179/d23adbd11626f12abaf4bc742e250204fe2b9f8a/include/uapi/linux/i2c-dev.h"
+
+[[files]]
+path = "drivers/i2c/i2c-dev.c"
+sha256 = "383f548b92b349829ad84b50d7d57afa5ec8bcb01b98e839e645c9fbb401a556"
+git_blob = "57e3790c87b1b5a09fee8b675053b8e496b610eb"
+url = "https://raw.githubusercontent.com/norbertkiszka/rigol-orangerigol-linux_4.4.179/d23adbd11626f12abaf4bc742e250204fe2b9f8a/drivers/i2c/i2c-dev.c"
+
+[[files]]
+path = "drivers/i2c/i2c-core.c"
+sha256 = "3878c9b180e54ac173cf289c54ac935b9758a3aeea5d48da5f4c53b413c71878"
+git_blob = "9b2ee397894ce49aa8fc842ef55db65243e4f160"
+url = "https://raw.githubusercontent.com/norbertkiszka/rigol-orangerigol-linux_4.4.179/d23adbd11626f12abaf4bc742e250204fe2b9f8a/drivers/i2c/i2c-core.c"
