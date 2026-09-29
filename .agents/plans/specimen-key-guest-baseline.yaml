@@ -1,0 +1,35 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-key-guest-baseline
+    title: Observe exact acquired key parsing in a fresh disposable guest
+    state: open
+    intent: Establish a specimen-derived identity and key baseline before ordinary guest installation.
+    requires: [TASK.specimen.acquired-key-field-decision]
+    requirements:
+      - Commit and push admitted tasking before execution. Preserved files and isolated disposable guest only; no physical contact.
+      - Preserve unchanged APK/native pins and exact acquired Key.data. Bind the fixture to sealed cached DNA and file-key evidence; match the key record identity to acquired identity evidence without publishing private values.
+      - Use the established stock ART component and an explicitly fresh modeled private store. Do not claim current specimen option state or physical FRAM durability.
+      - Observe original License initialization, exact key output and trailing-padding behavior, cached derived keys, key file preservation, private-record effects and the complete option catalog. No installer invocation or token production in this baseline.
+      - Stop on unexpected hardware dependency, journal loss, guest instability, altered policy or mismatched pins. Retain any failed run; do not silently repair its outcome.
+      - Independently verify raw journals and artifacts, hash and seal evidence, record limitations, commit and push the conclusion.
+    acceptance: [A bounded baseline establishes actual stock parsing or records the first reproducible unsatisfied dependency.]
+    verification: [inputs, isolation, stock_baseline, evidence, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-key-guest-decision
+    title: Evaluate the specimen-derived guest baseline
+    state: open
+    intent: Choose one bounded guest continuation from the actual baseline result.
+    requires: [TASK.specimen.acquired-key-guest-baseline]
+    requirements:
+      - Reconcile raw baseline evidence against static consumer predictions and existing synthetic results.
+      - If baseline succeeds, select one ordinary guest installation plus process and guest reboot persistence; otherwise select a bounded correction or stop at the exact missing dependency.
+      - No physical installation, capability change, reboot, policy change or additional acquisition is admitted by this decision. Commit and push before executing successor tasking.
+    acceptance: [The decision separates acquired identity inputs from modeled private state and selects an evidence-supported next step.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
