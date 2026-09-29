@@ -1,5 +1,8 @@
 # Entitlement baseline decision
 
+Current status: [overnight entitlement handoff](overnight-entitlement-handoff.md). This report preserves its
+original experiment history; later acceptance and persistence results are linked from the handoff.
+
 The native component boundary is viable for loading the real library, but is not yet coherent enough for an
 ordinary installer trial. The first call to the stock factory faults before service inventory or identity setup.
 There is no option-state baseline to compare with an installation, so an installer trial would be premature.

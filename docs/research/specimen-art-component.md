@@ -1,5 +1,8 @@
 # Stock API under an ART component host
 
+Current status: [overnight entitlement handoff](overnight-entitlement-handoff.md). This report preserves its
+original experiment history; later acceptance and persistence results are linked from the handoff.
+
 The native-only factory fault proves that its notification path needs a Java VM. The candidate correction uses
 `app_process64`, an inert project-authored Java main, and the unchanged specimen APK on its classpath. The original
 API static initializer performs `System.loadLibrary`; stock `JNI_OnLoad` registers its real class and methods.

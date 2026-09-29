@@ -1,5 +1,8 @@
 # Stock specimen entitlement boundary
 
+Current status: [overnight entitlement handoff](overnight-entitlement-handoff.md). This report preserves its
+original experiment history; later acceptance and persistence results are linked from the handoff.
+
 The ordinary installer is recoverable without tracing ADC initialization again. Its success cannot be judged
 from the outer return value, and the acquired SD image does not contain all of its persistent inputs.
 These are static implementation findings, not a physical option-state query or a completed guest installation.

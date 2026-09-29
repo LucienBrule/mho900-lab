@@ -1,7 +1,22 @@
 # MHO900 Lab
 
 Research harness for the RIGOL MHO900 platform, initially the MHO984.
-The project is running initial guest experiments; no complete emulator or physical validation is claimed.
+Physical accession has pinned the specimen's software to the analyzed stock corpus. Disposable ART guests
+now demonstrate ordinary option acceptance and component persistence, plus a separate software capability
+comparison. A complete emulator, physical entitlement installation and analog bandwidth validation remain open.
+
+- [Current entitlement results, limits and next bench question](docs/research/overnight-entitlement-handoff.md)
+- [Physical logical acquisition and software identity](docs/research/physical-specimen-logical-acquisition.md)
+- [Physical raw storage acquisition](docs/research/physical-specimen-raw-acquisition.md)
+- [Kernel-reported SD storage classification](docs/research/physical-storage-classification.md)
+- [Original Java/JNI component host](docs/research/specimen-art-component.md)
+- [Ordinary option catalog and reboot persistence](docs/research/individual-option-catalog.md)
+- [Separate MHO984D capability comparison](docs/research/specimen-d-capability-component.md)
+- [Bounded cached-identity observation control](docs/research/cached-identity-reader.md)
+- [Research draft: the consumer boundary](docs/blog/consumer-boundary.md)
+- [Research draft: what survived the reboot](docs/blog/persistence-boundaries.md)
+
+Earlier subsystem research and experiment history:
 
 - [Whole-subsystem ADC software contract](docs/research/adc-parameter-static.md)
 - [Independent ADC contract review](docs/research/adc-parameter-review.md)

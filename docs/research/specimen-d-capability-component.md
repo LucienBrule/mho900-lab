@@ -1,5 +1,8 @@
 # Entitlement-preserving capability comparison
 
+Current status: [overnight entitlement handoff](overnight-entitlement-handoff.md). This report preserves its
+original experiment history; later acceptance and persistence results are linked from the handoff.
+
 This experiment compares unchanged specimen-identical software with one separately derived native library.
 Both arms use the same validated synthetic FlexA key, license and private-state seed. The intended comparison
 is MHO984 identity with bandwidth enum 17 versus the same identity with enum 18. It is a software-policy test;

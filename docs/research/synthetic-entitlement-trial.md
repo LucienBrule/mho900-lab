@@ -1,5 +1,8 @@
 # Synthetic ordinary entitlement trial
 
+Current status: [overnight entitlement handoff](overnight-entitlement-handoff.md). This report preserves its
+original experiment history; later acceptance and persistence results are linked from the handoff.
+
 The first disposable guest arm stopped before option installation. It established identity and crypto
 prerequisites, then exposed a harness filesystem error. This is not an entitlement rejection.
 
