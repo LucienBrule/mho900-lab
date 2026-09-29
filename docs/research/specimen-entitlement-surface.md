@@ -64,7 +64,7 @@ stock factory construction and only the required stock initialization methods. O
 `JNI_OnLoad`; a native component harness can avoid Java startup unless the executed path proves it necessary.
 This remains a hypothesis until runtime validates it.
 
-License initialization reads exported key material, calculates private service offsets, constructs the option
+License initialization reads exported key material, calculates private service record IDs, constructs the option
 records, reads saved option files, copies cached Utility model/serial and verifies tokens. Cached identity getters
 are not hardware reads themselves, but their initialization must be established. Missing services or identity
 must not be replaced with invented success. License `start()` additionally manages trial time and timers;
@@ -86,7 +86,8 @@ queried option states, trial state or defaults. Captured key and vendor files re
 
 There is also external private storage. `CApiSetup::loadPrivacy()` at `0x3f75d0` opens `/dev/i2c-4` through CFram.
 The stock setup constructor configures 8192 bytes and device address `0x50`. It loads a cache and deserializes a
-MemFile from offset `0x100`. Service private offsets are `service * 64`; global `mPrivateData` is at `0x151b3f0`.
+MemFile from physical offset `0x100`. `getPrivateBase(service)` returns `service * 64` as a logical record-ID
+base, not a byte offset into FRAM; global `mPrivateData` is at `0x151b3f0`.
 Trial counters, time and a decoded key backup use this store. `getLicenseKey` can synchronize its decoded file
 into the private store and request `API_Save2Fram`, so initialization itself can request persistence.
 
