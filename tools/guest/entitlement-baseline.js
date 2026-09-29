@@ -5,14 +5,85 @@
 
 const LIB_DIRECTORY = '/data/local/tmp/entitlement/lib/';
 const STOCK_AUKLET_SHA256 = '4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e';
-const NATIVE_OPTIONS = { exceptions: 'steal', scheduling: 'cooperative' };
+// Preserve the native fault for Process.setExceptionHandler; do not steal its PC/context.
+const NATIVE_OPTIONS = { exceptions: 'propagate', scheduling: 'cooperative' };
 const listeners = [];
 let sequence = 0;
 let terminating = false;
 let currentCall = 'script-start';
+let aukletModule = null;
+let factoryTraceCount = 0;
+const FACTORY_TRACE_LIMIT = 96;
 
 function event(kind, details) {
     send(Object.assign({ kind: kind, sequence: ++sequence, call: currentCall }, details || {}));
+}
+
+function location(address) {
+    if (address === undefined || address === null) return null;
+    const value = ptr(address);
+    const result = { address: value.toString() };
+    if (aukletModule !== null && value.compare(aukletModule.base) >= 0 &&
+        value.compare(aukletModule.base.add(aukletModule.size)) < 0) {
+        result.auklet_offset = value.sub(aukletModule.base).toString();
+    }
+    return result;
+}
+
+function faultDetails(exception) {
+    const details = { exception_type: exception.type || null, address: location(exception.address) };
+    if (exception.memory !== undefined) {
+        details.memory = { operation: exception.memory.operation,
+            address: location(exception.memory.address) };
+    }
+    if (exception.context !== undefined) {
+        const context = exception.context;
+        const registers = {};
+        ['pc', 'lr', 'sp', 'fp'].concat(Array.from({ length: 29 }, (_, i) => 'x' + i))
+            .forEach(function (name) {
+                if (context[name] !== undefined) registers[name] = context[name].toString();
+            });
+        details.registers = registers;
+        details.pc = location(context.pc);
+        details.lr = location(context.lr);
+    }
+    return details;
+}
+
+function factoryTrace(kind, details) {
+    if (currentCall !== 'CApiFactory::Api_Create') return;
+    if (factoryTraceCount < FACTORY_TRACE_LIMIT) {
+        ++factoryTraceCount;
+        event(kind, details);
+    } else if (factoryTraceCount === FACTORY_TRACE_LIMIT) {
+        ++factoryTraceCount;
+        event('factory-trace-limit', { limit: FACTORY_TRACE_LIMIT });
+    }
+}
+
+function observeFactory(module) {
+    const seen = new Set();
+    module.enumerateExports().filter(function (entry) {
+        return entry.type === 'function' &&
+            (/^_ZN(11CApiUtility|11CApiLicense|8CApiCore|8CApiBase)C[12]E/.test(entry.name) ||
+             /^_ZN11CApiFactory(10Api_Create|12Api_Register)E/.test(entry.name));
+    }).forEach(function (entry) {
+        const key = entry.address.toString();
+        if (seen.has(key)) return;
+        seen.add(key);
+        listeners.push(Interceptor.attach(entry.address, {
+            onEnter: function () {
+                factoryTrace('factory-call-enter', { function: entry.name,
+                    target: location(entry.address), caller: location(this.returnAddress),
+                    thread_id: this.threadId });
+            },
+            onLeave: function () {
+                // Constructors have no portable return value; record only that control returned.
+                factoryTrace('factory-call-return', { function: entry.name, thread_id: this.threadId });
+            }
+        }));
+    });
+    event('factory-observers-installed', { unique_addresses: seen.size, event_limit: FACTORY_TRACE_LIMIT });
 }
 
 function requiredExport(module, name) {
@@ -88,11 +159,7 @@ function main() {
         });
 
         Process.setExceptionHandler(function (exception) {
-            stop('failure', 'native-exception', 78, {
-                exception_type: exception.type,
-                address: exception.address.toString(),
-                pc: exception.context.pc.toString()
-            });
+            stop('failure', 'native-exception', 78, faultDetails(exception));
             return false;
         });
         ['abort', '__assert2', '__stack_chk_fail'].forEach(function (name) {
@@ -103,7 +170,9 @@ function main() {
         loadLibrary('libc++_shared.so');
         loadLibrary('libfftw3f.so');
         const auklet = loadLibrary('libscope-auklet.so');
+        aukletModule = auklet;
         const moduleName = auklet.name;
+        observeFactory(auklet);
 
         observeStop(requiredExport(moduleName, '_ZN11CApiUtility17ApiUtility_GetDNAEv'),
             'runtime-dna-unavailable', 'dependency-stop', 77);
@@ -179,7 +248,8 @@ function main() {
         invoke('CApiUtility::ApiUtility_InitVendor', initVendor);
         throw new Error('InitVendor returned without expected DNA boundary');
     } catch (error) {
-        stop('failure', 'script-or-native-call-error', 78, { message: String(error) });
+        stop('failure', 'script-or-native-call-error', 78,
+            Object.assign({ message: String(error) }, faultDetails(error)));
     }
 }
 
