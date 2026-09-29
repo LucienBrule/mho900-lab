@@ -92,3 +92,24 @@ requests or DHCP replies, graceful recorder exit, responder closure and unchange
 network preference files. The sealed run and original failed checker remain
 unchanged. Correction audit seal: `2dd9f365404c8e3b9e77307ae05af5d30453156474b666a174331bd656ffbda5`.
 The task assertion is reconciled explicitly; there is still no option result.
+
+## Six-hour lease and explicit link refresh preparation
+
+The operator reported unchanged UI and requested a six-hour private lease plus
+an Ethernet unplug/replug. A new run preserves the previous timeout intact.
+The responder now advertises exactly 21600 seconds to the same single client,
+with the same isolated subnet and no router or DNS options. Offline packet
+construction verifies the exact duration and option set.
+
+Fresh host baseline is retained. Full capture and responder readiness must
+precede the operator transition. The supervisor records sampled carrier changes,
+requires an explicit reconnect-confirmation marker and a captured valid ACK
+before the unchanged twelve-query SCPI sequence. The operator-confirmation
+wait is bounded to fifteen minutes, with a subsequent ten-minute ACK limit.
+The expected carrier drop during the requested reconnect is allowed; identity,
+address and isolation checks remain enforced.
+
+Preparation seal: `54525c5373b92f3fa6aac7ccc5549a9abb4c75957bec40a5adfe1f1521aae934`.
+This combined lease-duration/link-refresh intervention cannot by itself prove
+why the previous lease stopped renewing. No device controls, power, USB,
+entitlements or capability configuration are changed.
