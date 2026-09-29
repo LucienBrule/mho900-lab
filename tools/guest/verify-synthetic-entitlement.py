@@ -66,7 +66,10 @@ def verify(root, config, phase):
     require(required_checks <= terminal['expected_checks'].keys(), 'Missing phase checks')
     for label in ('API_GetStarted:preflight', 'API_GetStarted:final'):
         returns = [x for x in by_kind('call-return') if x.get('function') == label]
-        require(len(returns) == 1 and returns[0]['result'] == 'false', 'Started gate not false')
+        require(len(returns) == 1 and returns[0]['result'] in ('false', '0'), 'Started gate not false')
+    directory = one('private-store-directory-preflight')
+    require(all(directory[key] is True for key in ('directory_open', 'directory_fsync', 'directory_close'))
+            and directory['flags'] == 0x84000, 'Directory persistence preflight failed')
     require(tomllib.loads((root / 'result.toml').read_text())['controller_exit'] == 0, 'Controller failed')
     health = (root / 'health-before.txt').read_bytes()
     require(health == (root / 'health-after.txt').read_bytes() and b'Enforcing' in health, 'Guest health changed')

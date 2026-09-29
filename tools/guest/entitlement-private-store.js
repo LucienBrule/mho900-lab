@@ -86,7 +86,8 @@ globalThis.entitlementPrivateStore = {
             }
         }
         function syncDirectory() {
-            const fd = open(Memory.allocUtf8String(directory), 0x10000 | 0x80000, 0);
+            // Android ARM64 UAPI: O_DIRECTORY=040000, O_CLOEXEC=02000000 (octal).
+            const fd = open(Memory.allocUtf8String(directory), 0x4000 | 0x80000, 0);
             if (fd < 0) throw error('directory open');
             try {
                 if (fsync(fd) !== 0) throw error('directory fsync');
@@ -142,6 +143,11 @@ globalThis.entitlementPrivateStore = {
             return result;
         }
         return {
+            preflight: function () {
+                syncDirectory();
+                emit('private-store-directory-preflight', { directory_open: true,
+                    directory_fsync: true, directory_close: true, flags: 0x4000 | 0x80000 });
+            },
             initialize: function (mode) {
                 if (initialized) throw new Error('Private-store already initialized by this harness');
                 if (mode === 'fresh') {

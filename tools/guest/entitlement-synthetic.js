@@ -114,6 +114,8 @@ function entitlementExperiment() {
         entitlementSyntheticKeepalive.push(dnaResponse);
         Interceptor.replace(dnaAddress, dnaResponse);
         Interceptor.flush();
+        const store = globalThis.entitlementPrivateStore.create(mod, event, invoke);
+        store.preflight();
         observeFactory(mod);
         if (call('CApiFactory::Api_Create', fn('_ZN11CApiFactory10Api_CreateEv', 'int', [])) !== 0) throw new Error('Api_Create failed');
         const services = call('getServiceList', fn('_ZN11CApiFactory14getServiceListEv', 'pointer', []));
@@ -205,7 +207,6 @@ function entitlementExperiment() {
             writeFile(witnessPath, Array.from(witness, c => c.charCodeAt(0)));
             event('synthetic-crypto-roundtrip', { phase: phase, key_roundtrip: true, token_roundtrip: true, key_ciphertext_hex: keyHex, token_ciphertext_hex: token, witness_path: witnessPath, synthetic_only: true });
         }
-        const store = globalThis.entitlementPrivateStore.create(mod, event, invoke);
         store.initialize(phase === 'reload' ? 'reload' : 'fresh');
         call('CApiLicense::init', fn('_ZN11CApiLicense4initEv', 'void', ['pointer']), [license]);
         store.snapshot(checkpoint + '-before');
