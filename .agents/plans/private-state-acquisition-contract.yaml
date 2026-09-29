@@ -1,0 +1,46 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.private-state-acquisition-contract
+    title: Recover stock private-cache acquisition contract
+    state: open
+    intent: Determine a bounded read-only way to preserve stock private state before an ordinary physical option change.
+    requires: [TASK.guest.acquired-stale-private-decision]
+    requirements:
+      - Pin stock Auklet ancestry and verify relevant disassembly bytes. Recover CFram and MemFile object ownership, cache layout, serialization and flush behavior.
+      - Compare process-memory cache acquisition with device-backed FRAM reading. Identify concurrency, read side effects, missing durability proof and exact physical questions.
+      - Do not contact the specimen or invoke target functions. Preserve private evidence locally and publish only reusable structure and provenance.
+    acceptance: [A concrete acquisition boundary and its limitations follow from verified stock code.]
+    verification: [lineage, layout, alternatives, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.private-state-acquisition-controls
+    title: Validate offline private-cache acquisition assumptions
+    state: open
+    intent: Falsify the proposed cache decoder and read boundaries with positive and negative offline controls.
+    requires: [TASK.specimen.private-state-acquisition-contract]
+    requirements:
+      - Use preserved artifacts and synthetic host fixtures only. Derive positive fixtures independently where possible from stock-produced private streams.
+      - Require bounded lengths, mapped readable ranges, duplicate-snapshot consistency and rejection of malformed or changing state as applicable to the recovered contract.
+      - Preserve failures separately. No physical access, installation, process attachment or raw I2C operations.
+    acceptance: [Offline controls establish which acquisition assumptions are testable and which still need guest or physical evidence.]
+    verification: [controls, preservation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.private-state-acquisition-decision
+    title: Choose the next private-state acquisition experiment
+    state: open
+    intent: Select the smallest justified next acquisition step before physical ordinary option installation.
+    requires: [TASK.specimen.private-state-acquisition-controls]
+    requirements:
+      - Distinguish in-memory MemFile state, CFram cache, device bytes and durability. A cached image must not be reported as a physical FRAM backup.
+      - State the exact remaining bench question and a bounded successor contract if supported. Commit and push conclusions before any successor execution.
+      - This batch itself authorizes no physical contact or option installation, reboot or capability deployment.
+    acceptance: [The next experiment and evidence limitations are explicit.]
+    verification: [finding, continuation, boundaries]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
