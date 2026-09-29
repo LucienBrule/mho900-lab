@@ -17,8 +17,10 @@ The reader accepts exactly two cached data objects:
 | Derived file keys | `0xbbcd1c` | `0xbbbd1c` | 16 |
 
 The source ranges are separate. Each sample contains eight bytes followed by sixteen bytes; no intervening
-memory is requested. Two samples transfer at most 48 bytes of target memory. Their equality is a repeated
-observation, not an atomic snapshot guarantee.
+memory is requested by the external reader. Its two samples transfer at most 48 bytes of target memory.
+Their equality is a repeated observation, not an atomic snapshot guarantee. The separate instrumented
+guest setup reads code and identity state to prepare and verify the control; those setup reads are not
+part of the proposed physical observation.
 
 Both objects reside in file-backed `.data` inside the writable PT_LOAD segment. That segment starts at
 virtual address `0xb69c00` and file offset `0xb68c00`. Consequently, deriving the load bias from a writable
@@ -100,3 +102,17 @@ The selected continuation is a setup-only restoration control. Capture the origi
 and bytes before installing hooks; remove owned hooks, verify byte restoration, and restore only their
 original executable-page permissions before detaching. Keep the compiled reader and its strict checks
 unchanged. This is a new bounded hypothesis, not a reinterpretation of the failed run as a pass.
+
+## Setup-restoration control
+
+The admitted successor captures the original full executable mapping and library map geometry immediately
+after stock JNI readiness, before any Auklet observer or synthetic response is installed. Once the final
+stock call returns, setup removes its observers and response replacement, verifies all original executable
+bytes, and restores only changed originally executable pages to their captured read/execute permissions.
+It must prove the complete library mapping geometry and permissions match the baseline before ready, unload
+and detach. Raw before/after code and mapping evidence remains local. The external reader binary remains
+`2888a679e2884af821b920ee73ff399f578743d5672d81e1bc4a0aabe7b20bd4`.
+
+These operations are cleanup of explicitly instrumented disposable setup. They are not proposed for the
+physical process. A physical observation would use the existing uninstrumented mappings and fail if they
+do not satisfy the reader contract.

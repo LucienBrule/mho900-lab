@@ -13,6 +13,8 @@ import tempfile
 import tomllib
 
 STOCK_SHA256 = '4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e'
+READER_BUILD06_SHA256 = '2888a679e2884af821b920ee73ff399f578743d5672d81e1bc4a0aabe7b20bd4'
+READER_BUILD06_SOURCE_SHA256 = 'ef571fcbf3f3b273d327fc569c5c138d8fd3d2c86d4d255c16f7129914cbae4b'
 PAGE = 4096
 LIMIT = (1 << 64) - 1
 RANGES = ((0xbbccf0, 8, 0xbbbcf0), (0xbbcd1c, 16, 0xbbbd1c))
@@ -410,6 +412,123 @@ def device_identity(device, inode):
     return major, minor, inode
 
 
+def library_pages(rows, library, identity):
+    """Canonical per-page geometry; VMA splits and merges do not change meaning."""
+    selected = []
+    for row in rows:
+        same_file = (row['major'], row['minor'], row['inode']) == identity
+        if row['path'] == library or same_file or row['path'] == library + ' (deleted)':
+            require(same_file and row['path'] == library, 'Restoration backing identity differs')
+            selected.append(row)
+    require(selected, 'Restoration library maps are missing')
+    pages = {}
+    for row in selected:
+        require(row['end'] - row['start'] <= 0xbe1000, 'Unexpected restoration mapping size')
+        for address in range(row['start'], row['end'], PAGE):
+            require(address not in pages, 'Restoration pages overlap')
+            pages[address] = (row['offset'] + address - row['start'], row['perms'], identity, library)
+    return pages
+
+
+def event_mapping_pages(event, base, library, identity):
+    rows = []
+    for item in event['mappings']:
+        device = tuple(int(part, 16) for part in item['device'].split(':'))
+        require(len(device) == 2, 'Malformed restoration device')
+        rows.append({'start': base + number(item['start_offset']), 'end': base + number(item['end_offset']),
+                     'offset': number(item['file_offset']), 'perms': item['protection'],
+                     'major': device[0], 'minor': device[1], 'inode': number(item['inode']), 'path': item['path']})
+    require(all(row['start'] < row['end'] and row['start'] % PAGE == row['end'] % PAGE == row['offset'] % PAGE == 0
+                for row in rows), 'Restoration event mapping bounds differ')
+    return library_pages(rows, library, identity)
+
+
+def restoration_evidence(root, ready, journal, host, loads):
+    directory = root / 'reader/setup-restoration'
+    names = {'maps-before.txt', 'rx-before.bin', 'maps-after-hooks-removed.txt',
+             'rx-after-hooks-removed.bin', 'maps-restored.txt'}
+    artifacts = [item for item in journal if item.get('kind') == 'cached-setup-artifact']
+    require(len(artifacts) == len(names) and {item['name'] for item in artifacts} == names,
+            'Restoration artifact inventory differs')
+    blobs = {}
+    for item in artifacts:
+        data = (directory / item['name']).read_bytes()
+        require(len(data) == item['size'] and sha(data) == item['sha256'], 'Restoration artifact hash differs')
+        message = [record for record in host if record.get('kind') == 'frida-message'
+                   and record.get('message', {}).get('payload', {}).get('sequence') == item['sequence']]
+        require(len(message) == 1 and message[0]['attachment_bytes'] == len(data),
+                'Restoration artifact was not delivered as complete binary attachment')
+        blobs[item['name']] = data
+    baseline = one(journal, 'setup-mapping-baseline')
+    removed = one(journal, 'setup-hooks-removed')
+    code = one(journal, 'setup-code-bytes-restored')
+    complete = one(journal, 'setup-mapping-restoration-complete')
+    require(ready.get('setup_restoration_complete') is True
+            and baseline['sequence'] < removed['sequence'] < code['sequence'] < complete['sequence'] < ready['sequence'],
+            'Restoration did not precede ready handoff')
+    guards = [item for item in journal if item.get('kind') == 'stock-helper-verified']
+    require(guards and baseline['sequence'] < min(item['sequence'] for item in guards),
+            'Original mapping baseline was not taken before setup helpers')
+    final_call = [item for item in journal if item.get('kind') == 'call-return'
+                  and item.get('function') == 'API_GetStarted:final']
+    require(len(final_call) == 1 and final_call[0]['sequence'] < removed['sequence']
+            and not any(item.get('kind') == 'call-enter' and item['sequence'] > removed['sequence'] for item in journal),
+            'Target native calls continued after hook removal')
+    require(removed['listeners_detached'] > 0 and removed['dna_reverted'] is True
+            and removed['interceptor_flushed'] is True, 'Setup hooks were not explicitly removed and flushed')
+    require(blobs['rx-before.bin'] == blobs['rx-after-hooks-removed.bin']
+            and len(blobs['rx-before.bin']) == 0xb69000, 'Full loaded executable bytes were not restored')
+    code_hash = sha(blobs['rx-before.bin'])
+    require(baseline['rx_size'] == code['size'] == 0xb69000
+            and baseline['rx_sha256'] == code['sha256'] == complete['rx_sha256'] == code_hash
+            and code['equal'] is True and complete['code_bytes_equal'] is True and complete['mappings_equal'] is True,
+            'Restoration summary differs from original executable byte evidence')
+    base, library = number(ready['module_base']), ready['module_path']
+    require(number(baseline['module_base']) == base and baseline['module_path'] == library,
+            'Setup baseline module differs')
+    manifest = tomllib.loads((root / 'reader/positive/manifest.toml').read_text())
+    identity = device_identity(number(manifest['library_device_before']), number(manifest['library_inode_before']))
+    before_rows = maps_rows(blobs['maps-before.txt'].decode())
+    middle_rows = maps_rows(blobs['maps-after-hooks-removed.txt'].decode())
+    restored_rows = maps_rows(blobs['maps-restored.txt'].decode())
+    before = library_pages(before_rows, library, identity)
+    middle = library_pages(middle_rows, library, identity)
+    restored = library_pages(restored_rows, library, identity)
+    require(resolve(loads, before_rows, library, identity)[0] == base
+            and resolve(loads, restored_rows, library, identity)[0] == base,
+            'Original/restored mappings violate unchanged strict ELF geometry')
+    require(before == restored and set(before) == set(middle), 'Complete library mapping geometry was not restored')
+    require(event_mapping_pages(baseline, base, library, identity) == before
+            and event_mapping_pages(complete, base, library, identity) == restored,
+            'Mapping summary differs from raw maps evidence')
+    changed = set()
+    for address, original in before.items():
+        observed = middle[address]
+        require(original[0] == observed[0] and original[2:] == observed[2:], 'Mapping identity/offset changed during setup')
+        if original[1] != observed[1]:
+            require(original[1] == 'r-xp' and observed[1] == 'rwxp'
+                    and base <= address < base + 0xb69000, 'Unexpected setup permission change')
+            changed.add(address)
+    protections = [item for item in journal if item.get('kind') == 'setup-page-protection-restored']
+    require(len(protections) == len(changed) and {number(item['address']) for item in protections} == changed
+            and complete['restored_pages'] == len(changed), 'Protection operations differ from changed pages')
+    for item in protections:
+        require(code['sequence'] < item['sequence'] < complete['sequence']
+                and item['size'] == PAGE and item['before'] == 'rwx' and item['after'] == 'r-x'
+                and number(item['module_offset']) == number(item['address']) - base,
+                'Protection operation did not restore exactly an original executable page')
+    for name, first, last in (('maps-before.txt', 0, baseline['sequence']),
+                              ('rx-before.bin', 0, baseline['sequence']),
+                              ('maps-after-hooks-removed.txt', removed['sequence'], code['sequence']),
+                              ('rx-after-hooks-removed.bin', removed['sequence'], code['sequence']),
+                              ('maps-restored.txt', code['sequence'], complete['sequence'])):
+        artifact = next(item for item in artifacts if item['name'] == name)
+        require(first < artifact['sequence'] < last, 'Restoration artifact ordering differs: ' + name)
+    return {'setup_restoration_verified': True, 'setup_rx_bytes_compared': 0xb69000,
+            'setup_original_rx_sha256': code_hash, 'setup_restored_pages': len(changed),
+            'setup_library_page_geometry_equal': True}
+
+
 def reader_evidence(root, expected, loads):
     stages = {'wrong-pin': 'library-hash', 'wrong-starttime': 'process-identity',
               'unmapped-range': 'target-ranges'}
@@ -531,6 +650,7 @@ def verify(root, config):
                                                 'mem_open_count': 0}, 'Frozen controls differ')
     controls = host_controls(data)
     ready, expected, journal, host = setup_evidence(root)
+    restoration = restoration_evidence(root, ready, journal, host, loads)
     policy = boundary_evidence(root, expected)
     comparison = one(host, 'setup-policy-comparison')
     summary = one(host, 'controller-result')
@@ -541,10 +661,12 @@ def verify(root, config):
     readings = reader_evidence(root, expected, loads)
     reader = (root / 'cached-identity-reader').read_bytes()
     require(reader == (root / 'guest-cached-identity-reader').read_bytes(), 'Staged reader differs from host binary')
+    require(sha(reader) == READER_BUILD06_SHA256, 'Strict reader changed from admitted build06')
     build = tomllib.loads((root / 'source/reader-build.toml').read_text())
     require(build['schema_version'] == 'mho900-lab.cached-identity-reader-build/1'
             and build['binary_sha256'] == sha(reader)
             and build['source_sha256'] == sha((root / 'source/read-cached-identity.c').read_bytes())
+            == READER_BUILD06_SOURCE_SHA256
             and build['builder_sha256'] == sha((root / 'source/build-cached-identity-reader.sh').read_bytes())
             and build['inputs_sha256'] == sha((root / 'source/reader-inputs.toml').read_bytes())
             and build['compiler_sha256'] == config['compiler_sha256']
@@ -555,7 +677,7 @@ def verify(root, config):
             'stock_native_sha256': sha(data), 'reader_sha256': sha(reader), **policy,
             'setup_journal_records': len(journal), 'setup_delivery_complete': True,
             'setup_detached_before_reader': True, 'host_addressing_controls': controls['host_controls'],
-            **readings, 'physical_contact': False, 'physical_permission_established': False}
+            **restoration, **readings, 'physical_contact': False, 'physical_permission_established': False}
 
 
 def main():

@@ -59,6 +59,12 @@ def main():
     source = Path(sys.argv[1]).read_text()
     reader_root = run / 'reader'
     reader_root.mkdir(exist_ok=False)
+    restoration_root = reader_root / 'setup-restoration'
+    restoration_root.mkdir(exist_ok=False)
+    restoration_artifacts = {}
+    restoration_events = []
+    restoration_names = {'maps-before.txt', 'rx-before.bin', 'maps-after-hooks-removed.txt',
+                         'rx-after-hooks-removed.bin', 'maps-restored.txt'}
     sink = (run / 'controller.jsonl').open('x')
     lock = threading.Lock()
     ready = threading.Event()
@@ -73,6 +79,11 @@ def main():
     result = 3
     setup_policy_changed = False
     setup_policy_observed = False
+    setup_detached = False
+    negative_controls_passed = 0
+    positive_samples_match = False
+    after_setup = None
+    after_read_started = False
 
     def record(kind, **fields):
         value = {'kind': kind, 'utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), **fields}
@@ -132,6 +143,27 @@ def main():
         return state
 
     def on_message(message, data):
+        payload = message.get('payload', {}) if message.get('type') == 'send' else {}
+        if payload.get('kind') == 'cached-setup-artifact':
+            try:
+                name = payload.get('name')
+                require(name in restoration_names and name not in restoration_artifacts,
+                        'Unexpected or duplicate setup artifact')
+                require(isinstance(data, bytes) and 0 < len(data) <= 0xb69000
+                        and payload.get('size') == len(data)
+                        and payload.get('sha256') == hashlib.sha256(data).hexdigest(),
+                        'Setup artifact payload/hash differs')
+                with (restoration_root / name).open('xb') as output:
+                    output.write(data)
+                    output.flush()
+                    os.fsync(output.fileno())
+                restoration_artifacts[name] = payload['sha256']
+            except BaseException as error:
+                errors.append('setup-artifact: ' + str(error))
+                ready.set()
+                returned.set()
+        if payload.get('kind') == 'setup-mapping-restoration-complete':
+            restoration_events.append(payload)
         record('frida-message', message=message, attachment_bytes=len(data) if data else 0)
         if message.get('type') == 'error':
             errors.append('setup-script-error')
@@ -150,6 +182,15 @@ def main():
             returned.set()
         elif kind == 'cached-identity-ready':
             witnesses.append(payload)
+            if (len(restoration_events) != 1 or set(restoration_artifacts) != restoration_names
+                    or payload.get('setup_restoration_complete') is not True
+                    or restoration_events[0].get('mappings_equal') is not True
+                    or restoration_events[0].get('code_bytes_equal') is not True
+                    or restoration_artifacts.get('rx-before.bin') != restoration_artifacts.get('rx-after-hooks-removed.bin')):
+                errors.append('setup-restoration-proof-incomplete')
+                ready.set()
+                returned.set()
+                return
             durable()
             script.post({'type': 'cached-identity-ack'})
             record('cached-identity-acknowledged', sequence=payload['sequence'])
@@ -209,6 +250,7 @@ def main():
         session.detach()
         require(detached.wait(10) and not errors, 'Frida setup detach did not complete')
         record('setup-frida-detached', pid=pid, reader_started=False)
+        setup_detached = True
         # No Frida operation or target function call occurs below this point.
         after_setup = snapshot('after-setup', pid)
         require(all(before[k] == after_setup[k] for k in ('enforcement', 'boot')), 'Setup changed guest enforcement or boot')
@@ -267,6 +309,7 @@ def main():
                         'Positive reader manifest contract differs')
                 require(all(path.is_file() and path.read_bytes() == expected for path in samples),
                         'External samples differ from independent setup witness')
+                positive_samples_match = True
                 record('reader-samples-compared', mode=mode, samples=2, bytes_per_sample=24,
                        matches_setup=True, samples_sha256=hashlib.sha256(expected).hexdigest())
             else:
@@ -278,6 +321,8 @@ def main():
                                                                     'memory_bytes_requested'))
                         and manifest.get('read_requested') == manifest.get('read_results') == [],
                         'Negative reader control did not reject at its intended boundary')
+                negative_controls_passed += 1
+        after_read_started = True
         after_read = snapshot('after-read', pid)
         require(all(after_setup[k] == after_read[k] for k in ('enforcement', 'policy', 'boot')),
                 'Reader changed guest policy or boot')
@@ -289,6 +334,20 @@ def main():
     finally:
         if session is not None and not session.is_detached:
             session.detach()
+        if pid is not None and after_setup is not None and not after_read_started:
+            try:
+                require(identity is not None and starttime(read_guest('/proc/' + str(pid) + '/stat'), pid) == identity[1]
+                        and read_guest('/proc/sys/kernel/random/boot_id').decode().strip() == identity[2],
+                        'Refusing final snapshot of unverified or recycled PID')
+                after_read_started = True
+                final_read = snapshot('after-read', pid)
+                require(all(after_setup[k] == final_read[k] for k in ('enforcement', 'policy', 'boot')),
+                        'Failed reader phase changed guest policy or boot')
+                require(starttime(final_read['stat'], pid) == identity[1], 'Final target identity changed')
+            except BaseException as error:
+                result = 3
+                errors.append('final-read-snapshot: ' + str(error))
+                record('final-read-snapshot-failed', error=str(error))
         if pid is not None:
             try:
                 raw = read_guest('/proc/' + str(pid) + '/stat')
@@ -301,8 +360,8 @@ def main():
                 result = 3
                 errors.append('cleanup: ' + str(error))
                 record('cleanup-failed', pid=pid, error=str(error))
-        summary = {'controller_exit': result, 'setup_detached_before_reader': result == 0,
-                   'negative_controls': 3 if result == 0 else 0, 'positive_samples_match': result == 0,
+        summary = {'controller_exit': result, 'setup_detached_before_reader': setup_detached,
+                   'negative_controls': negative_controls_passed, 'positive_samples_match': positive_samples_match,
                    'setup_policy_observed': setup_policy_observed, 'setup_policy_changed': setup_policy_changed,
                    'physical_contact': False, 'errors': errors}
         write_toml(run / 'controller-result.toml', summary)
