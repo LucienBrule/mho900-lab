@@ -1,0 +1,47 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.cached-bandwidth-contract
+    title: Recover minimal cached bandwidth observation contract
+    state: open
+    intent: Define the smallest remaining physical capability baseline without calling target methods.
+    requires: [TASK.bench.option-status-six-hour-decision]
+    requirements:
+      - Inspect pinned stock getters and backing data to establish exact raw and effective bandwidth addresses and widths.
+      - Separate built-in option query policy from installed license flags; do not assume every native catalog entry has a cached boolean.
+      - Record file-backed mapping geometry, read extent and semantic limits. Preserve stock originals and private identity data.
+    acceptance: [An evidence-backed minimal read contract and explicit exclusions are recorded.]
+    verification: [static, geometry, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.cached-bandwidth-reader-control
+    title: Validate a bounded APK-backed bandwidth reader offline
+    state: open
+    intent: Reuse established mapping checks while narrowing observations to two four-byte bandwidth fields.
+    requires: [TASK.bench.cached-bandwidth-contract]
+    requirements:
+      - Create a separate reader build restricted to the pinned bandwidth fields twice, at most16 target bytes through one readonly descriptor. Retain PID, starttime, boot, APK, ELF, file and mapping checks; no target calls, attachment or writes.
+      - Preserve prior reader and evidence. Run host mapping and rejection controls plus a disposable loopback-only Android fixture with distinct values in the two fields, exact read counts and negative cases before memory access.
+      - Verify repeated samples, mapping address arithmetic, guest health and unchanged guest policy independently; seal evidence and commit/push conclusions.
+      - Do not contact the physical specimen in this task.
+    acceptance: [The narrow reader passes independent controls or its exact failure is preserved.]
+    verification: [scope, host, guest, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.cached-bandwidth-control-decision
+    title: Evaluate readiness for physical cached bandwidth observation
+    state: open
+    intent: Select one bounded next observation from the validated reader result.
+    requires: [TASK.bench.cached-bandwidth-reader-control]
+    requirements:
+      - Reconcile static semantics and independent controls before any physical proposal.
+      - If controls pass, admit a separate capture-backed physical read-only batch under current three-hour continuation authority, explicitly including temporary helper staging and stopping on identity, permission, traffic or recorder failure.
+      - No physical entitlement installation, capability modification, reboot, calibration or policy changes follow from this control. Commit and push decision.
+    acceptance: [Next bounded action and limitations are explicit.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
