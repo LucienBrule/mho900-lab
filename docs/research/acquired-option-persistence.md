@@ -58,3 +58,21 @@ No physical scope access is part of this batch. Even a successful guest
 result will not prove physical private-storage scheduling, current physical
 options, FlexRay operation or any RF capability change. Unit identity, key
 material and resulting tokens remain outside tracked source.
+
+## First attempt: prelaunch inventory failure
+
+Run `acquired-option-01` stopped with exit 1 before userdata staging,
+ADB startup or emulator launch. The fixture validator passed, but its imports
+created `source/__pycache__`. The runner passed a top-level wildcard to
+`shasum`, which rejected that directory. This occurred before the cleanup
+trap was installed; an explicit failure manifest now records the outcome.
+
+There is no installer, consumer, catalog-transition or persistence result.
+The retained network control passed without contacting an external destination.
+The failure seal is `07c3db49ec54d9f96ac08f401867f742e05611aa336e1ef0ede578e9c9d24375`. Original partial input inventory
+and source snapshots remain preserved in the private run directory.
+
+Decision: repair only the input inventory's treatment of generated directories,
+test that control locally, and commit preparation before a new run identity.
+The option fixture and stock execution semantics remain frozen. This failure
+does not motivate a hardware experiment.
