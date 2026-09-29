@@ -23,6 +23,12 @@ STOCK_STOPS = {"runtime-dna-unavailable", "private-fram-unavailable", "unexpecte
 def accepted_stop(payload):
     if payload.get("kind") != "dependency-stop":
         return False
+    if payload.get("reason") == "acquired-key-baseline-complete":
+        checks = payload.get("expected_checks", {})
+        return (payload.get("exit_code") == 77 and payload.get("terminal_ack") is True
+                and all(checks.get(name) is True for name in (
+                    "key_outputs_exact", "file_keys_exact", "key_file_unchanged",
+                    "fresh_private_store", "catalog_complete", "no_installer", "started_false")))
     if payload.get("reason") == "option-catalog-phase-complete":
         phase = payload.get("phase")
         common = {"started_false", "catalog_complete", "seed_catalog_matches", "seed_inputs_preserved",

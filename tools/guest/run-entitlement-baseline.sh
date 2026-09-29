@@ -8,11 +8,11 @@ controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|acquired-baseline|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
 reader_mode=false
 if [ "$trial_mode" = identity-reader ]; then reader_mode=true; fi
 trial_enabled=true
-if [ "$trial_mode" = baseline ] || [ "$reader_mode" = true ]; then trial_enabled=false; fi
+if [ "$trial_mode" = baseline ] || [ "$trial_mode" = acquired-baseline ] || [ "$reader_mode" = true ]; then trial_enabled=false; fi
 capability_mode=false
 case "$trial_mode" in capability-*) capability_mode=true;; esac
 catalog_mode=false
@@ -181,7 +181,7 @@ cleanup() {
         if [ "$pull_rc" = 0 ]; then
             "$python" "$run/source/entitlement-files.py" "$run/after-rigol" > "$run/after-rigol.toml" || result=1
         else result=1; fi
-        if [ "$trial_enabled" = true ]; then
+        if [ "$trial_enabled" = true ] || [ "$trial_mode" = acquired-baseline ]; then
             adb pull /data/local/tmp/entitlement/model "$run/after-model" > "$run/model-pull.txt" 2>&1
             model_rc=$?
             printf 'model_pull_exit = %s\n' "$model_rc" >> "$run/final-status.toml"
@@ -316,6 +316,11 @@ elif [ "$trial_enabled" = true ]; then
     adb shell 'mkdir -p /data/local/tmp/entitlement/rigol/data /data/local/tmp/entitlement/model && test -z "$(ls -A /data/local/tmp/entitlement/rigol/data)" && test -z "$(ls -A /data/local/tmp/entitlement/model)" && ls -ld /data/local/tmp/entitlement/rigol/data /data/local/tmp/entitlement/model' > "$run/fresh-directories.txt" 2>&1
 fi
 fixture_staged=true
+if [ "$trial_mode" = acquired-baseline ]; then
+    # Fresh modeled private storage; acquired Key.data stays in the staged rigol tree.
+    [ -d "$fixture/model" ] && [ -z "$(find "$fixture/model" -mindepth 1 -print)" ]
+    adb shell 'mkdir /data/local/tmp/entitlement/model && test -z "$(ls -A /data/local/tmp/entitlement/model)"' > "$run/fresh-model-directory.txt" 2>&1
+fi
 adb shell 'mount -o bind /data/local/tmp/entitlement/rigol /rigol && cat /proc/mounts && ls -ldZ /rigol /rigol/data' > "$run/bind-mount.txt" 2>&1
 adb pull /rigol "$run/before-rigol" > "$run/before-pull.txt" 2>&1
 "$python" "$run/source/entitlement-files.py" "$run/before-rigol" > "$run/before-rigol.toml"
