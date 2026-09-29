@@ -34,6 +34,7 @@ from mho_evidence import (
     SealCreated,
     SealRejected,
     SealRequest,
+    Sha256,
     VerificationAccepted,
     VerificationRejected,
     VerifyRequest,
@@ -41,6 +42,7 @@ from mho_evidence import (
     seal,
     verify,
 )
+from mho_review import ProfileAccepted, ReviewAccepted, ReviewRequest, load_profile, review
 from mho_scpi import (
     ExchangeAccepted,
     IdentityObservation,
@@ -426,6 +428,83 @@ def scpi_roundtrip(evidence: Path) -> None:
     require("identity_redacted = true" in rendered, "Installed CLI omitted redaction marker")
 
 
+def review_roundtrip(evidence: Path) -> None:
+    root = Path.cwd() / "review-bundle"
+    root.mkdir()
+    request = b"*IDN?\n"
+    response = b"Synthetic,Fixture,PRIVATE-SERIAL,opaque-version\n"
+    header = (
+        b"\xd4\xc3\xb2\xa1\x02\x00\x04\x00"
+        + bytes(8)
+        + (65535).to_bytes(4, "little")
+        + (1).to_bytes(4, "little")
+    )
+    capture = (
+        header
+        + capture_record(100, 2, b"")
+        + capture_record(200, 18, b"", reverse=True)
+        + capture_record(101, 24, request)
+        + capture_record(201, 24, response, reverse=True)
+        + capture_record(101 + len(request), 17, b"")
+        + capture_record(201 + len(response), 17, b"", reverse=True)
+    )
+    (root / "capture.pcap").write_bytes(capture)
+    (root / "stderr.txt").write_bytes(
+        b"6 packets captured\n6 packets received by filter\n0 packets dropped by kernel\n"
+    )
+    (root / "request.bin").write_bytes(request)
+    (root / "response.bin").write_bytes(response)
+    manifest = Path.cwd() / "review-manifest.toml"
+    sealed = seal(SealRequest(root, manifest))
+    if not isinstance(sealed, SealCreated):
+        raise RuntimeError("Installed review fixture could not be sealed")
+    profile = Path.cwd() / "review-profile.toml"
+    profile.write_text("""schema_version = "mho-review.profile/1"
+capture = "capture.pcap"
+statistics = "stderr.txt"
+[client]
+address = "192.0.2.1"
+port = 41000
+[server]
+address = "192.0.2.2"
+port = 5555
+[[transcripts]]
+request = "request.bin"
+reply = "response.bin"
+""")
+    parsed = load_profile(profile.read_bytes())
+    if not isinstance(parsed, ProfileAccepted):
+        raise RuntimeError("Installed role profile rejected")
+    result = review(ReviewRequest(root, manifest, Sha256(sealed.manifest_sha256), parsed.profile))
+    require(isinstance(result, ReviewAccepted), "Installed composed review rejected")
+    arguments = [
+        "review",
+        "inspect",
+        "--root",
+        str(root),
+        "--manifest",
+        str(manifest),
+        "--expected-manifest-sha256",
+        sealed.manifest_sha256,
+        "--profile",
+        str(profile),
+    ]
+    run_cli(evidence, "review-redacted", arguments, 0)
+    rendered = (evidence / "review-redacted.stdout").read_text()
+    require(
+        all(
+            value not in rendered
+            for value in ("Synthetic", "Fixture", "PRIVATE-SERIAL", "opaque-version", "192.0.2.1")
+        ),
+        "Review disclosed identity or endpoint",
+    )
+    require(tomllib.loads(rendered)["capture_frames"] == 6, "Review frame count changed")
+    (root / "response.bin").write_bytes(b"foreign\n")
+    run_cli(evidence, "review-mixed-input", arguments, 1)
+    rejected = tomllib.loads((evidence / "review-mixed-input.stdout").read_text())
+    require(rejected["stage"] == "inventory-before", "Mixed input failed at unexpected stage")
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -442,6 +521,7 @@ def main() -> int:
     recorder_roundtrip(evidence)
     transport_roundtrip(evidence)
     scpi_roundtrip(evidence)
+    review_roundtrip(evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
         'result = "accepted"',
@@ -459,6 +539,8 @@ def main() -> int:
         "transport_payload_not_rendered = true",
         "transport_truncation_rejected = true",
         "scpi_codec_executor_cli_verified = true",
+        "sealed_review_library_cli_verified = true",
+        "sealed_review_mixed_input_rejected = true",
     ]
     for package in packages:
         lines.extend(

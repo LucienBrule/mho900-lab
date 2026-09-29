@@ -6,7 +6,7 @@ from pathlib import Path
 import click
 
 from mho_lab_cli.scpi_delegate import ScpiInputRejected, inspect_scpi
-from mho_scpi import ExchangeRejected, IdentityObservation
+from mho_scpi import ExchangeAccepted, ExchangeRejected, IdentityObservation
 
 
 def toml_string(value: str) -> str:
@@ -40,6 +40,11 @@ def inspect_command(requests: Path, replies: Path, show_identity: bool) -> None:
     click.echo(f'response_sha256 = "{hashlib.sha256(result.response).hexdigest()}"')
     click.echo(f"query_count = {len(result.pairs)}")
     click.echo("physical_origin_proven = false")
+    render_observations(result, show_identity)
+
+
+def render_observations(result: ExchangeAccepted, show_identity: bool) -> None:
+    """Render typed observations; identity disclosure remains an explicit choice."""
     for index, pair in enumerate(result.pairs):
         observation = pair.reply.observation
         click.echo("\n[[observations]]")

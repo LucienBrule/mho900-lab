@@ -143,15 +143,16 @@ def verify(request: VerifyRequest) -> VerificationAccepted | VerificationRejecte
     try:
         outside(request.root, request.manifest)
         parent_fd = open_directory(request.manifest.parent)
-        encoded = read_file(parent_fd, request.manifest.name, "manifest")
+        maximum = request.limits.max_manifest_bytes if request.limits is not None else None
+        encoded = read_file(parent_fd, request.manifest.name, "manifest", maximum)
         manifest = load_manifest(encoded)
         root_fd = open_directory(request.root)
-        observed = inventory(root_fd)
+        observed = inventory(root_fd, request.limits)
         if observed.artifacts != manifest.artifacts:
             reject("inventory-mismatch", "artifact inventory, digest or byte count differs")
         check_root_name(root_fd, request.root)
         check_root_name(parent_fd, request.manifest.parent)
-        if read_file(parent_fd, request.manifest.name, "manifest") != encoded:
+        if read_file(parent_fd, request.manifest.name, "manifest", maximum) != encoded:
             reject("observed-change", "manifest changed during verification")
         descriptor = parent_fd
         parent_fd = None

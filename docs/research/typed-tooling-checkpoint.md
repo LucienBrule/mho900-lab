@@ -135,3 +135,31 @@ passed both platform gates for `23da684`. The next bounded step binds these
 separate consumers to a caller-pinned exact inventory and explicit role map.
 This addresses accidental mixing of valid files; it cannot authenticate a
 physical origin merely because a bundle was sealed.
+
+## Sealed composition
+
+The composed review binds each input role to a caller-pinned exact inventory,
+checks capture/count agreement, reconstructs one explicitly selected TCP stream,
+and compares its bytes exactly with ordered raw query/reply members before SCPI
+interpretation. Complete inventory verification runs before and after, including
+unselected files. Independent controls mutate an unselected file after decoding;
+that still rejects at final inventory verification.
+
+The preserved identity run passes as an 86-member sealed inventory containing a
+61-frame capture and twelve exact query pairs. Its original seal remains unchanged.
+Comparison and redacted output are under `out/tooling/sealed-review-01/`.
+The [review contract](../runbooks/sealed-offline-review.md) records the important
+limit: a deliberately mixed bundle can be internally consistent, so membership
+cannot authenticate a common physical origin.
+
+Optional verification limits now bound manifest bytes, enumerated files and
+directories, depth, individual bytes and aggregate bytes. Actual growth controls
+reject oversized data during reading, not only during initial size inspection.
+The old unbounded verification default remains available; composed review always
+supplies explicit limits. Blocking filesystem calls still have no deadline claim.
+
+All 327 workspace tests and strict gates pass. Six distributions rebuilt from
+source archives pass the isolated installed-package check, including accepted
+review, default identity redaction and rejection of a subsequently mixed input.
+Artifacts are under `out/tooling/installed-packages-08/`. No old verifier or
+sealed physical evidence was rewritten.

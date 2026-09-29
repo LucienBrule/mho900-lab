@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
 
+from pydantic import BaseModel, ConfigDict, Field
+
 
 @dataclass(frozen=True)
 class SealRequest:
@@ -12,10 +14,22 @@ class SealRequest:
     allow_empty: bool = False
 
 
+class VerificationLimits(BaseModel):
+    """Optional byte/count/depth bounds; no blocking-filesystem deadline claim."""
+
+    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    max_entries: int = Field(default=10000, ge=1, le=1000000)
+    max_total_bytes: int = Field(default=1024**3, ge=1, le=1024**4)
+    max_file_bytes: int = Field(default=1024**3, ge=1, le=1024**4)
+    max_depth: int = Field(default=32, ge=0, le=128)
+    max_manifest_bytes: int = Field(default=4 * 1024**2, ge=1, le=64 * 1024**2)
+
+
 @dataclass(frozen=True)
 class VerifyRequest:
     root: Path
     manifest: Path
+    limits: VerificationLimits | None = None
 
 
 @dataclass(frozen=True)

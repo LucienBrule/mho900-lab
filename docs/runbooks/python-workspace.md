@@ -1,12 +1,13 @@
 # Typed Python workspace
 
-The typed tooling lives in five uv workspace members:
+The typed tooling lives in six uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
 - `packages/mho-transport`: offline packet and TCP transcript evidence.
 - `packages/mho-capture`: ownership and bounded shutdown of a configured recorder child.
 - `packages/mho-scpi`: typed read-only query observations and supplied-stream execution.
+- `packages/mho-review`: sealed-input composition of capture, TCP and SCPI observations.
 
 The root project is a development workspace, not an installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
@@ -57,3 +58,6 @@ and failure outcomes for future configured acquisition procedures.
 
 The [SCPI contract](scpi-contract.md) composes canonical query semantics with explicit
 stream ownership; its CLI only interprets preserved files.
+
+The [sealed offline review](sealed-offline-review.md) binds the component results to
+a pinned inventory and explicit role assertions.

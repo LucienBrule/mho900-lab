@@ -74,3 +74,11 @@ Only filesystems and platforms supporting the required descriptor, no-follow,
 hard-link and synchronization operations are supported. Unsupported operations
 fail rather than silently weakening publication behavior. This tool does not
 replace existing experiment-specific verifiers or their immutable receipts.
+
+Library callers can supply `VerificationLimits` through `VerifyRequest.limits`.
+These optional bounds cover every discovered entry (files and directories),
+directory depth, manifest bytes, individual artifact bytes and aggregate artifact
+bytes. Size checks are also enforced during reads, so growth cannot bypass an
+initial size check. The existing unbounded default remains explicit for ordinary
+inventory operations; the composed review always supplies limits. Count and byte
+bounds do not impose a deadline on a blocking filesystem call.

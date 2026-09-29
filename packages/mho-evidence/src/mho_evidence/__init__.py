@@ -7,6 +7,7 @@ from .api import (
     SealRejected,
     SealRequest,
     VerificationAccepted,
+    VerificationLimits,
     VerificationRejected,
     VerifyRequest,
 )
@@ -24,6 +25,7 @@ __all__ = [
     "SealRequest",
     "Sha256",
     "VerificationAccepted",
+    "VerificationLimits",
     "VerificationRejected",
     "VerifyRequest",
     "dump_manifest",
