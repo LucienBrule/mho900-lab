@@ -100,3 +100,13 @@ records; installer counts were1/0/0. All 10 canonical files matched across reloa
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `8d281f997d1ecd4cf12c3a6b608f27fa1e1fe01d589256e02faec5357b143fd2`.
+
+### AUDIOA conclusion
+
+Run `acquired-catalog-audioa-01` completed 2026-09-29T14:17:13Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 841,788,788
+records; installer counts were1/0/0. All 12 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `5c92133cb6f70f6789bcb35fcea31796f32c7c1740b950680d41e6028bd18d2a`.
