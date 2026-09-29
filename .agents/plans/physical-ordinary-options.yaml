@@ -1,0 +1,60 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.physical-flexa-install
+    title: Install the first guest-validated ordinary option through documented SCPI
+    state: open
+    intent: Establish the physical ordinary installer transition against the preserved baseline.
+    requires: [TASK.specimen.fram-install-decision]
+    requirements:
+      - Prepare and host-test a bounded single-send installer using exact private guest-validated request bytes; no automatic retransmission or token generation.
+      - Under fresh verified isolated capture, confirm identity and all11option states, preserve current data/key/vendor/license baseline and UI, then send exactlyone FlexA request.
+      - Require FLEX becomes1 while other recorded statuses remainunchanged and the stock-saved license matches the accepted guest witness; retain UI and raw request/response/file evidence, seal capture and restore host.
+      - Stop on rejection, uncertain outcome or unexpected state; do not erase failure or continue additional installs blindly.
+    acceptance: [The first physical install is accepted with evidence or closes negatively without retransmission.]
+    verification: [preparation, transition, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.physical-ordinary-catalog
+    title: Apply the remaining accepted ordinary catalog one candidate at a time
+    state: open
+    intent: Reach the cumulative ten-option physical state without changing model capability.
+    requires: [TASK.specimen.physical-flexa-install]
+    requirements:
+      - Proceed only if firstphysicalinstall positivelyaccepted; follow exact testedorder BWU05T08,AFG100,AFG50,AUDIOA,AUTOA,AEROA,RLU05,BWU03T05,BWU03T08 with one exactrequest each and no BND install.
+      - For each candidate preserve before/after status, rawtraffic and savedfilematch; require priorenabledstates/files stable and unrelatedstates unchanged. Commit/push each conclusion before nextcandidate.
+      - Maintain isolatedcapture/lease health and seal completedphaseevidence; stop on unexpectedoutcome and recordeffects without automaticuninstall or FRAMwrite.
+    acceptance: [All ten intended ordinary options are enabled or a precise stopped transition is recorded.]
+    verification: [sequence, persistence_inputs, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.physical-ordinary-reboot
+    title: Verify physical ordinary-option persistence across a normal reboot
+    state: open
+    intent: Establish the real instrument reload result before D capability deployment.
+    requires: [TASK.specimen.physical-ordinary-catalog]
+    requirements:
+      - Proceed only fromacceptedcumulativecatalog; preserve finalpreboot state and requestone normalreboot underfreshcapture withisolatedlease maintenance.
+      - Require changedbootidentity, normalUI, unchangedpublicidentity/stockAPK/nativeancestry, tenexpectedoptionstates withBNDfalse, exactlicense/key persistence andcached17/17 bandwidth.
+      - Preserve postbootprivate/cache evidence andhostrestoration; no calibration, reset/defaults or capabilitychange inthisphase.
+    acceptance: [Physical ordinary options persist through verified reboot, or failure is retained.]
+    verification: [reboot, persistence, boundaries]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.physical-ordinary-decision
+    title: Evaluate ordinary persistence and admit separate D deployment
+    state: open
+    intent: Continue the authorized goal through a separately verified capability transition.
+    requires: [TASK.specimen.physical-ordinary-reboot, TASK.specimen.derived-bandwidth-observer-decision]
+    requirements:
+      - Admit physicalsidecar deployment onlyafterordinarypersistence andderivedobserver readiness; specify exactderivedhash, originalAPKpreservation, boot/UI/options/18-18 checks andintroduced-file rollback.
+      - Keep actual RFperformance evaluation unexecuted; prepare its smallest meaningful measurement plan aftersoftwarecapability verified.
+    acceptance: [The separate authorized D deployment has a concrete evidence-backed contract.]
+    verification: [decision, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
