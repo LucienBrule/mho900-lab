@@ -114,7 +114,111 @@ def verify_consumers(events, config, phase, cipher_hex, installer_bounds=None):
     return len(selected)
 
 
+def verify_capability(events, config):
+    """Bind selected row and real cached-state getter calls to one stock policy call."""
+    arm = config['capability_arm']
+    expected = config['expected_bandwidth_enum']
+    offset = config['expected_record_offset']
+
+    def one(kind):
+        values = [event for event in events if event['kind'] == kind]
+        require(len(values) == 1, 'Expected exactly one ' + kind)
+        return values[0]
+
+    def call_bounds(label, expected_result):
+        starts = [event for event in events if event['kind'] == 'call-enter'
+                  and event.get('function') == label]
+        ends = [event for event in events if event['kind'] == 'call-return'
+                and event.get('function') == label]
+        require(len(starts) == len(ends) == 1
+                and starts[0]['sequence'] < ends[0]['sequence']
+                and ends[0]['result'] == expected_result, 'Missing or failed stock call: ' + label)
+        return starts[0]['sequence'], ends[0]['sequence']
+
+    parser = one('capability-parser-return')
+    selected = one('capability-selected-record')
+    require(parser.get('behavior_replaced') is False
+            and parser['observed_in'] == 'ApiUtility_SetModel'
+            and parser['arm'] == selected['arm'] == arm
+            and parser['selected_record_offset'] == selected['selected_record_offset'] == offset,
+            'Capability selection lacks original parser witness')
+    require(selected['selected_record_name'] == ('MHO984' if arm == 'stock' else 'MHO984D')
+            and selected['selected_record_bandwidth_enum'] == expected
+            and selected['channels'] == 4 and selected['domain'] == 8 and selected['series'] == 900,
+            'Selected capability record differs from recovered contract')
+    setter_entries = [event for event in events if event['kind'] == 'call-enter'
+                      and event.get('function') == 'ApiUtility_SetModel']
+    setter_returns = [event for event in events if event['kind'] == 'call-return'
+                      and event.get('function') == 'ApiUtility_SetModel']
+    require(len(setter_entries) == len(setter_returns) == 1
+            and setter_entries[0]['sequence'] < parser['sequence'] < setter_returns[0]['sequence']
+            < selected['sequence'], 'Parser observation lies outside actual model setter')
+    observations = [event for event in events if event['kind'] == 'capability-observation']
+    require(len(observations) == 2
+            and [event['stage'] for event in observations]
+                == ['before-option-policy', 'after-option-policy'], 'Capability getter checkpoints differ')
+    for event in observations:
+        require(event['arm'] == arm and event['model'] == 'MHO984'
+                and event['raw_bandwidth_enum'] == event['effective_bandwidth_enum'] == expected
+                and event['selected_record_offset'] == offset
+                and event['model_status'] == event['raw_status'] == event['effective_status'] == 0,
+                'Stock capability getter output differs')
+        previous_return = selected['sequence']
+        for name in ('GetModel', 'GetModelBw', 'GetBw'):
+            start, end = call_bounds('capability:' + name + ':' + event['stage'], '0')
+            require(previous_return < start < end < event['sequence'],
+                    'Capability getter order differs from actual query checkpoint')
+            previous_return = end
+    policy_enter = one('capability-option-policy-enter')
+    policy_return = one('capability-option-policy-return')
+    parse_start, parse_end = call_bounds('capability:ApiUtility_ParseOption', None)
+    require(policy_enter['arm'] == policy_return['arm'] == arm
+            and policy_enter.get('actual_stock') is True and policy_return.get('returned') is True
+            and policy_return.get('return_type') == 'void'
+            and observations[0]['sequence'] < policy_enter['sequence'] < parse_start < parse_end
+            < policy_return['sequence'] < observations[1]['sequence'],
+            'Actual stock option-policy call not bounded by getter observations')
+    for name in ('GetModel', 'GetModelBw', 'GetBw'):
+        require(call_bounds('capability:' + name + ':before-option-policy', '0')[1]
+                < policy_enter['sequence']
+                and call_bounds('capability:' + name + ':after-option-policy', '0')[0]
+                > policy_return['sequence'], 'Getter executed on wrong side of option policy')
+    evaluation = one('capability-evaluation')
+    require(evaluation['arm'] == arm
+            and evaluation['before'] == {key: value for key, value in observations[0].items()
+                                         if key not in ('kind', 'sequence', 'call')}
+            and evaluation['after'] == {key: value for key, value in observations[1].items()
+                                        if key not in ('kind', 'sequence', 'call')}
+            and all(value is True for value in evaluation['expected_checks'].values()),
+            'Capability evaluation differs from getter evidence')
+    required_guards = {'0x429cbc', '0x429b40', '0x429b10', '0x429b70'}
+    require(required_guards <= {event.get('elf_va') for event in events
+                                if event['kind'] == 'stock-helper-verified'},
+            'Stock getter/policy instruction guards missing')
+    return {'capability_experiment': True, 'capability_arm': arm,
+            'selected_record_offset': offset, 'selected_record_name': selected['selected_record_name'],
+            'raw_bandwidth_enum': expected, 'effective_bandwidth_enum': expected,
+            'identity_preserved': True, 'option_policy_executed': True,
+            'seed_bytes_preserved': True, 'seed_catalog_preserved': True}
+
+
 def verify(root, config, phase):
+    capability_mode = config.get('capability_experiment') is True
+    expected_bandwidth = 17
+    if capability_mode:
+        arm = config.get('capability_arm')
+        require(phase == 'reload' and arm in ('stock', 'derived'), 'Capability trial must reload one known arm')
+        expected_bandwidth, expected_record = {
+            'stock': (17, '0x151b7a0'), 'derived': (18, '0x151b850')
+        }[arm]
+        require(config.get('model') == 'MHO984'
+                and config.get('expected_bandwidth_enum') == expected_bandwidth
+                and config.get('expected_record_offset') == expected_record
+                and config.get('expected_native_sha256') == {
+                    'stock': '4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e',
+                    'derived': '09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e'
+                }[arm],
+                'Capability arm expectation differs from recovered contract')
     spec = importlib.util.spec_from_file_location('journal', Path(__file__).with_name('verify-entitlement-journal.py'))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -155,8 +259,8 @@ def verify(root, config, phase):
             'Synthetic identity differs from frozen fixture')
     require(identity['acquired_material'] is False, 'Acquired unit material present')
     capability = one('synthetic-model-capability')
-    require(capability['model'] == 'MHO984' and capability['raw_bandwidth_enum'] == 17
-            and capability['system_bandwidth_enum'] == 17, 'Stock model capability differs')
+    require(capability['model'] == 'MHO984' and capability['raw_bandwidth_enum'] == expected_bandwidth
+            and capability['system_bandwidth_enum'] == expected_bandwidth, 'Model capability differs')
     require(one('synthetic-dna-response')['dna_hex'] == config['dna_hex'], 'DNA response differs')
     require(one('service-inventory-complete')['count'] == 49, 'Factory inventory incomplete')
     catalogs = by_kind('option-catalog')
@@ -173,6 +277,15 @@ def verify(root, config, phase):
     require(set(state) == {'before', 'after'}, 'Missing catalog checkpoint')
     before, after = state['before'], state['after']
     require(all(before[key] == after[key] for key in CATALOG if key != 5), 'Unrelated option changed')
+    if capability_mode:
+        seed_catalog = config.get('seed_catalog')
+        require(isinstance(seed_catalog, list) and len(seed_catalog) == 14,
+                'Capability seed lacks full catalog')
+        require({item['option_type']: item['option_name'] for item in seed_catalog} == CATALOG
+                and all(type(item['valid']) is bool and item['status'] == 0 for item in seed_catalog),
+                'Capability seed catalog is invalid')
+        require(all(event['options'] == seed_catalog for event in catalogs),
+                'Capability arm changed saved positive catalog')
     active = by_kind('stock-active-return')
     validators = by_kind('stock-verify-return')
     errors = [x['stock_code'] for x in by_kind('stock-sync-error')]
@@ -293,6 +406,18 @@ def verify(root, config, phase):
     private_before, private_after = snapshot_records
     counter_before = int.from_bytes(private_before.get(2336, b'\0' * 4), 'little')
     counter_after = int.from_bytes(private_after.get(2336, b'\0' * 4), 'little')
+    capability_result = {}
+    if capability_mode:
+        require(digest(key) == config.get('seed_key_sha256')
+                and lic is not None and digest(lic) == config.get('seed_license_sha256')
+                and digest(canonical) == config.get('seed_private_sha256')
+                and digest((root / 'after-model/crypto-witness.toml').read_bytes())
+                    == config.get('seed_crypto_witness_sha256'),
+                'Capability arm changed seeded key/license/private/crypto bytes')
+        require(all(digest((root / 'after-model' / Path(snap['path']).name).read_bytes())
+                    == config['seed_private_sha256'] for snap in snapshots),
+                'Capability private before/after differ from seed')
+        capability_result = verify_capability(events, config)
     return {'schema_version': 'mho900-lab.synthetic-entitlement-verification/1',
             'phase': phase, 'verification': 'accepted', 'journal_records': len(events),
             'actual_consumer_invocations_verified': consumer_count,
@@ -300,7 +425,7 @@ def verify(root, config, phase):
             'key_sha256': digest(key), 'license_sha256': digest(lic) if lic is not None else '',
             'private_sha256': digest(canonical), 'counter_before': counter_before, 'counter_after': counter_after,
             'persistence': 'harness-directed-stock-MemFile', 'automatic_fram_persistence_proven': False,
-            'physical_contact': False}
+            'physical_contact': False, **capability_result}
 
 
 def main():

@@ -2,13 +2,15 @@
 # Specimen-derived native baseline in a disposable, host-loopback-only guest.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-entitlement-baseline.sh RUN_ID FIXTURE_DIR CONTROLLER.py SOURCE.js [negative|positive]}
+run_id=${1:?Usage: run-entitlement-baseline.sh RUN_ID FIXTURE_DIR CONTROLLER.py SOURCE.js [negative|positive|capability-stock|capability-derived]}
 fixture_arg=${2:?}
 controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|negative|positive) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|negative|positive|capability-stock|capability-derived) ;; *) exit 2;; esac
+capability_mode=false
+case "$trial_mode" in capability-*) capability_mode=true;; esac
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 frida_home=${ENTITLEMENT_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19-r02"}
@@ -35,8 +37,14 @@ cp "$repo/experiments/guest-admission/inputs.toml" "$run/source/admission-inputs
 if [ "$trial_mode" != baseline ]; then
     [ -f "$fixture/synthetic.toml" ] && [ -d "$fixture/model" ] && [ -d "$fixture/art" ]
     [ -d "$fixture/rigol/data" ]
-    [ -z "$(find "$fixture/rigol" -type f -print)" ]
-    [ -z "$(find "$fixture/model" -mindepth 1 -print)" ]
+    if [ "$capability_mode" = false ]; then
+        [ -z "$(find "$fixture/rigol" -type f -print)" ]
+        [ -z "$(find "$fixture/model" -mindepth 1 -print)" ]
+    else
+        cp "$repo/tools/guest/prepare-capability-fixture.py" "$repo/tools/guest/entitlement-capability.js" "$run/source/"
+        "$python" "$run/source/prepare-capability-fixture.py" --verify-fixture "$fixture" > "$run/capability-fixture-verification.toml"
+        [ "$(yq -p toml -o yaml -r '.capability_arm' "$fixture/synthetic.toml")" = "${trial_mode#capability-}" ]
+    fi
     cp "$repo/tools/guest/compose-entitlement-phase.py" "$repo/tools/guest/prepare-synthetic-entitlement-fixture.py" \
        "$repo/tools/guest/verify-synthetic-entitlement.py" "$run/source/"
     for name in entitlement-private-store.js entitlement-consumer-observer.js entitlement-synthetic.js entitlement-art.js entitlement-baseline.js; do
@@ -73,7 +81,15 @@ if [ -d "$run/fixture/art" ]; then
     check_hash "$run/source/EntitlementHost.java" "$(yq -p toml -o yaml -r '.source_sha256' "$art_manifest")" art-source
     check_hash "$run/source/build-entitlement-art-host.sh" "$(yq -p toml -o yaml -r '.builder_sha256' "$art_manifest")" art-builder
 fi
-check_hash "$run/fixture/lib/libscope-auklet.so" 4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e stock-auklet
+native_pin=4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e
+if [ "$capability_mode" = true ]; then
+    check_hash "$run/fixture/ancestor/libscope-auklet.so" "$native_pin" stock-native-ancestor
+    if [ "$trial_mode" = capability-derived ]; then
+        native_pin=09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e
+    fi
+    [ "$(yq -p toml -o yaml -r '.expected_native_sha256' "$run/fixture/synthetic.toml")" = "$native_pin" ]
+fi
+check_hash "$run/fixture/lib/libscope-auklet.so" "$native_pin" admitted-auklet
 check_hash "$run/fixture/lib/libc++_shared.so" 28e7a3a306d7fc222c62abe08741cfcba38c3f336216c4563726bf985ae3cfd6 stock-cxx
 check_hash "$run/fixture/lib/libfftw3f.so" 52600ef8e0f4c10a97605f8f16c0fb3836b7ac20bcc2a3442647d62426c5ba9c stock-fftw
 cp "$repo/tools/guest/VerifyFridaEnvironment.main.kts" "$run/source/"
@@ -248,7 +264,12 @@ phase=fixture
 adb shell 'test ! -e /data/local/tmp/entitlement && test -d /rigol && mkdir /data/local/tmp/entitlement'
 adb push "$run/fixture/lib" /data/local/tmp/entitlement/lib > "$run/lib-push.txt" 2>&1
 adb push "$run/fixture/rigol" /data/local/tmp/entitlement/rigol > "$run/rigol-push.txt" 2>&1
-if [ "$trial_mode" != baseline ]; then
+if [ "$capability_mode" = true ]; then
+    adb push "$run/fixture/model" /data/local/tmp/entitlement/model > "$run/model-push.txt" 2>&1
+    adb pull /data/local/tmp/entitlement/model "$run/before-model" > "$run/model-roundtrip.txt" 2>&1
+    for name in private.mem crypto-witness.toml; do cmp "$run/fixture/model/$name" "$run/before-model/$name"; done
+    "$python" "$run/source/entitlement-files.py" "$run/before-model" > "$run/before-model.toml"
+elif [ "$trial_mode" != baseline ]; then
     # Empty directories are fixture semantics, not an adb push implementation assumption.
     # This executes only on the fresh userdata path, never during reload or reboot.
     adb shell 'mkdir -p /data/local/tmp/entitlement/rigol/data /data/local/tmp/entitlement/model && test -z "$(ls -A /data/local/tmp/entitlement/rigol/data)" && test -z "$(ls -A /data/local/tmp/entitlement/model)" && ls -ld /data/local/tmp/entitlement/rigol/data /data/local/tmp/entitlement/model' > "$run/fresh-directories.txt" 2>&1
@@ -257,6 +278,9 @@ fixture_staged=true
 adb shell 'mount -o bind /data/local/tmp/entitlement/rigol /rigol && cat /proc/mounts && ls -ldZ /rigol /rigol/data' > "$run/bind-mount.txt" 2>&1
 adb pull /rigol "$run/before-rigol" > "$run/before-pull.txt" 2>&1
 "$python" "$run/source/entitlement-files.py" "$run/before-rigol" > "$run/before-rigol.toml"
+if [ "$capability_mode" = true ]; then
+    for name in Key.data FlexA.lic; do cmp "$run/fixture/rigol/data/$name" "$run/before-rigol/data/$name"; done
+fi
 adb pull /data/local/tmp/entitlement/lib "$run/guest-libs" > "$run/lib-roundtrip.txt" 2>&1
 for name in libc++_shared.so libfftw3f.so libscope-auklet.so; do cmp "$run/fixture/lib/$name" "$run/guest-libs/$name"; done
 "$python" "$run/source/entitlement-files.py" "$run/guest-libs" > "$run/guest-libs.toml"
@@ -299,6 +323,11 @@ if [ "$trial_mode" != baseline ]; then
         adb pull /data/local/tmp/entitlement/model "$active_phase_dir/after-model" > "$active_phase_dir/model-pull.txt" 2>&1
         "$python" "$run/source/entitlement-files.py" "$active_phase_dir/after-rigol" > "$active_phase_dir/after-rigol.toml"
         "$python" "$run/source/entitlement-files.py" "$active_phase_dir/after-model" > "$active_phase_dir/after-model.toml"
+        if [ "$capability_mode" = true ]; then
+            adb pull /data/local/tmp/entitlement/lib/libscope-auklet.so "$active_phase_dir/native-libscope-auklet.so" > "$active_phase_dir/native-pull.txt" 2>&1
+            cmp "$run/fixture/lib/libscope-auklet.so" "$active_phase_dir/native-libscope-auklet.so"
+            shasum -a 256 "$active_phase_dir/native-libscope-auklet.so" > "$active_phase_dir/native-sha256.txt"
+        fi
         adb shell 'cat /proc/sys/kernel/random/boot_id; pidof system_server; getenforce' > "$active_phase_dir/health-after.txt"
         cmp "$active_phase_dir/health-before.txt" "$active_phase_dir/health-after.txt"
         printf 'controller_exit = %s\nphase = "%s"\nlabel = "%s"\n' "$controller_rc" "$ENTITLEMENT_PHASE" "$label" > "$active_phase_dir/result.toml"
@@ -312,8 +341,14 @@ if [ "$trial_mode" != baseline ]; then
     adb shell cat /proc/sys/kernel/random/boot_id > "$run/initial-boot-id.txt"
     if [ "$trial_mode" = negative ]; then
         run_trial_phase negative negative
+    elif [ "$trial_mode" = capability-stock ]; then
+        run_trial_phase capability reload
     else
-        run_trial_phase install positive
+        if [ "$trial_mode" = capability-derived ]; then
+            run_trial_phase capability reload
+        else
+            run_trial_phase install positive
+        fi
         run_trial_phase process-reload reload
         phase=guest-reboot
         adb shell 'kill $(pidof entitlement-frida)' > "$run/pre-reboot-frida-stop.txt" 2>&1

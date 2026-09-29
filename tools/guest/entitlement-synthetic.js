@@ -8,7 +8,9 @@ function entitlementExperiment() {
         const cfg = entitlementFixture;
         const phase = entitlementPhase;
         const checkpoint = entitlementCheckpoint;
-        if (!['negative', 'install', 'process-reload', 'reboot-reload'].includes(checkpoint)) throw new Error('Unknown checkpoint');
+        const capabilityMode = cfg.capability_experiment === true;
+        if (capabilityMode && phase !== 'reload') throw new Error('Capability comparison permits reload only');
+        if (!['negative', 'install', 'process-reload', 'reboot-reload', 'capability'].includes(checkpoint)) throw new Error('Unknown checkpoint');
         if (!['negative', 'positive', 'reload'].includes(phase)) throw new Error('Unknown phase');
         if (cfg.stock_native_sha256 !== STOCK_AUKLET_SHA256 || cfg.token_text_encoding !== 'low-nibble-first' ||
             cfg.consumer_observation_required !== true || cfg.option_type !== 5 ||
@@ -20,12 +22,15 @@ function entitlementExperiment() {
         const mod = aukletModule;
         if (mod === null || Process.arch !== 'arm64') throw new Error('ART/Auklet not ready');
         const nm = mod.name;
+        const capability = capabilityMode ? entitlementCapabilityPrepare(mod, cfg, event, invoke) : null;
+        let capabilityChecks = null;
         // Check original bytes before the consumer observer patches this entry for observation.
         const stockDecode = guarded(0x242fe8, 'ff0301d1fd7b03a9fdc30091a1831ff8', 'void', ['pointer', 'pointer', 'pointer']);
         if (typeof entitlementObserveConsumer !== 'function') throw new Error('Required consumer observer missing');
         entitlementObserveConsumer(mod, event, cfg);
         event('entitlement-phase-start', { phase: phase, identity: 'synthetic', model: cfg.model,
-            serial: cfg.serial, dna_hex: cfg.dna_hex, stock_files_unchanged: true });
+            serial: cfg.serial, dna_hex: cfg.dna_hex, stock_files_unchanged: !(capabilityMode && cfg.capability_arm === 'derived'),
+            stock_apk_unchanged: true, native_library_derived: capabilityMode && cfg.capability_arm === 'derived' });
         function fn(name, result, args) { return native(nm, name, result, args); }
         function guarded(va, bytes, result, args) {
             return checkedLocalFunction(mod, va, bytes, result, args);
@@ -142,7 +147,10 @@ function entitlementExperiment() {
         withString(cfg.model, 'synthetic-model', obj => {
             const selected = call('ApiUtility_SetModel', guarded(0x429d48, 'ff8304d1fc8300f9fd7b11a9fd430491', 'pointer', ['pointer']), [obj]);
             if (selected.isNull()) throw new Error('Model selection failed');
+            // SetModel returns row+0x40 c_str; only the observed ParseModel return identifies the row.
+            event('stock-model-setter-return', { pointer: selected.toString(), interpretation: 'selected-row-extra-field-c-string' });
         });
+        if (capability !== null) capability.selectedRecord();
         withString(cfg.serial, 'synthetic-serial', obj => {
             if (call('ApiUtility_SetSerial', guarded(0x4244fc, 'ff8300d1fd7b01a9fd430091483b00b0', 'int', ['pointer']), [obj]) !== 0) throw new Error('Serial setter failed');
         });
@@ -152,7 +160,8 @@ function entitlementExperiment() {
         const rawBandwidth = mod.base.add(0xbbcce4).readS32();
         const systemBandwidth = mod.base.add(0xbbcce8).readS32();
         event('synthetic-model-capability', { model: observedModel, raw_bandwidth_enum: rawBandwidth, system_bandwidth_enum: systemBandwidth });
-        if (rawBandwidth !== 17 || systemBandwidth !== 17) throw new Error('Unexpected stock MHO984 bandwidth');
+        const expectedBandwidth = capabilityMode ? cfg.expected_bandwidth_enum : 17;
+        if (rawBandwidth !== expectedBandwidth || systemBandwidth !== expectedBandwidth) throw new Error('Unexpected stock MHO984 bandwidth');
         call('ApiUtility_GetDNA', guarded(0x42a7dc, 'ff0302d1fd7b07a9fdc3019148d03bd5', 'void', []));
         const actualDna = requiredExport(nm, '_ZN11CApiUtility5m_DNAE').readU64();
         if (actualDna.compare(uint64('0x' + cfg.dna_hex)) !== 0) throw new Error('Stock DNA side effect differs');
@@ -256,6 +265,7 @@ function entitlementExperiment() {
         if (phase !== 'reload' && before.some(x => x.valid && ![1, 2, 3].includes(x.option_type))) {
             throw new Error('Fresh fixture has a nonbuiltin enabled option');
         }
+        if (capability !== null) capabilityChecks = capability.evaluate(utility);
         if (phase !== 'reload') {
             withString(cfg.installer_family + '-' + cfg.option_name + '@' + token, 'installer-input', obj => {
                 event('ordinary-installer-enter', { option_type: cfg.option_type, option_name: cfg.option_name, family: cfg.installer_family, token_hex: token, wire_token_hex: token, token_ciphertext_hex: tokenCiphertextHex, accepted: false, synthetic_only: true });
@@ -284,7 +294,8 @@ function entitlementExperiment() {
             checks.reload_persisted = candidate(before) && candidate(after) && activeReturns.length === 0 && verifyReturns.includes(true);
             checks.positive_license_file = actualFile === expectedFile;
         }
-        const details = { phase: phase, expected_checks: checks, catalog_before: before, catalog_after: after,
+        if (capabilityChecks !== null) Object.assign(checks, capabilityChecks);
+        const details = { phase: phase, capability_arm: capabilityMode ? cfg.capability_arm : null, expected_checks: checks, catalog_before: before, catalog_after: after,
             active_returns: activeReturns, verify_returns: verifyReturns, stock_codes: errorCodes,
             persistence_backend: 'stock-memfile-harness-directed-file', physical_contact: false };
         event('entitlement-phase-evaluation', details);
