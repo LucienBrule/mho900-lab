@@ -146,3 +146,53 @@ A valid successor may distinguish one complete read-only private file view, disj
 loaded-module extent, while retaining exact identity, loaded-segment geometry, permission and stability
 checks. Partial, writable, shared, executable, overlapping or ambiguous views must still fail. This needs a
 new reader build and explicit controls; the original build06 rejection remains correct for its contract.
+
+## Detached read established; original verifier failure retained
+
+Run `cached-identity-reader-04` (2026-09-29, 11:16:54–11:17:12 UTC) used build07, SHA-256
+`de5c56e497e786d45776ece8dab386184ea32e67f4b9e0b0990a0a9fcb8c57fc`. Host Python and compiled C controls
+accept the exact disjoint read-only file view and reject writable, shared, executable, partial, overlapping
+and duplicate alternatives. The unique loaded-module anchor and cached-data checks remain mandatory.
+
+The control restored all 11,964,416 original executable bytes and ten original executable-page permissions,
+then unloaded and detached setup. All 180 journal records matched delivery. The three negative reader cases
+rejected before memory access. The positive reader made exactly four positioned reads of 8, 16, 8 and 16
+bytes through one read-only descriptor. Both 24-byte samples matched each other and the prior setup witness.
+Process identity, backing-file identity, relevant mappings and guest policy remained stable through reading.
+No target method, attachment or target write occurred during external observation. The restored setup code
+and its separate data preparation are not part of the proposed physical observation.
+
+The controller succeeded, but the run's frozen final verifier incorrectly retained build06's binary/source
+pin. Consequently the original `result.toml` remains `runner_exit = 1`, stopped at verification. It has not
+been rewritten. A separately preserved offline audit changes those two pins to the admitted build07 and
+validates the existing artifacts without another guest run. That audit accepted restoration, addressing,
+negative cases, samples, identity, policy and build provenance. The root's 65 artifact hashes and all 75
+reader artifact hashes were also checked.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Run `result.toml` | `9fb25ec6a59d9262031d71af5ce675dda3608b97fd18fb5ebb4b68827bb17106` |
+| Run `evidence-sha256.txt` | `d8737eee2432cbdb8e835a13095c0fda6db79d2170ff8994a330921f6d4de74c` |
+| Run `reader/positive/manifest.toml` | `85065e0c13bf5c244577f5e99a8a67e9a81edae51482bb5b392040c6ad3ee456` |
+| `out/overnight/cached-reader-04-audit/verifier.py` | `8730784f02aa0645edea5716c6cdcdab90d0f60c75a68a340b0e4a9674361ec2` |
+| `out/overnight/cached-reader-04-audit/result.toml` | `7859a6df21682cdeb6aee43433da81b8b51eb6715699fcdaa2e9b5ed12d5909e` |
+
+## Decision and proposed bench question
+
+The guest establishes a bounded, independently addressed observation method. It does not establish that the
+physical kernel permits it, that physical cached values match this synthetic fixture, or that repeated
+samples form an atomic snapshot. No further synthetic permutations can settle those questions.
+
+The next proposed action, requiring renewed authorization, is one observation of the already initialized
+physical process's cached DNA and file keys. Reconfirm the isolated capture path and process identity;
+stage the frozen build07 helper in an explicitly approved temporary location; verify its bytes and the
+stock library; use existing credentials; read the two ranges twice; preserve metadata and raw samples;
+then stop. Staging and output creation are device-side filesystem writes and belong explicitly in that
+request. Do not rerun identity initialization, access mapped registers, attach instrumentation, restart ADB,
+change policy or fall back to a different memory interface. Permission denial is a result, not permission
+to escalate.
+
+Offline comparison can then ask whether original stock derivation reproduces the physical cached file keys
+and coherently decodes the already acquired Key.data. Initialized private/FRAM state, actual option-query
+semantics on the specimen, physical installation durability and feature operation remain separate questions.
+Reporting is the selected next task; no physical action is admitted by this decision.

@@ -13,8 +13,8 @@ import tempfile
 import tomllib
 
 STOCK_SHA256 = '4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e'
-READER_BUILD06_SHA256 = '2888a679e2884af821b920ee73ff399f578743d5672d81e1bc4a0aabe7b20bd4'
-READER_BUILD06_SOURCE_SHA256 = 'ef571fcbf3f3b273d327fc569c5c138d8fd3d2c86d4d255c16f7129914cbae4b'
+READER_BUILD07_SHA256 = 'de5c56e497e786d45776ece8dab386184ea32e67f4b9e0b0990a0a9fcb8c57fc'
+READER_BUILD07_SOURCE_SHA256 = '1a49ad8d0577cf4b29fa69d686df587e995fa3d9eec7cb7178689613aa657438'
 PAGE = 4096
 LIMIT = (1 << 64) - 1
 RANGES = ((0xbbccf0, 8, 0xbbbcf0), (0xbbcd1c, 16, 0xbbbd1c))
@@ -695,12 +695,12 @@ def verify(root, config):
     readings = reader_evidence(root, expected, loads)
     reader = (root / 'cached-identity-reader').read_bytes()
     require(reader == (root / 'guest-cached-identity-reader').read_bytes(), 'Staged reader differs from host binary')
-    require(sha(reader) == READER_BUILD06_SHA256, 'Strict reader changed from admitted build06')
+    require(sha(reader) == READER_BUILD07_SHA256, 'Strict reader changed from admitted build07')
     build = tomllib.loads((root / 'source/reader-build.toml').read_text())
     require(build['schema_version'] == 'mho900-lab.cached-identity-reader-build/1'
             and build['binary_sha256'] == sha(reader)
             and build['source_sha256'] == sha((root / 'source/read-cached-identity.c').read_bytes())
-            == READER_BUILD06_SOURCE_SHA256
+            == READER_BUILD07_SOURCE_SHA256
             and build['builder_sha256'] == sha((root / 'source/build-cached-identity-reader.sh').read_bytes())
             and build['inputs_sha256'] == sha((root / 'source/reader-inputs.toml').read_bytes())
             and build['compiler_sha256'] == config['compiler_sha256']
