@@ -25,7 +25,7 @@ done
 umask 077
 mkdir -p "$run/source" "$run/home" "$run/emulator-home" "$run/avds/baseline-api25.avd"
 cp "$0" "$repo/tools/guest/offline-loopback.sb" "$repo/tools/guest/test-offline-network.py" \
-    "$repo/tools/guest/entitlement-files.py" "$repo/tools/guest/stage-userdata.sh" "$run/source/"
+    "$repo/tools/guest/entitlement-files.py" "$repo/tools/guest/verify-entitlement-journal.py" "$repo/tools/guest/stage-userdata.sh" "$run/source/"
 cp "$controller_arg" "$run/source/entitlement-controller.py"
 cp "$js_arg" "$run/source/entitlement.js"
 cp "$repo/experiments/guest-baseline/inputs.toml" "$run/source/guest-inputs.toml"
@@ -77,6 +77,7 @@ boot=false
 fixture_staged=false
 phase=prepared
 controller_rc=not_run
+controller_started=false
 started=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 cleanup() {
     result=$?
@@ -98,6 +99,23 @@ cleanup() {
             "$python" "$run/source/entitlement-files.py" "$run/after-rigol" > "$run/after-rigol.toml" || result=1
         else result=1; fi
         fi
+        if [ "$controller_started" = true ]; then
+            adb pull /data/local/tmp/entitlement/events.jsonl "$run/guest-events.jsonl" > "$run/journal-pull.txt" 2>&1
+            journal_rc=$?
+            printf 'journal_required = true\njournal_pull_exit = %s\n' "$journal_rc" > "$run/journal-status.toml"
+            if [ "$journal_rc" = 0 ] && [ -s "$run/guest-events.jsonl" ]; then
+                printf 'journal_present_nonempty = true\n' >> "$run/journal-status.toml"
+            else
+                printf 'journal_present_nonempty = false\n' >> "$run/journal-status.toml"
+                result=1
+            fi
+            adb logcat -b crash -d > "$run/crash-logcat.txt" 2>&1
+            printf 'crash_logcat_exit = %s\n' "$?" >> "$run/journal-status.toml"
+            adb shell 'ls -l /data/tombstones; cat /data/local/tmp/entitlement-frida.log' > "$run/fault-context.txt" 2>&1
+            printf 'fault_context_exit = %s\n' "$?" >> "$run/journal-status.toml"
+        else
+            printf 'journal_required = false\n' > "$run/journal-status.toml"
+        fi
         adb logcat -b all -d > "$run/logcat-final.txt" 2>&1
         adb shell 'kill $(pidof entitlement-frida)' > "$run/frida-stop.txt" 2>&1
     fi
@@ -113,7 +131,7 @@ cleanup() {
     cmp "$run/fixture-before.toml" "$run/fixture-final.toml" || result=1
     "$python" "$run/source/entitlement-files.py" "$run/source" > "$run/source-final.toml"
     : > "$run/evidence-sha256.txt"
-    for artifact in "$run"/*.txt "$run"/*.toml "$run"/*.stderr "$run"/*.stdout "$run"/*.log "$run"/*.policy; do
+    for artifact in "$run"/*.txt "$run"/*.toml "$run"/*.stderr "$run"/*.stdout "$run"/*.log "$run"/*.policy "$run"/*.jsonl; do
         [ -f "$artifact" ] || continue
         [ "$artifact" != "$run/evidence-sha256.txt" ] || continue
         [ "$artifact" != "$run/result.toml" ] || continue
@@ -202,6 +220,7 @@ adb forward tcp:27045 tcp:27042 > "$run/frida-forward.txt" 2>&1
 sleep 2
 adb shell 'ps; cat /data/local/tmp/entitlement-frida.log' > "$run/frida-state.txt" 2>&1
 phase=controller
+controller_started=true
 controller_rc=0
 offline "$timeout_bin" -k 5 90 "$python" "$run/source/entitlement-controller.py" "$run/source/entitlement.js" \
     > "$run/controller.stdout" 2> "$run/controller.stderr" || controller_rc=$?

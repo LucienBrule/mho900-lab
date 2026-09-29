@@ -10,9 +10,33 @@ import json
 import os
 import pathlib
 import sys
+import stat
 import threading
 
 import frida
+
+
+STOCK_STOPS = {"runtime-dna-unavailable", "private-fram-unavailable", "unexpected-pcie-init"}
+
+
+def accepted_stop(payload):
+    if payload.get("kind") != "dependency-stop":
+        return False
+    if payload.get("reason") in STOCK_STOPS:
+        return payload.get("exit_code") == 77
+    if payload.get("reason") != "fault-control-confirmed":
+        return False
+    try:
+        expected = int(payload.get("expected_pc", ""), 16)
+        observed = int(payload.get("observed_pc", ""), 16)
+    except (ValueError, TypeError):
+        return False
+    return (payload.get("stage") == "private-arm64-null-read"
+            and payload.get("context_verified") is True
+            and expected != 0 and expected == observed
+            and payload.get("memory_address") == "0x0"
+            and payload.get("memory_operation") == "read"
+            and payload.get("exit_code") == 77)
 
 
 def main():
@@ -24,6 +48,7 @@ def main():
     done = threading.Event()
     terminal = []
     failure = []
+    script = None
 
     def record(kind, **fields):
         with lock:
@@ -36,10 +61,25 @@ def main():
             failure.append("script-error")
         if msg.get("type") == "send":
             payload = msg.get("payload", {})
-            if isinstance(payload, dict) and payload.get("kind") == "dependency-stop":
+            if isinstance(payload, dict) and payload.get("kind") in ("dependency-stop", "failure"):
                 terminal.append(payload)
-            if isinstance(payload, dict) and payload.get("kind") == "failure":
-                failure.append(payload)
+                if payload.get("kind") == "failure":
+                    failure.append(payload)
+                elif not accepted_stop(payload):
+                    failure.append("unrecognized-dependency-stop")
+                if payload.get("terminal_ack") is True:
+                    try:
+                        # The runner redirects stdout to a regular private evidence file.
+                        # Never acknowledge durability if this host sink cannot be synced.
+                        sys.stdout.flush()
+                        if not stat.S_ISREG(os.fstat(sys.stdout.fileno()).st_mode):
+                            raise RuntimeError("Terminal acknowledgement requires a regular evidence file")
+                        os.fsync(sys.stdout.fileno())
+                        script.post({"type": "terminal-ack", "sequence": payload.get("sequence")})
+                        record("terminal-acknowledged", sequence=payload.get("sequence"))
+                    except BaseException as error:
+                        failure.append("terminal-ack-failed")
+                        record("terminal-ack-failed", error=str(error))
 
     def detached(reason, crash):
         record("detached", reason=reason, crash=str(crash) if crash else None)
@@ -64,7 +104,7 @@ def main():
             failure.append("timeout")
             record("timeout", limit_seconds=60)
         record("result", dependency_stops=len(terminal), failures=failure)
-        return 0 if len(terminal) == 1 and not failure and done.is_set() else 3
+        return 0 if len(terminal) == 1 and accepted_stop(terminal[0]) and not failure and done.is_set() else 3
     finally:
         if session is not None and not session.is_detached:
             session.detach()

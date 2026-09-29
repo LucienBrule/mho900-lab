@@ -5,8 +5,8 @@
 
 const LIB_DIRECTORY = '/data/local/tmp/entitlement/lib/';
 const STOCK_AUKLET_SHA256 = '4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e';
-// Preserve the native fault for Process.setExceptionHandler; do not steal its PC/context.
-const NATIVE_OPTIONS = { exceptions: 'propagate', scheduling: 'cooperative' };
+// Keep native exceptions in the caller and preserve their Error.context before termination.
+const NATIVE_OPTIONS = { exceptions: 'steal', scheduling: 'cooperative' };
 const listeners = [];
 let sequence = 0;
 let terminating = false;
@@ -14,15 +14,24 @@ let currentCall = 'script-start';
 let aukletModule = null;
 let factoryTraceCount = 0;
 const FACTORY_TRACE_LIMIT = 96;
+const journal = new File('/data/local/tmp/entitlement/events.jsonl', 'w');
 
 function event(kind, details) {
-    send(Object.assign({ kind: kind, sequence: ++sequence, call: currentCall }, details || {}));
+    const payload = Object.assign({ kind: kind, sequence: ++sequence, call: currentCall }, details || {});
+    journal.write(JSON.stringify(payload) + '\n');
+    journal.flush();
+    send(payload);
 }
 
 function location(address) {
     if (address === undefined || address === null) return null;
     const value = ptr(address);
     const result = { address: value.toString() };
+    const owner = Process.findModuleByAddress(value);
+    if (owner !== null) {
+        result.module = owner.name;
+        result.module_offset = value.sub(owner.base).toString();
+    }
     if (aukletModule !== null && value.compare(aukletModule.base) >= 0 &&
         value.compare(aukletModule.base.add(aukletModule.size)) < 0) {
         result.auklet_offset = value.sub(aukletModule.base).toString();
@@ -30,13 +39,19 @@ function location(address) {
     return result;
 }
 
+function readableMapping(address) {
+    const range = Process.findRangeByAddress(address);
+    return range === null ? null : { base: range.base.toString(), size: range.size,
+        protection: range.protection };
+}
+
 function faultDetails(exception) {
     const details = { exception_type: exception.type || null, address: location(exception.address) };
-    if (exception.memory !== undefined) {
+    if (exception.memory !== undefined && exception.memory !== null) {
         details.memory = { operation: exception.memory.operation,
             address: location(exception.memory.address) };
     }
-    if (exception.context !== undefined) {
+    if (exception.context !== undefined && exception.context !== null) {
         const context = exception.context;
         const registers = {};
         ['pc', 'lr', 'sp', 'fp'].concat(Array.from({ length: 29 }, (_, i) => 'x' + i))
@@ -62,20 +77,40 @@ function factoryTrace(kind, details) {
 }
 
 function observeFactory(module) {
+    // Slots recovered statically from the pinned Base constructor; read targets, never replace them.
+    const slots = [
+        ['operator-new', 0xb7c3f0], ['string-copy', 0xb780a8], ['service-item-ctor', 0xb85138],
+        ['string-destructor', 0xb86ab0], ['add-item', 0xb865d8], ['operator-delete', 0xb7d9f0],
+        ['base-vtable', 0xb8e318], ['service-vector', 0xb8e0b8]
+    ];
+    slots.forEach(function (entry) {
+        const slot = module.base.add(entry[1]);
+        const target = slot.readPointer();
+        event('factory-got-slot', { name: entry[0], slot: location(slot), target: location(target),
+            target_mapping: readableMapping(target) });
+    });
     const seen = new Set();
     module.enumerateExports().filter(function (entry) {
         return entry.type === 'function' &&
-            (/^_ZN(11CApiUtility|11CApiLicense|8CApiCore|8CApiBase)C[12]E/.test(entry.name) ||
+            (/^_ZN(11CApiUtility|8CApiCore|8CApiBase|12struServItem)C[12]E/.test(entry.name) ||
+             /^_ZN8CApiBase7addItemE/.test(entry.name) ||
              /^_ZN11CApiFactory(10Api_Create|12Api_Register)E/.test(entry.name));
     }).forEach(function (entry) {
         const key = entry.address.toString();
         if (seen.has(key)) return;
         seen.add(key);
         listeners.push(Interceptor.attach(entry.address, {
-            onEnter: function () {
-                factoryTrace('factory-call-enter', { function: entry.name,
-                    target: location(entry.address), caller: location(this.returnAddress),
-                    thread_id: this.threadId });
+            onEnter: function (args) {
+                const details = { function: entry.name, target: location(entry.address),
+                    caller: location(this.returnAddress), thread_id: this.threadId };
+                if (/^_ZN8CApiBaseC[12]E/.test(entry.name)) {
+                    details.base_this = location(args[0]);
+                    details.name_object = location(args[1]);
+                    details.service_id = args[2].toInt32();
+                    details.base_mapping = readableMapping(args[0]);
+                    details.name_mapping = readableMapping(args[1]);
+                }
+                factoryTrace('factory-call-enter', details);
             },
             onLeave: function () {
                 // Constructors have no portable return value; record only that control returned.
@@ -99,13 +134,14 @@ const nativeWrite = new NativeFunction(requiredExport('libc.so', 'write'), 'long
 function stop(kind, reason, code, details) {
     if (terminating) return;
     terminating = true;
-    event(kind, Object.assign({ reason: reason, exit_code: code }, details || {}));
-    // A native stderr marker survives even if process exit races Frida's message delivery.
     const marker = 'ENTITLEMENT_BASELINE_STOP ' + kind + ' ' + reason + ' exit=' + code + '\n';
     const bytes = Memory.allocUtf8String(marker);
     event('call-enter', { function: 'libc.write', purpose: 'terminal-marker' });
     nativeWrite(2, bytes, marker.length);
-    event('call-enter', { function: 'libc._exit', exit_code: code });
+    // Terminal must be the last journal record. The controller acknowledges a durable host receipt.
+    event(kind, Object.assign({ reason: reason, exit_code: code, terminal_ack: true }, details || {}));
+    // The controller's bounded timeout terminates the process if acknowledgement never arrives.
+    recv('terminal-ack', function () {}).wait();
     nativeExit(code);
 }
 
