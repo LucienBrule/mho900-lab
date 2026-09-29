@@ -48,3 +48,20 @@ software mirrors match the physical device, or durable FRAM state. Repeated matc
 observations are non-atomic. A physical application may legitimately reject this
 conservative profile; preserve that result before choosing any narrower comparison
 or revised bound. Physical use requires its own admitted capture and isolation run.
+
+## Disposable guest result
+
+The first fresh control run passed: 26 reads, 8,184 bytes, two exact observations
+of the synthetic empty private streams. Wrong process start-time, wrong native
+pin and unmapped-range controls rejected before opening target memory. The
+broken-backlink fixture rejected after five reads totaling 236 bytes, before any
+private-window read. An independent verifier reconstructed every read from the
+retained ownership chain and decoded each private stream.
+
+The guest remained Enforcing with identical policy bytes and the same
+system_server PID. The loopback confinement control passed, and emulator/server
+teardown completed without a cleanup error. No physical specimen was contacted.
+
+Run seal: `51979ae7fa80a4a95f7ea108c90bad6de6f10f78e54dcc8c61d2324b21a0f4d6`.
+This result supports a separately admitted physical cache observation. It does
+not provide physical private-state bytes or authorize treating caches as FRAM.
