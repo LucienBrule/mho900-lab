@@ -46,3 +46,23 @@ The admitted first batch is offline reader construction and disposable-guest
 control. Physical helper staging and observation require a separate admitted
 batch after those controls pass. No entitlement installation, capability patch,
 reboot, calibration action or analog bandwidth claim follows from these words.
+
+## First control: unavailable guest utility
+
+The new reader build passed sixteen host Python controls, ten compiled-C
+mapping comparisons (one positive, nine negative), two ELF checks and two
+SHA-256 checks. The separate reader source restricts four reads to four bytes
+each. The original identity reader remains unchanged.
+
+Disposable run `out/specimen-entitlement/apk-bandwidth-reader-01` stopped
+at 13:58:21 UTC on 2026-09-29 before helper staging: guest `sha256sum` was
+unavailable (exit 127). There were no reader attempts or process-memory reads.
+The guest was terminated and its dedicated ADB server stopped. This is a setup
+precondition failure, not a passing reader control. Evidence index SHA-256:
+`4ba8acdfc30cc2fe45f5f8ebcabe6cad08cd2bb85ef1050dde971d4af5351d02`. The index covers evidence and frozen inputs; mutable emulator disk
+images and runtime home directories are excluded.
+
+The bounded successor will capture the guest policy bytes with `exec-out cat`
+and compare them on the host. It retains identical reader binary, fixed ranges,
+negative controls and guest policy; no utility installation or policy change
+is needed. Physical observation remains gated on a passing guest control.
