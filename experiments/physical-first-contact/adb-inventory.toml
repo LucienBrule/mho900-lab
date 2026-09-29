@@ -1,0 +1,16 @@
+schema_version = "mho900-lab.adb-inventory/1"
+report = "docs/research/physical-adb-inventory.md"
+private_run = "out/physical/mho984-adb-inventory-20260929T030514Z"
+manifest_sha256 = "c49e88dd742c6c11ea3fc889ae075870c3397fed0a80f5eecb620e40b9b08a61"
+capture_sha256 = "44b99de0475532757dd4550af0f18bd0ad501d22d30dd8507c9cc228b1820e02"
+adb_port = 55555
+uid = 2000
+android_release = "7.1.2"
+android_api = 25
+rigol_system_version = "1.5.3"
+observed_block_device = "/dev/block/mmcblk0"
+observed_bytes = 31299993600
+raw_acquired = false
+root_attempted = false
+lease_maintenance_authorized = true
+root_attempt_authorized_for_successor = true
