@@ -2,13 +2,17 @@
 # Specimen-derived native baseline in a disposable, host-loopback-only guest.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-entitlement-baseline.sh RUN_ID FIXTURE_DIR CONTROLLER.py SOURCE.js [negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final]}
+run_id=${1:?Usage: run-entitlement-baseline.sh RUN_ID FIXTURE_DIR CONTROLLER.py SOURCE.js [negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader]}
 fixture_arg=${2:?}
 controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+reader_mode=false
+if [ "$trial_mode" = identity-reader ]; then reader_mode=true; fi
+trial_enabled=true
+if [ "$trial_mode" = baseline ] || [ "$reader_mode" = true ]; then trial_enabled=false; fi
 capability_mode=false
 case "$trial_mode" in capability-*) capability_mode=true;; esac
 catalog_mode=false
@@ -40,7 +44,7 @@ cp "$controller_arg" "$run/source/entitlement-controller.py"
 cp "$js_arg" "$run/source/entitlement.js"
 cp "$repo/experiments/guest-baseline/inputs.toml" "$run/source/guest-inputs.toml"
 cp "$repo/experiments/guest-admission/inputs.toml" "$run/source/admission-inputs.toml"
-if [ "$trial_mode" != baseline ]; then
+if [ "$trial_enabled" = true ]; then
     [ -f "$fixture/synthetic.toml" ] && [ -d "$fixture/model" ] && [ -d "$fixture/art" ]
     [ -d "$fixture/rigol/data" ]
     if [ "$seeded_mode" = false ]; then
@@ -67,6 +71,16 @@ if [ "$trial_mode" != baseline ]; then
     done
     cp "$fixture/synthetic.toml" "$run/source/synthetic.toml"
 fi
+if [ "$reader_mode" = true ]; then
+    reader_dir=${CACHED_IDENTITY_READER_DIR:?Set CACHED_IDENTITY_READER_DIR to the frozen reader build}
+    [ -d "$fixture/art" ] && [ -z "$(find "$fixture/rigol" -type f -print)" ]
+    cp "$repo/tools/guest/read-cached-identity.c" "$repo/tools/guest/build-cached-identity-reader.sh" \
+       "$repo/tools/guest/verify-cached-identity.py" "$repo/tools/guest/cached-identity-setup.js" \
+       "$repo/tools/guest/entitlement-art.js" "$repo/tools/guest/entitlement-baseline.js" "$run/source/"
+    cp "$repo/experiments/cached-identity-reader/inputs.toml" "$run/source/reader-inputs.toml"
+    cp "$reader_dir/build-manifest.toml" "$run/source/reader-build.toml"
+    cp "$reader_dir/cached-identity-reader" "$run/cached-identity-reader"
+fi
 profile="$run/source/offline-loopback.sb"
 "$python" "$run/source/test-offline-network.py" "$profile" > "$run/network-control.toml" 2> "$run/network-control.stderr"
 "$python" "$run/source/entitlement-files.py" "$fixture" > "$run/fixture-before.toml"
@@ -78,6 +92,13 @@ check_hash() {
     actual=$(shasum -a 256 "$1"); actual=${actual%% *}
     [ "$actual" = "$2" ] || { echo "Input hash mismatch: $3" >&2; exit 2; }
 }
+if [ "$reader_mode" = true ]; then
+    reader_manifest="$run/source/reader-build.toml"
+    check_hash "$run/cached-identity-reader" "$(yq -p toml -o yaml -r '.binary_sha256' "$reader_manifest")" cached-identity-reader
+    check_hash "$run/source/read-cached-identity.c" "$(yq -p toml -o yaml -r '.source_sha256' "$reader_manifest")" reader-source
+    check_hash "$run/source/build-cached-identity-reader.sh" "$(yq -p toml -o yaml -r '.builder_sha256' "$reader_manifest")" reader-builder
+    check_hash "$run/source/reader-inputs.toml" "$(yq -p toml -o yaml -r '.inputs_sha256' "$reader_manifest")" reader-inputs
+fi
 yq -p toml -o yaml -r '.guest_files[] | [.path,.sha256] | @tsv' "$run/source/guest-inputs.toml" |
 while IFS="$(printf '\t')" read -r path expected; do check_hash "$image/$path" "$expected" "$path"; done
 yq -p toml -o yaml -r '.runtime_files[] | [.path,.sha256] | @tsv' "$run/source/guest-inputs.toml" |
@@ -125,6 +146,7 @@ export ANDROID_USER_HOME="$run/home" ANDROID_EMULATOR_HOME="$run/emulator-home" 
 export ANDROID_ADB_SERVER_PORT=5043 ADB_SERVER_SOCKET=tcp:127.0.0.1:5043 ADB_VENDOR_KEYS="$run/home"
 export ADB_MDNS=0 ADB_MDNS_AUTO_CONNECT=0
 export ENTITLEMENT_HOST="$host_mode"
+export ENTITLEMENT_ADB="$sdk/platform-tools/adb"
 export ENTITLEMENT_RUN="$run" ENTITLEMENT_ADB_PORT=5043 ENTITLEMENT_SERIAL=emulator-5582
 export ENTITLEMENT_FRIDA_ENDPOINT=127.0.0.1:27045 ENTITLEMENT_GUEST_ROOT=/data/local/tmp/entitlement
 # Every network-capable experiment process gets the same inherited child policy.
@@ -159,7 +181,7 @@ cleanup() {
         if [ "$pull_rc" = 0 ]; then
             "$python" "$run/source/entitlement-files.py" "$run/after-rigol" > "$run/after-rigol.toml" || result=1
         else result=1; fi
-        if [ "$trial_mode" != baseline ]; then
+        if [ "$trial_enabled" = true ]; then
             adb pull /data/local/tmp/entitlement/model "$run/after-model" > "$run/model-pull.txt" 2>&1
             model_rc=$?
             printf 'model_pull_exit = %s\n' "$model_rc" >> "$run/final-status.toml"
@@ -201,6 +223,9 @@ cleanup() {
     "$python" "$run/source/entitlement-files.py" "$run/source" > "$run/source-final.toml"
     if [ -d "$run/phases" ]; then
         "$python" "$run/source/entitlement-files.py" "$run/phases" > "$run/phases-final.toml" || result=1
+    fi
+    if [ -d "$run/reader" ]; then
+        "$python" "$run/source/entitlement-files.py" "$run/reader" > "$run/reader-evidence.toml" || result=1
     fi
     : > "$run/evidence-sha256.txt"
     for artifact in "$run"/*.txt "$run"/*.toml "$run"/*.stderr "$run"/*.stdout "$run"/*.log "$run"/*.policy "$run"/*.jsonl; do
@@ -285,7 +310,7 @@ if [ "$seeded_mode" = true ]; then
     "$python" "$run/source/entitlement-files.py" "$run/before-model" > "$run/before-model.toml"
     "$python" "$run/source/entitlement-files.py" "$run/fixture/model" > "$run/fixture-model.toml"
     diff -qr "$run/fixture/model" "$run/before-model"
-elif [ "$trial_mode" != baseline ]; then
+elif [ "$trial_enabled" = true ]; then
     # Empty directories are fixture semantics, not an adb push implementation assumption.
     # This executes only on the fresh userdata path, never during reload or reboot.
     adb shell 'mkdir -p /data/local/tmp/entitlement/rigol/data /data/local/tmp/entitlement/model && test -z "$(ls -A /data/local/tmp/entitlement/rigol/data)" && test -z "$(ls -A /data/local/tmp/entitlement/model)" && ls -ld /data/local/tmp/entitlement/rigol/data /data/local/tmp/entitlement/model' > "$run/fresh-directories.txt" 2>&1
@@ -308,13 +333,20 @@ if [ "$host_mode" = art ]; then
     for name in host.jar stock.apk host-build.toml; do cmp "$run/fixture/art/$name" "$run/guest-art/$name"; done
     "$python" "$run/source/entitlement-files.py" "$run/guest-art" > "$run/guest-art.toml"
 fi
+if [ "$reader_mode" = true ]; then
+    adb push "$run/cached-identity-reader" /data/local/tmp/entitlement/cached-identity-reader > "$run/reader-push.txt" 2>&1
+    adb shell chmod 700 /data/local/tmp/entitlement/cached-identity-reader > "$run/reader-chmod.txt" 2>&1
+    adb pull /data/local/tmp/entitlement/cached-identity-reader "$run/guest-cached-identity-reader" > "$run/reader-roundtrip.txt" 2>&1
+    cmp "$run/cached-identity-reader" "$run/guest-cached-identity-reader"
+    shasum -a 256 "$run/guest-cached-identity-reader" > "$run/guest-reader-sha256.txt"
+fi
 phase=instrumentation
 adb push "$run/frida-server" /data/local/tmp/entitlement-frida > "$run/frida-push.txt" 2>&1
 adb shell 'chmod 700 /data/local/tmp/entitlement-frida; nohup /data/local/tmp/entitlement-frida --disable-preload --ignore-crashes -l 127.0.0.1:27042 >/data/local/tmp/entitlement-frida.log 2>&1 </dev/null &' > "$run/frida-start.txt" 2>&1
 adb forward tcp:27045 tcp:27042 > "$run/frida-forward.txt" 2>&1
 sleep 2
 adb shell 'ps; cat /data/local/tmp/entitlement-frida.log' > "$run/frida-state.txt" 2>&1
-if [ "$trial_mode" != baseline ]; then
+if [ "$trial_enabled" = true ]; then
     run_trial_phase() {
         label=$1
         ENTITLEMENT_PHASE=$2
@@ -418,5 +450,9 @@ controller_started=true
 controller_rc=0
 offline "$timeout_bin" -k 5 90 "$python" "$run/source/entitlement-controller.py" "$run/source/entitlement.js" \
     > "$run/controller.stdout" 2> "$run/controller.stderr" || controller_rc=$?
+if [ "$reader_mode" = true ] && [ "$controller_rc" = 0 ]; then
+    phase=reader-verification
+    "$python" "$run/source/verify-cached-identity.py" "$run" "$run/source/reader-inputs.toml" > "$run/reader-verification.toml"
+fi
 phase=controller-complete
 exit "$controller_rc"
