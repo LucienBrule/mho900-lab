@@ -73,3 +73,30 @@ No installer or producer ran. All22 canonical files stayed byte-identical to
 the source; all1,035 journal records matched delivery. Guest health and exact
 known guest policy checks passed. This single-process control does not itself
 claim a new reboot test. Full seal: `7ffb39a50f36e97c9fce32e72869b7d3698b2aa869fbb83d10992a061c36101f`.
+
+## Derived complete-catalog result
+
+Run `acquired-combined-derived-01` completed at 2026-09-29T14:39:11Z. Initial,
+fresh-process and guest-reboot reloads each retained1,035 reconciled journal
+records. All ten saved licenses passed the original consumer in every phase,
+with thirty observed AES blocks per phase. No installer or token producer ran.
+
+| Observation | Stock control | Derived, all three checkpoints |
+| --- | --- | --- |
+| Public model | MHO984 | MHO984 |
+| Selected record | MHO984 | MHO984D |
+| Raw/effective enum before policy | 17 / 17 | 18 / 18 |
+| Raw/effective enum after policy | 17 / 17 | 18 / 18 |
+| Enabled entries | Ten ordinary plus three built-ins | Same |
+| BND | false | false |
+| Canonical files | 22 | Same bytes |
+
+The actual guest boot identity changed; all22 canonical files remained equal to
+the accepted final catalog seed at every checkpoint. The exact derived native
+pin and27-byte transformation passed independently, as did within-boot health
+and the established guest policy checks. Full run seal:
+`061e37557df627786c11b2abe76be4d97b992f1ced51f2d67d14a239df2a6b04`.
+
+The three accepted bandwidth-option licenses did not reduce derived enum18
+during this original option-policy path. This is software capability interaction
+evidence; physical RF response and physical installation remain untested.
