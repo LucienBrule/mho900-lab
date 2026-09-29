@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-combined-controller-repair
+    title: Admit the reload-only combined completion terminal
+    state: open
+    intent: Repair the proven host recorder classification omission without changing guest behavior.
+    requires: [TASK.guest.acquired-combined-stock]
+    requirements:
+      - Preserve the failed first stock run. Add a distinct controller completion branch limited to combined reload, complete successful required checks, thirteen true catalog entries with BND false, unchanged before/after catalog, acknowledged terminal and no physical contact.
+      - Test the retained real terminal plus missing-check, false-check, wrong-phase, changed-catalog, missing-ack and physical-contact controls. Confirm an earlier accepted catalog terminal remains accepted.
+      - Commit and push repair and tests before the fresh stock run. No fixture, native or guest semantic changes.
+    acceptance: [Host-only controls establish the bounded completion-classification repair.]
+    verification: [control, regression, scope]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-combined-stock-retry
+    title: Repeat frozen stock control with repaired recorder
+    state: open
+    intent: Obtain an independently accepted stock result under the unchanged combined fixture.
+    requires: [TASK.guest.acquired-combined-controller-repair]
+    requirements:
+      - Use a new run identity and the exact previously frozen stock fixture; run one reload-only phase. No installer or producer calls.
+      - Require the unchanged independent verifier to accept all ten original consumers, exact22canonicalfiles, complete journals, stable guest health and stock MHO98417/17 before/after option policy.
+      - Preserve any failure unchanged; seal and commit/push conclusion. Only an accepted result satisfies the existing derived-arm gate. No physical contact.
+    acceptance: [The repeated stock-control outcome and evidence are preserved.]
+    verification: [consumer, preservation, conclusion]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

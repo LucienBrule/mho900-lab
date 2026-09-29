@@ -1,0 +1,26 @@
+{
+  "protocol": "tasking/core-draft-2",
+  "id": "TASK.guest.acquired-combined-derived",
+  "title": "Observe complete acquired catalog under derived capability",
+  "state": "open",
+  "intent": "Test interaction of the complete acquired ordinary catalog with explicit capability selection.",
+  "requires": [
+    "TASK.guest.acquired-combined-stock-retry"
+  ],
+  "requirements": [
+    "Only after accepted stock control, run the separately frozen derived native copy through initial reload, fresh-process reload and actual guest reboot.",
+    "Require public MHO984, selected MHO984D row and bandwidth18/18 before/after stock option policy; require exact stock-control catalog and canonical files, all original consumers, zero installer/producer calls, precise native transformation, complete journals and stable guest health.",
+    "Preserve any failure without changing its experiment. Seal and commit/push conclusion. No physical contact and no analog performance or ordinary1GHz entitlement claim."
+  ],
+  "acceptance": [
+    "The bounded transition and evidence limits are recorded."
+  ],
+  "required_extensions": [],
+  "extensions": {},
+  "verification": [
+    "consumer",
+    "capability",
+    "persistence",
+    "preservation"
+  ]
+}
