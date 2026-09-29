@@ -12,6 +12,7 @@ import pathlib
 import sys
 import stat
 import threading
+import time
 
 import frida
 
@@ -49,6 +50,31 @@ def accepted_stop(payload):
             and payload.get("exit_code") == 77)
 
 
+class ArtHostMarker:
+    """Accept one complete stdout readiness line only from the spawned host."""
+    marker = b"ART_HOST_READY lab.mho900.guest.EntitlementHost"
+
+    def __init__(self):
+        self.pid = None
+        self.ready = threading.Event()
+        self.buffer = b""
+        self.overflow = False
+        self.lock = threading.Lock()
+
+    def feed(self, pid, fd, data):
+        with self.lock:
+            if self.pid is None or pid != self.pid or fd != 1 or self.overflow:
+                return
+            self.buffer += data
+            if len(self.buffer) > 65536:
+                self.overflow = True
+                return
+            while b"\n" in self.buffer:
+                line, self.buffer = self.buffer.split(b"\n", 1)
+                if line == self.marker:
+                    self.ready.set()
+
+
 def main():
     assert len(sys.argv) == 2, "Pass one frozen Frida JavaScript source"
     endpoint = os.environ["ENTITLEMENT_FRIDA_ENDPOINT"]
@@ -59,6 +85,7 @@ def main():
     terminal = []
     failure = []
     script = None
+    art_marker = ArtHostMarker()
 
     def record(kind, **fields):
         with lock:
@@ -97,9 +124,12 @@ def main():
             failure.append("native-crash")
         done.set()
 
+    def output(pid, fd, data):
+        record("process-output", pid=pid, fd=fd, text=data.decode("utf-8", errors="replace"))
+        art_marker.feed(pid, fd, data)
+
     device = frida.get_device_manager().add_remote_device(endpoint)
-    device.on("output", lambda pid, fd, data: record(
-        "process-output", pid=pid, fd=fd, text=data.decode("utf-8", errors="replace")))
+    device.on("output", output)
     host_mode = os.environ.get("ENTITLEMENT_HOST", "sleep")
     if host_mode == "art":
         guest_root = "/data/local/tmp/entitlement"
@@ -117,13 +147,29 @@ def main():
         record("spawned", pid=pid, host_mode=host_mode, argv=argv)
     else:
         raise ValueError("Unknown disposable guest host mode")
+    art_marker.pid = pid
     session = None
     try:
         session = device.attach(pid)
         session.on("detached", detached)
+        device.resume(pid)
+        if host_mode == "art":
+            deadline = time.monotonic() + 15
+            while not art_marker.ready.is_set() and not done.is_set() and not art_marker.overflow:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    break
+                art_marker.ready.wait(min(0.1, remaining))
+            if not art_marker.ready.is_set() or done.is_set() or art_marker.overflow:
+                failure.append("art-host-readiness-failed")
+                record("art-host-readiness-failed", pid=pid, limit_seconds=15,
+                       process_detached=done.is_set(), output_overflow=art_marker.overflow,
+                       stock_script_loaded=False)
+                record("result", dependency_stops=0, failures=failure)
+                return 3
+            record("art-host-readiness-confirmed", pid=pid, stock_script_loaded=False)
         script = session.create_script(source)
         script.on("message", message)
-        device.resume(pid)
         script.load()
         if not done.wait(60):
             failure.append("timeout")
