@@ -33,7 +33,7 @@ cp "$repo/experiments/guest-admission/inputs.toml" "$run/source/admission-inputs
 profile="$run/source/offline-loopback.sb"
 "$python" "$run/source/test-offline-network.py" "$profile" > "$run/network-control.toml" 2> "$run/network-control.stderr"
 "$python" "$run/source/entitlement-files.py" "$fixture" > "$run/fixture-before.toml"
-cp -R "$fixture" "$run/fixture"
+cp -pR "$fixture" "$run/fixture"
 "$python" "$run/source/entitlement-files.py" "$run/fixture" > "$run/fixture-copy.toml"
 cmp "$run/fixture-before.toml" "$run/fixture-copy.toml"
 image="$repo/local/guest-images/api25-default-r02/arm64-v8a"
