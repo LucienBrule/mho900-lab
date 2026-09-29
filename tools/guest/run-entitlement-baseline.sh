@@ -46,6 +46,19 @@ while IFS="$(printf '\t')" read -r path expected; do check_hash "$image/$path" "
 yq -p toml -o yaml -r '.runtime_files[] | [.path,.sha256] | @tsv' "$run/source/guest-inputs.toml" |
 while IFS="$(printf '\t')" read -r path expected; do check_hash "$sdk/$path" "$expected" "$path"; done
 check_hash "$frida_home/server" "$(yq -p toml -o yaml -r '.frida.server_sha256' "$run/source/admission-inputs.toml")" frida-server
+host_mode=sleep
+if [ -d "$run/fixture/art" ]; then
+    host_mode=art
+    art_manifest="$run/fixture/art/host-build.toml"
+    [ -f "$art_manifest" ]
+    [ "$(yq -p toml -o yaml -r '.schema_version' "$art_manifest")" = mho900-lab.entitlement-art-host/1 ]
+    [ "$(yq -p toml -o yaml -r '.main_class' "$art_manifest")" = lab.mho900.guest.EntitlementHost ]
+    check_hash "$run/fixture/art/host.jar" "$(yq -p toml -o yaml -r '.host_sha256' "$art_manifest")" art-host
+    check_hash "$run/fixture/art/stock.apk" 6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b stock-apk
+    cp "$repo/tools/guest/art-host/EntitlementHost.java" "$repo/tools/guest/build-entitlement-art-host.sh" "$run/source/"
+    check_hash "$run/source/EntitlementHost.java" "$(yq -p toml -o yaml -r '.source_sha256' "$art_manifest")" art-source
+    check_hash "$run/source/build-entitlement-art-host.sh" "$(yq -p toml -o yaml -r '.builder_sha256' "$art_manifest")" art-builder
+fi
 check_hash "$run/fixture/lib/libscope-auklet.so" 4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e stock-auklet
 check_hash "$run/fixture/lib/libc++_shared.so" 28e7a3a306d7fc222c62abe08741cfcba38c3f336216c4563726bf985ae3cfd6 stock-cxx
 check_hash "$run/fixture/lib/libfftw3f.so" 52600ef8e0f4c10a97605f8f16c0fb3836b7ac20bcc2a3442647d62426c5ba9c stock-fftw
@@ -66,6 +79,7 @@ shasum -a 256 "$ramdisk" "$run/source/"* "$python" "$run/frida-server" > "$run/i
 export ANDROID_USER_HOME="$run/home" ANDROID_EMULATOR_HOME="$run/emulator-home" ANDROID_AVD_HOME="$run/avds"
 export ANDROID_ADB_SERVER_PORT=5043 ADB_SERVER_SOCKET=tcp:127.0.0.1:5043 ADB_VENDOR_KEYS="$run/home"
 export ADB_MDNS=0 ADB_MDNS_AUTO_CONNECT=0
+export ENTITLEMENT_HOST="$host_mode"
 export ENTITLEMENT_RUN="$run" ENTITLEMENT_ADB_PORT=5043 ENTITLEMENT_SERIAL=emulator-5582
 export ENTITLEMENT_FRIDA_ENDPOINT=127.0.0.1:27045 ENTITLEMENT_GUEST_ROOT=/data/local/tmp/entitlement
 # Every network-capable experiment process gets the same inherited child policy.
@@ -148,6 +162,7 @@ controller_exit = "$controller_rc"
 runner_exit = $result
 original_exit = $original_exit
 physical_contact = false
+host_mode = "$host_mode"
 RESULT
     shasum -a 256 "$run/result.toml" >> "$run/evidence-sha256.txt" || result=1
     cat "$run/result.toml"
@@ -213,6 +228,12 @@ adb pull /data/local/tmp/entitlement/lib "$run/guest-libs" > "$run/lib-roundtrip
 for name in libc++_shared.so libfftw3f.so libscope-auklet.so; do cmp "$run/fixture/lib/$name" "$run/guest-libs/$name"; done
 "$python" "$run/source/entitlement-files.py" "$run/guest-libs" > "$run/guest-libs.toml"
 adb exec-out cat /sys/fs/selinux/policy > "$run/selinux-before.policy"
+if [ "$host_mode" = art ]; then
+    adb push "$run/fixture/art" /data/local/tmp/entitlement/art > "$run/art-push.txt" 2>&1
+    adb pull /data/local/tmp/entitlement/art "$run/guest-art" > "$run/art-roundtrip.txt" 2>&1
+    for name in host.jar stock.apk host-build.toml; do cmp "$run/fixture/art/$name" "$run/guest-art/$name"; done
+    "$python" "$run/source/entitlement-files.py" "$run/guest-art" > "$run/guest-art.toml"
+fi
 phase=instrumentation
 adb push "$run/frida-server" /data/local/tmp/entitlement-frida > "$run/frida-push.txt" 2>&1
 adb shell 'chmod 700 /data/local/tmp/entitlement-frida; nohup /data/local/tmp/entitlement-frida --disable-preload --ignore-crashes -l 127.0.0.1:27042 >/data/local/tmp/entitlement-frida.log 2>&1 </dev/null &' > "$run/frida-start.txt" 2>&1

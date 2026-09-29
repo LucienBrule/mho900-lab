@@ -24,6 +24,16 @@ def accepted_stop(payload):
         return False
     if payload.get("reason") in STOCK_STOPS:
         return payload.get("exit_code") == 77
+    if payload.get("reason") == "art-readiness-confirmed":
+        return (payload.get("stage") == "stock-api-jni-readiness"
+                and payload.get("exit_code") == 77
+                and payload.get("java_vm_verified") is True
+                and payload.get("api_class_loaded") is True
+                and payload.get("stock_factory_called") is False
+                and payload.get("callback_substitution") is False
+                and payload.get("get_env_return") == 0
+                and all(payload.get(name) is True for name in (
+                    "environment_present", "class_global_present", "redraw_method_present", "error_method_present")))
     if payload.get("reason") != "fault-control-confirmed":
         return False
     try:
@@ -90,8 +100,23 @@ def main():
     device = frida.get_device_manager().add_remote_device(endpoint)
     device.on("output", lambda pid, fd, data: record(
         "process-output", pid=pid, fd=fd, text=data.decode("utf-8", errors="replace")))
-    pid = device.spawn(["/system/bin/sleep", "120"])
-    record("spawned", pid=pid)
+    host_mode = os.environ.get("ENTITLEMENT_HOST", "sleep")
+    if host_mode == "art":
+        guest_root = "/data/local/tmp/entitlement"
+        environment = {
+            "CLASSPATH": guest_root + "/art/host.jar:" + guest_root + "/art/stock.apk",
+            "LD_LIBRARY_PATH": guest_root + "/lib",
+        }
+        argv = ["/system/bin/app_process64", "-Djava.library.path=" + guest_root + "/lib",
+                "/system/bin", "lab.mho900.guest.EntitlementHost"]
+        pid = device.spawn(argv, env=environment, stdio="pipe")
+        record("spawned", pid=pid, host_mode=host_mode, argv=argv, environment=environment)
+    elif host_mode == "sleep":
+        argv = ["/system/bin/sleep", "120"]
+        pid = device.spawn(argv, stdio="pipe")
+        record("spawned", pid=pid, host_mode=host_mode, argv=argv)
+    else:
+        raise ValueError("Unknown disposable guest host mode")
     session = None
     try:
         session = device.attach(pid)

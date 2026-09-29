@@ -31,6 +31,20 @@ def control_terminal(value):
             and expected != 0 and expected == observed)
 
 
+def art_terminal(value):
+    return (value.get('kind') == 'dependency-stop'
+            and value.get('reason') == 'art-readiness-confirmed'
+            and value.get('stage') == 'stock-api-jni-readiness'
+            and value.get('exit_code') == 77
+            and value.get('java_vm_verified') is True
+            and value.get('api_class_loaded') is True
+            and value.get('stock_factory_called') is False
+            and value.get('callback_substitution') is False
+            and value.get('get_env_return') == 0
+            and all(value.get(name) is True for name in (
+                'environment_present', 'class_global_present', 'redraw_method_present', 'error_method_present')))
+
+
 def validate(journal, host, expectation):
     if [record.get('sequence') for record in journal] != list(range(1, len(journal) + 1)):
         raise ValueError('Journal sequence must start at one and remain contiguous')
@@ -67,7 +81,10 @@ def validate(journal, host, expectation):
     if expectation == 'control':
         if not verified_control or not terminal_delivered or not acknowledged:
             raise ValueError('Known-fault control requires matching context, delivered terminal and host ack')
-    elif terminal.get('reason') == 'fault-control-confirmed':
+    elif expectation == 'art-readiness':
+        if not art_terminal(terminal) or not terminal_delivered or not acknowledged:
+            raise ValueError('ART readiness requires real JNI witnesses, delivered terminal and host ack')
+    elif terminal.get('reason') in ('fault-control-confirmed', 'art-readiness-confirmed'):
         raise ValueError('A private control cannot stand in for the stock diagnostic')
     return {
         'schema_version': 'mho900-lab.entitlement-journal-verification/1',
@@ -81,6 +98,7 @@ def validate(journal, host, expectation):
         'terminal_delivered': terminal_delivered,
         'terminal_acknowledged': acknowledged,
         'known_fault_control_verified': expectation == 'control' and verified_control,
+        'art_readiness_verified': expectation == 'art-readiness' and art_terminal(terminal),
         'stock_failure_observed': terminal.get('kind') == 'failure',
         'stock_dependency_stop_observed': expectation == 'stock' and terminal.get('kind') == 'dependency-stop',
         'entitlement_success_claimed': False,
@@ -91,7 +109,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('journal', type=Path)
     parser.add_argument('controller', type=Path)
-    parser.add_argument('--expect', required=True, choices=('control', 'stock'))
+    parser.add_argument('--expect', required=True, choices=('control', 'stock', 'art-readiness'))
     args = parser.parse_args()
     for key, value in validate(records(args.journal), records(args.controller), args.expect).items():
         print(f'{key} = {json.dumps(value)}')

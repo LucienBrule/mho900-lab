@@ -149,6 +149,7 @@ function invoke(label, fn, args) {
     currentCall = label;
     event('call-enter', { function: label });
     const result = fn.apply(null, args || []);
+    if (typeof entitlementArtCheckJavaException === 'function') entitlementArtCheckJavaException(label);
     event('call-return', { function: label, result: result === undefined ? null : String(result) });
     return result;
 }
@@ -182,6 +183,17 @@ function loadLibrary(name) {
     return module;
 }
 
+function installProcessObservers() {
+    Process.setExceptionHandler(function (exception) {
+        stop('failure', 'native-exception', 78, faultDetails(exception));
+        return false;
+    });
+    ['abort', '__assert2', '__stack_chk_fail'].forEach(function (name) {
+        const address = Module.findExportByName('libc.so', name);
+        if (address !== null) observeStop(address, 'native-' + name);
+    });
+}
+
 function main() {
     try {
         if (Process.arch !== 'arm64' || Process.pointerSize !== 8) {
@@ -192,15 +204,6 @@ function main() {
             input_hash_validation: 'controller-required',
             pid: Process.id,
             mode: 'stock-native-construction-then-dna-stop'
-        });
-
-        Process.setExceptionHandler(function (exception) {
-            stop('failure', 'native-exception', 78, faultDetails(exception));
-            return false;
-        });
-        ['abort', '__assert2', '__stack_chk_fail'].forEach(function (name) {
-            const address = Module.findExportByName('libc.so', name);
-            if (address !== null) observeStop(address, 'native-' + name);
         });
 
         loadLibrary('libc++_shared.so');
@@ -289,4 +292,8 @@ function main() {
     }
 }
 
-setImmediate(main);
+setImmediate(function () {
+    installProcessObservers();
+    if (typeof entitlementArtStart === 'function') entitlementArtStart(main);
+    else main();
+});
