@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+"""Independently audit and seal the exact older-private-state acquired catalog contrast."""
+import argparse
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import tomllib
+import sys
+sys.dont_write_bytecode=True
+
+
+def digest(p):
+    with p.open('rb') as f: return hashlib.file_digest(f,'sha256').hexdigest()
+
+
+def load(name):
+    s=importlib.util.spec_from_file_location(name,Path(__file__).with_name(name+'.py'))
+    m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    assert not a.output.exists();r=a.run
+    cfg=tomllib.loads((r/'source/synthetic.toml').read_text());result=tomllib.loads((r/'result.toml').read_text())
+    assert result['runner_exit']==result['original_exit']==0 and result['stopped_phase']=='trial-complete' and result['physical_contact'] is False
+    assert (r/'fixture-before.toml').read_bytes()==(r/'fixture-final.toml').read_bytes()
+    v=load('verify-acquired-stale-private');prep=load('prepare-acquired-stale-private');prep.verify_fixture(r/'fixture')
+    arm=cfg['capability_arm']
+    assert result['trial_mode']=='acquired-stale-private' and arm=='stock'
+    phases=[('capability','reload')]
+    if arm=='derived':phases += [('process-reload','reload'),('reboot-reload','reload')]
+    previous=None;counts=[];calls=[];enabled=[]
+    for label,phase in phases:
+        d=r/'phases'/label;verdict=v.verify(d,cfg,phase);assert verdict['verification']=='accepted'
+        counts.append(len((d/'guest-events.jsonl').read_text().splitlines()));calls.append(verdict['ordinary_install_calls'])
+        events=[json.loads(l) for l in (d/'guest-events.jsonl').read_text().splitlines()]
+        after=next(e['options'] for e in events if e['kind']=='option-catalog' and e['checkpoint']=='after')
+        names=[e['option_name'] for e in after if e['valid']]
+        assert not enabled or enabled==names;enabled=names
+        files={}
+        for folder in ('rigol','model'):
+            for f in sorted((d/('after-'+folder)).rglob('*')):
+                if f.is_file() and (folder=='rigol' or f.name=='private.mem' or f.name.startswith('crypto-')):
+                    files[folder+'/'+str(f.relative_to(d/('after-'+folder)))]=digest(f)
+        assert previous is None or previous==files,'Canonical persistent state changed'
+        previous=files
+    assert len(previous)==22 and previous=={item['path']:item['sha256'] for item in cfg['seed_files']}
+    reboot=arm=='derived'
+    assert calls==([0,0,0] if reboot else [0])
+    if reboot:assert (r/'initial-boot-id.txt').read_bytes()!=(r/'reboot-boot-id.txt').read_bytes()
+    index=r/'sealed-sha256.txt'
+    if index.exists():
+        for line in index.read_text().splitlines():
+            h,n=line.split(maxsplit=1);assert digest(r/n)==h
+    else:
+        files=sorted(f for f in r.rglob('*') if f.is_file() and not f.is_symlink())
+        index.write_text(''.join(digest(f)+'  '+str(f.relative_to(r))+'\n' for f in files))
+    summary=dict(schema_version=1,run_id=r.name,arm='older-private',
+                 started_at=result['started_at'],finished_at=result['finished_at'],verification='accepted',
+                 journal_counts=counts,installer_calls=calls,enabled_catalog=enabled,guest_reboot_observed=reboot,
+                 canonical_files_identical_across_reload=reboot,canonical_file_count=len(previous),
+                 raw_bandwidth_enum=cfg['expected_bandwidth_enum'],effective_bandwidth_enum=cfg['expected_bandwidth_enum'],physical_contact=False,
+                 source_seal=cfg['source_combined_seal'],stock_control_seal=cfg['source_stock_control_seal'],
+                 private_before_sha256=cfg['stale_private_before_sha256'],private_after_sha256=cfg['stale_private_after_sha256'],
+                 changed_input_record_ids=[16192],unchanged_other_input_files=21,seal_sha256=digest(index),auditor_sha256=digest(Path(__file__)))
+    a.output.write_text('\n'.join(k+' = '+json.dumps(val) for k,val in summary.items())+'\n')
+    print(json.dumps(summary))
+
+
+if __name__=='__main__':main()
