@@ -1,0 +1,206 @@
+--- read-cached-identity.c
++++ read-apk-cached-identity.c
+@@ -8,6 +8,9 @@
+ #define DNA 0xbbccf0UL
+ #define KEYS 0xbbcd1cUL
+ #define LIB_SIZE 12453760UL
++#define APK_SIZE 38166679UL
++#define APK_OFFSET 0xf05000UL
++#define APK_PIN "6a08d97ff903e97c1c99792b69eef9b0a3bec0b43fe348e4af93861673bbec6b"
+ #define MAP_CAP 1048576UL
+ static U length(const char *s) {
+   U n = 0;
+@@ -244,75 +247,59 @@
+   return r->maj == major && r->min == minor && r->ino == ino &&
+          r->path_n == length(path) && equal(r->path, path, r->path_n);
+ }
++/* APK-backed mode pins the complete container. Other entries share its inode. */
+ static int resolve_maps_ranges(const char *text, const char *path, U dev, U ino,
+                                U *bias, U dna_va, U keys_va) {
+-  U found = 0, b = 0, previous_end = 0;
++  U found = 0, b = 0, previous = 0;
+   const char *p = text;
+   while (*p) {
+     struct row r;
+-    if (!row_parse(p, &r) || r.lo < previous_end)
+-      return 0;
+-    previous_end = r.hi;
+-    if (row_file(&r, path, dev, ino) && r.off == 0 && same(r.perm, "r-xp")) {
+-      if (found++)
+-        return 0;
++    if (!row_parse(p, &r) || r.lo < previous) return 0;
++    previous = r.hi;
++    if (row_file(&r, path, dev, ino) && r.off == APK_OFFSET && same(r.perm, "r-xp")) {
++      if (found++) return 0;
+       b = r.lo;
+     }
+-    while (*p && *p != '\n')
+-      p++;
+-    if (*p)
+-      p++;
+-  }
+-  if (found != 1 || b > ~0UL - 0x3cb5000)
+-    return 0;
+-  U dna = 0, keys = 0, count = 0, file_views = 0;
++    while (*p && *p != '\n') p++;
++    if (*p) p++;
++  }
++  if (found != 1 || b > ~0UL - 0x3cb5000 || dna_va != DNA || keys_va != KEYS) return 0;
++  U dna = 0, keys = 0, rx_pages = 0, data_pages = 0;
+   p = text;
+   while (*p) {
+     struct row r;
+-    if (!row_parse(p, &r))
+-      return 0;
+-    int identity =
+-        r.ino == ino &&
+-        r.maj == (((dev >> 8) & 0xfff) | ((dev >> 32) & 0xfffff000)) &&
+-        r.min == ((dev & 255) | ((dev >> 12) & 0xffffff00));
++    if (!row_parse(p, &r)) return 0;
++    int identity = r.ino == ino &&
++      r.maj == (((dev >> 8) & 0xfff) | ((dev >> 32) & 0xfffff000)) &&
++      r.min == ((dev & 255) | ((dev >> 12) & 0xffffff00));
+     int named = r.path_n == length(path) && equal(r.path, path, r.path_n);
+-    if (identity || named) {
+-      if (!row_file(&r, path, dev, ino) || r.perm[0] != 'r' || r.perm[3] != 'p')
+-        return 0;
++    int deleted = r.path_n == length(path) + 10 && equal(r.path, path, length(path)) &&
++      equal(r.path + length(path), " (deleted)", 10);
++    if (identity || named || deleted) {
++      if (!row_file(&r, path, dev, ino)) return 0;
+       U size = r.hi - r.lo;
+-      /* PT_LOAD page geometry: data VAs are file offsets plus 0x1000.
+-       * Anchor bias in the executable offset-zero row, then validate every
+-       * same-inode/path row, including the split RELRO mapping. */
+-      int rx = r.off < 0xb69000 && size <= 0xb69000 - r.off &&
+-               r.lo == b + r.off && r.perm[1] == '-' &&
+-               (r.perm[2] == 'x' || r.perm[2] == '-');
+-      int rw = r.off >= 0xb68000 && r.off < 0xbe0000 &&
+-               size <= 0xbe0000 - r.off && r.lo == b + r.off + 4096 &&
+-               r.perm[2] == '-' && (r.perm[1] == 'w' || r.perm[1] == '-');
+-      if (!rx && !rw) {
+-        int view = same(r.perm, "r--p") && r.off == 0 &&
+-                   size == ((LIB_SIZE + 4095) & ~4095UL) &&
+-                   (r.hi <= b || r.lo >= b + 0x3cb5000);
+-        if (!view || ++file_views > 1)
+-          return 0;
+-      }
+-      count++;
+-      if (rw && same(r.perm, "rw-p")) {
+-        if (b + dna_va >= r.lo && b + dna_va + 8 <= r.hi &&
+-            r.off + b + dna_va - r.lo == 0xbbbcf0)
+-          dna++;
+-        if (b + keys_va >= r.lo && b + keys_va + 16 <= r.hi &&
+-            r.off + b + keys_va - r.lo == 0xbbbd1c)
+-          keys++;
+-      }
+-    }
+-    while (*p && *p != '\n')
+-      p++;
+-    if (*p)
+-      p++;
+-  }
+-  if (count < 2 || dna != 1 || keys != 1)
+-    return 0;
++      if (r.off > ~0UL - size) return 0;
++      U end = r.off + size;
++      if (r.off < APK_OFFSET + ((LIB_SIZE + 4095) & ~4095UL) && end > APK_OFFSET) {
++        if (r.off < APK_OFFSET || end > APK_OFFSET + ((LIB_SIZE + 4095) & ~4095UL)) return 0;
++        U off = r.off - APK_OFFSET;
++        int rx = off < 0xb69000 && size <= 0xb69000 - off &&
++          r.lo == b + off && same(r.perm, "r-xp");
++        int data = off >= 0xb68000 && off < 0xbe0000 && size <= 0xbe0000 - off &&
++          r.lo == b + off + 4096 && (same(r.perm, "r--p") || same(r.perm, "rw-p"));
++        if (!rx && !data) return 0;
++        if (rx) rx_pages += size / 4096;
++        if (data) data_pages += size / 4096;
++        if (data && same(r.perm, "rw-p")) {
++          if (b + dna_va >= r.lo && b + dna_va + 8 <= r.hi && off + b + dna_va - r.lo == 0xbbbcf0) dna++;
++          if (b + keys_va >= r.lo && b + keys_va + 16 <= r.hi && off + b + keys_va - r.lo == 0xbbbd1c) keys++;
++        }
++      } else if (!(r.hi <= b || r.lo >= b + 0x3cb5000)) return 0;
++    }
++    while (*p && *p != '\n') p++;
++    if (*p) p++;
++  }
++  if (rx_pages != 0xb69 || data_pages != 0x78 || dna != 1 || keys != 1) return 0;
+   *bias = b;
+   return 1;
+ }
+@@ -396,7 +383,7 @@
+ static int accepted, repeat_ok, identity_ok, maps_ok, file_ok, evidence_error,
+     full_maps_changed;
+ static S outfd = -1, libfd = -1, memfd = -1;
+-static char libhash[65], hash1[65], hash2[65], boot_first[128], boot_last[128];
++static char apkhash[65], libhash[65], hash1[65], hash2[65], boot_first[128], boot_last[128];
+ static struct stat64 sb, sa;
+ static U start_first, start_last;
+ static B sample[2][24];
+@@ -617,16 +604,16 @@
+   }
+   return stat_equal(&sb, &sa) && stat_equal(&sb, &pathstat);
+ }
+-static int filehash(char *out) {
++static int rangehash(char *out, U origin, U size) {
+   struct sha s;
+   B buf[16384];
+   U off = 0;
+   sha_init(&s);
+-  while (off < LIB_SIZE) {
+-    U want = LIB_SIZE - off;
++  while (off < size) {
++    U want = size - off;
+     if (want > sizeof buf)
+       want = sizeof buf;
+-    S r = call(67, (U)libfd, (U)buf, want, off, 0, 0);
++    S r = call(67, (U)libfd, (U)buf, want, origin + off, 0, 0);
+     if (r != (S)want) {
+       err = r < 0 ? -r : 5;
+       return 0;
+@@ -637,6 +624,7 @@
+   sha_end(&s, out);
+   return 1;
+ }
++static int filehash(char *out) { return rangehash(out, APK_OFFSET, LIB_SIZE); }
+ static void statfields(const struct stat64 *s, const char *suffix) {
+   const char *names[] = {"device", "inode",      "mode",  "size",
+                          "mtime",  "mtime_nsec", "ctime", "ctime_nsec"};
+@@ -669,6 +657,9 @@
+   strfield("boot_id_before", boot_first);
+   strfield("boot_id_after", boot_last);
+   strfield("library_sha256", libhash);
++  strfield("backing_apk_sha256", apkhash);
++  numfield("embedded_elf_offset", APK_OFFSET);
++  numfield("embedded_elf_size", LIB_SIZE);
+   strfield(
+       "expected_library_sha256",
+       same(mode, "wrong-pin")
+@@ -779,9 +770,10 @@
+   r = call(80, (U)libfd, (U)&sb, 0, 0, 0, 0);
+   if (r < 0)
+     err = -r;
+-  REQUIRE(r == 0 && (sb.mode & 0170000) == 0100000 && sb.size == LIB_SIZE,
++  REQUIRE(r == 0 && (sb.mode & 0170000) == 0100000 && sb.size == APK_SIZE,
+           "library-stat");
+   copy(&sa, &sb, sizeof sb);
++  REQUIRE(rangehash(apkhash, 0, APK_SIZE) && same(apkhash, APK_PIN), "apk-hash");
+   REQUIRE(filehash(libhash), "library-hash");
+   REQUIRE(same(libhash, same(mode, "wrong-pin")
+                             ? "000000000000000000000000000000000000000000000000"
+@@ -790,7 +782,7 @@
+           "library-hash");
+   REQUIRE(!same(mode, "wrong-pin"), "negative-control-unexpected-pass");
+   B header[512];
+-  r = call(67, (U)libfd, (U)header, sizeof header, 0, 0, 0);
++  r = call(67, (U)libfd, (U)header, sizeof header, APK_OFFSET, 0, 0);
+   REQUIRE(r == sizeof header && validate_elf(header, sizeof header),
+           "library-elf");
+   REQUIRE(resolve_maps_ranges(maps0, libpath, sb.dev, sb.ino, &bias,
+@@ -860,6 +852,7 @@
+   char finalhash[65];
+   REQUIRE(filehash(finalhash) && same(finalhash, libhash) && filecheck(),
+           "library-final-hash");
++  REQUIRE(rangehash(finalhash, 0, APK_SIZE) && same(finalhash, APK_PIN) && filecheck(), "apk-final-hash");
+   accepted = 1;
+   stage = "complete";
+   finish();

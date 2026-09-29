@@ -58,3 +58,33 @@ opens only local files and never connects to a device.
 
 Run: `out/overnight/apk-geometry-01/result.toml`.
 Result SHA-256: `84108632710dff967fd9708efebd38873d3d88748ca8555c280829006c3bd0d8`.
+
+## Native reader build control
+
+`build-apk-cached-reader.sh` applies a separately reviewed patch to the pinned standalone-reader source;
+the original source and build07 artifacts remain unchanged. The derived reader pins the entire APK and
+embedded ELF before and after observation. Its fixed entry offset belongs to that exact APK hash; it is
+not a generic device-side ZIP parser. All APK mappings retain stable path/device/inode checks, while only
+entry-relative load segments determine the Auklet bias. Full segment coverage and the fixed cached-range
+permissions remain mandatory. The process read budget stays four reads totaling 48 bytes.
+
+The host-compiled C resolver agrees with the Python verifier on one positive physical-map case and nine
+mapping negatives. Two C ELF-header controls and two C SHA-256 comparisons also pass. The sixteen Python
+archive/mapping controls pass unchanged. A wrong-entry-offset test is Python-only because the C reader's
+entry offset is compiled into its pinned-container contract.
+
+The disposable native fixture maps original stock APK pages privately and writes only declared synthetic
+cached values into those private pages. It also maps another APK entry under the same inode. No stock code
+runs and no instrument initialization is called. This isolates the container-backed read mechanism from
+application initialization. A guest run is still required; host controls are not a process-read result.
+
+Build: `out/overnight/apk-reader-build-01`. Synthetic expected bytes are `10` through `17` for DNA and
+`20` through `2f` for file keys, in byte order. These are fixture values, not a specimen identity.
+
+| Build artifact | SHA-256 |
+| --- | --- |
+| `read-apk-cached-identity` | `4c1dd59391117311072a659514185867b69c524fe8e75302db7f086b9190316d` |
+| `read-apk-cached-identity.c` | `b3bd494cff5c8d94c73d0c1532bb47967964478c683a270824d79dc365c5ef68` |
+| `apk-cached-mapping-fixture` | `8374be497d60df2898ebce422ce82338a552d86082e58abcb6ed6e411981af4f` |
+| `build.toml` | `2f25a0f7d6b6c81ea621fe0873fd0f08dcb22a245dfedf562f35657d57bc11b4` |
+| `host-controls.toml` | `a4b8d1b15917089b638511c0f89a98d9f6a87eb096e08c27f97f1688c4ca84ec` |
