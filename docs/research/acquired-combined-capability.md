@@ -59,3 +59,17 @@ The controller repair accepted the retained combined terminal and the earlier
 catalog terminal, and rejected twelve invalid variants. Guest fixture and native
 bytes were unchanged. Repair-control seal: `c9ff4897e0be5560e9ac6eafe001f45f45dfc4104d677d14e28812d1760f2f72`. The original failed
 run remains failed; a fresh stock control is required.
+
+## Accepted stock control
+
+Run `acquired-combined-stock-02` completed at 2026-09-29T14:36:55Z. All fourteen
+original initialization consumers were observed: ten saved licenses passed
+through thirty AES blocks, and four absent-license consumers returned false.
+The queried catalog has thirteen true entries and BND false. Public identity
+remains MHO984; selected stock row and raw/effective bandwidth remain17/17
+before and after original option policy.
+
+No installer or producer ran. All22 canonical files stayed byte-identical to
+the source; all1,035 journal records matched delivery. Guest health and exact
+known guest policy checks passed. This single-process control does not itself
+claim a new reboot test. Full seal: `7ffb39a50f36e97c9fce32e72869b7d3698b2aa869fbb83d10992a061c36101f`.

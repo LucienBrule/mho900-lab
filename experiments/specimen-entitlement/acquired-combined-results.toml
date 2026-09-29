@@ -1,0 +1,20 @@
+schema_version = 1
+physical_contact = false
+
+[[runs]]
+run_id = "acquired-combined-stock-02"
+arm = "stock"
+started_at = "2026-09-29T14:36:27Z"
+finished_at = "2026-09-29T14:36:55Z"
+verification = "accepted"
+journal_counts = [1035]
+installer_calls = [0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU03T05", "BWU03T08", "BWU05T08"]
+guest_reboot_observed = false
+canonical_files_identical_across_reload = false
+canonical_file_count = 22
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "0724e39fbfb4e2d320b2c4c48d6243f8b566d63a47d2049ab7fb9f1118758781"
+seal_sha256 = "7ffb39a50f36e97c9fce32e72869b7d3698b2aa869fbb83d10992a061c36101f"
+auditor_sha256 = "ac2705ecba5f4e15284d7586d563de80d11e588deb4f2d26086b2896e1136470"
