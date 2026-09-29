@@ -1,0 +1,12 @@
+schema_version = "mho900-lab.recorder-control/1"
+private_run = "out/physical/host-recorder-control-20260929T022423Z"
+manifest_sha256 = "17e2a1a59df125749a826c36bcf75e1a737960f2ee35eafef22cdb8a3ce9a9dd"
+report = "docs/research/recorder-shutdown-control.md"
+report_sha256 = "1da0a0a4812d5fdffafd78aa11196e8f582f5c66f299e0e79bdf8ff662a055f5"
+negative_control_reproduced = true
+positive_controls = 3
+positive_exit_codes = [0, 0, 0]
+positive_stored_frames = [3, 3, 3]
+positive_filter_counts = [3, 5, 3]
+positive_kernel_drops = [0, 0, 0]
+physical_interface_access = false
