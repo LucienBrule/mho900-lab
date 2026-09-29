@@ -387,7 +387,11 @@ def verify(root, cfg, phase):
                              if private_before.get(key) != private_after.get(key))
     candidate_record = 2304 + candidate_id
     if phase == 'positive':
-        require(set(private_changes) <= {2309,2336,16192} and 2309 in private_after, 'Unexpected installation private state delta')
+        require(private_changes == [16192]
+                and set(private_before) == {2337}
+                and set(private_after) == {2337, 16192}
+                and len(private_after[16192]) == 8,
+                'Permanent installation private state differs from key-backup plus saved-time contract')
     require(private_after.get(2337) == bytes.fromhex(cfg['key_ciphertext_hex']), 'Private acquired key backup differs')
     if phase == 'negative':
         require(candidate_record not in private_before and candidate_record in private_changes

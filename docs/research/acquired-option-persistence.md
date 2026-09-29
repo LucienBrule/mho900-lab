@@ -115,3 +115,27 @@ The next question is offline: does ordinary permanent activation write its
 per-option bookkeeping record, or does that record belong to trial/rejection
 paths? Resolve this from stock control flow and prior frozen evidence before
 changing the expectation or running another guest.
+
+### Permanent-record contract reconciled offline
+
+All 535 instructions in the retained `activeOpt` disassembly were compared
+against the pinned stock ELF load segments. At 0x438b64 it reads license time.
+Time 1 reaches install-count/runtime setters; times 2 through 6 reach timed
+state setters. Time 0 skips both branches and reaches `writeLicense` at
+0x438cf8. For FlexA, the next path reports 24531 at 0x438da8. Failed validation
+instead reaches `setTriedTimes` at 0x438dd8. A per-option attempted-install
+record is therefore not a prerequisite for this permanent positive fixture.
+
+The prior successful `synthetic-wire-positive-01` private stream likewise
+contains only key backup 2337 and saved time 16192. Its synthetic key backup
+has a different size, as expected; the record topology agrees.
+
+The acquired-input verifier now requires exactly unchanged backup 2337 plus
+an eight-byte saved-time record, with the sole changed record 16192.
+It no longer requires 2309 or allows arbitrary installation-counter changes.
+Full offline reanalysis of retained installation evidence passes, and an
+injected extra record is rejected. The original failed run verdict and source
+snapshot remain intact; this reanalysis supplies no missing reload evidence.
+
+Reconciliation seal: `42d9d39c4d97b95178fc1e65f94ccb66bd9384a038cff41808cde120ad568fcb`.
+The revised verifier is frozen before a fresh `acquired-option-03` run.
