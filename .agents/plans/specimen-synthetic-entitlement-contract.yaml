@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.synthetic-entitlement-contract
+    title: Recover a coherent synthetic entitlement fixture contract
+    state: open
+    intent: Derive the identity, key, token and private-store inputs needed to test the unchanged ordinary installer offline.
+    requires: [TASK.specimen.art-component-decision]
+    requirements:
+      - Commit and push tasking before execution. Use preserved specimen bytes only; no physical contact or source artifact modification.
+      - Recover stock DNA-to-key derivation, identity initialization, Key.data and ordinary option token validation sufficiently to define internally consistent synthetic inputs. Do not combine arbitrary DNA with unexplained unit-specific key state.
+      - Recover the minimum private-store construction and persistence contract, including MemFile serialization and FRAM write requests. Distinguish an explicit synthetic backing store from acquired physical contents.
+      - Select one non-bundle, non-built-in ordinary option and define empty/before, malformed negative, accepted after, process-restart and guest-reboot witnesses. Do not replace validation or option-query results.
+      - Record exact ABIs and byte guards for stock calls or modeled boundaries. Keep unit identifiers and keys private. Close with a reproducible candidate fixture or exact remaining offline/bench gaps; no guest installation in this recovery task.
+    acceptance: [A coherent synthetic fixture and validation protocol are specified from stock evidence, or exact blockers delimit the next branch.]
+    verification: [identity, token, storage, protocol, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.synthetic-entitlement-decision
+    title: Admit the smallest ordinary guest installation experiment
+    state: open
+    intent: Evaluate fixture coherence and select the shortest valid installer and persistence experiment.
+    requires: [TASK.specimen.synthetic-entitlement-contract]
+    requirements:
+      - Require coherent identity/key/private-store provenance and actual stock validation. If inputs remain unresolved, choose a bounded offline recovery or independent capability branch without contacting the specimen.
+      - Admit a bounded experiment with explicit negative control and before/after/reload/reboot observations when justified. Keep physical claims and D-capability redirection separate.
+      - Inspect taskctl plan and expected revision; commit and push admitted tasking before execution. Do not re-prove unrelated ADC or MMIO behavior.
+    acceptance: [The next bounded offline continuation is justified, admitted and committed.]
+    verification: [finding, continuation, boundaries]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
