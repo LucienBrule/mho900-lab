@@ -90,3 +90,25 @@ verification_sha256 = "1d81b3d59116efa60f16db462975a7cd45ea2bed5a28985aeb7d24ecd
 license_sha256 = "9ee1770f89536fbb832e9c66931db7a639d7cd7fb31d6d332f67f07d3eb6e047"
 key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
 private_sha256 = "a353ed86106d3d3f12f2633489e3279a1e514ed1ae66eabd60e05f643ed4feb6"
+
+[[runs]]
+run_id = "catalog-autoa-01"
+option_name = "AUTOA"
+option_type = 4
+started_at = "2026-09-29T07:26:51Z"
+finished_at = "2026-09-29T07:27:06Z"
+trial_mode = "catalog-positive"
+evidence_index_sha256 = "84785f790dfc6dbe8ebef0e79a933219cd850da00cb610aadaf6f04305962fd9"
+result_sha256 = "34bca5e8761d0d374b10348a0f46df86e0313a9ece43b0a0949c5d6845696773"
+config_sha256 = "db02da16d6a2fec1286117cc6ce358de0d9ec79ff523e557164494e8ae1adab8"
+
+[[runs.phases]]
+label = "install"
+journal_records = 875
+enabled = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AFG50", "AFG100", "BWU05T08"]
+ordinary_install_calls = 1
+journal_sha256 = "09e1dae1f12b99e1bdad54d3ca6485bedbbd331605210dd10adab3406e4bc718"
+verification_sha256 = "f3ccfab75d9410bdf97bf07603776bad060dc0f177900f74ea27e0f3bc94f4fa"
+license_sha256 = "a1c6ed0cd93f284fe639c725e1d7040c60747c94d1efffdecf87c62f9ac3922b"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "5c2b344259e0678c1c32685c06e23f03048d1cd21458c9c8807e94d13d5cced9"
