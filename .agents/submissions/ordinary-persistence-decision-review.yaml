@@ -1,0 +1,25 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.specimen.physical-ordinary-decision
+reviewed_head: sha256:3512d8397398d8bac5a0ff6bc587039ea3b0309e6814287939754e5f23ef31a4
+observations:
+  - upstream: TASK.specimen.derived-bandwidth-observer-decision
+    contract: sha256:cd977dce897941c932316857a4fd3e6d73d66c0d82b6aab1caeed2e55c155775
+    revision: sha256:1dcecf4b3627aff03194774fd916a5e4abddfc6bf0f9c82f656ba35ed609d87f
+    inputs: sha256:40dff2fd8e3bbf6aa0860c000537910adc5228304c80b26d16e8d20e626d7b81
+  - upstream: TASK.specimen.ordinary-reboot-reconciliation
+    contract: sha256:ec3c1d6c877e8cdfd5a3e2ebe3fec5e484e498ed2026a98323e14fd415806f0e
+    revision: sha256:a4efdb42aaa4c9170455b40cb04d26410faf6493a2abc0388188e741f21eb52a
+    inputs: sha256:206d3159d015b7176fe59c184c22e6ab3524d724c0530d5b76ee9d3db402a4ae
+  - upstream: TASK.specimen.physical-ordinary-reboot
+    contract: sha256:e7d72db8c07607a85c0aa60512775947e3fd4bb3ad00e93b8ddd9e72517dff34
+    revision: sha256:e0a9d81a7ee8e6ed2c0ad57ee003781aa877ad50f464abe52af90e15a8047fe5
+    inputs: sha256:975fcff4b7a7920ea0f854256b7337202d5980f02b0d3edccb1ce3ea7b2c28fe
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-09-29T17:58:53.100588+00:00"
+rationale: "New prerequisite now positively reconciles the sole reboot despite transport timeout. Its sealed before/after evidence establishes ten options, stock APK and17/17; observation gap remains explicit. The decision consumes this evidence without treating the stopped predecessor as successful."
+evidence:
+  decision: "Physical ordinary persistence positivelyreconciled andsealed526628e2. Derivedobserver/read-only16B control and normalnative-sidecar loader controls accepted. Select pinned standalone derivedELF sidecar in actualpackage native directory, preserve signedAPK, require fullUI/identity/options/18-18 across two normalboots, rollbackintroducedfile onstartupfailure. Calibrationpayload320unchanged afterordinaryboot; onlyknownheader/time+startup identity-fallback cache delta observed."
+  continuation: ".agents/plans/physical-d-capability.yaml drafts three bounded tasks: firstsidecarstartup, independentrebootpersistence, RF-evaluation-ready gate. Exactlyone rebootrequest perphase; retainclienttimeout andresolveviafreshACK/changedboot withoutretransmission. RFplanprepared docs/research/rf-performance-evaluation-plan.md; no RF/calibration/probe/USB action authorized or performed bythisdecision."
+successor: null

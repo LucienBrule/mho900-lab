@@ -91,7 +91,7 @@ continuous boot timing or uninterrupted traffic observation is not claimed.
 
 The UI scale displayed50mV/div after boot versus52mV/div beforehand. Two logical
 files changed: the bandwidth calibration record's header timestamp/checksum and
-a startup diagnostic log. The320-byte bandwidth payload itself is identical.
+a startup identity-fallback cache. The320-byte bandwidth payload itself is identical.
 The separate startup-data reconciliation records the scope of this finding.
 
 Evidence seal: `526628e2db6504925c44e61536d24e8b377243b364772de10b14a414b0f1ecc1`. Raw capture SHA-256:
