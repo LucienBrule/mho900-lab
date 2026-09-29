@@ -1,0 +1,26 @@
+schema_version = "mho900-lab.individual-option-catalog-results/1"
+physical_contact = false
+stock_native_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+persistence = "harness-directed-stock-MemFile"
+
+[[runs]]
+run_id = "catalog-bwu05t08-01"
+option_name = "BWU05T08"
+option_type = 24
+started_at = "2026-09-29T07:23:09Z"
+finished_at = "2026-09-29T07:23:36Z"
+trial_mode = "catalog-positive"
+evidence_index_sha256 = "e220912d3f6e0340c251f0493182587bea94b9c28d836a6c185b6a3726cf1c9f"
+result_sha256 = "27f9ca02ab60e3beae16079b00aa60b31c012aec2192f1e2294ad91f163d73a6"
+config_sha256 = "3e850d760b2c4b712ba99733ed2df53c44d94a04d0ff1d9c623524e858d2aa6f"
+
+[[runs.phases]]
+label = "install"
+journal_records = 703
+enabled = ["EMBD", "COMP", "AUTO", "FlexA", "BWU05T08"]
+ordinary_install_calls = 1
+journal_sha256 = "2b3f15b1272387a0af52bca70ec6777ddaf66ea7e15fc1240e98629c929deccc"
+verification_sha256 = "f86505f9b15e3e2e180266918f41645b4a3dc2ac294b814fabde392823f0d5bf"
+license_sha256 = "a5c55619fccd4be2d5e92f392f2689a5b618909d1fa162b17b3ad8d2eca80f23"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "ff020c1dabbc6cb3ebd6ffdfe94ec5be57eea0f0aa16dc6c3e7f80f29fa9ef11"
