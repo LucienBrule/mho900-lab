@@ -121,8 +121,11 @@ def verify_reboot_wire(path,lease,window):
             if flags&1:ds['fin'].add((offset+len(payload))&0xffffffff)
             if flags&16:ds['acks'].append((ack,epoch))
             if payload:ds['segments'].append((offset,payload,epoch))
-    requests=[]
+    requests=[];empty_transports=0
     for pair in pairs.values():
+        if not any(pair[n]['segments'] for n in (0,1)):
+            empty_transports+=1
+            continue
         rebuilt={};origins={};intervals={};messages={}
         for direction in (0,1):
             rebuilt[direction],origins[direction],intervals[direction]=reassemble_adb(pair[direction])
@@ -139,13 +142,13 @@ def verify_reboot_wire(path,lease,window):
             require(acks,'Reboot bytes not acknowledged by peer TCP')
             requests.append(dict(first_epoch=min(times),peer_acknowledged=True,adb_okay=bool(okay)))
     require(len(requests)==1,'Not exactly one wire reboot request')
-    return dict(requests=1,**requests[0])
+    return dict(requests=1,empty_transports=empty_transports,**requests[0])
 
 def package_paths(run,label):
     text=(run/f'metadata/{label}-package.stdout').read_text()
     require(text.count('\nPackages:\n')==1,'Missing active package section')
     active=text.split('\nPackages:\n',1)[1].split('\nHidden system packages:',1)[0]
-    blocks=[b for b in re.split(r'\n  Package ',active) if b.lstrip().startswith('[com.rigol.scope]')]
+    blocks=[b for b in re.split(r'(?:^|\n)  Package ',active) if b.lstrip().startswith('[com.rigol.scope]')]
     require(len(blocks)==1,'Ambiguous active Sparrow package')
     def field(key):
         values=re.findall(r'^    '+re.escape(key)+r'=(\S+)\s*$',blocks[0],re.M)
@@ -190,6 +193,9 @@ def verify_deployment(run,predecessor,predecessor_seal,events,snapshots,archives
         require(previous_result['result']=='accepted-by-controller' and previous_result['profile']=='deploy','Persistence predecessor is not accepted deployment')
     apk,target=package_paths(run,'selection')
     require(sha(run/'metadata/selection-Sparrow.apk')==i.APK_PIN and sha(run/'control/libscope-auklet.so')==DERIVED_PIN,'Selected APK/native input differs')
+    apk_oracle=module(Path(__file__).resolve().parents[1]/'guest/resolve-apk-cached-identity.py','d_apk_member_geometry',r.APK_ORACLE_PIN)
+    entry,_,stock_loads=apk_oracle.archive_entry((run/'metadata/selection-Sparrow.apk').read_bytes())
+    stock_executable_extents=[(entry+(offset&~4095),entry+((offset+filesz+4095)&~4095)) for flags,offset,_,filesz,_ in stock_loads if flags&1]
     with zipfile.ZipFile(run/'metadata/selection-Sparrow.apk') as z:
         stock=z.read('lib/arm64-v8a/libscope-auklet.so')
     derived=(run/'control/libscope-auklet.so').read_bytes()
@@ -207,7 +213,10 @@ def verify_deployment(run,predecessor,predecessor_seal,events,snapshots,archives
         require(native_paths==({target} if derived else set()),'Ambiguous native mapping')
         if derived:
             sidecar_file(run,label,target)
-            require(not any(len(x)==6 and x[5]==apk and 'x' in x[1] for x in rows),'Stock APK executable mapping remains alongside derived native')
+            for x in rows:
+                if len(x)!=6 or x[5]!=apk or 'x' not in x[1]:continue
+                lo,hi=(int(v,16) for v in x[0].split('-'));offset=int(x[2],16)
+                require(not any(offset<end and offset+hi-lo>start for start,end in stock_executable_extents),'Stock Auklet executable mapping remains alongside derived native')
     commands={e['name']:e for e in events if e['event']=='adb-command'}
     if mode=='deploy':
         proof=read(run/'introduced-file.toml');temporary=target+'.'+run.name+'.tmp'
@@ -350,7 +359,7 @@ def verify(run,source,tools_root,predecessor,predecessor_seal=None):
                 capture_frames=capture['capture_frames'],pcap_sha256=capture['pcap_sha256'],kernel_drops=0,recorder_exit=0,
                 fresh_isolated_lease_after_reboot=True,reboot_dhcp_releases=len(capture['dhcp_release_epochs']),
                 logical_changed_paths=changed,source_catalog_seal=i.SOURCE_SEAL,ui_resumed=True,ui_visual_semantics_verified=False,
-                atomic_snapshot_claimed=False,reboot_wire_requests=delivery['requests'],reboot_peer_acknowledged=delivery['peer_acknowledged'],reboot_adb_okay=delivery['adb_okay'],calibration_payload_unchanged=True,identity_cache_contents_authenticated=False,verifier_sha256=sha(Path(__file__)))
+                atomic_snapshot_claimed=False,reboot_wire_requests=delivery['requests'],adb_empty_transports=delivery['empty_transports'],reboot_peer_acknowledged=delivery['peer_acknowledged'],reboot_adb_okay=delivery['adb_okay'],calibration_payload_unchanged=True,identity_cache_contents_authenticated=False,verifier_sha256=sha(Path(__file__)))
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('run',type=Path);p.add_argument('--source-catalog',type=Path,required=True);p.add_argument('--predecessor',type=Path,required=True);p.add_argument('--predecessor-seal');p.add_argument('--output',type=Path,required=True)
