@@ -1,0 +1,21 @@
+schema_version = 1
+physical_contact = false
+
+[[runs]]
+run_id = "acquired-catalog-bwu05t08-01"
+option_name = "BWU05T08"
+arm = "positive"
+started_at = "2026-09-29T14:10:37Z"
+finished_at = "2026-09-29T14:11:24Z"
+verification = "accepted"
+journal_counts = [706, 653, 653]
+installer_calls = [1, 0, 0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "FlexA", "BWU05T08"]
+guest_reboot_observed = true
+canonical_files_identical_across_reload = true
+canonical_file_count = 6
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "42edff12ab565ba4b57bb8ec30fb39b3c308472b414a0ff24b0e68e14b888b41"
+seal_sha256 = "76957b1d746ba2d05a26a19e991cdb244b02eff137f516adfb87a0919c1ec1b7"
+auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"

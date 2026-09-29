@@ -56,3 +56,27 @@ checks passed, and no physical access occurred.
 Complete run seal: `ecad0a24cbc9b1ec22faa6caeddfd81dfd52fbf26b816da073293679fb41bf57`.
 The positive branch uses the original accepted FlexA seed, never this rejected
 private state.
+
+## First cumulative positive: BWU05T08
+
+Run `acquired-catalog-bwu05t08-01` completed at14:11:24 UTC on2026-09-29.
+The original installer accepted the acquired-personality48-byte candidate,
+activation reported24531, and only BWU05T08 changed from false to true.
+FlexA revalidated and remained true; the three built-ins remained true and
+all other entries remained false. MHO984 raw/effective stayed17/17.
+
+Install, fresh-process and guest-reboot phases retained706,653,653 exactly
+reconciled journal records. Their installer counts were1,0,0; reloads made
+no token-producer calls. Actual boot identity changed. Key.data, both licenses,
+both witnesses and canonical private storage were byte-identical across all
+three final states. The positive private delta was limited to saved time.
+
+Full run seal: `76957b1d746ba2d05a26a19e991cdb244b02eff137f516adfb87a0919c1ec1b7`.
+The [result manifest](../../experiments/specimen-entitlement/acquired-catalog-results.toml)
+records public-safe run lineage and phase counts. This proves cumulative
+component persistence with acquired identity/key inputs and modeled private
+storage, not automatic physical FRAM writes or feature operation.
+
+The next bounded batch is AFG100, AFG50 and AUDIOA in that order. Each must
+start from the preceding accepted seal, pass its own process/reboot tests and
+be committed/pushed before the next candidate.
