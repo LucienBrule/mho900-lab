@@ -43,3 +43,27 @@ FRAM persistence on an instrument.
 The correction is supported by the [Android 7.1.2 ARM64 UAPI header](https://github.com/aosp-mirror/platform_bionic/blob/android-7.1.2_r39/libc/kernel/uapi/asm-arm64/asm/fcntl.h):
 `O_DIRECTORY` is octal `040000` (`0x4000`); the harness supplied `0x10000`, which is `O_DIRECT`.
 This is architecture-specific implementation evidence, not a license or filesystem restriction.
+
+## Wrong-name control passed
+
+The corrected run `out/specimen-entitlement/synthetic-negative-02` completed from 06:41:39 to 06:42:00 UTC.
+Directory open/fsync/close passed before the factory. All 555 journal events matched their delivered payloads;
+the independent host verifier accepted the native observations and retained files.
+
+Exactly one ordinary installer call submitted the synthetic wrong-name token. The stock validator returned
+false, `activeOpt` and the original result notification reported `24527`, and FlexA remained false. No
+`FlexA.lic` was created. The outer installer returned zero despite rejection.
+
+The full 14-entry catalog was unchanged: EMBD, COMP and AUTO queried true through stock built-in policy;
+all other entries queried false. Private state grew from 68 to 120 bytes: the key backup remained, and stock
+added system-time record 16192 and option-specific record 2309. Global install-counter record 2336 remained
+absent. A failed attempt therefore is not a no-op even when no license file is written.
+
+| Artifact, relative to the corrected run | SHA-256 |
+| --- | --- |
+| `phases/negative/guest-events.jsonl` | `a877bb6a36131bd21e6dcb6b3019e5fe6bd63b672b5016d2453aedfe262fc734` |
+| `evidence-sha256.txt` | `bad86646402a5e51f47c3ec54f32532c004fbf3a63b2331545fcf57648519e23` |
+| `result.toml` | `8515f8fb81192809bcc7ed545b6f3771e6efd16f96684570ce8707ca30fc2908` |
+
+This conclusion is committed before starting the independently clean positive arm. The next arm changes
+only the declared candidate plaintext from the wrong option name to FlexA; stock validation remains intact.
