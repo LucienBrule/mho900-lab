@@ -110,3 +110,5 @@ records; installer counts were1/0/0. All 12 canonical files matched across reloa
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `5c92133cb6f70f6789bcb35fcea31796f32c7c1740b950680d41e6028bd18d2a`.
+
+The instruments batch accepted AFG100, AFG50, and AUDIOA cumulatively through process and guest reboot reload. The next bounded batch is AUTOA, AEROA, and RLU05. This establishes guest license acceptance and file persistence, not physical FRAM durability or feature behavior.
