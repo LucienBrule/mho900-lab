@@ -88,3 +88,17 @@ Build: `out/overnight/apk-reader-build-01`. Synthetic expected bytes are `10` th
 | `apk-cached-mapping-fixture` | `8374be497d60df2898ebce422ce82338a552d86082e58abcb6ed6e411981af4f` |
 | `build.toml` | `2f25a0f7d6b6c81ea621fe0873fd0f08dcb22a245dfedf562f35657d57bc11b4` |
 | `host-controls.toml` | `a4b8d1b15917089b638511c0f89a98d9f6a87eb096e08c27f97f1688c4ca84ec` |
+
+## First guest attempt: local ADB startup stopped
+
+Run `out/specimen-entitlement/apk-reader-01` failed before emulator launch at 12:20:37 UTC on 2026-09-29.
+The controller supplied `-H 127.0.0.1` to `start-server`; ADB classified the daemon as remote and refused
+to start it on an unused dedicated port. The child-process loopback network control passed. No guest,
+fixture, reader or physical command executed. This is a controller startup failure, not reader evidence.
+
+Preserve this run unchanged. The bounded correction is to start the local dedicated server without `-H`,
+retaining the explicit loopback endpoint for all subsequent client commands and the child network sandbox.
+The known existing entitlement runner already uses this local startup form. A fresh run must retain all
+original reader controls; no reader or fixture implementation change is justified by this failure.
+
+Failed-run evidence index SHA-256: `0d3d578b6904386745b56f83c0a8b3b7d2c1d794bf3df4be2bea7862196f43f1`.
