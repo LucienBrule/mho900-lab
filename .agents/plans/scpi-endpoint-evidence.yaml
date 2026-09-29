@@ -1,0 +1,33 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.scpi-endpoint-static
+    title: Recover raw SCPI socket endpoint from local stock firmware
+    state: open
+    intent: Search the existing corpus read-only for implementation evidence of the MHO900 socket endpoint.
+    requires: [TASK.bench.stage-two-b1-proposal]
+    requirements:
+      - Commit tasking before execution. Keep the existing firmware corpus read-only and preserve stock input provenance, hashes, exact locations and analysis evidence in a separate local run.
+      - Find literal port or bind/listen implementation evidence and distinguish meaningful control/data flow from unrelated numeric matches, including ADB uses of the same port.
+      - Keep vendor documentation, implementation-derived evidence and third-party corroboration distinct. Pin relevant scopehal source before relying on its MHO900 transport declaration.
+      - No specimen contact, host address assignment, physical acquisition or instrument state changes. Commit and push redacted conclusions.
+    acceptance: [The endpoint is supported by pinned static evidence or the search has a reproducible bounded negative result.]
+    verification: [inputs, implementation, corroboration, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.scpi-endpoint-decision
+    title: Reassess the B1 endpoint gate from separate evidence classes
+    state: open
+    intent: Decide whether offline implementation and corroborating evidence justify the one-query B1 candidate.
+    requires: [TASK.bench.scpi-endpoint-static]
+    requirements:
+      - State whether the combined evidence is sufficient for a bounded identity query without calling it documented vendor port behavior or observed specimen behavior.
+      - Preserve the original B1 proposal as a historical gate and record any superseding evidence assessment separately, including framing, firmware applicability and remaining authorization or lease gates.
+      - Do not execute B1 or admit physical execution tasks. Commit and push the decision and stop for operator review.
+    acceptance: [An explicit evidence-backed endpoint decision is recorded without contacting the specimen.]
+    verification: [assessment, provenance, boundary]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
