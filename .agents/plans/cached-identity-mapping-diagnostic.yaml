@@ -1,0 +1,20 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.cached-identity-mapping-diagnostic
+    title: Preserve the intermediate setup mapping rejection
+    state: open
+    intent: Identify the exact mapping rejected after observer removal without relaxing any mapping or reader check.
+    requires: [TASK.specimen.cached-identity-setup-restoration]
+    requirements:
+      - Commit and push tasking before implementation. Preserve both previous negative runs and unchanged stock inputs and reader build06.
+      - Capture complete bounded raw process maps before parsing each setup checkpoint and include the rejected row and arithmetic values in any error. Preserve attachments before acknowledging terminal failure.
+      - Run one fresh disposable control with unchanged restoration and reader predicates. Do not change mapping selection, permissions beyond already admitted restoration, policy, credentials, or backend in response to failure.
+      - Classify the raw mapping evidence independently. If it explains a fixture defect, record the exact bounded successor; if the current control succeeds, verify all restored bytes/maps and detached reader evidence before claiming success.
+      - No physical specimen contact or acquired keys. Stop on first unexpected failure and preserve journals, hashes, guest health and cleanup.
+    acceptance: [The exact rejected mapping or fully verified successful control is preserved.]
+    verification: [mapping_evidence, outcome, boundaries, provenance]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
