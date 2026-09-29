@@ -83,3 +83,30 @@ The bench question is: **do the running stock application's working and referenc
 private regions agree, and can both be preserved with a bounded read-only
 observer?** After that, a separately justified device read can ask whether stored
 FRAM agrees. Until then, the acquisition corpus still lacks a physical FRAM backup.
+
+## Offline controls
+
+`tools/guest/private_cache_snapshot.py` implements the bounded observer core with
+an injected byte-reader; it has no process-discovery or device-I/O implementation.
+It requires the known CFram header, two distinct 8192-byte allocations in readable
+private anonymous mappings, and stable metadata before/after two observations.
+Only the 0x700-byte private window from each allocation is copied. The total
+positive read budget is 7,296 bytes. Full cache allocation extents are checked
+without reading the remaining cache bytes.
+
+The stream decoder validates total/complement fields, bounded record extents,
+unique IDs and payload CRC32. A previously accepted stock-produced 204-byte stream
+round-trips exactly. Twenty-four controls passed, including malformed records,
+unmapped/device-backed/overlapping ranges, short reads and changing state.
+An independent review reran those controls and passed six additional boundary
+and error-propagation checks. Stable differences between working and reference
+windows are retained as differences; the observer does not repair them or demand
+equality between the two distinct representations.
+
+These are host controls. They do not validate a live owner, process lifetime,
+mapping epoch, guest permissions or physical acquisition. A future process
+wrapper must preserve partial/raw read evidence even when this core rejects the
+sample. Matching observations are explicitly labeled non-atomic and not device
+readback. CRC behavior is corroborated against the retained stock-produced
+records; this is not an exhaustive independent proof of every possible stock CRC
+input or malformed-stream behavior.
