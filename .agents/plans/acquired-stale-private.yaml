@@ -1,0 +1,48 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-stale-private-prepare
+    title: Freeze older private-state permanent-license contrast
+    state: open
+    intent: Separate permanent license-file acceptance from the installer saved-time update.
+    requires: [TASK.guest.acquired-combined-decision]
+    requirements:
+      - Bind the final acquired catalog seal and accepted stock combined control. Retain all ten accepted licenses and every other canonical input, replacing only modeled private.mem with the exact final candidate pre-install private stream from that sealed run.
+      - Independently require that pre-install and post-install private streams differ only in saved-time record16192, with acquired key record2337 unchanged. Admit no token production, installation, format or physical access.
+      - Implement a separately named reload-only preparation and runner mode with an independent provenance check for the older bytes; preserve previous fixture contracts.
+      - Verify static License.start and time0 update exclusions against pinned native bytes sufficiently to state why init-only evidence is narrower than full lifecycle. Do not emulate timers merely to enlarge the claim.
+      - Freeze fixtures, reject wrong-source and wrong-private-state controls, and commit/push preparation before execution.
+    acceptance: [The exact one-file contrast and scope are reviewable.]
+    verification: [lineage, contrast, lifecycle, controls]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-stale-private-run
+    title: Reload complete permanent catalog with older private state
+    state: open
+    intent: Test whether older saved-time bytes prevent original permanent license acceptance.
+    requires: [TASK.guest.acquired-stale-private-prepare]
+    requirements:
+      - Run one fresh-process disposable stock reload with the exact frozen older private stream. Require complete original consumer evidence, no installer or producer, all22 canonical files unchanged and stock model/bandwidth17/17.
+      - Reuse complete-journal, exact native and guest health checks. Compare against accepted stock combined control and prove the only input-state difference is modeled private.mem.
+      - Preserve and seal any outcome without retry or expectation repair; close and commit/push before further experiments. No physical contact or full License.start claim.
+    acceptance: [The bounded older-private-state hypothesis has an evidence-backed result.]
+    verification: [consumer, preservation, contrast, conclusion]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-stale-private-decision
+    title: Evaluate remaining permanent-license durability uncertainty
+    state: open
+    intent: Determine the smallest remaining physical or offline question without redundant guest work.
+    requires: [TASK.guest.acquired-stale-private-run]
+    requirements:
+      - Distinguish component init acceptance, full lifecycle, filesystem durability and asynchronous physical FRAM saving. Do not infer any physical change from guest state.
+      - Record exact next bench question and the limits of any static lifecycle inference. Reconcile whether further offline work has material information value before admitting a successor.
+      - Commit and push conclusion; do not expand into physical installation, reboot or capability change.
+    acceptance: [The next question and current coverage boundary are explicit.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
