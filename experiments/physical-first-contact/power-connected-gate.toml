@@ -1,0 +1,16 @@
+schema_version = "mho900-lab.physical-power-gate/1"
+run_id = "mho984-as-delivered-20260929T012613Z"
+operator_confirmed_usb_c_power_only = true
+usb_b_disconnected = true
+front_host_port_empty = true
+operator_indicator_sequence = ["green", "red"]
+operator_display = "completely dark"
+carrier_observed = "inactive"
+packets_observed = 0
+capture_healthy = true
+boot_activity_observed = false
+reference_quickguide_sha256 = "732a1efb7ceabdfa302f7df0fcc2585ee1c5ebfdda085739972702a5197fd766"
+reference_section = "5.3 Turn-on Checkout, PDF page17 / printed page15"
+next_gate = "one brief front-panel power-key press; await operator confirmation"
+phase_manifest_sha256 = "5f107d1a5c14753660530142c9c1888547461768d6187c9b4b9c8de2ba3cb235"
+capture_snapshot_sha256 = "84d574a2ce7d10abbbd59cd7c94ccb9e96ac3f5cada39fc68d15f396801ebb6a"
