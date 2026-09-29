@@ -116,3 +116,19 @@ and detach. Raw before/after code and mapping evidence remains local. The extern
 These operations are cleanup of explicitly instrumented disposable setup. They are not proposed for the
 physical process. A physical observation would use the existing uninstrumented mappings and fail if they
 do not satisfy the reader contract.
+
+Run `cached-identity-reader-02` (2026-09-29, 11:10:28–11:10:49 UTC) preserved the original RX bytes and
+mapping baseline, completed stock identity setup, and removed fourteen owned listeners plus the DNA
+replacement. Its next mapping check failed with `Unexpected setup library map alignment`. No external
+reader command or protection-restoration operation ran. All 160 journal events were delivered exactly.
+The setup's terminal failure exited its own process; later cleanup correctly found that process absent.
+
+This failure does not prove which row violated the check: the implementation validated before preserving
+the intermediate map text. The next bounded diagnostic must retain that raw text before parsing. No mapping
+predicate, reader binary, policy or credentials will change merely to advance the experiment.
+
+| Artifact, relative to `out/specimen-entitlement/cached-identity-reader-02` | SHA-256 |
+| --- | --- |
+| `result.toml` | `eceb66018903d79556746674c5ae10cc4ddf819bf1963266ef34f9c6619dad0c` |
+| `evidence-sha256.txt` | `73670b18e914b2d6a9ef34b3d2f3af3a1dcac79ad5513cee7deba5166e10aa64` |
+| `guest-events.jsonl` | `73a40b1b31cb06a28e5b207ac1526baf780950e7b7dab4095f4c0e6f96633ede` |
