@@ -1,0 +1,53 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.installed-packages
+    title: Verify built distributions and automate typed workspace gates
+    state: open
+    intent: Detect packaging errors hidden by editable source imports and preserve repeatable checks.
+    requires: [TASK.tooling.evidence-decision]
+    requirements:
+      - Build all workspace distributions and test installed wheels from outside the checkout with no editable imports.
+      - Verify public imports, py.typed markers, CLI library composition and a synthetic evidence round trip; preserve negative controls.
+      - Add repeatable local packaging verification and bounded CI quality checks without changing legacy scripts or accessing devices.
+    acceptance: [Built installed distributions work independently and quality commands are reproducible.]
+    verification: [packaging, gates]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.offline-tcp
+    title: Recover exact TCP transcripts from preserved packet captures
+    state: open
+    intent: Replace repeated offline packet and byte-sequence logic with an explicit typed library boundary.
+    requires: [TASK.tooling.evidence-decision]
+    requirements:
+      - Add a typed reusable workspace library and delegated CLI for a bounded documented classic Ethernet IPv4 TCP capture profile with explicit endpoint selection and no network I/O.
+      - Require unambiguous SYN origins and FIN extents; handle sequence wrap and consistent retransmissions; reject gaps conflicts truncation reset and unsupported selected-flow fragmentation.
+      - Preserve raw request and response as library bytes; CLI reports counts and digests without exposing payloads by default; distinguish captured transcript from delivery or device execution.
+      - Test meaningful synthetic positive and negative controls and compare a preserved private SCPI capture against original raw transcripts and legacy results without altering them.
+    acceptance: [Typed gates and independent fixture and private transcript controls pass with limits documented.]
+    verification: [contract, controls, private_comparison]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.transport-decision
+    title: Evaluate offline transport evidence and select the next bounded improvement
+    state: open
+    intent: Reassess reusable boundaries using installed artifacts and real retained-capture evidence.
+    requires: [TASK.tooling.installed-packages, TASK.tooling.offline-tcp]
+    requirements:
+      - Review supported scope and failure semantics, distinguish evidence from inference, and commit and push conclusions.
+      - Recheck the authorized deadline and admit a bounded useful successor or leave a clean checkpoint without physical contact.
+    acceptance: [Concrete continuation or handoff follows the observed results.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.offline-transport
+    title: Installed distributions and offline TCP evidence
+    scope: Versioned manifest validation sealing and offline transport reconstruction without physical access.
+    tasks: [TASK.tooling.installed-packages, TASK.tooling.offline-tcp, TASK.tooling.transport-decision]
+    required_extensions: []
+    extensions: {}
