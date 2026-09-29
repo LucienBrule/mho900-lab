@@ -55,3 +55,27 @@ record16192. Static evidence seal:
 These static branches explain why the older saved-time contrast is narrow.
 They do not prove that timers, full application startup or physical saving have
 executed. No timer or event-loop model was added.
+
+## Result: older saved-time state accepted
+
+Run `acquired-stale-private-01` completed 2026-09-29 14:46:26–14:46:44 UTC.
+All ten permanent licenses passed original initialization consumers through
+thirty observed AES blocks. Four absent-license consumers returned false; the
+actual catalog still reported thirteen true entries and BND false. Public model
+remained MHO984 with raw/effective enum17 before and after original option policy.
+
+There were no installer or token-producer calls. All21 other canonical files
+matched the accepted stock control, and the exact older private stream remained
+unchanged before and after execution. Native bytes and guest template also
+matched that control. The1,035 journal records were reconciled through terminal
+acknowledgment; within-boot health and policy checks passed.
+
+Independent review rejoined original consumer decode/key/cipher/plaintext
+evidence and verified all281 sealed artifacts. Run seal:
+`4e06f50571f0f526dcb6affdb5ecf212ae729dde184173eef58cd3277a61cdfd`.
+
+The specific older saved-time record does not prevent these permanent files
+from validating during component initialization. This does not show that time
+state is irrelevant to every license type, full startup or physical persistence.
+No reboot was needed for this one-file contrast; earlier guest-reboot evidence
+remains separately scoped to its own post-install fixtures.
