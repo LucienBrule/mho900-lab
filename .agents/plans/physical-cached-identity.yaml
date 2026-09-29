@@ -1,0 +1,35 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.cached-identity-observation
+    title: Observe initialized specimen identity through the tested bounded reader
+    state: open
+    intent: Capture existing DNA and file-key bytes without invoking target initialization or changing entitlement state.
+    requires: [TASK.specimen.cached-identity-reader-decision]
+    requirements:
+      - Commit and push tasking before specimen access. Operator authorized the proposed observation and confirmed unchanged powered stable UI, Ethernet only management, USB-B disconnected and front host port empty.
+      - Preserve fresh host baseline and positively reidentify the dock interface. Verify isolated default route, no forwarding, NAT, sharing, bridging or host DHCP client. Start verified full packet capture before addressing; maintain only the previously established single private lease without gateway or DNS.
+      - Use existing ADB credentials only on the previously observed endpoint. No adb root, daemon restart, authentication approval, policy change, alternate backend, SCPI, Web Control or USB operation. Stop on changed identity, permission denial or unexpected traffic.
+      - Identify current Sparrow PID, command line, start time and boot ID; preserve maps and loaded-library identity. Verify the exact stock library hash and correct regular backing file. Stage and roundtrip-verify only the frozen build07 reader in a fresh temporary directory; this explicit temporary filesystem write is within the approved proposal.
+      - Invoke exactly one positive reader attempt, restricted to cached DNA8 and fileKeys16 twice through one readonly descriptor. Preserve output and errors before pulling evidence. Verify exact48byte maximum, no target calls/attachment/writes, stable process/file/maps metadata and equal samples; preserve any failed or partial result without retry.
+      - Seal private raw evidence and hashes, graceful capture/drop statistics and host restoration. Do not publish unit values, keys, serials or host paths. Leave firmware, APK, entitlements, calibration and capability unchanged.
+    acceptance: [A verified bounded physical observation or its precise stop condition is preserved and pushed in redacted form.]
+    verification: [authorization, isolation, identity, observation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.cached-identity-decision
+    title: Reconcile physical cached identity evidence and the next offline comparison
+    state: open
+    intent: Separate physical permission and observed values from later offline identity and private-state inference.
+    requires: [TASK.bench.cached-identity-observation]
+    requirements:
+      - Evaluate capture quality, process/file identity, permissions and sample consistency independently. Do not treat repeated samples as atomic or cached values as complete private state.
+      - If the observation succeeds, propose or admit only bounded offline stock derivation and acquired-Key.data coherence comparison. If it fails, preserve the exact limitation without automatic privilege or interface escalation.
+      - Commit and push the result and decision. Physical entitlement installation, capability transition, reboot, calibration and additional state acquisition remain separate authorization events.
+    acceptance: [The observation and next bounded action are explicitly reconciled without an unapproved physical transition.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
