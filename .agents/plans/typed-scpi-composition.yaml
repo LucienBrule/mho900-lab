@@ -1,0 +1,54 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.scpi-contract
+    title: Model bounded identity and ordinary option-status SCPI exchanges
+    state: open
+    intent: Recover semantic observations from exact preserved read-only query transcripts.
+    requires: [TASK.tooling.capture-decision]
+    requirements:
+      - Create a typed workspace library with explicit query alternatives for identity and the existing ordinary option-status selectors; do not accept arbitrary or mutating commands.
+      - Preserve exact request and reply bytes, model identity strings without inferring firmware suffixes, and distinguish enabled disabled and malformed or unknown replies.
+      - Decode bounded canonical exchanges with explicit framing and count checks; never normalize malformed data into an observation.
+      - Provide a delegated offline CLI with private identity redaction by default and compare preserved query transcripts without any physical contact.
+    acceptance: [Synthetic grammar controls and exact private transcript comparison pass under strict quality gates.]
+    verification: [contract, controls, private_comparison]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.scpi-stream
+    title: Execute typed read-only query plans over an explicitly supplied stream
+    state: open
+    intent: Separate bounded byte transport from endpoint configuration and instrument authorization.
+    requires: [TASK.tooling.capture-decision]
+    requirements:
+      - Accept only typed identity/status query plans over a caller-supplied exclusively owned stream; perform no connection discovery DNS scanning or connection creation.
+      - Bound total transaction time and response bytes, preserve partial submission and response evidence, and never retry a query silently.
+      - Distinguish local submission from peer delivery and interpretation; return named complete and incomplete outcomes with completed prefix retained.
+      - Test fragmented I/O short writes EOF timeout malformed responses and partial failures using in-memory streams and owned Unix socket pairs only; no physical or external network traffic.
+    acceptance: [Deterministic controls and installed library calls establish explicit transport outcomes without contacting a device.]
+    verification: [contract, controls, isolation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.scpi-decision
+    title: Evaluate semantic and transport composition before selecting further tooling
+    state: open
+    intent: Decide what remains necessary for a reusable explicit bench procedure.
+    requires: [TASK.tooling.scpi-contract, TASK.tooling.scpi-stream]
+    requirements:
+      - Independently review grammar failure and partial-I/O semantics, verify packaging and CI, and commit and push conclusions.
+      - Recheck the authorized deadline, select only useful bounded offline successors, and keep physical characterization separate.
+    acceptance: [Evidence supports a concrete successor or clean checkpoint.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-scpi
+    title: Typed read-only SCPI grammar and supplied-stream execution
+    scope: Identity and ordinary option-status observations with synthetic transport controls and preserved evidence.
+    tasks: [TASK.tooling.scpi-contract, TASK.tooling.scpi-stream, TASK.tooling.scpi-decision]
+    required_extensions: []
+    extensions: {}
