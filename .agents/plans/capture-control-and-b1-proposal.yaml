@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.recorder-shutdown-control
+    title: Diagnose recorder termination with a host-only loopback control
+    state: open
+    intent: Require graceful recorder exit and preserved packet-drop statistics before further physical acquisition.
+    requires: [TASK.bench.stage-two-a-decision]
+    requirements:
+      - Commit admitted tasking before execution. Use only a host loopback interface and locally owned test sockets; do not capture or send on the specimen interface or change host network/security policy.
+      - Inspect inherited process signal state and reproduce the smallest relevant failure where necessary. Preserve negative evidence; make fixes only to owned recorder launch and supervision code.
+      - Validate known local payloads, graceful recorder termination, complete capture records, and final packet/drop statistics through the same privileged launch path used at the bench.
+      - Preserve reproducible source, private run evidence and hashes. Require a successful repeated control before proposing any further physical acquisition.
+    acceptance: [A corrected owned-process launch path repeatedly exits gracefully with known payloads and preserved drop statistics, or a concrete blocker is reported.]
+    verification: [scope, diagnosis, control, provenance]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.stage-two-b1-proposal
+    title: Propose one documented SCPI identity query without executing it
+    state: open
+    intent: Prepare an identity-only checkpoint after recorder verification and stop for operator review.
+    requires: [TASK.bench.recorder-shutdown-control]
+    requirements:
+      - Inspect and pin the official MHO900 programming guide; verify exact IDN query semantics, response fields, terminator and documented LAN SCPI endpoint, separating documentation from live behavior.
+      - Propose fresh verified capture before isolated host address assignment, no gateway/DNS/NAT/forwarding/external route, exactly one IDN query to the documented endpoint, raw request/response preservation and a stop for firmware-corpus reconciliation.
+      - Address lease currency, host-originated traffic, recorder failure and unexpected network behavior as explicit gates. Do not silently renew a lease or broaden the request.
+      - No physical acquisition or host address change in this proposal task. No options query, Web Control, ADB, scans, USB, authentication or scope configuration change. Commit and push findings; do not admit execution tasks.
+    acceptance: [A concrete evidence-backed B1 proposal is ready for operator review without instrument access.]
+    verification: [guide, plan, limits, provenance]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
