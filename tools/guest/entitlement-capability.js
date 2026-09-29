@@ -27,9 +27,11 @@ function entitlementCapabilityPrepare(module, cfg, emit, invokeStock) {
         onLeave(result) {
             if (!this.capture) return;
             if (result.isNull()) throw new Error('Capability parser returned null');
-            selected.push(result);
-            emit('capability-parser-return', { arm: arm, selected_record_offset: result.sub(module.base).toString(),
-                observed_in: 'ApiUtility_SetModel', behavior_replaced: false });
+            // Frida recycles retval objects; retain an owned NativePointer value.
+            const retained = ptr(result.toString());
+            selected.push(retained);
+            emit('capability-parser-return', { arm: arm, selected_record_offset: retained.sub(module.base).toString(),
+                observed_in: 'ApiUtility_SetModel', behavior_replaced: false, return_value_copied: true });
         }
     }));
     function selectedRecord() {

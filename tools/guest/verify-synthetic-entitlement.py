@@ -138,6 +138,7 @@ def verify_capability(events, config):
     parser = one('capability-parser-return')
     selected = one('capability-selected-record')
     require(parser.get('behavior_replaced') is False
+            and parser.get('return_value_copied') is True
             and parser['observed_in'] == 'ApiUtility_SetModel'
             and parser['arm'] == selected['arm'] == arm
             and parser['selected_record_offset'] == selected['selected_record_offset'] == offset,
