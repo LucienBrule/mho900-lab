@@ -67,3 +67,32 @@ absent. A failed attempt therefore is not a no-op even when no license file is w
 
 This conclusion is committed before starting the independently clean positive arm. The next arm changes
 only the declared candidate plaintext from the wrong option name to FlexA; stock validation remains intact.
+
+## Positive candidate rejected
+
+The independent fresh run `out/specimen-entitlement/synthetic-positive-01` ran from 06:42:48 to 06:43:13 UTC.
+Its candidate changed the option-name field to FlexA while preserving the fixture's other fields and stock
+program bytes. Directory persistence, identity, crypto roundtrips and the full catalog baseline all passed.
+Exactly one ordinary installer call reached stock validation, which returned false; `activeOpt` and the
+original notification again reported `24527`. FlexA stayed disabled and no license file appeared.
+
+All 555 journal events were retained and matched delivered payloads. The before/after catalog stayed
+unchanged. Process reload and reboot were correctly gated off because acceptance failed. This falsifies
+the proposed positive fixture; it does not show that the ordinary installer cannot work in a guest.
+The producer's own crypto roundtrip does not independently prove the consumer used the same key or grammar.
+
+The paired runs establish rejection, not a successful install/persistence result. Preserve both fixtures
+and trace the original consumer's key decode and token interpretation before choosing a revised input.
+Do not replace validator returns or reinterpret outer return zero as acceptance.
+
+| Artifact, relative to the positive run | SHA-256 |
+| --- | --- |
+| `phases/install/guest-events.jsonl` | `ecfd7a99ef544ea35b126ba84a5faa3c860111150293fd952f5711ee66c4803e` |
+| `evidence-sha256.txt` | `69421db279fbd91e299597e8471099a390803717d22f843c180cf97c1442879a` |
+| `result.toml` | `e52932588b916a310d4790dabbeea1b34eb45e5cedf183017f2bad45854f3a53` |
+
+Independent review of the negative arm confirms the false result occurred inside the installer call,
+not merely during baseline License initialization. Its option record `2309` changed from absent to
+`70 08 00 01`: stock unpacking gives default runtime 2160, installation byte zero and rejected-attempt
+count one. That count explains `24528 - 1 = 24527`. Record `2336`, the separate global install counter,
+remained absent. No restart persistence was tested for the rejected arm.
