@@ -102,3 +102,32 @@ The known existing entitlement runner already uses this local startup form. A fr
 original reader controls; no reader or fixture implementation change is justified by this failure.
 
 Failed-run evidence index SHA-256: `0d3d578b6904386745b56f83c0a8b3b7d2c1d794bf3df4be2bea7862196f43f1`.
+
+## Corrected guest control established
+
+Run `out/specimen-entitlement/apk-reader-02` completed from 12:21:48 to 12:22:03 UTC on 2026-09-29.
+Only local ADB startup changed. Frozen build01 reader/fixture and stock APK hashes remained unchanged.
+The fresh ARM64/API-25 guest stayed SELinux enforcing; its system_server PID remained the same.
+
+Wrong-starttime, wrong-pin and unmapped-range cases all rejected with zero memory opens, reads and bytes.
+The positive reader opened one read-only process descriptor and performed exactly four positioned reads
+of 8, 16, 8 and 16 bytes. Both samples matched the fixture's declared bytes. Process and backing-file
+identity, APK mappings and repeated samples remained stable. The complete container and embedded ELF
+were pinned before and after reading. No process attachment or target calls/writes occurred during reading.
+
+`verify-apk-cached-control.py` independently replays the frozen Python geometry against all four preserved
+map epochs, validates raw process identities, sample hashes, exact read counts and unchanged guest policy.
+It accepted the retained artifacts. The original startup failure remains intact. The dedicated emulator,
+fixture and ADB server stopped; their experiment TCP listeners were absent after cleanup.
+
+This validates the new APK backing/read mechanism in a native mapping fixture. It does not execute stock
+initialization, prove physical permission or establish real cached values. A fresh physical task may now
+use the fixed reader under the existing bounded on-scope observation authorization, after verifying the
+currently mapped APK bytes and isolated capture. No entitlement or capability mutation is implied.
+
+| Guest artifact | SHA-256 |
+| --- | --- |
+| `result.toml` | `712322b7c8288740a7fc42fe9ed8aff57fcd53494470068bb114b8de038e9e55` |
+| `independent-verification.toml` | `621d7f7113cb2afd9cdb46f04f66eaeb7bf35f16798d8fa8593bbb6a0910f415` |
+| `positive/manifest.toml` | `84bd4b911a1e5a954dc7fd19ca91d03d9e2a93c280dd6d88230dc0df74a9b187` |
+| `evidence-sha256.txt` | `23346dc0637910af645ea106d8ac5708ce6cd71bfe515cc3ec5cab8b08dc3fc8` |

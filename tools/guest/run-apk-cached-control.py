@@ -56,7 +56,8 @@ def main():
         nonlocal index
         index+=1;prefix=run/(f'{index:03d}-'+name)
         with (run/'commands.jsonl').open('a') as f:f.write(json.dumps(dict(utc=now(),name=name,argv=args))+'\n')
-        r=subprocess.run(offline+adb+args,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=timeout)
+        client=[str(a.sdk/'platform-tools/adb'),'-P','5043'] if name=='server' else adb
+        r=subprocess.run(offline+client+args,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=timeout)
         prefix.with_suffix('.stdout').write_bytes(r.stdout);prefix.with_suffix('.stderr').write_bytes(r.stderr)
         toml(prefix.with_suffix('.toml'),dict(returncode=r.returncode))
         if check:assert r.returncode==0,(name,r.returncode,r.stderr.decode(errors='replace'))
