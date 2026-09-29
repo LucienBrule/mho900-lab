@@ -1,0 +1,36 @@
+schema_version = "mho900-lab.entitlement-surface/1"
+task = "TASK.specimen.entitlement-surface"
+classification = "static-implementation-derived"
+stock_native_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+specimen_native_hash_rechecked = true
+official_native_hash_rechecked = true
+ordinary_installer_va = "0x4332fc"
+license_service = 36
+install_message = 11009
+valid_message = 11008
+list_message = 11010
+changed_message = 11017
+outer_zero_return_proves_install = false
+active_mho900_catalog_records = 14
+logical_archive_lic_members = 0
+physical_option_state_known = false
+private_store_acquired = false
+verification_key_requires_runtime_dna = true
+specimen_runtime_dna_established = false
+private_store_bytes = 8192
+private_store_i2c_bus = 4
+private_store_i2c_address = "0x50"
+physical_contact = false
+guest_execution = false
+
+[[private_evidence]]
+path = "out/overnight/entitlement-static/license.asm"
+sha256 = "a37ad3a3607c824df6daea16855fb452d7e7eb3d5d08e232146cc8d9e888398d"
+
+[[private_evidence]]
+path = "out/overnight/entitlement-static/loadPrivacy.asm"
+sha256 = "0aec93469f38bc616f6533d5760e082967f4b807d2d328dcec035c6667751fa1"
+
+[[private_evidence]]
+path = "out/overnight/entitlement-static/option-table-init.asm"
+sha256 = "4fa5aaa23306c323bc43eb69a04efdb4ca72229a1996206b98ad4aeb352feb23"
