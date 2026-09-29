@@ -109,6 +109,22 @@ def verify(root, cfg, phase):
             and cfg.get('stock_native_sha256') == STOCK_SHA256
             and cfg.get('token_text_encoding') == 'low-nibble-first'
             and cfg.get('consumer_observation_required') is True, 'Catalog fixture contract missing')
+    capability_only = cfg.get('acquired_capability_experiment') is True
+    derived_pin = '09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e'
+    expected_pin = STOCK_SHA256
+    capability_cfg = dict(cfg, capability_arm='stock', expected_bandwidth_enum=17,
+                          expected_record_offset='0x151b7a0')
+    if capability_only:
+        require(phase == 'reload' and cfg.get('capability_experiment') is True
+                and cfg.get('capability_arm') in ('stock','derived'), 'Invalid capability-only phase')
+        expected_pin = derived_pin if cfg['capability_arm'] == 'derived' else STOCK_SHA256
+        expected_bw = 18 if cfg['capability_arm'] == 'derived' else 17
+        require(cfg['expected_bandwidth_enum'] == expected_bw
+                and cfg['expected_record_offset'] == ('0x151b850' if expected_bw == 18 else '0x151b7a0'),
+                'Capability expectations differ')
+        capability_cfg = cfg
+    require(cfg['expected_native_sha256'] == expected_pin, 'Unexpected native contract')
+    expected_bw = capability_cfg['expected_bandwidth_enum']
     candidate = cfg['catalog_candidate']
     candidate_id, candidate_name = candidate['type'], candidate['name']
     require(candidate_id in CATALOG and CATALOG[candidate_id] == candidate_name
@@ -158,7 +174,7 @@ def verify(root, cfg, phase):
     require(required_checks <= set(terminal['expected_checks'])
             and all(value is True for value in terminal['expected_checks'].values()), 'Guest checks failed')
     require(tomllib.loads((root / 'result.toml').read_text())['controller_exit'] == 0, 'Controller failed')
-    require(digest((root / 'native-libscope-auklet.so').read_bytes()) == STOCK_SHA256,
+    require(digest((root / 'native-libscope-auklet.so').read_bytes()) == expected_pin,
             'Retained guest native library differs from stock')
     health = (root / 'health-before.txt').read_bytes()
     require(health == (root / 'health-after.txt').read_bytes() and b'Enforcing' in health, 'Guest health changed')
@@ -181,10 +197,9 @@ def verify(root, cfg, phase):
     require(one('synthetic-dna-response')['dna_hex'] == cfg['dna_hex'], 'DNA fixture differs')
     capability = one('synthetic-model-capability')
     require(capability['model'] == 'MHO984'
-            and capability['raw_bandwidth_enum'] == capability['system_bandwidth_enum'] == 17,
+            and capability['raw_bandwidth_enum'] == capability['system_bandwidth_enum'] == expected_bw,
             'Stock capability baseline differs')
-    common.verify_capability(events, dict(cfg, capability_arm='stock', expected_bandwidth_enum=17,
-                                         expected_record_offset='0x151b7a0'))
+    common.verify_capability(events, capability_cfg)
     catalogs = by_kind('option-catalog')
     require(len(catalogs) == 2 and [event['checkpoint'] for event in catalogs] == ['before', 'after'],
             'Catalog checkpoints differ')
@@ -230,7 +245,7 @@ def verify(root, cfg, phase):
         directory, relative = path.split('/', 1)
         files = before_rigol if directory == 'rigol' else before_model
         require(relative in files, 'Seed file missing from before snapshot')
-        if not (phase == 'reload' and path == 'model/private.mem'):
+        if capability_only or not (phase == 'reload' and path == 'model/private.mem'):
             require(digest(files[relative]) == item['sha256'], 'Seed file hash differs: ' + path)
     require(any(item['path'] == 'rigol/data/Key.data' for item in seed_files)
             and any(item['path'] == 'model/private.mem' for item in seed_files), 'Seed hashes incomplete')
@@ -424,8 +439,8 @@ def verify(root, cfg, phase):
             'private_saved_time_after_hex': private_after.get(16192, b'').hex(),
             'key_sha256': digest(after_rigol['data/Key.data']),
             'private_sha256': digest(after_model['private.mem']),
-            'catalog_unchanged_except_candidate': True, 'stock_native_sha256': STOCK_SHA256,
-            'raw_bandwidth_enum': 17, 'effective_bandwidth_enum': 17,
+            'catalog_unchanged_except_candidate': True, 'stock_native_sha256': STOCK_SHA256, 'observed_native_sha256': expected_pin,
+            'raw_bandwidth_enum': expected_bw, 'effective_bandwidth_enum': expected_bw,
             'persistence': 'harness-directed-stock-MemFile', 'automatic_fram_persistence_proven': False,
             'physical_contact': False}
 

@@ -8,15 +8,17 @@ controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|acquired-baseline|acquired-option|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|acquired-baseline|acquired-option|acquired-capability-stock|acquired-capability-derived|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
 acquired_option=false
-if [ "$trial_mode" = acquired-option ]; then acquired_option=true; fi
+case "$trial_mode" in acquired-option|acquired-capability-*) acquired_option=true;; esac
+acquired_capability=false
+case "$trial_mode" in acquired-capability-*) acquired_capability=true;; esac
 reader_mode=false
 if [ "$trial_mode" = identity-reader ]; then reader_mode=true; fi
 trial_enabled=true
 if [ "$trial_mode" = baseline ] || [ "$trial_mode" = acquired-baseline ] || [ "$reader_mode" = true ]; then trial_enabled=false; fi
 capability_mode=false
-case "$trial_mode" in capability-*) capability_mode=true;; esac
+case "$trial_mode" in capability-*|acquired-capability-*) capability_mode=true;; esac
 catalog_mode=false
 case "$trial_mode" in catalog-*) catalog_mode=true;; esac
 if [ "$acquired_option" = true ]; then catalog_mode=true; fi
@@ -59,7 +61,13 @@ if [ "$trial_enabled" = true ]; then
             "$repo/tools/guest/verify-acquired-option.py" "$repo/tools/guest/verify-synthetic-entitlement.py" \
             "$repo/tools/guest/entitlement-acquired-consumer.js" "$repo/tools/guest/entitlement-acquired-option.js" \
             "$repo/tools/guest/entitlement-capability.js" "$run/source/"
-        "$python" "$run/source/prepare-acquired-option.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
+        if [ "$acquired_capability" = true ]; then
+            cp "$repo/tools/guest/prepare-acquired-capability.py" "$repo/tools/guest/prepare-capability-fixture.py" "$run/source/"
+            "$python" "$run/source/prepare-acquired-capability.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
+            [ "$(yq -p toml -o yaml -r '.capability_arm' "$fixture/synthetic.toml")" = "${trial_mode#acquired-capability-}" ]
+        else
+            "$python" "$run/source/prepare-acquired-option.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
+        fi
     elif [ "$capability_mode" = true ]; then
         cp "$repo/tools/guest/prepare-capability-fixture.py" "$repo/tools/guest/entitlement-capability.js" "$run/source/"
         "$python" "$run/source/prepare-capability-fixture.py" --verify-fixture "$fixture" > "$run/capability-fixture-verification.toml"
@@ -130,7 +138,7 @@ fi
 native_pin=4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e
 if [ "$capability_mode" = true ]; then
     check_hash "$run/fixture/ancestor/libscope-auklet.so" "$native_pin" stock-native-ancestor
-    if [ "$trial_mode" = capability-derived ]; then
+    if { [ "$trial_mode" = capability-derived ] || [ "$trial_mode" = acquired-capability-derived ]; }; then
         native_pin=09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e
     fi
     [ "$(yq -p toml -o yaml -r '.expected_native_sha256' "$run/fixture/synthetic.toml")" = "$native_pin" ]
@@ -423,10 +431,10 @@ if [ "$trial_enabled" = true ]; then
         run_trial_phase negative negative
     elif [ "$trial_mode" = catalog-positive ]; then
         run_trial_phase install positive
-    elif [ "$trial_mode" = capability-stock ]; then
+    elif { [ "$trial_mode" = capability-stock ] || [ "$trial_mode" = acquired-capability-stock ]; }; then
         run_trial_phase capability reload
     else
-        if [ "$trial_mode" = capability-derived ]; then
+        if { [ "$trial_mode" = capability-derived ] || [ "$trial_mode" = acquired-capability-derived ]; }; then
             run_trial_phase capability reload
         else
             run_trial_phase install positive

@@ -9,17 +9,22 @@ function entitlementExperiment() {
         const phase = entitlementPhase;
         const checkpoint = entitlementCheckpoint;
         const candidate = cfg.catalog_candidate;
+        const capabilityOnly = cfg.acquired_capability_experiment === true;
+        const derivedPin = '09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e';
+        const expectedPin = capabilityOnly && cfg.capability_arm === 'derived' ? derivedPin : STOCK_AUKLET_SHA256;
+        if (capabilityOnly && (phase !== 'reload' || cfg.capability_experiment !== true ||
+            !['stock','derived'].includes(cfg.capability_arm))) throw new Error('Invalid reload-only capability fixture');
         if (cfg.schema_version !== 'mho900-lab.acquired-option-fixture/1' || cfg.acquired_option_experiment !== true ||
             !['positive','reload'].includes(phase) || !/^[a-z0-9-]{1,40}$/.test(checkpoint) ||
             !candidate || candidate.type !== 5 || candidate.name !== 'FlexA' || ![32,48].includes(candidate.padded_bytes) ||
-            cfg.stock_native_sha256 !== STOCK_AUKLET_SHA256 || cfg.expected_native_sha256 !== STOCK_AUKLET_SHA256 ||
+            cfg.stock_native_sha256 !== STOCK_AUKLET_SHA256 || cfg.expected_native_sha256 !== expectedPin ||
             cfg.token_text_encoding !== 'low-nibble-first' || cfg.consumer_observation_required !== true ||
             cfg.model !== 'MHO984' || cfg.license_type !== 0 || cfg.license_time !== 0 ||
             cfg.aes_key_ascii.length !== 32 || cfg.key_field_hex.length !== 260 || cfg.key_ciphertext_hex.length !== 296 ||
             cfg.physical_contact !== false || cfg.specimen_key_files_used !== true ||
             !Array.isArray(cfg.seed_options) || cfg.seed_options.length !== 0 ||
             !Array.isArray(cfg.seed_files) || !Array.isArray(cfg.seed_catalog)) throw new Error('Unexpected acquired option fixture');
-        const capabilityCfg = Object.assign({}, cfg, {capability_experiment: true, capability_arm: 'stock',
+        const capabilityCfg = capabilityOnly ? cfg : Object.assign({}, cfg, {capability_experiment: true, capability_arm: 'stock',
             expected_bandwidth_enum: 17, expected_record_offset: '0x151b7a0'});
         const mod = aukletModule;
         if (mod === null || Process.arch !== 'arm64') throw new Error('ART/Auklet not ready');
@@ -31,8 +36,8 @@ function entitlementExperiment() {
         if (typeof entitlementObserveConsumer !== 'function') throw new Error('Required consumer observer missing');
         entitlementObserveConsumer(mod, event, cfg);
         event('entitlement-phase-start', { phase: phase, identity: 'acquired-fixture', model: cfg.model,
-            serial: cfg.serial, dna_hex: cfg.dna_hex, stock_files_unchanged: true, catalog_experiment: true,
-            stock_apk_unchanged: true, native_library_derived: false });
+            serial: cfg.serial, dna_hex: cfg.dna_hex, stock_files_unchanged: expectedPin === STOCK_AUKLET_SHA256, catalog_experiment: true,
+            stock_apk_unchanged: true, native_library_derived: expectedPin !== STOCK_AUKLET_SHA256 });
         function fn(name, result, args) { return native(nm, name, result, args); }
         function guarded(va, bytes, result, args) {
             return checkedLocalFunction(mod, va, bytes, result, args);
@@ -162,7 +167,7 @@ function entitlementExperiment() {
         const rawBandwidth = mod.base.add(0xbbcce4).readS32();
         const systemBandwidth = mod.base.add(0xbbcce8).readS32();
         event('synthetic-model-capability', { model: observedModel, raw_bandwidth_enum: rawBandwidth, system_bandwidth_enum: systemBandwidth });
-        const expectedBandwidth = 17;
+        const expectedBandwidth = capabilityCfg.expected_bandwidth_enum;
         if (rawBandwidth !== expectedBandwidth || systemBandwidth !== expectedBandwidth) throw new Error('Unexpected stock MHO984 bandwidth');
         call('ApiUtility_GetDNA', guarded(0x42a7dc, 'ff0302d1fd7b07a9fdc3019148d03bd5', 'void', []));
         const actualDna = requiredExport(nm, '_ZN11CApiUtility5m_DNAE').readU64();
