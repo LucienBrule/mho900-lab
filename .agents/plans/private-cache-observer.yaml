@@ -1,0 +1,47 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.private-cache-observer-prepare
+    title: Implement pinned passive private-cache observer and controls
+    state: open
+    intent: Turn recovered Setup ownership into a bounded observer with preserved failure evidence.
+    requires: [TASK.specimen.private-state-acquisition-decision]
+    requirements:
+      - Preserve stock originals and predecessor reader contracts. Integrate exact APK/native pins, PID/start-time and boot identity, selected module-map consistency and readable pointer ranges.
+      - Resolve service38 through the pinned registry, exact Setup vtables and backlink. Bound active entries64, capacity128, and two private windows of0x700; declare and enforce a total read budget including owner metadata.
+      - Never attach, invoke target methods, write target memory, acquire target locks or use device IO. Preserve partial/raw samples on rejection. Label repeated observations non-atomic and not device readback.
+      - Build reproducibly and exercise host positive and rejection controls before committing/pushing preparation. If implementation cannot meet the recovered contract, record that limitation without broadening reads.
+    acceptance: [The native observer and deterministic fixture are ready for bounded disposable guest validation.]
+    verification: [implementation, build, controls, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.private-cache-observer-guest
+    title: Validate passive private-cache reader in an isolated guest
+    state: open
+    intent: Verify native reads and rejection gates before any live specimen use.
+    requires: [TASK.specimen.private-cache-observer-prepare]
+    requirements:
+      - Use a fresh disposable ARM64 guest and synthetic owner/cache fixture under the established offline loopback network control. Do not contact the physical scope.
+      - Run a bounded positive observation and deliberate owner/mapping/process rejection controls. Verify exact bytes, read budget, preserved failures and no target writes or calls.
+      - Keep guest security state and system_server stable; preserve and seal the original outcome. A failed run is a conclusion, not permission to edit evidence or silently retry.
+    acceptance: [Native observer behavior has a preserved guest result with exact scope.]
+    verification: [execution, controls, health, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.private-cache-observer-decision
+    title: Evaluate readiness for bounded physical private-cache acquisition
+    state: open
+    intent: Choose physical observation or a concrete repair from the native guest evidence.
+    requires: [TASK.specimen.private-cache-observer-guest]
+    requirements:
+      - Distinguish synthetic fixture success from stock live owner discovery and from physical FRAM readback. State residual concurrency and durability limitations.
+      - Admit physical observation only as a separate bounded successor with fresh capture, host isolation and evidence gates; this batch performs no specimen contact.
+      - Commit and push conclusion before successor execution. Preserve the original result if controls fail.
+    acceptance: [The next step follows the verified reader result and preserves specimen boundaries.]
+    verification: [finding, continuation, boundaries]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
