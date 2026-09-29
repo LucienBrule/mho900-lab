@@ -1,0 +1,31 @@
+schema_version = "mho900-lab.entitlement-baseline/1"
+task = "TASK.specimen.guest-entitlement-baseline"
+run = "out/specimen-entitlement/baseline-02"
+classification = "stock-native-component-negative"
+stock_libraries_loaded = 3
+library_roundtrip_identical = true
+factory_completed = false
+failure = "Api_Create access violation accessing 0x0"
+precise_fault_pc_recorded = false
+runtime_dna_reached = false
+identity_initialized = false
+option_state = "unavailable"
+installation_attempted = false
+persistence_tested = false
+rigol_files_unchanged = true
+system_server_stable = true
+guest_enforcing_before_after = true
+physical_contact = false
+runner_exit = 3
+
+[[artifacts]]
+path = "out/specimen-entitlement/baseline-02/controller.stdout"
+sha256 = "1fad5b4d30c0e50aa530ab557aac695ddfbef7e4f10e325e7d210c94e9c93982"
+
+[[artifacts]]
+path = "out/specimen-entitlement/baseline-02/evidence-sha256.txt"
+sha256 = "ef8171274d02cb212e33c9a4947e4c47df128693f2d10ac6c3c084a4b0fd001e"
+
+[[artifacts]]
+path = "out/specimen-entitlement/baseline-02/result.toml"
+sha256 = "5312f11f9703b868c6abfcbd9f3a8eb01f53a362c3de1cfc95c683325284d506"
