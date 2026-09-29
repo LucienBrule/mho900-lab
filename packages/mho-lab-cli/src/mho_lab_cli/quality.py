@@ -59,7 +59,12 @@ _CONTAINER_NAMES = frozenset(
 _BUILTIN_CONTAINERS = frozenset({"list", "dict", "set", "frozenset", "tuple"})
 _CONTAINER_MODULES = _TYPING_MODULES | {"collections", "collections.abc", "builtins"}
 _TYPE_IGNORE = re.compile(r"#\s*type:\s*ignore\b(?!\s*\[[^\]\s]+(?:[^\]]*)\])", re.I)
-_NOQA = re.compile(r"#\s*noqa\b(?!\s*:\s*[A-Z]+\d+)", re.I)
+_NOQA = re.compile(r"#\s*(?:(?:ruff|flake8)\s*:\s*)?noqa\b(?!\s*:\s*[A-Z]+\d+)", re.I)
+_MYPY_IGNORE = re.compile(
+    r"#\s*mypy:\s*(?:[^,]+,\s*)*ignore[-_]errors"
+    r"(?:\s*=\s*(?:true|yes|1))?\s*(?:,|$)",
+    re.I,
+)
 
 
 def _line(node: ast.AST) -> int:
@@ -138,10 +143,36 @@ def _is_tuple(reference: str | None) -> bool:
     return reference in {"tuple", "builtins.tuple", "typing.Tuple", "typing_extensions.Tuple"}
 
 
-def _homogeneous_tuple(node: ast.AST | None, bindings: dict[str, str]) -> bool:
+def _annotation_aliases(tree: ast.Module) -> dict[str, ast.expr]:
+    aliases: dict[str, ast.expr] = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.TypeAlias):
+            aliases[node.name.id] = node.value
+        elif isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name):
+            if node.value is not None:
+                aliases[node.target.id] = node.value
+        elif isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    aliases[target.id] = node.value
+    return aliases
+
+
+def _homogeneous_tuple(
+    node: ast.AST | None,
+    bindings: dict[str, str],
+    aliases: dict[str, ast.expr],
+    seen: frozenset[str] = frozenset(),
+) -> bool:
+    if isinstance(node, ast.Name) and node.id in aliases:
+        if node.id in seen:
+            return False
+        return _homogeneous_tuple(aliases[node.id], bindings, aliases, seen | {node.id})
     if isinstance(node, ast.Constant) and isinstance(node.value, str):
         try:
-            return _homogeneous_tuple(ast.parse(node.value, mode="eval").body, bindings)
+            return _homogeneous_tuple(
+                ast.parse(node.value, mode="eval").body, bindings, aliases, seen
+            )
         except SyntaxError:
             return False
     return (
@@ -158,6 +189,7 @@ class _PolicyVisitor(ast.NodeVisitor):
     def __init__(self, path: Path, tree: ast.Module) -> None:
         self.path = path
         self.bindings = _bindings(tree)
+        self.aliases = _annotation_aliases(tree)
         self.violations: set[PolicyViolation] = set()
         self.homogeneous_returns: list[bool] = []
 
@@ -168,8 +200,12 @@ class _PolicyVisitor(ast.NodeVisitor):
 
     def check_reference(self, node: ast.AST, line: int | None = None) -> None:
         reference = _reference(node, self.bindings)
-        if reference is None:
-            return
+        if reference is not None:
+            self.check_resolved_reference(reference, node, line)
+
+    def check_resolved_reference(
+        self, reference: str, node: ast.AST, line: int | None = None
+    ) -> None:
         if reference == "Any" or reference in {m + ".Any" for m in _TYPING_MODULES}:
             self.report(node, "Use an explicit type instead of Any (including aliases).", line)
         if reference in {m + "." + n for m in _TYPING_MODULES for n in ("Dict", "Tuple")}:
@@ -196,7 +232,7 @@ class _PolicyVisitor(ast.NodeVisitor):
         if isinstance(node, ast.Subscript):
             self.check_reference(node.value, line)
             reference = _reference(node.value, self.bindings)
-            if _is_tuple(reference) and not _homogeneous_tuple(node, self.bindings):
+            if _is_tuple(reference) and not _homogeneous_tuple(node, self.bindings, self.aliases):
                 self.report(
                     node, "Fixed tuple annotations are positional records; use a model.", line
                 )
@@ -234,8 +270,7 @@ class _PolicyVisitor(ast.NodeVisitor):
         for alias in node.names:
             if alias.name == "*" and node.module in _TYPING_MODULES:
                 self.report(node, "Wildcard typing imports obscure the type policy.")
-            proxy = ast.Name(id=alias.asname or alias.name)
-            self.check_reference(proxy, node.lineno)
+            self.check_resolved_reference(node.module + "." + alias.name, node)
 
     def visit_Name(self, node: ast.Name) -> None:
         self.check_reference(node)
@@ -285,7 +320,9 @@ class _PolicyVisitor(ast.NodeVisitor):
         if node.returns is not None:
             self.check_annotation(node.returns)
         self.check_type_comment(node, node.type_comment)
-        self.homogeneous_returns.append(_homogeneous_tuple(node.returns, self.bindings))
+        self.homogeneous_returns.append(
+            _homogeneous_tuple(node.returns, self.bindings, self.aliases)
+        )
         self.generic_visit(node)
         self.homogeneous_returns.pop()
 
@@ -318,7 +355,9 @@ def _check_file(path: Path) -> list[PolicyViolation]:
     visitor.visit(tree)
     for token in tokenize.generate_tokens(io.StringIO(source).readline):
         if token.type == tokenize.COMMENT and (
-            _TYPE_IGNORE.search(token.string) or _NOQA.search(token.string)
+            _TYPE_IGNORE.search(token.string)
+            or _NOQA.search(token.string)
+            or _MYPY_IGNORE.search(token.string)
         ):
             visitor.violations.add(
                 PolicyViolation(path, token.start[0], "Blanket type-ignore/noqa is prohibited.")

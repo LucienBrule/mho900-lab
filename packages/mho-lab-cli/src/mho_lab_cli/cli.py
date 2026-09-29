@@ -5,11 +5,15 @@ from pathlib import Path
 import click
 
 from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
+from mho_lab_cli.evidence_cli import evidence
 
 
 @click.group()
 def main() -> None:
     """Offline research tooling for MHO900 Lab."""
+
+
+main.add_command(evidence)
 
 
 @main.command()

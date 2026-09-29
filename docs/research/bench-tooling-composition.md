@@ -77,11 +77,12 @@ Acceptance should demonstrate:
 - Portable source and examples contain no unit identities, private paths,
   license material or proprietary binary payloads.
 
-Use the existing host Python environment for this first module to integrate with
-the current verifiers. Keep the manifest contract language-neutral. Kotlin can
-consume the same contract later; a language migration is not required to settle
-artifact semantics. Fixed native observations remain C. No package-wide rewrite
-or new framework is justified by this first task.
+The accepted implementation uses a locked uv workspace with separate reusable
+library and Click CLI projects, Pydantic boundary validation, and strict Python
+quality gates. See the [workspace runbook](../runbooks/python-workspace.md).
+Legacy verifiers retain their original runtime and pinned bytes. Keep the manifest
+contract language-neutral so Kotlin can consume it later. Fixed native observations
+remain C; this is an incremental composition, not a rewrite of previous experiments.
 
 After that result, decide whether TCP reconstruction or capture-session ownership
 removes the next largest source of duplication. Do not build a universal bench

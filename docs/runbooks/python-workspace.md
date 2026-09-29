@@ -35,6 +35,5 @@ Pydantic validates external data rather than propagating dynamic dictionaries.
 The implementation follows the official [uv workspace model](https://docs.astral.sh/uv/concepts/projects/workspaces/),
 [Click command model](https://click.palletsprojects.com/en/stable/commands-and-groups/),
 and [Pydantic union guidance](https://docs.pydantic.dev/latest/concepts/unions/).
-New evidence operations will be documented with their actual guarantees and
-failure behavior as they are implemented; this workspace setup is not a bench
-acquisition procedure.
+See [offline evidence manifests](evidence-manifests.md) for the first reusable
+operation and its limits. This workspace setup is not a bench acquisition procedure.

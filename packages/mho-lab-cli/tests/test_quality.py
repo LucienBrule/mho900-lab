@@ -70,6 +70,45 @@ def test_rejects_policy_fixture(tmp_path: Path, case: RejectedSource) -> None:
     assert path.read_text() == case.source
 
 
+@pytest.mark.parametrize(
+    "source",
+    [
+        "from typing import Any as Alias\nAlias = int\n",
+        "from typing import cast as narrow\nnarrow = int\n",
+        "# ruff: noqa\nx = 1\n",
+        "# flake8: noqa\nx = 1\n",
+        "# mypy: ignore-errors\nx = 1\n",
+        "# mypy: warn-unreachable, ignore_errors=True\nx = 1\n",
+    ],
+)
+def test_import_origins_and_blanket_file_directives(tmp_path: Path, source: str) -> None:
+    path = tmp_path / "rebound.py"
+    path.write_text(source)
+    assert any(v.line == 1 for v in check_paths([path]))
+
+
+@pytest.mark.parametrize(
+    "alias",
+    ["Values = tuple[int, ...]", "type Values = tuple[int, ...]"],
+)
+def test_homogeneous_tuple_return_alias_is_allowed(tmp_path: Path, alias: str) -> None:
+    path = tmp_path / "alias.py"
+    path.write_text(alias + "\ndef f() -> Values:\n    return (1, 2)\n")
+    assert check_paths([path]) == []
+
+
+def test_alias_cycle_terminates_and_does_not_excuse_tuple_record(tmp_path: Path) -> None:
+    path = tmp_path / "cycle.py"
+    path.write_text("A = B\nB = A\ndef f() -> A:\n    return (1, 'x')\n")
+    assert any("Tuple return" in v.reason for v in check_paths([path]))
+
+
+def test_targeted_tool_directives_and_disabled_ignore_are_allowed(tmp_path: Path) -> None:
+    path = tmp_path / "scoped.py"
+    path.write_text("# ruff: noqa: F841\n# mypy: ignore-errors=False\nx = 1\n")
+    assert check_paths([path]) == []
+
+
 def test_alias_reference_itself_is_reported(tmp_path: Path) -> None:
     path = tmp_path / "aliases.py"
     path.write_text("from typing import Any as Escape\nAlias = Escape\nx: Alias\n")
