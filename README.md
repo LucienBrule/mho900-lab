@@ -60,3 +60,6 @@ the untracked `local/reversing/` location. Generated evidence and emulator state
 
 Start repository work with `./taskctl doctor`, `./taskctl context`, and `./taskctl frontier`.
 See [AGENTS.md](AGENTS.md).
+
+New reusable Python tooling uses a typed uv workspace. See the
+[workspace runbook](docs/runbooks/python-workspace.md) for installation and quality gates.

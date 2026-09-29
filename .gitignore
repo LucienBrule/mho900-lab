@@ -29,3 +29,9 @@ local.properties
 # Local Python bytecode
 __pycache__/
 *.py[cod]
+
+# uv workspace environment
+/.venv/
+/.mypy_cache/
+/.ruff_cache/
+/.pytest_cache/

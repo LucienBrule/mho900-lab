@@ -1,0 +1,31 @@
+"""Thin Click presentation adapters."""
+
+from pathlib import Path
+
+import click
+
+from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
+
+
+@click.group()
+def main() -> None:
+    """Offline research tooling for MHO900 Lab."""
+
+
+@main.command()
+def version() -> None:
+    """Print this tool's version; do not contact an instrument."""
+    identity = identify_tool()
+    click.echo(f"{identity.name} {identity.version}")
+
+
+@main.command()
+@click.argument("paths", type=click.Path(path_type=Path), nargs=-1, required=True)
+def quality(paths: tuple[Path, ...]) -> None:
+    """Check authored typing conventions in explicit source paths."""
+    result = check_quality(paths)
+    if isinstance(result, PolicyRejected):
+        for issue in result.violations:
+            click.echo(f"{issue.path}:{issue.line}: {issue.reason}", err=True)
+        raise click.exceptions.Exit(1)
+    click.echo("Typing policy passed.")
