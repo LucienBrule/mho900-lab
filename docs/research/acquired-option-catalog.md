@@ -122,3 +122,13 @@ records; installer counts were1/0/0. All 14 canonical files matched across reloa
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `808b8e807239707720a30a52fe154794443a5fb79e8db65c386d11a0abb17481`.
+
+### AEROA conclusion
+
+Run `acquired-catalog-aeroa-01` completed 2026-09-29T14:21:11Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 931,878,878
+records; installer counts were1/0/0. All 16 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `a6a6c23108302d3d0e2d01cc2f56a8eeaf69ab7ac79f70a64df5ef57bf42d0e0`.

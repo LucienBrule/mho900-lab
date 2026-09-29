@@ -95,3 +95,22 @@ effective_bandwidth_enum = 17
 source_seal = "5c92133cb6f70f6789bcb35fcea31796f32c7c1740b950680d41e6028bd18d2a"
 seal_sha256 = "808b8e807239707720a30a52fe154794443a5fb79e8db65c386d11a0abb17481"
 auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
+
+[[runs]]
+run_id = "acquired-catalog-aeroa-01"
+option_name = "AEROA"
+arm = "positive"
+started_at = "2026-09-29T14:20:30Z"
+finished_at = "2026-09-29T14:21:11Z"
+verification = "accepted"
+journal_counts = [931, 878, 878]
+installer_calls = [1, 0, 0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "AFG50", "AFG100", "BWU05T08"]
+guest_reboot_observed = true
+canonical_files_identical_across_reload = true
+canonical_file_count = 16
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "808b8e807239707720a30a52fe154794443a5fb79e8db65c386d11a0abb17481"
+seal_sha256 = "a6a6c23108302d3d0e2d01cc2f56a8eeaf69ab7ac79f70a64df5ef57bf42d0e0"
+auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
