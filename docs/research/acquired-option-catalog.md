@@ -132,3 +132,13 @@ records; installer counts were1/0/0. All 16 canonical files matched across reloa
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `a6a6c23108302d3d0e2d01cc2f56a8eeaf69ab7ac79f70a64df5ef57bf42d0e0`.
+
+### RLU05 conclusion
+
+Run `acquired-catalog-rlu05-01` completed 2026-09-29T14:22:35Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 976,923,923
+records; installer counts were1/0/0. All 18 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `561e11b0ca16be8411cbe76031cc46488e0c0d6c206bd25834ae7639a2199261`.

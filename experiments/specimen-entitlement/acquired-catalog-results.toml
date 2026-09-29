@@ -114,3 +114,22 @@ effective_bandwidth_enum = 17
 source_seal = "808b8e807239707720a30a52fe154794443a5fb79e8db65c386d11a0abb17481"
 seal_sha256 = "a6a6c23108302d3d0e2d01cc2f56a8eeaf69ab7ac79f70a64df5ef57bf42d0e0"
 auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
+
+[[runs]]
+run_id = "acquired-catalog-rlu05-01"
+option_name = "RLU05"
+arm = "positive"
+started_at = "2026-09-29T14:21:42Z"
+finished_at = "2026-09-29T14:22:35Z"
+verification = "accepted"
+journal_counts = [976, 923, 923]
+installer_calls = [1, 0, 0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU05T08"]
+guest_reboot_observed = true
+canonical_files_identical_across_reload = true
+canonical_file_count = 18
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "a6a6c23108302d3d0e2d01cc2f56a8eeaf69ab7ac79f70a64df5ef57bf42d0e0"
+seal_sha256 = "561e11b0ca16be8411cbe76031cc46488e0c0d6c206bd25834ae7639a2199261"
+auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
