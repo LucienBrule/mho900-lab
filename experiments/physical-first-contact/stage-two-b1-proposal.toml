@@ -1,0 +1,45 @@
+schema_version = "mho900-lab.physical-stage-two-b1-proposal/1"
+status = "proposal-with-endpoint-gate"
+execution_authorized = false
+execution_tasks_admitted = 0
+recorder_control_passed = true
+command = "*IDN?"
+command_semantics_verified = true
+expected_fields = ["manufacturer", "model", "serial_number", "software_version"]
+candidate_request_hex = "2a49444e3f0a"
+candidate_terminator_basis = "official VISA-over-USB programming example; raw TCP framing not independently verified"
+numeric_socket_port_verified = false
+endpoint_gate = "authoritative MHO900-specific endpoint and framing evidence before execution"
+application_query_count = 1
+connection_attempt_count = 1
+proposed_connect_timeout_seconds = 5
+proposed_response_timeout_seconds = 10
+proposed_response_limit_bytes = 4096
+automatic_retry = false
+lease_renewal_authorized = false
+other_management_interfaces_authorized = false
+host_address_changed = false
+specimen_contacted = false
+report = "docs/research/physical-stage-two-b1-proposal.md"
+
+[programming_guide]
+url = "https://www.rigol.com/dam/global/downloads/brochures/en/program-guide/oscilloscopes/MHO900-ProgrammingGuide.pdf"
+sha256 = "a671c065bd04a85d05e9d4cef732df3ba4884c2218054f64d1a83fb5a43cffd5"
+matches_existing_reference_copy = true
+idn_section = "3.12.1"
+idn_printed_pages = [141, 142]
+idn_pdf_pages = [165, 166]
+socket_visa_pdf_pages = [183, 184]
+example_lf_pdf_page = 517
+
+[user_guide]
+url = "https://www.rigol.com/dam/global/downloads/brochures/en/user-manual/oscillosopes/MHO900_UserGuide_EN.pdf"
+sha256 = "0fcd76ebc1e454af0f699811df5c2acd6243ade8e0626a0352c2d9d493dafab2"
+scpi_socket_field_pdf_page = 308
+scpi_socket_field_value = "blank in official screenshot"
+
+[evidence]
+private_run = "out/physical/host-recorder-control-20260929T022423Z"
+guide_manifest = "guide-review-manifest.toml"
+guide_manifest_sha256 = "9b74961dc5b997505d7de3618ba128e53ef331be666e472f162f90ec14886b5b"
+proposal_report_sha256 = "19ddfbe5823506eca0259e5123959736135d28df59d85f706e2854b6e8319f0e"
