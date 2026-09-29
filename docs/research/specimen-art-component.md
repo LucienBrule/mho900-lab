@@ -57,3 +57,31 @@ was durably acknowledged, and the runner returned zero. Copied instrument files 
 Journal SHA-256: `fee345aebc1344f65469e0aa81be0694e86abb8fbe8de22342f8057150b5e77f`.
 Evidence-index SHA-256: `d30e16cc09f762a3fabf096faa83cd0e537e157dac170a4f59cf4c70a110ff0b`.
 The single stock factory trial can now proceed in a fresh guest using this caller contract.
+
+## Stock factory baseline: passed to the DNA boundary
+
+`art-stock-01` constructs all 49 real stock services, including Utility 11 and License 36, under the actual
+ART/JNI caller. No native or pending Java error is observed. The journal retains all 393 events, identical to
+the controller receipts. The original notification path remains intact. This resolves the native-only factory
+failure without replacing any constructor or callback.
+
+Before vendor initialization, cached model is `MHO934`, product series is 900, and a cached serial string is
+present. These are uninitialized library values, not evidence of specimen identity. The next call to stock
+`ApiUtility_InitVendor` reaches `ApiUtility_GetDNA`, where the observer stops before supplying any response.
+The 49-service inventory is construction evidence; it does not imply License initialization or valid options.
+
+The run finished at 06:17:22 UTC with runner zero for its declared dependency-stop outcome. No option query,
+installation or persistence result is claimed. Before/after copied instrument-file manifests are equal; the
+stock APK and native libraries remain byte-identical and the physical instrument was not contacted.
+
+| Artifact under `out/specimen-entitlement/art-stock-01` | SHA-256 |
+| --- | --- |
+| `guest-events.jsonl` | `863bab5c88b16b28aec291eb43ba7270478b0d0b9f63f13b0e09d8bd4425e76f` |
+| `evidence-sha256.txt` | `04592fa7b9a4ad89a87d36947bf2e056471b109c6d4547f03051265019830fb1` |
+| `result.toml` | `1e98587d9d133c21201b47a305a1a088828c5849d520cf6f4dad5b906bf29a0d` |
+
+The next question is a coherent, explicitly synthetic entitlement fixture: identity/key derivation, private
+store serialization and a token accepted by the unmodified ordinary installer. Copied unit key material cannot
+silently be combined with arbitrary DNA. Recover that contract before installation, preserve a negative control,
+and require actual query/file/reload/reboot witnesses. Missing physical DNA and FRAM remain exact bench questions;
+they do not justify contacting the unit during the offline authorization.
