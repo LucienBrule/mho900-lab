@@ -1,0 +1,55 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.capture-evidence
+    title: Validate retained capture structure and terminal recorder statistics
+    state: open
+    intent: Make recorder statistics and captured-frame consistency independently reusable offline evidence.
+    requires: [TASK.tooling.transport-decision]
+    requirements:
+      - Reuse the typed classic pcap decoder for structural frame inventory without requiring a TCP flow; avoid duplicate format parsers.
+      - Parse terminal recorder counts under an explicit text-format profile with named outcomes; reject missing ambiguous contradictory and nonzero-drop evidence when assessing a complete retained capture.
+      - Keep frame consistency, process termination, packet loss observations and on-wire completeness as distinct claims; do not infer missing counts as zero.
+      - Test synthetic positive and negative controls and compare preserved recorder stderr and pcap locally without altering evidence.
+    acceptance: [Independent offline capture structure and recorder-count controls pass with limits documented.]
+    verification: [contract, controls, private_comparison]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.recorder-lifecycle
+    title: Own bounded recorder process startup and graceful shutdown
+    state: open
+    intent: Compose process lifecycle without repeating the inherited signal-mask failure.
+    requires: [TASK.tooling.transport-decision]
+    requirements:
+      - Add typed requests states and results for an explicitly owned child process; normalize signal mask and dispositions only in the child before exec without preexec_fn or global host changes.
+      - Preserve stdout stderr and signal-state evidence with exclusive outputs; distinguish graceful exit abnormal exit timeout escalation and uncertain cleanup.
+      - Bound startup and termination waits, reap owned children, and never treat forced termination as a successful recorder result.
+      - Use synthetic local recorder processes only for all execution and tests; do not open a capture interface or contact any instrument or network endpoint.
+      - Maintain Click to delegate to library composition for any public entrypoint; keep legacy recorder scripts byte-identical.
+    acceptance: [Synthetic controls establish signal normalization and explicit failure outcomes without physical access.]
+    verification: [contract, controls, isolation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.capture-decision
+    title: Evaluate capture composition and remaining tooling priorities
+    state: open
+    intent: Decide whether the components can support a future explicit acquisition procedure.
+    requires: [TASK.tooling.capture-evidence, TASK.tooling.recorder-lifecycle]
+    requirements:
+      - Review lifecycle and evidence limits, verify installed distributions and CI outcomes, and preserve conclusions with commit and push.
+      - Recheck remaining authorized time and admit only bounded useful successor work or checkpoint cleanly; no physical operations.
+    acceptance: [Evidence supports the next concrete offline task or clean handoff.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.capture-composition
+    title: Recorder lifecycle and retained capture evidence
+    scope: Typed process ownership and offline capture finalization under synthetic host-only controls.
+    tasks: [TASK.tooling.capture-evidence, TASK.tooling.recorder-lifecycle, TASK.tooling.capture-decision]
+    required_extensions: []
+    extensions: {}
