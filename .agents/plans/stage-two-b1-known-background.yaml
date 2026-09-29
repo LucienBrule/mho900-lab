@@ -1,0 +1,20 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.stage-two-b1-known-background
+    title: Perform one identity query with identified host background retained
+    state: open
+    intent: Execute the renewed operator request for one SCPI identity read and reconcile the returned text offline.
+    requires: [TASK.bench.stage-two-b1-reconcile]
+    requirements:
+      - Commit admitted tasking before execution. Preserve a fresh baseline and capture; retain isolation, lease lifetime, single interface-bound TCP connection and exactly one LF-terminated *IDN? request.
+      - The renewed operator instruction permits proceeding despite the host-originated local discovery just identified. Retain and label host ARP, local UDP discovery and multicast membership traffic rather than treating those known classes as an automatic stop.
+      - Continue to stop on recorder failure, loss of isolation, unexpected peers or external traffic. No lease renewal, host security-policy changes, additional commands, management interfaces, scans or automatic retries.
+      - Preserve raw request and response, remove the temporary host address, stop capture gracefully with statistics and seal hashes. Compare returned identity text with the local corpus without claiming artifact byte identity.
+      - Commit and push the redacted conclusion and task state; stop after this one bounded attempt.
+    acceptance: [One identity response or bounded negative result is preserved with capture and restoration evidence.]
+    verification: [authorization, capture, identity, restoration, reconciliation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
