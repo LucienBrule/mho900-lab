@@ -2,15 +2,21 @@
 # Specimen-derived native baseline in a disposable, host-loopback-only guest.
 set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-run_id=${1:?Usage: run-entitlement-baseline.sh RUN_ID FIXTURE_DIR CONTROLLER.py SOURCE.js [negative|positive|capability-stock|capability-derived]}
+run_id=${1:?Usage: run-entitlement-baseline.sh RUN_ID FIXTURE_DIR CONTROLLER.py SOURCE.js [negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final]}
 fixture_arg=${2:?}
 controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|negative|positive|capability-stock|capability-derived) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final) ;; *) exit 2;; esac
 capability_mode=false
 case "$trial_mode" in capability-*) capability_mode=true;; esac
+catalog_mode=false
+case "$trial_mode" in catalog-*) catalog_mode=true;; esac
+seeded_mode=false
+if [ "$capability_mode" = true ] || [ "$catalog_mode" = true ]; then seeded_mode=true; fi
+trial_verifier=verify-synthetic-entitlement.py
+if [ "$catalog_mode" = true ]; then trial_verifier=verify-option-catalog.py; fi
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 frida_home=${ENTITLEMENT_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19-r02"}
@@ -37,13 +43,22 @@ cp "$repo/experiments/guest-admission/inputs.toml" "$run/source/admission-inputs
 if [ "$trial_mode" != baseline ]; then
     [ -f "$fixture/synthetic.toml" ] && [ -d "$fixture/model" ] && [ -d "$fixture/art" ]
     [ -d "$fixture/rigol/data" ]
-    if [ "$capability_mode" = false ]; then
+    if [ "$seeded_mode" = false ]; then
         [ -z "$(find "$fixture/rigol" -type f -print)" ]
         [ -z "$(find "$fixture/model" -mindepth 1 -print)" ]
-    else
+    elif [ "$capability_mode" = true ]; then
         cp "$repo/tools/guest/prepare-capability-fixture.py" "$repo/tools/guest/entitlement-capability.js" "$run/source/"
         "$python" "$run/source/prepare-capability-fixture.py" --verify-fixture "$fixture" > "$run/capability-fixture-verification.toml"
         [ "$(yq -p toml -o yaml -r '.capability_arm' "$fixture/synthetic.toml")" = "${trial_mode#capability-}" ]
+    else
+        cp "$repo/tools/guest/prepare-option-catalog-fixture.py" "$repo/tools/guest/verify-option-catalog.py" \
+            "$repo/tools/guest/entitlement-catalog.js" "$repo/tools/guest/entitlement-capability.js" "$run/source/"
+        "$python" "$run/source/prepare-option-catalog-fixture.py" --verify-fixture "$fixture" > "$run/catalog-fixture-verification.toml"
+        catalog_arm=$(yq -p toml -o yaml -r '.catalog_arm' "$fixture/synthetic.toml")
+        if [ "$trial_mode" = catalog-negative ]; then [ "$catalog_arm" = negative48 ]; else [ "$catalog_arm" = positive ]; fi
+        if [ "$trial_mode" = catalog-final ]; then
+            [ "$(yq -p toml -o yaml -r '.catalog_candidate.name' "$fixture/synthetic.toml")" = BWU03T08 ]
+        fi
     fi
     cp "$repo/tools/guest/compose-entitlement-phase.py" "$repo/tools/guest/prepare-synthetic-entitlement-fixture.py" \
        "$repo/tools/guest/verify-synthetic-entitlement.py" "$run/source/"
@@ -264,11 +279,12 @@ phase=fixture
 adb shell 'test ! -e /data/local/tmp/entitlement && test -d /rigol && mkdir /data/local/tmp/entitlement'
 adb push "$run/fixture/lib" /data/local/tmp/entitlement/lib > "$run/lib-push.txt" 2>&1
 adb push "$run/fixture/rigol" /data/local/tmp/entitlement/rigol > "$run/rigol-push.txt" 2>&1
-if [ "$capability_mode" = true ]; then
+if [ "$seeded_mode" = true ]; then
     adb push "$run/fixture/model" /data/local/tmp/entitlement/model > "$run/model-push.txt" 2>&1
     adb pull /data/local/tmp/entitlement/model "$run/before-model" > "$run/model-roundtrip.txt" 2>&1
-    for name in private.mem crypto-witness.toml; do cmp "$run/fixture/model/$name" "$run/before-model/$name"; done
     "$python" "$run/source/entitlement-files.py" "$run/before-model" > "$run/before-model.toml"
+    "$python" "$run/source/entitlement-files.py" "$run/fixture/model" > "$run/fixture-model.toml"
+    diff -qr "$run/fixture/model" "$run/before-model"
 elif [ "$trial_mode" != baseline ]; then
     # Empty directories are fixture semantics, not an adb push implementation assumption.
     # This executes only on the fresh userdata path, never during reload or reboot.
@@ -278,8 +294,9 @@ fixture_staged=true
 adb shell 'mount -o bind /data/local/tmp/entitlement/rigol /rigol && cat /proc/mounts && ls -ldZ /rigol /rigol/data' > "$run/bind-mount.txt" 2>&1
 adb pull /rigol "$run/before-rigol" > "$run/before-pull.txt" 2>&1
 "$python" "$run/source/entitlement-files.py" "$run/before-rigol" > "$run/before-rigol.toml"
-if [ "$capability_mode" = true ]; then
-    for name in Key.data FlexA.lic; do cmp "$run/fixture/rigol/data/$name" "$run/before-rigol/data/$name"; done
+if [ "$seeded_mode" = true ]; then
+    "$python" "$run/source/entitlement-files.py" "$run/fixture/rigol" > "$run/fixture-rigol.toml"
+    diff -qr "$run/fixture/rigol" "$run/before-rigol"
 fi
 adb pull /data/local/tmp/entitlement/lib "$run/guest-libs" > "$run/lib-roundtrip.txt" 2>&1
 for name in libc++_shared.so libfftw3f.so libscope-auklet.so; do cmp "$run/fixture/lib/$name" "$run/guest-libs/$name"; done
@@ -305,6 +322,12 @@ if [ "$trial_mode" != baseline ]; then
         phase="trial-$label"
         active_phase_dir="$run/phases/$label"
         mkdir -p "$active_phase_dir"
+        if [ "$catalog_mode" = true ]; then
+            adb pull /rigol "$active_phase_dir/before-rigol" > "$active_phase_dir/before-rigol-pull.txt" 2>&1
+            adb pull /data/local/tmp/entitlement/model "$active_phase_dir/before-model" > "$active_phase_dir/before-model-pull.txt" 2>&1
+            "$python" "$run/source/entitlement-files.py" "$active_phase_dir/before-rigol" > "$active_phase_dir/before-rigol.toml"
+            "$python" "$run/source/entitlement-files.py" "$active_phase_dir/before-model" > "$active_phase_dir/before-model.toml"
+        fi
         "$python" "$run/source/compose-entitlement-phase.py" "$run/source/synthetic.toml" \
             "$run/source/entitlement.js" "$ENTITLEMENT_PHASE" "$active_phase_dir/entitlement.js" --checkpoint "$label"
         shasum -a 256 "$active_phase_dir/entitlement.js" > "$active_phase_dir/source-sha256.txt"
@@ -323,7 +346,7 @@ if [ "$trial_mode" != baseline ]; then
         adb pull /data/local/tmp/entitlement/model "$active_phase_dir/after-model" > "$active_phase_dir/model-pull.txt" 2>&1
         "$python" "$run/source/entitlement-files.py" "$active_phase_dir/after-rigol" > "$active_phase_dir/after-rigol.toml"
         "$python" "$run/source/entitlement-files.py" "$active_phase_dir/after-model" > "$active_phase_dir/after-model.toml"
-        if [ "$capability_mode" = true ]; then
+        if [ "$seeded_mode" = true ]; then
             adb pull /data/local/tmp/entitlement/lib/libscope-auklet.so "$active_phase_dir/native-libscope-auklet.so" > "$active_phase_dir/native-pull.txt" 2>&1
             cmp "$run/fixture/lib/libscope-auklet.so" "$active_phase_dir/native-libscope-auklet.so"
             shasum -a 256 "$active_phase_dir/native-libscope-auklet.so" > "$active_phase_dir/native-sha256.txt"
@@ -334,13 +357,15 @@ if [ "$trial_mode" != baseline ]; then
         "$python" "$run/source/verify-entitlement-journal.py" "$active_phase_dir/guest-events.jsonl" \
             "$active_phase_dir/controller.stdout" --expect stock > "$active_phase_dir/journal-verification.toml"
         [ "$controller_rc" = 0 ]
-        "$python" "$run/source/verify-synthetic-entitlement.py" "$active_phase_dir" "$run/source/synthetic.toml" \
+        "$python" "$run/source/$trial_verifier" "$active_phase_dir" "$run/source/synthetic.toml" \
             --phase "$ENTITLEMENT_PHASE" > "$active_phase_dir/trial-verification.toml"
         "$python" "$run/source/entitlement-files.py" "$active_phase_dir" > "$run/$label-evidence.toml"
     }
     adb shell cat /proc/sys/kernel/random/boot_id > "$run/initial-boot-id.txt"
-    if [ "$trial_mode" = negative ]; then
+    if [ "$trial_mode" = negative ] || [ "$trial_mode" = catalog-negative ]; then
         run_trial_phase negative negative
+    elif [ "$trial_mode" = catalog-positive ]; then
+        run_trial_phase install positive
     elif [ "$trial_mode" = capability-stock ]; then
         run_trial_phase capability reload
     else

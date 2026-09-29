@@ -23,6 +23,29 @@ STOCK_STOPS = {"runtime-dna-unavailable", "private-fram-unavailable", "unexpecte
 def accepted_stop(payload):
     if payload.get("kind") != "dependency-stop":
         return False
+    if payload.get("reason") == "option-catalog-phase-complete":
+        phase = payload.get("phase")
+        common = {"started_false", "catalog_complete", "seed_catalog_matches", "seed_inputs_preserved",
+                  "private_reloaded", "catalog_delta_exact", "candidate_file_matches",
+                  "capability_identity_preserved", "capability_bandwidth_selected", "capability_record_selected",
+                  "capability_option_policy_preserved", "capability_queries_succeeded"}
+        fresh = {"token_roundtrip", "wire_codec_roundtrip", "baseline_candidate_disabled"}
+        phase_checks = {
+            "negative": fresh | {"negative_rejected", "negative_no_license_file"},
+            "positive": fresh | {"positive_accepted", "positive_license_file"},
+            "reload": {"reload_persisted", "no_installer", "no_token_regeneration"},
+        }
+        checks = payload.get("expected_checks")
+        if phase not in phase_checks or phase != os.environ.get("ENTITLEMENT_PHASE") or not isinstance(checks, dict):
+            return False
+        catalogs = (payload.get("catalog_before"), payload.get("catalog_after"))
+        return (payload.get("exit_code") == 77 and payload.get("terminal_ack") is True
+                and all(checks.get(key) is True for key in common | phase_checks[phase])
+                and all(isinstance(catalog, list) and len(catalog) == 14
+                        and all(isinstance(item, dict) and type(item.get("option_type")) is int
+                                and isinstance(item.get("option_name"), str) and type(item.get("valid")) is bool
+                                and type(item.get("status")) is int and item["status"] == 0 for item in catalog)
+                        and len({item["option_type"] for item in catalog}) == 14 for catalog in catalogs))
     if payload.get("reason") == "entitlement-phase-complete":
         phase = payload.get("phase")
         required = {"started_false", "catalog_complete"}
