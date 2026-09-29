@@ -46,3 +46,25 @@ verification_sha256 = "af1cfcdd9960ff6d561d2e1f0598d6815177197154a3fde00503881b5
 license_sha256 = "6c3b60ad7293abed8595e03f4d1fb688a33bddaa5412bcdbebb19ab3e87363cf"
 key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
 private_sha256 = "52420fabb6387143dc14c0c2af6893f3e8125de9434fa763ec8a89d2a43dabd7"
+
+[[runs]]
+run_id = "catalog-afg50-01"
+option_name = "AFG50"
+option_type = 30
+started_at = "2026-09-29T07:25:04Z"
+finished_at = "2026-09-29T07:25:31Z"
+trial_mode = "catalog-positive"
+evidence_index_sha256 = "3f639c2e69ec7e8b6d3c6f753ed8aaf2f6bec0c9f143138b19de5d18cd041333"
+result_sha256 = "b0a8cdaccbb6a4e8d9452c2ef55437a97ef2959078741451cc1df644486fed9a"
+config_sha256 = "2cabf08270191f29097a42cf60db2d0f566194135a5422e5841ccd44fa1ca6bd"
+
+[[runs.phases]]
+label = "install"
+journal_records = 787
+enabled = ["EMBD", "COMP", "AUTO", "FlexA", "AFG50", "AFG100", "BWU05T08"]
+ordinary_install_calls = 1
+journal_sha256 = "812abcd241c8ce6d45c1238578e4a2e74fe5b1c006471239613ff704ac003e56"
+verification_sha256 = "2cf2ca9bbf2556736f26792924572079c157050478730d49b83a6247fd477c8a"
+license_sha256 = "1dc3564aae75bee32c73b77d864de2b214648b60afe137514faf0c710b32ee68"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "88aa55e71ba4583b8f89a818c085d10140387565c3ff883c7d2878191f7e178b"
