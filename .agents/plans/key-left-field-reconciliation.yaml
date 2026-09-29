@@ -1,0 +1,49 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.key-left-field-recovery
+    title: Recover actual uses of the acquired key left field
+    state: open
+    intent: Reconcile the failed serial-equality assumption against stock code.
+    requires: [TASK.specimen.acquired-key-guest-decision]
+    requirements:
+      - Commit and push tasking before execution. Preserved files only and no physical contact.
+      - Trace getLicenseKey left output and verifyOption argument three through startup and ordinary installation. Distinguish actual use, unused parameter and metadata interpretation.
+      - State whether public IDN serial and acquired left field must be kept separate. Do not normalize either to force equality.
+      - Preserve source addresses and evidence, commit and push the conclusion before any corrected guest experiment.
+    acceptance: [The failed equality assumption is either resolved by stock dataflow or retained as a precise unknown.]
+    verification: [dataflow, conclusion, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.separate-key-fields-baseline
+    title: Test a guest baseline preserving separate acquired fields
+    state: open
+    intent: Observe original key parsing with faithful acquired inputs and modeled empty private state.
+    requires: [TASK.specimen.key-left-field-recovery]
+    requirements:
+      - Execute only if preceding evidence supports separate public serial and key left field. Otherwise stop with the unresolved prerequisite recorded.
+      - Preserve exact acquired Key.data, cached DNA and file keys, and physical IDN identity in separate private fields. Keep unchanged stock APK and native library pins.
+      - Use the established isolated disposable ART guest, fresh modeled private store, original License initialization and complete option queries. No installer or crypto token producer in this baseline.
+      - Verify full key output, left-field output, derived file keys, original ciphertext preservation, private-record changes, complete journal and guest policy/system-server health. Preserve any failure rather than modifying a running experiment.
+      - No physical contact or mutation. Seal private evidence and commit and push the conclusion.
+    acceptance: [The baseline passes exact acquired-input checks or records its first reproducible stop.]
+    verification: [inputs, observation, private_state, isolation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.separate-key-fields-decision
+    title: Evaluate separate-field guest baseline
+    state: open
+    intent: Select the next bounded offline or guest entitlement step.
+    requires: [TASK.specimen.separate-key-fields-baseline]
+    requirements:
+      - Reconcile exact field behavior and modeled private state before selecting a successor.
+      - A successful baseline supports one guest ordinary installation with process and reboot persistence; a failure requires a bounded correction or recorded dependency.
+      - No physical installation, capability change, reboot or acquisition. Commit and push decision and admitted tasking before successor execution.
+    acceptance: [The continuation follows actual evidence without conflating guest and physical state.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
