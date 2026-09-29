@@ -1,0 +1,50 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.specimen-logical-acquisition
+    title: Acquire unit files and active application binaries
+    state: open
+    intent: Preserve the unit-specific logical corpus and exact active APKs before emulator work.
+    requires: [TASK.bench.accession-decision]
+    requirements:
+      - Commit tasking before execution. Fresh capture and host isolation; maintain only the authorized single private lease without router DNS or external routes.
+      - Invoke adb root at most once as separately authorized, permit its daemon restart, then verify id. If root fails preserve that result; acquire only ordinarily readable files and do not improvise another elevation route.
+      - Stream rigol and installed application directories plus relevant system startup/configuration files directly to separate private host artifacts. No device-side archive staging, reboot, remount, filesystem freeze, entitlement or capability changes.
+      - Preserve source paths, metadata and errors, byte counts and host hashes. Validate archives offline; extract APK native libraries locally without modifying originals and compare hashes with pinned local firmware inputs.
+      - Seal artifacts and capture with graceful statistics and preserve temporary-host rollback. Record live-filesystem consistency limits and any missing data.
+    acceptance: [A hashed logical corpus and specimen binary comparison or precise access failure is preserved.]
+    verification: [access, acquisition, hashes, comparison, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.specimen-raw-acquisition
+    title: Preserve independent reads of exposed eMMC user area
+    state: open
+    intent: Acquire the observed block device as immutable raw evidence distinct from logical files.
+    requires: [TASK.bench.specimen-logical-acquisition]
+    requirements:
+      - Proceed only after verified root and read access. Recheck the observed mmcblk0 size of 31299993600 bytes against sysfs and blockdev; confirm destination capacity.
+      - Under isolated maintained lease and full capture stream one complete read directly to a fresh host file, hash it and make the completed artifact read-only. Never overwrite a previous image or conceal a short read.
+      - Attempt a second independent read into a separate file with its own hash if the first is complete and conditions remain healthy. Preserve differences; mounted writable filesystems mean identical hashes and point-in-time consistency are not guaranteed.
+      - No writes to source devices, reboot, remount, freeze, firmware change, physical entitlement or host security-policy change. Stop on loss of isolation, capture failure, source read error or insufficient storage.
+      - Preserve command/error output, timestamps, exact counts and hashes, graceful capture/drop statistics and host restoration. Describe the exposed user area, not unobserved eMMC boot/RPMB storage.
+    acceptance: [Complete separately hashed raw reads or a bounded acquisition failure are preserved without changing source storage.]
+    verification: [source, first_read, second_read, integrity, restoration]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.specimen-acquisition-decision
+    title: Evaluate accession and admit specimen-derived guest validation
+    state: open
+    intent: Determine which specimen bytes match the corpus and what bounded guest work now matters.
+    requires: [TASK.bench.specimen-raw-acquisition]
+    requirements:
+      - Reconcile raw completeness and live-read differences separately from logical archive and APK integrity.
+      - Use exact active Sparrow and Auklet hashes to decide whether existing harness evidence transfers or a bounded binary difference requires recovery.
+      - Commit and push redacted conclusions; admit only justified disposable-guest successors, with physical entitlement and 1 GHz transitions reserved for later authorization gates.
+    acceptance: [Accession quality and the next bounded guest validation are explicitly decided.]
+    verification: [integrity, lineage, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
