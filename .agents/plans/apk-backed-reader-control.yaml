@@ -1,0 +1,49 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.apk-backed-reader-build
+    title: Build a pinned APK-backed bounded reader and native mapping fixture
+    state: open
+    intent: Implement the verified container geometry without changing the read budget or original reader evidence.
+    requires: [TASK.specimen.apk-backed-identity-geometry-decision]
+    requirements:
+      - Commit and push tasking before implementation. Preserve stock originals and the standalone reader source and binary.
+      - Derive a separately named reader from the pinned standalone source using an auditable patch. Pin whole APK and embedded ELF, fixed entry offset and exact size; validate container and ELF before resolving APK-relative mappings.
+      - Retain one readonly process descriptor, exact8/16/8/16reads maximum48bytes, repeated identity/maps/file checks, no attachment/target calls/writes or permission fallback.
+      - Implement a disposable native fixture with private APK-backed stock PT_LOAD mappings and declared synthetic cached bytes; no stock instrument initialization. Include other same-inode APK mappings and process metadata.
+      - Compile with pinned toolchain and exercise C resolver against preserved maps and meaningful mutations independently from Python. Freeze build artifacts and commit/push before guest execution.
+    acceptance: [A frozen APK reader and fixture pass host controls or preserve a precise build/control failure.]
+    verification: [provenance, geometry, controls, boundaries]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.apk-backed-reader-guest
+    title: Execute the frozen APK reader against a disposable ARM64 mapping fixture
+    state: open
+    intent: Validate actual positioned reads and repeated evidence with the new APK backing contract.
+    requires: [TASK.specimen.apk-backed-reader-build]
+    requirements:
+      - Use only an explicitly selected loopback disposable ARM64 guest and dedicated ADB server; no physical contact. Freeze run inputs before execution.
+      - Record fixture backing hash and fresh PID/starttime/boot/maps. Run wrong-starttime, wrong-pin and unmapped-range controls before exactly one positive reader attempt.
+      - Verify rejected controls read zero memory and positive attempt reads exactly48bytes matching declared synthetic fixture values, with stable metadata and independently resolved addresses.
+      - Preserve failed results without modifying and rerunning the same experiment. Seal evidence, stop disposable processes and commit/push conclusion.
+    acceptance: [A reproducible guest result or exact failure is retained for decision.]
+    verification: [guest, negatives, observation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.apk-backed-reader-decision
+    title: Reconcile APK reader results against the existing physical observation authority
+    state: open
+    intent: Decide whether a new bounded physical cached observation is justified by the control evidence.
+    requires: [TASK.specimen.apk-backed-reader-guest]
+    requirements:
+      - Evaluate method, hashes, permissions and synthetic values separately. A native mapping fixture is not stock initialization or physical permission evidence.
+      - If justified draft a fresh bounded physical task under existing on-scope read authority, with current backing APK hash, stable setup and fresh isolated capture. No physical retries or mutations occur in this decision itself.
+      - On failure branch offline and preserve the exact result. Commit and push decision and any successor tasking before execution.
+    acceptance: [Evidence selects one bounded continuation without broadening physical authority.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
