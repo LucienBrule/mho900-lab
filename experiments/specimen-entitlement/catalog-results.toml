@@ -178,3 +178,47 @@ verification_sha256 = "54f1c3b63ead55d5b88e784807541cb566f1e50f26bc5f283b86bd4d5
 license_sha256 = "9a91264ef1c1c9e169c2ffb1f790675e1f087588e76e7cfb65b4d14f769a8c29"
 key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
 private_sha256 = "04011eb66887904cdb946a0a4eeee6feb59160fd59d073b6ec4d40136065bf3c"
+
+[[runs]]
+run_id = "catalog-bwu03t08-01"
+option_name = "BWU03T08"
+option_type = 23
+started_at = "2026-09-29T07:29:48Z"
+finished_at = "2026-09-29T07:30:41Z"
+trial_mode = "catalog-final"
+evidence_index_sha256 = "304ae1512e734980a0d150e1ef309c63803e70cb8ee5168a7c50462a31c7b97f"
+result_sha256 = "32060d66d6d7b75974c2d136ca0e9471d8f2c5fb643d9a0a520a6338bd13cbfc"
+config_sha256 = "ce0483692e9bfe01eb6071f734a9ef2146a874d0c994faa767d805bce0c2aa96"
+
+[[runs.phases]]
+label = "install"
+journal_records = 1057
+enabled = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU03T05", "BWU03T08", "BWU05T08"]
+ordinary_install_calls = 1
+journal_sha256 = "716a231dd74ec2336070a7b1a7fe44417f93b97d3220f7b9f3bac59cbfdadb08"
+verification_sha256 = "fc84e2e7cc8711078126fab6f5fa2e034b846068b75d3ed90210004ad48eb519"
+license_sha256 = "313a57b5605a20f4e1e343224c03cebde3997689d916f1846f7cc2591232ca06"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "28ba56a597164f7fef104b96ccfb3b91ba628df3b8cdaa07c12357ee4335dc18"
+
+[[runs.phases]]
+label = "process-reload"
+journal_records = 1004
+enabled = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU03T05", "BWU03T08", "BWU05T08"]
+ordinary_install_calls = 0
+journal_sha256 = "b7ea7163723489b026ce2857c4d9ec32357a6b38ca417fffe14c98aa267af08f"
+verification_sha256 = "ce0379e7aa8d8223d31b30588f39df6771500ec78d098e1c3bef42e1b6743bc5"
+license_sha256 = "313a57b5605a20f4e1e343224c03cebde3997689d916f1846f7cc2591232ca06"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "28ba56a597164f7fef104b96ccfb3b91ba628df3b8cdaa07c12357ee4335dc18"
+
+[[runs.phases]]
+label = "reboot-reload"
+journal_records = 1004
+enabled = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU03T05", "BWU03T08", "BWU05T08"]
+ordinary_install_calls = 0
+journal_sha256 = "1aed142f6f9b48f33d46f4c20905bfe0baed55863724fa43d1cbd78dfdec0d28"
+verification_sha256 = "ce0379e7aa8d8223d31b30588f39df6771500ec78d098e1c3bef42e1b6743bc5"
+license_sha256 = "313a57b5605a20f4e1e343224c03cebde3997689d916f1846f7cc2591232ca06"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "28ba56a597164f7fef104b96ccfb3b91ba628df3b8cdaa07c12357ee4335dc18"

@@ -83,3 +83,38 @@ will not seed that arm.
 | `phases/negative/guest-events.jsonl` | `02eceb0cace4e027257e87cc4e06fd88104feedd5b4a4fe51c4d0a568bf81cdc` |
 | `evidence-sha256.txt` | `769bd2834b47a5ef621f572936957c9fb92bc2fdf2ab6d001432b40a056cbe48` |
 | `result.toml` | `29209a76e679da569df6e304ef37ad4038f9ba9b3c80aa6221098a4aad8dcbcf` |
+
+## Cumulative positive result
+
+All nine remaining candidates passed in the declared order. Each run made exactly one ordinary installer
+call, observed stock validation true and result 24531, retained a stock-written license file, and changed
+only that candidate's catalog entry from false to true. All previous licenses revalidated during the next
+run's original License initialization. Each conclusion was committed and pushed before the next candidate.
+
+The final run, `out/specimen-entitlement/catalog-bwu03t08-01`, completed from 07:29:48 to 07:30:41 UTC on
+2026-09-29. Its install, fresh-process and guest-reboot phases retained 1057, 1004 and 1004 complete matching
+journal events. The actual guest boot identity changed. Both reload phases made zero installer or crypto
+producer calls and observed all ten individual tokens pass original stock validation.
+
+| State | Before catalog sequence | After final install | Process reload | Guest reboot |
+| --- | --- | --- | --- | --- |
+| EMBD, COMP, AUTO | True | True | True | True |
+| FlexA | True | True | True | True |
+| Nine declared candidates | False | True | True | True |
+| BND | False | False | False | False |
+| Public identity | MHO984 | MHO984 | MHO984 | MHO984 |
+| Raw/effective bandwidth | 17/17 | 17/17 | 17/17 | 17/17 |
+
+All ten license files, Key.data, all ten crypto witnesses and canonical private state were byte-identical
+across the final three phases. No acquired unit key material entered these runs. The unchanged APK/native
+pins and guest health checks passed throughout.
+
+The [result manifest](../../experiments/specimen-entitlement/catalog-results.toml) records every run, UTC
+interval, enabled catalog, journal count and artifact hash. It binds each candidate's result, source fixture,
+new license, key and private state. Raw journals and per-run source copies remain in the ignored evidence area.
+
+This establishes the ordinary individual catalog's software acceptance and component persistence under the
+declared synthetic personality. It does not establish physical entitlement parity or operation of the
+features named by those options. The three accepted bandwidth options left MHO984 at enum 17; none provided
+a discovered ordinary enum-18 mechanism. The separately derived D-capability result retains its own evidence
+and scope rather than being folded into this unchanged-library experiment.
