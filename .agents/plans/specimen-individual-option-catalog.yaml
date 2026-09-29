@@ -1,0 +1,55 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.option-catalog-control
+    title: Validate a three-block ordinary option control
+    state: open
+    intent: Extend the proven stock consumer contract to a 48-byte token before expanding individual option coverage.
+    requires: [TASK.specimen.d-capability-copy-decision]
+    requirements:
+      - Commit and push tasking before implementation. Preserve existing single-option and capability evidence; use unchanged stock Auklet and the validated synthetic FlexA seed.
+      - Prepare an explicit BWU05T08 wrong-name fixture with 48 decoded bytes and the stock low-nibble-first wire encoding. Keep synthetic identity, key material and permanent type/time semantics unchanged.
+      - Use actual stock decoder controls and three observed AES consumer blocks. Require the exact intended padded plaintext, original false validation, rejection result, unchanged full 14-entry catalog, no new option file and preserved rejected-attempt deltas.
+      - Preserve real ART/JNI/factory, actual private serialization and current isolation/health controls. No physical access, derived D library, bundle option, trial expiration or new model personality.
+      - Generalize only the declared token size, option metadata and observation/verification paths needed for the bounded catalog. Do not weaken earlier checks or substitute native results. Stop on the first mismatch and evaluate before another run.
+      - Commit and push this control conclusion before the cumulative positive catalog experiment.
+    acceptance: [The 48-byte consumer negative control is established, or its exact first failure is preserved.]
+    verification: [fixture, consumer, rejection, evidence, boundaries]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.option-catalog-install
+    title: Validate remaining individual option installs and combined persistence
+    state: open
+    intent: Test nine remaining individual catalog options through the unchanged installer and retain the resulting state across guest restart and reboot.
+    requires: [TASK.specimen.option-catalog-control]
+    requirements:
+      - Proceed only after the control passes. Start from a fresh copy of the validated FlexA seed, not the rejected control state. Freeze the ordered candidates BWU05T08, AFG100, AFG50, AUDIOA, AUTOA, AEROA, RLU05, BWU03T05 and BWU03T08.
+      - Use declared coherent synthetic plaintexts, stock crypto, exact stock wire decoding and actual consumer key/plaintext witnesses. Use 32- or 48-byte tokens as required by the documented fixture lengths. Do not install BND or the three already-true built-in options.
+      - For each candidate, make exactly one ordinary installer call and require stock validation true, activeOpt 24531, original success notification, a stock-written license file and only the intended false-to-true catalog delta. Preserve all previously enabled states and exact prior key/license bytes.
+      - Each candidate may use a fresh disposable guest seeded only from the preceding successful snapshot. Preserve exact source-run lineage and prior bytes; the final persistence test must reboot the same guest.
+      - Seal each candidate's evidence and commit its conclusion before the next candidate. Stop on any failure or collateral state change; do not guess alternate tokens or force results.
+      - Observe actual stock model/raw/effective bandwidth getters and explicitly evaluate ParseOption for the bandwidth cases. Ordinary bandwidth options target at most enum 17; never describe acceptance as an ordinary 1 GHz mechanism or physical feature validation.
+      - After all nine transitions pass, perform fresh-process and same-guest reboot reloads with no installer, token regeneration or private formatting. Require all 13 individual/built-in query states true and BND false, exact key/license hashes, valid stock private reload and changed boot identity.
+      - Retain complete bounded consumer journals, per-candidate catalogs, filesystem/private snapshots, source/input hashes, guest health and loopback confinement. Private durability remains harness-directed MemFile persistence.
+    acceptance: [The bounded individual catalog and persistence outcomes are established, or the exact first rejected candidate or dependency is preserved.]
+    verification: [sequence, consumers, catalogs, persistence, evidence, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.option-catalog-decision
+    title: Reconcile catalog coverage and prepare the morning research handoff
+    state: open
+    intent: Evaluate ordinary option coverage, record exact physical parity questions and select useful reporting or bounded offline follow-up.
+    requires: [TASK.specimen.option-catalog-install]
+    requirements:
+      - Separate token acceptance, queried state, guest persistence, capability policy and physical feature operation. Preserve any negative outcome without broadening the tested claims.
+      - Choose the next highest-value offline branch or research/reporting task; do not repeat already-established startup, ADC or consumer results without a concrete blocker.
+      - Preserve the exact smallest physical question under a renewed-authorization boundary. No physical scope contact during overnight work.
+      - Admit any successor through inspected taskctl plan and expected revision, then commit and push before execution. Leave a concise morning report and clean pushed repository.
+    acceptance: [The coverage assessment and next bounded action are committed and pushed.]
+    verification: [findings, physical_boundary, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []

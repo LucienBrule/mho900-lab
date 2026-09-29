@@ -87,3 +87,26 @@ No FPGA or AFE programming, acquisition, calibration, physical deployment or ins
 A separate static observation remains open: API_GetBandValue maps explicit enum 17 to its 100 MHz default,
 while enum 18 has a 1 GHz branch. That helper was not invoked in these runs and is not used as a bandwidth
 witness; the actual model/raw/effective getters above are the comparison authority.
+
+## Decision and next boundary
+
+The unchanged library has now accepted a coherent synthetic FlexA entitlement and reloaded it across a fresh
+process and a real guest reboot. The separate derived library preserves the public MHO984 identity and that
+license state while selecting the MHO984D capability record and bandwidth enum 18. An independent audit
+confirmed the exact 27 changed bytes within the admitted 32-byte span, the unchanged stock ancestor and APK,
+and identical seed files and option catalogs across the derived phases.
+
+These are distinct software results: ordinary token acceptance, harness-directed private-store durability,
+and capability-record selection. They do not establish physical entitlement parity, autonomous FRAM writes,
+a working full application UI, or analog bandwidth. The initial capability observer failure was a retained
+Frida return-value wrapper; copying the returned pointer at the callback boundary resolved that observer
+lifetime issue without changing native behavior.
+
+The next bounded batch covers the nine remaining individual option names. It starts with the untested
+48-byte consumer path and then checks cumulative installation and combined restart/reboot persistence.
+Built-in options, the bundle option, trial expiration, alternative model personalities and physical feature
+operation are outside that batch. Each candidate will be sealed and committed before the next begins.
+
+The smallest eventual physical parity question is whether already initialized application memory contains
+the identity-derived file keys predicted by the offline corpus. Any such observation needs renewed operator
+authorization and a separately reviewed read-only method. No specimen contact is part of this decision.
