@@ -1,0 +1,14 @@
+schema_version = "mho900-lab.physical-ethernet-gate/1"
+run_id = "mho984-as-delivered-20260929T012613Z"
+operator_confirmed_ethernet_only = true
+scope_power_disconnected = true
+scope_usb_b_disconnected = true
+carrier_observed = "inactive"
+negotiated_link_observed = false
+packets_observed = 0
+capture_healthy = true
+host_isolation_unchanged = true
+physical_transition_timestamp_precision = "operator confirmation; exact connection time not supplied"
+phase_manifest_sha256 = "14e0a2c3c69131c60d961c148d0c9bba3c9148eb733454a0891838ff558f2076"
+capture_snapshot_sha256 = "84d574a2ce7d10abbbd59cd7c94ccb9e96ac3f5cada39fc68d15f396801ebb6a"
+next_action = "await separate operator power confirmation"
