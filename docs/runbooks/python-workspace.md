@@ -1,9 +1,10 @@
 # Typed Python workspace
 
-The new offline tooling lives in two uv workspace members:
+The new offline tooling lives in three uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
+- `packages/mho-transport`: offline packet and TCP transcript evidence.
 
 The root project is a development workspace, not a third installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
@@ -19,12 +20,21 @@ uv sync --locked --all-packages
 uv run --locked mho-lab --help
 uv run --locked mho-lab version
 ./tools/check-python.sh
+mkdir -p out/tooling
+./tools/check-python-packages.sh out/tooling/installed-packages-01
 ```
 
 The gates run Ruff lint/format checks, strict mypy with Pydantic's plugin, an AST
 policy check and pytest. The policy checker supplements type checking by rejecting
 prohibited authored forms; it is not a complete proof of Python program semantics.
 Rules apply to tests as well as production modules. See `packages/AGENTS.md`.
+
+Choose a new evidence directory for each packaging run; it refuses an existing
+output directory. Logs and built artifacts are retained there.
+The packaging gate builds distributions and installs their wheels into a separate
+environment, then exercises public imports and commands outside the checkout.
+GitHub Actions runs both gates on Linux and macOS. A local pass is not evidence
+that those remote jobs have completed; consult the individual workflow result.
 
 Thin CLI endpoints should construct named requests and pass them to delegates.
 Delegates call reusable library operations and retain typed outcomes. Render those
@@ -36,4 +46,5 @@ The implementation follows the official [uv workspace model](https://docs.astral
 [Click command model](https://click.palletsprojects.com/en/stable/commands-and-groups/),
 and [Pydantic union guidance](https://docs.pydantic.dev/latest/concepts/unions/).
 See [offline evidence manifests](evidence-manifests.md) for the first reusable
-operation and its limits. This workspace setup is not a bench acquisition procedure.
+operation and its limits, and [offline transcripts](offline-transcripts.md) for
+the transport profile. This workspace setup is not a bench acquisition procedure.

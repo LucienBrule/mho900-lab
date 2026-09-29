@@ -42,3 +42,35 @@ The old verifier chain also repeats packet parsing and byte-sequence recovery,
 making an independently tested transport-evidence library valuable. Recorder
 ownership and active read-only transport can wait until those offline contracts
 are stable. A general bench orchestrator is still premature.
+
+## Installed packages and offline transport
+
+The successor batch adds `mho-transport` as a third workspace member. Its bounded
+classic-pcap profile recovers one explicit IPv4 TCP connection with named request
+and reply bytes. The CLI reports TOML counts and hashes without payload disclosure.
+Its [profile and limits](../runbooks/offline-transcripts.md) distinguish captured
+content from delivery, application execution and recorder-drop statistics.
+
+All 124 workspace tests and typed quality gates pass. Independent review exercised
+11 additional sequence-boundary controls, including wrap, bytes before the SYN
+origin or after FIN, conflicting SYN payload, repeated FIN and reversed capture
+order. The supported profile has no remaining blocking finding from that review.
+
+The new parser reproduced 333 request bytes and 72 reply bytes exactly from the
+preserved 12-query identity-display run: 61 total frames, 45 selected TCP frames
+and zero repeated payload bytes. Capture SHA-256:
+`c61c6bb3f11546cbd8c7685aaa90d73b786c09088d0d4a2ddf41e67b55bd6921`.
+The comparison reads local files only; raw payloads and endpoint configuration
+remain private. Evidence is under `out/tooling/offline-tcp-01/`.
+
+The installed-package gate rebuilt all three wheels from generated source
+distributions, installed locked runtime dependencies into an external noneditable
+environment, and exercised public imports, typing markers and both CLI/library
+paths under Python isolated mode. Evidence and transport positive and negative
+controls passed with `UV_OFFLINE=1` using cached tooling. Build constraints also
+pin the backend and its dependencies through the workspace lock. Outputs are under
+`out/tooling/installed-packages-02/`.
+
+A Linux/macOS GitHub Actions workflow now defines these gates using pinned action
+commits, Python 3.12.13 and uv 0.6.17. At this checkpoint local macOS results are
+established; remote workflow completion must be checked separately after push.
