@@ -1,0 +1,50 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-inventory-fix
+    title: Repair prelaunch input inventory
+    state: open
+    intent: Handle generated Python cache directories without changing the option experiment.
+    requires: [TASK.specimen.acquired-option-decision]
+    requirements:
+      - Commit tasking before execution. Preserve the failed run unchanged.
+      - Hash source files recursively and fail on unsupported source objects; retain complete input coverage.
+      - Exercise a host-only control containing nested cache files and a changed file. No guest launch in preparation.
+      - Keep option fixture and stock execution semantics frozen; commit and push preparation before the next run.
+    acceptance: [The input recorder handles generated directories and detects changed file contents.]
+    verification: [implementation, control, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-retry
+    title: Execute acquired-input persistence after inventory repair
+    state: open
+    intent: Obtain one bounded original-consumer installation and persistence result.
+    requires: [TASK.specimen.acquired-option-inventory-fix]
+    requirements:
+      - Use a fresh run identity and unchanged acquired-option fixture with stock APK and native file pins.
+      - Execute one frozen guest-only loopback-confined run; no physical contact.
+      - Record one FlexA installer call and original consumer witnesses plus exact catalog and file deltas.
+      - If accepted, reload in a new component process and after the same guest reboots without regeneration, reinstall or formatting.
+      - Stop on first discrepancy. Preserve and independently verify evidence with the existing verifier; do not change an experiment to force acceptance.
+      - Commit and push the actual conclusion before successor execution.
+    acceptance: [A sealed success or first reproducible failure is recorded.]
+    verification: [execution, consumer, catalog, persistence, isolation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-retry-decision
+    title: Evaluate repaired acquired-input persistence run
+    state: open
+    intent: Choose the next bounded step from the actual result.
+    requires: [TASK.specimen.acquired-option-retry]
+    requirements:
+      - Distinguish harness behavior, stock consumer acceptance, modeled durability and physical feature operation.
+      - Select a bounded offline continuation or exact bench question. This task admits no physical operation.
+      - Commit and push the decision.
+    acceptance: [The next step follows evidence and preserves uncertainty.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
