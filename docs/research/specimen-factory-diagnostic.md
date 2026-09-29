@@ -34,3 +34,16 @@ Private run: `out/specimen-entitlement/factory-diagnostic-01`.
 
 Run interval: 2026-09-29 05:51:20–05:51:42 UTC. Controller and runner returned 3. No successful
 installer or persistence result is claimed.
+
+## Durable recorder control
+
+`fault-control-01` passed on 2026-09-29 at 06:01:27 UTC. Private ARM64 code performed one null read.
+The stolen native exception identified the exact allocated instruction PC and a read at address zero.
+All three journal events were delivered identically; the terminal record was acknowledged after syncing the
+host evidence file. The runner exited zero and the copied instrument files were unchanged. No stock native
+library was loaded by the control script. This validates the caught-exception path, not every possible
+process-level signal-handler path.
+
+The guest journal SHA-256 is `ea40d64955706b91c758ef2a011108b73529b08a3836ff110d8aad9e3f7031ed`.
+The run evidence index SHA-256 is `03c639a99d62466970b639828dfe6ccdea2d60808ce54fa828b53df48ef3e066`.
+The admitted single stock diagnostic can now use this recorder.
