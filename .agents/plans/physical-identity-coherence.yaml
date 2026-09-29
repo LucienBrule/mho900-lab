@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.physical-identity-coherence
+    title: Compare observed cached identity with stock derivation and acquired Key.data
+    state: open
+    intent: Establish offline coherence of physical identity and previously acquired key state without installing options.
+    requires: [TASK.bench.apk-cached-identity-decision]
+    requirements:
+      - Commit and push tasking before execution. Use preserved physical samples and acquired files only; no specimen connection.
+      - Pin stock native bytes and physical evidence. Recover the exact DNA-to-key computation and compare predicted words with observed file keys, including sentinel and byte-order controls.
+      - Locate acquired Key.data with archive/member provenance. Evaluate stock-compatible decoding with observed keys and independent controls; preserve unknown format or mismatch rather than treating printable output as proof.
+      - Where original stock computation is executed use bounded instruction emulation or a disposable guest; declare any relocation/TLS setup and stop at unknown calls. Preserve originals and keep unit identities, keys and decoded payloads private.
+      - Report derivation match, record structure and uncertainties separately from entitlement state, FRAM, physical installation and persistence. Commit/push conclusion before decision.
+    acceptance: [Offline coherence or a precise mismatch is established with reproducible private evidence and redacted conclusions.]
+    verification: [inputs, derivation, key_record, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.physical-identity-coherence-decision
+    title: Select the next specimen-derived guest entitlement validation boundary
+    state: open
+    intent: Determine whether preserved identity and key state support a coherent guest fixture or require another bounded observation.
+    requires: [TASK.specimen.physical-identity-coherence]
+    requirements:
+      - Distinguish validated identity/key coherence from unknown initialized private/FRAM state and actual option availability.
+      - Admit the smallest supported offline successor, or record an exact bench question if necessary. Do not perform physical entitlement installation, capability change, reboot or additional acquisition in this decision.
+      - Commit and push the evidence-based decision and any successor tasking before execution.
+    acceptance: [The next bounded objective follows the evidence without speculative physical mutation.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
