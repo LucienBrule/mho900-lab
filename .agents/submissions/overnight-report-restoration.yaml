@@ -1,0 +1,19 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.specimen.overnight-research-report
+reviewed_head: sha256:7d025126c9b7ab38bee2b962bb05476032b0a4fc25e1722332d563795ab113e3
+observations:
+  - upstream: TASK.specimen.cached-identity-reader-decision
+    contract: sha256:c2c514dd16db8bda61a96db84e476147363b4289b4c9c1d5eb00db5af7717a5e
+    revision: sha256:8495e1f08a1f00ad7101a045432badcedcfc074c0753153cffffc5f20d9e5f9a
+    inputs: sha256:cef17eb120dd66605e9da40a842acdad432c760fcb6322d0d649cce05377aaef
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-09-29T07:52:22.945384+00:00"
+rationale: 'Open contract review only: explicit setup-restoration prerequisite preserves strict reader contract and prior negative result. Decision and report must incorporate the new bounded outcome; no execution success or completion asserted.'
+evidence:
+  report: Contract reviewed against .agents/plans/cached-identity-setup-restoration.yaml and docs/research/cached-identity-reader.md. Execution conclusion remains pending.
+  evidence_links: Contract reviewed against .agents/plans/cached-identity-setup-restoration.yaml and docs/research/cached-identity-reader.md. Execution conclusion remains pending.
+  disclosure: Contract reviewed against .agents/plans/cached-identity-setup-restoration.yaml and docs/research/cached-identity-reader.md. Execution conclusion remains pending.
+  repository_state: Contract reviewed against .agents/plans/cached-identity-setup-restoration.yaml and docs/research/cached-identity-reader.md. Execution conclusion remains pending.
+successor: null
