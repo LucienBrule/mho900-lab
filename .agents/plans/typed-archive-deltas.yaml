@@ -1,0 +1,54 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.archive-inventory
+    title: Inventory bounded uncompressed logical archives without extraction
+    state: open
+    intent: Recover reusable file-content evidence from preserved logical acquisitions.
+    requires: [TASK.tooling.review-decision]
+    requirements:
+      - Add typed read-only archive inventory to the existing evidence library with caller-pinned source digest and explicit byte member and aggregate limits.
+      - Support a documented narrow uncompressed tar profile sufficient for preserved logical data archives; validate headers extents terminators and canonical member paths without extracting anything.
+      - Accept regular files and directory entries while rejecting duplicate conflicting linked sparse extended or unsupported forms rather than silently normalizing them.
+      - Return source digest and named content inventory or structural rejection; preserve original archives and do not claim ownership metadata or restoration fidelity.
+    acceptance: [Independent synthetic controls and preserved archive comparisons pass without physical access.]
+    verification: [contract, controls, private_comparison]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.archive-delta
+    title: Compare typed content inventories and expose redacted archive CLI commands
+    state: open
+    intent: Reuse exact added removed and changed file evidence across experiment-specific verifiers.
+    requires: [TASK.tooling.review-decision]
+    requirements:
+      - Model file additions removals and modifications as named alternatives with deterministic ordering and explicit unchanged counts; do not infer renames or semantic equivalence from hashes.
+      - Add thin Click commands and typed delegates that consume archive inventories and render TOML without file contents or host paths.
+      - Reproduce the preserved first ordinary-option logical delta from pinned before and after archives while leaving the legacy verifier byte-identical.
+      - Exercise public library and CLI from installed wheels outside the checkout and document content-only limits separately from option or reboot claims.
+    acceptance: [A reusable offline delta agrees with retained evidence and rejects inconsistent input.]
+    verification: [consumer, controls, private_comparison, packaging]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.archive-decision
+    title: Evaluate logical archive composition and select the next bounded offline improvement
+    state: open
+    intent: Preserve useful migration evidence without growing a universal acquisition controller.
+    requires: [TASK.tooling.archive-inventory, TASK.tooling.archive-delta]
+    requirements:
+      - Independently review parser bounds and delta semantics; verify full quality packaging and remote CI; commit and push conclusions.
+      - Recheck the authorized deadline and choose only evidence-supported offline successors or a clean final checkpoint.
+    acceptance: [The archive profile and its reuse limits are explicit and supported by controls.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-archive-deltas
+    title: Typed logical archive inventory and content deltas
+    scope: Offline file-content comparison without extraction acquisition or device mutation.
+    tasks: [TASK.tooling.archive-inventory, TASK.tooling.archive-delta, TASK.tooling.archive-decision]
+    required_extensions: []
+    extensions: {}

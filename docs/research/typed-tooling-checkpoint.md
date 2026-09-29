@@ -163,3 +163,9 @@ source archives pass the isolated installed-package check, including accepted
 review, default identity redaction and rejection of a subsequently mixed input.
 Artifacts are under `out/tooling/installed-packages-08/`. No old verifier or
 sealed physical evidence was rewritten.
+
+The [sealed-review workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36647858444)
+passed on Linux and macOS for `ec90e06`. The next offline batch inventories
+preserved uncompressed logical archives and compares file-content deltas without
+extracting them. Existing ordinary-option verifiers repeat that operation, making
+it a concrete reuse target rather than a new bench controller.
