@@ -196,3 +196,14 @@ Offline comparison can then ask whether original stock derivation reproduces the
 and coherently decodes the already acquired Key.data. Initialized private/FRAM state, actual option-query
 semantics on the specimen, physical installation durability and feature operation remain separate questions.
 Reporting is the selected next task; no physical action is admitted by this decision.
+
+## Authorized physical observation: standalone-file precondition stopped
+
+The subsequent [physical observation](physical-cached-identity-observation.md) reached existing ADB
+credentials and preserved Sparrow maps, then stopped before staging or executing the reader. The physical
+process maps the installed APK directly; the previously acquired APK places uncompressed Auklet at offset
+`0xf05000`, consistent with the observed executable mapping. The standalone-file reader contract therefore
+needs an offline APK-entry mapping control before another physical proposal. No physical cached values or
+process-memory permissions were established. Capture and host restoration passed; operator-reported cable
+reconnection has unknown timing relative to the captured DHCP exchange. This supersedes the outstanding
+standalone-reader proposal without turning its negative result into a successful read.
