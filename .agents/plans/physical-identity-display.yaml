@@ -1,0 +1,18 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.scpi-identity-display
+    title: Read current SCPI identity and ordinary entitlement statuses
+    state: open
+    intent: Present fresh literal identity and option-status responses to the operator.
+    requires: [TASK.specimen.rf-evaluation-ready]
+    requirements:
+      - Under fresh full capture and existing host isolation send one IDN query and the eleven documented ordinary option-status queries only.
+      - Preserve raw request and response bytes, verify capture closure and host restoration, and keep unit identifiers in private evidence rather than source.
+      - Distinguish the reported model and serial from an unestablished separate machine identifier; make no configuration changes or RF claims.
+    acceptance: [Fresh responses are preserved and shown to the operator.]
+    verification: [wire, preservation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
