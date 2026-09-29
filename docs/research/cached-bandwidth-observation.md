@@ -66,3 +66,28 @@ The bounded successor will capture the guest policy bytes with `exec-out cat`
 and compare them on the host. It retains identical reader binary, fixed ranges,
 negative controls and guest policy; no utility installation or policy change
 is needed. Physical observation remains gated on a passing guest control.
+
+## Policy-byte control passed
+
+Run `out/specimen-entitlement/apk-bandwidth-reader-02` completed at
+14:00:07 UTC on 2026-09-29. It used the identical compiled reader; only policy
+evidence collection changed to raw-byte capture and host-side hashing.
+The independent verifier accepted all three pre-read negative cases and the
+positive four-read observation. Both eight-byte samples contain distinct raw
+and effective fixture words, in the correct order. Total target bytes: sixteen.
+
+APK/ELF pins, process epochs, file identity, loaded mappings, roundtrip helper
+bytes and independent address resolution agree. The guest remained Enforcing,
+its policy bytes were identical before/after, and system_server PID stayed
+unchanged. Loopback confinement passed. This synthetic control does not establish
+physical permissions or values. The guest and its dedicated server were stopped.
+
+Reader SHA-256: `111ae759668e89d13090fc4ac1a930072d9cccc715b4f6b819cdcbf89b6dc4d8`.
+Complete run index SHA-256: `f7fa38ed3de9baf1e40f3888dca1cf9b90a9acd1417a6b30e3f8ed4387b4f2a1`.
+
+The selected continuation is one separately admitted physical observation of
+these two fields, twice, using existing ADB credentials and a fresh temporary
+helper directory under fresh verified capture. Keep original APK/firmware and
+application state unchanged. Temporary helper/output files are explicit
+filesystem writes; no target call, attachment, register access or memory write
+is involved. Stop on mismatch or denial, without alternate access methods.

@@ -77,7 +77,7 @@ def main():
         assert boot,'boot deadline'
         call('guest-root',serial+['root']);call('wait',serial+['wait-for-device'])
         assert b'uid=0(root)' in call('id',serial+['shell','id']).stdout
-        policyhash=call('policy-sha-before',serial+['shell','sha256sum','/sys/fs/selinux/policy']).stdout
+        policyhash=call('policy-bytes-before',serial+['exec-out','cat','/sys/fs/selinux/policy']).stdout
         policy=call('policy-before',serial+['shell','getenforce']).stdout;assert policy.strip()==b'Enforcing'
         system=call('system-server-before',serial+['shell','pidof','system_server']).stdout
         phase='stage';base='/data/local/tmp/apk-cached-control'
@@ -112,7 +112,7 @@ def main():
                 assert m['mem_open_count']==1 and m['memory_read_calls']==4 and m['bytes_read']==16
                 expected=bytes(range(0x10,0x14))+bytes(range(0x20,0x24))
                 assert (run/mode/'sample-1.bin').read_bytes()==(run/mode/'sample-2.bin').read_bytes()==expected
-        assert call('policy-sha-after',serial+['shell','sha256sum','/sys/fs/selinux/policy']).stdout==policyhash
+        assert call('policy-bytes-after',serial+['exec-out','cat','/sys/fs/selinux/policy']).stdout==policyhash
         assert call('policy-after',serial+['shell','getenforce']).stdout==policy
         assert call('system-server-after',serial+['shell','pidof','system_server']).stdout==system
         phase='complete';result='accepted'
