@@ -9,7 +9,8 @@ tasks:
     requirements:
       - Require accepted ordinary-option reboot persistence and current preserved baseline. Derive the actual package native library directory from current metadata and require the target sidecar absent.
       - Under fresh isolated capture install only the derived native ELF SHA256 09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e using verified temporary-file transfer and atomic rename with system ownership and0644 mode; preserve the stock signed APK byte-for-byte.
-      - Request one normal reboot and require new boot identity, normal full Sparrow UI, unchanged public identity, all ten ordinary statuses with BND false, exact license/key persistence, actual standalone native mapping/hash and repeated cached18/18 using the accepted16-byte observer.
+      - Send only one normal reboot request; preserve a transport timeout without retransmission and continue the bounded observation for a fresh lease and changed boot.
+      - Require new boot identity, normal full Sparrow UI, unchanged public identity, all ten ordinary statuses with BND false, exact license/key persistence, actual standalone native mapping/hash and repeated cached18/18 using the accepted16-byte observer.
       - On loading or startup failure preserve evidence and remove only the introduced sidecar before a normal recovery reboot; verify original APK-backed loading and restored17/17. No calibration, reset, firmware replacement or unrelated configuration change.
     acceptance: [The first physical D startup is accepted or the failed transition and bounded rollback are preserved.]
     verification: [deployment, startup, preservation]
@@ -22,7 +23,7 @@ tasks:
     intent: Establish repeatable native loading and retained option state independently of the deployment boot.
     requires: [TASK.specimen.physical-d-sidecar]
     requirements:
-      - Proceed only after accepted first D startup. Under a separate fresh capture request one normal reboot without further native or entitlement changes.
+      - Proceed only after accepted first D startup. Under a separate fresh capture request one normal reboot without further native or entitlement changes; a client timeout is retained without retransmission while bounded observation resolves the actual boot.
       - Require a new boot ID and stable full UI, unchanged public identity and signed APK, exact derived standalone mapping/hash, ten ordinary statuses with BND false, stable license/key files and repeated raw/effective18/18.
       - Preserve timing, UI, raw SCPI, process/map and bounded-memory evidence, capture drop statistics and host restoration; retain the scoped software-capability claim.
     acceptance: [The physical software capability and ordinary options persist across the independent reboot.]

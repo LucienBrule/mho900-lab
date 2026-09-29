@@ -69,3 +69,33 @@ preboot identity, without another reboot or option installation.
 
 Evidence seal: `aa84e900ae872173b43d56b4ab95d5cc170252c733df9f46cfe62ba2ea450e6e`. Raw capture SHA-256:
 `d2e6d407e650a695dd730a8acd0c1538f0955f710a1683bdbb9308e76491ef2e`.
+
+### Reconciled reboot persistence
+
+A separate capture on2026-09-29 established a fresh isolated DHCP ACK, changed
+boot identity and normal full Sparrow UI without sending another reboot. All ten
+ordinary options remained enabled and BND remained disabled, both immediately
+and after a sixty-second interval with the same Sparrow PID/starttime. All ten
+license files, Key.data and vendor.bin matched the preserved preboot bytes. The
+signed stock APK was unchanged; the bounded observer independently resolved its
+embedded native mapping and read repeated raw/effective17/17 in16total bytes.
+One necessary postboot ADB daemon root restart was recorded. No native capability
+change, reset or calibration command was issued.
+
+The raw SCPI transcripts contain24 documented queries across two streams and no
+install request. The capture has108,445 complete frames, zero reported kernel
+drops and graceful recorder exit0; host preferences and isolation were restored.
+There is an explicit265.858-second gap between recorder witnesses. Boot
+completion is established by the changed boot ID and subsequent observations;
+continuous boot timing or uninterrupted traffic observation is not claimed.
+
+The UI scale displayed50mV/div after boot versus52mV/div beforehand. Two logical
+files changed: the bandwidth calibration record's header timestamp/checksum and
+a startup diagnostic log. The320-byte bandwidth payload itself is identical.
+The separate startup-data reconciliation records the scope of this finding.
+
+Evidence seal: `526628e2db6504925c44e61536d24e8b377243b364772de10b14a414b0f1ecc1`. Raw capture SHA-256:
+`d943a790e7b41fc2a21c4b299eb26ce33ed8be7d18d605a890b1dff8b6128998`.
+
+This closes ordinary-option persistence on the physical unit. It does not yet
+establish the separate D capability transition or measured analog bandwidth.
