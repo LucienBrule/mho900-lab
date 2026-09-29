@@ -39,3 +39,7 @@ factory call. Also retain the observed Frida representation of a native false bo
 verifier. Reattempt the unchanged negative and positive hypotheses only through successor task admission.
 Persistence remains explicitly harness-directed stock serialization; this does not establish timer-driven
 FRAM persistence on an instrument.
+
+The correction is supported by the [Android 7.1.2 ARM64 UAPI header](https://github.com/aosp-mirror/platform_bionic/blob/android-7.1.2_r39/libc/kernel/uapi/asm-arm64/asm/fcntl.h):
+`O_DIRECTORY` is octal `040000` (`0x4000`); the harness supplied `0x10000`, which is `O_DIRECT`.
+This is architecture-specific implementation evidence, not a license or filesystem restriction.
