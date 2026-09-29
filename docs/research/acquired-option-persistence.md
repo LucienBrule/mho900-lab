@@ -139,3 +139,53 @@ snapshot remain intact; this reanalysis supplies no missing reload evidence.
 
 Reconciliation seal: `42d9d39c4d97b95178fc1e65f94ccb66bd9384a038cff41808cde120ad568fcb`.
 The revised verifier is frozen before a fresh `acquired-option-03` run.
+
+## Acquired-input component persistence passed
+
+Fresh run `acquired-option-03` completed from 13:07:32 to 13:08:23 UTC.
+All three phases passed the frozen reconciled verifier. The actual stock
+activation result was 24531; original decoder, AES and validator witnesses
+agree with the retained candidate.
+
+| Checkpoint | FlexA before | FlexA after | Installer calls | Matched journal records |
+| --- | --- | --- | ---: | ---: |
+| Installation | false | true | 1 | 661 |
+| Fresh component process | true | true | 0 | 608 |
+| Same guest after reboot | true | true | 0 | 608 |
+
+All other thirteen catalog entries retained their initial state. Key.data,
+FlexA.lic, the candidate witness and canonical modeled private stream were
+byte-identical across all three checkpoints. Reloads used existing data:
+no token regeneration, installer invocation or private formatting.
+The guest boot identity changed. The only installation private delta was
+saved-time record 16192; reloads changed no private records.
+
+Each phase preserved the stock native pin, stable system_server within its
+boot, Enforcing status and the exact established Frida policy pair. The
+fixture remained unchanged. All journal records were delivered with terminal
+acknowledgment. Post-run verification rechecked the original evidence hashes,
+reran all three phase verifiers and compared the four retained artifacts.
+The emulator and dedicated ADB server stopped; experiment ports were clear.
+
+Evidence seal: `42edff12ab565ba4b57bb8ec30fb39b3c308472b414a0ff24b0e68e14b888b41`.
+The private run directory retains source, fixture, phase logs, raw journals,
+policy witnesses and logical output. Ephemeral emulator disks and ADB runtime
+directories are excluded from this seal.
+
+### Decision and limits
+
+Acquired identity/key inputs now support one end-to-end permanent option
+installation and persistence through component restart and guest reboot.
+This is a stock native component hosted in an ART research harness. It does
+not establish full Sparrow UI behavior, automatic physical FRAM persistence,
+physical option state or FlexRay decoding. No physical scope was contacted.
+
+The next useful offline branch is the separate derived MHO984D capability
+comparison using this acquired-input baseline, retaining the unchanged stock
+arm and distinguishing a deliberate capability transformation from an ordinary
+entitlement. Repeating the ten-option synthetic catalog offers less new evidence.
+
+The exact future bench question is whether the untouched physical unit reports
+the same ordinary option baseline and where its original runtime persists a
+legitimate installation across reboot. That requires a separately bounded
+physical experiment; no such operation is admitted here.
