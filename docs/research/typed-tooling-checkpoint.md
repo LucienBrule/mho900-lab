@@ -108,3 +108,24 @@ direct-child ownership, serialized handle use, bounded waits and no automatic
 recording-duration or disk-quota policy. Neither a graceful exit nor matching
 reported counts independently proves complete on-wire acquisition. Those remain
 separate facts for a future explicit acquisition procedure to compose.
+
+## Typed identity and option observations
+
+The SCPI member models identity and eleven ordinary option-status queries as named
+alternatives. Preserved twelve-query evidence decodes into one opaque identity,
+ten enabled statuses and one disabled status, without contacting the specimen or
+changing its original seal. Raw requests and responses remain byte-identical;
+the default CLI output omits identity fields. The comparison is under
+`out/tooling/scpi-composition-01/`.
+
+The stream executor accepts an explicitly supplied, exclusively owned transport.
+It provides a whole-plan deadline, bounded replies, partial progress, and no query
+retry. It creates no connections. Independent Unix-socket controls confirm timeout
+restoration and preservation of unread surplus; these also demonstrate why a valid
+reply cannot establish stream exhaustion or causal attribution on a dirty stream.
+
+Five distributions rebuilt from source archives pass the offline installed-package
+gate, including actual codec/executor calls and the default-redacted CLI. Evidence
+is under `out/tooling/installed-packages-06/`. Strict quality gates and 277 tests
+passed after the final review additions. The [SCPI contract](../runbooks/scpi-contract.md)
+states the grammar and ownership limits independently of the research notes.

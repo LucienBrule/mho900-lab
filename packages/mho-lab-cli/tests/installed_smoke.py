@@ -41,6 +41,15 @@ from mho_evidence import (
     seal,
     verify,
 )
+from mho_scpi import (
+    ExchangeAccepted,
+    IdentityObservation,
+    IdentityQuery,
+    SessionComplete,
+    SessionRequest,
+    decode_exchange,
+    execute,
+)
 from mho_transport import (
     Endpoint,
     TranscriptAccepted,
@@ -362,6 +371,61 @@ def recorder_roundtrip(evidence: Path) -> None:
     shutil.copytree(directory, evidence / "recorder")
 
 
+class SuppliedMemoryStream:
+    """One installed public-protocol consumer; no endpoint or socket involved."""
+
+    def __init__(self, response: bytes) -> None:
+        self.response = response
+        self.written = b""
+
+    def write(self, data: bytes, timeout: float) -> int:
+        require(timeout > 0, "Executor supplied nonpositive timeout")
+        self.written += data
+        return len(data)
+
+    def read(self, size: int, timeout: float) -> bytes:
+        require(timeout > 0, "Executor supplied nonpositive timeout")
+        part = self.response[:size]
+        self.response = self.response[size:]
+        return part
+
+
+def scpi_roundtrip(evidence: Path) -> None:
+    request = b"*IDN?\n"
+    response = b"Synthetic,Fixture,PRIVATE-SERIAL,opaque-version\r\n"
+    decoded = decode_exchange(request, response)
+    require(isinstance(decoded, ExchangeAccepted), "Installed SCPI codec rejected control")
+    if not isinstance(decoded, ExchangeAccepted):
+        raise RuntimeError("SCPI outcome did not narrow")
+    observation = decoded.pairs[0].reply.observation
+    require(isinstance(observation, IdentityObservation), "Installed identity variant missing")
+    stream = SuppliedMemoryStream(response)
+    outcome = execute(stream, SessionRequest(queries=(IdentityQuery(),)))
+    require(isinstance(outcome, SessionComplete), "Installed executor failed")
+    require(stream.written == request, "Installed executor changed query bytes")
+    require(not stream.response, "Installed executor failed to consume response")
+    request_path = evidence / "scpi-request.bin"
+    response_path = evidence / "scpi-response.bin"
+    request_path.write_bytes(request)
+    response_path.write_bytes(response)
+    run_cli(
+        evidence,
+        "scpi-redacted",
+        ["scpi", "inspect", "--requests", str(request_path), "--replies", str(response_path)],
+        0,
+    )
+    rendered = (evidence / "scpi-redacted.stdout").read_text()
+    require(
+        all(
+            value not in rendered
+            for value in ("Synthetic", "Fixture", "PRIVATE-SERIAL", "opaque-version")
+        ),
+        "Default installed CLI disclosed identity",
+    )
+    require(tomllib.loads(rendered)["query_count"] == 1, "Installed CLI emitted invalid report")
+    require("identity_redacted = true" in rendered, "Installed CLI omitted redaction marker")
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -377,6 +441,7 @@ def main() -> int:
     evidence_roundtrip(evidence)
     recorder_roundtrip(evidence)
     transport_roundtrip(evidence)
+    scpi_roundtrip(evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
         'result = "accepted"',
@@ -393,6 +458,7 @@ def main() -> int:
         "transport_library_cli_verified = true",
         "transport_payload_not_rendered = true",
         "transport_truncation_rejected = true",
+        "scpi_codec_executor_cli_verified = true",
     ]
     for package in packages:
         lines.extend(

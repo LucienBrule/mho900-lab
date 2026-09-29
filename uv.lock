@@ -11,6 +11,7 @@ members = [
     "mho-capture",
     "mho-evidence",
     "mho-lab-cli",
+    "mho-scpi",
     "mho-transport",
     "mho900-lab-workspace",
 ]
@@ -197,6 +198,7 @@ source = { editable = "packages/mho-lab-cli" }
 dependencies = [
     { name = "click" },
     { name = "mho-evidence" },
+    { name = "mho-scpi" },
     { name = "mho-transport" },
 ]
 
@@ -204,8 +206,20 @@ dependencies = [
 requires-dist = [
     { name = "click", specifier = ">=8.1,<9" },
     { name = "mho-evidence", editable = "packages/mho-evidence" },
+    { name = "mho-scpi", editable = "packages/mho-scpi" },
     { name = "mho-transport", editable = "packages/mho-transport" },
 ]
+
+[[package]]
+name = "mho-scpi"
+version = "0.1.0"
+source = { editable = "packages/mho-scpi" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.11,<3" }]
 
 [[package]]
 name = "mho-transport"
@@ -226,6 +240,7 @@ dependencies = [
     { name = "mho-capture" },
     { name = "mho-evidence" },
     { name = "mho-lab-cli" },
+    { name = "mho-scpi" },
     { name = "mho-transport" },
 ]
 
@@ -244,6 +259,7 @@ requires-dist = [
     { name = "mho-capture", editable = "packages/mho-capture" },
     { name = "mho-evidence", editable = "packages/mho-evidence" },
     { name = "mho-lab-cli", editable = "packages/mho-lab-cli" },
+    { name = "mho-scpi", editable = "packages/mho-scpi" },
     { name = "mho-transport", editable = "packages/mho-transport" },
 ]
 

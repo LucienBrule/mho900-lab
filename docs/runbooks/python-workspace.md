@@ -1,13 +1,14 @@
 # Typed Python workspace
 
-The typed tooling lives in four uv workspace members:
+The typed tooling lives in five uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
 - `packages/mho-transport`: offline packet and TCP transcript evidence.
 - `packages/mho-capture`: ownership and bounded shutdown of a configured recorder child.
+- `packages/mho-scpi`: typed read-only query observations and supplied-stream execution.
 
-The root project is a development workspace, not a third installed library.
+The root project is a development workspace, not an installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
 `.python-version` selects the development minor version. Existing scripts under
 `tools/bench/` and `tools/guest/` keep their original dependency and provenance
@@ -53,3 +54,6 @@ The [capture assessment](capture-evidence.md) separates retained frame/count
 agreement from process exit and traffic completeness.
 The [recorder lifecycle](recorder-lifecycle.md) provides explicit child ownership
 and failure outcomes for future configured acquisition procedures.
+
+The [SCPI contract](scpi-contract.md) composes canonical query semantics with explicit
+stream ownership; its CLI only interprets preserved files.
