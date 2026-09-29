@@ -1,0 +1,53 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.d-capability-stock-control
+    title: Establish real ART bandwidth getter control with retained entitlement
+    state: open
+    intent: Query unchanged stock model and bandwidth policy using the validated synthetic entitlement seed.
+    requires: [TASK.specimen.synthetic-wire-trial-decision]
+    requirements:
+      - Commit and push tasking before implementation. Prepare an explicitly derived guest fixture from the validated positive run, copying only pinned libraries, ART inputs, synthetic Key.data, FlexA.lic, crypto witness and canonical private stream.
+      - Preserve the stock APK and native source bytes. Freeze seed hashes and require the complete option catalog to match the validated positive state. Do not install or regenerate any token or format private storage.
+      - Use real ART/JNI/factory and original model/serial setters plus the existing declared synthetic DNA response. Record the selected model-table record and actual public GetModel, GetModelBw and GetBw outputs.
+      - Query before and after original ParseOption using actual license queries. Stop at any new hardware dependency; do not replace capability or license results.
+      - Expect MHO984 identity, raw/effective enum17 and retained FlexA state. Optional explicit API_GetBandValue calls for enums17 and18 may characterize the statically found helper discrepancy, but cannot stand in for physical bandwidth.
+      - Retain guarded source, complete journals, input/output hashes and guest health. No specimen access, physical mutation, broad initialization or ADC reruns.
+      - Commit and push the stock conclusion before the derived-library run. A reproducible negative closes its question rather than authorizing an unplanned retry.
+    acceptance: [The stock control is established, or its first concrete dependency is preserved.]
+    verification: [seed, native_queries, entitlement, evidence, boundaries]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.d-capability-derived
+    title: Compare isolated D capability selection and guest persistence
+    state: open
+    intent: Test a separately derived library that preserves MHO984 identity while selecting the MHO984D capability record.
+    requires: [TASK.specimen.d-capability-stock-control]
+    requirements:
+      - Proceed only if the stock control establishes its expected identity, bandwidth and entitlement state; otherwise preserve the gate failure for the decision task.
+      - Derive a new disposable library from the pinned specimen-identical source using the recovered32-byte replacement at offset0x42949c. Require exact original bytes, source hash, derived hash09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e and a diff confined to that span. Never edit the source library or APK.
+      - Use the same synthetic key/license/private seed and observation code as the stock arm. The capability selection is a binary experiment, not an ordinary entitlement or a physical1GHz claim.
+      - Require actual GetModel to remain MHO984, selected record to become MHO984D, and stock raw/effective bandwidth getters to report enum18 before and after actual ParseOption. Preserve all14 option query states without installation or answer substitution.
+      - Repeat in a fresh process and after reboot of the same disposable guest. Require changed boot identity, identical derived library and seed key/license/private hashes, no reinstall or regeneration, and repeated identity/enum18 outputs.
+      - Stop and preserve any disagreement or new dependency. Keep full phase journals and hashes, host loopback isolation and guest health evidence. No physical contact or deployment.
+    acceptance: [The identity-preserving capability comparison and persistence outcome are established, or the exact bounded failure is preserved.]
+    verification: [derivation, comparison, persistence, evidence, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.d-capability-decision
+    title: Evaluate guest entitlement and capability milestones
+    state: open
+    intent: Reconcile software policy evidence and select the next useful offline work without implying physical validation.
+    requires: [TASK.specimen.d-capability-derived]
+    requirements:
+      - Separate ordinary synthetic option acceptance, private serialization, capability record selection and physical bandwidth. Reconcile any helper discrepancy explicitly.
+      - Identify remaining physical parity questions without contacting the specimen. Choose further option-family coverage, persistence modeling, reports or another bounded offline branch only where it materially improves the authorized objective.
+      - Draft and inspect any successor plan, admit against expected revision, and commit and push before execution. Preserve concise morning status and a clean pushed repository.
+    acceptance: [The software conclusions and bounded next action are committed and pushed.]
+    verification: [findings, limitations, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
