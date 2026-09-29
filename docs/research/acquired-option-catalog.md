@@ -90,3 +90,13 @@ records; installer counts were1/0/0. All 8 canonical files matched across reload
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `af5a1fc9bdc5b27277e5866a6caf7a6c9900ff8a3a9015144084cfc0d4461e96`.
+
+### AFG50 conclusion
+
+Run `acquired-catalog-afg50-01` completed 2026-09-29T14:15:50Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 796,743,743
+records; installer counts were1/0/0. All 10 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `8d281f997d1ecd4cf12c3a6b608f27fa1e1fe01d589256e02faec5357b143fd2`.

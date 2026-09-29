@@ -38,3 +38,22 @@ effective_bandwidth_enum = 17
 source_seal = "76957b1d746ba2d05a26a19e991cdb244b02eff137f516adfb87a0919c1ec1b7"
 seal_sha256 = "af5a1fc9bdc5b27277e5866a6caf7a6c9900ff8a3a9015144084cfc0d4461e96"
 auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
+
+[[runs]]
+run_id = "acquired-catalog-afg50-01"
+option_name = "AFG50"
+arm = "positive"
+started_at = "2026-09-29T14:15:03Z"
+finished_at = "2026-09-29T14:15:50Z"
+verification = "accepted"
+journal_counts = [796, 743, 743]
+installer_calls = [1, 0, 0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "FlexA", "AFG50", "AFG100", "BWU05T08"]
+guest_reboot_observed = true
+canonical_files_identical_across_reload = true
+canonical_file_count = 10
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "af5a1fc9bdc5b27277e5866a6caf7a6c9900ff8a3a9015144084cfc0d4461e96"
+seal_sha256 = "8d281f997d1ecd4cf12c3a6b608f27fa1e1fe01d589256e02faec5357b143fd2"
+auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
