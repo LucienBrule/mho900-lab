@@ -96,3 +96,15 @@ not merely during baseline License initialization. Its option record `2309` chan
 `70 08 00 01`: stock unpacking gives default runtime 2160, installation byte zero and rejected-attempt
 count one. That count explains `24528 - 1 = 24527`. Record `2336`, the separate global install counter,
 remained absent. No restart persistence was tested for the rejected arm.
+
+## Wire-codec reconciliation
+
+Static recovery of `API_SetStr2Hex` at ELF offset `0x242fe8` identifies a concrete mismatch: the first
+character supplies the low nibble and the second character supplies the high nibble. The producer used
+conventional high-nibble-first hex. Thus the stock consumer was predicted to decrypt nibble-swapped bytes,
+even though the producer's own AES roundtrip passed. The ordinary key-file decode and AES-256 block
+processing otherwise match the recovered implementation.
+
+The admitted next batch will exercise both encodings through the real stock decoder before another
+installation, then observe the actual consumer's decoded bytes, key and plaintext. A corrected wire
+representation is a new fixture hypothesis; earlier rejection runs remain immutable.
