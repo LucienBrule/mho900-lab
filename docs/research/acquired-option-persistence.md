@@ -85,3 +85,33 @@ A host-only control verified nested cache coverage, detection of changed
 contents and rejection of a source symlink. Shell syntax passed. No option
 fixture, consumer observer or persistence verifier was changed. The next
 attempt uses a new run identity.
+
+## Second attempt: accepted installation, private-record expectation failed
+
+Run `acquired-option-02` executed from 13:04:26 to 13:04:47 UTC.
+The stock activation result was 24531, the original validator returned true,
+and the fourteen-entry catalog changed only FlexA from false to true. The
+stock-written license matched the submitted candidate. Original decoder and
+three-block AES witnesses passed the frozen verifier before its later failure.
+The guest journal retained and delivered all 661 records with terminal ACK.
+
+The verifier stopped on its requirement that positive installation create
+private record 2309. Actual snapshots contained only record 2337 before,
+and records 2337 plus 16192 afterward. This is a harness expectation failure;
+the full trial is **not accepted**. Process reload and guest reboot did not
+run. Their persistence remains untested for acquired inputs.
+
+Stock file pins, within-boot health and the exact known Frida guest-policy
+pair passed. The runner shut down its emulator and dedicated ADB server;
+no listeners remained on the four experiment ports. No physical contact
+occurred. The source fixture was unchanged.
+
+The private evidence seal is `dacd4f2462b6854a46b838dd39565678d69c54495f72363a4ee6e2eca7570680`.
+It includes retained inputs, source, logs, phase files and pulled logical
+state; ephemeral emulator disks and private ADB runtime directories are
+excluded. The original failed verification output remains unchanged.
+
+The next question is offline: does ordinary permanent activation write its
+per-option bookkeeping record, or does that record belong to trial/rejection
+paths? Resolve this from stock control flow and prior frozen evidence before
+changing the expectation or running another guest.
