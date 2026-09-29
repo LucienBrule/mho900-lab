@@ -112,3 +112,25 @@ verification_sha256 = "f3ccfab75d9410bdf97bf07603776bad060dc0f177900f74ea27e0f3b
 license_sha256 = "a1c6ed0cd93f284fe639c725e1d7040c60747c94d1efffdecf87c62f9ac3922b"
 key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
 private_sha256 = "5c2b344259e0678c1c32685c06e23f03048d1cd21458c9c8807e94d13d5cced9"
+
+[[runs]]
+run_id = "catalog-aeroa-01"
+option_name = "AEROA"
+option_type = 7
+started_at = "2026-09-29T07:27:28Z"
+finished_at = "2026-09-29T07:27:54Z"
+trial_mode = "catalog-positive"
+evidence_index_sha256 = "0745864a6f14e071ff8c7f3fb06ff3daf9b6e43be20f27a8047f8c308866e46d"
+result_sha256 = "46f47e6f2be53675bfd158fe6fabace87c5a8610567d6a86226b361877f46f56"
+config_sha256 = "61c84af950c8121d56db4623253149578582813d93a1231e2beb1be25087ee4b"
+
+[[runs.phases]]
+label = "install"
+journal_records = 919
+enabled = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "AFG50", "AFG100", "BWU05T08"]
+ordinary_install_calls = 1
+journal_sha256 = "cb5ee7b7531d78195464cca670acfd5b40f50c35fcca18f65531ba96c4e0d50b"
+verification_sha256 = "8b21273385bb95fb64579c9c4db6c79e97290319161eed45485d416943329f76"
+license_sha256 = "bf37a40779f5a671744f72946e04d9244e341836a8923291a4e89fa4ddcba230"
+key_sha256 = "45eb1cfbf8e0a6e748a4021d00474f423e3d8f2469f1eec60558092bc33eba6b"
+private_sha256 = "f351a5fa31a025efe314ce56ed6f12f86d2406e4d2c93c74e6514721e326ac86"
