@@ -47,3 +47,43 @@ occurred. The guest library was pulled back and matched the unchanged stock inpu
 | `phases/capability/guest-events.jsonl` | `e76e88e59149ce511fd0bf433cd6c6a0d4e2daee4781142ade180f6cf75fa95d` |
 | `evidence-sha256.txt` | `c53513b44529b3c7159eaf0fba9d9034012368d22090a910939649af934a7914` |
 | `result.toml` | `3baf99124b0faaea5cf9e291d1e1d7ee496adac50ccced31903f98ca4c9f586c` |
+
+## Derived capability comparison passed
+
+Run `out/specimen-entitlement/capability-derived-01` completed from 07:06:43 to 07:07:34 UTC. The separately
+derived library has SHA-256 `09689a442e8d285775b37089a8d631e1e445fe03d3499e830cdcc8f32439504e`.
+Exactly 27 bytes differ within the admitted 32-byte replacement span at file/ELF offset `0x42949c`; no bytes
+outside that span differ. The original native library and APK remain unchanged.
+
+The same observation code and synthetic persistence seed were used for both arms.
+
+| Observation | Stock control | Derived copy, all three phases |
+| --- | --- | --- |
+| Public model identity | MHO984 | MHO984 |
+| Selected model record | MHO984, `0x151b7a0` | MHO984D, `0x151b850` |
+| Raw bandwidth enum | 17 | 18 |
+| Effective enum before/after stock ParseOption | 17 / 17 | 18 / 18 |
+| FlexA query | true | true |
+| Entire option catalog | Seed state | Identical seed state |
+| Installer calls | 0 | 0 |
+
+The Java bandwidth enum labels 17 as BW_800M and 18 as BW_1G. These observations establish selection of
+software capability policy, not a measured transfer function or a discovered ordinary 1 GHz entitlement.
+
+Fresh-process and same-guest reboot phases reproduced the same identity and enum-18 results. The boot
+identity changed, every phase retained 588 matching journal events, and each phase independently pulled
+back a native file with the exact derived hash. Key, license, private stream and crypto-witness hashes
+remained identical to the original validated synthetic seed. No token was regenerated or reinstalled.
+
+| Artifact, relative to the derived run | SHA-256 |
+| --- | --- |
+| `phases/capability/guest-events.jsonl` | `148613b4e7d6b645524d33bf097fb4cb8c8ef3e9095dad090b2448b22f2d72ad` |
+| `phases/process-reload/guest-events.jsonl` | `b352bf2e9a0b098ce423cfc5c40db688e9f2a8652fa2ea1faff556480311b824` |
+| `phases/reboot-reload/guest-events.jsonl` | `ac2fb4081bacfa22661091b5711eb3bd448f5a7414e8ea9e86c48c2b4ef01b27` |
+| `evidence-sha256.txt` | `a958643b7166929c79b3d29fa4df0a9476d02184ebdb1d569226e633713a50b5` |
+| `result.toml` | `d1b7bb01ea2213a719d3e408bb92b4f2e2a1be48ea9c86ad81e515e04a6bba0c` |
+
+No FPGA or AFE programming, acquisition, calibration, physical deployment or instrument contact occurred.
+A separate static observation remains open: API_GetBandValue maps explicit enum 17 to its 100 MHz default,
+while enum 18 has a 1 GHz branch. That helper was not invoked in these runs and is not used as a bandwidth
+witness; the actual model/raw/effective getters above are the comparison authority.
