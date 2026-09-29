@@ -152,3 +152,22 @@ effective_bandwidth_enum = 17
 source_seal = "561e11b0ca16be8411cbe76031cc46488e0c0d6c206bd25834ae7639a2199261"
 seal_sha256 = "a8c9bac2baeabdc90e9800a2b227fb1eac56208e425a98ddb473396edcedeb82"
 auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
+
+[[runs]]
+run_id = "acquired-catalog-bwu03t08-01"
+option_name = "BWU03T08"
+arm = "positive"
+started_at = "2026-09-29T14:25:01Z"
+finished_at = "2026-09-29T14:25:48Z"
+verification = "accepted"
+journal_counts = [1066, 1013, 1013]
+installer_calls = [1, 0, 0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AEROA", "RLU05", "AFG50", "AFG100", "BWU03T05", "BWU03T08", "BWU05T08"]
+guest_reboot_observed = true
+canonical_files_identical_across_reload = true
+canonical_file_count = 22
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "a8c9bac2baeabdc90e9800a2b227fb1eac56208e425a98ddb473396edcedeb82"
+seal_sha256 = "0724e39fbfb4e2d320b2c4c48d6243f8b566d63a47d2049ab7fb9f1118758781"
+auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"

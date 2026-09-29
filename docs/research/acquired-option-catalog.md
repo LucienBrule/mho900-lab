@@ -152,3 +152,13 @@ records; installer counts were1/0/0. All 20 canonical files matched across reloa
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `a8c9bac2baeabdc90e9800a2b227fb1eac56208e425a98ddb473396edcedeb82`.
+
+### BWU03T08 conclusion
+
+Run `acquired-catalog-bwu03t08-01` completed 2026-09-29T14:25:48Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 1066,1013,1013
+records; installer counts were1/0/0. All 22 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `0724e39fbfb4e2d320b2c4c48d6243f8b566d63a47d2049ab7fb9f1118758781`.
