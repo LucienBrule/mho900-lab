@@ -1,5 +1,13 @@
 # Specimen-derived entitlement research handoff
 
+> Later checkpoint: [acquired-input FlexA persistence](acquired-option-persistence.md)
+> and the [acquired-input stock/D capability comparison](acquired-capability-comparison.md)
+> now pass. The cached-identity question below was subsequently resolved in
+> [physical cached-identity evidence](physical-apk-cached-identity.md).
+> The remaining physical parity question is the complete untouched option and
+> capability baseline. The original overnight report below remains historical.
+
+
 2026-09-29. All work in this overnight program used preserved files and disposable ARM64 guests.
 No physical instrument connection, command, lease renewal or mutation occurred during the program.
 
