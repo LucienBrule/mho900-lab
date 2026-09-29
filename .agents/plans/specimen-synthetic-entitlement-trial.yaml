@@ -1,0 +1,37 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.synthetic-entitlement-trial
+    title: Test ordinary option acceptance and disposable guest persistence
+    state: open
+    intent: Exercise one synthetic FlexA negative and positive through the unchanged installer, then reload and reboot without reinstalling.
+    requires: [TASK.specimen.synthetic-entitlement-decision]
+    requirements:
+      - Commit and push tasking before execution. Use the recovered synthetic fixture contract and unchanged stock APK/native inputs; exclude acquired unit key, vendor and calibration files.
+      - Preserve real ART/JNI/factory and actual model/serial setters. Model only the declared DNA driver output and file backing for stock private serialization. Keep validation, ordinary installer, queries and notifications unchanged.
+      - Validate stock crypto roundtrips, synthetic identity, empty private-store baseline, actual License initialization and complete active-catalog query state before any install. Stop on an unsatisfied prerequisite.
+      - Execute at most one wrong-name negative arm from clean state. Require actual validator rejection, false FlexA query and no FlexA license file. Preserve counter/file deltas and commit the conclusion before the positive arm.
+      - Only after the negative control passes, execute one positive arm from independently clean state. Require actual stock validation and activeOpt result, success notification, true query and stock-written license file; outer return zero alone is insufficient.
+      - Preserve stock-produced private bytes with explicit flush and fsync, guarded complete serialization and exact reload roundtrip. Label this harness-directed persistence, not automatic FRAM scheduling.
+      - On positive acceptance, start a fresh process on retained guest storage and then reboot the same guest and repeat. Prove boot identity changed; do not reinstall, regenerate key/license files or format private state during reload phases.
+      - Seal phase sources, journals, file snapshots, tool/input hashes and guest health. A prerequisite failure closes that actual question for evaluation; do not alter tokens or native return values to force success. No physical contact or D-capability patch.
+    acceptance: [The two-arm installer and persistence outcome is established, or a precise first prerequisite failure is preserved for deliberate continuation.]
+    verification: [fixture, negative, positive, persistence, evidence, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.synthetic-entitlement-trial-decision
+    title: Evaluate ordinary installation before capability work
+    state: open
+    intent: Reconcile actual installer and persistence results and choose the next bounded offline step.
+    requires: [TASK.specimen.synthetic-entitlement-trial]
+    requirements:
+      - Distinguish acceptance, filesystem persistence, private serialization, process reload and guest reboot. Do not claim stock timer or physical FRAM behavior from harness-directed persistence.
+      - If ordinary installation is established, admit the separate disposable MHO984-to-MHO984D capability experiment. If blocked, select a concrete correction or useful independent capability branch without physical contact.
+      - Draft and inspect plan, admit against expected revision, commit and push before successor execution. Preserve negative evidence and exact next bench questions.
+    acceptance: [The results and next bounded continuation are committed and pushed.]
+    verification: [finding, continuation, boundaries]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
