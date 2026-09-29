@@ -36,3 +36,23 @@ original stock decoder/consumer decisions; it does not replace those decisions.
 The host runner selects explicit acquired-catalog-negative/positive modes and
 retains loopback-only guest confinement and the established bounded guest policy
 pair. No physical access is part of this batch.
+
+## Acquired48-byte negative: rejected by original consumer
+
+Run `out/specimen-entitlement/acquired-catalog-negative-01` completed
+2026-09-29 14:08:44–14:09:11 UTC. The unchanged consumer decoded the declared
+wrong-name candidate through all three AES blocks and returned false; stock
+activation reported24527. BWU05T08 stayed false, no candidate license appeared,
+and the full catalog preserved the built-ins plus FlexA only. FlexA independently
+revalidated through its own three consumer blocks.
+
+Key.data, prior license and witness remained unchanged. Private record2328
+recorded one rejected attempt (packed0x01000870); saved-time record16192 also
+changed. No other private record changed. This is a recorded rejection, not a
+filesystem no-op. Model/raw/effective remained MHO984/17/17 before and after
+stock option policy. All700 journal records matched delivery, guest health
+checks passed, and no physical access occurred.
+
+Complete run seal: `ecad0a24cbc9b1ec22faa6caeddfd81dfd52fbf26b816da073293679fb41bf57`.
+The positive branch uses the original accepted FlexA seed, never this rejected
+private state.
