@@ -43,3 +43,22 @@ unit identity, key and token material remain private. These are preparation
 checks, not execution evidence. No physical instrument contact is admitted.
 Software enum 18 does not establish measured 1 GHz analog performance,
 automatic physical FRAM persistence or a vendor entitlement for that bandwidth.
+
+## Stock control passed
+
+Run `acquired-capability-stock-01` completed from 13:16:12 to 13:16:29 UTC.
+The original model parser selected MHO984 at `0x151b7a0`; public identity
+remained MHO984 and raw/effective bandwidth were 17 before and after ParseOption.
+All fourteen catalog values matched the accepted seed, including FlexA true.
+
+The original consumer validated the saved FlexA license. No installer or
+producer ran, and all four persistent inputs remained byte-identical.
+The unchanged native file was pulled back and verified. Guest health and the
+exact known Frida policy pair passed. All 640 journal records matched
+delivery with terminal acknowledgment. Independent post-run verification and
+original evidence-index verification passed.
+
+Private run seal: `cd666845fecd04e5c6c88933c5e90b9ee2cce21079d57d251774782c8a5b8c25`.
+The seal retains inputs, source, phase evidence and logical outputs, excluding
+ephemeral emulator disks and ADB runtime directories. This stock result
+satisfies the gate for the derived guest arm; no physical contact occurred.
