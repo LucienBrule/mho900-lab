@@ -1,14 +1,16 @@
-# First physical D-capability startup
+# Physical D-capability startup and persistence
 
-Independent offline verification accepted the first physical deployment. It selected the derived D-capability policy while
+Independent offline verification accepted the physical deployment and a separate
+normal reboot without another native-file or license write. Both selected the
+derived D-capability policy while
 retaining the signed stock Sparrow APK and public MHO984 identity. The retained
 postboot process maps identify the standalone derived native library; the bounded
 reader returned raw and effective bandwidth enums 18/18 in both samples. All ten
 ordinary option statuses remained enabled, with BND false. This is a software
 capability result, not a measurement of 1 GHz analog performance.
 
-The independent persistence reboot is still pending. This report covers only
-the deployment boot and its retained observations.
+Stage 4 is complete for software capability selection and reboot persistence.
+Stage 5 remains RF evaluation; no analog bandwidth result is claimed.
 
 The deployment follows the [disposable native-loader control](native-library-deployment-control.md)
 and [complete acquired-catalog capability comparison](acquired-combined-capability.md).
@@ -88,11 +90,62 @@ The accepted independent audit is retained separately under
 `out/overnight/d-deployment-independent-audit/accepted-04.toml` and the sealed
 run's `independent-validation.toml`.
 
-The next separate checkpoint is another normal reboot without rewriting the
-native file or licenses, followed by the same identity, option, mapping, policy,
-file-preservation and UI observations. RF transfer-function measurements belong
-to the later RF evaluation stage. Neither enum 18 nor a normal UI establishes
-analog bandwidth, calibration accuracy, feature operation or acquisition quality.
+Neither enum 18 nor a normal UI establishes analog bandwidth, calibration
+accuracy, feature operation or acquisition quality. The next evaluation is the
+[RF comparison plan](rf-performance-evaluation-plan.md).
 
 The complete run contains 395 sealed artifacts; SHA-256 of `artifacts.toml`:
 `d30a25d29ec889aee369645f966d24dd8cc214237af3d2f1081ee52e39d04fa2`.
+
+
+## Independent persistence reboot
+
+The second run, `out/physical/mho984-d-persistence-20260929T181408Z`, requested one
+normal reboot at 18:14:40.520 UTC. The client again timed out after ten seconds;
+wire reconstruction proves one request, peer TCP acknowledgment and ADB OKAY,
+without retransmission. A fresh isolated lease was acknowledged at
+18:15:19.544 UTC. The new boot loaded the same derived native file. No native
+file, package or entitlement was installed or rewritten in this run.
+
+All three status checkpoints returned the unchanged public identity, ten enabled
+ordinary options and BND false. The fixed observer independently resolved the
+standalone ELF mappings and read repeated raw/effective 18/18 in 16 bytes total.
+The signed APK, ten license files, key and vendor bytes were unchanged. The only
+logical deltas were the same validated bandwidth-header rewrite and randomized
+identity fallback cache; all 320 calibration payload bytes remained identical.
+Postboot and post60 archives were byte-identical, and process identity was stable.
+
+The pre-reboot screenshot shows the normal UI still present several minutes
+after the first deployment observation. The second early postboot image again
+shows the startup spinner; its later image shows the normal waveform UI with
+AUTO/RUN and no prompt. These are sampled UI observations, not a continuous
+video or proof that the early spinner interval was normal full-UI operation.
+
+The second capture contains 254,911 complete frames, zero reported kernel drops,
+and recorder exit 0. Its SHA-256 is
+`6d33974150ec45caeaa0d24eb4d1346c6764c880404acfbfde66141315d1d8df`.
+The complete run contains 370 sealed artifacts; SHA-256 of `artifacts.toml`:
+`42cc6a5277bb8adb15bad73d85c505a279afb2b913589256b20c512efa239727`.
+The final independent verifier passed without further source changes.
+
+Both runs removed the temporary host address and stopped their lease helper and
+capture. Host network preference files were byte-identical before and after.
+Forwarding and sharing remained disabled and the default route stayed separate.
+The physical guest's pre-existing SELinux state was Disabled and remained so;
+this is distinct from the Enforcing disposable-guest controls.
+
+## Current state and rollback boundary
+
+The instrument is left running with the derived native file selected, public
+MHO984 identity retained, and all ten ordinary options enabled. The original
+signed APK remains in place. Stock originals and the acquired baseline remain
+preserved; no claim is made that a raw live-storage backup is an atomic snapshot.
+
+The rollback mechanism is removal of only the recorded introduced native file
+followed by a normal reboot, then proof of original APK-backed stock Auklet,
+17/17 policy, unchanged identity/options and normal UI. This mechanism passed in
+the disposable loader control; physical rollback has not been exercised because
+both physical D boots succeeded. Any future rollback must first revalidate the
+actual package path, introduced-file hash, capture and lease, and record its own
+result. Failed connectivity or capture is not permission for an unobserved write.
+No RF input, probe, USB, calibration, factory reset or host-policy change was used.
