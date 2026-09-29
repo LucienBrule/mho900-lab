@@ -40,3 +40,17 @@ Preparation verified both fixtures, rejected 14 invalid fixture configurations a
 six invalid verifier profiles, and passed Python/JavaScript/shell syntax checks.
 Private preparation seal: `89ddaf198a2b7f1504d85fa62595e9afe79d4c510560cd35a381ac39b30f3f45`. These are preparation checks; execution
 results follow separately.
+
+## First stock control: controller completion-label rejection
+
+Run `acquired-combined-stock-01` completed 2026-09-29 14:32:51–14:33:08 UTC.
+The guest emitted the new combined completion label and all expected guest
+checks true. Its 1,035 journal records were retained and delivered with terminal
+acknowledgment. The host controller did not recognize that new label and returned
+3; the runner therefore stopped before its independent phase verifier. This run
+is **not accepted** and does not open the derived-arm gate.
+
+The original evidence remains unchanged under seal `09cdcff4fc47ede14a08195c908d51de95a7b3a3cbd2317580fba3f632b40441`.
+The next bounded task repairs only controller admission of this reload-only
+terminal, tests it against the retained terminal and invalid variants, and then
+uses a new stock run identity. No fixture or native behavior change is indicated.
