@@ -1,0 +1,39 @@
+schema_version = 1
+run = "mho984-logical-acquisition-20260929T031955Z"
+private_manifest_sha256 = "2f6877974acceef7b343b0f32b4704275ec916530d6bf7775d7d51486cba34a0"
+active_sparrow_matches_official_26 = true
+active_packaged_auklet_matches_official_26 = true
+active_webcontrol_matches_official_26 = true
+capture_frames = 540987
+kernel_drops = 0
+root_verified = true
+[[archives]]
+path = "logical/active-apps.tar"
+bytes = 90017280
+sha256 = "ba973c81d84f6fedb399b57868931adb407548bd6b3eaa3a4e37bb904093454e"
+members = 20
+trailing_text = ""
+[[archives]]
+path = "logical/boot-config.tar"
+bytes = 158247
+sha256 = "f18e3f2fc40cd8e7268bedfd217ca469e2fd51aee140e033ff1c396412f95256"
+members = 34
+trailing_text = "removing leading '/' from member names\n"
+[[archives]]
+path = "logical/rigol.tar"
+bytes = 207234560
+sha256 = "f8c47fdfeb29ec043fb04ec91871b462d838652dfd1d2e8afa5c8d0044d4c33a"
+members = 112
+trailing_text = ""
+[[archives]]
+path = "logical/system-apps.tar"
+bytes = 41816576
+sha256 = "a79b1d43f1e2bc41d5a91f357f4cc81e862bff03611280883497788dac6f83b0"
+members = 4
+trailing_text = ""
+[[archives]]
+path = "logical/system-native-config.tar"
+bytes = 174176768
+sha256 = "5ed02d4af760a73f36bf737b48b6d62d1c44d7b466c8a27840a7dd03340ac98a"
+members = 1303
+trailing_text = ""
