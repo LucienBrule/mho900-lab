@@ -1,6 +1,6 @@
 // Frida 16.7.19, ARM64/API-25 disposable guest. The controller pins all input hashes.
-// This observes stock constructors and stops before the first FPGA DNA request.
-// No option installation, register response, service-return substitution, or binary edit.
+// Default entry observes stock constructors and stops before the first FPGA DNA request.
+// An explicitly composed experiment may select another entry using these journal/helpers.
 'use strict';
 
 const LIB_DIRECTORY = '/data/local/tmp/entitlement/lib/';
@@ -294,6 +294,7 @@ function main() {
 
 setImmediate(function () {
     installProcessObservers();
-    if (typeof entitlementArtStart === 'function') entitlementArtStart(main);
-    else main();
+    const entry = typeof entitlementExperiment === 'function' ? entitlementExperiment : main;
+    if (typeof entitlementArtStart === 'function') entitlementArtStart(entry);
+    else entry();
 });

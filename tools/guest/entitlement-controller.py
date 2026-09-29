@@ -23,6 +23,30 @@ STOCK_STOPS = {"runtime-dna-unavailable", "private-fram-unavailable", "unexpecte
 def accepted_stop(payload):
     if payload.get("kind") != "dependency-stop":
         return False
+    if payload.get("reason") == "entitlement-phase-complete":
+        phase = payload.get("phase")
+        required = {"started_false", "catalog_complete"}
+        phase_checks = {
+            "negative": {"key_roundtrip", "token_roundtrip", "baseline_candidate_disabled", "negative_rejected", "negative_no_license_file"},
+            "positive": {"key_roundtrip", "token_roundtrip", "baseline_candidate_disabled", "positive_accepted", "positive_license_file"},
+            "reload": {"reload_persisted", "positive_license_file", "key_matches_saved_witness", "license_matches_saved_witness"},
+        }
+        checks = payload.get("expected_checks")
+        expected_phase = os.environ.get("ENTITLEMENT_PHASE")
+        if phase not in phase_checks or phase != expected_phase or not isinstance(checks, dict):
+            return False
+        catalogs = (payload.get("catalog_before"), payload.get("catalog_after"))
+        return (payload.get("exit_code") == 77
+                and payload.get("terminal_ack") is True
+                and all(checks.get(key) is True for key in required | phase_checks[phase])
+                and all(isinstance(catalog, list) and len(catalog) == 14
+                        and all(isinstance(item, dict)
+                                and type(item.get("option_type")) is int
+                                and isinstance(item.get("option_name"), str)
+                                and type(item.get("valid")) is bool
+                                and type(item.get("status")) is int and item["status"] == 0 for item in catalog)
+                        and len({item["option_type"] for item in catalog}) == 14
+                        for catalog in catalogs))
     if payload.get("reason") in STOCK_STOPS:
         return payload.get("exit_code") == 77
     if payload.get("reason") == "art-readiness-confirmed":
