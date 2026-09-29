@@ -162,3 +162,17 @@ records; installer counts were1/0/0. All 22 canonical files matched across reloa
 and actual guest boot identity changed. No physical access occurred.
 
 Run seal: `0724e39fbfb4e2d320b2c4c48d6243f8b566d63a47d2049ab7fb9f1118758781`.
+
+## Complete acquired catalog decision
+
+The final run retains ten individually installed ordinary licenses, three built-in
+policy entries true, and BND false. Every cumulative transition passed its original
+consumer and remained accepted through process restart and actual guest reboot.
+The final22 canonical files match across checkpoints; raw/effective bandwidth
+remains17/17. No bundle installer or physical feature operation was exercised.
+
+The next bounded comparison reloads this complete state under stock and separately
+derived MHO984D capability selection. It specifically tests whether original
+option policy changes enum18 in the presence of all accepted bandwidth options.
+A subsequent, separate stale-private-state contrast can isolate saved-time
+durability from permanent-license acceptance. Neither admits physical mutation.
