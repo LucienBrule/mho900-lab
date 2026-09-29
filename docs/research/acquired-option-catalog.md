@@ -80,3 +80,13 @@ storage, not automatic physical FRAM writes or feature operation.
 The next bounded batch is AFG100, AFG50 and AUDIOA in that order. Each must
 start from the preceding accepted seal, pass its own process/reboot tests and
 be committed/pushed before the next candidate.
+
+### AFG100 conclusion
+
+Run `acquired-catalog-afg100-01` completed 2026-09-29T14:14:34Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 751,698,698
+records; installer counts were1/0/0. All 8 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `af5a1fc9bdc5b27277e5866a6caf7a6c9900ff8a3a9015144084cfc0d4461e96`.
