@@ -30,3 +30,20 @@ No installer, token generation, option query or ParseOption call occurred in thi
 The stock control gate is unsatisfied, so no derived library was created or executed in this batch.
 The bounded continuation is to copy the callback value, preserve the failed evidence, and admit a new control
 and comparison batch. There is no physical dependency at this point.
+
+## Corrected stock control passed
+
+Run `out/specimen-entitlement/capability-stock-02` completed from 07:05:08 to 07:05:29 UTC with 588 retained
+and matching delivered events. Copying the parser return preserved the expected record offset across later
+calls. The actual selected row was MHO984 at `0x151b7a0`, with four channels, domain 8 and series 900.
+
+Public stock getters returned MHO984 identity, raw bandwidth enum 17 and effective enum 17, both before
+and after original `ParseOption`. All returned status zero. The entire 14-entry option catalog and the
+key/license/private seed hashes matched the validated FlexA persistence run. No installation or regeneration
+occurred. The guest library was pulled back and matched the unchanged stock input byte-for-byte.
+
+| Artifact, relative to the corrected control | SHA-256 |
+| --- | --- |
+| `phases/capability/guest-events.jsonl` | `e76e88e59149ce511fd0bf433cd6c6a0d4e2daee4781142ade180f6cf75fa95d` |
+| `evidence-sha256.txt` | `c53513b44529b3c7159eaf0fba9d9034012368d22090a910939649af934a7914` |
+| `result.toml` | `3baf99124b0faaea5cf9e291d1e1d7ee496adac50ccced31903f98ca4c9f586c` |
