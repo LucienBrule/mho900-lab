@@ -1,0 +1,31 @@
+# Stock API under an ART component host
+
+The native-only factory fault proves that its notification path needs a Java VM. The candidate correction uses
+`app_process64`, an inert project-authored Java main, and the unchanged specimen APK on its classpath. The original
+API static initializer performs `System.loadLibrary`; stock `JNI_OnLoad` registers its real class and methods.
+No native constructor, option result, Java callback or application class is replaced.
+
+The specimen APK and official `.26` match. Targeted decompilation confirms that original `API.UI_Redraw` delegates
+to MessageBus, whose initial queue mode does not need a Context, Activity or Looper. This supports a component
+experiment without invoking `UI_StartBusiness`, which would also enter broad hardware initialization. It does not
+establish that error presentation or the full Sparrow application can run without their Android context.
+
+## Readiness control 1: runtime-start race
+
+`art-readiness-01` ended before API loading or factory execution. ART reported
+`Check failed: runtime->IsStarted()` while the instrumentation thread attempted attachment and the main thread
+was still in `Runtime::Start`. A visible VM is therefore insufficient proof that attachment is ready.
+
+This is a loader-control failure, not evidence about the stock license service. The correction is an explicit
+controller gate on the inert Java main's stdout readiness marker before loading the Java observer. The existing
+host main emits that marker after entering Java code; no stock class initialization is needed for the marker.
+The admitted component task still has its single stock run pending after loader readiness passes.
+
+The negative run is preserved separately, with unchanged before/after copied instrument files and no physical
+contact. Runner exit was 3. No option query, installation, capability selection or hardware response occurred.
+
+| Artifact under `out/specimen-entitlement/art-readiness-01` | SHA-256 |
+| --- | --- |
+| `guest-events.jsonl` | `b5d61659ff2d35eff802048a340ba89e90e096a6516fc39687ab8800d2b9ae01` |
+| `evidence-sha256.txt` | `c4758d3ec40979c249a3eab49d3f69882cd23a28cded447512a40d0ad8cc9447` |
+| `logcat-final.txt` | `c6c66304e0791e4138f4fe7cd7e20d10459f6182d54bb3d83e430ac406d07251` |
