@@ -29,8 +29,26 @@ image is not claimed to be atomic or a tested full restoration procedure.
 | AEROA | AERO 0 → 1; all others unchanged | `AEROA.lic` added | 66558 / 0 | `e9693e15ee97b2663bece9c3ca27dae797697ff85125576e95dee35ca7aa7296` |
 | RLU05 | RLU-05 0 → 1; all others unchanged | `RLU05.lic` added | 66689 / 0 | `554ca90da7e685e0511a704f81e53eefb59eb01dcfdc7664a5202cb683748809` |
 | BWU03T05 | BWU03T05 0 → 1; all others unchanged | `BWU03T05.lic` added | 66459 / 0 | `4d47ac60deff8c99ec9c5ea0c9338ede9d1401940d73e879dfdc4535164d53b7` |
+| BWU03T08 | BWU03T08 0 → 1; all others unchanged | `BWU03T08.lic` added | 66639 / 0 | `e02bce85050bd7279e0afc8a64aeabe63e2c11771ae204769b871f4dfbd747fa` |
 
 A saved-file hash match means the stock installer produced the same bytes as the
 accepted guest witness. It does not by itself prove reboot persistence. The later
 normal-reboot checkpoint establishes that separately. UI screenshots establish
 the visible state at capture times, not continuous observation.
+
+## Catalog conclusion and reboot checkpoint
+
+All ten intended ordinary options are now enabled through the documented SCPI
+installer. Every candidate required one request and one successful status poll.
+Each added only its own saved license, matching the accepted guest bytes; earlier
+licenses, key/vendor files, identity and the running stock application remained
+unchanged. Every before/after screenshot was inspected and showed normal
+acquisition UI without a prompt. BND remains disabled. No reboot has yet been
+counted as persistence evidence in this catalog conclusion.
+
+The separately admitted reboot checkpoint uses one normal reboot, a fresh captured
+DHCP ACK, three complete identity/status transcripts, exact protected-file checks
+and a stable postboot process through a sixty-second observation interval. The
+fixed stock observer must then independently establish repeated17/17 from sixteen
+read-only process-memory bytes. Host controls passed for carrier loss, bounded
+DHCP RELEASE handling, malformed streams and single reboot/root-call limits.
