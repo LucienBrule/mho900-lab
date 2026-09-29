@@ -76,3 +76,12 @@ Decision: repair only the input inventory's treatment of generated directories,
 test that control locally, and commit preparation before a new run identity.
 The option fixture and stock execution semantics remain frozen. This failure
 does not motivate a hardware experiment.
+
+### Inventory repair
+
+The recorder now recursively hashes regular source files, including generated
+cache files, and rejects symlinks or special objects within the source tree.
+A host-only control verified nested cache coverage, detection of changed
+contents and rejection of a source symlink. Shell syntax passed. No option
+fixture, consumer observer or persistence verifier was changed. The next
+attempt uses a new run identity.

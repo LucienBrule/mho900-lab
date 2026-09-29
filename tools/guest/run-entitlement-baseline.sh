@@ -150,7 +150,8 @@ if [ ! -f "$ramdisk" ]; then
     cp "$repo/out/calibration-filesystem/build-04/ramdisk.img" "$ramdisk"
 fi
 check_hash "$ramdisk" 98b4925f73aa77cd21a6d4e2a3f384056dba8b2d379162ad2c02f55f3a071398 empty-rigol-ramdisk
-shasum -a 256 "$ramdisk" "$run/source/"* "$python" "$run/frida-server" > "$run/input-sha256.txt"
+cp "$repo/tools/guest/hash-inputs.py" "$run/source/"
+"$python" "$run/source/hash-inputs.py" "$ramdisk" "$run/source" "$python" "$run/frida-server" > "$run/input-sha256.txt"
 "$run/source/stage-userdata.sh" "$image/userdata.img" "$run/userdata.img" "$run/userdata-staging.toml" 2097152
 export ANDROID_USER_HOME="$run/home" ANDROID_EMULATOR_HOME="$run/emulator-home" ANDROID_AVD_HOME="$run/avds"
 export ANDROID_ADB_SERVER_PORT=5043 ADB_SERVER_SOCKET=tcp:127.0.0.1:5043 ADB_VENDOR_KEYS="$run/home"
