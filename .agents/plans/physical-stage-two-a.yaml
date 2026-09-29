@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.stage-two-a-lease
+    title: Supply one isolated DHCP lease and observe address acquisition
+    state: open
+    intent: Measure the already-powered instrument's response to IPv4 assignment alone.
+    requires: [TASK.bench.first-contact-decision]
+    requirements:
+      - Preserve separate private evidence with UTC and local timestamps, current host state and restoration information; verify identified Ethernet interface, separate default route, disabled forwarding, sharing, NAT and bridging before intervention.
+      - Commit admitted tasking before execution. Prepare a responder restricted to the observed specimen MAC and one private address, with no router, DNS or route options and no reachability probes. Validate reply construction offline before connecting the responder.
+      - Start and verify a fresh full Ethernet capture before DHCP. Preserve complete packets without a restrictive capture filter, with live decoding and isolation observation. Prefer an Ethernet-level responder without host interface addressing to avoid unrelated host traffic.
+      - Observe passively for five minutes after the captured DHCP ACK. Record negotiation, assigned address, newly emitted traffic, attempted destinations and operator-reported UI changes. Stop for evidence of external reachability, automatic updates or unexpected state-changing behavior.
+      - No Web Control, SCPI, ADB, USB, scans, service discovery, authentication approval or device configuration changes. Stop DHCP responder after the single lease exchange and preserve host isolation.
+    acceptance: [A sealed passive post-ACK observation or a documented stop condition preserves the address-only intervention.]
+    verification: [baseline, responder, capture, observation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.stage-two-a-decision
+    title: Seal Stage Two A and report without management access
+    state: open
+    intent: Return the isolated address checkpoint to operator review before Stage Two B.
+    requires: [TASK.bench.stage-two-a-lease]
+    requirements:
+      - Hash and preserve new capture and host-state evidence separately from Stage One. Report timing, lease options, traffic, destinations, visible UI reports, intervention limits and remaining temporary state.
+      - Commit and push redacted conclusions and task closure; retain raw host and specimen identifiers only in ignored local evidence.
+      - Stage Two B is not authorized. Do not admit or execute management reads or additional physical transitions.
+    acceptance: [Stage Two A evidence and an explicit stop before Stage Two B are recorded.]
+    verification: [report, provenance, cleanup, boundary]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
