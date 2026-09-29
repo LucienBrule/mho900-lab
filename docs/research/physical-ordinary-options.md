@@ -28,6 +28,7 @@ image is not claimed to be atomic or a tested full restoration procedure.
 | AUTOA | CAN-FD 0 → 1; all others unchanged | `AUTOA.lic` added | 66692 / 0 | `2b6024b4fc94130dc1be9939a27b0aae1a061172c5218bff5167c5b45e3876d9` |
 | AEROA | AERO 0 → 1; all others unchanged | `AEROA.lic` added | 66558 / 0 | `e9693e15ee97b2663bece9c3ca27dae797697ff85125576e95dee35ca7aa7296` |
 | RLU05 | RLU-05 0 → 1; all others unchanged | `RLU05.lic` added | 66689 / 0 | `554ca90da7e685e0511a704f81e53eefb59eb01dcfdc7664a5202cb683748809` |
+| BWU03T05 | BWU03T05 0 → 1; all others unchanged | `BWU03T05.lic` added | 66459 / 0 | `4d47ac60deff8c99ec9c5ea0c9338ede9d1401940d73e879dfdc4535164d53b7` |
 
 A saved-file hash match means the stock installer produced the same bytes as the
 accepted guest witness. It does not by itself prove reboot persistence. The later
