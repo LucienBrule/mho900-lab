@@ -1,0 +1,186 @@
+// Frida 16.7.19, ARM64/API-25 disposable guest. The controller pins all input hashes.
+// This observes stock constructors and stops before the first FPGA DNA request.
+// No option installation, register response, service-return substitution, or binary edit.
+'use strict';
+
+const LIB_DIRECTORY = '/data/local/tmp/entitlement/lib/';
+const STOCK_AUKLET_SHA256 = '4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e';
+const NATIVE_OPTIONS = { exceptions: 'steal', scheduling: 'cooperative' };
+const listeners = [];
+let sequence = 0;
+let terminating = false;
+let currentCall = 'script-start';
+
+function event(kind, details) {
+    send(Object.assign({ kind: kind, sequence: ++sequence, call: currentCall }, details || {}));
+}
+
+function requiredExport(module, name) {
+    const address = Module.findExportByName(module, name);
+    if (address === null) throw new Error('Missing export: ' + name);
+    return address;
+}
+
+const nativeExit = new NativeFunction(requiredExport('libc.so', '_exit'), 'void', ['int'], NATIVE_OPTIONS);
+const nativeWrite = new NativeFunction(requiredExport('libc.so', 'write'), 'long',
+    ['int', 'pointer', 'ulong'], NATIVE_OPTIONS);
+
+function stop(kind, reason, code, details) {
+    if (terminating) return;
+    terminating = true;
+    event(kind, Object.assign({ reason: reason, exit_code: code }, details || {}));
+    // A native stderr marker survives even if process exit races Frida's message delivery.
+    const marker = 'ENTITLEMENT_BASELINE_STOP ' + kind + ' ' + reason + ' exit=' + code + '\n';
+    const bytes = Memory.allocUtf8String(marker);
+    event('call-enter', { function: 'libc.write', purpose: 'terminal-marker' });
+    nativeWrite(2, bytes, marker.length);
+    event('call-enter', { function: 'libc._exit', exit_code: code });
+    nativeExit(code);
+}
+
+function invoke(label, fn, args) {
+    currentCall = label;
+    event('call-enter', { function: label });
+    const result = fn.apply(null, args || []);
+    event('call-return', { function: label, result: result === undefined ? null : String(result) });
+    return result;
+}
+
+function native(module, name, result, args) {
+    return new NativeFunction(requiredExport(module, name), result, args, NATIVE_OPTIONS);
+}
+
+function observeStop(address, reason, kind, code) {
+    listeners.push(Interceptor.attach(address, {
+        onEnter: function () {
+            stop(kind || 'failure', reason, code || 78, { address: address.toString() });
+        }
+    }));
+}
+
+function checkedLocalFunction(module, offset, expectedBytes, result, args) {
+    const address = module.base.add(offset);
+    const actual = Array.from(new Uint8Array(address.readByteArray(expectedBytes.length / 2)),
+        function (byte) { return ('0' + byte.toString(16)).slice(-2); }).join('');
+    if (actual !== expectedBytes) throw new Error('Stock helper byte mismatch at ' + offset.toString(16));
+    event('stock-helper-verified', { elf_va: '0x' + offset.toString(16), bytes: actual });
+    return new NativeFunction(address, result, args, NATIVE_OPTIONS);
+}
+
+function loadLibrary(name) {
+    currentCall = 'Module.load:' + name;
+    event('call-enter', { function: currentCall });
+    const module = Module.load(LIB_DIRECTORY + name);
+    event('call-return', { function: currentCall, base: module.base.toString(), size: module.size });
+    return module;
+}
+
+function main() {
+    try {
+        if (Process.arch !== 'arm64' || Process.pointerSize !== 8) {
+            throw new Error('This baseline requires the pinned ARM64 guest');
+        }
+        event('baseline-start', {
+            expected_auklet_sha256: STOCK_AUKLET_SHA256,
+            input_hash_validation: 'controller-required',
+            pid: Process.id,
+            mode: 'stock-native-construction-then-dna-stop'
+        });
+
+        Process.setExceptionHandler(function (exception) {
+            stop('failure', 'native-exception', 78, {
+                exception_type: exception.type,
+                address: exception.address.toString(),
+                pc: exception.context.pc.toString()
+            });
+            return false;
+        });
+        ['abort', '__assert2', '__stack_chk_fail'].forEach(function (name) {
+            const address = Module.findExportByName('libc.so', name);
+            if (address !== null) observeStop(address, 'native-' + name);
+        });
+
+        loadLibrary('libc++_shared.so');
+        loadLibrary('libfftw3f.so');
+        const auklet = loadLibrary('libscope-auklet.so');
+        const moduleName = auklet.name;
+
+        observeStop(requiredExport(moduleName, '_ZN11CApiUtility17ApiUtility_GetDNAEv'),
+            'runtime-dna-unavailable', 'dependency-stop', 77);
+        observeStop(requiredExport(moduleName, 'Dev_PCIeInit'), 'unexpected-pcie-init', 'dependency-stop', 77);
+        observeStop(requiredExport(moduleName, '_ZN9CApiSetup11loadPrivacyEv'),
+            'private-fram-unavailable', 'dependency-stop', 77);
+        listeners.push(Interceptor.attach(requiredExport(moduleName, '_ZN8CApiCore9syncErrorEi'), {
+            onEnter: function (args) {
+                stop('failure', 'stock-sync-error', 78, { stock_code: args[0].toInt32() });
+            }
+        }));
+
+        const create = native(moduleName, '_ZN11CApiFactory10Api_CreateEv', 'int', []);
+        const getServices = native(moduleName, '_ZN11CApiFactory14getServiceListEv', 'pointer', []);
+        const at = native(moduleName, '_ZNSt6__ndk16vectorIP8CApiBaseNS_9allocatorIS2_EEE2atEm',
+            'pointer', ['pointer', 'ulong']);
+        const getId = native(moduleName, '_ZNK8CApiBase5getIdEv', 'int', ['pointer']);
+        const productSeries = native(moduleName, '_Z20API_GetProductSeriesv', 'int', []);
+        const initVendor = native(moduleName, '_ZN11CApiUtility21ApiUtility_InitVendorEv', 'int', []);
+        // Native vector::size helper used by stock Api_Create/Api_Register. No JS vector-layout model.
+        const vectorSize = checkedLocalFunction(auklet, 0x238f64,
+            'ff4300d1080180d2e00700f9e90740f92a0540f9290140f9', 'ulong', ['pointer']);
+        // Native libc++ c_str helper used throughout stock code. Cached globals are live RStrings.
+        // This avoids guessing an RString layout or incorrectly calling an x8-sret getter from JS.
+        const cString = checkedLocalFunction(auklet, 0x235978,
+            'ff8300d1fd7b01a9fd430091e00700f9e00740f90a000094', 'pointer', ['pointer']);
+        const stringLength = native('libc.so', 'strnlen', 'ulong', ['pointer', 'ulong']);
+
+        Interceptor.flush();
+        const createResult = invoke('CApiFactory::Api_Create', create);
+        if (createResult !== 0) throw new Error('Api_Create rejected construction: ' + createResult);
+
+        const services = invoke('CApiFactory::getServiceList', getServices);
+        if (services.isNull()) throw new Error('Null service list');
+        const count = Number(invoke('stock-vector::size', vectorSize, [services]));
+        if (!Number.isSafeInteger(count) || count < 2 || count > 256) {
+            throw new Error('Unexpected service count: ' + count);
+        }
+        const ids = [];
+        for (let index = 0; index < count; ++index) {
+            const slot = invoke('stock-vector::at[' + index + ']', at, [services, index]);
+            if (slot.isNull()) throw new Error('Null service slot');
+            const service = slot.readPointer();
+            if (service.isNull()) throw new Error('Null service object');
+            const id = invoke('CApiBase::getId[' + index + ']', getId, [service]);
+            ids.push(id);
+            event('service', { index: index, service_id: id, base_subobject: service.toString() });
+        }
+        if (ids.indexOf(11) === -1 || ids.indexOf(36) === -1) throw new Error('Required services absent');
+        event('service-inventory-complete', { count: count, service_ids: ids });
+
+        const modelGlobal = requiredExport(moduleName, '_ZN11CApiUtility14strStaticModelE');
+        const serialGlobal = requiredExport(moduleName, '_ZN11CApiUtility15strStaticSerialE');
+        const modelChars = invoke('stock-c_str:cached-model', cString, [modelGlobal]);
+        const serialChars = invoke('stock-c_str:cached-serial', cString, [serialGlobal]);
+        if (modelChars.isNull() || serialChars.isNull()) throw new Error('Null cached identity string');
+        const modelLength = Number(invoke('strnlen:cached-model', stringLength, [modelChars, 64]));
+        const serialLength = Number(invoke('strnlen:cached-serial', stringLength, [serialChars, 256]));
+        if (modelLength === 64 || serialLength === 256) throw new Error('Unbounded cached identity string');
+        const series = invoke('API_GetProductSeries', productSeries);
+        event('cached-identity', {
+            model_present: modelLength > 0,
+            model: modelLength === 0 ? '' : modelChars.readUtf8String(modelLength),
+            serial_present: serialLength > 0,
+            serial_length: serialLength,
+            serial_disclosed: false,
+            product_series: series,
+            initialized_identity_claimed: false,
+            options: 'unavailable-before-license-initialization'
+        });
+
+        event('vendor-initialization-boundary', { expected_stop: 'ApiUtility_GetDNA-entry' });
+        invoke('CApiUtility::ApiUtility_InitVendor', initVendor);
+        throw new Error('InitVendor returned without expected DNA boundary');
+    } catch (error) {
+        stop('failure', 'script-or-native-call-error', 78, { message: String(error) });
+    }
+}
+
+setImmediate(main);

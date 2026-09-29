@@ -1,0 +1,6 @@
+(version 1)
+; Applied only to experiment child processes, never installed as host policy.
+(allow default)
+(deny network*)
+(allow network-inbound (local tcp "localhost:*"))
+(allow network-outbound (remote tcp "localhost:*"))
