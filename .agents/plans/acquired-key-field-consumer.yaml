@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-key-field-consumer
+    title: Recover the stock consumer of the acquired long key field
+    state: open
+    intent: Determine exact length, encoding and byte selection before building a specimen-derived guest fixture.
+    requires: [TASK.specimen.physical-identity-coherence-decision]
+    requirements:
+      - Commit and push tasking before execution. Use preserved files and static recovery first; no physical contact.
+      - Follow getLicenseKey outputs through the actual option verification/install consumers. Identify exact trimming, hex decoding, length checks, buffer selection and crypto key-width behavior, including error paths.
+      - Distinguish recovered software semantics from format guesses. A130character ASCIIhex field must not be presumed a key type or truncated unless stock code does so.
+      - Use bounded original-instruction or disposable-guest controls only for genuine ambiguity; declare environment setup and preserve failures. Keep acquired bytes and identities private.
+      - Report whether the prior synthetic fixture is semantically sufficient or misses a consumer branch. Commit and push before decision.
+    acceptance: [A precise consumer contract or bounded unresolved ambiguity is documented with source addresses and evidence.]
+    verification: [static_contract, controls, fixture_impact, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-key-field-decision
+    title: Select the smallest faithful specimen-derived entitlement guest experiment
+    state: open
+    intent: Reconcile the acquired key-field consumer before admitting a guest baseline or install experiment.
+    requires: [TASK.specimen.acquired-key-field-consumer]
+    requirements:
+      - Evaluate whether known identity/key material is sufficient for a bounded guest fixture while marking missing private FRAM and actual option state.
+      - Admit only a supported offline/disposable-guest successor; no physical install, capability change, reboot or additional acquisition in this decision.
+      - Commit and push conclusion and successor tasking before execution.
+    acceptance: [Evidence chooses one concrete bounded continuation without inventing specimen private state.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
