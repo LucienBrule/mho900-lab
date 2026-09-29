@@ -40,7 +40,7 @@ verifier. Reattempt the unchanged negative and positive hypotheses only through 
 Persistence remains explicitly harness-directed stock serialization; this does not establish timer-driven
 FRAM persistence on an instrument.
 
-The correction is supported by the [Android 7.1.2 ARM64 UAPI header](https://github.com/aosp-mirror/platform_bionic/blob/android-7.1.2_r39/libc/kernel/uapi/asm-arm64/asm/fcntl.h):
+The correction is supported by the [Android 7.1.2 ARM64 UAPI header][arm64-fcntl]:
 `O_DIRECTORY` is octal `040000` (`0x4000`); the harness supplied `0x10000`, which is `O_DIRECT`.
 This is architecture-specific implementation evidence, not a license or filesystem restriction.
 
@@ -108,3 +108,25 @@ processing otherwise match the recovered implementation.
 The admitted next batch will exercise both encodings through the real stock decoder before another
 installation, then observe the actual consumer's decoded bytes, key and plaintext. A corrected wire
 representation is a new fixture hypothesis; earlier rejection runs remain immutable.
+
+[arm64-fcntl]: https://github.com/aosp-mirror/platform_bionic/blob/android-7.1.2_r39/libc/kernel/uapi/asm-arm64/asm/fcntl.h
+
+## Corrected wire control passed
+
+Run `out/specimen-entitlement/synthetic-wire-negative-01` completed from 06:50:41 to 06:51:02 UTC.
+Both real decoder controls matched prediction: conventional hex produced nibble-swapped bytes, while
+low-nibble-first text recovered the intended ciphertext exactly.
+
+The actual installer consumer then used the declared 32-byte synthetic AES key and decrypted the exact
+padded `Wrong` fixture. Stock validation returned false, code `24527` was emitted, FlexA stayed false, and
+no license file appeared. This corrected negative tests semantic rejection with verified consumer plaintext.
+All 605 journal events were retained and delivered; the independent verifier accepted the complete consumer
+invocation and file observations. No positive call or reload occurred in this run.
+
+| Artifact, relative to the corrected wire run | SHA-256 |
+| --- | --- |
+| `phases/negative/guest-events.jsonl` | `1b1ae7e20f503a1c3005af979217a205bd516eca5fe23d155011247f1eda94b8` |
+| `evidence-sha256.txt` | `09958f412cc5b90cc2c90806655b0bb845443ff471d9716caf1f9a382943e39b` |
+| `result.toml` | `ba91902221b5a5acd0c0f3a31aac9c3f332fc83dab5e8fae86120a9e84f53152` |
+
+This corrected negative conclusion is committed before the matching positive arm.
