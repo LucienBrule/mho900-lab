@@ -1,0 +1,61 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-catalog-control
+    title: Prepare specimen-derived cumulative catalog controls
+    state: open
+    intent: Extend acquired FlexA evidence to a distinct ordinary option without using synthetic unit keys.
+    requires: [TASK.bench.physical-cached-bandwidth-decision]
+    requirements:
+      - Preserve acquired-option-03 successful FlexA seed and its immutable evidence. Generalize only separate acquired catalog fixture and observer paths to retain unit identity, original Key.data and cumulative license witnesses.
+      - Freeze a BWU05T08 wrong-name negative and clean positive candidate, each48bytes, with stock native/APK pins and raw/effective17 baseline. Exclude BND and builtin installation.
+      - Verify source lineage, exact seed inventory, candidate selection, private model contract, unchanged stock validation and independent verifier expectations before guest execution.
+      - No physical contact or physical filesystem/configuration changes. Commit and push tooling and fixture provenance before runs; keep unit identity/key/token material private.
+    acceptance: [Bounded cumulative acquired-input fixtures and verifiers are reviewable and pinned.]
+    verification: [lineage, scope, controls, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-catalog-negative
+    title: Falsify a wrong-name acquired catalog candidate
+    state: open
+    intent: Prove the original consumer rejects a48byte invalid candidate while preserving the acquired FlexA seed.
+    requires: [TASK.guest.acquired-catalog-control]
+    requirements:
+      - Run exactly one invalid BWU05T08 candidate through the unchanged stock decoder/consumer/ordinary installer in an isolated disposable guest; no physical access.
+      - Require all three consumer blocks observed, original rejection, unchanged full catalog and no candidate license file. Preserve any private attempt-record delta rather than calling rejection a no-op.
+      - Independently verify and seal the conclusion; commit and push before a clean positive branch. Do not use rejected state as the positive seed.
+    acceptance: [A verified rejection or precise unexpected result is preserved.]
+    verification: [consumer, catalog, private_state, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-catalog-first-positive
+    title: Validate acquired BWU05T08 installation and persistence
+    state: open
+    intent: Test one new ordinary option while preserving the specimen-derived FlexA lineage.
+    requires: [TASK.guest.acquired-catalog-negative]
+    requirements:
+      - Start from the clean accepted FlexA seed, not rejected-attempt state. Submit exactly one BWU05T08 candidate to the unchanged stock installer in a disposable guest.
+      - Validate actual consumer acceptance, exact catalog delta, retained prior license and Key.data, model/raw/effective17 before and after stock option-policy evaluation.
+      - Observe fresh-process and actual guest-reboot reload with zero installer/producer calls and identical retained files. Verify complete journals and guest health; seal and commit/push result before branching.
+    acceptance: [The specific acquired-input cumulative transition and persistence are established or bounded failure preserved.]
+    verification: [consumer, catalog, persistence, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-catalog-first-decision
+    title: Evaluate acquired catalog continuation
+    state: open
+    intent: Choose the next small offline candidate batch from verified results.
+    requires: [TASK.guest.acquired-catalog-first-positive]
+    requirements:
+      - Distinguish acquired identity/key coherence from modeled private store and physical installation durability. Do not infer an ordinary enum18 entitlement.
+      - Admit at most a small successor batch of remaining catalog candidates if evidence agrees; otherwise preserve divergence and select one bounded diagnostic.
+      - Keep physical specimen unchanged and commit/push conclusions.
+    acceptance: [A bounded offline continuation is grounded in measured consumer results.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
