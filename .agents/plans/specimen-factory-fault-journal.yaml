@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.factory-fault-journal
+    title: Validate durable fault evidence and locate native constructor failure
+    state: open
+    intent: Prove fault context survives exit, then locate the stock factory failure without speculative initialization changes.
+    requires: [TASK.specimen.factory-decision]
+    requirements:
+      - Commit and push tasking before execution. Keep all children confined to loopback and all specimen inputs unchanged.
+      - Validate a flushed guest fault journal against a private known-fault native control before relying on it. Preserve full exception context and compare its address with the intended control instruction.
+      - Run at most one stock constructor diagnostic after the control passes; trace only the narrowed native construction helpers and initializer state needed to attribute the failure.
+      - Do not install options, redirect capability or contact the physical instrument. No speculative service result, JNI callback or hardware-value substitution.
+      - Preserve the prior negative runs, frozen sources, journals, hashes and guest health; close on an attributed fault or precise remaining observer limitation.
+    acceptance: [A tested durable recorder and one bounded stock result identify the next prerequisite or observation boundary.]
+    verification: [control, stock, interpretation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.factory-fault-decision
+    title: Evaluate the recovered native constructor fault
+    state: open
+    intent: Select the smallest supported runtime correction or another offline entitlement path.
+    requires: [TASK.specimen.factory-fault-journal]
+    requirements:
+      - Evaluate runtime evidence alongside stock caller and ELF initialization contracts; do not infer a missing Java context solely from normal caller ordering.
+      - Admit a bounded correction and evaluation if supported, or a different useful offline branch. Preserve exact physical questions without contacting the specimen.
+      - Plan and inspect admission, bind expected revision, commit and push before execution. Keep ordinary entitlements separate from D-capability work.
+    acceptance: [The next bounded offline continuation is justified and committed.]
+    verification: [finding, continuation, boundaries]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
