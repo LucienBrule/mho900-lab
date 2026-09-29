@@ -1,0 +1,27 @@
+schema_version = "mho900-lab.synthetic-entitlement-fixture/1"
+classification = "corrected-wire-candidate-not-runtime-validated"
+token_text_encoding = "low-nibble-first"
+consumer_observation_required = true
+stock_native_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+model = "MHO984"
+serial = "SYNTH01"
+dna_hex = "0123456789abcdef"
+option_type = 5
+option_name = "FlexA"
+installer_family = "MHO900"
+# Deliberately nonsecret synthetic test material, never an acquired unit key.
+aes_key_ascii = "0123456789abcdef0123456789abcdef"
+key_file_plaintext = "SYNTH01;0123456789abcdef0123456789abcdef"
+positive_plaintext = "MHO984#SYNTH01#FlexA#guest#0#0"
+negative_plaintext = "MHO984#SYNTH01#Wrong#guest#0#0"
+token_padded_bytes = 32
+license_type = 0
+license_time = 0
+private_store_backend = "stock-memfile-harness-directed-file"
+private_store_min_bytes = 8
+private_store_exclusive_max_bytes = 1792
+ordinary_installer_replaced = false
+option_validator_replaced = false
+option_queries_replaced = false
+specimen_key_files_used = false
+physical_contact = false

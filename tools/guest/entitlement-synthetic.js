@@ -10,7 +10,8 @@ function entitlementExperiment() {
         const checkpoint = entitlementCheckpoint;
         if (!['negative', 'install', 'process-reload', 'reboot-reload'].includes(checkpoint)) throw new Error('Unknown checkpoint');
         if (!['negative', 'positive', 'reload'].includes(phase)) throw new Error('Unknown phase');
-        if (cfg.stock_native_sha256 !== STOCK_AUKLET_SHA256 || cfg.option_type !== 5 ||
+        if (cfg.stock_native_sha256 !== STOCK_AUKLET_SHA256 || cfg.token_text_encoding !== 'low-nibble-first' ||
+            cfg.consumer_observation_required !== true || cfg.option_type !== 5 ||
             cfg.option_name !== 'FlexA' || cfg.license_type !== 0 || cfg.license_time !== 0 ||
             cfg.aes_key_ascii.length !== 32 || cfg.key_file_plaintext.length !== 40 ||
             cfg.key_file_plaintext !== cfg.serial + ';' + cfg.aes_key_ascii ||
@@ -19,6 +20,10 @@ function entitlementExperiment() {
         const mod = aukletModule;
         if (mod === null || Process.arch !== 'arm64') throw new Error('ART/Auklet not ready');
         const nm = mod.name;
+        // Check original bytes before the consumer observer patches this entry for observation.
+        const stockDecode = guarded(0x242fe8, 'ff0301d1fd7b03a9fdc30091a1831ff8', 'void', ['pointer', 'pointer', 'pointer']);
+        if (typeof entitlementObserveConsumer !== 'function') throw new Error('Required consumer observer missing');
+        entitlementObserveConsumer(mod, event, cfg);
         event('entitlement-phase-start', { phase: phase, identity: 'synthetic', model: cfg.model,
             serial: cfg.serial, dna_hex: cfg.dna_hex, stock_files_unchanged: true });
         function fn(name, result, args) { return native(nm, name, result, args); }
@@ -159,15 +164,18 @@ function entitlementExperiment() {
         const witnessPath = '/data/local/tmp/entitlement/model/crypto-witness.toml';
         const existingKey = readFile(keyPath, true);
         let token = null;
+        let tokenCiphertextHex = null;
         if (phase === 'reload') {
             const witnessBytes = readFile(witnessPath, false);
             const witness = String.fromCharCode.apply(null, witnessBytes);
-            const match = /^schema_version = 1\nphase = "positive"\nkey_ciphertext_hex = "([0-9a-f]{80})"\ntoken_ciphertext_hex = "([0-9a-f]{64})"\n$/.exec(witness);
+            const match = /^schema_version = 2\nphase = "positive"\nkey_ciphertext_hex = "([0-9a-f]{80})"\ntoken_ciphertext_hex = "([0-9a-f]{64})"\nwire_token_hex = "([0-9a-f]{64})"\n$/.exec(witness);
             if (match === null || existingKey === null || hex(existingKey) !== match[1]) throw new Error('Reload saved witness/key mismatch');
-            token = match[2];
+            tokenCiphertextHex = match[2];
+            token = match[3];
+            if (token !== tokenCiphertextHex.replace(/../g, pair => pair[1] + pair[0])) throw new Error('Saved wire encoding differs');
             const savedLicense = readFile(licensePath, false);
             if (String.fromCharCode.apply(null, savedLicense).trim() !== cfg.option_name + '@' + token) throw new Error('Reload saved witness/license mismatch');
-            event('synthetic-persisted-inputs-read', { witness_path: witnessPath, key_ciphertext_hex: match[1], token_ciphertext_hex: token, crypto_regenerated: false, inputs_overwritten: false });
+            event('synthetic-persisted-inputs-read', { witness_path: witnessPath, key_ciphertext_hex: match[1], token_ciphertext_hex: tokenCiphertextHex, wire_token_hex: token, crypto_regenerated: false, inputs_overwritten: false });
         } else {
             const teaSet = guarded(0x3be7e4, 'ff8300d1080080d2c93f00b029610891', 'void', ['pointer']);
             const teaEncode = guarded(0x3be880, 'ff8300d1fd7b01a9fd430091880080d2', 'int', ['pointer', 'long']);
@@ -201,11 +209,31 @@ function entitlementExperiment() {
                 if (!equal(bytes(recovered, 32), plain)) throw new Error('AES roundtrip failed');
                 return hex(bytes(dst, 32));
             }
-            token = makeToken(phase === 'negative' ? cfg.negative_plaintext : cfg.positive_plaintext);
+            tokenCiphertextHex = makeToken(phase === 'negative' ? cfg.negative_plaintext : cfg.positive_plaintext);
+            token = tokenCiphertextHex.replace(/../g, pair => pair[1] + pair[0]);
+            function codecControl(text, encoding, predicted, shouldMatchCiphertext) {
+                const destination = Memory.alloc(32), lengthOut = Memory.alloc(4);
+                lengthOut.writeS32(-1);
+                withString(text, 'codec-' + encoding, obj => {
+                    call('API_SetStr2Hex:control:' + encoding, stockDecode, [obj, destination, lengthOut]);
+                });
+                const length = lengthOut.readS32();
+                if (length !== 32) throw new Error('Stock decoder control length differs');
+                const decoded = hex(bytes(destination, length));
+                const matchesExpected = decoded === tokenCiphertextHex;
+                const matchesPrediction = decoded === predicted;
+                event('synthetic-wire-codec-control', { input_encoding: encoding, input_text: text,
+                    decoded_hex: decoded, decoded_length: length, expected_hex: tokenCiphertextHex,
+                    predicted_decoded_hex: predicted, matches_prediction: matchesPrediction,
+                    matches_expected: matchesExpected });
+                if (!matchesPrediction || matchesExpected !== shouldMatchCiphertext) throw new Error('Stock wire codec control failed');
+            }
+            codecControl(tokenCiphertextHex, 'conventional-high-first', token, false);
+            codecControl(token, 'stock-low-first', tokenCiphertextHex, true);
             const keyHex = hex(encryptedKey);
-            const witness = 'schema_version = 1\nphase = "' + phase + '"\nkey_ciphertext_hex = "' + keyHex + '"\ntoken_ciphertext_hex = "' + token + '"\n';
+            const witness = 'schema_version = 2\nphase = "' + phase + '"\nkey_ciphertext_hex = "' + keyHex + '"\ntoken_ciphertext_hex = "' + tokenCiphertextHex + '"\nwire_token_hex = "' + token + '"\n';
             writeFile(witnessPath, Array.from(witness, c => c.charCodeAt(0)));
-            event('synthetic-crypto-roundtrip', { phase: phase, key_roundtrip: true, token_roundtrip: true, key_ciphertext_hex: keyHex, token_ciphertext_hex: token, witness_path: witnessPath, synthetic_only: true });
+            event('synthetic-crypto-roundtrip', { phase: phase, key_roundtrip: true, token_roundtrip: true, key_ciphertext_hex: keyHex, token_ciphertext_hex: tokenCiphertextHex, wire_token_hex: token, wire_codec_roundtrip: true, witness_path: witnessPath, synthetic_only: true });
         }
         store.initialize(phase === 'reload' ? 'reload' : 'fresh');
         call('CApiLicense::init', fn('_ZN11CApiLicense4initEv', 'void', ['pointer']), [license]);
@@ -230,7 +258,7 @@ function entitlementExperiment() {
         }
         if (phase !== 'reload') {
             withString(cfg.installer_family + '-' + cfg.option_name + '@' + token, 'installer-input', obj => {
-                event('ordinary-installer-enter', { option_type: cfg.option_type, option_name: cfg.option_name, family: cfg.installer_family, token_hex: token, accepted: false, synthetic_only: true });
+                event('ordinary-installer-enter', { option_type: cfg.option_type, option_name: cfg.option_name, family: cfg.installer_family, token_hex: token, wire_token_hex: token, token_ciphertext_hex: tokenCiphertextHex, accepted: false, synthetic_only: true });
                 const result = call('ApiLicense_SetLicenseInstall', fn('_ZN11CApiLicense28ApiLicense_SetLicenseInstallE7RString', 'int', ['pointer', 'pointer']), [license, obj]);
                 event('ordinary-installer-return', { result: result, acceptance_claimed: false });
             });
@@ -241,7 +269,7 @@ function entitlementExperiment() {
         const expectedFile = cfg.option_name + '@' + token;
         const actualFile = licenseBytes === null ? null : String.fromCharCode.apply(null, licenseBytes).trim();
         const checks = { started_false: !call('API_GetStarted:final', started), catalog_complete: before.length === 14 && after.length === 14 };
-        if (phase !== 'reload') { checks.key_roundtrip = true; checks.token_roundtrip = true; }
+        if (phase !== 'reload') { checks.key_roundtrip = true; checks.token_roundtrip = true; checks.wire_codec_roundtrip = true; }
         if (phase === 'negative') {
             checks.baseline_candidate_disabled = !candidate(before);
             checks.negative_rejected = !candidate(after) && activeReturns.length === 1 && activeReturns[0] >= 24518 && activeReturns[0] <= 24528 && verifyReturns.includes(false) && errorCodes.includes(activeReturns[0]) && !errorCodes.includes(24531);

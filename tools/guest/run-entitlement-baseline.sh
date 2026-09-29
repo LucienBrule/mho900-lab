@@ -39,7 +39,7 @@ if [ "$trial_mode" != baseline ]; then
     [ -z "$(find "$fixture/model" -mindepth 1 -print)" ]
     cp "$repo/tools/guest/compose-entitlement-phase.py" "$repo/tools/guest/prepare-synthetic-entitlement-fixture.py" \
        "$repo/tools/guest/verify-synthetic-entitlement.py" "$run/source/"
-    for name in entitlement-private-store.js entitlement-synthetic.js entitlement-art.js entitlement-baseline.js; do
+    for name in entitlement-private-store.js entitlement-consumer-observer.js entitlement-synthetic.js entitlement-art.js entitlement-baseline.js; do
         cp "$repo/tools/guest/$name" "$run/source/$name"
     done
     cp "$fixture/synthetic.toml" "$run/source/synthetic.toml"

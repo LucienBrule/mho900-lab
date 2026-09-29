@@ -27,8 +27,8 @@ def accepted_stop(payload):
         phase = payload.get("phase")
         required = {"started_false", "catalog_complete"}
         phase_checks = {
-            "negative": {"key_roundtrip", "token_roundtrip", "baseline_candidate_disabled", "negative_rejected", "negative_no_license_file"},
-            "positive": {"key_roundtrip", "token_roundtrip", "baseline_candidate_disabled", "positive_accepted", "positive_license_file"},
+            "negative": {"key_roundtrip", "token_roundtrip", "wire_codec_roundtrip", "baseline_candidate_disabled", "negative_rejected", "negative_no_license_file"},
+            "positive": {"key_roundtrip", "token_roundtrip", "wire_codec_roundtrip", "baseline_candidate_disabled", "positive_accepted", "positive_license_file"},
             "reload": {"reload_persisted", "positive_license_file", "key_matches_saved_witness", "license_matches_saved_witness"},
         }
         checks = payload.get("expected_checks")

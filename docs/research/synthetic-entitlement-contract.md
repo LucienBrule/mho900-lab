@@ -2,8 +2,9 @@
 
 Static recovery now supports a bounded ordinary-installer experiment using the unchanged specimen software
 and wholly synthetic identity/key material. It does not establish the physical unit's entitlement state.
-The candidate is [machine-readable](../../experiments/specimen-entitlement/synthetic-fixture.toml); it has not
-yet passed runtime validation.
+The original [candidate](../../experiments/specimen-entitlement/synthetic-fixture.toml) was rejected in both
+arms because its producer omitted the stock wire-codec convention. The [trial report](synthetic-entitlement-trial.md)
+preserves those results and the bounded correction. This contract includes that subsequent static finding.
 
 The active specimen Auklet hash is
 `4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e`. Addresses below refer to that library.
@@ -30,7 +31,7 @@ vendor-file reconstruction branch.
 
 ## Ordinary token and controls
 
-The validator at `0x437384` accepts 32 or 48 bytes of hex-encoded ciphertext, decrypts independent AES-256 blocks,
+The validator at `0x437384` accepts 32 or 48 bytes of encoded ciphertext, decrypts independent AES-256 blocks,
 and parses six `#`-separated fields. The third field must contain the selected option's stock name. The first
 characters of fields five and six select license type and time. Type 0 with time 0 follows the stock permanent
 validity path. These are implementation-derived semantics, not vendor documentation or physical validation.
@@ -38,10 +39,13 @@ validity path. These are implementation-derived semantics, not vendor documentat
 The candidate selects FlexA, type 5, avoiding bundle file deletion and the built-in validity special cases for
 EMBD, COMP and AUTO. Produce the candidate ciphertext using unchanged `AES_set_encrypt_key` and `AES_encrypt`;
 require stock encrypt/decrypt and XXTEA encode/decode roundtrips before relying on the generated inputs.
-Then submit `MHO900-FlexA@<hex>` through the actual ordinary installer at `0x4332fc`.
+The token text is **low-nibble-first lowercase hex**, not conventional hex: byte `0x29` is represented as `92`.
+Stock `API_SetStr2Hex` at `0x242fe8` decodes this convention; `API_SetHex2Str` at `0x242dd4` is its inverse.
+Require a roundtrip through the actual wire decoder in addition to crypto roundtrips. Then submit
+`MHO900-FlexA@<stock-wire-hex>` through the actual ordinary installer at `0x4332fc`.
 
 The negative control differs only in the decrypted option-name field: `Wrong` instead of `FlexA`. It is a
-well-formed encrypted token, so rejection tests the real semantic validator. Use a clean restored baseline for
+well-formed token only after its stock wire decoding and consumer plaintext are verified. Use a clean baseline for
 the positive case because rejected attempts can update private counters. Record activeOpt's actual result,
 notifications, native validity queries and file deltas. Outer installer return zero is not acceptance evidence.
 
