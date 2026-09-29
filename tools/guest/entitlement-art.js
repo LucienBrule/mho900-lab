@@ -48,17 +48,20 @@ function entitlementArtStart(continueBaseline) {
                     event('art-host-ready', { readiness_only: readinessOnly,
                         host_class: 'lab.mho900.guest.EntitlementHost',
                         class_loader: String(loader.getClass().getName()) });
-                    const System = Java.use('java.lang.System');
-                    ['libc++_shared.so', 'libfftw3f.so'].forEach(function (name) {
-                        event('call-enter', { function: 'System.load:' + name });
-                        System.load(LIB_DIRECTORY + name);
-                        event('call-return', { function: 'System.load:' + name });
-                    });
-                    // Explicit initialization executes the unchanged API static System.loadLibrary call.
+                    // The stock API static initializer is the real Java caller of System.loadLibrary.
+                    // Its DT_NEEDED dependencies resolve through the pinned guest native-library path.
                     const Class = Java.use('java.lang.Class');
                     const apiClass = Class.forName('com.rigol.scope.cil.API', true, loader);
                     const loadedName = String(apiClass.getName());
                     if (loadedName !== 'com.rigol.scope.cil.API') throw new Error('Unexpected API class');
+                    ['libc++_shared.so', 'libfftw3f.so', 'libscope-auklet.so'].forEach(function (name) {
+                        const resolved = Process.getModuleByName(name);
+                        const expected = LIB_DIRECTORY + name;
+                        event('art-native-module', { name: name, path: resolved.path,
+                            expected_path: expected, matches_fixture_path: resolved.path === expected,
+                            base: resolved.base.toString(), size: resolved.size });
+                        if (resolved.path !== expected) throw new Error('Native module resolved outside fixture: ' + name);
+                    });
                     const module = Process.getModuleByName('libscope-auklet.so');
                     aukletModule = module;
                     const slots = [ ['java_vm', 0xbe0e38], ['api_class_global', 0xbe0e48],
