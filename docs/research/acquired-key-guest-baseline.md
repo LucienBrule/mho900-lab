@@ -85,3 +85,19 @@ also installs stop observers at the installer and crypto-producer entries.
 snapshots. Ephemeral guest disks, AVD runtime files and fresh ADB home state
 are excluded; their pulled logical state and logs are the retained witnesses.
 Private key fields, public unit serial and file-key bytes remain local.
+
+## Decision
+
+The acquired-input baseline is established. The next bounded question is one
+ordinary FlexA installation in this disposable component, followed by a new
+process and an actual guest reboot. Use the accepted baseline's exact key
+file, separate identity fields and modeled private record as the seed.
+Observe the original consumer's key bytes, decoded token blocks, validation,
+catalog transition and saved license; reload without producing or installing
+another token. Choose the padded token length from the actual private fixture,
+not the shorter synthetic serial used by the earlier experiment.
+
+This continuation needs no physical contact. It cannot establish physical
+FRAM persistence or the existing specimen's option state. Any guest policy
+pair beyond the exact established Frida pair, lost journal, changed stock
+pin or new hardware call is a stop condition.

@@ -1,0 +1,52 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-fixture
+    title: Freeze one acquired-input guest option fixture
+    state: open
+    intent: Prepare one ordinary FlexA experiment from the accepted separate-field baseline.
+    requires: [TASK.specimen.separate-key-fields-decision]
+    requirements:
+      - Commit and push tasking before execution. Work on preserved files and disposable copies only; no physical contact.
+      - Verify the accepted acquired-key-baseline-02 seal and copy its exact Key.data and modeled private state. Preserve public serial, key left field and full right field separately.
+      - Keep stock APK and native library byte-identical. Freeze one ordinary FlexA input with native type 5 and explicit ordinary license type/time; choose 32 or 48 padded bytes from the actual plaintext length, leaving a NUL terminator.
+      - Extend existing guest harness and independent verifier for acquired inputs without weakening older synthetic controls. Keep unit keys and resulting token material private.
+      - Require original consumer observations, exact catalog delta, process reload and actual guest reboot with no token regeneration or reinstallation. Freeze exact known Frida guest-policy pair and existing loopback isolation checks.
+      - Commit and push preparation before execution; do not run the installation in this preparation task.
+    acceptance: [A frozen auditable guest fixture and verifier are ready without altering stock originals or contacting hardware.]
+    verification: [lineage, contract, harness, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-persistence
+    title: Validate one acquired-input option and guest persistence
+    state: open
+    intent: Test ordinary stock acceptance and reload using coherent specimen-derived identity inputs.
+    requires: [TASK.specimen.acquired-option-fixture]
+    requirements:
+      - Execute one frozen disposable-guest experiment only, under established host-loopback child confinement. No specimen access.
+      - Record baseline catalog, one ordinary installer call, original decoder/AES/validator witnesses, exact saved license and private-state deltas. Do not substitute the installer, verifier or query outputs.
+      - If accepted, restart the component process and reboot the same guest. Reload existing files and modeled private state without regeneration, reinstallation or formatting; compare artifacts and option states.
+      - Stop and retain evidence on failure, changed stock pins, journal loss, guest instability, unexpected hardware access or a policy pair differing from the exact established Frida pair.
+      - Independently verify raw evidence; keep token and unit data private; commit and push the actual conclusion before successor execution.
+    acceptance: [One bounded result establishes acquired-input component persistence or identifies the first reproducible failure.]
+    verification: [execution, consumer, catalog, persistence, isolation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.acquired-option-decision
+    title: Evaluate acquired-input option persistence
+    state: open
+    intent: Select the next useful guest experiment or exact bench question.
+    requires: [TASK.specimen.acquired-option-persistence]
+    requirements:
+      - Distinguish software acceptance, modeled private durability, actual physical state and feature operation.
+      - Select a bounded offline successor only when supported; do not repeat established synthetic catalog or ADC work without a concrete blocker.
+      - No physical entitlement installation, capability patch, reboot or new acquisition is admitted by this decision. Record exact physical questions separately.
+      - Commit and push the conclusion and any admitted successor tasking.
+    acceptance: [The decision advances from evidence without claiming physical parity from guest success.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
