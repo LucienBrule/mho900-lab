@@ -18,7 +18,8 @@ partition presentation. It is not a prerequisite for tests of the byte-identical
 ## Next bounded batch
 
 1. Recover the ordinary installer/query boundary and its state dependencies from stock code and preserved unit files.
-   Identify entry points, option identifiers, argument/results, persistence, required initialization and identity inputs.
+   Identify entry points, option identifiers, argument/results, persistence, required initialization and identity
+   inputs.
 2. Establish a disposable guest baseline using copied specimen state and the existing harness. Test one bounded
    ordinary interface without applying options or a capability redirect. Preserve actual state, file deltas, synthetic
    inputs and the first unresolved dependency.
