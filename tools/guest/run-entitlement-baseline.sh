@@ -8,9 +8,11 @@ controller_arg=${3:?}
 js_arg=${4:?}
 trial_mode=${5:-baseline}
 [ "$#" = 4 ] || [ "$#" = 5 ]
-case "$trial_mode" in baseline|acquired-baseline|acquired-option|acquired-capability-stock|acquired-capability-derived|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
+case "$trial_mode" in baseline|acquired-baseline|acquired-option|acquired-catalog-negative|acquired-catalog-positive|acquired-capability-stock|acquired-capability-derived|negative|positive|capability-stock|capability-derived|catalog-negative|catalog-positive|catalog-final|identity-reader) ;; *) exit 2;; esac
 acquired_option=false
-case "$trial_mode" in acquired-option|acquired-capability-*) acquired_option=true;; esac
+case "$trial_mode" in acquired-option|acquired-catalog-*|acquired-capability-*) acquired_option=true;; esac
+acquired_catalog=false
+case "$trial_mode" in acquired-catalog-*) acquired_catalog=true;; esac
 acquired_capability=false
 case "$trial_mode" in acquired-capability-*) acquired_capability=true;; esac
 reader_mode=false
@@ -27,6 +29,7 @@ if [ "$capability_mode" = true ] || [ "$catalog_mode" = true ]; then seeded_mode
 trial_verifier=verify-synthetic-entitlement.py
 if [ "$catalog_mode" = true ]; then trial_verifier=verify-option-catalog.py; fi
 if [ "$acquired_option" = true ]; then trial_verifier=verify-acquired-option.py; fi
+if [ "$acquired_catalog" = true ]; then trial_verifier=verify-acquired-catalog.py; fi
 case "$run_id" in ''|*[!a-zA-Z0-9_-]*) exit 2;; esac
 sdk=${ANDROID_SDK_ROOT:?Set ANDROID_SDK_ROOT locally}
 frida_home=${ENTITLEMENT_FRIDA_HOME:-"$repo/local/guest-tools/frida-16.7.19-r02"}
@@ -61,7 +64,13 @@ if [ "$trial_enabled" = true ]; then
             "$repo/tools/guest/verify-acquired-option.py" "$repo/tools/guest/verify-synthetic-entitlement.py" \
             "$repo/tools/guest/entitlement-acquired-consumer.js" "$repo/tools/guest/entitlement-acquired-option.js" \
             "$repo/tools/guest/entitlement-capability.js" "$run/source/"
-        if [ "$acquired_capability" = true ]; then
+        if [ "$acquired_catalog" = true ]; then
+            cp "$repo/tools/guest/prepare-acquired-catalog.py" "$repo/tools/guest/verify-acquired-catalog.py" \
+               "$repo/tools/guest/entitlement-acquired-catalog.js" "$repo/tools/guest/entitlement-acquired-catalog-consumer.js" "$run/source/"
+            "$python" "$run/source/prepare-acquired-catalog.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
+            catalog_arm=$(yq -p toml -o yaml -r '.catalog_arm' "$fixture/synthetic.toml")
+            if [ "$trial_mode" = acquired-catalog-negative ]; then [ "$catalog_arm" = negative48 ]; else [ "$catalog_arm" = positive ]; fi
+        elif [ "$acquired_capability" = true ]; then
             cp "$repo/tools/guest/prepare-acquired-capability.py" "$repo/tools/guest/prepare-capability-fixture.py" "$run/source/"
             "$python" "$run/source/prepare-acquired-capability.py" --verify-fixture "$fixture" > "$run/acquired-fixture-verification.toml"
             [ "$(yq -p toml -o yaml -r '.capability_arm' "$fixture/synthetic.toml")" = "${trial_mode#acquired-capability-}" ]
@@ -427,7 +436,7 @@ if [ "$trial_enabled" = true ]; then
         "$python" "$run/source/entitlement-files.py" "$active_phase_dir" > "$run/$label-evidence.toml"
     }
     adb shell cat /proc/sys/kernel/random/boot_id > "$run/initial-boot-id.txt"
-    if [ "$trial_mode" = negative ] || [ "$trial_mode" = catalog-negative ]; then
+    if [ "$trial_mode" = negative ] || [ "$trial_mode" = catalog-negative ] || [ "$trial_mode" = acquired-catalog-negative ]; then
         run_trial_phase negative negative
     elif [ "$trial_mode" = catalog-positive ]; then
         run_trial_phase install positive

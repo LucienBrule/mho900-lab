@@ -16,7 +16,12 @@ def main():
     args = parser.parse_args()
     fixture = tomllib.loads(args.config.read_text())
     acquired = fixture.get('schema_version') == 'mho900-lab.acquired-option-fixture/1'
-    if acquired and (fixture.get('acquired_option_experiment') is not True or args.phase not in ('positive','reload')):
+    catalog_negative = (fixture.get('acquired_catalog_experiment') is True
+                        and args.phase == 'negative'
+                        and fixture.get('catalog_arm') == 'negative48'
+                        and fixture.get('option_name') == 'BWU05T08')
+    if acquired and (fixture.get('acquired_option_experiment') is not True
+                     or (args.phase not in ('positive', 'reload') and not catalog_negative)):
         raise ValueError('Invalid acquired-input phase')
     if not acquired and fixture.get('schema_version') != 'mho900-lab.synthetic-entitlement-fixture/1':
         raise ValueError('Unknown fixture schema')
