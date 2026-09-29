@@ -1,0 +1,15 @@
+schema_version = 1
+revision = "d23adbd11626f12abaf4bc742e250204fe2b9f8a"
+classification = "public-reference-not-specimen-kernel-proof"
+
+[[files]]
+path = "reference/arch/arm64/include/uapi/asm/fcntl.h"
+url = "https://raw.githubusercontent.com/norbertkiszka/rigol-orangerigol-linux_4.4.179/d23adbd11626f12abaf4bc742e250204fe2b9f8a/arch/arm64/include/uapi/asm/fcntl.h"
+sha256 = "636d586895aeb3fd9addf56d5412b113a043ddf1e474f38019701928ee7fd0ec"
+git_blob = "cd2e630c235e26f2d9528f6b7ff5a9315d273b10"
+
+[[files]]
+path = "reference/include/uapi/asm-generic/fcntl.h"
+url = "https://raw.githubusercontent.com/norbertkiszka/rigol-orangerigol-linux_4.4.179/d23adbd11626f12abaf4bc742e250204fe2b9f8a/include/uapi/asm-generic/fcntl.h"
+sha256 = "73c2c59eb2d000aeda08d64f481c775beb40a03a21752946fe929036bfc67f01"
+git_blob = "e063effe0cc18f0976f01b49cb56c3aeac47bf69"
