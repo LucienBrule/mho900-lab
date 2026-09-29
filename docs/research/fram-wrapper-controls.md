@@ -61,3 +61,10 @@ completed without errors. No physical operation occurred.
 The next control uses explicit stdin redirection from `/dev/null` and follows
 `/proc/self/fd/0`. That changes only the test's descriptor setup, not the probe.
 The original failed run remains separately preserved.
+
+The corrected descriptor setup passed in fresh `stat-node-02`: direct node,
+symlink and redirected descriptor produced identical five-field metadata;
+nonexistent-path rejection preserved ENOENT. Guest policy, enforcement and
+system_server identity remained unchanged and teardown passed. The probe binary
+is unchanged from the first control. The new physical controller and independent
+verifier consume these raw numeric metadata records, including post-read brackets.

@@ -88,9 +88,11 @@ def verify_binding(run):
     for name in ('fram-node-stat', 'fram-fd-stat', 'fram-node-stat-pre-read', 'fram-node-stat-after', 'fram-fd-stat-after'):
         raw = (metadata / (name+'.stdout')).read_text().strip()
         stat_values.append(raw)
-        mode, major, minor, inode = raw.split()
-        assert int(mode, 16) & 0xf000 == 0x2000
-        assert (int(major, 16), int(minor, 16), inode) == (binding['major'], binding['minor'], binding['inode'])
+        value = tomllib.loads(raw)
+        assert set(value) == {'mode','major','minor','inode','device'}
+        assert all(type(x) == int and x >= 0 for x in value.values())
+        assert value['mode'] & 0xf000 == 0x2000
+        assert (value['major'], value['minor'], value['inode']) == (binding['major'], binding['minor'], binding['inode'])
     assert len(set(stat_values)) == 1
     for name, key in [('fram-adapter-dev', None), ('fram-adapter-name', 'adapter_name'), ('fram-adapter-path', 'adapter_path')]:
         expected = str(binding['major'])+':'+str(binding['minor']) if key is None else binding[key]
@@ -103,6 +105,9 @@ def verify_binding(run):
     assert expected == 'aff567c13fbd996cd71fd402a39966f35d2856f2b37f4b6a6b68bc2f19660d82'
     for file in (run/'control/read-fram', metadata/'fram-helper-roundtrip'):
         assert hashlib.sha256(file.read_bytes()).hexdigest() == expected
+    statpin = tomllib.loads((run/'control/stat-pin.toml').read_text())['sha256']
+    for file in (run/'control/stat-node', metadata/'stat-helper-roundtrip'):
+        assert hashlib.sha256(file.read_bytes()).hexdigest() == statpin
     return True
 
 def main():
