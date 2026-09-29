@@ -91,3 +91,54 @@ helper directory under fresh verified capture. Keep original APK/firmware and
 application state unchanged. Temporary helper/output files are explicit
 filesystem writes; no target call, attachment, register access or memory write
 is involved. Stop on mismatch or denial, without alternate access methods.
+
+## Physical observation: stock guest baseline corroborated
+
+On 2026-09-29, the single admitted physical observation read raw enum **17**
+and effective enum **17** from initialized stock Sparrow. Both eight-byte
+samples match. The reader requested exactly four four-byte reads through one
+read-only descriptor. Independent offline reconstruction validates all four
+process/map epochs, pinned APK/ELF identity, file stability, mapping geometry,
+address arithmetic and the sixteen-byte budget.
+
+Fresh capture began at 14:02:26 UTC, before temporary host addressing.
+The prior six-hour lease remained valid; no forced renewal was needed.
+Existing ADB credentials retained their previously observed root identity;
+no root request, daemon restart or authentication approval occurred.
+The loaded APK was freshly pulled and matched the stock pin before helper
+staging. The frozen helper was roundtrip-verified and invoked exactly once.
+The helper/output directory remains as explicit temporary filesystem residue;
+there was no additional contact to delete it.
+
+Physical enforcement mode was Disabled before and after, as in the earlier
+specimen baseline; this procedure did not change it. Guest Enforcing controls
+and physical Disabled observations remain distinct claims. No target method,
+attachment, memory write, mapped-register access, entitlement installation,
+capability change, reboot or calibration action occurred.
+
+All 42,042 complete stored frames pass replay of the recorded bounded network
+classifier. The two final recorder counters both report 42,042; kernel drops
+are zero and recorder exit is zero. Replay against that classifier is not an
+independent proof that its rules are exhaustive. ADB disconnected, host address
+was removed, lease helper stopped and isolation was rechecked. Network
+preference files match baseline bytes. The privileged host shell was closed.
+No new operator UI report was collected during this short observation.
+
+Private run: `out/physical/mho984-cached-bandwidth-20260929T140142Z`.
+Capture SHA-256: `68b94f233589293be083f37dead00e2df14a4b7ad95e5d58196e03cc02d06688`.
+Evidence index SHA-256: `f4c4782d1bd7acb1996dff659c848283d6c7131a8e44bb8bb52f8930086e8320`.
+
+## Physical decision
+
+The physical cached capability baseline agrees with the acquired stock guest:
+17/17. Together with the physical identity and eleven zero documented option
+replies, this removes the immediate software-state discrepancy question.
+Do not extend this to analog transfer function, calibration, three built-in
+heap states, feature operation or physical entitlement persistence.
+
+The next useful branch is offline: extend the specimen-derived guest's existing
+single-option persistence proof to the individually installable catalog, then
+compare that exact combined state under the separate derived capability arm.
+The earlier synthetic catalog and specimen-derived FlexA-only capability test
+remain distinct evidence until that combination is actually exercised. Further
+physical reads of the same baseline would have little information value now.
