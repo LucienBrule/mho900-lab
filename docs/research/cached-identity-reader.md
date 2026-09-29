@@ -132,3 +132,17 @@ predicate, reader binary, policy or credentials will change merely to advance th
 | `result.toml` | `eceb66018903d79556746674c5ae10cc4ddf819bf1963266ef34f9c6619dad0c` |
 | `evidence-sha256.txt` | `73670b18e914b2d6a9ef34b3d2f3af3a1dcac79ad5513cee7deba5166e10aa64` |
 | `guest-events.jsonl` | `73a40b1b31cb06a28e5b207ac1526baf780950e7b7dab4095f4c0e6f96633ede` |
+
+## Mapping diagnostic
+
+Run `cached-identity-reader-03` preserved the rejected raw maps before parsing. The extra row is a separate
+read-only private mapping of the same complete library file, offset zero, length `0xbe1000`, below the
+actual loaded module. It is a file view rather than a PT_LOAD mapping at the module's load bias. Its
+creator is not established by this observation. The original guard conflated every same-file mapping with
+the loaded module. It rejected before protection restoration or external reading; this run is diagnostic,
+not a reader pass. Raw text and the exact rejected row are retained under `reader/setup-restoration/`.
+
+A valid successor may distinguish one complete read-only private file view, disjoint from the complete
+loaded-module extent, while retaining exact identity, loaded-segment geometry, permission and stability
+checks. Partial, writable, shared, executable, overlapping or ambiguous views must still fail. This needs a
+new reader build and explicit controls; the original build06 rejection remains correct for its contract.
