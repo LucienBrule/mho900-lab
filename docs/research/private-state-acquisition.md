@@ -72,8 +72,8 @@ admitted by this analysis.
 
 ## Remaining gates
 
-The embedded-object offset is established, but physical discovery of the owning
-setup-service instance and proof of its lifetime are not yet established here.
+The static owner path is established as described below; observation of the live
+instance and proof of its lifetime are not yet established here.
 A guessed heap address or a broad process dump is not an acceptable substitute.
 The next reader must retain process identity, exact native mapping ancestry and
 object metadata around every bounded sample. Repeated matching samples remain
@@ -110,3 +110,31 @@ sample. Matching observations are explicitly labeled non-atomic and not device
 readback. CRC behavior is corroborated against the retained stock-produced
 records; this is not an exhaustive independent proof of every possible stock CRC
 input or malformed-stream behavior.
+
+## Owner recovery and decision
+
+An additional 465 instruction words, ELF symbols, GOT relocations and vtable
+headers establish the passive ownership path. The reproducible checker is
+`tools/guest/verify-private-cache-ownership.py`.
+
+- `CApiBase::_servList` is the 24-byte vector object at ELF VA 0xbe0f18.
+- Active vector entries point to 40-byte service items. ID is at +0; the
+  registered base pointer is at +0x20. Require exactly one service 38.
+- The complete Setup object is the registered base pointer minus 8. Its backlink
+  at complete+0x10 must point to the selected service item.
+- The three Setup vptrs are load-bias plus 0xb6c3b0, 0xb6c3f0 and 0xb6c418,
+  installed at complete+0, +8 and +0x48. Their offset-to-top values are 0, -8
+  and -72; each RTTI pointer resolves to load-bias plus 0xb6c440.
+- CFram is then complete+0x58. No lookup, dynamic cast or method invocation is
+  required in the target.
+
+The next bounded batch should integrate this path with the existing pinned-APK,
+PID/start-time and mapping-epoch reader discipline, prove it in a disposable guest,
+and evaluate physical use only after those controls pass. Limit active service
+entries to 64 and allocated capacity to 128 as explicit observer policy. Exceeding
+these limits is a recorded rejection, not an invitation to scan a larger heap.
+Preserve raw/partial output on every failure.
+
+This settles which observation to implement next. It does not resolve the separate
+stored-FRAM acquisition question. No physical license installation or reboot should
+be interpreted as covered by the cache-reader preparation batch.
