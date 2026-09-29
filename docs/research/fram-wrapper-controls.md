@@ -48,3 +48,16 @@ This proves actual ARM64 syscall construction and bounded failure handling in
 the guest. It does not prove a physical adapter identity or successful FRAM data
 read. Physical acceptance additionally requires fresh owner/adapter brackets,
 verified remote helper termination, complete capture/drop checks and restoration.
+
+## Native metadata probe: descriptor control correction
+
+The metadata-only `stat-node` probe follows a path through ARM64 `newfstatat`,
+without opening a device or issuing an ioctl. Four actual-source host controls
+pass. Its first disposable guest run accepted direct `/dev/null` and symlink
+metadata, but the shell did not preserve the intended inherited fd 9 across
+execution; the probe correctly reported ENOENT. The run failed and teardown
+completed without errors. No physical operation occurred.
+
+The next control uses explicit stdin redirection from `/dev/null` and follows
+`/proc/self/fd/0`. That changes only the test's descriptor setup, not the probe.
+The original failed run remains separately preserved.
