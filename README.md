@@ -5,7 +5,7 @@ Physical accession has pinned the specimen's software to the analyzed stock corp
 now demonstrate ordinary option acceptance and component persistence, plus a separate software capability
 comparison. A complete emulator, physical entitlement installation and analog bandwidth validation remain open.
 
-- [Current entitlement results, limits and next bench question](docs/research/overnight-entitlement-handoff.md)
+- [Current entitlement results, limits and next bench question](docs/research/specimen-entitlement-checkpoint.md)
 - [Physical logical acquisition and software identity](docs/research/physical-specimen-logical-acquisition.md)
 - [Physical raw storage acquisition](docs/research/physical-specimen-raw-acquisition.md)
 - [Kernel-reported SD storage classification](docs/research/physical-storage-classification.md)

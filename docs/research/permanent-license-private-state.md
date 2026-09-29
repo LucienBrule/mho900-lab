@@ -79,3 +79,13 @@ from validating during component initialization. This does not show that time
 state is irrelevant to every license type, full startup or physical persistence.
 No reboot was needed for this one-file contrast; earlier guest-reboot evidence
 remains separately scoped to its own post-install fixtures.
+
+## Decision
+
+The exact older saved-time stream is sufficient for the observed permanent-license
+initialization path. Further repetitions of this same component test would not
+resolve full application lifecycle or physical storage durability. The
+[current checkpoint](specimen-entitlement-checkpoint.md) records the next concrete
+bench questions: a defensible private-state baseline and one ordinary non-bundle
+installation/reboot observation. No physical mutation or new guest run is admitted
+by this decision.
