@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.guest.acquired-combined-decision"
+reviewed_head: "sha256:27017a16cd158082d7bb5e3b6996447e0eb46f9dc2ccdf780ea6d19279d42bbe"
+observations: [{"upstream": "TASK.guest.acquired-combined-derived", "contract": "sha256:8c7e155703515162fa3c32850506921560feab7a491415e8ad778deeb73216e5", "revision": "sha256:65a6ba503568786f66e36bd05e885711b25a077c843ca5d26ebdb2b8d04768f6", "inputs": "sha256:8d57ffae345afb7b48539793c6214f299dd1633a5f471b03aeb4e20148a31c6b"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-09-29T14:37:00.278417+00:00"
+rationale: "Open contract review only: the failed recorder run cannot open the derived gate. New stock-retry prerequisite retains unchanged fixtures and demands independent acceptance after the bounded controller repair. No execution success is asserted by this review."
+evidence: {"finding": "Reviewed controller-repair plan and acquired-combined-capability report. Derived execution still requires an accepted fresh stock control; decision must reconcile both arms and failed first run.", "limits": "Reviewed controller-repair plan and acquired-combined-capability report. Derived execution still requires an accepted fresh stock control; decision must reconcile both arms and failed first run.", "continuation": "Reviewed controller-repair plan and acquired-combined-capability report. Derived execution still requires an accepted fresh stock control; decision must reconcile both arms and failed first run."}
+successor: null
