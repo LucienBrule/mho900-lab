@@ -1,10 +1,11 @@
 # Typed Python workspace
 
-The new offline tooling lives in three uv workspace members:
+The typed tooling lives in four uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
 - `packages/mho-transport`: offline packet and TCP transcript evidence.
+- `packages/mho-capture`: ownership and bounded shutdown of a configured recorder child.
 
 The root project is a development workspace, not a third installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
@@ -48,3 +49,7 @@ and [Pydantic union guidance](https://docs.pydantic.dev/latest/concepts/unions/)
 See [offline evidence manifests](evidence-manifests.md) for the first reusable
 operation and its limits, and [offline transcripts](offline-transcripts.md) for
 the transport profile. This workspace setup is not a bench acquisition procedure.
+The [capture assessment](capture-evidence.md) separates retained frame/count
+agreement from process exit and traffic completeness.
+The [recorder lifecycle](recorder-lifecycle.md) provides explicit child ownership
+and failure outcomes for future configured acquisition procedures.

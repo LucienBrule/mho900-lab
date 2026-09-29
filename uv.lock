@@ -8,6 +8,7 @@ resolution-markers = [
 
 [manifest]
 members = [
+    "mho-capture",
     "mho-evidence",
     "mho-lab-cli",
     "mho-transport",
@@ -168,6 +169,17 @@ wheels = [
 ]
 
 [[package]]
+name = "mho-capture"
+version = "0.1.0"
+source = { editable = "packages/mho-capture" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.11,<3" }]
+
+[[package]]
 name = "mho-evidence"
 version = "0.1.0"
 source = { editable = "packages/mho-evidence" }
@@ -211,6 +223,7 @@ name = "mho900-lab-workspace"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "mho-capture" },
     { name = "mho-evidence" },
     { name = "mho-lab-cli" },
     { name = "mho-transport" },
@@ -228,6 +241,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "mho-capture", editable = "packages/mho-capture" },
     { name = "mho-evidence", editable = "packages/mho-evidence" },
     { name = "mho-lab-cli", editable = "packages/mho-lab-cli" },
     { name = "mho-transport", editable = "packages/mho-transport" },

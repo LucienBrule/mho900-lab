@@ -12,6 +12,7 @@ import importlib.metadata
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tomllib
@@ -19,6 +20,16 @@ from dataclasses import dataclass
 from ipaddress import IPv4Address
 from pathlib import Path
 
+from mho_capture import (
+    ReadyMarker,
+    RecorderGraceful,
+    RecorderReady,
+    RecorderRequest,
+    RecorderStartFailed,
+    reap,
+    start,
+    stop,
+)
 from mho_evidence import (
     SealCreated,
     SealRejected,
@@ -311,6 +322,46 @@ def transport_roundtrip(evidence: Path) -> None:
     (evidence / "synthetic.pcap").write_bytes(encoded)
 
 
+def recorder_roundtrip(evidence: Path) -> None:
+    script = Path.cwd() / "synthetic_recorder.py"
+    script.write_text(
+        "import signal\nimport sys\nfrom types import FrameType\n"
+        "def finish(signum: int, frame: FrameType | None) -> None:\n"
+        "    print('3 packets captured', file=sys.stderr, flush=True)\n"
+        "    print('3 packets received by filter', file=sys.stderr, flush=True)\n"
+        "    print('0 packets dropped by kernel', file=sys.stderr, flush=True)\n"
+        "    raise SystemExit(0)\n"
+        "signal.signal(signal.SIGINT, finish)\n"
+        "print('SYNTHETIC RECORDER READY', flush=True)\n"
+        "while True:\n    signal.pause()\n"
+    )
+    directory = Path.cwd() / "recorder"
+    result = start(
+        RecorderRequest(
+            executable=Path(sys.executable).resolve(),
+            arguments=(str(script),),
+            evidence_directory=directory,
+            ready=ReadyMarker(stream="stdout", line="SYNTHETIC RECORDER READY"),
+        )
+    )
+    if not isinstance(result, RecorderReady):
+        if isinstance(result, RecorderStartFailed):
+            reap(result.handle)
+        raise RuntimeError("Installed recorder child failed to become ready")
+    terminal = stop(result.handle)
+    if not isinstance(terminal, RecorderGraceful):
+        reap(result.handle)
+        raise RuntimeError("Installed recorder did not stop gracefully")
+    require(terminal.evidence.reaped, "Installed recorder not reaped")
+    require(terminal.evidence.returncode == 0, "Installed recorder exit differs")
+    require(stop(result.handle) == terminal, "Repeated stop changed the retained result")
+    require(
+        (directory / "stderr.bin").read_bytes().endswith(b"0 packets dropped by kernel\n"),
+        "Installed child terminal output missing",
+    )
+    shutil.copytree(directory, evidence / "recorder")
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -324,6 +375,7 @@ def main() -> int:
     )
     packages = installed_packages(checkout, evidence)
     evidence_roundtrip(evidence)
+    recorder_roundtrip(evidence)
     transport_roundtrip(evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
@@ -337,6 +389,7 @@ def main() -> int:
         "library_cli_bytes_equal = true",
         "existing_seal_preserved = true",
         "library_cli_tamper_rejected = true",
+        "installed_recorder_ready_and_reaped = true",
         "transport_library_cli_verified = true",
         "transport_payload_not_rendered = true",
         "transport_truncation_rejected = true",

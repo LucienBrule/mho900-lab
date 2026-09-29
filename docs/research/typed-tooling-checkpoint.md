@@ -75,5 +75,36 @@ A Linux/macOS GitHub Actions workflow defines these gates using pinned action
 commits and uv 0.6.17. Its first Linux run passed; macOS stopped during interpreter
 setup because setup-python does not distribute Python 3.12.13 for macOS. The
 corrected matrix uses 3.12.13 on Linux and the available 3.12.10 binary on macOS;
-local macOS checks use 3.12.13. Remote completion of the corrected matrix must be
-checked separately after push.
+local macOS checks use 3.12.13. The corrected [workflow run](https://github.com/LucienBrule/mho900-lab/actions/runs/36645549162) passed both quality and installed-distribution gates on both platforms.
+
+## Capture finalization and owned processes
+
+The next batch separates classic-pcap structural inspection, reported terminal
+counts and process ownership. The TCP decoder and generic capture inspector now
+share one record reader. `capture assess` accepts the preserved 61-frame run with
+matching final counts, and rejects the earlier four-frame Stage Two A capture
+because terminal counts are missing. The four retained frames remain structurally
+valid evidence; missing statistics are not promoted to a zero-drop observation.
+Private comparisons and the shared-reader transcript regression are under
+`out/tooling/capture-assessment-01/`.
+
+`mho-capture` owns one configured foreground child. Synthetic controls demonstrate
+child-only signal normalization, exact-line readiness, graceful reaping, abnormal
+exit, bounded escalation and retained uncertainty. Independent review found a
+startup-cancellation leak; the same probe now confirms reaping before cancellation
+is re-raised. The API retains a handle when ownership remains uncertain and supports
+later bounded reap-only reconciliation. Provisional terminal files explicitly do
+not authenticate their own publication completion.
+
+The full workspace passes 188 tests and typed gates. Review added nine actual-child
+controls and thirteen capture/count controls. Four installed distributions rebuilt
+from source archives pass the offline packaging gate, including execution of the
+installed private child bootstrap and a synthetic recorder's graceful stop.
+Evidence is under `out/tooling/installed-packages-03/`. No capture interface was
+opened, no physical scope was contacted and no old verifier was edited.
+
+The [recorder contract](../runbooks/recorder-lifecycle.md) is intentionally narrow:
+direct-child ownership, serialized handle use, bounded waits and no automatic
+recording-duration or disk-quota policy. Neither a graceful exit nor matching
+reported counts independently proves complete on-wire acquisition. Those remain
+separate facts for a future explicit acquisition procedure to compose.

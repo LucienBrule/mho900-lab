@@ -4,6 +4,7 @@ from pathlib import Path
 
 import click
 
+from mho_lab_cli.capture_cli import capture
 from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
 from mho_lab_cli.evidence_cli import evidence
 from mho_lab_cli.transport_cli import transport
@@ -16,6 +17,7 @@ def main() -> None:
 
 main.add_command(evidence)
 main.add_command(transport)
+main.add_command(capture)
 
 
 @main.command()

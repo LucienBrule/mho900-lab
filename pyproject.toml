@@ -2,18 +2,19 @@
 name = "mho900-lab-workspace"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = ["mho-evidence", "mho-lab-cli", "mho-transport"]
+dependencies = ["mho-evidence", "mho-lab-cli", "mho-transport", "mho-capture"]
 
 [tool.uv]
 package = false
 
 [tool.uv.workspace]
-members = ["packages/mho-evidence", "packages/mho-lab-cli", "packages/mho-transport"]
+members = ["packages/mho-evidence", "packages/mho-lab-cli", "packages/mho-transport", "packages/mho-capture"]
 
 [tool.uv.sources]
 mho-evidence = { workspace = true }
 mho-lab-cli = { workspace = true }
 mho-transport = { workspace = true }
+mho-capture = { workspace = true }
 
 [dependency-groups]
 build = ["hatchling==1.32.4"]
@@ -35,7 +36,7 @@ disallow_any_explicit = true
 disallow_any_unimported = true
 warn_unreachable = true
 plugins = ["pydantic.mypy"]
-files = ["packages/mho-evidence/src", "packages/mho-evidence/tests", "packages/mho-lab-cli/src", "packages/mho-lab-cli/tests", "packages/mho-transport/src", "packages/mho-transport/tests"]
+files = ["packages/mho-evidence/src", "packages/mho-evidence/tests", "packages/mho-lab-cli/src", "packages/mho-lab-cli/tests", "packages/mho-transport/src", "packages/mho-transport/tests", "packages/mho-capture/src", "packages/mho-capture/tests"]
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
@@ -43,5 +44,5 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
-testpaths = ["packages/mho-evidence/tests", "packages/mho-lab-cli/tests", "packages/mho-transport/tests"]
+testpaths = ["packages/mho-evidence/tests", "packages/mho-lab-cli/tests", "packages/mho-transport/tests", "packages/mho-capture/tests"]
 addopts = "--strict-config --strict-markers"
