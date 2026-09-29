@@ -22,7 +22,7 @@ application directories, system application copies, system native/configuration 
 All commands returned zero. Every regular tar member was read offline to its declared size; all acquired APK ZIP CRCs
 passed. Source tar headers retain member names, modes, ownership, timestamps, and link information.
 
-The boot-configuration stream contains a 37-byte `removing leading '/' from member names` message after its two
+The boot-configuration stream contains a 39-byte `removing leading '/' from member names` message after its two
 zero end blocks. The original stream is preserved verbatim. Its 34 tar members parse successfully; it is not claimed
 to be a canonical tar stream with no trailing data. The other four archives have no nonzero trailing text.
 
