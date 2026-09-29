@@ -446,7 +446,8 @@ def event_mapping_pages(event, base, library, identity):
 def restoration_evidence(root, ready, journal, host, loads):
     directory = root / 'reader/setup-restoration'
     names = {'maps-before.txt', 'rx-before.bin', 'maps-after-hooks-removed.txt',
-             'rx-after-hooks-removed.bin', 'maps-restored.txt'}
+             'rx-after-hooks-removed.bin', 'maps-restored.txt',
+             'raw-maps-1.txt', 'raw-maps-2.txt', 'raw-maps-3.txt'}
     artifacts = [item for item in journal if item.get('kind') == 'cached-setup-artifact']
     require(len(artifacts) == len(names) and {item['name'] for item in artifacts} == names,
             'Restoration artifact inventory differs')

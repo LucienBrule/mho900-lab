@@ -147,7 +147,8 @@ def main():
         if payload.get('kind') == 'cached-setup-artifact':
             try:
                 name = payload.get('name')
-                require(name in restoration_names and name not in restoration_artifacts,
+                require((name in restoration_names or name in {'raw-maps-1.txt', 'raw-maps-2.txt', 'raw-maps-3.txt'})
+                        and name not in restoration_artifacts,
                         'Unexpected or duplicate setup artifact')
                 require(isinstance(data, bytes) and 0 < len(data) <= 0xb69000
                         and payload.get('size') == len(data)
@@ -182,7 +183,7 @@ def main():
             returned.set()
         elif kind == 'cached-identity-ready':
             witnesses.append(payload)
-            if (len(restoration_events) != 1 or set(restoration_artifacts) != restoration_names
+            if (len(restoration_events) != 1 or not restoration_names.issubset(restoration_artifacts)
                     or payload.get('setup_restoration_complete') is not True
                     or restoration_events[0].get('mappings_equal') is not True
                     or restoration_events[0].get('code_bytes_equal') is not True

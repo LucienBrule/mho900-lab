@@ -10,10 +10,13 @@ function cachedSetupRestoration(mod) {
     const rxSize=0xb69000;
     const base=Number(mod.base.toString());
     if(!Number.isSafeInteger(base)||Process.pageSize!==4096)throw new Error('Unexpected mapping arithmetic');
+    let mapCheckpoint=0;
     function mappings() {
         const input=new File('/proc/self/maps','r');let text;
         try{text=input.readText(1024*1024+1);}finally{input.close();}
         if(text.length>=1024*1024)throw new Error('Setup maps evidence exceeded bound');
+        cachedSetupArtifact('raw-maps-'+(++mapCheckpoint)+'.txt',
+            Memory.allocUtf8String(text).readByteArray(text.length));
         const rows=[],lines=[];
         text.split('\n').forEach(line=>{
             const match=/^([0-9a-f]+)-([0-9a-f]+) ([rwxps-]{4}) ([0-9a-f]+) ([0-9a-f]+:[0-9a-f]+) ([0-9]+)\s*(.*)$/.exec(line);
@@ -21,7 +24,8 @@ function cachedSetupRestoration(mod) {
             if(match[7]!==mod.path)return;
             const lo=parseInt(match[1],16),hi=parseInt(match[2],16),off=parseInt(match[4],16);
             if(!Number.isSafeInteger(lo)||!Number.isSafeInteger(hi)||lo<base||hi<=lo||lo%4096||hi%4096||off%4096)
-                throw new Error('Unexpected setup library map alignment');
+                throw new Error('Unexpected setup library map alignment: '+line+' base='+mod.base.toString()+
+                    ' lo='+lo+' hi='+hi+' off='+off);
             rows.push({start_offset:lo-base,end_offset:hi-base,file_offset:off,protection:match[3],
                 device:match[5],inode:match[6],path:match[7]});lines.push(line);
         });
