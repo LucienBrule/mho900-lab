@@ -1,0 +1,59 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-combined-prepare
+    title: Prepare complete acquired catalog capability arms
+    state: open
+    intent: Test interaction of the complete acquired ordinary catalog with explicit capability selection.
+    requires: [TASK.guest.acquired-catalog-bandwidth-decision]
+    requirements:
+      - Bind and independently verify the final acquired BWU03T08 run seal and its install/process/reboot evidence before copying all ten ordinary licenses, witnesses, exact acquired key and modeled private state.
+      - Create a separate reload-only combined-catalog profile. Preserve existing catalog and FlexA capability contracts. Stock requires enum17 and row0x151b7a0; derived requires enum18 and row0x151b850 with public MHO984 identity.
+      - Only the pinned 27 changed bytes within the admitted32-byte native span may differ in a disposable derived copy; preserve stock originals and all identity/license files. Retain full catalog consumer evidence, zero installer/producer calls and bounded guest confinement.
+      - Implement independent verification and host negative controls for source lineage, native pin, profile, catalog and seed preservation. Commit and push preparation before guest execution.
+    acceptance: [The bounded transition and evidence limits are recorded.]
+    verification: [lineage, scope, verification]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-combined-stock
+    title: Observe complete acquired catalog under stock capability
+    state: open
+    intent: Test interaction of the complete acquired ordinary catalog with explicit capability selection.
+    requires: [TASK.guest.acquired-combined-prepare]
+    requirements:
+      - Run one reload-only disposable stock control, verify thirteen true entries including ten ordinary licenses and three built-ins, BND false, public MHO984 and bandwidth17/17 before and after original option policy.
+      - Require original consumer acceptance for every saved license, unchanged canonical files, zero installer and producer calls, complete journals and guest health. Seal any outcome, close and commit/push before derived execution. No physical contact.
+    acceptance: [The bounded transition and evidence limits are recorded.]
+    verification: [consumer, preservation, conclusion]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-combined-derived
+    title: Observe complete acquired catalog under derived capability
+    state: open
+    intent: Test interaction of the complete acquired ordinary catalog with explicit capability selection.
+    requires: [TASK.guest.acquired-combined-stock]
+    requirements:
+      - Only after accepted stock control, run the separately frozen derived native copy through initial reload, fresh-process reload and actual guest reboot.
+      - Require public MHO984, selected MHO984D row and bandwidth18/18 before/after stock option policy; require exact stock-control catalog and canonical files, all original consumers, zero installer/producer calls, precise native transformation, complete journals and stable guest health.
+      - Preserve any failure without changing its experiment. Seal and commit/push conclusion. No physical contact and no analog performance or ordinary1GHz entitlement claim.
+    acceptance: [The bounded transition and evidence limits are recorded.]
+    verification: [consumer, capability, persistence, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.guest.acquired-combined-decision
+    title: Evaluate acquired all-options capability interaction
+    state: open
+    intent: Test interaction of the complete acquired ordinary catalog with explicit capability selection.
+    requires: [TASK.guest.acquired-combined-derived]
+    requirements:
+      - Reconcile both arms and all checkpoints, including stock ancestry, complete catalog, exact state preservation and source lineage.
+      - Distinguish component acceptance from full Sparrow UI, physical FRAM persistence, feature operation and analog bandwidth. Record next bounded offline question or exact bench question; admit no physical mutation.
+    acceptance: [The bounded transition and evidence limits are recorded.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
