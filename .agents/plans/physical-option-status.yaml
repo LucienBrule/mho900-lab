@@ -1,0 +1,50 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.option-status-prepare
+    title: Prepare documented physical option-status queries
+    state: open
+    intent: Freeze the smallest supported read-only option baseline before native observation.
+    requires: [TASK.specimen.acquired-capability-decision]
+    requirements:
+      - Preserve official guide provenance and exact eleven documented option selectors. Use one identity query and one status query per selector; no mutations or unsupported aliases.
+      - Prepare fresh baseline, full capture, existing single-client isolated lease maintenance, source-bound SCPI connection and bounded raw response retention.
+      - Reidentify the scope-facing hardware, verify isolation before contact and preserve exact restoration state. Stop on unexpected traffic, identity, reply, recorder failure or drops.
+      - No ADB, helper staging, Web Control, USB, reboot, option installation or capability transition in this batch.
+      - Validate request sequencing using a host-only socket control. Commit and push preparation before physical contact.
+    acceptance: [A frozen read-only query sequence and observation controls are prepared.]
+    verification: [semantics, controls, isolation, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.option-status-observe
+    title: Observe documented physical option baseline
+    state: open
+    intent: Capture actual identity and eleven option status replies without persistent changes.
+    requires: [TASK.bench.option-status-prepare]
+    requirements:
+      - Operator authorized the proposed physical read-only baseline. Verify fresh host isolation and start full capture before temporary addressing.
+      - Use only the known specimen private address after a captured valid lease. Maintain only that one lease without gateway or DNS; do not force device network changes.
+      - Connect only to pinned TCP5555 and issue exactly the frozen twelve queries once. Retain raw request and response bytes; stop without retries on any discrepancy.
+      - Seal capture with graceful termination and drop statistics; restore temporary host address and responder state. Preserve baseline and private serial data.
+      - Commit and push redacted result. No installation, capability change, ADB or other device state transition.
+    acceptance: [A verified read-only baseline or exact stop condition is preserved.]
+    verification: [authorization, isolation, observation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.option-status-decision
+    title: Reconcile supported option baseline and native coverage gaps
+    state: open
+    intent: Separate physical SCPI facts from native and guest assumptions.
+    requires: [TASK.bench.option-status-observe]
+    requirements:
+      - Compare observed selectors to guest option states without treating undocumented built-ins or cached bandwidth as observed.
+      - Identify the next bounded native observation or precise blocker; this decision does not authorize a persistent device mutation.
+      - Commit and push the conclusion and task state.
+    acceptance: [The physical evidence and remaining gaps are explicit.]
+    verification: [finding, limits, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
