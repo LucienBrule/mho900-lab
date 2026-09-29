@@ -1,0 +1,34 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.adb-inventory
+    title: Establish read-only specimen ADB inventory
+    state: open
+    intent: Discover physical OS, privilege, storage layout and installed software paths before acquisition.
+    requires: [TASK.bench.stage-two-b1-known-background]
+    requirements:
+      - Commit tasking before execution. Pin offline endpoint evidence; use one candidate ADB endpoint under fresh full capture and host isolation, retaining known host-local background.
+      - Do not run adb root, approve authentication, change device settings, reboot or attach USB. Stop if ordinary access requires these changes or if recorder/isolation fails.
+      - Collect id, getprop, partitions, block nodes and by-name mapping, mounts, processes/listeners, rigol metadata, APK paths and package versions. Do not assume a block-device name or interpret unreadable data as absent.
+      - Preserve private raw output, exact command status and timestamps; restore temporary host state and seal capture with graceful statistics and hashes. Respect lease expiry; renewal requires operator authorization.
+    acceptance: [An observed read-only inventory or precise access blocker is preserved.]
+    verification: [endpoint, access, inventory, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.bench.accession-decision
+    title: Select acquisition from observed specimen layout
+    state: open
+    intent: Choose bounded logical and raw acquisition tasks based on observed access, size and storage topology.
+    requires: [TASK.bench.adb-inventory]
+    requirements:
+      - Identify exact source devices, sizes, destination capacity and acquisition permissions from evidence, keeping logical corpus and raw image separate.
+      - A running mounted filesystem is a live acquisition; do not promise identical whole-device hashes across reads or atomic filesystem consistency. Preserve discrepancies without rewriting earlier evidence.
+      - If sufficient ordinary access exists, draft plan inspect admit and commit bounded acquisition successors within operator authorization. Otherwise record the precise permission or access boundary and stop.
+      - Keep physical entitlement changes and physical capability transformation outside this acquisition batch; software research serves specimen accession and emulator validation.
+    acceptance: [An evidence-backed bounded acquisition continuation or exact blocker is recorded.]
+    verification: [layout, decision, boundary]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
