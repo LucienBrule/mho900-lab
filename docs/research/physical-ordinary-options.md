@@ -23,6 +23,7 @@ image is not claimed to be atomic or a tested full restoration procedure.
 | FlexA | FLEX 0 → 1; all others unchanged | `FlexA.lic` added | 66706 / 0 | `a35833c70ce3eca21ce60408ed0e42f65fe7ddc34a0301654f9b0397214b843e` |
 | BWU05T08 | BWU05T08 0 → 1; all others unchanged | `BWU05T08.lic` added | 66784 / 0 | `f651a6ec940a9e787e1fb355b8a3c458ede40877dcbfc9cfbc2d26bb88dee7f8` |
 | AFG100 | AFG100 0 → 1; all others unchanged | `AFG100.lic` added | 66513 / 0 | `850e745e54edae6f307178a421b914df7d86756964770442245c3189619ed16e` |
+| AFG50 | AFG50 0 → 1; all others unchanged | `AFG50.lic` added | 66484 / 0 | `58a8f495a6cba99dd0ad5697713d921f1e772f8f01c58b02c83764d70fc8d838` |
 
 A saved-file hash match means the stock installer produced the same bytes as the
 accepted guest witness. It does not by itself prove reboot persistence. The later
