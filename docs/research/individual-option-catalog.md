@@ -60,3 +60,26 @@ Acceptance and queried validity do not demonstrate decoder operation, waveform g
 or RF bandwidth. Private durability remains harness-directed stock MemFile serialization with a file-backed
 guest store. The component does not run the full application lifecycle, automatic FRAM flushing or trial
 expiration timers. Physical parity remains an unanswered bench question.
+
+## Three-block negative control
+
+Run `out/specimen-entitlement/catalog-negative-01` completed from 07:21:05 to 07:21:27 UTC on
+2026-09-29. The actual stock decoder and three consumer AES blocks recovered the exact declared 48-byte
+wrong-name fixture. The original validator returned false and activation reported 24527. BWU05T08 stayed
+false, no BWU05T08 license file appeared, and the full catalog retained only the three built-ins plus FlexA.
+
+The previous FlexA consumer revalidated successfully. Key, prior license and witness bytes were unchanged.
+Private state changed only in record 2328 (the new rejected-attempt state: runtime 2160, installation flag
+zero, attempt count one) and record 16192 (saved time). The negative control is therefore a rejected
+installation with a recorded attempt, not a no-op. Stock model/raw/effective queries remained MHO984/17/17
+before and after actual option-policy evaluation.
+
+All 697 journal events were retained and matched delivered payloads. The guest remained enforcing
+and its system server stayed stable. This conclusion precedes the clean positive arm; the rejected state
+will not seed that arm.
+
+| Artifact, relative to the run | SHA-256 |
+| --- | --- |
+| `phases/negative/guest-events.jsonl` | `02eceb0cace4e027257e87cc4e06fd88104feedd5b4a4fe51c4d0a568bf81cdc` |
+| `evidence-sha256.txt` | `769bd2834b47a5ef621f572936957c9fb92bc2fdf2ab6d001432b40a056cbe48` |
+| `result.toml` | `29209a76e679da569df6e304ef37ad4038f9ba9b3c80aa6221098a4aad8dcbcf` |
