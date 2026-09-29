@@ -9,6 +9,7 @@ page_size = 4096
 sample_bytes = 24
 samples = 2
 maximum_memory_bytes = 48
+readonly_file_views = "at most one same-file r--p offset-zero page-rounded complete file, disjoint from loaded extent"
 backend = "one read-only /proc/PID/mem descriptor; four exact pread64 requests"
 permission_failure = "stop; no attachment, alternate backend or policy change"
 compiler_sha256 = "8daf964b5d524b4754d4300f370d9956a1de8f3815ce5828bb8fd8ad087b0b78"

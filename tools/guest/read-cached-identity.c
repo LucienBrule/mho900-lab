@@ -265,7 +265,7 @@ static int resolve_maps_ranges(const char *text, const char *path, U dev, U ino,
   }
   if (found != 1 || b > ~0UL - 0x3cb5000)
     return 0;
-  U dna = 0, keys = 0, count = 0;
+  U dna = 0, keys = 0, count = 0, file_views = 0;
   p = text;
   while (*p) {
     struct row r;
@@ -289,8 +289,13 @@ static int resolve_maps_ranges(const char *text, const char *path, U dev, U ino,
       int rw = r.off >= 0xb68000 && r.off < 0xbe0000 &&
                size <= 0xbe0000 - r.off && r.lo == b + r.off + 4096 &&
                r.perm[2] == '-' && (r.perm[1] == 'w' || r.perm[1] == '-');
-      if (!rx && !rw)
-        return 0;
+      if (!rx && !rw) {
+        int view = same(r.perm, "r--p") && r.off == 0 &&
+                   size == ((LIB_SIZE + 4095) & ~4095UL) &&
+                   (r.hi <= b || r.lo >= b + 0x3cb5000);
+        if (!view || ++file_views > 1)
+          return 0;
+      }
       count++;
       if (rw && same(r.perm, "rw-p")) {
         if (b + dna_va >= r.lo && b + dna_va + 8 <= r.hi &&

@@ -98,6 +98,10 @@ def resolve(loads, rows, library, identity):
                     'Deleted, substituted or shared library mapping')
             matching.append(row)
     require(matching, 'Backing library has no mappings')
+    file_views = [row for row in matching if row['perms'] == 'r--p' and row['offset'] == 0
+                  and row['end'] - row['start'] == ceiling(12453760)]
+    require(len(file_views) <= 1, 'Ambiguous complete readonly file views')
+    matching = [row for row in matching if row not in file_views]
     possibilities = None
     executable = False
     for row in matching:
@@ -121,6 +125,9 @@ def resolve(loads, rows, library, identity):
         executable |= 'x' in row['perms']
     require(executable and len(possibilities) == 1, 'Load bias is missing or ambiguous')
     bias = next(iter(possibilities))
+    extent = ceiling(max(va + memsz for _, _, va, _, memsz in loads))
+    require(all(row['end'] <= bias or row['start'] >= add(bias, extent) for row in file_views),
+            'Readonly file view overlaps loaded module extent')
     resolved = []
     for va, size, file_offset in RANGES:
         address = add(bias, va)
@@ -198,6 +205,10 @@ int test_selected_equal(const char *a, const char *b, const char *path, U dev, U
         observed = ctypes.c_ulong()
         require(native.test_maps(maps_text.encode(), library.encode(), 0xfd01, 42, ctypes.byref(observed)) == 1
                 and observed.value == bias, 'Reader RELRO/data-offset resolution differs')
+        view = f'{bias - 0x2000000:x}-{bias - 0x2000000 + 0xbe1000:x} r--p 00000000 fd:01 42 {library}\n'
+        require(native.test_maps((view + maps_text).encode(), library.encode(), 0xfd01, 42,
+                                 ctypes.byref(observed)) == 1 and observed.value == bias,
+                'Reader rejected complete disjoint readonly file view')
         for name, text in variants.items():
             require(native.test_maps(text.encode(), library.encode(), 0xfd01, 42, ctypes.byref(observed)) == 0,
                     'Reader accepted host mapping negative: ' + name)
@@ -228,6 +239,9 @@ def host_controls(elf, source=None):
     actual_bias, addresses = resolve(loads, maps_rows(text), library, identity)
     require(actual_bias == bias and addresses == [bias + value[0] for value in RANGES],
             'Valid RELRO split/data-offset control failed')
+    view = row(-0x2000000, -0x2000000 + 0xbe1000, 'r--p', 0) + '\n'
+    require(resolve(loads, maps_rows(view + text), library, identity)[0] == bias,
+            'Complete readonly file view control failed')
     rejected = []
     variants = {
         'inconsistent_bias': text.replace(f'{bias + 0xb8f000:x}-{bias + 0xbe1000:x}',
@@ -238,6 +252,14 @@ def host_controls(elf, source=None):
         'shared_data': text.replace('rw-p', 'rw-s'),
         'deleted_file': text.replace(library, library + ' (deleted)'),
     }
+    for label, bad_view in [('writable_view', view.replace('r--p', 'rw-p')),
+                            ('shared_view', view.replace('r--p', 'r--s')),
+                            ('executable_view', view.replace('r--p', 'r-xp')),
+                            ('partial_view', view.replace(f'{bias - 0x2000000 + 0xbe1000:x}',
+                                                          f'{bias - 0x2000000 + 0xbe0000:x}')),
+                            ('overlap_view', row(0xc00000, 0xc00000 + 0xbe1000, 'r--p', 0) + '\n'),
+                            ('duplicate_view', row(-0x4000000, -0x4000000 + 0xbe1000, 'r--p', 0) + '\n' + view)]:
+        variants[label] = bad_view + text if label != 'overlap_view' else text + '\n' + bad_view
     for name, altered in variants.items():
         try:
             resolve(loads, maps_rows(altered), library, identity)
@@ -492,6 +514,17 @@ def restoration_evidence(root, ready, journal, host, loads):
     before_rows = maps_rows(blobs['maps-before.txt'].decode())
     middle_rows = maps_rows(blobs['maps-after-hooks-removed.txt'].decode())
     restored_rows = maps_rows(blobs['maps-restored.txt'].decode())
+    for index, canonical in enumerate((before_rows, middle_rows, restored_rows), 1):
+        raw = maps_rows(blobs['raw-maps-' + str(index) + '.txt'].decode())
+        selected = [row for row in raw if row['path'] == library
+                    or (row['major'], row['minor'], row['inode']) == identity]
+        views = [row for row in selected if row['perms'] == 'r--p' and row['offset'] == 0
+                 and row['end'] - row['start'] == ceiling(12453760)
+                 and (row['end'] <= base or row['start'] >= base + 0x3cb5000)]
+        require(len(views) <= 1 and all((row['major'], row['minor'], row['inode']) == identity
+                and row['path'] == library for row in views), 'Invalid setup readonly file view')
+        require([row for row in selected if row not in views] == canonical,
+                'Raw maps differ from classified canonical library maps')
     before = library_pages(before_rows, library, identity)
     middle = library_pages(middle_rows, library, identity)
     restored = library_pages(restored_rows, library, identity)
