@@ -1,0 +1,61 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.typed-workspace
+    title: Establish typed uv workspace and enforce Python conventions
+    state: open
+    intent: Provide separate library and Click CLI projects with reproducible dependency and quality gates.
+    requires: [TASK.repository.tooling-composition-decision]
+    requirements:
+      - Create a uv workspace with core and CLI subprojects, committed lockfile, Pydantic models and Click entry point delegated to application code.
+      - Enforce formatting lint and strict typing; prohibit authored Any, untyped containers, positional tuple records, blanket ignores and unchecked casts in new workspace code.
+      - Preserve legacy pinned scripts; document scope and commands; acquire only free tooling and use no physical interfaces.
+    acceptance: [The workspace installs reproducibly and all initial quality gates pass.]
+    verification: [workspace, quality]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.evidence-manifest
+    title: Implement typed offline evidence manifest sealing and verification
+    state: open
+    intent: Turn the first evidence boundary into a reusable library and delegated CLI.
+    requires: [TASK.tooling.typed-workspace]
+    requirements:
+      - Use versioned TOML manifests and explicit typed outcomes; provide seal and verify operations with no network or device I/O and no overwrite of existing seals.
+      - Reject missing changed truncated duplicate unsafe path and escaping symlink inputs, unsupported schema versions, and observed concurrent changes; retain explicit non-atomic snapshot limits.
+      - Test independent library and CLI consumers, including failure cases; describe an existing private run in a new external manifest without changing sealed evidence.
+    acceptance: [Meaningful positive and negative controls pass and the independent private-run comparison is preserved.]
+    verification: [contract, controls, private_comparison]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.evidence-decision
+    title: Evaluate typed evidence tooling and admit the next bounded improvement
+    state: open
+    intent: Use review and demonstrated gaps to choose the next offline component within the authorized work window.
+    requires: [TASK.tooling.evidence-manifest]
+    requirements:
+      - Review architecture typing packaging documentation and failure semantics; distinguish actual guarantees from assumptions.
+      - Record the current deadline and results, commit and push conclusions, and choose a bounded successor or checkpoint if no useful work fits.
+    acceptance: [Evidence supports a concrete continuation or a clean handoff.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+roadmaps:
+  - kind: roadmap
+    protocol: tasking/planning-draft-1
+    id: ROADMAP.reusable-bench-tooling
+    title: Reusable typed offline bench tooling
+    intent: Compose evidence capture and transport boundaries from validated experiments.
+    tasks: [TASK.tooling.typed-workspace, TASK.tooling.evidence-manifest, TASK.tooling.evidence-decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-evidence
+    title: Typed evidence contracts and independent consumers
+    scope: Versioned manifest validation sealing and library CLI composition without physical access.
+    tasks: [TASK.tooling.typed-workspace, TASK.tooling.evidence-manifest, TASK.tooling.evidence-decision]
+    required_extensions: []
+    extensions: {}

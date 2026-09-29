@@ -1,0 +1,1 @@
+{"kind":"roadmap","id":"ROADMAP.reusable-bench-tooling","intent":"Compose evidence capture and transport boundaries from validated experiments.","protocol":"tasking/planning-draft-1","title":"Reusable typed offline bench tooling","tasks":["TASK.tooling.typed-workspace","TASK.tooling.evidence-manifest","TASK.tooling.evidence-decision"],"required_extensions":[],"extensions":{}}
