@@ -100,8 +100,8 @@ def main():
                 import struct
                 assert m['stage']=='transfer' and m['transactions']==1
                 raw=(run/name/'transactions.bin').read_bytes();assert len(raw)==64
-                round_,offset,returned,error=struct.unpack_from('<QQqQ',raw)
-                assert (round_,offset,returned,error)==(0,0,-25,25)
+                round_,offset,returned,ioctl_error=struct.unpack_from('<QQqQ',raw)
+                assert (round_,offset,returned,ioctl_error)==(0,0,-25,25)
                 assert raw[32:34]==b'\0\0' and raw[34:50]==bytes(16)
                 assert (run/name/'image-1.bin').read_bytes()==b''
                 assert not (run/name/'image-2.bin').exists()

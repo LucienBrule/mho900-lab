@@ -8,8 +8,9 @@ static S syscall6(S n,U a,U b,U c,U d,U e,U f){
  (void)d;(void)e;(void)f;
  if(n==34)return 0;
  if(n==56){const char*p=(const char*)b;
-  if(!strcmp(p,"/output"))return 10;
-  if(!strcmp(p,"/device")){assert(c==0xa0002);return mode==9?-13:11;}
+  if(!strcmp(p,"/output")){assert(c==0x8c000);return 10;}
+  if(!strcmp(p,"/device")){assert(c==0x88002);return mode==9?-13:11;}
+  assert(c==0x880c1);
   if(!strcmp(p,"transactions.bin"))return 12;
   if(!strcmp(p,"image-1.bin"))return 13;
   if(!strcmp(p,"image-2.bin"))return 14;

@@ -2,6 +2,17 @@
  * expected node to the live stock CFram fd/adapter. No inference of that binding. */
 #include "../fram-contract/fram-read.h"
 typedef unsigned long U; typedef long S;
+/* Linux v3.18 arch/arm64/include/uapi/asm/fcntl.h overrides the generic
+ * DIRECTORY/NOFOLLOW bits. Do not substitute host fcntl constants. */
+#define ARM64_O_DIRECTORY 040000UL
+#define ARM64_O_NOFOLLOW 0100000UL
+#define ARM64_O_CLOEXEC 02000000UL
+#define DIRECTORY_FLAGS (ARM64_O_DIRECTORY|ARM64_O_NOFOLLOW|ARM64_O_CLOEXEC)
+#define DEVICE_FLAGS (2UL|ARM64_O_NOFOLLOW|ARM64_O_CLOEXEC)
+#define OUTPUT_FLAGS (1UL|0100UL|0200UL|ARM64_O_NOFOLLOW|ARM64_O_CLOEXEC)
+_Static_assert(DIRECTORY_FLAGS==0x8c000UL,"ARM64 directory flags");
+_Static_assert(DEVICE_FLAGS==0x88002UL,"ARM64 device flags");
+_Static_assert(OUTPUT_FLAGS==0x880c1UL,"ARM64 output flags");
 struct stat64 { U dev,ino; unsigned mode,nlink,uid,gid; U rdev,pad1; S size; int blksize,pad2; S blocks,atime; U atime_ns; S mtime; U mtime_ns; S ctime; U ctime_ns; unsigned unused[2]; };
 _Static_assert(sizeof(struct stat64)==128,"ARM64 stat");
 #ifdef FRAM_HOST_TEST
@@ -20,7 +31,7 @@ _Static_assert(sizeof(struct transaction)==64,"journal record");
 struct state { S device,directory,journal; U round,calls; int evidence_error; };
 static int number(const char*s,U*out){U n=0;if(!*s)return 0;while(*s){if(*s<'0'||*s>'9'||n>(~0UL-(U)(*s-'0'))/10)return 0;n=n*10+(U)(*s++-'0');}*out=n;return 1;}
 static int save(struct state*s,const char*name,const void*data,U n){
- S f=syscall6(56,(U)s->directory,(U)name,0xa00c1,0600,0,0);if(f<0)return 0;
+ S f=syscall6(56,(U)s->directory,(U)name,OUTPUT_FLAGS,0600,0,0);if(f<0)return 0;
  S r=syscall6(64,(U)f,(U)data,n,0,0,0),sync=syscall6(82,(U)f,0,0,0,0,0),close=syscall6(57,(U)f,0,0,0,0,0);return r==(S)n&&sync==0&&close==0;
 }
 static int transfer(void*context,struct fram_rdwr*r){
@@ -42,12 +53,12 @@ static int run(int argc,char**argv){
  struct state s={-1,-1,-1,0,0,0};struct stat64 st={0};U major=0,minor=0;const char*stage="arguments";int ok=0,equal=0;size_t completed[2]={0,0};unsigned char images[2][8192]={{0}};
  if(argc!=5||argv[1][0]!='/'||argv[4][0]!='/'||!number(argv[2],&major)||!number(argv[3],&minor)||major>0xffffffffUL||minor>0xffffffffUL)return 3;
  if(syscall6(34,(U)-100,(U)argv[4],0700,0,0,0)!=0)return 4;
- s.directory=syscall6(56,(U)-100,(U)argv[4],0xb0000,0,0,0);if(s.directory<0)return 4;
- stage="open-device";s.device=syscall6(56,(U)-100,(U)argv[1],0xa0002,0,0,0);if(s.device<0)goto finish;
+ s.directory=syscall6(56,(U)-100,(U)argv[4],DIRECTORY_FLAGS,0,0,0);if(s.directory<0)return 4;
+ stage="open-device";s.device=syscall6(56,(U)-100,(U)argv[1],DEVICE_FLAGS,0,0,0);if(s.device<0)goto finish;
  stage="device-identity";if(syscall6(80,(U)s.device,(U)&st,0,0,0,0)!=0)goto finish;
  U observed_major=((st.rdev>>8)&0xfff)|((st.rdev>>32)&0xfffff000),observed_minor=(st.rdev&0xff)|((st.rdev>>12)&0xffffff00);
  if((st.mode&0170000)!=0020000||major!=observed_major||minor!=observed_minor)goto finish;
- stage="journal";s.journal=syscall6(56,(U)s.directory,(U)"transactions.bin",0xa00c1,0600,0,0);if(s.journal<0)goto finish;
+ stage="journal";s.journal=syscall6(56,(U)s.directory,(U)"transactions.bin",OUTPUT_FLAGS,0600,0,0);if(s.journal<0)goto finish;
  for(s.round=0;s.round<2;s.round++){
   stage="transfer";int result=fram_image(transfer,&s,images[s.round],&completed[s.round]);
   if(!save(&s,s.round?"image-2.bin":"image-1.bin",images[s.round],completed[s.round])){s.evidence_error=1;goto finish;}

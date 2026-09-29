@@ -23,3 +23,28 @@ causing final TOML serialization to fail. Command outputs and teardown evidence
 remain available; an appended classification records the incomplete final report.
 That runner variable is corrected for subsequent runs. Neither failure indicates
 a reason to change guest policy or contact the physical instrument.
+
+## Corrected ABI and accepted guest control
+
+Exact-revision ARM64 UAPI headers confirm `O_DIRECTORY=0x4000` and
+`O_NOFOLLOW=0x8000`, rather than the values used by the initial wrapper.
+Build 03 uses named ARM64 constants; host injection now independently requires
+those exact flags. Eleven host controls pass, including evidence-write failures.
+Earlier builds and the failed run remain unchanged.
+
+`wrapper-syscalls-02` ran the corrected binary in a fresh API-25 ARM64 guest.
+The wrong-device case produced its rejection manifest with zero ioctls. The
+correctly identified `/dev/null` case performed exactly one ioctl, retained
+return `-25` / ENOTTY and its scratch buffer, and saved a zero-byte completed
+prefix. It did not attempt another page or a second image. Guest policy bytes,
+enforcement and system_server identity remained unchanged; teardown passed.
+
+The final report's `error=25` field was an expected ioctl errno accidentally
+assigned to the runner's error variable. An appended interpretation identifies
+this reporting defect; all actual acceptance and cleanup checks passed. The
+variable is renamed for future runs without rewriting the original report.
+
+This proves actual ARM64 syscall construction and bounded failure handling in
+the guest. It does not prove a physical adapter identity or successful FRAM data
+read. Physical acceptance additionally requires fresh owner/adapter brackets,
+verified remote helper termination, complete capture/drop checks and restoration.
