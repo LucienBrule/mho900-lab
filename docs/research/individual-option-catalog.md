@@ -118,3 +118,22 @@ declared synthetic personality. It does not establish physical entitlement parit
 features named by those options. The three accepted bandwidth options left MHO984 at enum 17; none provided
 a discovered ordinary enum-18 mechanism. The separately derived D-capability result retains its own evidence
 and scope rather than being folded into this unchanged-library experiment.
+
+## Decision
+
+The individual-option software question is closed for this synthetic personality. Repeating more token
+permutations would not resolve the remaining difference between the guest and the acquired unit: the
+initialized cached DNA/file-key context and private state. A combined all-options/D run would be a useful
+regression, but has lower information value than preparing that missing observation.
+
+The selected offline successor is a bounded external reader control for the two already-cached stock data
+objects. It will derive addresses from the pinned ELF and current process maps, read two separate ranges
+without attaching or calling target methods, and compare repeated samples against a prior synthetic setup
+witness. This prepares a possible later bench observation; no process lookup, staging or read on the
+physical instrument is authorized overnight.
+
+The exact bench question remains: what cached DNA and derived file-key values does the initialized physical
+Sparrow process hold? Matching those values to copied Key.data can close an identity-coherence gap without
+rerunning hardware initialization. Private option/FRAM state and actual physical feature operation remain
+separate questions. The final report will state any reader limitation rather than imply permission or
+physical parity from a disposable-guest pass.
