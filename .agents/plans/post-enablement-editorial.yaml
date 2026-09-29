@@ -1,0 +1,30 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.repository.enablement-editorial
+    title: Refresh current project status and clean editorial entry points
+    state: open
+    intent: Present completed physical enablement and outstanding RF characterization without rewriting historical evidence.
+    requires: [TASK.specimen.scpi-identity-display]
+    requirements:
+      - Update current navigation and status, distinguish historical checkpoints from current results, and improve wording in the current physical conclusions.
+      - Inspect tracked files for accidental local artifacts and disclosure; preserve immutable task history and sealed evidence, with no physical contact or bulk deletion.
+    acceptance: [Current project entry points accurately distinguish enablement success from pending characterization.]
+    verification: [editorial_review, source_hygiene]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.repository.tooling-composition-decision
+    title: Define the next reusable tooling boundary from proven experiments
+    state: open
+    intent: Separate reusable capture transport evidence and verification components before implementation.
+    requires: [TASK.repository.enablement-editorial]
+    requirements:
+      - Map existing bench tools to reusable responsibilities and identify private controller duplication without publishing private configuration.
+      - Define one bounded offline first implementation with acceptance criteria; avoid broad rewrites or changing pinned verifier dependencies during editorial cleanup.
+    acceptance: [A reviewable composition proposal is linked from the current project entry point.]
+    verification: [composition]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
