@@ -113,3 +113,74 @@ Preparation seal: `54525c5373b92f3fa6aac7ccc5549a9abb4c75957bec40a5adfe1f1521aae
 This combined lease-duration/link-refresh intervention cannot by itself prove
 why the previous lease stopped renewing. No device controls, power, USB,
 entitlements or capability configuration are changed.
+
+## Six-hour lease: physical baseline obtained
+
+The explicit Ethernet reconnect was captured as carrier inactive at
+2026-09-29 13:46:30.620655 UTC, then active at 13:46:48.511853 UTC.
+The operator confirmed completion before SCPI contact. A complete DHCP
+DISCOVER/OFFER/REQUEST/ACK exchange granted the known client 21600 seconds,
+without router or DNS options. The ACK packet timestamp is
+13:46:49.496731 UTC (06:46:49 PDT); lease expiry is 19:46:49 UTC
+(12:46:49 PDT). The responder was stopped after this observation; the duration
+is the granted client lease, not a promise of six hours of responder service.
+
+One TCP connection to port 5555 carried exactly the frozen twelve queries at
+13:47:11 UTC. The identity response matches the prior physical response exactly;
+its public model/version remain MHO984 / 00.01.00. Unit identity stays private.
+
+| Documented option selector | Physical reply |
+| --- | --- |
+| BND | 0 |
+| AFG100 | 0 |
+| AFG50 | 0 |
+| AUDio | 0 |
+| CAN-FD | 0 |
+| FLEX | 0 |
+| AERO | 0 |
+| RLU-05 | 0 |
+| BWU03T05 | 0 |
+| BWU03T08 | 0 |
+| BWU05T08 | 0 |
+
+These are eleven documented option-status results. They do not establish the
+three native built-in flags, cached raw/effective bandwidth, or the complete
+fourteen-entry native catalog. A zero bandwidth-upgrade option does not negate
+the instrument's base model bandwidth. Physical FLEX=0 agrees with the guest's
+pre-install baseline; the acquired disposable guest's installed FlexA=true is
+an intentional guest-only difference.
+
+Independent offline verification reconstructed both TCP byte streams, checked
+every raw request and response, validated the lease options and ordering, and
+classified all 161 complete captured frames: 44 SCPI TCP, four DHCP, three ARP,
+eight local IPv6, 99 characterized host background UDP and three host IGMP.
+The final recorder counters report 161 captured, 161 received, zero kernel
+drops. This is capture evidence, not a claim of omniscient wire observation.
+
+Capture exited gracefully with status zero. Cleanup removed the host address,
+stopped the lease responder, and verified isolation. Both saved network
+preference files match their baseline bytes. The privileged shell was closed.
+No ADB, Web Control, USB, installation, reboot or capability change occurred.
+UI stability was last operator-reported before these queries; this run does
+not add an independent visual observation.
+
+Private run: `out/physical/mho984-option-status-six-hour-20260929T134427Z`.
+The raw transcript, host manifests, audit source/result and capture are retained
+under the sealed run, with read-only file permissions.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `live/capture.pcap` | `eab7ce0e664d5ed7b30d87291826103be879d3ea24557dcbbc33006c79d0366e` |
+| `evidence-sha256.txt` | `a3ca231812e3cabeb969785e3f8b53cb4125afbbc55c5a8c46463825c50b2319` |
+
+## Six-hour decision
+
+The requested link refresh plus longer lease enabled the authorized read-only
+baseline. This combined intervention does not identify the earlier renewal
+failure's cause. There is no reason to repeat these eleven status queries now.
+
+The next bounded question is whether the physical cached raw/effective bandwidth
+and native built-in flags agree with the specimen-derived guest's stock baseline.
+That question remains separate from these SCPI results and needs its own admitted
+observation contract. Preserve the current baseline before any physical option
+installation; this batch does not perform or validate physical installation.
