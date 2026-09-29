@@ -1,0 +1,31 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.derived-bandwidth-observer
+    title: Prepare fixed standalone derived-library bandwidth observation
+    state: open
+    intent: Verify the actual loaded D-capability library and two cached bandwidth words without target execution.
+    requires: [TASK.specimen.native-library-deployment-decision]
+    requirements:
+      - Derive a fixed read-only standalone ELF observer from the established reader discipline, pinned only to the accepted derived Auklet hash and two4-byte raw/effective bandwidth globals; preserve stock profiles unchanged.
+      - Preserve process boot/starttime, exact ELF geometry/file metadata and map epochs, repeated raw samples and bounded failures; no attachment, target calls, target writes or arbitrary address inputs.
+      - Test positive fixed mapped fixture and wrong-pin/epoch/mapping controls in the pinned isolated guest; independently verify source/native pins and sample bounds.
+    acceptance: [The derived two-word observer is ready for a separate physical deployment verification.]
+    verification: [profile, controls, limits]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.derived-bandwidth-observer-decision
+    title: Evaluate derived native observer for physical capability verification
+    state: open
+    intent: Define the exact evidence required after signed-APK-preserving deployment.
+    requires: [TASK.specimen.derived-bandwidth-observer]
+    requirements:
+      - Specify full Sparrow UI, identity, option persistence, signed APK invariance, standalone loaded native hash and cached18/18 checks across normal reboot, plus rollback to original APK-backed loading on failure.
+      - Keep physical deployment behind ordinary-option persistence and stored baseline; retain the distinction between software capability and measured1GHz analog response.
+    acceptance: [The physical capability verification contract is concrete.]
+    verification: [decision, boundaries]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
