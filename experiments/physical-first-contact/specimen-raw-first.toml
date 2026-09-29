@@ -1,7 +1,7 @@
 schema_version = 1
 run = "mho984-raw-acquisition-20260929T032542Z"
 source = "/dev/block/mmcblk0"
-scope = "exposed eMMC user area; live mounted filesystems"
+scope = "exposed block-device user area; live mounted filesystems"
 started_utc = "2026-09-29T03:26:12.662991+00:00"
 completed_utc = "2026-09-29T04:17:12.222601+00:00"
 sealed_utc = "2026-09-29T04:17:54.358459+00:00"
@@ -12,3 +12,4 @@ stderr_empty = true
 host_read_only = true
 second_read_status_at_checkpoint = "in progress"
 capture_status_at_checkpoint = "running; no kernel drops reported"
+media_class_correction = "Kernel identifies SD (MSSD0); earlier eMMC assumption withdrawn"

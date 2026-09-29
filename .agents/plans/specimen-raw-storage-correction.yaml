@@ -1,0 +1,23 @@
+protocol: "tasking/core-draft-2"
+id: "TASK.bench.specimen-raw-acquisition"
+title: "Preserve independent reads of the observed SD user area"
+state: "open"
+intent: "Acquire the observed block device as immutable raw evidence distinct from logical files."
+requires:
+  - "TASK.bench.specimen-logical-acquisition"
+requirements:
+  - "Proceed only after verified root and read access. Recheck the observed mmcblk0 size of 31299993600 bytes against sysfs and blockdev; confirm destination capacity."
+  - "Under isolated maintained lease and full capture stream one complete read directly to a fresh host file, hash it and make the completed artifact read-only. Never overwrite a previous image or conceal a short read."
+  - "Attempt a second independent read into a separate file with its own hash if the first is complete and conditions remain healthy. Preserve differences; mounted writable filesystems mean identical hashes and point-in-time consistency are not guaranteed."
+  - "No writes to source devices, reboot, remount, freeze, firmware change, physical entitlement or host security-policy change. Stop on loss of isolation, capture failure, source read error or insufficient storage."
+  - "Preserve command/error output, timestamps, exact counts and hashes, graceful capture/drop statistics and host restoration. Kernel sysfs identifies card type SD and product MSSD0; distinguish that observation from uninspected physical packaging. Describe only the exposed block-device user area."
+acceptance:
+  - "Complete separately hashed raw reads or a bounded acquisition failure are preserved without changing source storage."
+required_extensions: []
+extensions: {}
+verification:
+  - "source"
+  - "first_read"
+  - "second_read"
+  - "integrity"
+  - "restoration"
