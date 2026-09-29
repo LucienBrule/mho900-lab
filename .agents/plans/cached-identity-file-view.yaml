@@ -1,0 +1,21 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.specimen.cached-identity-file-view
+    title: Distinguish a readonly file view from loaded library segments
+    state: open
+    intent: Validate cached identity reading with one observed complete readonly file view excluded from PT_LOAD interpretation.
+    requires: [TASK.specimen.cached-identity-mapping-diagnostic]
+    requirements:
+      - Commit and push admitted tasking before implementation. Preserve all previous negative controls, stock inputs and original reader build06.
+      - Recognize at most one exact same-file r--p view with offset zero and page-rounded full file size, wholly disjoint from the complete loaded module extent. Preserve and report it; never use it as a target range or load-bias anchor. Reject partial, writable, shared, executable, overlapping, substituted or ambiguous alternatives.
+      - Keep unique executable anchor, PT_LOAD geometry, exact stock pin/file identity, ordinary data ranges, process lifetime, single readonly memory descriptor and four fixed reads totaling48bytes. Relevant file views must remain stable during the read.
+      - Apply the same distinction to setup restoration and an independently implemented verifier. Retain all raw maps. Prove original full executable bytes and canonical module page geometry restored before detach, permitting only the separately classified readonly view.
+      - Add host controls for the captured view and rejected alternatives, build and freeze a new reader, then run one fresh bounded guest control. Preserve the first unexpected failure; no fallback, policy or credential changes.
+      - No physical contact, acquired key material, License initialization, installer or ADC/AFE execution. Record result and exact remaining bench dependency before reporting.
+    acceptance: [A verified detached read or precise remaining failure is preserved under the revised file-view contract.]
+    verification: [file_view_controls, restoration, read_witness, boundaries, provenance]
+    required_extensions: []
+    extensions: {}
+roadmaps: []
+epics: []
