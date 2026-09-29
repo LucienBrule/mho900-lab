@@ -29,3 +29,19 @@ contact. Runner exit was 3. No option query, installation, capability selection 
 | `guest-events.jsonl` | `b5d61659ff2d35eff802048a340ba89e90e096a6516fc39687ab8800d2b9ae01` |
 | `evidence-sha256.txt` | `c4758d3ec40979c249a3eab49d3f69882cd23a28cded447512a40d0ad8cc9447` |
 | `logcat-final.txt` | `c6c66304e0791e4138f4fe7cd7e20d10459f6182d54bb3d83e430ac406d07251` |
+
+## Readiness control 2: Java caller context
+
+`art-readiness-02` passed the Java-main marker gate. It then stopped before API class initialization: directly
+calling `System.load` through the instrumentation bridge threw a null-caller-class exception. The original
+API class had not run and the factory remained uncalled. This distinguishes a bridge caller-context problem
+from a stock library initialization failure.
+
+The pinned Auklet ELF declares both packaged support libraries in `DT_NEEDED`. The next loader control can
+therefore omit the unnecessary direct preloads and let the original API static initializer call
+`System.loadLibrary` from its genuine Java caller, using the configured native-library search path. No library
+or stock Java bytecode change is required.
+
+The preserved guest journal SHA-256 is `60e306d5ee413959e4221b73f342b8f7c0aaf27f395633ace9a495dd154e2f18`;
+the evidence index is `97b1e9269ea047620bbfe1c70fca259afa23fbfcce14845526b14ce25a462a1c`.
+Runner exit was 3. This remains readiness preparation; the admitted stock factory trial has not begun.
