@@ -112,3 +112,13 @@ and actual guest boot identity changed. No physical access occurred.
 Run seal: `5c92133cb6f70f6789bcb35fcea31796f32c7c1740b950680d41e6028bd18d2a`.
 
 The instruments batch accepted AFG100, AFG50, and AUDIOA cumulatively through process and guest reboot reload. The next bounded batch is AUTOA, AEROA, and RLU05. This establishes guest license acceptance and file persistence, not physical FRAM durability or feature behavior.
+
+### AUTOA conclusion
+
+Run `acquired-catalog-autoa-01` completed 2026-09-29T14:20:00Z. The candidate alone
+changed false to true, prior installed entries revalidated, and raw/effective
+bandwidth remained17/17. Install/process/reboot journals contained 886,833,833
+records; installer counts were1/0/0. All 14 canonical files matched across reloads,
+and actual guest boot identity changed. No physical access occurred.
+
+Run seal: `808b8e807239707720a30a52fe154794443a5fb79e8db65c386d11a0abb17481`.

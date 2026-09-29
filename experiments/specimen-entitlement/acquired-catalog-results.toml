@@ -76,3 +76,22 @@ effective_bandwidth_enum = 17
 source_seal = "8d281f997d1ecd4cf12c3a6b608f27fa1e1fe01d589256e02faec5357b143fd2"
 seal_sha256 = "5c92133cb6f70f6789bcb35fcea31796f32c7c1740b950680d41e6028bd18d2a"
 auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
+
+[[runs]]
+run_id = "acquired-catalog-autoa-01"
+option_name = "AUTOA"
+arm = "positive"
+started_at = "2026-09-29T14:19:14Z"
+finished_at = "2026-09-29T14:20:00Z"
+verification = "accepted"
+journal_counts = [886, 833, 833]
+installer_calls = [1, 0, 0]
+enabled_catalog = ["EMBD", "COMP", "AUTO", "AUTOA", "FlexA", "AUDIOA", "AFG50", "AFG100", "BWU05T08"]
+guest_reboot_observed = true
+canonical_files_identical_across_reload = true
+canonical_file_count = 14
+raw_bandwidth_enum = 17
+effective_bandwidth_enum = 17
+source_seal = "5c92133cb6f70f6789bcb35fcea31796f32c7c1740b950680d41e6028bd18d2a"
+seal_sha256 = "808b8e807239707720a30a52fe154794443a5fb79e8db65c386d11a0abb17481"
+auditor_sha256 = "454bf0254ceaeddbd0c1c430c12eaa89ffd76cf5dc1cfdf390ade00847544340"
