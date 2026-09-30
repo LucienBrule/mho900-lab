@@ -1,0 +1,185 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.inventory
+    title: Reconcile available lab capabilities for the first RF comparison
+    state: open
+    intent: Establish which required capabilities exist on the bench and which remain ordered or unknown.
+    requires: [TASK.specimen.rf-evaluation-ready]
+    requirements:
+      - Use existing private evidence and operator reports without contacting hardware. Distinguish ordered, delivered, on-hand, inspected and qualified equipment with dated attribution.
+      - Cover measurement instruments, source/reference options, boards, SMA/BNC cables and adapters, terminations, attenuators, power and waveform export. Record usable ranges, calibration status and unknowns.
+      - Keep receipts, BOMs, detailed inventory, unit identifiers and private paths out of tracked source. Retain a local TOML capability inventory under ignored out/rf and publish only generic constraints if useful.
+      - Identify the minimum first-comparison kit, optional improvements and missing facts worth asking the operator. Do not make the crash cart, arriving SDRs or custom clock firmware automatic prerequisites.
+    acceptance:
+      - A dated private inventory distinguishes actual availability from expectations and lists the specific gaps that affect a first RF experiment.
+    verification: [inventory, evidence_status, capability_gaps]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.source-research
+    title: Recover candidate RF source constraints and arrival checks
+    state: open
+    intent: Determine which source assumptions need documentation or physical qualification before measurement.
+    requires: [TASK.specimen.rf-evaluation-ready]
+    requirements:
+      - Research the candidate SG6000/MAX2870 source using official IC documentation, supplied board material and attributed third-party references. Keep IC capabilities, seller claims and verified board behavior distinct.
+      - Assess fundamental range, reference clock, output level/control, harmonics/spurs, settling, connectors and power-on output behavior. Record unresolved details as explicit arrival checks.
+      - Reassess the prior 10 MHz normalization anchor against the actual source range. Prefer a justified common-source reference; do not join an uncharacterized independent clock to an absolute amplitude curve.
+      - Identify documentation-backed input/path constraints and verification needs. Do not operate hardware, modify the source, or develop an STM32 driver in this task.
+    acceptance:
+      - A sourced constraints note and arrival checklist identify what the candidate source can plausibly support and what remains unverified.
+    verification: [source_provenance, constraints, arrival_checks]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.preparation-decision
+    title: Select the first RF question and draft the arrival protocol
+    state: open
+    intent: Convert known capabilities and source limits into a falsifiable bounded experiment proposal.
+    requires: [TASK.rf.inventory, TASK.rf.source-research]
+    requirements:
+      - Follow docs/research/rf-response-roadmap.md and reconcile the dated RF evaluation plan without rewriting prior physical evidence. Select relative policy-effect comparison, corrected absolute response, or an explicit staged combination.
+      - Draft falsifiable hypotheses, matched settings and path, software arms, frequencies, reference point, repeats, estimator, drift witnesses, decision sensitivity and claim limits. Distinguish no detected improvement from failed controls.
+      - Draft source accession, connection/level budget, warm-up, waveform export, capture, stop/recovery and final-state procedures. Identify exact arrival unknowns and required operator-authorized physical transitions.
+      - Record remaining bench facts and timing assumptions. If B or C contracts need changes, revise through taskctl with expected revision and currency reconciliation; preserve the prior proposal.
+      - Commit and push the phase-A conclusion and any revised tasking before physical preparation. Closing this task does not authorize RF or instrument operations.
+    acceptance:
+      - A reviewable provisional protocol and evidence-based phase-A disposition identify the smallest arrival/integration work and its conditions.
+    verification: [hypotheses, provisional_protocol, decision]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.source-accession
+    title: Identify the delivered RF source and qualify its proposed role
+    state: open
+    intent: Replace advertised assumptions with observed equipment facts before connecting the signal path.
+    requires: [TASK.rf.preparation-decision]
+    requirements:
+      - Require confirmed arrival and applicable operator authorization for the source checks. Start isolated from the scope; a task being ready does not itself authorize hardware interaction.
+      - Retain private model/revision and supplied-manual evidence, connector and power identification, output controls and startup behavior. Compare the delivered unit with the phase-A assumptions.
+      - Perform only the accepted source checks and record available level, frequency, stability and spectral evidence without claiming unmeasured properties. No source modification, firmware replacement or unplanned connection.
+      - Seal accession evidence and record suitability or the exact shortfall. Unexpected equipment changes require protocol/contract reconciliation before integration; preserve a negative qualification result.
+    acceptance:
+      - The delivered source is identified and its supported role or specific qualification shortfall is evidenced separately from seller claims.
+    verification: [arrival, qualification, disposition]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.integration
+    title: Validate the approved signal path and waveform acquisition procedure
+    state: open
+    intent: Establish that the bench can produce interpretable data for the selected question.
+    requires: [TASK.rf.source-accession]
+    requirements:
+      - Proceed only with a source suitable for the selected question and an operator-authorized integration procedure. Reconcile any accession shortfall first; membership or task closure is not a go decision.
+      - Verify the specified 50-ohm path, level budget, connectors, acquisition settings and actual sample rate at approved pilot settings. Preserve setup observations, source conditions and scaling metadata.
+      - Demonstrate complete waveform export with preamble, record length and sample interval. Validate recorder lifecycle/drop statistics wherever network capture is used; preserve host isolation and restoration evidence.
+      - Label all pilot records; do not treat them as confirmation data or make unplanned software transitions. Preserve calibration, identity, license and stock originals, and stop on unexpected state or acquisition failure.
+      - Reuse existing tooling and manual controls. A demonstrated blocker may justify separately admitted minimal tooling, but not an automatic crash-cart or source-controller project.
+    acceptance:
+      - Retained pilot evidence establishes the acquisition path and its limits, or precisely identifies the integration failure without claiming comparative RF results.
+    verification: [procedure_authority, path, waveform_export, pilot_outcome]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.execution-decision
+    title: Freeze the RF comparison protocol and decide execution readiness
+    state: open
+    intent: Bind the experiment to actual equipment, claim scope and authorized physical transitions before data collection.
+    requires: [TASK.rf.integration]
+    requirements:
+      - Review source and pilot evidence against the selected question. Freeze hypotheses, frequency points, repeats, reference/normalization, estimator, sensitivity, uncertainty and stop criteria before comparison data.
+      - Pin software arms with actual hash/policy observations, matched acquisition conditions, calibration/option preservation, transition/reboot and rollback steps, source/drift checks and raw-evidence destinations.
+      - Use stock/derived/stock by default, documenting any justified change. Account for the last recorded derived starting state and explicitly choose the final software/bench state; no silent reapplication after rollback.
+      - Bind applicable operator authorization to the exact physical procedure. Check capture/export/cleanup readiness. Neither software FULL selection nor source setpoint proves the required policy or delivered amplitude.
+      - Close only on a supported go decision. On hold/no-go retain this task open, record the missing condition and admit a bounded remedy through normal planning and prerequisite revision; do not release acquisition on a failed gate.
+      - Commit and push the frozen protocol and decision before acquisition. A material change after this gate requires reconciliation and a new or revised experiment identity.
+    acceptance:
+      - A frozen evidence-backed protocol, resolved readiness conditions and applicable authorization support one bounded physical comparison.
+    verification: [frozen_protocol, readiness, authorization, go_decision]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.acquire
+    title: Execute one frozen RF comparison and preserve its raw evidence
+    state: open
+    intent: Observe the physical response under verified software arms without extending the experiment after seeing its result.
+    requires: [TASK.rf.execution-decision]
+    requirements:
+      - Revalidate the accepted go conditions and current bench/software state, then execute only the frozen operator-authorized protocol. Preserve stock originals and calibration/identity/option invariants.
+      - Retain raw waveforms/preambles, actual settings, source/reference observations, software hash/policy checks, timestamps/environment and drift anchors for each arm. Retain raw management traffic and recorder statistics where used.
+      - Stop at unexpected state change, overload, acquisition/capture failure or failed arm verification. Preserve partial runs; perform only authorized cleanup/recovery and document the final software, source and host state.
+      - Seal each run separately with hashes. Do not erase failed attempts, add ad-hoc points, change the hypothesis or repeat until a desired outcome appears. Commit and push a sanitized acquisition conclusion before a new experiment.
+    acceptance:
+      - One completed or explicitly aborted protocol execution has sealed evidence, a recorded final state and enough attribution for offline evaluation.
+    verification: [run_seal, arm_evidence, protocol_adherence, final_state]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.reduce
+    title: Reduce sealed RF records and quantify comparison limits
+    state: open
+    intent: Turn retained measurements into reproducible relative and, where supported, absolute response estimates.
+    requires: [TASK.rf.acquire]
+    requirements:
+      - Work offline from sealed records using the frozen estimator and normalization. Exercise known-amplitude synthetic records and malformed/incomplete controls before interpreting physical results.
+      - Check scaling/preambles, actual sampling, completeness and decimation; retain fit residuals, repeat dispersion and baseline-return drift. Missing arms remain missing rather than being inferred from expected behavior.
+      - Separate relative policy effects from corrected absolute response; quantify supported uncertainty and unresolved source/spectral/loading effects. An uncharacterized chain cannot establish calibrated absolute bandwidth.
+      - Produce reproducible tables/plots with explicit scope and data exclusions, keeping unit identifiers and raw private evidence out of source. Reuse the typed workspace conventions for any necessary Python implementation.
+    acceptance:
+      - Reproducible reduction supports scoped response estimates or an explicit finding that the retained data cannot answer the declared question.
+    verification: [estimator_controls, reduction, uncertainty, limitations]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.determination
+    title: Determine the RF result and the smallest justified continuation
+    state: open
+    intent: Resolve the milestone from observed response rather than software labels or a desired outcome.
+    requires: [TASK.rf.reduce]
+    requirements:
+      - Evaluate the frozen hypotheses and controls. Classify policy effect as demonstrated, not resolved at stated sensitivity, contrary to the proposed increase, or unassessable because controls failed.
+      - Separately classify the absolute target as met, missed, inconclusive or not assessed. Distinguish a selected-point result from continuous bandwidth or full instrument certification.
+      - State whether the RF milestone is answered, requires a bounded follow-up or is operator-deferred. A closed task graph is not automatically a positive RF result.
+      - For unresolved questions identify the exact uncertainty and minimum additional observation. Admit at most one small successor batch when justified and authorized, with plan inspection, expected revision, explicit roadmap membership and committed tasking before execution.
+      - Preserve negative experiments and prior hypotheses; do not continue by changing the same completed run. Commit and push the scoped report and taskctl receipts, leaving a clean checkpoint.
+    acceptance:
+      - The evidence supports an explicit milestone disposition and either a scoped conclusion or the next smallest justified question.
+    verification: [finding, claim_scope, milestone_disposition, continuation]
+    required_extensions: []
+    extensions: {}
+roadmaps:
+  - kind: roadmap
+    protocol: tasking/planning-draft-1
+    id: ROADMAP.rf-response
+    title: Actual RF response under the selected capability policy
+    intent: Prepare the available bench, qualify the arriving source and determine the measured policy effect with explicit claim limits.
+    tasks: [TASK.rf.inventory, TASK.rf.source-research, TASK.rf.preparation-decision, TASK.rf.source-accession, TASK.rf.integration, TASK.rf.execution-decision, TASK.rf.acquire, TASK.rf.reduce, TASK.rf.determination]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.rf-preparation
+    title: A - Pre-arrival RF preparation
+    scope: Offline capability inventory, source constraints and a provisional falsifiable experiment protocol.
+    tasks: [TASK.rf.inventory, TASK.rf.source-research, TASK.rf.preparation-decision]
+    required_extensions: []
+    extensions: {}
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.rf-integration
+    title: B - Source arrival and bench integration
+    scope: Delivered-source evidence, approved pilot integration and a frozen execution gate; physical authority remains explicit.
+    tasks: [TASK.rf.source-accession, TASK.rf.integration, TASK.rf.execution-decision]
+    required_extensions: []
+    extensions: {}
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.rf-measurement
+    title: C - RF experiment and determination
+    scope: One authorized comparison, offline reduction and an evidence-based milestone decision with bounded iteration.
+    tasks: [TASK.rf.acquire, TASK.rf.reduce, TASK.rf.determination]
+    required_extensions: []
+    extensions: {}

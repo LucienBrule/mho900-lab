@@ -1,0 +1,1 @@
+{"kind":"epic","id":"EPIC.rf-measurement","scope":"One authorized comparison, offline reduction and an evidence-based milestone decision with bounded iteration.","protocol":"tasking/planning-draft-1","title":"C - RF experiment and determination","tasks":["TASK.rf.acquire","TASK.rf.reduce","TASK.rf.determination"],"required_extensions":[],"extensions":{}}

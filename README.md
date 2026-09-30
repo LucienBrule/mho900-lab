@@ -13,6 +13,7 @@ independent instrument implementation remain longer-term research.
 
 - [Physical ordinary-option installation and persistence](docs/research/physical-ordinary-options.md)
 - [Physical D-capability deployment and independent reboot](docs/research/physical-d-capability.md)
+- [Current RF roadmap: preparation, arrival/integration, and measurement](docs/research/rf-response-roadmap.md)
 - [RF characterization plan and remaining bench inputs](docs/research/rf-performance-evaluation-plan.md)
 - [Reusable bench-tool composition proposal](docs/research/bench-tooling-composition.md)
 - [Earlier guest entitlement checkpoint](docs/research/specimen-entitlement-checkpoint.md)
