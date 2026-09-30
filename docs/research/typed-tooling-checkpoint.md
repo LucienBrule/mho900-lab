@@ -197,3 +197,24 @@ passed on both platforms for `593de9c`. The next proposed offline component is
 ADB frame and stream-ready evidence, keeping acknowledgment separate from completed
 instrument behavior. Its [reference profile](../runbooks/adb-evidence.md) records
 the protocol text's checksum terminology discrepancy before implementation.
+
+## Offline ADB stream observations
+
+The seventh workspace member decodes six cleartext frame variants under an
+explicit additive-checksum-required profile. It retains bounded failure offsets
+and accepted prefixes. Matching selects one OPEN by exact payload digest and
+requires consistent server stream identifiers, with identifier reuse rejected.
+CLI reports expose only hashes, counts and numeric identifiers.
+
+The preserved reboot-delivery comparison accepts 481 client and 497 server frames
+and finds one matching OKAY. The server direction lacks a FIN witness, so the
+result is limited to retained directional prefixes. Neither a complete connection
+nor a completed reboot follows from it. The original capture remains unchanged;
+derivation, comparison and redacted CLI reports are separate under
+`out/tooling/adb-evidence-01/`.
+
+Independent reviews exercised malformed headers, truncated prefixes, forged typed
+records and identifier ambiguity. No blocking issue remains. All 479 tests,
+formatting, lint, strict typing and authored-type policy checks pass. Seven source
+archives rebuilt into installed wheels pass public library/CLI controls outside
+the checkout under `out/tooling/installed-packages-11/`. No device was contacted.

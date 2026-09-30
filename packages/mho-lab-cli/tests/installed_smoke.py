@@ -22,6 +22,14 @@ from dataclasses import dataclass
 from ipaddress import IPv4Address
 from pathlib import Path
 
+from mho_adb import (
+    DecodeAccepted,
+    DecodeRejected,
+    MatchOpenRequest,
+    StreamReadyMatched,
+    decode,
+    match_open,
+)
 from mho_capture import (
     ReadyMarker,
     RecorderGraceful,
@@ -566,6 +574,68 @@ def archive_roundtrip(evidence: Path) -> None:
     )
 
 
+def adb_frame(command: bytes, local: int, remote: int, payload: bytes = b"") -> bytes:
+    word = int.from_bytes(command, "little")
+    values = (word, local, remote, len(payload), sum(payload), word ^ 0xFFFFFFFF)
+    return b"".join(value.to_bytes(4, "little") for value in values) + payload
+
+
+def adb_roundtrip(evidence: Path) -> None:
+    payload = b"shell:SYNTHETIC-PRIVATE-COMMAND\0"
+    client_raw = adb_frame(b"OPEN", 7, 0, payload)
+    server_raw = adb_frame(b"OKAY", 9, 7)
+    client = decode(client_raw)
+    server = decode(server_raw)
+    require(isinstance(client, DecodeAccepted), "Installed ADB client decode rejected")
+    require(isinstance(server, DecodeAccepted), "Installed ADB server decode rejected")
+    if not isinstance(client, DecodeAccepted) or not isinstance(server, DecodeAccepted):
+        raise RuntimeError("Installed ADB framing rejected")
+    selector = hashlib.sha256(payload).hexdigest()
+    matched = match_open(MatchOpenRequest(client, server, Sha256(selector)))
+    require(isinstance(matched, StreamReadyMatched), "Installed ADB ready matcher rejected")
+    require(isinstance(decode(client_raw[:-1]), DecodeRejected), "ADB truncation accepted")
+    first = evidence / "adb-client.bin"
+    second = evidence / "adb-server.bin"
+    first.write_bytes(client_raw)
+    second.write_bytes(server_raw)
+    run_cli(
+        evidence,
+        "adb-inspect",
+        ["adb", "inspect", str(first), "--expected-sha256", client.raw_sha256],
+        0,
+    )
+    run_cli(
+        evidence,
+        "adb-ready",
+        [
+            "adb",
+            "match-open",
+            "--client",
+            str(first),
+            "--client-sha256",
+            client.raw_sha256,
+            "--server",
+            str(second),
+            "--server-sha256",
+            server.raw_sha256,
+            "--payload-sha256",
+            selector,
+        ],
+        0,
+    )
+    rendered = (evidence / "adb-ready.stdout").read_text()
+    report = tomllib.loads(rendered)
+    require(report["result"] == "matched" and report["ready_frames"] == 1, "ADB match CLI differs")
+    require(report["device_execution_proven"] is False, "ADB report promoted device action")
+    require(
+        "SYNTHETIC-PRIVATE-COMMAND" not in rendered and str(first) not in rendered,
+        "ADB private input exposed",
+    )
+    run_cli(
+        evidence, "adb-pin-reject", ["adb", "inspect", str(first), "--expected-sha256", "0" * 64], 1
+    )
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -584,6 +654,7 @@ def main() -> int:
     scpi_roundtrip(evidence)
     review_roundtrip(evidence)
     archive_roundtrip(evidence)
+    adb_roundtrip(evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
         'result = "accepted"',
@@ -605,6 +676,7 @@ def main() -> int:
         "sealed_review_mixed_input_rejected = true",
         "archive_inventory_delta_library_cli_verified = true",
         "archive_extraction_performed = false",
+        "adb_frame_match_library_cli_verified = true",
     ]
     for package in packages:
         lines.extend(

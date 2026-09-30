@@ -4,6 +4,7 @@ from pathlib import Path
 
 import click
 
+from mho_lab_cli.adb_cli import adb
 from mho_lab_cli.archive_cli import archive
 from mho_lab_cli.capture_cli import capture
 from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
@@ -22,6 +23,7 @@ main.add_command(evidence)
 main.add_command(transport)
 main.add_command(capture)
 main.add_command(archive)
+main.add_command(adb)
 main.add_command(scpi)
 main.add_command(review)
 

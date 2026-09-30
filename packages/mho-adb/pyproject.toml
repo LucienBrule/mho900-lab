@@ -1,0 +1,13 @@
+[project]
+name = "mho-adb"
+version = "0.1.0"
+description = "Offline ADB frame evidence decoding and stream matching"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.11,<3", "mho-evidence==0.1.0"]
+
+[tool.uv.sources]
+mho-evidence = { workspace = true }
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"

@@ -1,12 +1,13 @@
 # Typed Python workspace
 
-The typed tooling lives in six uv workspace members:
+The typed tooling lives in seven uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
 - `packages/mho-transport`: offline packet and TCP transcript evidence.
 - `packages/mho-capture`: ownership and bounded shutdown of a configured recorder child.
 - `packages/mho-scpi`: typed read-only query observations and supplied-stream execution.
+- `packages/mho-adb`: offline frame decoding and bounded stream-ready observations.
 - `packages/mho-review`: sealed-input composition of capture, TCP and SCPI observations.
 
 The root project is a development workspace, not an installed library.
@@ -64,3 +65,6 @@ a pinned inventory and explicit role assertions.
 
 The [logical archive tools](logical-archive-deltas.md) inventory pinned uncompressed
 archives and compare content without extraction or payload disclosure.
+
+The [offline ADB evidence profile](adb-evidence.md) decodes retained bytes without
+running ADB or requesting any device action.

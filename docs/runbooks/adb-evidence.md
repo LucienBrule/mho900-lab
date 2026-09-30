@@ -36,3 +36,50 @@ is encoded as `OKAY` on the wire. Such a matching reply concerns the logical
 stream. It does not prove a requested reboot finished, a shell operation succeeded,
 or any later instrument state became durable. Two separately retained directional
 byte streams also do not establish a total ordering of events between directions.
+
+## Public operations
+
+`mho_adb.decode` accepts retained bytes and explicit `DecodeLimits`. Its result
+is `DecodeAccepted` or `DecodeRejected`; failures retain the valid frame prefix
+and failing byte offset. The six frame variants have named fields, immutable raw
+wire/payload bytes, and hidden payload representations. Default bounds are 64 MiB
+per direction, 100,000 frames and 1 MiB per payload. Oversized inputs are rejected
+before hashing. Wrong Python API types raise a constant, payload-free `TypeError`.
+
+The decoder checks declared extents, command complement, additive checksum and
+command-specific identifiers/body requirements. It does not validate a connection
+state machine or negotiate protocol versions. A successfully decoded byte string
+can still be an incomplete retained prefix of a larger connection.
+
+`match_open(MatchOpenRequest(client, server, expected_payload_sha256))` returns
+`StreamReadyMatched`, `StreamReadyMissing` or `StreamReadyRejected`. The selector
+is the digest of the exact OPEN payload, including any NUL terminator. It requires
+one selected OPEN and an unreused client identifier. Server OKAY frames must map
+that identifier to one consistent server identifier; repeated compatible replies
+are retained. Ambiguous reuse or disagreement is rejected. The matcher revalidates
+its supplied decoded records against their bounded raw bytes.
+
+The command adapter accepts only pinned local files:
+
+```sh
+uv run --locked mho-lab adb inspect retained-client.bin --expected-sha256 "$CLIENT_SHA256"
+uv run --locked mho-lab adb match-open \
+  --client retained-client.bin --client-sha256 "$CLIENT_SHA256" \
+  --server retained-server.bin --server-sha256 "$SERVER_SHA256" \
+  --payload-sha256 "$OPEN_PAYLOAD_SHA256"
+```
+
+Reports contain hashes, counts, numeric stream identifiers and explicit limitations.
+They omit banners, service payloads and local input paths. A payload digest is a
+selector, not encryption or proof that its content is secret. Missing and rejected
+matches exit nonzero. No command creates a connection or invokes an ADB executable.
+
+## Retained-evidence comparison
+
+An offline comparison of a previously sealed acquisition decoded 481 client and
+497 server frames under this profile. One selected OPEN had one matching OKAY.
+The directional bytes were derived as consistent captured prefixes, not as a
+complete TCP transcript: the server direction lacked a FIN witness. Therefore the
+result establishes only the matching protocol observation in the retained data.
+It does not establish total ordering between directions, TCP delivery, successful
+reboot, later persistence, or physical origin from bytes alone.

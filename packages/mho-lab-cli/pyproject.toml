@@ -3,7 +3,7 @@ name = "mho-lab-cli"
 version = "0.1.0"
 description = "Delegated command line tools for MHO900 Lab"
 requires-python = ">=3.12"
-dependencies = ["click>=8.1,<9", "mho-evidence", "mho-transport", "mho-scpi", "mho-review"]
+dependencies = ["click>=8.1,<9", "mho-evidence", "mho-transport", "mho-scpi", "mho-review", "mho-adb"]
 
 [project.scripts]
 mho-lab = "mho_lab_cli.cli:main"
