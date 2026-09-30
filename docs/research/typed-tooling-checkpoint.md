@@ -257,3 +257,8 @@ no output bytes. The exact script also runs against installed wheels outside the
 checkout. All 505 tests and strict gates pass; seven rebuilt distributions pass
 `out/tooling/installed-packages-13/`. Relevant runbook and fixture changes now trigger
 CI. The independent adversarial packet builders remain separate.
+
+The [public walkthrough workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36650519725)
+passed on Linux and macOS for `8da9c56`. The next bounded controls connect an owned
+synthetic child lifecycle to sealed review, and remove shared presentation helpers
+from command modules. These demonstrate composition without adding a bench runner.

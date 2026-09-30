@@ -1,0 +1,53 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.owned-review-control
+    title: Exercise owned recorder shutdown through sealed offline review
+    state: open
+    intent: Verify that the independently reusable components compose at their lifecycle boundaries.
+    requires: [TASK.tooling.public-walkthrough-decision, TASK.tooling.scpi-preflight-decision]
+    requirements:
+      - Use only a fixed synthetic child and public manufactured fixture to exercise readiness graceful stop final statistics sealing and composed review in one host-only control.
+      - Preserve the distinction between the observed child lifecycle and synthetic packet or counter provenance; do not add a live capture or instrument command.
+      - Retain abnormal-exit and counter-disagreement controls that prevent a successful downstream claim, preserving each outcome separately.
+      - Run the composed public-library consumer from source and installed distributions outside the checkout and document its ownership and cleanup responsibilities.
+    acceptance: [One host-only end-to-end control connects actual owned-child termination to immutable retained synthetic review inputs with explicit negative outcomes.]
+    verification: [contract, controls, packaging]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.presentation-boundary
+    title: Remove command-module coupling from shared result presentation
+    state: open
+    intent: Keep Click entrypoints independent while sharing established output formatting.
+    requires: [TASK.tooling.public-walkthrough-decision]
+    requirements:
+      - Move shared TOML quoting and SCPI observation rendering out of the SCPI command module into neutral presentation helpers without changing supported report bytes.
+      - Verify reusable libraries remain independent of Click and command adapters, and delegates remain independent of command presentation.
+      - Retain a bounded static import-layer regression control and document that it checks authored imports rather than arbitrary dynamic Python behavior.
+    acceptance: [Shared presentation no longer requires importing another command endpoint and the documented dependency direction is checked.]
+    verification: [contract, controls]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.composition-decision
+    title: Evaluate lifecycle composition and presentation boundaries
+    state: open
+    intent: Close demonstrated integration gaps before choosing further toolkit expansion.
+    requires: [TASK.tooling.owned-review-control, TASK.tooling.presentation-boundary]
+    requirements:
+      - Independently review controls and dependency direction, run strict and installed gates, inspect remote CI and commit and push conclusions.
+      - Recheck the authorized deadline and prioritize concrete review findings over new production abstractions or physical operations.
+    acceptance: [The composed control and architectural boundary have reproducible evidence with remaining limits explicit.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-composition-controls
+    title: Owned lifecycle composition and independent CLI presentation
+    scope: Synthetic host-only controls and existing public libraries; no endpoint access.
+    tasks: [TASK.tooling.owned-review-control, TASK.tooling.presentation-boundary, TASK.tooling.composition-decision]
+    required_extensions: []
+    extensions: {}
