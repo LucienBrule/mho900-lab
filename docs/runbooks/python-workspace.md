@@ -37,7 +37,12 @@ Choose a new evidence directory for each packaging run; it refuses an existing
 output directory. Logs and built artifacts are retained there.
 The packaging gate builds distributions and installs their wheels into a separate
 environment, then exercises public imports and commands outside the checkout.
-GitHub Actions runs both gates on Linux and macOS. A local pass is not evidence
+GitHub Actions runs both gates on Linux and macOS. Exact action commits and their
+declared Node 24 runtime are recorded in the
+[action provenance manifest](../research/ci-action-provenance.toml). Python and uv
+versions remain pinned; hosted runner image labels are rolling, so a green run
+attests the image used by that run rather than an immutable operating system.
+Cache pruning is explicit to retain the earlier setup policy. A local pass is not evidence
 that those remote jobs have completed; consult the individual workflow result.
 
 Thin CLI endpoints should construct named requests and pass them to delegates.

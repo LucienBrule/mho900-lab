@@ -1,0 +1,31 @@
+schema_version = "mho-lab.ci-action-provenance/1"
+observed_date_utc = "2026-09-30"
+workflow = ".github/workflows/python.yml"
+scope = "Setup action release identities and declared runtime; hosted runner images remain rolling"
+
+[[actions]]
+repository = "actions/checkout"
+release = "v7.0.1"
+commit = "3d3c42e5aac5ba805825da76410c181273ba90b1"
+runtime = "node24"
+release_url = "https://github.com/actions/checkout/releases/tag/v7.0.1"
+metadata_url = "https://github.com/actions/checkout/blob/3d3c42e5aac5ba805825da76410c181273ba90b1/action.yml"
+metadata_sha256 = "d59219cb79590abdb877deaa14e3b65a00c05318bf5a6f3b989b9162b5d08c35"
+
+[[actions]]
+repository = "actions/setup-python"
+release = "v7.0.0"
+commit = "5fda3b95a4ea91299a34e894583c3862153e4b97"
+runtime = "node24"
+release_url = "https://github.com/actions/setup-python/releases/tag/v7.0.0"
+metadata_url = "https://github.com/actions/setup-python/blob/5fda3b95a4ea91299a34e894583c3862153e4b97/action.yml"
+metadata_sha256 = "e6dc8046c02bd3c9f7bf2fea6ba2e59b4e83c7de2b26ec2149a1627f5d66f96c"
+
+[[actions]]
+repository = "astral-sh/setup-uv"
+release = "v10.2.0"
+commit = "c18668ad3cf93ea998bef934396af7bb5c839dc7"
+runtime = "node24"
+release_url = "https://github.com/astral-sh/setup-uv/releases/tag/v10.2.0"
+metadata_url = "https://github.com/astral-sh/setup-uv/blob/c18668ad3cf93ea998bef934396af7bb5c839dc7/action.yml"
+metadata_sha256 = "c46aa40944f6586ac790309c66e26ae52da47f67d72d3fc3e82d9b1f35620b30"
