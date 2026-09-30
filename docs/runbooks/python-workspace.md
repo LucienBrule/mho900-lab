@@ -61,3 +61,6 @@ stream ownership; its CLI only interprets preserved files.
 
 The [sealed offline review](sealed-offline-review.md) binds the component results to
 a pinned inventory and explicit role assertions.
+
+The [logical archive tools](logical-archive-deltas.md) inventory pinned uncompressed
+archives and compare content without extraction or payload disclosure.

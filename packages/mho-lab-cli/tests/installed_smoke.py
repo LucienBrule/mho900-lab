@@ -9,12 +9,14 @@ from __future__ import annotations
 import hashlib
 import importlib
 import importlib.metadata
+import io
 import json
 import os
 import re
 import shutil
 import subprocess
 import sys
+import tarfile
 import tomllib
 from dataclasses import dataclass
 from ipaddress import IPv4Address
@@ -31,6 +33,10 @@ from mho_capture import (
     stop,
 )
 from mho_evidence import (
+    ArchiveAccepted,
+    ArchiveRequest,
+    InventoryDelta,
+    InventoryDiffRequest,
     SealCreated,
     SealRejected,
     SealRequest,
@@ -38,6 +44,8 @@ from mho_evidence import (
     VerificationAccepted,
     VerificationRejected,
     VerifyRequest,
+    compare_inventory,
+    inspect_archive,
     load_manifest,
     seal,
     verify,
@@ -505,6 +513,59 @@ reply = "response.bin"
     require(rejected["stage"] == "inventory-before", "Mixed input failed at unexpected stage")
 
 
+def archive_roundtrip(evidence: Path) -> None:
+    first = Path.cwd() / "logical-before.tar"
+    second = Path.cwd() / "logical-after.tar"
+    for path in (first, second):
+        with tarfile.open(path, "w", format=tarfile.USTAR_FORMAT) as archive:
+            payload = b"SYNTHETIC-PRIVATE-CONTENT"
+            member = tarfile.TarInfo("data/stable.bin")
+            member.size = len(payload)
+            archive.addfile(member, io.BytesIO(payload))
+            if path == second:
+                member = tarfile.TarInfo("data/added.bin")
+                member.size = 3
+                archive.addfile(member, io.BytesIO(b"new"))
+    first_pin = hashlib.sha256(first.read_bytes()).hexdigest()
+    second_pin = hashlib.sha256(second.read_bytes()).hexdigest()
+    before = inspect_archive(ArchiveRequest(first, Sha256(first_pin)))
+    after = inspect_archive(ArchiveRequest(second, Sha256(second_pin)))
+    if not isinstance(before, ArchiveAccepted) or not isinstance(after, ArchiveAccepted):
+        raise RuntimeError("Installed archive inspection rejected")
+    delta = compare_inventory(InventoryDiffRequest(before.artifacts, after.artifacts))
+    require(isinstance(delta, InventoryDelta), "Installed inventory delta rejected")
+    run_cli(
+        evidence,
+        "archive-delta",
+        [
+            "archive",
+            "diff",
+            "--before",
+            str(first),
+            "--before-sha256",
+            first_pin,
+            "--after",
+            str(second),
+            "--after-sha256",
+            second_pin,
+        ],
+        0,
+    )
+    rendered = (evidence / "archive-delta.stdout").read_text()
+    report = tomllib.loads(rendered)
+    require(
+        report["changed_files"] == 1 and report["unchanged_files"] == 1, "Archive CLI counts differ"
+    )
+    require("SYNTHETIC-PRIVATE-CONTENT" not in rendered, "Archive CLI exposed payload")
+    require(not (Path.cwd() / "data").exists(), "Archive contents were extracted")
+    run_cli(
+        evidence,
+        "archive-wrong-pin",
+        ["archive", "inspect", str(first), "--expected-sha256", "0" * 64],
+        1,
+    )
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -522,6 +583,7 @@ def main() -> int:
     transport_roundtrip(evidence)
     scpi_roundtrip(evidence)
     review_roundtrip(evidence)
+    archive_roundtrip(evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
         'result = "accepted"',
@@ -541,6 +603,8 @@ def main() -> int:
         "scpi_codec_executor_cli_verified = true",
         "sealed_review_library_cli_verified = true",
         "sealed_review_mixed_input_rejected = true",
+        "archive_inventory_delta_library_cli_verified = true",
+        "archive_extraction_performed = false",
     ]
     for package in packages:
         lines.extend(

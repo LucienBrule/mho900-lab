@@ -169,3 +169,25 @@ passed on Linux and macOS for `ec90e06`. The next offline batch inventories
 preserved uncompressed logical archives and compares file-content deltas without
 extracting them. Existing ordinary-option verifiers repeat that operation, making
 it a concrete reuse target rather than a new bench controller.
+
+## Logical archive content deltas
+
+The evidence library now inventories the narrow uncompressed USTAR/GNU-USTAR
+profile present in the logical acquisitions. It checks headers, canonical names,
+member extents, zero padding and complete termination; unsupported forms reject
+instead of falling back to an extractor. Named additions, removals and modifications
+compare regular-file path/size/digest records without rename inference.
+
+The pinned first ordinary-option archives reproduce one added `data/FlexA.lic`
+with all 22 previous files unchanged. The original seal and legacy ordinary-install
+verifier hash remain unchanged. No file was extracted and no physical interface
+was contacted. Comparison artifacts are under `out/tooling/archive-delta-01/`.
+The [archive contract](../runbooks/logical-archive-deltas.md) distinguishes content
+consistency from option behavior, metadata restoration and persistence.
+
+Independent review found a public typed-value edge: equal digest strings in
+different valid Pydantic subclasses were incorrectly reported as modified. The
+comparison now uses primitive digest values, with a retained regression control.
+All 397 tests and strict gates pass. The installed-distribution gate under
+`out/tooling/installed-packages-10/` exercises archive inventory/delta through
+both the library and delegated CLI outside the checkout.
