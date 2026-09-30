@@ -348,3 +348,27 @@ installed-consumer diagnostic control and confirmed the child was already reaped
 The typed foundation is sufficient for a concrete procedure to consume. The CI
 run reported deprecated action runtimes; that observed maintenance issue is the
 next bounded follow-up, without extending instrument or library behavior.
+
+## Supported CI action runtimes
+
+The three setup actions are pinned to supported Node 24 releases with exact
+commit and metadata digests in [action provenance](ci-action-provenance.toml).
+Python 3.12.13/3.12.10, uv 0.6.17, read-only repository permissions, the job timeout
+and both gate commands are unchanged. Cache pruning is explicit because the
+new setup-uv release changes that default. Its download source now defaults to
+Astral's mirror. Other changed policies concern triggers absent from this workflow.
+Hosted runner image labels remain rolling; this is not an immutable OS image pin.
+
+The [updated action workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36652357161)
+passed quality and installed-distribution gates on both platforms for `f2b9e1a`,
+without the earlier Node 20 runtime annotations. Independent inspection found no
+workflow or provenance mismatch. The 18-file retained comparison was sealed and
+verified with the new evidence tool; its manifest SHA-256 is
+`f5342a12a70ab88d0713e6081f64eebb692896c1e0f8cafa42c39d6b2ca91682`.
+Private outputs remain under `out/tooling/ci-runtime-01/`; the manifest is outside
+that sealed directory.
+
+This closes the typed-tooling foundation and observed maintenance follow-ups.
+Further work should consume the public APIs in a concrete admitted procedure,
+with a comparison against its pinned historical verifier where one exists.
+No physical operation or RF characterization was performed by these batches.
