@@ -1,0 +1,17 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.walkthrough-progress
+    title: Explain synthetic walkthrough operations as they execute
+    state: open
+    intent: Let readers follow public CLI commands and expected outcomes without tracing shell plumbing.
+    requires: [TASK.tooling.ci-runtime-decision]
+    requirements:
+      - Show a purpose label, actual CLI command, report destination and actual versus expected exit status for each evidence or review operation.
+      - Keep glue quiet and preserve report bytes, expected rejection checks and refusal to reuse output directories.
+      - Add focused source-contract pointers and document the terminal output convention.
+      - Verify the existing walkthrough controls and a fresh manual run, then commit and push.
+    acceptance: [A reader can follow all five CLI operations and distinguish intended rejection from unexpected failure.]
+    verification: [walkthrough, preservation]
+    required_extensions: []
+    extensions: {}
