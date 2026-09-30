@@ -1,0 +1,53 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.artifact-boundaries
+    title: Revalidate offline artifact bounds at public library entrypoints
+    state: open
+    intent: Preserve documented byte count and schema limits for unchecked model copies as well as normally constructed inputs.
+    requires: [TASK.tooling.scpi-preflight-decision]
+    requirements:
+      - Preserve tiny-file reproducers for unchecked archive verification capture and review limits before changing implementations.
+      - Revalidate each affected library's own declared constraints from primitive values before any artifact consumption, retaining supported default behavior and named rejection outcomes.
+      - Validate nested caller-supplied profile and digest records where an unchecked instance could bypass the documented contract; do not serialize unchecked records or leak their private values through diagnostics.
+      - Keep deliberate unbounded legacy verification defaults distinct from malformed values in an explicitly supplied bounded request.
+    acceptance: [Unchecked model copies cannot silently disable the affected public contracts and valid existing fixtures remain accepted.]
+    verification: [reproducer, contract, controls, packaging]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.recorder-preflight
+    title: Validate recorder requests before creating evidence or starting children
+    state: open
+    intent: Make bounded lifecycle ownership independent of unchecked caller model construction.
+    requires: [TASK.tooling.scpi-preflight-decision]
+    requirements:
+      - Inspect recorder request and nested readiness validation before side effects and preserve any concrete unchecked-instance discrepancy without running a physical recorder.
+      - Reconstruct finite bounded deadlines paths arguments and readiness values before directory creation or child launch and retain the validated immutable request for lifecycle operations.
+      - Use sentinel no-launch controls for malformed requests and valid synthetic child controls for unchanged lifecycle behavior; keep private invalid values out of rejection diagnostics.
+    acceptance: [Malformed recorder requests cannot create artifacts or launch children and valid host-only lifecycle controls retain their behavior.]
+    verification: [inspection, contract, controls, packaging]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.boundary-revalidation-decision
+    title: Reconcile public boundary corrections and remaining caller responsibilities
+    state: open
+    intent: Close concrete unchecked-record gaps without claiming isolation from arbitrary Python code.
+    requires: [TASK.tooling.artifact-boundaries, TASK.tooling.recorder-preflight]
+    requirements:
+      - Independently rerun original reproducers and inspect corrected entrypoints, run strict and installed gates, verify remote CI and commit and push conclusions.
+      - Document supported validation outcomes and remaining API assumptions, then recheck the authorized deadline before admitting another batch.
+    acceptance: [The corrected contracts are backed by before-after evidence and public installed consumers.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-boundary-revalidation
+    title: Public artifact and recorder request revalidation
+    scope: Offline evidence and synthetic children only; no network or instrument operation.
+    tasks: [TASK.tooling.artifact-boundaries, TASK.tooling.recorder-preflight, TASK.tooling.boundary-revalidation-decision]
+    required_extensions: []
+    extensions: {}
