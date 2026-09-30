@@ -1,0 +1,1 @@
+{"kind":"epic","id":"EPIC.typed-public-walkthrough","scope":"Synthetic offline example and existing APIs only; no physical device operations.","protocol":"tasking/planning-draft-1","title":"Public reproducibility of composed evidence tooling","tasks":["TASK.tooling.public-walkthrough","TASK.tooling.public-walkthrough-decision"],"required_extensions":[],"extensions":{}}

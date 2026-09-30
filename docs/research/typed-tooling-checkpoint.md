@@ -218,3 +218,7 @@ records and identifier ambiguity. No blocking issue remains. All 479 tests,
 formatting, lint, strict typing and authored-type policy checks pass. Seven source
 archives rebuilt into installed wheels pass public library/CLI controls outside
 the checkout under `out/tooling/installed-packages-11/`. No device was contacted.
+
+The [ADB workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36649631782)
+passed on Linux and macOS for `22659a4`. The next batch makes composed review
+reproducible from public synthetic inputs; it adds no acquisition interface.
