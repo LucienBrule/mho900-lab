@@ -65,3 +65,17 @@ authorization, capture, connection lifetime, and reconciliation separately.
 Controls use in-memory streams and owned Unix socket pairs. Installed-wheel checks
 exercise the codec, executor and redacted CLI outside the source checkout. None of
 these controls contact a physical instrument.
+
+Public query and limit models are revalidated from their primitive fields at use.
+This includes instances created through unchecked construction or modified outside
+Pydantic's normal frozen-model contract. Encoding accepts the exact supported query
+classes and an actual `OptionSelector`; malformed inputs raise a constant
+`ValueError`. Direct reply/exchange decoding returns explicit invalid-input or
+invalid-limits results, with private input records omitted from rejection reprs.
+Wrong raw-byte API types raise a constant `TypeError`.
+
+The executor reconstructs the entire immutable plan and bounded finite limits
+before its first stream operation. An invalid later query rejects the whole plan:
+it does not send an earlier valid prefix. The validated copy is used throughout
+execution. This boundary protects the documented grammar and resource caps; it
+does not claim to isolate arbitrary Python code executing in the same interpreter.

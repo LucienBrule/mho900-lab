@@ -63,7 +63,10 @@ from mho_scpi import (
     ExchangeAccepted,
     IdentityObservation,
     IdentityQuery,
+    OptionSelector,
+    OptionStatusQuery,
     SessionComplete,
+    SessionIncomplete,
     SessionRequest,
     decode_exchange,
     execute,
@@ -409,6 +412,13 @@ class SuppliedMemoryStream:
 
 
 def scpi_roundtrip(evidence: Path) -> None:
+    malformed = OptionStatusQuery(selector=OptionSelector.BND)
+    object.__setattr__(malformed, "selector", "BND\n*RST")
+    untouched = SuppliedMemoryStream(b"")
+    bad_plan = SessionRequest.model_construct(queries=(IdentityQuery(), malformed))
+    rejected = execute(untouched, bad_plan)
+    require(isinstance(rejected, SessionIncomplete), "Installed invalid SCPI plan accepted")
+    require(not untouched.written, "Installed invalid SCPI plan submitted bytes")
     request = b"*IDN?\n"
     response = b"Synthetic,Fixture,PRIVATE-SERIAL,opaque-version\r\n"
     decoded = decode_exchange(request, response)

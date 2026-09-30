@@ -222,3 +222,19 @@ the checkout under `out/tooling/installed-packages-11/`. No device was contacted
 The [ADB workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36649631782)
 passed on Linux and macOS for `22659a4`. The next batch makes composed review
 reproducible from public synthetic inputs; it adds no acquisition interface.
+
+## SCPI complete-plan correction
+
+Independent review found that unchecked Pydantic instances could bypass the
+nominal read-only selector and configured timeout/query/response caps. An in-memory
+reproducer demonstrated the issue without opening an endpoint. Its eight original
+cases and source pins remain preserved under `out/overnight/scpi-boundary-review/`.
+
+The codec now reconstructs supported query and limit values. The executor validates
+and freezes the entire bounded plan before any stream operation, including later
+queries. Independent reruns of all eight cases show zero reads and writes; the
+canonical twelve-query grammar remains unchanged. Twenty-four regression controls
+cover malformed records and direct codec entrypoints. All 503 workspace tests and
+strict gates pass. The isolated installed-wheel check also proves zero submitted
+bytes for an invalid plan (`out/tooling/installed-packages-12/`). This changes no
+pinned legacy verifier or physical procedure.

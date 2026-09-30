@@ -20,6 +20,7 @@ from .models import (
     ReplyAccepted,
     ReplyRejected,
 )
+from .validation import InvalidBoundary, checked_codec_limits, checked_query
 
 STATUS_PREFIX = b":SYSTem:OPTion:STATus? "
 DEFAULT_LIMITS = CodecLimits()
@@ -38,6 +39,7 @@ def require(condition: bool, code: str, message: str) -> None:
 
 def encode_query(query: Query) -> bytes:
     """Encode one typed allowlisted query, always ending in LF."""
+    query = checked_query(query)
     if isinstance(query, IdentityQuery):
         return b"*IDN?\n"
     if isinstance(query, OptionStatusQuery):
@@ -67,6 +69,15 @@ def decode_reply(
     query: Query, raw: bytes, limits: CodecLimits = DEFAULT_LIMITS
 ) -> ReplyAccepted | ReplyRejected:
     """Decode a complete bounded reply while retaining its exact terminator and fields."""
+    if type(raw) is not bytes:
+        raise TypeError("reply must be bytes")
+    try:
+        query = checked_query(query)
+        limits = checked_codec_limits(limits)
+    except InvalidBoundary:
+        return ReplyRejected(
+            CodecIssue("invalid-input", "query or limits violate the codec contract"), query, raw
+        )
     try:
         value = body(raw, limits)
         if isinstance(query, IdentityQuery):
@@ -123,6 +134,14 @@ def decode_exchange(
     limits: CodecLimits = DEFAULT_LIMITS,
 ) -> ExchangeAccepted | ExchangeRejected:
     """Pair complete canonical query/reply lines without normalizing either stream."""
+    if type(request) is not bytes or type(response) is not bytes:
+        raise TypeError("request and response must be bytes")
+    try:
+        limits = checked_codec_limits(limits)
+    except InvalidBoundary:
+        return ExchangeRejected(
+            CodecIssue("invalid-limits", "limits violate the codec contract"), request, response
+        )
     index: int | None = None
     try:
         require(

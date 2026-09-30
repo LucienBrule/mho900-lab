@@ -8,6 +8,8 @@ are rejected and their observable progress is retained.
 import time
 from dataclasses import dataclass, field
 
+from pydantic import ValidationError
+
 from .codec import decode_reply, encode_query
 from .models import CodecLimits, Query, ReplyRejected
 from .session_models import (
@@ -18,10 +20,12 @@ from .session_models import (
     SessionComplete,
     SessionIncomplete,
     SessionIssue,
+    SessionLimits,
     SessionRequest,
     StreamFailure,
     WriteProgress,
 )
+from .validation import InvalidBoundary, checked_query
 
 
 @dataclass(frozen=True)
@@ -96,6 +100,25 @@ def _read_progress(current: Progress, raw: object, cap: int) -> bool:
     return len(raw) <= 1
 
 
+def _checked_request(request: SessionRequest) -> SessionRequest | SessionIssue:
+    try:
+        if type(request) is not SessionRequest or type(request.limits) is not SessionLimits:
+            return SessionIssue("invalid-plan", "request does not satisfy the session contract")
+        limits = SessionLimits(
+            timeout_seconds=request.limits.timeout_seconds,
+            max_response_bytes=request.limits.max_response_bytes,
+            max_queries=request.limits.max_queries,
+        )
+        if type(request.queries) is not tuple:
+            return SessionIssue("invalid-plan", "query collection must be an immutable tuple")
+        if not request.queries or len(request.queries) > limits.max_queries:
+            return SessionIssue("query-limit", "query plan outside configured bounds")
+        queries = tuple(checked_query(query) for query in request.queries)
+        return SessionRequest(queries=queries, limits=limits)
+    except (AttributeError, ValidationError, InvalidBoundary):
+        return SessionIssue("invalid-plan", "query or limits violate the session contract")
+
+
 def execute(stream: ByteStream, request: SessionRequest) -> SessionComplete | SessionIncomplete:
     """Run only allowlisted typed queries, preserving confirmed prefixes on failure.
 
@@ -106,12 +129,12 @@ def execute(stream: ByteStream, request: SessionRequest) -> SessionComplete | Se
     unread. Completion proves neither response causality nor stream exhaustion.
     """
     began = time.monotonic()
-    deadline = began + request.limits.timeout_seconds
     completed: list[CompletedExchange] = []
-    if not request.queries or len(request.queries) > request.limits.max_queries:
-        return _incomplete(
-            completed, None, "query-limit", "query plan outside configured bounds", began
-        )
+    checked = _checked_request(request)
+    if isinstance(checked, SessionIssue):
+        return _incomplete(completed, None, checked.code, checked.message, began)
+    request = checked
+    deadline = began + request.limits.timeout_seconds
     prepared = [PreparedQuery(query, encode_query(query)) for query in request.queries]
     codec_limits = CodecLimits(max_line_bytes=request.limits.max_response_bytes)
     for index, query in enumerate(prepared):

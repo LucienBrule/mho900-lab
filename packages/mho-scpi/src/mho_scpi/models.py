@@ -86,7 +86,7 @@ class ReplyAccepted:
 @dataclass(frozen=True)
 class ReplyRejected:
     issue: CodecIssue
-    query: Query
+    query: Query = field(repr=False)
     raw: bytes = field(repr=False)
     kind: Literal["reply-rejected"] = field(default="reply-rejected", init=False)
 
