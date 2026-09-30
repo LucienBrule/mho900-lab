@@ -1,0 +1,1 @@
+{"kind":"epic","id":"EPIC.typed-scpi-preflight","scope":"Offline and in-memory public API correction; no endpoint or instrument operations.","protocol":"tasking/planning-draft-1","title":"Complete-plan validation at the supplied-stream boundary","tasks":["TASK.tooling.scpi-preflight","TASK.tooling.scpi-preflight-decision"],"required_extensions":[],"extensions":{}}

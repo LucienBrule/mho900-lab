@@ -1,0 +1,39 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.scpi-preflight
+    title: Revalidate the complete typed SCPI plan before stream operations
+    state: open
+    intent: Keep the read-only query boundary valid even for unchecked caller-constructed model instances.
+    requires: [TASK.tooling.adb-decision]
+    requirements:
+      - Preserve the in-memory reproducer showing an unchecked option selector can currently emit extra command text without contacting any endpoint.
+      - Validate supported query alternatives selector values and bounded finite limits from primitives before encoding or any stream write; reject the whole invalid plan with no partial submission.
+      - Reconcile direct codec entrypoints and session preflight so public boundaries reject invalid typed records without private-value diagnostics or serializer warnings.
+      - Preserve canonical bytes for all supported query alternatives and existing serial execution progress semantics.
+    acceptance: [Unchecked malformed models cannot broaden the allowlisted wire grammar or disable bounds and all failures precede I/O.]
+    verification: [reproducer, contract, controls, packaging]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.scpi-preflight-decision
+    title: Independently evaluate the SCPI typed preflight correction
+    state: open
+    intent: Verify the corrected public boundary before any future procedure composes it.
+    requires: [TASK.tooling.scpi-preflight]
+    requirements:
+      - Independently challenge malformed query and limit records with a no-I/O sentinel, run strict and installed gates and inspect remote CI.
+      - Record the bounded correction and any remaining caller responsibilities without changing physical procedures or pinned legacy verifiers.
+    acceptance: [Independent controls substantiate the no-write rejection and canonical supported grammar.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-scpi-preflight
+    title: Complete-plan validation at the supplied-stream boundary
+    scope: Offline and in-memory public API correction; no endpoint or instrument operations.
+    tasks: [TASK.tooling.scpi-preflight, TASK.tooling.scpi-preflight-decision]
+    required_extensions: []
+    extensions: {}
