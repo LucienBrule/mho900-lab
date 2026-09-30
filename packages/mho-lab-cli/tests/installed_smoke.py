@@ -32,16 +32,20 @@ from mho_adb import (
 )
 from mho_capture import (
     ReadyMarker,
+    RecorderAbnormal,
     RecorderGraceful,
     RecorderReady,
     RecorderRequest,
     RecorderStartFailed,
+    RecorderStartRejected,
     reap,
     start,
     stop,
 )
 from mho_evidence import (
     ArchiveAccepted,
+    ArchiveLimits,
+    ArchiveRejected,
     ArchiveRequest,
     InventoryDelta,
     InventoryDiffRequest,
@@ -50,6 +54,7 @@ from mho_evidence import (
     SealRequest,
     Sha256,
     VerificationAccepted,
+    VerificationLimits,
     VerificationRejected,
     VerifyRequest,
     compare_inventory,
@@ -58,7 +63,14 @@ from mho_evidence import (
     seal,
     verify,
 )
-from mho_review import ProfileAccepted, ReviewAccepted, ReviewRequest, load_profile, review
+from mho_review import (
+    ProfileAccepted,
+    ReviewAccepted,
+    ReviewRejected,
+    ReviewRequest,
+    load_profile,
+    review,
+)
 from mho_scpi import (
     ExchangeAccepted,
     IdentityObservation,
@@ -682,6 +694,167 @@ def public_walkthrough(checkout: Path, evidence: Path) -> None:
     shutil.copytree(output, evidence / "public-walkthrough")
 
 
+@dataclass(frozen=True)
+class OwnedCase:
+    name: str
+    exitcode: int
+    dropped: int
+
+
+def owned_recorder_review(checkout: Path, evidence: Path) -> None:
+    """Actual owned child lifetime, manufactured capture and counter content."""
+    child = Path.cwd() / "owned-review-child.py"
+    child.write_text(
+        "import signal, shutil, sys\n"
+        "from pathlib import Path\n"
+        "def finish(signum: int, frame: object) -> None:\n"
+        "    print('6 packets captured', file=sys.stderr)\n"
+        "    print('6 packets received by filter', file=sys.stderr)\n"
+        "    print(sys.argv[4] + ' packets dropped by kernel', file=sys.stderr, flush=True)\n"
+        "    raise SystemExit(int(sys.argv[3]))\n"
+        "signal.signal(signal.SIGINT, finish)\n"
+        "shutil.copytree(Path(sys.argv[1]), Path(sys.argv[2]) / 'data')\n"
+        "print('SYNTHETIC REVIEW READY', flush=True)\n"
+        "while True:\n    signal.pause()\n"
+    )
+    profile_raw = b"""schema_version = "mho-review.profile/1"
+capture = "data/capture.pcap"
+statistics = "stderr.bin"
+[client]
+address = "192.0.2.1"
+port = 41000
+[server]
+address = "192.0.2.2"
+port = 5555
+[[transcripts]]
+request = "data/queries/00-request.bin"
+reply = "data/queries/00-response.bin"
+[[transcripts]]
+request = "data/queries/01-request.bin"
+reply = "data/queries/01-response.bin"
+"""
+    parsed = load_profile(profile_raw)
+    if not isinstance(parsed, ProfileAccepted):
+        raise RuntimeError("Owned control profile invalid")
+    (evidence / "owned-review-profile.toml").write_bytes(profile_raw)
+    lines = [
+        'schema_version = "mho900-lab.owned-synthetic-review/1"',
+        "synthetic_packets = true",
+        "synthetic_counters = true",
+        "network_operations = false",
+        "instrument_operations = false",
+    ]
+    for case in (
+        OwnedCase("accepted", 0, 0),
+        OwnedCase("abnormal", 7, 0),
+        OwnedCase("drops", 0, 1),
+    ):
+        directory = (Path.cwd() / ("owned-review-" + case.name)).resolve()
+        manifest = Path.cwd() / ("owned-review-" + case.name + ".toml")
+        started = start(
+            RecorderRequest(
+                executable=Path(sys.executable).resolve(),
+                arguments=(
+                    str(child),
+                    str(checkout / "examples/sealed-review/bundle"),
+                    str(directory),
+                    str(case.exitcode),
+                    str(case.dropped),
+                ),
+                evidence_directory=directory,
+                ready=ReadyMarker(stream="stdout", line="SYNTHETIC REVIEW READY"),
+            )
+        )
+        if not isinstance(started, RecorderReady):
+            if isinstance(started, RecorderStartFailed):
+                reap(started.handle)
+            raise RuntimeError("Owned synthetic control failed readiness")
+        try:
+            terminal = stop(started.handle)
+        finally:
+            cleanup = reap(started.handle)
+        require(cleanup.evidence.reaped, "Owned child cleanup remained uncertain")
+        review_result = "not-run"
+        review_stage = "not-run"
+        if case.exitcode:
+            require(isinstance(terminal, RecorderAbnormal), "Abnormal child promoted to graceful")
+            require(not manifest.exists(), "Abnormal child continued to sealing")
+        else:
+            require(
+                isinstance(terminal, RecorderGraceful), "Synthetic child did not stop gracefully"
+            )
+            sealed = seal(SealRequest(directory, manifest))
+            if not isinstance(sealed, SealCreated):
+                raise RuntimeError("Owned result sealing failed")
+            result = review(
+                ReviewRequest(directory, manifest, Sha256(sealed.manifest_sha256), parsed.profile)
+            )
+            review_result = result.kind
+            if case.dropped:
+                require(
+                    isinstance(result, ReviewRejected), "Observed drop was promoted to acceptance"
+                )
+                if isinstance(result, ReviewRejected):
+                    review_stage = result.issue.stage
+                    require(
+                        review_stage == "assessment", "Drop control rejected at unexpected stage"
+                    )
+            else:
+                require(isinstance(result, ReviewAccepted), "Owned synthetic review rejected")
+                review_stage = "accepted"
+            shutil.copyfile(manifest, evidence / manifest.name)
+        shutil.copytree(directory, evidence / directory.name)
+        lines.extend(
+            [
+                "",
+                "[[cases]]",
+                f'name = "{case.name}"',
+                f'lifecycle = "{terminal.kind}"',
+                f'review = "{review_result}"',
+                f'stage = "{review_stage}"',
+                "child_reaped = true",
+            ]
+        )
+    (evidence / "owned-review.toml").write_text("\n".join(lines) + "\n")
+
+
+def unchecked_boundary_controls(evidence: Path) -> None:
+    absent = Path.cwd() / "preflight-no-artifacts"
+    archive_limits = ArchiveLimits().model_copy(update={"max_source_bytes": None})
+    archived = inspect_archive(ArchiveRequest(absent, Sha256("0" * 64), archive_limits))
+    require(isinstance(archived, ArchiveRejected), "Installed unchecked archive bound accepted")
+    if isinstance(archived, ArchiveRejected):
+        require(
+            archived.issue.code == "archive-contract", "Archive input consumed before validation"
+        )
+    limits = VerificationLimits().model_copy(update={"max_entries": float("inf")})
+    verified = verify(VerifyRequest(absent, absent, limits))
+    require(
+        isinstance(verified, VerificationRejected),
+        "Installed unchecked verification bound accepted",
+    )
+    if isinstance(verified, VerificationRejected):
+        require(
+            verified.issue.code == "invalid-limits", "Verification input consumed before validation"
+        )
+    request = RecorderRequest(
+        executable=absent,
+        evidence_directory=absent,
+        ready=ReadyMarker(stream="stdout", line="NOT RUN"),
+    ).model_copy(update={"startup_timeout": float("inf")})
+    started = start(request)
+    if isinstance(started, (RecorderReady, RecorderStartFailed)):
+        stop(started.handle)
+        reap(started.handle)
+        raise RuntimeError("Installed invalid recorder request launched a child")
+    require(isinstance(started, RecorderStartRejected), "Invalid recorder request not rejected")
+    require(started.directory is None and not absent.exists(), "Invalid recorder created evidence")
+    (evidence / "boundary-controls.toml").write_text(
+        'result = "accepted"\nunchecked_artifact_limits_rejected = true\n'
+        "unchecked_recorder_rejected_before_directory = true\n"
+    )
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -694,6 +867,7 @@ def main() -> int:
         "Checkout appears on isolated import path",
     )
     packages = installed_packages(checkout, evidence)
+    unchecked_boundary_controls(evidence)
     evidence_roundtrip(evidence)
     recorder_roundtrip(evidence)
     transport_roundtrip(evidence)
@@ -702,6 +876,7 @@ def main() -> int:
     archive_roundtrip(evidence)
     adb_roundtrip(evidence)
     public_walkthrough(checkout, evidence)
+    owned_recorder_review(checkout, evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
         'result = "accepted"',
@@ -725,6 +900,8 @@ def main() -> int:
         "archive_extraction_performed = false",
         "adb_frame_match_library_cli_verified = true",
         "public_synthetic_walkthrough_verified = true",
+        "owned_synthetic_recorder_review_verified = true",
+        "unchecked_public_boundaries_verified = true",
     ]
     for package in packages:
         lines.extend(

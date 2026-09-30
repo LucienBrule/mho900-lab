@@ -13,7 +13,7 @@ from .contracts import EvidenceValue
 class ArtifactPath(RootModel[str]):
     """Canonical portable relative name; never a host path."""
 
-    model_config = ConfigDict(frozen=True, strict=True)
+    model_config = ConfigDict(frozen=True, strict=True, revalidate_instances="always")
 
     @field_validator("root")
     @classmethod
@@ -32,7 +32,7 @@ class ArtifactPath(RootModel[str]):
 class Sha256(RootModel[str]):
     """Lowercase SHA-256 hexadecimal digest."""
 
-    model_config = ConfigDict(frozen=True, strict=True)
+    model_config = ConfigDict(frozen=True, strict=True, revalidate_instances="always")
 
     @field_validator("root")
     @classmethod
@@ -67,12 +67,19 @@ class ManifestV1(EvidenceValue):
 
 def load_manifest(data: bytes) -> ManifestV1:
     """Validate the untyped TOML edge immediately; no mapping escapes."""
-    value: object = tomllib.loads(data.decode("utf-8"))
-    return ManifestV1.model_validate(value)
+    try:
+        value: object = tomllib.loads(data.decode("utf-8"))
+        return ManifestV1.model_validate(value)
+    except ValueError:
+        raise ValueError("manifest violates the supported TOML evidence contract") from None
 
 
 def dump_manifest(manifest: ManifestV1) -> bytes:
     """Emit one deterministic TOML representation, without host metadata."""
+    try:
+        manifest = ManifestV1.model_validate(manifest)
+    except ValueError:
+        raise ValueError("manifest violates the supported evidence contract") from None
     lines = [
         'schema_version = "mho-evidence.manifest/1"',
         'inventory = "recursive-regular-files"',

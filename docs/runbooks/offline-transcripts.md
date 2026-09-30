@@ -64,3 +64,8 @@ The sequence semantics follow [RFC 9293, section 3.4](https://www.rfc-editor.org
 The capture layout is checked against the [PCAP format draft, revision 06](https://www.ietf.org/archive/id/draft-ietf-opsawg-pcap-06.html).
 These references explain wire and file fields; the narrower acceptance profile
 above is a project contract, not a claim to implement every protocol behavior.
+
+Public inspection and reconstruction revalidate supplied capture limits and
+endpoint models before opening a capture, including unchecked model copies.
+Malformed limits return explicit `invalid-limits` or `invalid-contract` outcomes;
+they cannot turn an explicitly bounded operation into an unbounded read.

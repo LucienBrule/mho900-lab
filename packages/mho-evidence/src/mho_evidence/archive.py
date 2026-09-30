@@ -206,6 +206,16 @@ def inspect_archive(request: ArchiveRequest) -> ArchiveAccepted | ArchiveRejecte
     """Read one bounded unchanged regular file and require its externally pinned hash."""
     parent: int | None = None
     try:
+        request = ArchiveRequest(
+            request.path,
+            Sha256.model_validate(request.expected_sha256),
+            ArchiveLimits.model_validate(request.limits),
+        )
+    except ValueError:
+        return ArchiveRejected(
+            EvidenceIssue("archive-contract", "archive pin or limits violate the contract")
+        )
+    try:
         parent = open_directory(request.path.parent)
         raw = read_file(parent, request.path.name, "archive", request.limits.max_source_bytes)
         check_root_name(parent, request.path.parent)

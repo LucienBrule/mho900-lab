@@ -5,6 +5,7 @@ import hashlib
 from mho_evidence import (
     Artifact,
     ArtifactPath,
+    Sha256,
     VerificationAccepted,
     VerificationLimits,
     VerifyRequest,
@@ -29,7 +30,14 @@ from mho_transport import (
 from mho_transport import inspect_capture as inspect_capture
 
 from .inputs import read_bounded
-from .models import ReviewAccepted, ReviewIssue, ReviewRejected, ReviewRequest
+from .models import (
+    ReviewAccepted,
+    ReviewIssue,
+    ReviewLimits,
+    ReviewProfile,
+    ReviewRejected,
+    ReviewRequest,
+)
 
 
 class ReviewFailure(Exception):
@@ -61,6 +69,20 @@ def member(artifacts: tuple[Artifact, ...], path: ArtifactPath) -> Artifact:
 
 def review(request: ReviewRequest) -> ReviewAccepted | ReviewRejected:
     """Offline content consistency, never physical provenance or an atomic snapshot."""
+    try:
+        request = ReviewRequest(
+            request.root,
+            request.manifest,
+            Sha256.model_validate(request.expected_manifest_sha256),
+            ReviewProfile.model_validate(request.profile),
+            ReviewLimits.model_validate(request.limits),
+        )
+    except ValueError:
+        return ReviewRejected(
+            ReviewIssue(
+                "contract", "invalid-contract", "profile pin or limits violate the review contract"
+            )
+        )
     stage = "manifest"
     try:
         raw_manifest = read_bounded(request.manifest, request.limits.max_manifest_bytes)

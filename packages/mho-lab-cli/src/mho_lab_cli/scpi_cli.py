@@ -5,15 +5,9 @@ from pathlib import Path
 
 import click
 
+from mho_lab_cli.presentation import render_observations
 from mho_lab_cli.scpi_delegate import ScpiInputRejected, inspect_scpi
-from mho_scpi import ExchangeAccepted, ExchangeRejected, IdentityObservation
-
-
-def toml_string(value: str) -> str:
-    """Quote an external string without interpreting its contents as TOML."""
-    escaped = value.replace("\\", "\\\\").replace('"', '\\"')
-    escaped = escaped.replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t")
-    return '"' + escaped + '"'
+from mho_scpi import ExchangeRejected
 
 
 @click.group()
@@ -41,22 +35,3 @@ def inspect_command(requests: Path, replies: Path, show_identity: bool) -> None:
     click.echo(f"query_count = {len(result.pairs)}")
     click.echo("physical_origin_proven = false")
     render_observations(result, show_identity)
-
-
-def render_observations(result: ExchangeAccepted, show_identity: bool) -> None:
-    """Render typed observations; identity disclosure remains an explicit choice."""
-    for index, pair in enumerate(result.pairs):
-        observation = pair.reply.observation
-        click.echo("\n[[observations]]")
-        click.echo(f"index = {index}")
-        click.echo(f'kind = "{observation.kind}"')
-        if isinstance(observation, IdentityObservation):
-            click.echo(f"identity_redacted = {str(not show_identity).lower()}")
-            if show_identity:
-                click.echo(f"manufacturer = {toml_string(observation.manufacturer)}")
-                click.echo(f"model = {toml_string(observation.model)}")
-                click.echo(f"serial_number = {toml_string(observation.serial_number)}")
-                click.echo(f"software_revision = {toml_string(observation.software_revision)}")
-        else:
-            click.echo(f'selector = "{observation.selector.value}"')
-            click.echo(f'state = "{observation.state.value}"')

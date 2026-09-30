@@ -15,7 +15,9 @@ class ReadyMarker(BaseModel):
     @field_validator("line")
     @classmethod
     def one_line(cls, value: str) -> str:
-        if any(c in value for c in ("\n", "\r", "\0")):
+        if any(c in value for c in ("\n", "\r", "\0")) or any(
+            0xD800 <= ord(c) <= 0xDFFF for c in value
+        ):
             raise ValueError("readiness marker must be one complete nonempty line")
         return value
 
@@ -99,5 +101,5 @@ type RecorderTerminal = (
 @dataclass(frozen=True)
 class RecorderStartRejected:
     reason: str
-    directory: Path
+    directory: Path | None = field(repr=False)
     kind: Literal["recorder-start-rejected"] = field(default="recorder-start-rejected", init=False)

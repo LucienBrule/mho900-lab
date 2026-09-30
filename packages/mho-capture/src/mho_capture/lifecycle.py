@@ -30,6 +30,7 @@ from .models import (
     SignalAttempt,
     TerminalEvidence,
 )
+from .preflight import checked_request
 
 
 class SignalWitness(BaseModel):
@@ -116,7 +117,7 @@ class RecorderHandle:
         stdout: BinaryIO,
         stderr: BinaryIO,
     ) -> None:
-        self.request = request
+        self._request = request
         self._process = process
         self._stdout = stdout
         self._stderr = stderr
@@ -124,6 +125,11 @@ class RecorderHandle:
         self._terminal: RecorderTerminal | None = None
         self._signals: list[SignalAttempt] = []
         self._reconciliations = 0
+
+    @property
+    def request(self) -> RecorderRequest:
+        """Validated immutable snapshot used by readiness and bounded cleanup."""
+        return self._request
 
     @property
     def pid(self) -> int:
@@ -403,6 +409,10 @@ def _witness(handle: RecorderHandle) -> None:
 
 def start(request: RecorderRequest) -> RecorderReady | RecorderStartRejected | RecorderStartFailed:
     """Start exactly one foreground child and wait for an explicit complete line."""
+    checked = checked_request(request)
+    if checked is None:
+        return RecorderStartRejected("request violates the bounded recorder contract", None)
+    request = checked
     stdout: BinaryIO | None = None
     stderr: BinaryIO | None = None
     try:

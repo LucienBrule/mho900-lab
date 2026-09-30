@@ -10,7 +10,7 @@ from mho_lab_cli.archive_delegate import (
     compare_archives,
     inspect_retained_archive,
 )
-from mho_lab_cli.scpi_cli import toml_string
+from mho_lab_cli.presentation import toml_string
 
 
 def reject(result: ArchiveOperationRejected) -> None:

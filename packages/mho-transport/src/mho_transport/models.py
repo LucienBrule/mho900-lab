@@ -9,13 +9,17 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class Endpoint(BaseModel):
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     address: IPv4Address
     port: int = Field(ge=1, le=65535)
 
 
 class CaptureLimits(BaseModel):
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     max_capture_bytes: int = Field(default=1024**3, ge=24, le=64 * 1024**3)
     max_frames: int = Field(default=1_000_000, ge=1, le=20_000_000)
     max_frame_bytes: int = Field(default=262144, ge=54, le=1024**2)
@@ -108,7 +112,9 @@ class CaptureInspectionRejected:
 class TcpdumpStatistics(BaseModel):
     """Observed cumulative counts under the explicit terminal text profile."""
 
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     captured: int = Field(ge=0, le=(1 << 64) - 1)
     received_by_filter: int = Field(ge=0, le=(1 << 64) - 1)
     dropped_by_kernel: int = Field(ge=0, le=(1 << 64) - 1)

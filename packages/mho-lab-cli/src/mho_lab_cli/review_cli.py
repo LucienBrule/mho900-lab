@@ -4,8 +4,8 @@ from pathlib import Path
 
 import click
 
+from mho_lab_cli.presentation import render_observations, toml_string
 from mho_lab_cli.review_delegate import inspect_review
-from mho_lab_cli.scpi_cli import render_observations, toml_string
 from mho_review import ReviewAccepted, ReviewRejected
 
 

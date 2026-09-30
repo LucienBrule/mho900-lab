@@ -80,3 +80,9 @@ peer delivery, reply causality or device execution. In particular, sealing a
 purposefully mixed bundle cannot make those files originate in the same run.
 Do not interpret a provisional recorder `terminal.toml` as proof of publication
 completion; recorder lifetime remains a separately established fact.
+
+At entry, review revalidates its own limits, expected digest and nested profile
+models before reading any artifact. Existing Pydantic instances are revalidated,
+including unchecked copies; downstream libraries' potentially broader limits do
+not replace the review profile's own constraints. Invalid contracts reject at
+`contract` without rendering supplied private values.

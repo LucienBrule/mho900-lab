@@ -82,3 +82,11 @@ bytes. Size checks are also enforced during reads, so growth cannot bypass an
 initial size check. The existing unbounded default remains explicit for ordinary
 inventory operations; the composed review always supplies limits. Count and byte
 bounds do not impose a deadline on a blocking filesystem call.
+
+Bounded verification validates supplied limit instances again before reading the
+manifest or evidence root, including unchecked model copies. `limits=None` remains
+the deliberate legacy unbounded mode; a `None` field inside a supplied limits model
+is invalid. Archive inspection likewise validates its pin and complete limits
+before reading. Manifest rendering revalidates nested paths/digests rather than
+serializing unchecked records. Manifest parsing and operation diagnostics report
+structural rejection without echoing invalid field contents.

@@ -13,7 +13,9 @@ from mho_transport import CaptureAssessmentAccepted, Endpoint, TranscriptAccepte
 
 
 class TranscriptMembers(BaseModel):
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     request: ArtifactPath
     reply: ArtifactPath
 
@@ -32,7 +34,9 @@ class ProfileEndpoint(Endpoint):
 
 
 class ReviewProfile(BaseModel):
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     schema_version: Literal["mho-review.profile/1"]
     capture: ArtifactPath
     statistics: ArtifactPath
@@ -60,7 +64,9 @@ class ReviewProfile(BaseModel):
 
 
 class ReviewLimits(BaseModel):
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     max_manifest_bytes: int = Field(default=4 * 1024**2, ge=1, le=16 * 1024**2)
     max_inventory_entries: int = Field(default=4096, ge=4, le=100_000)
     max_inventory_bytes: int = Field(default=128 * 1024**2, ge=1, le=1024**3)

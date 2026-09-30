@@ -9,7 +9,14 @@ only. No generic recorder-launch CLI is provided.
 a new absolute evidence directory, an exact stdout/stderr readiness line, and
 bounded startup and termination timeouts. The executable is invoked directly,
 without a shell. Request construction validates the external configuration through
-Pydantic. The directory must not already exist.
+Pydantic. `start` independently reconstructs that request and its nested readiness
+marker before creating a directory, writing evidence, or starting a child. Unchecked
+`model_construct` and `model_copy(update=...)` values do not bypass the declared
+bounds. Preflight accepts the concrete `RecorderRequest` and `ReadyMarker` models,
+not subclasses; readiness text must be UTF-8 encodable. Invalid preflight inputs
+produce a constant rejection reason and
+`RecorderStartRejected.directory = None`; no directory has been selected or created.
+The directory must not already exist.
 
 `start(request)` returns one of:
 
@@ -22,8 +29,10 @@ Pydantic. The directory must not already exist.
 
 The readiness line is a caller-selected observation, not an independent guarantee
 that capture has begun. Its operational meaning needs a recorder-specific profile.
-The caller owns the handle and must call `stop` in its cleanup path. Calls on a
-handle must be serialized. Only the direct child is managed; daemonization and
+The caller owns the handle and must call `stop` in its cleanup path. The handle's
+read-only `request` property exposes the independently validated immutable snapshot;
+changes to caller-owned request objects do not change readiness or cleanup budgets.
+Calls on a handle must be serialized. Only the direct child is managed; daemonization and
 descendant ownership are outside this contract.
 
 The installed private bootstrap clears the child's inherited signal mask and sets

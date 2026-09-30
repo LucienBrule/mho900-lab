@@ -12,6 +12,7 @@ from .models import (
     CaptureInspectionAccepted,
     CaptureInspectionRejected,
     CaptureInspectionRequest,
+    CaptureLimits,
     TcpdumpStatistics,
     TcpdumpStatisticsParsed,
     TcpdumpStatisticsRejected,
@@ -39,6 +40,14 @@ def inspect_capture(
     request: CaptureInspectionRequest,
 ) -> CaptureInspectionAccepted | CaptureInspectionRejected:
     """Inspect all Ethernet records; deliberately do not interpret their protocols."""
+    try:
+        request = CaptureInspectionRequest(
+            request.capture, CaptureLimits.model_validate(request.limits)
+        )
+    except ValueError:
+        return CaptureInspectionRejected(
+            TransportIssue("invalid-limits", "capture limits violate the bounded contract")
+        )
     try:
         with capture_source(request.capture, request.limits) as stream:
             metadata = scan_records(stream, request.limits)
@@ -171,6 +180,14 @@ def assess_capture(
     A zero kernel-drop report can also mean the backend does not support the
     statistic. Reporting support and wire completeness remain unestablished.
     """
+    try:
+        request = CaptureAssessmentRequest(
+            request.capture, TcpdumpStatistics.model_validate(request.statistics)
+        )
+    except ValueError:
+        return CaptureAssessmentRejected(
+            TransportIssue("invalid-statistics", "statistics violate the supported contract")
+        )
     if request.statistics.any_observed_drops or request.statistics.dropped_by_kernel != 0:
         return CaptureAssessmentRejected(
             issue=TransportIssue(code="observed-drops", message="recorder reported kernel drops")

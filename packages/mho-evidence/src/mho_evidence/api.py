@@ -17,7 +17,9 @@ class SealRequest:
 class VerificationLimits(BaseModel):
     """Optional byte/count/depth bounds; no blocking-filesystem deadline claim."""
 
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    model_config = ConfigDict(
+        frozen=True, strict=True, extra="forbid", revalidate_instances="always"
+    )
     max_entries: int = Field(default=10000, ge=1, le=1000000)
     max_total_bytes: int = Field(default=1024**3, ge=1, le=1024**4)
     max_file_bytes: int = Field(default=1024**3, ge=1, le=1024**4)

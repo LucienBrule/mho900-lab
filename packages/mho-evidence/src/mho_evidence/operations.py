@@ -13,6 +13,7 @@ from .api import (
     SealRejected,
     SealRequest,
     VerificationAccepted,
+    VerificationLimits,
     VerificationRejected,
     VerifyRequest,
 )
@@ -40,7 +41,10 @@ def failure(error: OSError | ValueError | EvidenceFailure | NotImplementedError)
     if isinstance(error, FileExistsError):
         return EvidenceIssue(code="destination-exists", message="destination already exists")
     if isinstance(error, ValueError):
-        return EvidenceIssue(code="invalid-manifest-or-path", message=str(error))
+        return EvidenceIssue(
+            code="invalid-manifest-or-path",
+            message="manifest or path violates the evidence contract",
+        )
     return EvidenceIssue(code="filesystem-error", message=str(error))
 
 
@@ -140,6 +144,17 @@ def verify(request: VerifyRequest) -> VerificationAccepted | VerificationRejecte
     """Validate the TOML edge and independently rescan exact regular-file inventory."""
     root_fd: int | None = None
     parent_fd: int | None = None
+    try:
+        limits = (
+            VerificationLimits.model_validate(request.limits)
+            if request.limits is not None
+            else None
+        )
+        request = VerifyRequest(request.root, request.manifest, limits)
+    except ValueError:
+        return VerificationRejected(
+            EvidenceIssue("invalid-limits", "verification limits violate the bounded contract")
+        )
     try:
         outside(request.root, request.manifest)
         parent_fd = open_directory(request.manifest.parent)

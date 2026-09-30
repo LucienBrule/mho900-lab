@@ -262,3 +262,42 @@ The [public walkthrough workflow](https://github.com/LucienBrule/mho900-lab/acti
 passed on Linux and macOS for `8da9c56`. The next bounded controls connect an owned
 synthetic child lifecycle to sealed review, and remove shared presentation helpers
 from command modules. These demonstrate composition without adding a bench runner.
+
+## Validated artifact boundaries and lifecycle composition
+
+Tiny-file probes found that unchecked model copies could disable declared archive,
+verification and capture limits, or substitute a broader downstream bound for the
+review limit. Those originals remain under `out/overnight/remaining-boundary-review/`.
+Affected entrypoints now revalidate their own complete models before artifact reads,
+including nested review roles and digests. Deliberate `VerifyRequest.limits=None`
+remains available; malformed fields inside an explicit bounded model reject.
+Manifest diagnostics no longer echo invalid private field values.
+
+Recorder startup now reconstructs a concrete request and readiness model before
+creating a directory or launching a child. Malformed requests have a constant
+rejection reason and no validated directory. The ownership handle retains an
+independent validated snapshot; ordinary caller mutation or reassignment cannot
+change readiness or cleanup budgets. Forty-eight new controls cover all deadline
+fields, malformed nested records and snapshot independence; all 26 previous
+lifecycle controls remain passing.
+
+Independent artifact review exercised 147 controls, including early reader-seam
+rejection and deliberate unbounded verification. The preserved private identity
+review still accepts twelve queries from 61 frames, and the logical archive delta
+still reports one addition with 22 unchanged files. New comparison outputs are
+separate under `out/tooling/final-boundary-comparison-01/`; originals are unchanged.
+
+The [owned-recorder control](../runbooks/owned-recorder-review.md) joins a fixed
+synthetic child's observed lifecycle to sealing and composed review. A graceful
+child with matching manufactured data accepts. Exit seven stops before sealing;
+one reported drop rejects at assessment. Independent review also injected a
+subsequent sealing failure and confirmed the child was already reaped. Lifecycle
+observations remain separate from synthetic packet/counter provenance.
+
+Shared TOML/observation rendering now lives outside command modules. Authored import
+controls preserve library, delegate and presentation direction. String controls
+round-trip through TOML, while lone surrogates reject without echoing content.
+All 608 workspace tests, formatting, lint, strict typing and policy checks pass.
+Seven source archives rebuilt into installed wheels pass the complete public,
+malformed-boundary and owned-child controls under `out/tooling/installed-packages-15/`.
+No physical interface was contacted and no pinned legacy verifier was changed.

@@ -11,7 +11,7 @@ from mho_lab_cli.adb_delegate import (
     inspect_retained_stream,
     match_retained_streams,
 )
-from mho_lab_cli.scpi_cli import toml_string
+from mho_lab_cli.presentation import toml_string
 
 
 def render_failure(result: AdbInputRejected | DecodeRejected) -> None:

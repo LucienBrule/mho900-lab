@@ -71,3 +71,10 @@ running ADB or requesting any device action.
 
 Start with the [public synthetic walkthrough](synthetic-review-walkthrough.md)
 to reproduce accepted and rejected composed reviews without private evidence.
+
+The [owned-recorder composition control](owned-recorder-review.md) joins an actual
+synthetic child lifecycle to sealed review, retaining abnormal exit and reported
+loss as distinct failures. Shared rendering lives in a neutral presentation module;
+command endpoints do not import sibling endpoints. A bounded AST regression check
+covers authored imports between libraries, delegates and presentation. It does not
+claim to analyze arbitrary runtime imports or Python execution.

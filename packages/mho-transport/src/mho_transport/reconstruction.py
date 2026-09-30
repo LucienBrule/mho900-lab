@@ -5,6 +5,8 @@ from ipaddress import IPv4Address
 from typing import BinaryIO
 
 from .models import (
+    CaptureLimits,
+    Endpoint,
     TranscriptAccepted,
     TranscriptMetadata,
     TranscriptRejected,
@@ -194,6 +196,17 @@ def parse(stream: BinaryIO, request: TranscriptRequest) -> TranscriptAccepted:
 
 def reconstruct(request: TranscriptRequest) -> TranscriptAccepted | TranscriptRejected:
     """Recover captured bytes only, with no delivery/device-execution conclusion."""
+    try:
+        request = TranscriptRequest(
+            request.capture,
+            Endpoint.model_validate(request.client),
+            Endpoint.model_validate(request.server),
+            CaptureLimits.model_validate(request.limits),
+        )
+    except ValueError:
+        return TranscriptRejected(
+            TransportIssue("invalid-contract", "endpoints or capture limits violate the contract")
+        )
     try:
         require(request.client != request.server, "same-endpoint", "client and server must differ")
         with capture_source(request.capture, request.limits) as stream:
