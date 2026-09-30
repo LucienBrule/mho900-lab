@@ -12,7 +12,17 @@ mkdir -p out/tooling
 uv run --locked sh examples/sealed-review/walkthrough.sh out/tooling/synthetic-review-01
 ```
 
+The script prints a numbered purpose label, report destination, the actual
+`mho-lab` command (shell tracing enabled only for that invocation), and its actual
+versus expected exit status. Progress and tracing go to stderr; command stdout
+stays in its report file. Exit `1` is expected for the two deliberate rejection
+cases, and the script also checks their specific rejection stages. `[ok]` means
+the stated check passed, including an expected rejection.
+
 The script refuses an existing output directory and retains any failure evidence.
+To run it again, choose a fresh directory such as `out/tooling/synthetic-review-02`;
+the refusal protects the earlier run. Comments beside the first seal and review
+point to their contracts and CLI/delegate modules.
 It invokes the public `mho-lab` executable already on the uv environment's PATH.
 An installed-wheel consumer can run the same script with that environment's
 `mho-lab` on PATH; uv is not used inside the script.
