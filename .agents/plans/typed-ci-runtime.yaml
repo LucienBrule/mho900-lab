@@ -1,0 +1,39 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.ci-runtime
+    title: Pin supported action runtimes for typed workspace CI
+    state: open
+    intent: Remove the observed deprecated action runtime dependency while retaining the existing Python and uv toolchain.
+    requires: [TASK.tooling.recorder-toml-decision]
+    requirements:
+      - Preserve the deprecation annotations and inspect official release revisions and action metadata for all three setup actions.
+      - Pin exact supported Node 24 action commits; retain Python versions, uv version, read-only repository permissions, job timeout and both quality gates.
+      - Inspect changed defaults and preserve intended cache pruning explicitly; record upstream release provenance and remaining hosted-runner image drift.
+      - Push the workflow and require successful quality and installed-distribution gates on Linux and macOS without the previous Node 20 runtime annotations.
+    acceptance: [The complete typed workspace CI passes using explicitly supported action runtimes.]
+    verification: [provenance, change, remote]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.tooling.ci-runtime-decision
+    title: Reconcile CI maintenance and finalize reusable tooling handoff
+    state: open
+    intent: Close the observed CI maintenance issue and retain a clean usable toolkit checkpoint.
+    requires: [TASK.tooling.ci-runtime]
+    requirements:
+      - Independently inspect the workflow change and remote results, close the bounded task batch and push the handoff.
+      - Retain explicit offline library and evidence limits; defer additional generic features until a concrete procedure needs them.
+    acceptance: [The checkout is clean and pushed with supported passing CI and no unresolved task in this batch.]
+    verification: [decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-1
+    id: EPIC.typed-ci-runtime
+    title: Supported hosted action runtimes
+    scope: Existing typed workspace GitHub Actions workflow only.
+    tasks: [TASK.tooling.ci-runtime, TASK.tooling.ci-runtime-decision]
+    required_extensions: []
+    extensions: {}
