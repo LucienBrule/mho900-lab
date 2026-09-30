@@ -3,6 +3,20 @@
 2026-09-29. This is offline tooling work after physical enablement. It does not
 extend the physical result or claim RF characterization.
 
+The current toolkit has seven uv workspace packages, a delegated Click CLI,
+Pydantic boundary contracts, and 615 passing source tests under strict typing,
+lint and formatting gates. Rebuilt installed distributions exercise the public
+synthetic fixture and actual owned child lifecycles outside the checkout.
+The [workspace capability table](../runbooks/python-workspace.md) is the entry
+point for consumers. The sections below preserve successive checkpoints; their
+smaller package and test counts describe those earlier revisions.
+
+The next useful work is a specific experiment procedure that consumes these
+contracts and compares its result with the existing pinned verifier. A generic
+bench controller is not justified yet. Live interface setup, instrument provenance,
+RF performance, full TCP delivery and physical device actions remain outside the
+acceptance claims of this offline toolkit.
+
 The first workspace boundary now has two consumers: a reusable `mho-evidence`
 library and delegated Click commands in `mho-lab`. Versioned TOML manifests describe
 an exact recursive regular-file inventory. Pydantic validates external values;
@@ -327,3 +341,10 @@ is retained under `out/tooling/recorder-toml-01/`,
 `out/tooling/recorder-toml-independent-01/` and
 `out/tooling/installed-packages-17/`. The workspace runbook now maps each public
 surface to its CLI availability and strongest unestablished claim.
+
+The [recorder string workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36652118141)
+passed on Linux and macOS for `0177c67`. Independent review separately repeated the
+installed-consumer diagnostic control and confirmed the child was already reaped.
+The typed foundation is sufficient for a concrete procedure to consume. The CI
+run reported deprecated action runtimes; that observed maintenance issue is the
+next bounded follow-up, without extending instrument or library behavior.
