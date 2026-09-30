@@ -191,3 +191,9 @@ comparison now uses primitive digest values, with a retained regression control.
 All 397 tests and strict gates pass. The installed-distribution gate under
 `out/tooling/installed-packages-10/` exercises archive inventory/delta through
 both the library and delegated CLI outside the checkout.
+
+The [archive workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36648692153)
+passed on both platforms for `593de9c`. The next proposed offline component is
+ADB frame and stream-ready evidence, keeping acknowledgment separate from completed
+instrument behavior. Its [reference profile](../runbooks/adb-evidence.md) records
+the protocol text's checksum terminology discrepancy before implementation.

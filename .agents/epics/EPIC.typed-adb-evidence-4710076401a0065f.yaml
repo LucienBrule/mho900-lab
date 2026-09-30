@@ -1,0 +1,1 @@
+{"kind":"epic","id":"EPIC.typed-adb-evidence","scope":"Retained cleartext protocol bytes only with no endpoint or device operations.","protocol":"tasking/planning-draft-1","title":"Offline Android debug-bridge framing and stream-ready evidence","tasks":["TASK.tooling.adb-frames","TASK.tooling.adb-ready","TASK.tooling.adb-decision"],"required_extensions":[],"extensions":{}}
