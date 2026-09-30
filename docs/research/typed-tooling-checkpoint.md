@@ -238,3 +238,22 @@ cover malformed records and direct codec entrypoints. All 503 workspace tests an
 strict gates pass. The isolated installed-wheel check also proves zero submitted
 bytes for an invalid plan (`out/tooling/installed-packages-12/`). This changes no
 pinned legacy verifier or physical procedure.
+
+The [SCPI preflight workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36650317177)
+passed on Linux and macOS for `656393c`.
+
+## Public synthetic walkthrough
+
+A contributor can now reproduce the composed review from tracked public files.
+The fixture contains six manufactured Ethernet/IPv4/TCP records, two query/reply
+pairs and authored counter text. Its provenance explicitly denies instrument or
+recorder origin. No new production abstraction or acquisition command was added.
+
+The [walkthrough](../runbooks/synthetic-review-walkthrough.md) preserves acceptance,
+post-seal inventory rejection and separately resealed transcript disagreement.
+Independent review recomputed all IP/TCP checksums and sequence extents, checked
+manifest/profile pins, and confirmed that repeating an existing destination changes
+no output bytes. The exact script also runs against installed wheels outside the
+checkout. All 505 tests and strict gates pass; seven rebuilt distributions pass
+`out/tooling/installed-packages-13/`. Relevant runbook and fixture changes now trigger
+CI. The independent adversarial packet builders remain separate.

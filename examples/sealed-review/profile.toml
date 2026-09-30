@@ -1,0 +1,19 @@
+schema_version = "mho-review.profile/1"
+capture = "capture.pcap"
+statistics = "capture.stderr"
+
+[client]
+address = "192.0.2.1"
+port = 41000
+
+[server]
+address = "192.0.2.2"
+port = 5555
+
+[[transcripts]]
+request = "queries/00-request.bin"
+reply = "queries/00-response.bin"
+
+[[transcripts]]
+request = "queries/01-request.bin"
+reply = "queries/01-response.bin"

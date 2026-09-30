@@ -1,0 +1,5 @@
+# Synthetic wire fixtures and pinned manifests must retain their exact bytes.
+examples/sealed-review/bundle/** -text
+examples/sealed-review/manifest.toml text eol=lf
+examples/sealed-review/profile.toml text eol=lf
+examples/sealed-review/walkthrough.sh text eol=lf

@@ -35,3 +35,6 @@ __pycache__/
 /.mypy_cache/
 /.ruff_cache/
 /.pytest_cache/
+
+# Public manufactured protocol fixtures; no acquired firmware or unit data.
+!/examples/sealed-review/bundle/queries/*.bin

@@ -63,3 +63,5 @@ See [AGENTS.md](AGENTS.md).
 
 New reusable Python tooling uses a typed uv workspace. See the
 [workspace runbook](docs/runbooks/python-workspace.md) for installation and quality gates.
+The [synthetic review walkthrough](docs/runbooks/synthetic-review-walkthrough.md)
+reproduces accepted and rejected evidence checks without an instrument.

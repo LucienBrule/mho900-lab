@@ -1,0 +1,107 @@
+schema_version = "mho900-lab.synthetic-review-fixture/1"
+classification = "manufactured offline test data"
+instrument_observed = false
+recorder_invoked = false
+network_traffic_sent = false
+counter_values_manufactured = true
+timestamp_values_manufactured = true
+complete_tcp_state_machine_claimed = false
+manifest = "manifest.toml"
+manifest_sha256 = "b049d958172b0b013aa9934c66e029d2a33559e13aed9d3e362719e8ce9672f6"
+profile = "profile.toml"
+profile_sha256 = "e430354ba1d1f9a390de20d1d52198b3c211361cdd1412ce1830ac37734065ae"
+artifact_count = 6
+artifact_bytes = 702
+capture_frames = 6
+capture_bytes = 547
+query_count = 2
+request_bytes = 34
+reply_bytes = 45
+client_mac = "02:00:00:00:00:01"
+server_mac = "02:00:00:00:00:02"
+client_address = "192.0.2.1"
+server_address = "192.0.2.2"
+client_port = 41000
+server_port = 5555
+pcap_byte_order = "little"
+pcap_timestamp_unit = "microseconds"
+pcap_seconds = 1700000000
+pcap_microsecond_step = 1000
+pcap_snapshot_length = 65535
+ethernet_fcs_present = false
+ethernet_minimum_bytes_without_fcs = 60
+ipv4_header_bytes = 20
+ipv4_ttl = 64
+ipv4_dont_fragment = true
+tcp_header_bytes = 20
+tcp_window = 65535
+checksum_algorithm = "16-bit Internet checksum over IPv4 header and TCP IPv4 pseudo-header plus segment"
+checksum_verification_residual = 0
+payload_encoding = "ASCII; exact LF line endings"
+padding = "zero Ethernet padding to 60 bytes without FCS; no IP or TCP options"
+
+[[packets]]
+index = 1
+direction = "client-to-server"
+sequence = 1000
+acknowledgment = 0
+flags = 2
+payload_bytes = 0
+frame_bytes = 60
+ipv4_checksum = "b6cb"
+tcp_checksum = "721b"
+
+[[packets]]
+index = 2
+direction = "server-to-client"
+sequence = 9000
+acknowledgment = 1001
+flags = 18
+payload_bytes = 0
+frame_bytes = 60
+ipv4_checksum = "b6ca"
+tcp_checksum = "4ee2"
+
+[[packets]]
+index = 3
+direction = "client-to-server"
+sequence = 1001
+acknowledgment = 9001
+flags = 24
+payload_bytes = 34
+frame_bytes = 88
+ipv4_checksum = "b6a7"
+tcp_checksum = "1dca"
+
+[[packets]]
+index = 4
+direction = "server-to-client"
+sequence = 9001
+acknowledgment = 1035
+flags = 24
+payload_bytes = 45
+frame_bytes = 99
+ipv4_checksum = "b69b"
+tcp_checksum = "3aa7"
+
+[[packets]]
+index = 5
+direction = "client-to-server"
+sequence = 1035
+acknowledgment = 9046
+flags = 17
+payload_bytes = 0
+frame_bytes = 60
+ipv4_checksum = "b6c7"
+tcp_checksum = "4e93"
+
+[[packets]]
+index = 6
+direction = "server-to-client"
+sequence = 9046
+acknowledgment = 1036
+flags = 17
+payload_bytes = 0
+frame_bytes = 60
+ipv4_checksum = "b6c6"
+tcp_checksum = "4e92"

@@ -1,0 +1,33 @@
+schema_version = "mho-evidence.manifest/1"
+inventory = "recursive-regular-files"
+empty_allowed = false
+
+[[artifacts]]
+path = "capture.pcap"
+sha256 = "4a9aa64b3b61884df759218bf553031326eee72b7198ac903f128376c7ca116c"
+size_bytes = 547
+
+[[artifacts]]
+path = "capture.stderr"
+sha256 = "03de5934d217ece17d5b20d650ef4ae528e7a1c59a71c7e81fd6987477fbb25e"
+size_bytes = 76
+
+[[artifacts]]
+path = "queries/00-request.bin"
+sha256 = "2e8c5970fd7906e35a37aa7078ed2fad7a093f63e56e340e0ff07ab935a20086"
+size_bytes = 6
+
+[[artifacts]]
+path = "queries/00-response.bin"
+sha256 = "d9256d12f75e7e5ae3864f4ee3fbd3173619277c2a08c0ebac08dc14dbaf0886"
+size_bytes = 43
+
+[[artifacts]]
+path = "queries/01-request.bin"
+sha256 = "f298f3034b773fe4341dbdb469ac4b5f22c29941f86aaf720da55df026985551"
+size_bytes = 28
+
+[[artifacts]]
+path = "queries/01-response.bin"
+sha256 = "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+size_bytes = 2

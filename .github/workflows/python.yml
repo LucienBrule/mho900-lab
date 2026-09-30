@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - "packages/**"
+      - "examples/sealed-review/**"
+      - "docs/runbooks/**"
+      - ".gitattributes"
       - "pyproject.toml"
       - "uv.lock"
       - ".python-version"
@@ -12,6 +15,9 @@ on:
   pull_request:
     paths:
       - "packages/**"
+      - "examples/sealed-review/**"
+      - "docs/runbooks/**"
+      - ".gitattributes"
       - "pyproject.toml"
       - "uv.lock"
       - ".python-version"

@@ -646,6 +646,42 @@ def adb_roundtrip(evidence: Path) -> None:
     )
 
 
+def public_walkthrough(checkout: Path, evidence: Path) -> None:
+    fixture = Path.cwd() / "public-fixture"
+    shutil.copytree(checkout / "examples" / "sealed-review", fixture)
+    output = Path.cwd() / "public-walkthrough"
+    environment = dict(os.environ)
+    environment["PATH"] = str(Path(sys.executable).parent) + os.pathsep + environment["PATH"]
+    result = subprocess.run(
+        ["sh", str(fixture / "walkthrough.sh"), str(output)],
+        env=environment,
+        capture_output=True,
+        timeout=30,
+        check=False,
+    )
+    (evidence / "public-walkthrough.stdout").write_bytes(result.stdout)
+    (evidence / "public-walkthrough.stderr").write_bytes(result.stderr)
+    require(result.returncode == 0, "Installed public walkthrough failed")
+    accepted = toml(output / "accepted.toml")
+    changed = toml(output / "changed.toml")
+    mixed = toml(output / "mixed.toml")
+    require(
+        accepted["result"] == "accepted" and accepted["query_count"] == 2,
+        "Installed public example acceptance differs",
+    )
+    require(changed["stage"] == "inventory-before", "Public modified seal was accepted")
+    require(
+        mixed["stage"] == "transcripts" and mixed["code"] == "tcp-transcript-mismatch",
+        "Public resealed mismatch was accepted",
+    )
+    require(
+        "SYNTHETIC-UNIT" not in (output / "accepted.toml").read_text(),
+        "Public identity was rendered by default",
+    )
+    shutil.copytree(fixture, evidence / "public-fixture")
+    shutil.copytree(output, evidence / "public-walkthrough")
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -665,6 +701,7 @@ def main() -> int:
     review_roundtrip(evidence)
     archive_roundtrip(evidence)
     adb_roundtrip(evidence)
+    public_walkthrough(checkout, evidence)
     lines = [
         'schema = "mho900-lab.installed-package-check/1"',
         'result = "accepted"',
@@ -687,6 +724,7 @@ def main() -> int:
         "archive_inventory_delta_library_cli_verified = true",
         "archive_extraction_performed = false",
         "adb_frame_match_library_cli_verified = true",
+        "public_synthetic_walkthrough_verified = true",
     ]
     for package in packages:
         lines.extend(

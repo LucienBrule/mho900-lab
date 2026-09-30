@@ -68,3 +68,6 @@ archives and compare content without extraction or payload disclosure.
 
 The [offline ADB evidence profile](adb-evidence.md) decodes retained bytes without
 running ADB or requesting any device action.
+
+Start with the [public synthetic walkthrough](synthetic-review-walkthrough.md)
+to reproduce accepted and rejected composed reviews without private evidence.
