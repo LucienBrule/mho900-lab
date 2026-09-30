@@ -49,25 +49,21 @@ Pydantic validates external data rather than propagating dynamic dictionaries.
 The implementation follows the official [uv workspace model](https://docs.astral.sh/uv/concepts/projects/workspaces/),
 [Click command model](https://click.palletsprojects.com/en/stable/commands-and-groups/),
 and [Pydantic union guidance](https://docs.pydantic.dev/latest/concepts/unions/).
-See [offline evidence manifests](evidence-manifests.md) for the first reusable
-operation and its limits, and [offline transcripts](offline-transcripts.md) for
-the transport profile. This workspace setup is not a bench acquisition procedure.
-The [capture assessment](capture-evidence.md) separates retained frame/count
-agreement from process exit and traffic completeness.
-The [recorder lifecycle](recorder-lifecycle.md) provides explicit child ownership
-and failure outcomes for future configured acquisition procedures.
 
-The [SCPI contract](scpi-contract.md) composes canonical query semantics with explicit
-stream ownership; its CLI only interprets preserved files.
+The public surfaces have different evidence limits. Recorder ownership and supplied-
+stream SCPI execution are library-only; the CLI operates on preserved local files.
+This workspace setup is not a bench acquisition procedure.
 
-The [sealed offline review](sealed-offline-review.md) binds the component results to
-a pinned inventory and explicit role assertions.
-
-The [logical archive tools](logical-archive-deltas.md) inventory pinned uncompressed
-archives and compare content without extraction or payload disclosure.
-
-The [offline ADB evidence profile](adb-evidence.md) decodes retained bytes without
-running ADB or requesting any device action.
+| Package / operation | Entry point | What acceptance does not establish |
+| --- | --- | --- |
+| `mho-evidence`: seal / verify | Library and `evidence` CLI; [manifest contract](evidence-manifests.md) | Atomic snapshot or artifact origin |
+| `mho-evidence`: inspect archive / compare inventory | Library and `archive` CLI; [archive contract](logical-archive-deltas.md) | Payload semantics or persistence across restart |
+| `mho-transport`: reconstruct / assess capture | Library and `transport` CLI; [transcripts](offline-transcripts.md), [assessment](capture-evidence.md) | Peer delivery, device action or complete wire observation |
+| `mho-capture`: start / stop / reap | Library only; [recorder lifecycle](recorder-lifecycle.md) | Packet completeness or descendant-process cleanup |
+| `mho-scpi`: decode exchange | Library and `scpi inspect`; [SCPI contract](scpi-contract.md) | Authenticated origin or causal pairing |
+| `mho-scpi`: execute | Library only, caller-supplied stream; [SCPI contract](scpi-contract.md) | Delivery or device execution; it does not connect an endpoint |
+| `mho-adb`: decode / match open | Library and `adb` CLI; [ADB evidence](adb-evidence.md) | Shell-command execution, reboot or complete TCP capture |
+| `mho-review`: review | Library and `review inspect`; [sealed review](sealed-offline-review.md) | Live process exit or authentic acquisition provenance |
 
 Start with the [public synthetic walkthrough](synthetic-review-walkthrough.md)
 to reproduce accepted and rejected composed reviews without private evidence.

@@ -63,6 +63,10 @@ original cancellation. If ownership remains unresolved, `RecorderOwnershipUncert
 carries the handle and terminal evidence and chains the original exception. Do
 not discard that handle or assume the child has stopped.
 
+Supported Unicode scalar strings, including DEL and non-ASCII text, retain their
+exact values through TOML launch, readiness and diagnostic records. Serialization
+does not expand which arguments or readiness markers pass request validation.
+
 Exclusive evidence files preserve the launch configuration, stdout/stderr, signal
 witness, readiness observation and terminal attempt. Witness reads reject special
 files, links, oversized inputs and observable changes. The terminal file records

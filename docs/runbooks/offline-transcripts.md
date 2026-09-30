@@ -19,7 +19,8 @@ The tool does not select the first apparent connection or search for a scope.
 Successful CLI output is a TOML summary with the capture digest, frame and byte
 counts, retransmitted byte count, and request/reply hashes. It does not print raw
 payloads or endpoint addresses. Library consumers receive named request/reply byte
-fields and metadata through `TranscriptAccepted`. `TranscriptRejected` carries a
+fields and metadata through `reconstruct(TranscriptRequest(...))`, which returns
+`TranscriptAccepted`. `TranscriptRejected` carries a
 specific issue, with a frame number where available. CLI rejection returns exit 1;
 invalid arguments return exit 2.
 

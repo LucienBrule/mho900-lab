@@ -2,8 +2,8 @@
 
 The public components are exercised together by `owned_recorder_review` in the
 installed-distribution consumer, `packages/mho-lab-cli/tests/installed_smoke.py`.
-The source gate runs the same consumer; the distribution gate copies it outside the
-checkout and runs against rebuilt installed wheels. This is a control for component
+The source gate runs the same composition function; the distribution gate copies
+the full consumer outside the checkout and runs against rebuilt installed wheels. This is a control for component
 composition, not a configurable acquisition procedure or instrument command.
 
 The child is a fixed Python process. It copies the public manufactured capture and

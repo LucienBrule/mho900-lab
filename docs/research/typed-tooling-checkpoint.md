@@ -307,3 +307,23 @@ passed on Linux and macOS for `4b5439e`. A final construction-only check identif
 a separate recorder serialization mismatch: accepted DEL-bearing arguments and
 readiness markers were emitted literally into TOML. A bounded successor will make
 those supported strings round-trip through the child/bootstrap records.
+
+## Recorder string fidelity
+
+The DEL reproducer is now closed. Supported Unicode scalar values retain their
+exact values through launch arguments, readiness markers and diagnostic strings.
+TOML serialization escapes DEL while preserving supplementary Unicode without
+JSON surrogate-pair escapes. Request validation and child ownership are unchanged.
+
+Seven new source controls cover scalar/array encodings, an actual child's DEL-
+bearing arguments and readiness, and immutable terminal/reconciliation records.
+The installed consumer separately injects a synthetic signal-submission failure,
+retains the unreaped uncertainty, restores normal signaling, and confirms later
+reaping without rewriting the first terminal witness. All children are local
+synthetic controls; no physical interface is opened.
+
+The 615-test source gate and seven rebuilt installed distributions pass. Evidence
+is retained under `out/tooling/recorder-toml-01/`,
+`out/tooling/recorder-toml-independent-01/` and
+`out/tooling/installed-packages-17/`. The workspace runbook now maps each public
+surface to its CLI availability and strongest unestablished claim.

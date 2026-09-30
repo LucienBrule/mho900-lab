@@ -14,6 +14,7 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tarfile
@@ -33,11 +34,13 @@ from mho_adb import (
 from mho_capture import (
     ReadyMarker,
     RecorderAbnormal,
+    RecorderCleanupUncertain,
     RecorderGraceful,
     RecorderReady,
     RecorderRequest,
     RecorderStartFailed,
     RecorderStartRejected,
+    lifecycle,
     reap,
     start,
     stop,
@@ -365,6 +368,7 @@ def transport_roundtrip(evidence: Path) -> None:
 
 
 def recorder_roundtrip(evidence: Path) -> None:
+    marker = "SYNTHETIC\x7f RECORDER READY 🕯"
     script = Path.cwd() / "synthetic_recorder.py"
     script.write_text(
         "import signal\nimport sys\nfrom types import FrameType\n"
@@ -374,16 +378,16 @@ def recorder_roundtrip(evidence: Path) -> None:
         "    print('0 packets dropped by kernel', file=sys.stderr, flush=True)\n"
         "    raise SystemExit(0)\n"
         "signal.signal(signal.SIGINT, finish)\n"
-        "print('SYNTHETIC RECORDER READY', flush=True)\n"
+        "print(sys.argv[1], flush=True)\n"
         "while True:\n    signal.pause()\n"
     )
     directory = Path.cwd() / "recorder"
     result = start(
         RecorderRequest(
             executable=Path(sys.executable).resolve(),
-            arguments=(str(script),),
+            arguments=(str(script), marker),
             evidence_directory=directory,
-            ready=ReadyMarker(stream="stdout", line="SYNTHETIC RECORDER READY"),
+            ready=ReadyMarker(stream="stdout", line=marker),
         )
     )
     if not isinstance(result, RecorderReady):
@@ -401,7 +405,59 @@ def recorder_roundtrip(evidence: Path) -> None:
         (directory / "stderr.bin").read_bytes().endswith(b"0 packets dropped by kernel\n"),
         "Installed child terminal output missing",
     )
+    launch = tomllib.loads((directory / "launch.toml").read_text())
+    readiness = tomllib.loads((directory / "ready.toml").read_text())
+    require(launch["arguments"] == [str(script), marker], "Recorder argument round trip differs")
+    require(readiness["marker"] == marker, "Recorder readiness round trip differs")
+    terminal_record = tomllib.loads((directory / "terminal.toml").read_text())
+    require(terminal_record["reason"] == terminal.evidence.reason, "Terminal reason differs")
     shutil.copytree(directory, evidence / "recorder")
+    recorder_diagnostic_roundtrip(script, evidence)
+
+
+def recorder_diagnostic_roundtrip(script: Path, evidence: Path) -> None:
+    """Inject a local signal-submission failure into installed code; retain ownership."""
+    directory = Path.cwd() / "recorder-diagnostic"
+    result = start(
+        RecorderRequest(
+            executable=Path(sys.executable).resolve(),
+            arguments=(str(script), "READY"),
+            evidence_directory=directory,
+            ready=ReadyMarker(stream="stdout", line="READY"),
+        )
+    )
+    if not isinstance(result, RecorderReady):
+        if isinstance(result, RecorderStartFailed):
+            reap(result.handle)
+        raise RuntimeError("Installed diagnostic child failed to become ready")
+    diagnostic = "synthetic signal failure\x7f 🕯"
+    original_signal = lifecycle._signal
+
+    def fail_signal(handle: lifecycle.RecorderHandle, sig: signal.Signals) -> None:
+        raise OSError(diagnostic)
+
+    try:
+        try:
+            lifecycle._signal = fail_signal
+            terminal = stop(result.handle)
+        finally:
+            lifecycle._signal = original_signal
+        require(isinstance(terminal, RecorderCleanupUncertain), "Failure lost uncertainty")
+        require(not terminal.evidence.reaped, "Synthetic unreaped control differs")
+        expected = "; ".join([diagnostic] * 3)
+        original = (directory / "terminal.toml").read_bytes()
+        require(tomllib.loads(original.decode())["reason"] == expected, "Diagnostic differs")
+        result.handle._process.send_signal(signal.SIGINT)
+        reconciled = reap(result.handle)
+        require(reconciled.evidence.reaped, "Installed diagnostic child not reaped")
+        record = tomllib.loads((directory / "reap-1.toml").read_text())
+        require(record["reason"] == expected + "; subsequently reaped", "Reap reason differs")
+        require((directory / "terminal.toml").read_bytes() == original, "Terminal rewritten")
+        shutil.copytree(directory, evidence / "recorder-diagnostic")
+    finally:
+        if result.handle._process.poll() is None:
+            result.handle._process.kill()
+            result.handle._process.wait(timeout=2)
 
 
 class SuppliedMemoryStream:

@@ -19,6 +19,8 @@ from typing import BinaryIO, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+from ._toml import string as toml_string
+from ._toml import strings as toml_strings
 from .models import (
     RecorderAbnormal,
     RecorderCleanupUncertain,
@@ -218,7 +220,7 @@ def _finish(handle: RecorderHandle, kind: str, reason: str) -> RecorderTerminal:
         "publication_completion_proven = false",
         f"pid = {evidence.pid}",
         "reaped = " + str(evidence.reaped).lower(),
-        "reason = " + json.dumps(reason, ensure_ascii=False),
+        "reason = " + toml_string(reason),
     ]
     if evidence.returncode is not None:
         lines.append(f"returncode = {evidence.returncode}")
@@ -359,7 +361,7 @@ def reap(handle: RecorderHandle) -> RecorderTerminal:
                     f"pid = {evidence.pid}",
                     "reaped = " + str(evidence.reaped).lower(),
                     "signals_sent = 0",
-                    "reason = " + json.dumps(reason, ensure_ascii=False),
+                    "reason = " + toml_string(reason),
                     *(
                         [f"returncode = {evidence.returncode}"]
                         if evidence.returncode is not None
@@ -422,12 +424,10 @@ def start(request: RecorderRequest) -> RecorderReady | RecorderStartRejected | R
             launch_path,
             "\n".join(
                 [
-                    "executable = " + json.dumps(str(request.executable), ensure_ascii=False),
-                    "arguments = " + json.dumps(list(request.arguments), ensure_ascii=False),
+                    "executable = " + toml_string(str(request.executable)),
+                    "arguments = " + toml_strings(request.arguments),
                     "witness = "
-                    + json.dumps(
-                        str(request.evidence_directory / "child-signals.toml"), ensure_ascii=False
-                    ),
+                    + toml_string(str(request.evidence_directory / "child-signals.toml")),
                 ]
             )
             + "\n",
@@ -466,7 +466,7 @@ def start(request: RecorderRequest) -> RecorderReady | RecorderStartRejected | R
                                 f"pid = {handle.pid}",
                                 f"monotonic_ns = {time.monotonic_ns()}",
                                 "stream = " + json.dumps(request.ready.stream),
-                                "marker = " + json.dumps(request.ready.line, ensure_ascii=False),
+                                "marker = " + toml_string(request.ready.line),
                                 "signal_witness_sha256 = " + json.dumps(handle._witness_digest),
                             ]
                         )
