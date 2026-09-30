@@ -1,0 +1,1 @@
+{"kind":"epic","id":"EPIC.typed-recorder-toml","scope":"Local synthetic strings and owned child controls only.","protocol":"tasking/planning-draft-1","title":"Recorder string fidelity at the TOML boundary","tasks":["TASK.tooling.recorder-toml","TASK.tooling.recorder-toml-decision"],"required_extensions":[],"extensions":{}}

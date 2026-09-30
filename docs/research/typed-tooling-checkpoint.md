@@ -301,3 +301,9 @@ All 608 workspace tests, formatting, lint, strict typing and policy checks pass.
 Seven source archives rebuilt into installed wheels pass the complete public,
 malformed-boundary and owned-child controls under `out/tooling/installed-packages-15/`.
 No physical interface was contacted and no pinned legacy verifier was changed.
+
+The [boundary/composition workflow](https://github.com/LucienBrule/mho900-lab/actions/runs/36651397027)
+passed on Linux and macOS for `4b5439e`. A final construction-only check identified
+a separate recorder serialization mismatch: accepted DEL-bearing arguments and
+readiness markers were emitted literally into TOML. A bounded successor will make
+those supported strings round-trip through the child/bootstrap records.
