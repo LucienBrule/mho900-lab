@@ -8,6 +8,12 @@ The roadmap has three phases and nine tasks. Each phase has two work tasks and a
 the equipment preparation and experiment attached to the same question; three epics group their distinct scopes.
 The separate emulator, crash-cart and general tooling programs are not prerequisites for this milestone.
 
+An additional two-task [source USB branch](rf-source-usb-first-contact.md) follows the operator's preference for
+workstation control: isolated first power/USB identity, then a serial-control decision. It depends on completed
+source research and can proceed before the RF inventory is complete. It does not bypass RF qualification or the
+instrument integration and measurement gates. `EPIC.rf-source-control` groups these two supporting tasks outside
+the original nine-task roadmap membership.
+
 ## Starting evidence and scope
 
 - [Physical D-capability and persistence](physical-d-capability.md) establishes the recorded 18/18 software state,
