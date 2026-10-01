@@ -1,0 +1,33 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.pilot-settings
+    title: Read and prepare the first RF pilot settings through SCPI
+    state: open
+    intent: Replace manual setting reports with retained instrument readback while the source remains off.
+    requires: [TASK.rf.factory-point-decision]
+    requirements:
+      - Bind this operation to the operator-confirmed RF OUT to CH1 connection, 50-ohm termination and source-off state, and the explicit request to use SCPI for setup.
+      - Revalidate the isolated Ethernet interface and restore only its temporary host address and single-client six-hour DHCP lease as needed. Preserve baseline and cleanup evidence, with no gateway, DNS, bridging, forwarding or NAT.
+      - Start a fresh full packet capture before introducing the address or DHCP. Require readiness, graceful termination and retained drop statistics. Stop on recorder failure or unexpected network behavior.
+      - Use the official programming guide and the established SCPI socket only. Preserve raw identity and channel, acquisition, timebase and trigger queries before any setting changes; make only documented ordinary settings needed for a CH1 100 MHz pilot and read them back.
+      - Keep the source powered off. Do not use ADB, change firmware or entitlements, perform calibration, reset defaults, reboot, scan services or change persistent network settings. A connection failure is a preserved result, not authority for a broader trial.
+      - Seal private evidence, keep unit identifiers and host details out of source, and commit and push the bounded conclusion.
+    acceptance: [Instrument readback establishes the pilot setup or a precise connection/setup blocker is preserved without an RF measurement claim.]
+    verification: [authority, isolation, capture, scpi, final_state]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.pilot-settings-decision
+    title: Decide the next physical step from the SCPI pilot preparation
+    state: open
+    intent: Identify the smallest next bench action without bypassing the RF comparison gates.
+    requires: [TASK.rf.pilot-settings]
+    requirements:
+      - Evaluate the actual connection and settings evidence. Identify any missing condition before source power and distinguish setup readback from emitted RF or measured bandwidth.
+      - Leave the existing RF-response preparation, integration and comparison tasks open unless their own contracts are independently satisfied. Admit a bounded remedy if needed instead of silently broadening this run.
+      - Commit and push the decision. No additional physical operation occurs in this decision task.
+    acceptance: [The next bench step or precise blocker is stated from preserved evidence.]
+    verification: [evaluation, next_step, limits]
+    required_extensions: []
+    extensions: {}
