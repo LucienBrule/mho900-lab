@@ -1,0 +1,47 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.factory-point-sender
+    title: Implement and qualify the recovered factory point-command sender
+    state: open
+    intent: Prepare one isolated factory-protocol compatibility trial with retained framing and evidence controls.
+    requires: [TASK.rf.repository-decision]
+    requirements:
+      - Add a distinct typed factory point command and explicit CLI entry points without changing the earlier HawkRAO frame semantics. Use whole MHz plus hundredths, raw power codes zero through three, and CR LF framing.
+      - Reject unrepresentable frequencies and payload bytes that conflict with the recovered CR delimiter. Revalidate unchecked model copies before opening a port. Reuse the bounded one-write transport and durable evidence delegate with explicit protocol provenance.
+      - Verify independent frame vectors, fractional units, invalid fields, host PTY delivery, evidence seals and uncertain outcomes. Run workspace checks and installed-wheel controls without opening any physical endpoint.
+      - Record the operator-selected one-power-cycle preparation as a deliberate replacement for the prior decision's serial cleanup proposal. No physical operation occurs in this preparation task.
+    acceptance: [The separate factory encoder and evidence path pass host controls and are committed and pushed before physical execution.]
+    verification: [encoding, transport, evidence, checks, sequence]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.factory-point-trial
+    title: Test one factory point frame after a coordinated source power cycle
+    state: open
+    intent: Determine whether the delivered source accepts the recovered 100 MHz point path while preserving its stock controller.
+    requires: [TASK.rf.factory-point-sender]
+    requirements:
+      - Revalidate the identified USB-UART device and absence of another port user. Coordinate exactly one operator power cycle of the RF source, retaining the same USB connection topology, both SMA ports empty, LCD ribbon intact and no programmer attached.
+      - Record operator confirmation of the restored stable source screen and port identity before writing. Stop on unexpected startup, identity or UI state instead of guessing a new command.
+      - Attempt exactly one frame 55 55 00 64 00 00 00 0D 0A at 115200 baud 8N1 with raw power zero. No cleanup bytes, retry, alternative baud, sweep, reset command, firmware change, RF connection or oscilloscope contact.
+      - Preserve raw request, pre-input, response, write intent, transport result and timestamped screen witness in a fresh sealed run. A complete host write and silence alone are not device acceptance.
+      - The command may save ordinary source frequency settings in EEPROM. Do not add a persistence power cycle, restoration command or second setting to this trial. Close the observed question even if the desired display change does not occur.
+    acceptance: [One bounded trial or a justified pre-write stop is preserved with its physical transitions and limits.]
+    verification: [preconditions, transitions, transcript, witness, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.factory-point-decision
+    title: Evaluate factory UART compatibility and the next source qualification step
+    state: open
+    intent: Decide the smallest useful continuation from actual delivered-source behavior.
+    requires: [TASK.rf.factory-point-trial]
+    requirements:
+      - Compare the observed display and serial outcome with the recovered point path, keeping stock-image equivalence, emitted RF, lock, level and persistence separate and unproven unless directly observed.
+      - Select source qualification or further controller analysis from the result; do not expand the trial to make it succeed. Keep the RF-response milestone as the objective.
+      - Commit and push conclusions and task receipts. Perform no additional physical intervention during this decision.
+    acceptance: [The compatibility finding and next bounded question are recorded without promoting host evidence into RF validation.]
+    verification: [evaluation, next_step, boundaries]
+    required_extensions: []
+    extensions: {}
