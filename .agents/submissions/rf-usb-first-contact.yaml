@@ -1,0 +1,25 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.rf.usb-first-contact
+contract: sha256:2ecf46e4f861d30c9c0ff59c1b4e90a70a12feb599e31a6708f6367b8e37ce75
+actor: mho900-lab-investigation
+recorded_at: "2026-10-01T01:33:21Z"
+evidence:
+  host_baseline: >-
+    out/rf/usb-first-contact-20261001T012629Z/baseline/artifacts.toml SHA-256
+    4ad8a47df1192646c8924bc5903a234831df1500ee00b18f1ff8c46cf2bf333e
+    seals timestamped USB/serial registry and device-node inventory before the operator connection.
+  startup: >-
+    Operator reported powered and connected and supplied the preserved first-screen photograph.
+    docs/research/rf-source-usb-observation.md SHA-256 d6fc3408e3460ae763de74cbfa05e5fee86dd36108612afeae226205dbeb3d89
+    records MAX2870 UI label, 470 MHz point setting/highlight, sweep fields, visibly disconnected SMA ports,
+    and unknown power/reference/startup settings. This is an instant UI witness, not measured RF or timed stability.
+  usb_identity: >-
+    The connected phase preserves before/after differences and detailed IORegistry ancestry tying the new
+    callout/dialin pair to AppleUSBCHCOM and USB Serial VID 1a86 PID 7523 beneath dock hubs. No serial-number
+    descriptor is provided. Target path and location are private connection identifiers. No serial port opened,
+    bytes transmitted, driver installed, firmware changed or oscilloscope contacted.
+  evidence_seal: >-
+    out/rf/usb-first-contact-20261001T012629Z/connected-20261001T013125Z/artifacts.toml SHA-256 1df06bfe50702da7275955a73a0b6937225795604ba62cb015127c611efcde79
+    seals the raw screen and registry artifacts, target interpretation and capture-limitation note. Both phase
+    manifests were rehashed and all recorded sizes/digests matched. This is an actor assertion over retained evidence.
