@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.display-waveform
+    title: Export the unchanged 100 MHz display waveform
+    state: open
+    intent: Inspect signal shape without making optional automatic edge measurements prerequisites for export.
+    requires: [TASK.rf.first-signal-decision]
+    requirements:
+      - Preserve the completed first-signal run and its invalid fall-time result. Keep the source and RF path unchanged; send no serial command and request no physical transition.
+      - Revalidate the existing lease, isolated host route and pilot settings under a new full packet capture. Maintain no gateway, DNS, NAT or forwarding; require graceful recorder shutdown and retained statistics.
+      - Read and retain the waveform-export settings. Use documented Normal display mode and one bounded ASCII waveform query with preambles before and after. Preserve all raw responses, including unexpected formats, before interpretation; restore changed export settings where communication remains healthy.
+      - Do not request automatic rise/fall time, change acquisition or vertical settings, sweep frequency, or access firmware, ADB, options or calibration. Stop on transport, capture, metadata or input-range failure; preserve partial evidence without retry.
+      - Interpret the retained waveform offline with explicit scaling and display-interpolation limits. Distinguish observed shape and any harmonic estimates from calibrated source spectrum or scope bandwidth. Seal, commit and push the result.
+    acceptance: [One display export or precise export failure is retained and evaluated at the unchanged pilot settings.]
+    verification: [preconditions, isolation, export, interpretation, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.display-waveform-decision
+    title: Evaluate the display export and RF preparation implications
+    state: open
+    intent: Decide the next measurement preparation from the actual waveform and its limits.
+    requires: [TASK.rf.display-waveform]
+    requirements:
+      - Evaluate the export and source-shape evidence without claiming raw ADC samples, calibrated spectral purity or 1 GHz response.
+      - Reconcile the result with the existing inventory and RF comparison preparation. Identify the next smallest uncertainty; no additional physical operation occurs in this decision.
+      - Commit and push the conclusion and keep the completed run immutable.
+    acceptance: [A scoped result and next preparation question follow from retained evidence.]
+    verification: [evaluation, limits, next_step]
+    required_extensions: []
+    extensions: {}
