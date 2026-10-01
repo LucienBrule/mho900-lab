@@ -75,3 +75,13 @@ eligibility/contrast rule. The fixed-frequency
 [matched-policy readiness hold](rf-policy-comparison-readiness.md) remains open;
 no further physical contact or native-policy transition accompanied this tooling
 batch.
+
+The independent delivery review is separately sealed and verified: 49 artifacts,
+5,140,666 bytes; manifest SHA-256
+`716858b35c7bfce7d4e67ac8def97423f172c1f9427e5aa68cc66d39de9dcf13`.
+It verified all 32 installed distribution digests, seven relevant installed
+module byte sequences against final source, the numerical/documentation limits,
+the synthetic example and the archived-consumer seal. Installed result SHA-256:
+`8893c3a868556af7ba276e214ca3f09e9c2cc2b50da89d5e106b48bd84bf8bdc`.
+The delivery decision accepts this reusable offline primitive; it does not close
+the original RF execution, matched acquisition, reduction or determination tasks.
