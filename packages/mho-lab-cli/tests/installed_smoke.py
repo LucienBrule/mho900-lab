@@ -86,6 +86,7 @@ from mho_scpi import (
     decode_exchange,
     execute,
 )
+from mho_source import PointCommand, encode_point
 from mho_transport import (
     Endpoint,
     TranscriptAccepted,
@@ -931,6 +932,28 @@ def main() -> int:
     review_roundtrip(evidence)
     archive_roundtrip(evidence)
     adb_roundtrip(evidence)
+    candidate = PointCommand(frequency_hz=100_000_000, reference_hz=25_000_000, power_code=4)
+    require(encode_point(candidate).hex() == "ad01010403d0900186a03d", "Source frame mismatch")
+    run_cli(
+        evidence,
+        "source-frame",
+        [
+            "source",
+            "frame",
+            "--frequency-hz",
+            "100000000",
+            "--reference-hz",
+            "25000000",
+            "--power-code",
+            "4",
+        ],
+        0,
+    )
+    require(
+        (evidence / "source-frame.stdout").read_text().strip()
+        == "AD 01 01 04 03 D0 90 01 86 A0 3D",
+        "Installed source CLI differs",
+    )
     public_walkthrough(checkout, evidence)
     owned_recorder_review(checkout, evidence)
     lines = [
@@ -958,6 +981,7 @@ def main() -> int:
         "public_synthetic_walkthrough_verified = true",
         "owned_synthetic_recorder_review_verified = true",
         "unchecked_public_boundaries_verified = true",
+        "source_offline_frame_library_cli_verified = true",
     ]
     for package in packages:
         lines.extend(

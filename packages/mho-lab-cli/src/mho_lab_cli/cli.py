@@ -11,12 +11,13 @@ from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
 from mho_lab_cli.evidence_cli import evidence
 from mho_lab_cli.review_cli import review
 from mho_lab_cli.scpi_cli import scpi
+from mho_lab_cli.source_cli import source
 from mho_lab_cli.transport_cli import transport
 
 
 @click.group()
 def main() -> None:
-    """Offline research tooling for MHO900 Lab."""
+    """Evidence and explicitly selected bench tooling for MHO900 Lab."""
 
 
 main.add_command(evidence)
@@ -26,6 +27,7 @@ main.add_command(archive)
 main.add_command(adb)
 main.add_command(scpi)
 main.add_command(review)
+main.add_command(source)
 
 
 @main.command()

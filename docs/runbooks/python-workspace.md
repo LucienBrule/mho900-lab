@@ -1,6 +1,6 @@
 # Typed Python workspace
 
-The typed tooling lives in seven uv workspace members:
+The typed tooling lives in eight uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
@@ -9,6 +9,7 @@ The typed tooling lives in seven uv workspace members:
 - `packages/mho-scpi`: typed read-only query observations and supplied-stream execution.
 - `packages/mho-adb`: offline frame decoding and bounded stream-ready observations.
 - `packages/mho-review`: sealed-input composition of capture, TCP and SCPI observations.
+- `packages/mho-source`: candidate RF source point frames and a bounded POSIX serial sender.
 
 The root project is a development workspace, not an installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
@@ -56,7 +57,9 @@ The implementation follows the official [uv workspace model](https://docs.astral
 and [Pydantic union guidance](https://docs.pydantic.dev/latest/concepts/unions/).
 
 The public surfaces have different evidence limits. Recorder ownership and supplied-
-stream SCPI execution are library-only; the CLI operates on preserved local files.
+stream SCPI execution are library-only. Most CLI commands operate on preserved local files.
+`source point-once` explicitly opens a prevalidated serial endpoint and may change source
+settings; `source frame` is offline. See the [source contract](../../packages/mho-source/README.md).
 This workspace setup is not a bench acquisition procedure.
 
 | Package / operation | Entry point | What acceptance does not establish |
@@ -68,6 +71,7 @@ This workspace setup is not a bench acquisition procedure.
 | `mho-scpi`: decode exchange | Library and `scpi inspect`; [SCPI contract](scpi-contract.md) | Authenticated origin or causal pairing |
 | `mho-scpi`: execute | Library only, caller-supplied stream; [SCPI contract](scpi-contract.md) | Delivery or device execution; it does not connect an endpoint |
 | `mho-adb`: decode / match open | Library and `adb` CLI; [ADB evidence](adb-evidence.md) | Shell-command execution, reboot or complete TCP capture |
+| `mho-source`: encode / point-once | Library and `source` CLI; [source contract](../../packages/mho-source/README.md) | Device interpretation, RF accuracy, level or persistence |
 | `mho-review`: review | Library and `review inspect`; [sealed review](sealed-offline-review.md) | Live process exit or authentic acquisition provenance |
 
 Start with the [public synthetic walkthrough](synthetic-review-walkthrough.md)
