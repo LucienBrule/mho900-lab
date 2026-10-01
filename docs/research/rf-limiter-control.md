@@ -43,5 +43,65 @@ evidence is retained under `out/rf/limiter-control-20261001T232500Z/`:
 The frozen supplied-record condition helper passed 31 synthetic tests,
 strict type/format/lint checks and independent CLI low-floor controls.
 
-Final AC RMS evaluation is a separate decision task. Default receive rejection
-in the middle condition alone is not the sensitivity verdict.
+## Frozen AC RMS result
+
+The complete fifteen-record comparison is **positive under the frozen
+engineering discriminator**. Each quantity uses original unwindowed volts,
+with the arithmetic mean removed and population RMS calculated over all
+100,000 samples. The SD below describes dispersion of five fresh record
+metrics, not a confidence interval or proof of statistical independence.
+
+| Condition | Eligible records | AC RMS mean (mV) | Population SD (mV) | Minimum–maximum (mV) |
+| --- | ---: | ---: | ---: | ---: |
+| OFF-A | 5/5 | 106.696073 | 0.008005 | 106.682637–106.704734 |
+| 250M | 5/5 | 1.785930 | 0.097836 | 1.685041–1.920051 |
+| OFF-B | 5/5 | 106.676427 | 0.006830 | 106.668010–106.684590 |
+
+All fifty middle-to-OFF comparisons satisfy the required 6 dB reduction. The
+limiting pair, middle record three against OFF-B record one, has voltage ratio
+0.018000250180, a **34.894429 dB sampled AC RMS reduction**. The uncorrected
+OFF mean return is **−0.001599514 dB**, within the declared ±0.3 dB criterion.
+No record is missing or exactly zero, and all fifteen waveform hashes differ.
+An independent scalar `math.fsum` implementation matches the retained RMS
+quantities and the complete decision. No drift correction or noise-floor
+subtraction was applied.
+
+The five middle receipts specifically retain `global-peak-frequency` rejection.
+Their independent validity and the RMS comparisons supply the result; rejection
+alone would not establish suppression. The built-in frequency strings were
+800 MHz, the unavailable-measurement sentinel `9.9000E+37`, and 1 GHz in the
+three groups despite the fixed 975 MHz command. Those strings remain separate
+observations. No frequency fit was applied to suppressed middle records.
+
+![All fifteen sampled AC records and fifty middle-to-OFF comparisons](assets/rf-limiter-sampled-ac.png)
+
+This demonstrates a large reversible, setting-associated change in sampled
+output of the complete source/cable/CH1 chain. AC RMS includes harmonics,
+aliases, broadband and receiver noise. The roughly 35 dB change is not calibrated
+975 MHz tone attenuation, a measured analog noise floor or an identified filter
+mechanism. Agreeing OFF endpoints constrain endpoint drift but cannot exclude
+a temporary source change during the middle group or a setting-dependent
+source/load interaction. Installed software policy stayed fixed.
+
+## Next physical question
+
+With the ordinary limiter explicitly OFF and the source held at the same
+command and power, does a verified stock → derived → stock software-policy
+comparison produce a repeatable change in sampled high-frequency response?
+That requires separately frozen software identities, transition/reboot and
+rollback procedures, matched calibration/options/settings, repeats and drift
+criteria, and an explicitly chosen final software state. It remains outside
+this fixed-policy session. Absolute analog-bandwidth determination additionally
+requires independent source-spectrum and reference-plane amplitude evidence.
+
+The final offline reduction is separately sealed under
+`out/rf/limiter-control-derived-20261001T233000Z/`: 305 artifacts,
+28,270,541 bytes; manifest SHA-256
+`e414f584a6f5144508c8f24f59525b3678692ee898e0729516e1757c2e36022d`.
+The frozen reducer SHA-256 is
+`a309b4fbc2acb7faf667d7dfa61e5f57549fd4b21243d55c2746ede744af754f`.
+Synthetic missing/invalid, zero/DC, all-pair outlier, return and exact-boundary
+controls passed. The input seal was verified unchanged before and after
+analysis. The independent scalar witness is also separately sealed: three
+artifacts, 3,709 bytes; manifest SHA-256
+`5b1247b82911dc9d55aa862d668b948cb34a5cc07399e00cea88b0824dcd3646`.

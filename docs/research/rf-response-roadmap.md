@@ -4,6 +4,17 @@ Planning baseline: 2026-09-30. `ROADMAP.rf-response` is the current line of adva
 what the selected software capability changes in the instrument's measured RF response, including at 1 GHz.
 Physical software enablement and persistence are already established. No RF result is implied by this roadmap.
 
+Checkpoint, 2026-10-01: the [complete raw-qualified survey](rf-raw-qualified-survey.md)
+retains sixty records through nominal 1.1 GHz under the existing policy. The
+[ordinary channel-limiter control](rf-limiter-control.md) retains fifteen more
+records and a positive reversible sampled-AC sensitivity result. These completed
+supporting lines establish useful reception and measurement controls. The four
+original comparison tasks remain open: execution readiness, matched acquisition,
+reduction and determination. The missing physical transition procedure and its
+applicable authorization must be resolved before stock/derived/stock execution.
+Independent source/path characterization remains an additional requirement for
+a calibrated absolute-bandwidth claim.
+
 The roadmap has three phases and nine tasks. Each phase has two work tasks and a decision task. One roadmap keeps
 the equipment preparation and experiment attached to the same question; three epics group their distinct scopes.
 The separate emulator, crash-cart and general tooling programs are not prerequisites for this milestone.

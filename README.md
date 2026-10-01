@@ -6,15 +6,18 @@ instrument reboot, and a separate native capability selection produced repeated 
 readings across deployment and an independent reboot. The signed stock APK and public
 MHO984 identity remain unchanged.
 
-**RF characterization remains outstanding.** Software capability selection does not establish
-1 GHz analog performance or validate every enabled feature. The enablement experiments are
-complete; the next bench objective is the prepared RF comparison. A complete emulator and
-independent instrument implementation remain longer-term research.
+**RF characterization is in progress.** A complete current-policy survey establishes
+repeatable sampled reception through the nominal 1.1 GHz source command, and an
+ordinary OFF → 250M → OFF control establishes reversible measurement sensitivity.
+The matched software-policy effect and calibrated analog bandwidth remain open.
+A complete emulator and independent instrument implementation remain longer-term research.
 
 - [Physical ordinary-option installation and persistence](docs/research/physical-ordinary-options.md)
 - [Physical D-capability deployment and independent reboot](docs/research/physical-d-capability.md)
 - [Current RF roadmap: preparation, arrival/integration, and measurement](docs/research/rf-response-roadmap.md)
 - [RF characterization plan and remaining bench inputs](docs/research/rf-performance-evaluation-plan.md)
+- [Complete raw-qualified current-policy RF survey](docs/research/rf-raw-qualified-survey.md)
+- [Fixed-frequency ordinary channel-limiter control](docs/research/rf-limiter-control.md)
 - [Reusable bench-tool composition proposal](docs/research/bench-tooling-composition.md)
 - [Earlier guest entitlement checkpoint](docs/research/specimen-entitlement-checkpoint.md)
 - [Physical logical acquisition and software identity](docs/research/physical-specimen-logical-acquisition.md)

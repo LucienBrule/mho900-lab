@@ -125,3 +125,8 @@ a fixed 975 MHz ordinary channel-limiter comparison, OFF → 250M → OFF, using
 whole-record demeaned AC RMS so suppressed noise cannot be promoted into a
 carrier fit. Its thresholds and condition-specific low-signal rules require
 separate admission before execution.
+
+Subsequent checkpoint: that control was separately admitted and completed. Its
+[fifteen-record result](rf-limiter-control.md) demonstrates a large reversible
+change in sampled AC output with the ordinary limit selection. The software
+policy remained fixed; the matched-policy gate remains open.
