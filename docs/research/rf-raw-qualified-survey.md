@@ -61,3 +61,67 @@ Receive acceptance establishes a dominant sampled component near each command;
 it does not establish physical carrier origin, calibrated amplitude or valid
 final fits. Source/cable response, clock uncertainty, folded harmonics and the
 missing matched software-policy comparison remain explicit limits.
+
+## Sealed numerical finding
+
+The frozen command-centered +/-0.01% fits accepted all sixty records, with no
+boundary, competing-solution, rank or finite-order alias flags. The table reports
+five-record means and population standard deviations of the apparent fitted
+peak. These dispersions describe repeatability rather than total uncertainty.
+
+| Command (MHz) | Fitted mean (MHz) | Apparent peak mean (mV) | Population SD (mV) | Relative to initial 100 MHz (dB) |
+| --- | --- | --- | --- | --- |
+| 100 initial | 100.002089 | 145.818824 | 0.028251 | 0.000000 |
+| 400 | 400.008365 | 134.082086 | 0.017397 | -0.728857 |
+| 600 | 600.012590 | 134.690552 | 0.010792 | -0.689529 |
+| 800 | 800.016815 | 142.693135 | 0.070573 | -0.188210 |
+| 900 | 900.018927 | 147.722275 | 0.015443 | +0.112648 |
+| 950 | 950.019917 | 149.617090 | 0.022856 | +0.223352 |
+| 975 | 975.020547 | 150.608021 | 0.039991 | +0.280690 |
+| 1000 | 1000.021053 | 149.249978 | 0.059436 | +0.202014 |
+| 1025 | 1025.021544 | 148.698639 | 0.076474 | +0.169868 |
+| 1050 | 1050.022224 | 146.640922 | 0.166732 | +0.048832 |
+| 1100 | 1100.023068 | 139.165363 | 0.007887 | -0.405649 |
+| 100 return | 100.002103 | 146.383806 | 0.039948 | +0.033589 |
+
+![Apparent sampled source/cable/CH1 response](assets/rf-raw-qualified-response.png)
+
+The uncorrected return-anchor difference is +0.033589 dB, below the frozen
+0.3 dB engineering materiality threshold. No drift interpolation or amplitude
+correction was applied. All sixty waveform byte hashes are distinct.
+
+![Uncorrected initial and return 100 MHz repeats](assets/rf-raw-qualified-anchors.png)
+
+The built-in frequency strings again disagreed substantially with the raw
+component: 600 MHz read 571.43 MHz, 900 MHz read 444.44 MHz, 1050 MHz read
+333.33 MHz, and 1100 MHz read 363.64 MHz. They remain retained observations.
+The fits inherit the reported sample clock and lie about 20.66–21.31 ppm above
+their commands; this does not identify which clock contributes the offset or
+calibrate either clock.
+
+All order-one-through-nine sensitivity models had numerical rank 19/19, with
+conditions between 1.414228 and 1.469053. Actual fitted detuning separates modeled
+aliases that would coincide at exact nominal frequencies. For example, the first
+1 GHz record's nearest modeled class is roughly 85.10 kHz from its fundamental,
+versus the 40 kHz inverse-duration scale. This supports the finite model's
+numerical decomposition; omitted folded energy and unrelated nearby components
+remain unbounded. A small residual does not prove spectral purity or isolated
+analog gain.
+
+The separately sealed derivative is
+`out/rf/raw-qualified-survey-derived-20261001T231000Z`, with verified manifest
+SHA-256 `c5e74646fb343244acf9ba5185b835f09482304084cf854b3dbb39f0c15ad557`
+over 113 files and 18,523,631 bytes. Its frozen reducer hash is
+`4d1d39dbab2aaef88c2e6d8774cac48803435b412a8df2c14f6a00f79b0cbb40`.
+It preserves all repeats, exact receive-receipt reconciliation, grids/minima,
+finite-order classes, controls, runtime and source. The acquisition seal was
+verified unchanged before and after reduction.
+
+The conclusion is useful reception and repeatable apparent sampled response
+through the nominal 1.1 GHz command under the current software policy. The
+original matched-policy gate remains open: this dataset contains one software
+arm, and source/cable response is not calibrated away. The next small control is
+a fixed 975 MHz ordinary channel-limiter comparison, OFF → 250M → OFF, using
+whole-record demeaned AC RMS so suppressed noise cannot be promoted into a
+carrier fit. Its thresholds and condition-specific low-signal rules require
+separate admission before execution.
