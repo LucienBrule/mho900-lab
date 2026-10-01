@@ -1,0 +1,51 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.point-sender
+    title: Implement and verify a bounded source point-command sender
+    state: open
+    intent: Produce a typed single-command path with retained evidence and host-only transport controls.
+    requires: [TASK.rf.usb-control-decision]
+    requirements:
+      - Follow docs/research/rf-source-usb-control-decision.md and the typed Python workspace contract. Use a small reusable source package with Pydantic requests, Click endpoints and delegates; separate frame encoding, transport and evidence.
+      - Encode the candidate MAX287x touchscreen point command, preserve the exact frame, allow one write only, bound input and output, and distinguish pre-write failure, uncertain write and transport completion from device acceptance.
+      - Use explicit 115200/8N1 with no flow control, exclusive access, documented DTR/RTS and close behavior. Preserve pre-command bytes; fail closed before writing on unexpected input or setup errors. No automatic retry or port scan.
+      - Validate known encoding vectors, bad external input, successful and silent PTY exchanges, pre-command input, setup/write/read failure and bounded receive overflow. Run workspace checks and installed-package checks as needed for a new package.
+      - Commit and push implementation and control evidence before opening the physical source endpoint.
+    acceptance:
+      - Host-only evidence supports one bounded serial write with honest outcomes and raw evidence retention.
+    verification: [implementation, controls, quality]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.point-trial
+    title: Send one isolated 100 MHz source command and observe the result
+    state: open
+    intent: Test candidate command interpretation without contacting the oscilloscope or qualifying RF.
+    requires: [TASK.rf.point-sender]
+    requirements:
+      - Use the approved source-only USB scope and docs/research/rf-source-usb-control-decision.md. Require an unchanged stable pre-command UI report and both SMA ports empty; leave the LCD ribbon and instrument untouched.
+      - Revalidate the previously observed target's USB VID/PID, registry identity/topology and serial path immediately before execution. Stop on mismatch, disconnect or unexpected input rather than choosing a new target automatically.
+      - Attempt exactly one 100 MHz point command with nominal 25 MHz reference and candidate power code 4. Preserve raw pre-input, requested/transmitted bytes, returned bytes, error/close outcomes and local/UTC timestamps. Any partial or uncertain result stops the run without retry.
+      - Request a post-command screen witness and record display/boot behavior separately from transport facts. Preserve unknown RF level, frequency accuracy, mute and persistence; no scope connection or power cycle.
+      - Seal the trial, retain a negative result if present and commit/push the conclusion before any successor experiment.
+    acceptance:
+      - One bounded command attempt or a specific pre-write stop is evidenced, with operator screen observation where the command was sent.
+    verification: [preflight, transcript, observation, evidence_seal]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.point-decision
+    title: Evaluate source serial point compatibility
+    state: open
+    intent: Decide whether the observed control surface is usable or needs a bounded correction.
+    requires: [TASK.rf.point-trial]
+    requirements:
+      - Compare candidate framing, transport result and operator screen witness. Do not equate a completed write or absent reply with command acceptance.
+      - Classify UI command interpretation as supported, contradicted, or unresolved; RF qualification and persistence remain separate. Preserve the actual final point/output indication.
+      - Identify the smallest useful continuation for source control or RF preparation, without blind protocol variation, automatic retry, calibration, firmware work or scope interaction.
+    acceptance:
+      - A scoped compatibility conclusion and next action follow the retained evidence.
+    verification: [evaluation, limitations, continuation]
+    required_extensions: []
+    extensions: {}
