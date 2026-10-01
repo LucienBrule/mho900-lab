@@ -75,7 +75,15 @@ from mho_review import (
     load_profile,
     review,
 )
-from mho_rf import ReceiveQualified, ReceiveRejected, ReceiveRequest, qualify_receive
+from mho_rf import (
+    RawAcStatistics,
+    RawAcStatisticsRequest,
+    ReceiveQualified,
+    ReceiveRejected,
+    ReceiveRequest,
+    measure_raw_ac,
+    qualify_receive,
+)
 from mho_scpi import (
     ExchangeAccepted,
     IdentityObservation,
@@ -1007,6 +1015,140 @@ def rf_receive_roundtrip(evidence: Path) -> None:
     )
 
 
+@dataclass(frozen=True)
+class RawAcSmokeCase:
+    name: str
+    samples: tuple[float, ...]
+    mean_v: float
+    rms_v: float
+    constant: bool
+
+
+def rf_raw_ac_roundtrip(evidence: Path) -> None:
+    """Installed library and CLI retain constants and tiny varying sampled AC."""
+    points = 128
+    directory = Path.cwd() / "rf-raw-ac-input"
+    directory.mkdir()
+    preamble = b"2,2,128,1,2.5e-10,0,0,6e-6,0,32768\n"
+    before, data, after = directory / "before.txt", directory / "data.txt", directory / "after.txt"
+    before.write_bytes(preamble)
+    after.write_bytes(preamble)
+    args = [
+        "rf",
+        "raw-ac-inspect",
+        "--preamble-before",
+        str(before),
+        "--data",
+        str(data),
+        "--preamble-after",
+        str(after),
+        "--actual-rate-hz",
+        "4000000000",
+        "--memory-points",
+        "128",
+        "--start",
+        "1",
+        "--stop",
+        "128",
+    ]
+    cases = (
+        RawAcSmokeCase("alternating", (0.25, 0.5) * 64, 0.375, 0.125, False),
+        RawAcSmokeCase("constant", (0.1,) * points, 0.1, 0.0, True),
+        RawAcSmokeCase("tiny-varying", (-1e-200, 1e-200) * 64, 0.0, 1e-200, False),
+    )
+    acquisition = RawAcquisition(
+        actual_sample_rate_hz=4e9, memory_points=points, start=1, stop=points
+    )
+    for case in cases:
+        waveform = (",".join(f"{value:.17e}" for value in case.samples) + "\n").encode()
+        data.write_bytes(waveform)
+        parsed = parse_ascii(
+            WaveformInputs(preamble_before=preamble, waveform=waveform, preamble_after=preamble)
+        )
+        if not isinstance(parsed, ParsedWaveform):
+            raise RuntimeError("Installed AC fixture failed parsing")
+        raw = qualify_raw(parsed, acquisition)
+        if not isinstance(raw, RawQualified):
+            raise RuntimeError("Installed AC fixture failed RAW qualification")
+        result = measure_raw_ac(RawAcStatisticsRequest(record=raw))
+        if not isinstance(result, RawAcStatistics):
+            raise RuntimeError("Installed AC fixture rejected")
+        label = "rf-raw-ac-" + case.name
+        run_cli(evidence, label, args, 0)
+        receipt = toml(evidence / (label + ".stdout"))
+        metrics = table(receipt["metrics"])
+        require(receipt["result"] == result.kind, "Installed AC result differs")
+        require(receipt["physical_origin_proven"] is False, "Installed AC origin claim changed")
+        require(
+            receipt["calibrated_amplitude_proven"] is False, "Installed AC accuracy claim changed"
+        )
+        require(
+            receipt["receive_qualification_proven"] is False, "Installed AC receive claim changed"
+        )
+        require(metrics["dc_mean_v"] == result.metrics.dc_mean_v, "Installed AC mean differs")
+        require(metrics["ac_rms_v"] == result.metrics.ac_rms_v, "Installed AC RMS differs")
+        require(result.metrics.dc_mean_v == case.mean_v, "Installed AC mean incorrect")
+        require(
+            math.isclose(result.metrics.ac_rms_v, case.rms_v, rel_tol=1e-12, abs_tol=0.0),
+            "Installed AC RMS incorrect",
+        )
+        require(
+            result.metrics.constant_samples == case.constant, "Installed AC constant flag wrong"
+        )
+        require(result.metrics.zero_sampled_ac == case.constant, "Installed AC zero flag wrong")
+        require(
+            receipt["waveform_sha256"] == hashlib.sha256(waveform).hexdigest(),
+            "Installed AC data hash differs",
+        )
+        require(data.read_bytes() == waveform, "Installed AC CLI changed supplied bytes")
+    data.write_bytes(b"0,1\n")
+    run_cli(evidence, "rf-raw-ac-incomplete", args, 1)
+    rejected = toml(evidence / "rf-raw-ac-incomplete.stdout")
+    require(rejected["result"] == "statistics-rejected", "Incomplete installed AC input accepted")
+    require(data.read_bytes() == b"0,1\n", "Rejected AC CLI changed supplied bytes")
+    (evidence / "rf-raw-ac.toml").write_text(
+        'result = "accepted"\nlibrary_cli_metrics_equal = true\n'
+        "exact_constant_zero_preserved = true\ntiny_varying_positive_rms_preserved = true\n"
+        "incomplete_raw_rejected = true\nsupplied_bytes_preserved = true\n"
+    )
+
+
+def raw_ac_public_walkthrough(checkout: Path, evidence: Path) -> None:
+    fixture = Path.cwd() / "raw-ac-public-fixture"
+    shutil.copytree(checkout / "examples" / "raw-ac-statistics", fixture)
+    output = Path.cwd() / "raw-ac-public-walkthrough"
+    command = [sys.executable, "-I", str(fixture / "walkthrough.py"), str(output)]
+    result = subprocess.run(command, capture_output=True, timeout=30, check=False)
+    (evidence / "raw-ac-public-walkthrough.stdout").write_bytes(result.stdout)
+    (evidence / "raw-ac-public-walkthrough.stderr").write_bytes(result.stderr)
+    require(result.returncode == 0, "Installed AC public walkthrough failed")
+    verification = toml(output / "verification.toml")
+    require(verification["synthetic"] is True, "AC walkthrough lost synthetic classification")
+    require(verification["physical_origin_proven"] is False, "AC walkthrough claims physical proof")
+    for case in ("weak-sine", "constant-dc"):
+        stats = toml(output / case / "statistics.toml")
+        receive = toml(output / case / "receive.toml")
+        require(stats["result"] == "raw-ac-statistics", "AC example metric was rejected")
+        require(receive["code"] == "vpp-range", "AC example receive rejection differs")
+    inventory_before = {
+        str(path.relative_to(output)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in output.rglob("*")
+        if path.is_file()
+    }
+    refused = subprocess.run(command, capture_output=True, timeout=30, check=False)
+    (evidence / "raw-ac-public-existing.stdout").write_bytes(refused.stdout)
+    (evidence / "raw-ac-public-existing.stderr").write_bytes(refused.stderr)
+    require(refused.returncode != 0, "Existing AC walkthrough output was reused")
+    inventory_after = {
+        str(path.relative_to(output)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in output.rglob("*")
+        if path.is_file()
+    }
+    require(inventory_before == inventory_after, "Refused AC walkthrough changed prior output")
+    shutil.copytree(fixture, evidence / "raw-ac-public-fixture")
+    shutil.copytree(output, evidence / "raw-ac-public-walkthrough")
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -1021,6 +1163,8 @@ def main() -> int:
     packages = installed_packages(checkout, evidence)
     unchecked_boundary_controls(evidence)
     rf_receive_roundtrip(evidence)
+    rf_raw_ac_roundtrip(evidence)
+    raw_ac_public_walkthrough(checkout, evidence)
     evidence_roundtrip(evidence)
     recorder_roundtrip(evidence)
     transport_roundtrip(evidence)
@@ -1092,6 +1236,8 @@ def main() -> int:
         "source_offline_frame_library_cli_verified = true",
         "factory_offline_frame_library_cli_verified = true",
         "rf_receive_library_cli_qualified_and_rejected_verified = true",
+        "rf_raw_ac_statistics_installed_library_cli_verified = true",
+        "rf_raw_ac_public_walkthrough_existing_output_preserved = true",
     ]
     for package in packages:
         lines.extend(

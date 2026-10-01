@@ -39,3 +39,18 @@ def render_observations(result: ExchangeAccepted, show_identity: bool) -> None:
         else:
             click.echo(f'selector = "{observation.selector.value}"')
             click.echo(f'state = "{observation.state.value}"')
+
+
+def toml_scalar(name: str, value: object) -> None:
+    """Narrow supported scalar/profile values at the presentation boundary."""
+    if isinstance(value, str):
+        rendered = toml_string(value)
+    elif isinstance(value, bool):
+        rendered = str(value).lower()
+    elif isinstance(value, (int, float)):
+        rendered = repr(value)
+    elif isinstance(value, tuple) and all(isinstance(v, int) for v in value):
+        rendered = "[" + ", ".join(str(v) for v in value) + "]"
+    else:
+        raise TypeError("unsupported TOML scalar value")
+    click.echo(f"{name} = {rendered}")

@@ -34,7 +34,7 @@ def violations(module: str, source: str) -> tuple[str, ...]:
         )
         if not is_cli and top in {"click", "mho_lab_cli"}:
             findings.add("library imports presentation: " + target)
-        if is_cli and module != "mho_lab_cli.cli" and command:
+        if is_cli and module not in {"mho_lab_cli.cli", "mho_lab_cli.__main__"} and command:
             findings.add("non-aggregator imports command: " + target)
         if is_delegate and (
             top == "click" or target.startswith("mho_lab_cli.presentation") or command
@@ -79,3 +79,11 @@ def test_layer_control_rejects_actual_dependency_inversions(module: str, source:
 )
 def test_layer_control_preserves_intended_direction(module: str, source: str) -> None:
     assert not violations(module, source)
+
+
+def test_module_entrypoint_is_an_explicit_aggregator() -> None:
+    assert not violations("mho_lab_cli.__main__", "from .cli import main")
+
+
+def test_statistics_command_cannot_import_other_command_presenter() -> None:
+    assert violations("mho_lab_cli.raw_ac_cli", "from .rf_cli import scalar")

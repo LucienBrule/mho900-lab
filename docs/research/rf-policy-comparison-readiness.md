@@ -63,7 +63,8 @@ management streams.
 The primary metric is unwindowed demeaned population AC RMS in original volts.
 At 1 GHz, a positive engineering contrast requires every B record to exceed
 every A1/A2 record by at least 1 dB. A contrast in the opposite direction of at
-least 1 dB is a contrary result. Intermediate contrasts are unresolved at this
+least 1 dB is a contrary result: every A1/A2 record must exceed every B
+record by that margin. Intermediate contrasts are unresolved at this
 discriminator. These are not confidence intervals or metrological uncertainty
 bounds. The 800 and 975 MHz contrasts remain separately labeled controls and
 secondary observations; they cannot replace a failed 1 GHz criterion.

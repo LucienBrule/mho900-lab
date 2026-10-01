@@ -1,9 +1,9 @@
-# Supplied-RAW sampled-frequency receive guard
+# Supplied-RAW AC statistics and sampled-frequency receive guard
 
 `mho-rf` consumes an existing `mho-waveform.RawQualified` record, rebinds its full
 byte/metadata/observation qualification, and returns immutable typed
 `ReceiveQualified` or `ReceiveRejected` results. It never opens a file or device,
-prints, contacts a service, estimates amplitude or changes acquisition state.
+prints, contacts a service, fits a carrier or changes acquisition state.
 The offline `mho-lab rf receive-inspect` endpoint reads bounded regular files
 through an application delegate and renders TOML without paths or sample dumps.
 
@@ -70,3 +70,34 @@ contains actual interval/rate/extent, duration, extrema and removed DC mean. Pri
 input/RAW failures omit unavailable FFT fields. Qualification can support an
 explicitly admitted online acquisition stop rule; final sealed analysis must
 recompute and compare retained receipts and assess final fit validity separately.
+
+
+## Original RAW AC statistics
+
+`measure_raw_ac(RawAcStatisticsRequest(record=raw_record))` returns named frozen
+`RawAcStatistics` or `RawStatisticsRejected` outcomes. It rebinds the full RAW
+qualification to its original bytes and acquisition observations before computing
+arithmetic DC, original extrema/Vpp and unwindowed demeaned population AC RMS.
+Evidence includes all three byte hashes; geometry retains the selected extent,
+acquisition count, reported/interval-derived rates, interval tolerance and durations.
+This operation has no frequency, receive, voltage or experiment engineering gate.
+The waveform decoder's existing bounded input contract still applies.
+
+RMS uses an origin shift and scaling before centering and squaring; this preserves
+small AC differences on large DC offsets and tiny varying signals. Arithmetic DC
+uses a compensated sum. Exactly constant decoded samples preserve their exact DC
+and zero RMS. `constant_samples` means exact equality of decoded binary64 volts,
+not equality of the original decimal tokens: ordinary decimal rounding remains.
+A nonzero original decimal token that underflows to binary64 zero rejects as
+`unrepresentable-samples`; a varying positive RMS or nonzero compensated DC mean
+that underflows to zero rejects as `unrepresentable-metrics`. Rejections retain
+available hashes. No rounded numerical zero is promoted to a varying-signal result.
+
+`mho-lab rf raw-ac-inspect` accepts the existing supplied waveform flags, without a
+command frequency. TOML schema `mho-rf.raw-ac-inspection/1` contains root evidence
+hashes and named `[geometry]` and `[metrics]` tables on success. Exit zero means
+`raw-ac-statistics`; exit one means `statistics-rejected`. It emits false origin,
+calibrated amplitude and receive-qualification claims. Supplied metadata does not
+independently prove freshness. The metric includes harmonics, aliases and noise;
+it does not isolate a physical carrier or establish an experiment's group decision.
+See the [synthetic walkthrough](../../docs/runbooks/raw-ac-statistics-walkthrough.md).

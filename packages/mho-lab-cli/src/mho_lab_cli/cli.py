@@ -9,6 +9,7 @@ from mho_lab_cli.archive_cli import archive
 from mho_lab_cli.capture_cli import capture
 from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
 from mho_lab_cli.evidence_cli import evidence
+from mho_lab_cli.raw_ac_cli import raw_ac_inspect_command
 from mho_lab_cli.review_cli import review
 from mho_lab_cli.rf_cli import rf
 from mho_lab_cli.scpi_cli import scpi
@@ -31,6 +32,7 @@ main.add_command(scpi)
 main.add_command(review)
 main.add_command(source)
 main.add_command(waveform)
+rf.add_command(raw_ac_inspect_command)
 main.add_command(rf)
 
 

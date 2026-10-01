@@ -11,7 +11,7 @@ The typed tooling lives in ten uv workspace members:
 - `packages/mho-review`: sealed-input composition of capture, TCP and SCPI observations.
 - `packages/mho-source`: candidate RF source point frames and a bounded POSIX serial sender.
 - `packages/mho-waveform`: supplied ASCII-voltage parsing and explicit raw acquisition qualification.
-- `packages/mho-rf`: pure supplied-RAW sampled-frequency receive qualification with explicit limits.
+- `packages/mho-rf`: pure supplied-RAW sampled-frequency receive qualification and original AC statistics.
 
 The root project is a development workspace, not an installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
@@ -75,6 +75,7 @@ This workspace setup is not a bench acquisition procedure.
 | `mho-adb`: decode / match open | Library and `adb` CLI; [ADB evidence](adb-evidence.md) | Shell-command execution, reboot or complete TCP capture |
 | `mho-source`: encode / point-once | Library and `source` CLI; [source contract](../../packages/mho-source/README.md) | Device interpretation, RF accuracy, level or persistence |
 | `mho-waveform`: parse / qualify raw | Library and `waveform inspect`; [waveform contract](../../packages/mho-waveform/README.md) | Physical origin, unprocessed ADC codes or calibrated RF gain |
+| `mho-rf`: measure supplied RAW AC | Library and `rf raw-ac-inspect`; [synthetic walkthrough](raw-ac-statistics-walkthrough.md) | Receive qualification, isolated carrier amplitude, calibrated analog gain or an experiment decision |
 | `mho-rf`: qualify sampled receive | Library and `rf receive-inspect`; [receive contract](../../packages/mho-rf/README.md) | Physical carrier origin, calibrated amplitude or later fit validity |
 | `mho-review`: review | Library and `review inspect`; [sealed review](sealed-offline-review.md) | Live process exit or authentic acquisition provenance |
 

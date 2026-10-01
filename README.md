@@ -76,3 +76,5 @@ and applies a declared periodic-Hann frequency/energy criterion through
 calibrated amplitude or validity of a later frequency fit.
 The [synthetic review walkthrough](docs/runbooks/synthetic-review-walkthrough.md)
 reproduces accepted and rejected evidence checks without an instrument.
+The [synthetic RAW AC statistics walkthrough](docs/runbooks/raw-ac-statistics-walkthrough.md)
+compares supplied-sample statistics with receive qualification without an instrument.

@@ -1,0 +1,38 @@
+schema_version = "mho-rf.synthetic-ac-expectations/1"
+synthetic = true
+points = 100000
+actual_sample_rate_hz = 4000000000.0
+record_duration_s = 0.000025
+first_to_last_span_s = 0.00002499975
+metric_relative_tolerance = 1e-12
+metric_absolute_tolerance_v = 2e-15
+
+[[cases]]
+name = "weak-sine"
+manufactured_frequency_hz = 975000000.0
+manufactured_sine_peak_v = 0.001
+dc_mean_v = 0.01
+voltage_min_v = 0.009
+voltage_max_v = 0.011
+voltage_vpp_v = 0.002
+ac_rms_v = 0.0007071067811865475
+constant_samples = false
+zero_sampled_ac = false
+statistics_result = "raw-ac-statistics"
+receive_result = "receive-rejected"
+receive_stage = "range"
+receive_code = "vpp-range"
+
+[[cases]]
+name = "constant-dc"
+dc_mean_v = 0.01
+voltage_min_v = 0.01
+voltage_max_v = 0.01
+voltage_vpp_v = 0.0
+ac_rms_v = 0.0
+constant_samples = true
+zero_sampled_ac = true
+statistics_result = "raw-ac-statistics"
+receive_result = "receive-rejected"
+receive_stage = "range"
+receive_code = "vpp-range"

@@ -8,7 +8,7 @@ from pydantic import ValidationError
 from mho_rf import ReceiveIssue, ReceiveRejected, ReceiveResult
 from mho_waveform import RawAcquisition
 
-from .presentation import toml_string
+from .presentation import toml_scalar as scalar
 from .rf_delegate import ReceiveInspectionRequest, inspect_receive
 
 
@@ -67,21 +67,6 @@ def receive_inspect_command(
     present_receive(result)
     if isinstance(result, ReceiveRejected):
         raise click.exceptions.Exit(1)
-
-
-def scalar(name: str, value: object) -> None:
-    """Narrow supported scalar/profile values at the presentation boundary."""
-    if isinstance(value, str):
-        rendered = toml_string(value)
-    elif isinstance(value, bool):
-        rendered = str(value).lower()
-    elif isinstance(value, (int, float)):
-        rendered = repr(value)
-    elif isinstance(value, tuple) and all(isinstance(v, int) for v in value):
-        rendered = "[" + ", ".join(str(v) for v in value) + "]"
-    else:
-        raise TypeError("unsupported receive presentation value")
-    click.echo(f"{name} = {rendered}")
 
 
 def present_receive(result: ReceiveResult) -> None:
