@@ -1,0 +1,63 @@
+contract: taskctl.seed/alpha1
+roadmaps:
+  - kind: roadmap
+    protocol: tasking/planning-draft-2
+    id: ROADMAP.rf-receive-qualification
+    title: Raw frequency qualification and sampled RF-chain response
+    intent: Resolve built-in readback ambiguity and obtain a bounded whole-chain survey using explicitly qualified raw records.
+    tasks: [TASK.rf.frequency-diagnostic, TASK.rf.frequency-diagnostic-decision, TASK.rf.receive-guard-core, TASK.rf.raw-qualified-survey, TASK.rf.raw-qualified-survey-decision]
+    disposition: active
+    acceptance:
+      - The built-in frequency ambiguity is evaluated from preserved raw records with explicit scope-clock and estimator limits.
+      - A reusable supplied-record receive guard and its synthetic controls define a sampled-frequency qualification boundary.
+      - The newly frozen whole-chain survey is evaluated with all repeats or exact failures, alias diagnostics and uncorrected reference anchors; software-policy and calibrated bandwidth claims remain separate.
+    required_extensions: []
+    extensions: {}
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.receive-guard-core
+    title: Add a typed offline sampled-frequency receive guard
+    state: open
+    intent: Qualify coherent sampled receive frequency without relying on the discrepant built-in measurement.
+    requires: [TASK.rf.frequency-diagnostic-decision]
+    requirements:
+      - Add a modular mho-rf uv workspace library, strictly typed immutable named requests and accepted/rejected results. Consume supplied RawQualified waveform evidence, rebind it to retained bytes and observations, and never open an instrument or file.
+      - Freeze the guard as demeaned periodic Hann rFFT, strongest nonDC bin within 0.5 to1.5 times command, require both the selected band bin and global strongest nonDC bin within1%command and at least20%of one-sided nonDC spectral power within peak plus/minus2bins. Handle DC/Nyquist weights, invalid/degenerate bands, finite data and profile bounds explicitly; no calibrated amplitude or physical frequency-origin claim.
+      - Keep frequency bin, bin spacing, energy fraction, command, supplied profile and waveform hash distinct. Add an offline Click endpoint/delegate for supplied files and explicit acquisition observations; emit TOML without private paths or sample dumps.
+      - Add meaningful exact/offbin/incorrect-carrier/weak-band/noise/alias/display/malformed controls. Demonstrate that an out-of-Nyquist tone can alias into an accepted sampled component, preserving the physical-frequency limit.
+      - Run workspace quality and installed-wheel checks plus an independent invocation on the sealed600MHz discriminator. Commit/push the reusable component before physical use.
+    acceptance: [The typed offline guard rejects declared negative controls and qualifies a preserved raw sampled component with correct evidence limits.]
+    verification: [types, controls, quality, installed_consumer, discriminator_witness, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.raw-qualified-survey
+    title: Acquire a new RF survey using raw frequency qualification
+    state: open
+    intent: Measure the connected source/cable/CH1 chain without mistaking built-in frequency quantization for a source failure.
+    requires: [TASK.rf.receive-guard-core]
+    requirements:
+      - Follow docs/research/rf-raw-qualified-survey-protocol.md after admission and commit/push. Preserve the failed survey and discriminator; no firmware, software-policy, entitlement, calibration or wiring changes.
+      - Verify USB ancestry/no other owner per visit, isolated lease/default-route/forwarding/NAT checks under fresh full capture. Use exactly the frozen twelve visits and five fresh100kRAWASCII records at each, raw power0 and fixed50mV/div/1us/div/4GSa/s profile.
+      - Retain built-in frequency as an observation only. Keep Vpp/extrema, metadata/count/rate and raw-range guards; qualify each fresh supplied record online using the frozen receive guard, preserving every profile/result and exact socket response bytes.
+      - Stop on capture/transport/network, uncertain source write, range, metadata or receive-guard failure. No retries/newpoints; retain all acquired and censored slots. Restore original scope/export/RUN while healthy, final100MHz anchor only if reached and no extra serial cleanup.
+      - Gracefully stop capture retaining drop counters, remove temporary host address/helper, seal/verify acquisition before final numerical reduction, and commit/push the acquisition conclusion.
+    acceptance: [The newly frozen sixty-record survey or exact bounded failure is preserved with raw frequency qualification, transport and restoration evidence.]
+    verification: [preconditions, source, raw_records, receive_guards, stop_rules, restoration, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.raw-qualified-survey-decision
+    title: Evaluate sampled response and a useful bounded measurement control
+    state: open
+    intent: Determine what current-policy physical response was observed and the smallest next comparison.
+    requires: [TASK.rf.raw-qualified-survey]
+    requirements:
+      - Reduce sealed records with fixed fundamental-fit bands centered on the command frequency plus/minus1e-4, grid at most5kHz and existing edge/boundary/competing controls. Retain command, builtin readback, raw FFT bin and fitted frequency separately; do not widen bands after seeing results.
+      - Report all repeats or missing/censored points, unnormalized100MHz anchors, engineering0.3dB return criterion, dispersion, residuals, extrema and fixedorder1through9 alias/rank diagnostics. Keep omitted folded energy, source/cable response and scope-clock uncertainty explicit.
+      - Claim only apparent sampled whole-chain response. Keep calibrated absolute bandwidth and matched software-policy effect gates open. Evaluate whether a separate fixed-frequency OFF-to250M-toOFF ordinary channel-limiter control would materially verify reversible measurement sensitivity.
+      - Admit only a justified bounded successor within remaining authority/time; commit/push conclusions and leave a clean checkpoint by the three-hour deadline.
+    acceptance: [A reproducible sampled-response finding and an evidence-based next comparison follow from the complete retained dataset or exact failure.]
+    verification: [controls, reduction, anchors, alias_limits, next_question]
+    required_extensions: []
+    extensions: {}
