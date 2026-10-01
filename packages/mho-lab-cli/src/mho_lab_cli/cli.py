@@ -13,6 +13,7 @@ from mho_lab_cli.review_cli import review
 from mho_lab_cli.scpi_cli import scpi
 from mho_lab_cli.source_cli import source
 from mho_lab_cli.transport_cli import transport
+from mho_lab_cli.waveform_cli import waveform
 
 
 @click.group()
@@ -28,6 +29,7 @@ main.add_command(adb)
 main.add_command(scpi)
 main.add_command(review)
 main.add_command(source)
+main.add_command(waveform)
 
 
 @main.command()

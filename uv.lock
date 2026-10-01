@@ -16,6 +16,7 @@ members = [
     "mho-scpi",
     "mho-source",
     "mho-transport",
+    "mho-waveform",
     "mho900-lab-workspace",
 ]
 
@@ -221,6 +222,7 @@ dependencies = [
     { name = "mho-scpi" },
     { name = "mho-source" },
     { name = "mho-transport" },
+    { name = "mho-waveform" },
 ]
 
 [package.metadata]
@@ -232,6 +234,7 @@ requires-dist = [
     { name = "mho-scpi", editable = "packages/mho-scpi" },
     { name = "mho-source", editable = "packages/mho-source" },
     { name = "mho-transport", editable = "packages/mho-transport" },
+    { name = "mho-waveform", editable = "packages/mho-waveform" },
 ]
 
 [[package]]
@@ -287,6 +290,17 @@ dependencies = [
 requires-dist = [{ name = "pydantic", specifier = ">=2.11,<3" }]
 
 [[package]]
+name = "mho-waveform"
+version = "0.1.0"
+source = { editable = "packages/mho-waveform" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.11,<3" }]
+
+[[package]]
 name = "mho900-lab-workspace"
 version = "0.1.0"
 source = { virtual = "." }
@@ -299,6 +313,7 @@ dependencies = [
     { name = "mho-scpi" },
     { name = "mho-source" },
     { name = "mho-transport" },
+    { name = "mho-waveform" },
 ]
 
 [package.dev-dependencies]
@@ -321,6 +336,7 @@ requires-dist = [
     { name = "mho-scpi", editable = "packages/mho-scpi" },
     { name = "mho-source", editable = "packages/mho-source" },
     { name = "mho-transport", editable = "packages/mho-transport" },
+    { name = "mho-waveform", editable = "packages/mho-waveform" },
 ]
 
 [package.metadata.requires-dev]

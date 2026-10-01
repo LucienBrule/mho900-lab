@@ -1,0 +1,10 @@
+[project]
+name = "mho-waveform"
+version = "0.1.0"
+description = "Offline supplied-byte ASCII waveform parsing and raw-record qualification"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.11,<3"]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"

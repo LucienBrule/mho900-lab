@@ -2,13 +2,13 @@
 name = "mho900-lab-workspace"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = ["mho-evidence", "mho-lab-cli", "mho-transport", "mho-capture", "mho-scpi", "mho-review", "mho-adb", "mho-source"]
+dependencies = ["mho-evidence", "mho-lab-cli", "mho-transport", "mho-capture", "mho-scpi", "mho-review", "mho-adb", "mho-source", "mho-waveform"]
 
 [tool.uv]
 package = false
 
 [tool.uv.workspace]
-members = ["packages/mho-evidence", "packages/mho-lab-cli", "packages/mho-transport", "packages/mho-capture", "packages/mho-scpi", "packages/mho-review", "packages/mho-adb", "packages/mho-source"]
+members = ["packages/mho-evidence", "packages/mho-lab-cli", "packages/mho-transport", "packages/mho-capture", "packages/mho-scpi", "packages/mho-review", "packages/mho-adb", "packages/mho-source", "packages/mho-waveform"]
 
 [tool.uv.sources]
 mho-evidence = { workspace = true }
@@ -19,6 +19,7 @@ mho-scpi = { workspace = true }
 mho-review = { workspace = true }
 mho-adb = { workspace = true }
 mho-source = { workspace = true }
+mho-waveform = { workspace = true }
 
 [dependency-groups]
 build = ["hatchling==1.32.4"]
@@ -40,7 +41,7 @@ disallow_any_explicit = true
 disallow_any_unimported = true
 warn_unreachable = true
 plugins = ["pydantic.mypy"]
-files = ["packages/mho-evidence/src", "packages/mho-evidence/tests", "packages/mho-lab-cli/src", "packages/mho-lab-cli/tests", "packages/mho-transport/src", "packages/mho-transport/tests", "packages/mho-capture/src", "packages/mho-capture/tests", "packages/mho-scpi/src", "packages/mho-scpi/tests", "packages/mho-review/src", "packages/mho-review/tests", "packages/mho-adb/src", "packages/mho-adb/tests", "packages/mho-source/src", "packages/mho-source/tests"]
+files = ["packages/mho-evidence/src", "packages/mho-evidence/tests", "packages/mho-lab-cli/src", "packages/mho-lab-cli/tests", "packages/mho-transport/src", "packages/mho-transport/tests", "packages/mho-capture/src", "packages/mho-capture/tests", "packages/mho-scpi/src", "packages/mho-scpi/tests", "packages/mho-review/src", "packages/mho-review/tests", "packages/mho-adb/src", "packages/mho-adb/tests", "packages/mho-source/src", "packages/mho-source/tests", "packages/mho-waveform/src", "packages/mho-waveform/tests"]
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
@@ -48,5 +49,5 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
-testpaths = ["packages/mho-evidence/tests", "packages/mho-lab-cli/tests", "packages/mho-transport/tests", "packages/mho-capture/tests", "packages/mho-scpi/tests", "packages/mho-review/tests", "packages/mho-adb/tests", "packages/mho-source/tests"]
+testpaths = ["packages/mho-evidence/tests", "packages/mho-lab-cli/tests", "packages/mho-transport/tests", "packages/mho-capture/tests", "packages/mho-scpi/tests", "packages/mho-review/tests", "packages/mho-adb/tests", "packages/mho-source/tests", "packages/mho-waveform/tests"]
 addopts = "--strict-config --strict-markers"

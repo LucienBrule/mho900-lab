@@ -1,6 +1,6 @@
 # Typed Python workspace
 
-The typed tooling lives in eight uv workspace members:
+The typed tooling lives in nine uv workspace members:
 
 - `packages/mho-evidence`: reusable typed evidence contracts and operations.
 - `packages/mho-lab-cli`: Click adapters, application delegates and presentation.
@@ -10,6 +10,7 @@ The typed tooling lives in eight uv workspace members:
 - `packages/mho-adb`: offline frame decoding and bounded stream-ready observations.
 - `packages/mho-review`: sealed-input composition of capture, TCP and SCPI observations.
 - `packages/mho-source`: candidate RF source point frames and a bounded POSIX serial sender.
+- `packages/mho-waveform`: supplied ASCII-voltage parsing and explicit raw acquisition qualification.
 
 The root project is a development workspace, not an installed library.
 Python 3.12 is the development baseline. `uv.lock` pins resolved dependencies;
@@ -72,6 +73,7 @@ This workspace setup is not a bench acquisition procedure.
 | `mho-scpi`: execute | Library only, caller-supplied stream; [SCPI contract](scpi-contract.md) | Delivery or device execution; it does not connect an endpoint |
 | `mho-adb`: decode / match open | Library and `adb` CLI; [ADB evidence](adb-evidence.md) | Shell-command execution, reboot or complete TCP capture |
 | `mho-source`: encode / point-once | Library and `source` CLI; [source contract](../../packages/mho-source/README.md) | Device interpretation, RF accuracy, level or persistence |
+| `mho-waveform`: parse / qualify raw | Library and `waveform inspect`; [waveform contract](../../packages/mho-waveform/README.md) | Physical origin, unprocessed ADC codes or calibrated RF gain |
 | `mho-review`: review | Library and `review inspect`; [sealed review](sealed-offline-review.md) | Live process exit or authentic acquisition provenance |
 
 Start with the [public synthetic walkthrough](synthetic-review-walkthrough.md)

@@ -30,6 +30,12 @@ duration is 25 microseconds; first-to-last sample span is one interval shorter.
 This is acquisition-memory evidence under the documented RAW semantics, rather
 than the earlier interpolated display grid.
 
+![Separate display and raw-memory records](assets/rf-raw-display.png)
+
+The two retained acquisitions used different vertical ranges. This figure makes
+their export semantics visible; it does not isolate the cause of differences
+in peaks or trace shape.
+
 | Quantity | Observed or derived value |
 | --- | --- |
 | Minimum / maximum | -135.473 / +131.467 mV |

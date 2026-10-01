@@ -64,5 +64,8 @@ See [AGENTS.md](AGENTS.md).
 
 New reusable Python tooling uses a typed uv workspace. See the
 [workspace runbook](docs/runbooks/python-workspace.md) for installation and quality gates.
+The [offline waveform boundary](packages/mho-waveform/README.md) parses preserved
+ASCII voltages and qualifies explicit raw record metadata through
+`mho-lab waveform inspect`; it does not contact instruments or estimate RF gain.
 The [synthetic review walkthrough](docs/runbooks/synthetic-review-walkthrough.md)
 reproduces accepted and rejected evidence checks without an instrument.
