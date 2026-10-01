@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.repository-contract
+    title: Recover relevant source-controller contracts from four pinned repositories
+    state: open
+    intent: Replace article-only assumptions with code and stock-binary evidence before another device operation.
+    requires: [TASK.rf.point-decision]
+    requirements:
+      - Pin and inspect brycecherry75/MAX2870, gbonacini/sigenmax2870, nuclearrambo/MAX2870-PLL-board and gamozolabs/max2871-siggen. Prioritize the latter's stock dump, board description and custom firmware.
+      - Separate direct synthesizer SPI libraries, host serial clients, original firmware bytes and replacement firmware. Trace command encoding and receive handling where available; do not transfer replacement commands to stock firmware.
+      - Hash the published stock dump and statically investigate relevant UART framing or parser evidence with bounded offline controls where useful. Identify the strongest justified inference about the prior point-command trial, including unresolved build equivalence and LCD semantics.
+      - Inspect backup and programmer code for actual reset, RAM execution, flash and option-byte effects. Assess the offered ST-Link/J-Link as available tools, not authorization to attach or run them.
+      - Keep acquired repositories and supplied screenshot private. Publish pinned provenance and a concise code-level comparison; execute no upstream scripts and perform no physical operation.
+    acceptance: [A pinned code review distinguishes reusable contracts from unverified board equivalence and identifies concrete next evidence.]
+    verification: [provenance, code_review, stock_analysis, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.repository-decision
+    title: Select the smallest source-control continuation from repository evidence
+    state: open
+    intent: Decide whether stock serial recovery, specimen acquisition or a different observation is best supported.
+    requires: [TASK.rf.repository-contract]
+    requirements:
+      - Reconcile the one-command trial with the reviewed implementations and stock dump without claiming our board runs those bytes.
+      - Compare further offline stock-parser analysis, a bounded stock command, own-unit backup and temporary replacement control. State the concrete prerequisite and observation for the selected next step.
+      - Preserve original source firmware and the completed experiment. Do not connect a programmer, send another serial command, alter firmware or connect RF during this decision.
+    acceptance: [An evidence-based continuation and explicit remaining uncertainty are recorded and committed.]
+    verification: [evaluation, next_step, boundaries]
+    required_extensions: []
+    extensions: {}
