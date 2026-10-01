@@ -1,0 +1,10 @@
+[project]
+name = "mho-rf"
+version = "0.1.0"
+description = "Pure supplied-RAW sampled-frequency receive qualification"
+requires-python = ">=3.12"
+dependencies = ["mho-waveform", "numpy>=2.2,<3", "pydantic>=2.11,<3"]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"

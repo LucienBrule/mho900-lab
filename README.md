@@ -67,5 +67,9 @@ New reusable Python tooling uses a typed uv workspace. See the
 The [offline waveform boundary](packages/mho-waveform/README.md) parses preserved
 ASCII voltages and qualifies explicit raw record metadata through
 `mho-lab waveform inspect`; it does not contact instruments or estimate RF gain.
+The [sampled RF receive guard](packages/mho-rf/README.md) rebinds supplied RAW evidence
+and applies a declared periodic-Hann frequency/energy criterion through
+`mho-lab rf receive-inspect`; acceptance does not establish physical carrier origin,
+calibrated amplitude or validity of a later frequency fit.
 The [synthetic review walkthrough](docs/runbooks/synthetic-review-walkthrough.md)
 reproduces accepted and rejected evidence checks without an instrument.

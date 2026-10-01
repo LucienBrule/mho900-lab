@@ -11,6 +11,7 @@ import importlib
 import importlib.metadata
 import io
 import json
+import math
 import os
 import re
 import shutil
@@ -74,6 +75,7 @@ from mho_review import (
     load_profile,
     review,
 )
+from mho_rf import ReceiveQualified, ReceiveRejected, ReceiveRequest, qualify_receive
 from mho_scpi import (
     ExchangeAccepted,
     IdentityObservation,
@@ -93,6 +95,14 @@ from mho_transport import (
     TranscriptRejected,
     TranscriptRequest,
     reconstruct,
+)
+from mho_waveform import (
+    ParsedWaveform,
+    RawAcquisition,
+    RawQualified,
+    WaveformInputs,
+    parse_ascii,
+    qualify_raw,
 )
 
 
@@ -912,6 +922,91 @@ def unchecked_boundary_controls(evidence: Path) -> None:
     )
 
 
+def rf_receive_roundtrip(evidence: Path) -> None:
+    """Installed NumPy-backed library and independent offline CLI use the same RAW evidence."""
+    points = 100_000
+    directory = Path.cwd() / "rf-receive-input"
+    directory.mkdir()
+    preamble = b"2,2,100000,1,2.5e-10,0,0,6e-6,0,32768\n"
+    before, data, after = directory / "before.txt", directory / "data.txt", directory / "after.txt"
+    before.write_bytes(preamble)
+    after.write_bytes(preamble)
+    acquisition = RawAcquisition(
+        actual_sample_rate_hz=4e9, memory_points=points, start=1, stop=points
+    )
+    for case in ("qualified", "wrong-global"):
+        values = (
+            0.12 * math.sin(2 * math.pi * 600e6 * n / 4e9)
+            if case == "qualified"
+            else 0.052 * math.sin(2 * math.pi * 600e6 * n / 4e9)
+            + 0.1 * math.sin(2 * math.pi * 1.2e9 * n / 4e9)
+            for n in range(points)
+        )
+        waveform = (",".join(f"{value:.16e}" for value in values) + "\n").encode()
+        data.write_bytes(waveform)
+        parsed = parse_ascii(
+            WaveformInputs(preamble_before=preamble, waveform=waveform, preamble_after=preamble)
+        )
+        require(isinstance(parsed, ParsedWaveform), "Installed RF waveform failed parsing")
+        if not isinstance(parsed, ParsedWaveform):
+            raise RuntimeError("RF parsed variant missing")
+        raw = qualify_raw(parsed, acquisition)
+        require(isinstance(raw, RawQualified), "Installed RF raw qualification failed")
+        if not isinstance(raw, RawQualified):
+            raise RuntimeError("RF raw variant missing")
+        result = qualify_receive(ReceiveRequest(record=raw, command_frequency_hz=600e6))
+        expected = 0 if case == "qualified" else 1
+        run_cli(
+            evidence,
+            "rf-receive-" + case,
+            [
+                "rf",
+                "receive-inspect",
+                "--preamble-before",
+                str(before),
+                "--data",
+                str(data),
+                "--preamble-after",
+                str(after),
+                "--actual-rate-hz",
+                "4000000000",
+                "--memory-points",
+                "100000",
+                "--start",
+                "1",
+                "--stop",
+                "100000",
+                "--command-frequency-hz",
+                "600000000",
+            ],
+            expected,
+        )
+        receipt = toml(evidence / ("rf-receive-" + case + ".stdout"))
+        require(receipt["result"] == result.kind, "Installed RF library/CLI result differs")
+        require(receipt["physical_origin_proven"] is False, "RF origin claim changed")
+        require(receipt["final_fit_validity_proven"] is False, "RF fit claim changed")
+        if case == "qualified":
+            require(isinstance(result, ReceiveQualified), "Installed valid RF record rejected")
+        else:
+            require(isinstance(result, ReceiveRejected), "Installed wrong-global carrier accepted")
+            if isinstance(result, ReceiveRejected):
+                require(result.issue.code == "global-peak-frequency", "RF rejection reason differs")
+        require(result.spectrum is not None, "Installed RF spectrum missing")
+        if result.spectrum is not None:
+            require(
+                receipt["energy_fraction"] == result.spectrum.energy_fraction,
+                "Installed RF library/CLI energy differs",
+            )
+        require(
+            receipt["waveform_sha256"] == hashlib.sha256(waveform).hexdigest(),
+            "Installed RF receipt hash differs",
+        )
+    (evidence / "rf-receive.toml").write_text(
+        'result = "accepted"\nlibrary_cli_qualified_match = true\n'
+        "wrong_global_carrier_rejected = true\nphysical_origin_proven = false\n"
+    )
+
+
 def main() -> int:
     checkout = Path(os.environ["MHO_PACKAGE_CHECKOUT"]).resolve()
     evidence = Path(os.environ["MHO_PACKAGE_EVIDENCE"]).resolve()
@@ -925,6 +1020,7 @@ def main() -> int:
     )
     packages = installed_packages(checkout, evidence)
     unchecked_boundary_controls(evidence)
+    rf_receive_roundtrip(evidence)
     evidence_roundtrip(evidence)
     recorder_roundtrip(evidence)
     transport_roundtrip(evidence)
@@ -995,6 +1091,7 @@ def main() -> int:
         "unchecked_public_boundaries_verified = true",
         "source_offline_frame_library_cli_verified = true",
         "factory_offline_frame_library_cli_verified = true",
+        "rf_receive_library_cli_qualified_and_rejected_verified = true",
     ]
     for package in packages:
         lines.extend(

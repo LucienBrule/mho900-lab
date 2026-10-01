@@ -10,6 +10,7 @@ from mho_lab_cli.capture_cli import capture
 from mho_lab_cli.delegates import PolicyRejected, check_quality, identify_tool
 from mho_lab_cli.evidence_cli import evidence
 from mho_lab_cli.review_cli import review
+from mho_lab_cli.rf_cli import rf
 from mho_lab_cli.scpi_cli import scpi
 from mho_lab_cli.source_cli import source
 from mho_lab_cli.transport_cli import transport
@@ -30,6 +31,7 @@ main.add_command(scpi)
 main.add_command(review)
 main.add_command(source)
 main.add_command(waveform)
+main.add_command(rf)
 
 
 @main.command()
