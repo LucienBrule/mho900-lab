@@ -1,0 +1,33 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.rf.repository-contract
+contract: sha256:988d996b599e85b3299012018d0016fa626cfbc00f23cca2891fd856ecbbab50
+actor: mho900-lab-investigation
+recorded_at: "2026-10-01T02:19:46.541337+00:00"
+evidence:
+  provenance: >-
+    docs/research/rf-source-repositories.toml pins all four requested repositories by full commit
+    and selected files by SHA-256. Private manifest c3368d9a4be760dd31d0623f9b919160a6911768f4d925c564b90a7f6134a8dd
+    binds 67 materialized artifacts including the supplied screenshot, source trees, listings,
+    control script and results. Published stock image is 131072 bytes with matching upstream
+    SHA-256 a3111637e7cab47fd5045a04c0521c3f525016f1f15d83174cc5f67be8b0b60f.
+  code_review: >-
+    docs/research/rf-source-repository-review.md separates Arduino SPI library, 9600-baud C++
+    client, independent STM32F101 schematic, public original firmware, RAM controller and
+    acquisition/restoration paths. Reviewed actual receiver, command construction and loader
+    code. Reset/RAM/peripheral effects are explicit; restoration erases/programs and is not
+    acquisition. ST-Link/J-Link availability does not establish own-unit compatibility.
+    Replacement client's stale register-4 divider risk is recorded.
+  stock_analysis: >-
+    Actual Thumb main passes 115200 to UART setup; receiver at 0x080073b8 waits CR LF;
+    dispatcher at 0x080075e0 selects point via byte 1 equal to 0x55, forms whole plus hundredths,
+    calls PLL then updates UI and prepares settings writes. Nine bounded Unicorn 2.1.4 controls
+    passed, including original-frame noncompletion, candidate integer/fractional frequencies,
+    missing terminator, unknown selector, embedded CR and prior-buffer sequencing. Output SHA-256
+    18393e29f702d94ea55855a429629ff4aed21dfc1c7b0f90b265d9339a581f34. UI/formatting/PLL/EEPROM
+    calls are stubbed; arithmetic and receive/dispatch/save-preparation instructions are real.
+  preservation: >-
+    No physical interface was accessed, no upstream script executed and no firmware programmed.
+    Original trial evidence and receipts are retained. Source and screenshot copies remain ignored.
+    Public report distinguishes published-build instruction evidence from unknown delivered
+    firmware equivalence, unmeasured RF, unrendered UI and untested physical persistence.

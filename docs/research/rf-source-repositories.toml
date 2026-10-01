@@ -1,0 +1,110 @@
+schema_version = 1
+recorded_date = "2026-09-30"
+scope = "Offline repository review and bounded execution of published stock instructions"
+delivered_firmware_equivalence = "unknown"
+physical_io_performed = false
+upstream_scripts_executed = false
+private_evidence_manifest_sha256 = "c3368d9a4be760dd31d0623f9b919160a6911768f4d925c564b90a7f6134a8dd"
+private_source_manifest_sha256 = "6d7933777d4f4d95d4954872923eaf9a54d0177e675e1efa782c8513bdf06b9f"
+control_engine = "Unicorn 2.1.4"
+listing_engine = "Capstone 5.0.7"
+control_cases_passed = 9
+control_script_sha256 = "8351151d0cc9a653ea3409902f5471c78a9e00b70f560d4dc8ccbfdbcaf8ceff"
+control_result_sha256 = "18393e29f702d94ea55855a429629ff4aed21dfc1c7b0f90b265d9339a581f34"
+
+[[repository]]
+url = "https://github.com/brycecherry75/MAX2870"
+commit = "2773a4b03cc9e6f232d0251ae1a3bf89f9a92f91"
+[[repository.code_evidence]]
+path = "README.md"
+size = 8082
+sha256 = "95276c032b8900e585f078634a8460f682dc23346d2d22424747f611d6267a9c"
+[[repository.code_evidence]]
+path = "examples/example2870/example2870.ino"
+size = 22004
+sha256 = "dafdf5091e0d9bd5825ae83200e2fb168d3672c4dea9049e07791bf1ca5d6b24"
+[[repository.code_evidence]]
+path = "src/MAX2870.cpp"
+size = 25574
+sha256 = "6948154f8c01b06ac6d872086d99aeb99c31c37871c778dd741b408f2bc77415"
+[[repository.code_evidence]]
+path = "src/MAX2870.h"
+size = 5468
+sha256 = "5711af3aac950069569db40e35d5294575935ba86d96a6e73248bec87ca6bae3"
+
+[[repository]]
+url = "https://github.com/gbonacini/sigenmax2870"
+commit = "3e208e616adf37a46c6e7a7eb196e4ac414d6ba2"
+[[repository.code_evidence]]
+path = "COPYING"
+size = 757
+sha256 = "b0265ba2cbffaf666adf15b199198c1b80cf1fb41ebac32458acac33fab7f07e"
+[[repository.code_evidence]]
+path = "README.md"
+size = 5364
+sha256 = "2a2910aa4b06e7cb7e4787349f8098f0cd4bbf41fe11b2e5796435daaa68c63f"
+[[repository.code_evidence]]
+path = "include/sigenmax2870.hpp"
+size = 3502
+sha256 = "176d2a8347c181628edd04a8b953af49c193e6e2d6aae2298c1be1b312dd30d7"
+[[repository.code_evidence]]
+path = "src/sigenmax2870_utils.cpp"
+size = 4990
+sha256 = "b685b6dd172d752f44c4b32d3858a60d13d15495c2aed9aacb3c9eb6e6fcc892"
+
+[[repository]]
+url = "https://github.com/nuclearrambo/MAX2870-PLL-board"
+commit = "7665868deada863bdfadb1029499872bfef6fae6"
+[[repository.code_evidence]]
+path = "MAX_2870.pdf"
+size = 510113
+sha256 = "4f840c2dc53753fe4685617e9e07b66671dec37b98f242663506945224094062"
+[[repository.code_evidence]]
+path = "README.md"
+size = 9
+sha256 = "8618ac18d4c5b52fa6a2813180f0a8372033152e1980fad3c4c84af42c5a7bec"
+
+[[repository]]
+url = "https://github.com/gamozolabs/max2871-siggen"
+commit = "c6a1d18e0b37e130dae2d5af9fae582cb3b4861b"
+[[repository.code_evidence]]
+path = "BOARD.md"
+size = 4001
+sha256 = "2a6349c31def7ddc7afc795bf6df077d4923346656ccf2c1ed508a831865f4cf"
+[[repository.code_evidence]]
+path = "FLASH_DUMP_RESTORE.md"
+size = 2849
+sha256 = "30ed0829a22123876003db179bd4a08af79cea67238d4936fc401865591fcb02"
+[[repository.code_evidence]]
+path = "README.md"
+size = 5664
+sha256 = "73172f1a80e39640652ce3f9868b9b51078127024cac609fb02c4b6e1ad19df9"
+[[repository.code_evidence]]
+path = "custom-firmware/max2871_uart.S"
+size = 13160
+sha256 = "4cd3c6d9f73516016a5c96e24691f4d8231533e7062e8dd68b970a4df126bb28"
+[[repository.code_evidence]]
+path = "custom-firmware/rf_control.py"
+size = 23463
+sha256 = "81e9fef07d9e2b76acdfe423c6713a2c0fa48cdaf522a41f366762c9b586c042"
+[[repository.code_evidence]]
+path = "custom-firmware/sram.ld"
+size = 454
+sha256 = "ca492bf04cc87e97ca022b4e4a2a0ec81ac52b8f5fc06c2737a6842ae657f2e8"
+[[repository.code_evidence]]
+path = "dumper/dump_flash_delay.S"
+size = 3793
+sha256 = "83d537cfef7bc9197e342017544a1dc625360aadb40818431c3cc61d27df633e"
+[[repository.code_evidence]]
+path = "dumper/load_shellcode.py"
+size = 15676
+sha256 = "d3099f4a4a6cc001573f3ddc9ba1742f999178a5b0630af17820c540b8080593"
+[[repository.code_evidence]]
+path = "stock-firmware/README.md"
+size = 1226
+sha256 = "79acaebb78f4c80c78ccbfc40f1e91823d6062acff65b53189acd6899236d75a"
+[[repository.code_evidence]]
+path = "stock-firmware/stock_firmware.bin"
+size = 131072
+sha256 = "a3111637e7cab47fd5045a04c0521c3f525016f1f15d83174cc5f67be8b0b60f"
+
