@@ -1,0 +1,25 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.rf.factory-point-decision
+contract: sha256:b921d63b9c3d06628432f0dd881b6ad74634c7b84cca6c2ac546558507bf2119
+actor: mho900-lab-investigation
+recorded_at: "2026-10-01T02:37:14Z"
+evidence:
+  evaluation: >-
+    docs/research/rf-source-factory-decision.md compares the successful 100.00 MHz Point
+    screen witness with the retained one-frame transcript and public-image prediction.
+    Only this delivered-unit point path is physically supported. Fractional values and
+    framing limits remain implementation/host evidence; emitted RF, calibrated level,
+    exact firmware equivalence and persistence remain separate and unproven.
+  next_step: >-
+    Select the existing factory controller and return to TASK.rf.inventory and the RF
+    preparation/integration sequence. Record the exact 100 MHz pilot question, actual
+    signal path, termination, source level uncertainty and acquisition metadata needs.
+    Programmer attachment, replacement firmware and exhaustive parser recovery are not
+    prerequisites to the next measurement. No new physical task is silently introduced.
+  boundaries: >-
+    Trial conclusion was committed/pushed as 2a6a7d5 before evaluation. Decision performs
+    no serial, RF, programmer, display-ribbon or oscilloscope action. Source remains at
+    operator-reported 100.00 MHz Point with both SMA ports empty. Private run manifest
+    369835189b35f93eb927d6a38740bfb321d6cbf41d479e8490ddab096511e3ae preserves the evidence;
+    earlier trial remains unchanged. Decision and receipt are checkpointed with the roadmap.

@@ -29,6 +29,9 @@ the original nine-task roadmap membership.
   test before programmer attachment; own-unit firmware equivalence and emitted RF remain unknown.
 - [Factory sender and fresh-start trial](rf-source-factory-sender.md) records the separate typed protocol,
   host controls and the operator-selected power cycle before one compatibility command.
+- [Delivered factory point result](rf-source-factory-trial.md) records the successful 470.00-to-100.00 MHz
+  display transition. Its [decision](rf-source-factory-decision.md) returns to signal-path qualification
+  with the stock controller; RF output and oscilloscope response remain to be measured.
 - The present roadmap adapts that proposal to equipment actually available. The older plan remains a dated
   planning baseline; it is not an executed protocol or an inventory of the current bench.
 

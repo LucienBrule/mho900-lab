@@ -15,6 +15,9 @@ There is no escaping or silent frequency adjustment. For example, 100.13 MHz,
 269 MHz and 3328 MHz cannot be encoded safely with this recovered framing.
 LF alone is not a delimiter. See the [pinned instruction review](../../docs/research/rf-source-repository-review.md)
 for the supporting public image and the unresolved delivered-unit equivalence.
+One [delivered-unit trial](../../docs/research/rf-source-factory-trial.md) confirmed
+the expected 100.00 MHz Point display after this command. That is a command-path
+witness, not RF qualification or validation of the entire command range.
 
 `Command` is the explicit union of these two models. `encode_command` and
 `execute` select the matching encoder; existing `PointCommand` semantics remain
