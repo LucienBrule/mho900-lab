@@ -1,0 +1,51 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.waveform-core
+    title: Add an offline typed raw ASCII waveform boundary
+    state: open
+    intent: Make raw-record qualification reusable without contacting instruments or changing the identity codec.
+    requires: [TASK.rf.raw-pilot-decision]
+    requirements:
+      - Add a small uv workspace library with strict immutable named Pydantic or dataclass models and accepted/rejected outcomes for supplied ASCII waveform and preamble bytes. Keep it independent of Click and hardware transport.
+      - Validate bounded exact LF or CRLF framing, ten preamble fields, format and mode, count, finite numeric values, sentinel rejection and selected raw extent. Preserve hashes and external bytes; ASCII samples already represent volts and must not be rescaled.
+      - Qualify raw sample interval against explicit actual-rate and memory/extent observations. Model record duration and first-to-last span separately. Add an offline Click endpoint/delegate only for supplied-file qualification, with TOML output.
+      - Use typed Python workspace conventions and meaningful malformed, scaling, count and interval controls. Run required quality gates and an independent invocation on the preserved raw pilot. No physical access in tests or tooling.
+      - Document the parser and acquisition-vs-display limit; commit and push the component before using it for survey qualification.
+    acceptance: [Reusable typed supplied-byte qualification passes adversarial controls and recognizes the sealed raw pilot without claiming calibrated RF gain.]
+    verification: [types, protocol_controls, quality, pilot_witness, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.current-survey
+    title: Acquire the frozen current-policy RF-chain survey
+    state: open
+    intent: Observe frequency-dependent sampled response without changing instrument software policy.
+    requires: [TASK.rf.waveform-core]
+    requirements:
+      - Execute docs/research/rf-current-survey-protocol.md under the three-hour operator authorization. Preserve physical wiring, source and scope firmware, calibration and entitlements; use factory USB point commands and documented ordinary scope settings only.
+      - Revalidate USB ancestry/ownership, isolated lease/route and scope acquisition settings under a fresh complete capture. Retain every serial intent/result and raw SCPI request/response; require graceful capture exit and drop statistics.
+      - Use the fixed twelve-visit frequency sequence and raw power code 0, with five fresh 100k RAW ASCII records per visit at reported 4 GSa/s and fixed 50mV/div. Require RUN/settling/STOP for each record and full metadata/count/range qualification.
+      - Stop on recorder/transport, source-command uncertainty, unexpected network/state, frequency qualification, invalid record or range failure. Preserve a partial survey and all rejected/censored points; no automatic command/export retries or new points.
+      - Restore original scope/export settings and running acquisition where communication remains healthy. Final source command is the declared 100MHz return anchor; no silent additional serial cleanup or policy transition.
+      - Seal and verify all raw data before offline reduction. Commit and push the acquisition conclusion before any successor experiment.
+    acceptance: [The frozen 60-record survey or its exact bounded failure has retained evidence, restoration and scoped outcome.]
+    verification: [authority, preconditions, acquisition, stop_rules, restoration, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.current-survey-decision
+    title: Evaluate sampled RF-chain response and comparison readiness
+    state: open
+    intent: Identify what the survey establishes and the smallest remaining uncertainty before policy comparison.
+    requires: [TASK.rf.current-survey]
+    requirements:
+      - Use sealed records and frozen estimator controls to report all visits, repeats, failures and alias flags. Show apparent amplitudes, fitted/readback frequency, residuals, range checks, repeat dispersion and both unnormalized reference anchors.
+      - Treat fit bounds and 0.3dB drift threshold as declared engineering choices, not calibrated uncertainties. Do not drift-correct from two anchors, infer missing arms, or turn uncharacterized source-chain response into absolute scope bandwidth.
+      - Compare identifiable sampled components with harmonic sensitivity diagnostics and flag possible fundamental collisions. A low residual alone does not qualify isolated gain or a policy effect.
+      - Keep matched-policy execution and absolute bandwidth gates open unless their actual requirements are satisfied. Record the exact smallest bench question, and admit only useful bounded successors inside the remaining time/authority.
+      - Commit and push conclusions with a clean checkpoint and final state report by the three-hour deadline.
+    acceptance: [A scoped survey finding and justified next measurement question follow from all retained data and controls.]
+    verification: [controls, reduction, drift, claim_limits, next_question]
+    required_extensions: []
+    extensions: {}
