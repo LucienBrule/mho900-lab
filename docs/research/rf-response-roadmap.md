@@ -12,6 +12,8 @@ supporting lines establish useful reception and measurement controls. The four
 original comparison tasks remain open: execution readiness, matched acquisition,
 reduction and determination. The missing physical transition procedure and its
 applicable authorization must be resolved before stock/derived/stock execution.
+The [matched-policy readiness hold](rf-policy-comparison-readiness.md) supplies a
+concrete proposed arm sequence, discriminator and exact missing conditions.
 Independent source/path characterization remains an additional requirement for
 a calibrated absolute-bandwidth claim.
 
