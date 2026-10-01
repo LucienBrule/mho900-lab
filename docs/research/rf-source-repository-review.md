@@ -154,9 +154,9 @@ firmware or host policy changed during this review.
 
 The private evidence manifest, source pins, control output and hashes are indexed
 by [the repository manifest](rf-source-repositories.toml). Original single-command
-evidence and previous task receipts remain unchanged. The admitted successor
-`TASK.rf.repository-decision` selects the next step from these findings;
-RF qualification and the broader response milestone remain open.
+evidence and previous task receipts remain unchanged. The
+[bounded decision](rf-source-repository-decision.md) selects the next step from
+these findings; RF qualification and the broader response milestone remain open.
 
 [gamo]: https://github.com/gamozolabs/max2871-siggen/tree/c6a1d18e0b37e130dae2d5af9fae582cb3b4861b
 [gbon]: https://github.com/gbonacini/sigenmax2870/tree/3e208e616adf37a46c6e7a7eb196e4ac414d6ba2

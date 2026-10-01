@@ -107,4 +107,3 @@ sha256 = "79acaebb78f4c80c78ccbfc40f1e91823d6062acff65b53189acd6899236d75a"
 path = "stock-firmware/stock_firmware.bin"
 size = 131072
 sha256 = "a3111637e7cab47fd5045a04c0521c3f525016f1f15d83174cc5f67be8b0b60f"
-

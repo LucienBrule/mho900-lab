@@ -55,5 +55,14 @@ scope connection or successor device experiment was performed by this decision.
 The final observed display remains 470.00 MHz; actual RF and persistence remain
 unknown. The broader RF-response milestone is still open.
 
+## Later repository evidence
+
+The subsequent [pinned repository review](rf-source-repository-review.md) recovers
+a different point protocol from a published original touchscreen firmware image.
+Its [successor decision](rf-source-repository-decision.md) prefers a bounded
+compatibility check before programmer work. This narrows the documentary gap
+without establishing that the delivered unit runs that image or changing the
+original trial's outcome.
+
 [hawk]: https://sites.google.com/view/hawkrao/miscellaneous-sub-projects/software-control-of-max2870-lcd-signal-generator
 [element14]: https://community.element14.com/technologies/test-and-measurement/b/blog/posts/using-a-max2870-frequency-synthesizer-signal-generator

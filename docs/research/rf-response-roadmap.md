@@ -24,6 +24,9 @@ the original nine-task roadmap membership.
   and the source constraints to verify before choosing the physical protocol.
 - [Internal-photo follow-up](rf-source-internal-photo-review.md) records a MAX2871-like RF marking and USB-serial
   bridge evidence supplied after the documentary checkpoint. Electrical behavior remains unqualified.
+- [Pinned source-controller review](rf-source-repository-review.md) recovers a candidate factory UART protocol
+  from a public stock image. Its [decision](rf-source-repository-decision.md) favors a bounded compatibility
+  test before programmer attachment; own-unit firmware equivalence and emitted RF remain unknown.
 - The present roadmap adapts that proposal to equipment actually available. The older plan remains a dated
   planning baseline; it is not an executed protocol or an inventory of the current bench.
 
