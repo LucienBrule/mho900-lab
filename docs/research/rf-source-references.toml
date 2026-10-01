@@ -11,6 +11,7 @@ title = "23.5-6000MHz RF Signal Source: 2.8 Inch Touch Screen Version User Manua
 locators = ["leaflet page 1: interfaces and controls", "leaflet page 2: output settings and startup modes"]
 preservation = "Five original photographs and individual hashes retained in private evidence"
 private_evidence_manifest_sha256 = "ecd69f42a8a1c578b7ff25279ed04478ae7e4d2af7ce7c590d2eb90bc041ccb1"
+protocol_coverage = "Operator confirmed on 2026-09-30 that the complete supplied leaflet describes onboard UI only; no additional serial-protocol section was supplied"
 limit = "Unattributed leaflet; pictured UI is illustrative, delivered startup state and behavior not tested"
 
 [[sources]]

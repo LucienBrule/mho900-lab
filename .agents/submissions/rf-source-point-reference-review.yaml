@@ -1,0 +1,37 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.rf.point-decision
+reviewed_head: sha256:08d7b9c6af6c47732bd621afa8ddf9aa7367be1fb06666a95b4910a72ed1d63a
+observations:
+  - upstream: TASK.rf.point-trial
+    contract: sha256:e634e32fd684ab8006465aa1c956ca882d19fe15885dfeb8df8ae164332f5735
+    revision: sha256:9d8483db125ac21137c1185b8539ec57cb03f7476ecddcd06763b84cccdc0025
+    inputs: sha256:4c753f25ed155b3c0f40383e5e72b6130331591bbe3a0b0a34e401ff3c5e1933
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-10-01T01:52:42.224061+00:00"
+rationale: >-
+  Operator clarification establishes that the complete supplied leaflet is already held
+  and describes onboard UI only. Withdraw the unsupported request for missing protocol
+  pages. Existing documents do not establish USB-driven LCD refresh, so the negative
+  screen observation does not independently classify command acceptance. The decision
+  remains complete with an unresolved hardware result and a corrected continuation.
+evidence:
+  evaluation: >-
+    docs/research/rf-source-point-decision.md now compares the complete leaflet, preserved
+    HawkRAO and element14 reports, OLED manual and IC references. HawkRAO frame rules
+    still match the transmitted bytes, but no mandatory LCD refresh or ACK is specified.
+    element14 explicitly reports not determining USB control. Supplied snapshot SHA-256s
+    remain 92474f2d2cca5e3da2fa8598fa132e825c1e6c2710564c6f7f354ced6c45a527
+    and e6eae7b3ecfc25a89db8bf0bfcb1465c829d3ce2698444a1fdb219aceb1cb3fd.
+  limitations: >-
+    Original single-write, empty receive and unchanged-screen evidence is preserved.
+    No additional device operation occurred. LCD refresh was an experimental assumption;
+    command interpretation, actual RF and persistence remain unresolved. No assertion
+    of board-specific remote-mode prerequisites or replacement protocol is justified.
+  continuation: >-
+    No further documentation request to the operator. A discriminating RF-frequency
+    observation after source/input qualification is the strongest current candidate:
+    observe requested 100 MHz versus displayed 470 MHz before sending another command.
+    Do not replace missing evidence with blind retries or unrelated OLED protocol.
+successor: null

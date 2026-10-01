@@ -48,6 +48,12 @@ updating the display. In particular, the unchanged display is not a measurement
 that the RF output stayed at 470 MHz. There is no basis for choosing among those
 explanations from this trial alone.
 
+The subsequent [reference reconciliation](rf-source-point-decision.md) confirms
+that the existing documentation does not establish LCD refresh as a necessary
+response to serial control. The experiment's expected screen transition was an
+assumption; command acceptance remains inconclusive. The complete supplied leaflet
+is already held and contains only onboard UI instructions.
+
 ## Preserved evidence
 
 Private evidence retains the original registry records and target identity, operator
