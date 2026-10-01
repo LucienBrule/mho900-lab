@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.frequency-diagnostic
+    title: Distinguish the commanded 600 MHz component from the SCPI readback
+    state: open
+    intent: Resolve the survey receive-gate ambiguity without altering the preserved experiment.
+    requires: [TASK.rf.current-survey-decision]
+    requirements:
+      - Follow docs/research/rf-frequency-diagnostic-protocol.md after tasking admission and commit/push. No new source command, firmware, entitlement, calibration or wiring transition.
+      - Start a fresh full capture with verified isolated lease/address and recorder termination discipline. Record the original scope/export settings and received level before three fresh qualified raw records at reported 4 GSa/s.
+      - Retain the built-in frequency at 1us/div, acquire three 100k RAW ASCII records, then record the same measurement at 10ns/div after five seconds. Restore all original acquisition/export settings and running acquisition; source remains last commanded600MHz.
+      - Stop on transport/capture/network, invalid raw metadata or range failure; no retries or extra records. Seal/verify acquisition separately before any numerical interpretation and commit/push the bounded acquisition conclusion.
+    acceptance: [Three qualified raw records and paired timebase readbacks or the exact stopped prefix are preserved with restoration and capture evidence.]
+    verification: [preconditions, raw_records, paired_measurement, restoration, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.frequency-diagnostic-decision
+    title: Evaluate the receive-frequency discriminator and revise the measurement gate
+    state: open
+    intent: Choose whether raw frequency qualification supports a new survey while preserving the failed survey.
+    requires: [TASK.rf.frequency-diagnostic]
+    requirements:
+      - Use the frozen600/571 candidate bands and three-record thresholds. Retain global searches, FFT diagnostic, residuals, amplitudes, range and both built-in readbacks; refuse unsupported or ambiguous attribution.
+      - Distinguish received sampled frequency, source command, built-in measurement and independent physical frequency accuracy. The scope clock remains uncalibrated; do not infer an internal estimator implementation from fs/7 alone.
+      - If one bounded continuation is justified, draft/admit/commit a new survey with explicit raw-frequency qualification. Do not retroactively relax the earlier survey or change software policy. Keep original matched-policy and absolute bandwidth gates open.
+      - Commit/push the conclusion and reconcile the remaining time window; otherwise record the exact bench question and continue useful offline work.
+    acceptance: [The retained evidence resolves or precisely preserves the frequency ambiguity and supports a scoped next decision.]
+    verification: [controls, discriminator, claim_limits, next_question]
+    required_extensions: []
+    extensions: {}
