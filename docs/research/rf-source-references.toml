@@ -1,0 +1,87 @@
+schema_version = 1
+recorded_date = "2026-09-30"
+purpose = "RF source documentary research; no physical board verification"
+preservation = "Supplied files retained privately; no PDFs, HTML snapshots or purchase records redistributed"
+hash_scope = "SHA-256 identifies supplied bytes, not manufacturer authenticity or matching delivered hardware"
+
+[[sources]]
+id = "delivered-touchscreen-leaflet"
+kind = "operator-supplied photographs of delivered leaflet and hardware"
+title = "23.5-6000MHz RF Signal Source: 2.8 Inch Touch Screen Version User Manual"
+locators = ["leaflet page 1: interfaces and controls", "leaflet page 2: output settings and startup modes"]
+preservation = "Five original photographs and individual hashes retained in private evidence"
+private_evidence_manifest_sha256 = "ecd69f42a8a1c578b7ff25279ed04478ae7e4d2af7ce7c590d2eb90bc041ccb1"
+limit = "Unattributed leaflet; pictured UI is illustrative, delivered startup state and behavior not tested"
+
+[[sources]]
+id = "max2870-datasheet"
+kind = "vendor-authored IC datasheet supplied locally"
+title = "MAX2870 23.5MHz to 6000MHz Fractional/Integer-N Synthesizer/VCO"
+revision = "19-6250; Rev 6; 4/17"
+url = "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX2870.pdf"
+sha256 = "86aceb5cbffb1c71b922a77ed5cf6adc5ebe26c9387e9aaf39bd98ed0b7edce5"
+locators = ["pages 1, 3-4: range and output test conditions", "pages 12-15: startup, reference and locking"]
+limit = "Supplied bytes were not compared with a fresh complete vendor download; earlier bounded retrievals failed"
+
+[[sources]]
+id = "hawkrao-control"
+kind = "firsthand third-party board report; supplied SingleFile HTML"
+title = "Software Control of MAX2870 LCD Signal Generator"
+url = "https://sites.google.com/view/hawkrao/miscellaneous-sub-projects/software-control-of-max2870-lcd-signal-generator"
+sha256 = "92474f2d2cca5e3da2fa8598fa132e825c1e6c2710564c6f7f354ced6c45a527"
+locators = ["board photograph", "Background", "Serial Protocol", "Windows GUI C# Application"]
+limit = "Protocol and reference configuration apply to the author's example; delivered firmware not tested"
+
+[[sources]]
+id = "oled-module-manual"
+kind = "unattributed supplied module manual"
+title = "LTDZ_23.5M-6000M RF signal source instructions"
+sha256 = "d3c352bcadf8bd29dc03bbb2b2c3ed8add393f78e5c0c5e6f4c8691b04ed8c87"
+locators = ["page 1: 0.96-inch OLED and directional controls", "page 2: nine-byte serial protocol"]
+limit = "No independently established publisher or revision; describes a different interface family"
+
+[[sources]]
+id = "element14-review"
+kind = "firsthand third-party measurements; supplied SingleFile HTML"
+title = "Using a MAX2870 Frequency Synthesizer / Signal Generator"
+author = "shabaz"
+article_date = "2024-02-19"
+url = "https://community.element14.com/technologies/test-and-measurement/b/blog/posts/using-a-max2870-frequency-synthesizer-signal-generator"
+sha256 = "e6eae7b3ecfc25a89db8bf0bfcb1465c829d3ce2698444a1fdb219aceb1cb3fd"
+locators = ["What Is It?", "Is it a Sine Wave?", "Using It", "Measurements", "Problems"]
+limit = "Measurements and firmware behavior belong to the author's unit and setup, not the delivered unit"
+
+[[sources]]
+id = "max2870-porting"
+kind = "vendor-authored application note supplied locally"
+title = "Comparing the Registers and Loop Filter of the MAX2870 and ADF4350 Synthesizers"
+revision = "Application Note 5498; 2012-10-10"
+sha256 = "6fa19d2ce72186159810ef511703443af9f16f08a179fa47e170e1ca19226e19"
+locators = ["pages 1-7: register comparison", "pages 7-8: loop filter"]
+limit = "IC porting guidance; not a schematic for the commercial touchscreen source"
+
+[[sources]]
+id = "max2870-evkit"
+kind = "vendor-authored evaluation-kit guide supplied locally"
+title = "MAX2870/MAX2871 Evaluation Kits"
+revision = "19-6805; Rev 2; 11/15"
+url = "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX2870EVKIT.pdf"
+sha256 = "1513f2337e99bd935bf736eb9ec84fc1190bfc02e4dd0549651fed269f0361aa"
+locators = ["pages 1-2: hardware, reference and RF output pads"]
+limit = "Official EV-kit topology; no equivalence to commercial module established"
+
+[[sources]]
+id = "hawkrao-reference-i"
+kind = "firsthand third-party board modification report; web read"
+title = "Modifying a Signal Generator to an External Reference Clock - Part I"
+url = "https://sites.google.com/view/hawkrao/miscellaneous-sub-projects/modifying-signal-generator-to-external-reference-part-i"
+locators = ["Background: original 25 MHz oscillator and MCLK output", "Change to Settings"]
+limit = "Describes the author's hardware modification; no such operation performed or recommended for this test"
+
+[[sources]]
+id = "hawkrao-reference-ii"
+kind = "firsthand third-party comparison; web read"
+title = "Modifying Signal Generator to External Reference - Part II"
+url = "https://sites.google.com/view/hawkrao/miscellaneous-sub-projects/modifying-signal-generator-to-external-reference-part-ii"
+locators = ["Un-Modified Signal Generator Results", "Modified Signal Generator Results", "Special Note"]
+limit = "Reference-dependent spectral observations; causal explanations remain the author's hypotheses"

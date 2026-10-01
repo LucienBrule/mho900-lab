@@ -14,6 +14,8 @@ The separate emulator, crash-cart and general tooling programs are not prerequis
   preserved public identity, ordinary options and signed APK. It also describes the rollback boundary.
 - [Stage 5 evaluation plan](rf-performance-evaluation-plan.md) supplies the initial measurement rationale,
   single-channel comparison, raw-waveform reduction, uncertainty terms and stock/derived/stock design.
+- [RF source research](rf-source-research.md) distinguishes candidate board families, incompatible serial protocols
+  and the source constraints to verify before choosing the physical protocol.
 - The present roadmap adapts that proposal to equipment actually available. The older plan remains a dated
   planning baseline; it is not an executed protocol or an inventory of the current bench.
 
