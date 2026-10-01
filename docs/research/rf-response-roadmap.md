@@ -16,6 +16,8 @@ The separate emulator, crash-cart and general tooling programs are not prerequis
   single-channel comparison, raw-waveform reduction, uncertainty terms and stock/derived/stock design.
 - [RF source research](rf-source-research.md) distinguishes candidate board families, incompatible serial protocols
   and the source constraints to verify before choosing the physical protocol.
+- [Internal-photo follow-up](rf-source-internal-photo-review.md) records a MAX2871-like RF marking and USB-serial
+  bridge evidence supplied after the documentary checkpoint. Electrical behavior remains unqualified.
 - The present roadmap adapts that proposal to equipment actually available. The older plan remains a dated
   planning baseline; it is not an executed protocol or an inventory of the current bench.
 
