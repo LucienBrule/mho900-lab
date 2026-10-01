@@ -73,3 +73,33 @@ predictions and distinguish them without relaxing this survey retrospectively.
 No drift estimate is available because the return anchor was not reached. The
 matched software-policy comparison and absolute bandwidth determination remain
 open.
+
+## Offline evaluation
+
+The frozen bounded estimator accepted all ten acquired records. Unacquired
+records remain missing in all 60 scheduled result slots; they do not enter means.
+The fit used the supplied raw sample interval, centered times and the committed
+frequency-search limits, with independent off-bin, noise and alias controls.
+
+| Commanded frequency | Fitted mean frequency | Apparent peak mean | Population SD | Fundamental residual RMS |
+| --- | --- | --- | --- | --- |
+| 100 MHz | 100.002069 MHz | 146.374869 mV | 0.008453 mV | 42.083648 mV |
+| 400 MHz | 400.008216 MHz | 134.215352 mV | 0.015767 mV | 22.272000 mV |
+
+The 400 MHz mean is −0.753287 dB relative to the initial 100 MHz mean. This is
+source/cable/CH1 sampled response, not isolated scope gain. The small within-visit
+dispersion does not bound source amplitude error, scope calibration, mismatch,
+alias bias or drift. Neither an end anchor nor a policy comparison was acquired.
+
+Actual fitted detuning separates the ninth-harmonic alias from the 400 MHz
+fundamental by roughly 82.16 kHz, versus the record's 40 kHz inverse-duration
+scale. This avoids claiming an exact collision solely from nominal frequency;
+it does not establish that omitted folded harmonics contribute no energy.
+The order-one-through-nine sensitivity fit and all residuals remain diagnostics.
+Synthetic exact-collision controls show that substantial amplitude bias can
+coexist with a nearly zero fit residual.
+
+The decision is to resolve the 600 MHz readback ambiguity with the separately
+frozen [receive-frequency discriminator](rf-frequency-diagnostic-protocol.md).
+Source and scope clocks are uncalibrated. Further survey admission depends on
+that discriminator, and the failed survey remains immutable.
