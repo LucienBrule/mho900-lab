@@ -27,6 +27,8 @@ the original nine-task roadmap membership.
 - [Pinned source-controller review](rf-source-repository-review.md) recovers a candidate factory UART protocol
   from a public stock image. Its [decision](rf-source-repository-decision.md) favors a bounded compatibility
   test before programmer attachment; own-unit firmware equivalence and emitted RF remain unknown.
+- [Factory sender and fresh-start trial](rf-source-factory-sender.md) records the separate typed protocol,
+  host controls and the operator-selected power cycle before one compatibility command.
 - The present roadmap adapts that proposal to equipment actually available. The older plan remains a dated
   planning baseline; it is not an executed protocol or an inventory of the current bench.
 

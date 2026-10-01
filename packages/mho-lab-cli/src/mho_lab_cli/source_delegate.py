@@ -8,7 +8,16 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from mho_evidence import SealCreated, SealRequest, seal
-from mho_source import Outcome, PointCommand, Port, PosixPort, encode_point, execute
+from mho_source import (
+    FACTORY_REFERENCE_SHA256,
+    Command,
+    Outcome,
+    PointCommand,
+    Port,
+    PosixPort,
+    encode_command,
+    execute,
+)
 
 
 @dataclass(frozen=True)
@@ -49,13 +58,25 @@ def stamp() -> bytes:
 
 
 def point_once(
-    command: PointCommand,
+    command: Command,
     device: Path,
     output: Path,
     port_factory: Callable[[Path], Port] = PosixPort,
 ) -> PointRunResult:
-    command = PointCommand.model_validate(command)
-    frame = encode_point(command)
+    frame = encode_command(command)
+    if isinstance(command, PointCommand):
+        protocol_fields = (
+            'schema = "mho-source.point-attempt/1"\n'
+            'protocol = "hawkrao-point-ad/1"\n'
+            f"reference_hz = {command.reference_hz}\n"
+        )
+    else:
+        protocol_fields = (
+            'schema = "mho-source.factory-point-attempt/1"\n'
+            'protocol = "factory-point-crlf-hundredths/1"\n'
+            f'reference_image_sha256 = "{FACTORY_REFERENCE_SHA256}"\n'
+            "device_image_equivalence_proven = false\n"
+        )
     phase = "evidence-directory"
     started = False
     outcome: Outcome | None = None
@@ -70,10 +91,8 @@ def point_once(
         durable(
             data / "request.toml",
             (
-                'schema = "mho-source.point-attempt/1"\n'
-                f"device = {json.dumps(str(device))}\n"
+                protocol_fields + f"device = {json.dumps(str(device))}\n"
                 f"frequency_hz = {command.frequency_hz}\n"
-                f"reference_hz = {command.reference_hz}\n"
                 f"power_code = {command.power_code}\n"
                 "baud = 115200\ndata_bits = 8\nstop_bits = 1\n"
                 'parity = "none"\nflow_control = "none"\n'

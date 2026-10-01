@@ -9,7 +9,16 @@ from pathlib import Path
 
 import pytest
 
-from mho_source import PointCommand, PosixPort, Rejected, TransportComplete, encode_point, execute
+from mho_source import (
+    Command,
+    FactoryPointCommand,
+    PointCommand,
+    PosixPort,
+    Rejected,
+    TransportComplete,
+    encode_command,
+    execute,
+)
 
 
 @dataclass
@@ -19,11 +28,17 @@ class Peer:
 
 
 @pytest.mark.parametrize("reply", [b"", b"PTY response"])
-def test_real_posix_pty_exchange(reply: bytes) -> None:
+@pytest.mark.parametrize(
+    "command",
+    [
+        PointCommand(frequency_hz=100_000_000, reference_hz=25_000_000, power_code=4),
+        FactoryPointCommand(frequency_hz=100_000_000, power_code=0),
+    ],
+)
+def test_real_posix_pty_exchange(reply: bytes, command: Command) -> None:
     master, slave = pty.openpty()
     target = Path(os.ttyname(slave))
     peer = Peer()
-    command = PointCommand(frequency_hz=100_000_000, reference_hz=25_000_000, power_code=4)
 
     def respond() -> None:
         try:
@@ -47,7 +62,7 @@ def test_real_posix_pty_exchange(reply: bytes) -> None:
         assert result.transcript.response == reply
         worker.join(4.0)
         assert not worker.is_alive() and peer.error == ""
-        assert peer.received == encode_point(command)
+        assert peer.received == encode_command(command)
         assert time.monotonic() - start < 6.0
     finally:
         os.close(slave)

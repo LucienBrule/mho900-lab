@@ -1,5 +1,7 @@
 """RF source point encoding and bounded serial experiments."""
 
+from .command import Command, encode_command
+from .factory import FACTORY_REFERENCE_SHA256, FactoryPointCommand, encode_factory_point
 from .point import PointCommand, encode_point
 from .posix import PosixPort
 from .session import (
@@ -14,6 +16,9 @@ from .session import (
 )
 
 __all__ = [
+    "FACTORY_REFERENCE_SHA256",
+    "Command",
+    "FactoryPointCommand",
     "Outcome",
     "PointCommand",
     "Port",
@@ -23,6 +28,8 @@ __all__ = [
     "Transcript",
     "TransportComplete",
     "Uncertain",
+    "encode_command",
+    "encode_factory_point",
     "encode_point",
     "execute",
 ]

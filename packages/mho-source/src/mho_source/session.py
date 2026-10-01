@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Literal, Protocol
 
-from .point import PointCommand, encode_point
+from .command import Command, encode_command
 
 
 @dataclass(frozen=True)
@@ -56,13 +56,13 @@ class TransportComplete:
 type Outcome = Rejected | Uncertain | TransportComplete
 
 
-def execute(command: PointCommand, port: Port, before_write: Callable[[], None]) -> Outcome:
+def execute(command: Command, port: Port, before_write: Callable[[], None]) -> Outcome:
     """Preserve input, stop on pre-input, attempt one OS write, then observe for 2 s.
 
     The callback must durably record write intent. A complete OS write only
     establishes driver acceptance, not UART delivery or device interpretation.
     """
-    frame = encode_point(command)  # Revalidate before any port operation.
+    frame = encode_command(command)  # Revalidate before any port operation.
     started = datetime.now(UTC).isoformat()
     before = b""
     response = b""

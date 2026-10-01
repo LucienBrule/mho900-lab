@@ -86,7 +86,7 @@ from mho_scpi import (
     decode_exchange,
     execute,
 )
-from mho_source import PointCommand, encode_point
+from mho_source import FactoryPointCommand, PointCommand, encode_factory_point, encode_point
 from mho_transport import (
     Endpoint,
     TranscriptAccepted,
@@ -954,6 +954,18 @@ def main() -> int:
         == "AD 01 01 04 03 D0 90 01 86 A0 3D",
         "Installed source CLI differs",
     )
+    factory = FactoryPointCommand(frequency_hz=100_250_000, power_code=0)
+    require(encode_factory_point(factory).hex() == "555500640019000d0a", "Factory frame mismatch")
+    run_cli(
+        evidence,
+        "factory-frame",
+        ["source", "factory-frame", "--frequency-hz", "100250000", "--power-code", "0"],
+        0,
+    )
+    require(
+        (evidence / "factory-frame.stdout").read_text().strip() == "55 55 00 64 00 19 00 0D 0A",
+        "Installed factory CLI differs",
+    )
     public_walkthrough(checkout, evidence)
     owned_recorder_review(checkout, evidence)
     lines = [
@@ -982,6 +994,7 @@ def main() -> int:
         "owned_synthetic_recorder_review_verified = true",
         "unchecked_public_boundaries_verified = true",
         "source_offline_frame_library_cli_verified = true",
+        "factory_offline_frame_library_cli_verified = true",
     ]
     for package in packages:
         lines.extend(
