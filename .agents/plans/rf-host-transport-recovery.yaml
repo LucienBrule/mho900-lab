@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.host-transport-preparation
+    title: Resolve the host transport stop before another stock transition
+    state: open
+    intent: Distinguish a workstation route or daemon failure from missing specimen reachability.
+    requires: [TASK.rf.stock-rollback]
+    requirements:
+      - Preserve the stopped initial-stock run and its exact failure. No specimen mutation, observer read or reboot occurred; do not turn the negative into a stock witness.
+      - Under fresh full capture and unchanged isolation, temporarily add only the approved isolated host address and inspect the exact peer route and neighbor cache without issuing management requests. Restore the address afterward and preserve graceful recorder statistics.
+      - Verify ownership and absence of connected transports before restarting only the dedicated local ADB server once. Do not alter host security, default route, DHCP configuration, specimen state or wiring. Treat the restart as a hypothesis, not a confirmed remedy.
+      - Prepare a distinct frozen transition run with the already tested controls, actual captured lease and unchanged baseline, UI, read budget, preservation, single reboot and warmup gates. Independently review readiness and commit/push before physical execution.
+    acceptance: [A bounded host-only diagnostic and independently reviewed fresh run support exactly one baseline attempt or an explicit hold.]
+    verification: [negative, host_diagnostic, daemon, frozen_inputs, disposition]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stock-rollback-recovery
+    title: Execute one fresh stock baseline after the host transport control
+    state: open
+    intent: Establish the stock arm without relaxing the failed attempt or its physical gates.
+    requires: [TASK.rf.host-transport-preparation]
+    requirements:
+      - Use a distinct immutable run and fresh full capture with the captured86400second lease and deadline2026-10-03T01:38:03Z. Attempt the baseline connection once; stop on failure rather than repeat unchanged operations.
+      - Revalidate original APK, exact introduced standalone native file, derived process mapping, root identity, options, protected logical corpus and root-reviewed visible UI before removal. Observe only the existing four fixed reads16bytes per phase.
+      - Remove only that verified introduced file and send exactly one normal reboot, with no ambiguous retry. Establish APK-backed stock17/17, new boot epoch and normal UI; retain greater1800seconds serviced warmup and existing preservation allowances.
+      - Preserve any partial negative result without claiming stock. Require independent capture and state review, ordinary safe cleanup and a committed/pushed conclusion before another transition.
+    acceptance: [A verified stock baseline or bounded negative outcome resolves the sole fresh attempt.]
+    verification: [baseline, transition, stock_witness, preservation, capture, final_state]
+    required_extensions: []
+    extensions: {}

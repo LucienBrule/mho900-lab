@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.rf.reduce"
+reviewed_head: "sha256:962f88d8c40fc2ecf37ab571189ab85e37daacc957bde07405060fbe26b00efa"
+observations: [{"upstream": "TASK.rf.acquire", "contract": "sha256:d2b68b1c630e4d14db07d29501267cd2dbea2d1ac61e74c538e158d7adb054c0", "revision": "sha256:21d55dcb3f8308c2262fa2bfc67f816a2d34202bd80de375b1af06fa230acbb9", "inputs": "sha256:f71674abb97b625fd65851194138485276259d9431695d748e721507a5e2ce2c"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-10-02T02:08:02.865283+00:00"
+rationale: "Reviewed the preserved pre-mutation transport stop and explicit single successor baseline after host-only diagnostics. No numerical, preservation, reboot, thermal or specimen authority gate changed. This reconciles dependencies only and leaves physical success and RF readiness unasserted."
+evidence: {"estimator_controls": "Reviewed the preserved pre-mutation transport stop and explicit single successor baseline after host-only diagnostics. No numerical, preservation, reboot, thermal or specimen authority gate changed. This reconciles dependencies only and leaves physical success and RF readiness unasserted.", "reduction": "Reviewed the preserved pre-mutation transport stop and explicit single successor baseline after host-only diagnostics. No numerical, preservation, reboot, thermal or specimen authority gate changed. This reconciles dependencies only and leaves physical success and RF readiness unasserted.", "uncertainty": "Reviewed the preserved pre-mutation transport stop and explicit single successor baseline after host-only diagnostics. No numerical, preservation, reboot, thermal or specimen authority gate changed. This reconciles dependencies only and leaves physical success and RF readiness unasserted.", "limitations": "Reviewed the preserved pre-mutation transport stop and explicit single successor baseline after host-only diagnostics. No numerical, preservation, reboot, thermal or specimen authority gate changed. This reconciles dependencies only and leaves physical success and RF readiness unasserted."}
+successor: null
