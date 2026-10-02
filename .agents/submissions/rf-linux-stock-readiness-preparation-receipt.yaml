@@ -1,0 +1,31 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.rf.linux-stock-readiness-preparation
+contract: sha256:f478d4f34aeb2751522cfd86774f739d61c0a0917f8ddfadc3c72849df6b2d1f
+actor: mho900-lab-investigation
+recorded_at: '2026-10-02T20:33:00Z'
+evidence:
+  pinned_inputs: >-
+    Accepted Linux link 25a2df7e69ec135cbf63a4c8f808734cce51cb9ff03b001466b51a7abd8dcc02,
+    retained lease and stock inventory are bound by input assessment
+    78ec35364f647bfd4de9959ca7a69264104c8bb7e97e2349395e6a1ec3b2f276.
+    Concrete invocation 61abace532eb0d54b00b6786af5985c950aef79e203f2f28f619c4828dc914c8
+    pins actual namespace ownership, tool/source hashes and separate clock domains.
+  standard_client: >-
+    Ordinary platform-tools ADB foreground server and discovery settings passed the
+    host-only isolated loopback lifecycle control a279bdc13a18466b139352dbfab8d76ae0cffe2a8c3eb3e84821bae8e3c41135.
+    The numeric listen-host rejection is preserved; localhost binds only loopback.
+    No peer contact occurred in preparation. SIGINT exited zero and retired resources.
+  bounded_observation: >-
+    Observer seal 4387387b68906402e44eff8b71223db4218b0d3384a6bb5fc6047d4dc84b2307
+    and coordinator b08c80c989082ada362156c0d5bc4a53ae2812611025ba308fd8f9014772a240
+    prepare one capture-first connect, UID-first exact stock epoch/maps/corpus/UI and
+    existing fixed 16-byte observer, without root restart, reboot, source or RF changes.
+    Nine observer and six coordinator controls pass. Concrete host-only guards passed;
+    the template remains unarmed until actual fresh capture readiness. Cleanup preserves
+    drop statistics and stops or holds on uncertain ownership. No actual stock result yet.
+  independent_review: >-
+    Independent native-verified seal c6c75f93a3faaa295d1f28e714502daad5fb8c1716a218886618e72c037fa446
+    accepts GO_CAPTURE_FIRST_SINGLE_STOCK_OBSERVATION, including two independent controls.
+    It binds all frozen sources, concrete config and host-only validation. No unresolved
+    preparation blocker; actual observation and human screenshot acceptance remain separate.

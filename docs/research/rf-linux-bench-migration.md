@@ -124,3 +124,33 @@ Independent completed review is
 (`23b76cc1776810c50424023975bcd73351b1b3e468f70eccb76ba8fc0d112fdb`).
 The raw timestamps belong to the recorded Linux host clock domain; they are not
 silently treated as synchronized workstation timestamps.
+
+A conventional Linux ADB observation is prepared and independently accepted.
+A host-only loopback control established a foreground server, loopback-only
+listener and graceful SIGINT retirement. The supported discovery switches are
+explicitly disabled. A numeric listen hostname was rejected by this ADB build;
+the successful control uses `localhost`. Both outcomes remain preserved.
+The ordinary `exec-out` client does not convey remote exit status reliably, so
+zero-output remote checks require explicit completion markers.
+
+The prepared observation starts full capture before one ADB connection, reads
+UID first, and compares the exact accepted stock boot/process, APK/native mapping
+and complete protected corpus. It requests one UI image and, only after those
+gates, uses the already present fixed 16-byte stock policy reader. It introduces
+no root restart, reboot, source command, RF sample or new warm-up claim. The
+capture health token is created only after live recorder readiness. Cleanup
+binds process ownership, retires the server and retains actual drop statistics;
+uncertain retirement stops the run without an automatic reconnect.
+
+Preparation is `out/rf/linux-stock-preparation-01.toml`
+(`4387387b68906402e44eff8b71223db4218b0d3384a6bb5fc6047d4dc84b2307`),
+coordinator preparation is `out/rf/linux-stock-controller-preparation-01.toml`
+(`b08c80c989082ada362156c0d5bc4a53ae2812611025ba308fd8f9014772a240`),
+and the concrete invocation is `out/rf/linux-stock-invocation-01.toml`
+(`61abace532eb0d54b00b6786af5985c950aef79e203f2f28f619c4828dc914c8`).
+Independent preparation review is
+`out/rf/linux-stock-preparation-independent-01.toml`
+(`c6c75f93a3faaa295d1f28e714502daad5fb8c1716a218886618e72c037fa446`).
+These seals establish readiness for one observation, not current specimen or RF
+acceptance. The RF source remains on its existing workstation serial connection;
+no USB relocation is required for the proposed continuation.
