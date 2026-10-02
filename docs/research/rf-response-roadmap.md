@@ -17,6 +17,13 @@ concrete proposed arm sequence, discriminator and exact missing conditions.
 Independent source/path characterization remains an additional requirement for
 a calibrated absolute-bandwidth claim.
 
+The subsequent [exact-stock filter recovery](rf-policy-filter-static.md) finds
+distinct digital selections for enums 17 and 18 under explicit 4 GSa/s normal
+inputs, with equal constructor AFE tuples. Its
+[decision](rf-policy-filter-decision.md) adds effective runtime selections to the
+next bench question: an ordinary FULL readback is not proof of the driver enum
+or live coefficient consumption. The physical comparison remains held.
+
 The roadmap has three phases and nine tasks. Each phase has two work tasks and a decision task. One roadmap keeps
 the equipment preparation and experiment attached to the same question; three epics group their distinct scopes.
 The separate emulator, crash-cart and general tooling programs are not prerequisites for this milestone.
