@@ -445,3 +445,46 @@ question and supplies no comparison slots. Its numerical and wire review
 comes next. Future transition execution requires a concrete reviewed backend,
 accepted predecessor evidence and a new sufficient execution window; none is
 created by accepting the offline library.
+
+
+The separate physical paired-export diagnostic completed all twenty planned
+fresh acquisitions and preserved forty RAW replies. Within every stopped
+acquisition, both DATA replies are byte-identical, all three preambles agree,
+and before/after geometry agrees. Independent reconstruction matches all
+1,041 original SCPI commands and responses to the full capture. The recorder
+closed gracefully with 23,816 captured, 23,816 filter-received and zero dropped
+packets. Owned management endpoints retired before capture closure; the final
+namespace has no helper processes. Transient TIME_WAIT is retained explicitly.
+
+Across the twenty independent acquisitions, sampled AC RMS has mean
+107.178 mV, population standard deviation 0.882 mV, minimum 104.851 mV and
+maximum 108.037 mV. Both export streams produce exactly the same distribution.
+Independent scalar recomputation of original samples agrees within
+1.39e-17 V. All forty exports pass the unchanged numerical and reference guards;
+all positions are retained, with no exclusions or replacement records.
+
+This narrows the failure question: repeat-read inconsistency was not observed
+in these twenty stopped pairs, while amplitude variation remains between fresh
+acquisition results. It does not distinguish source, analog input, acquisition,
+buffer selection or internal scaling causes. The previous 86.803 mV RMS record
+did not recur in this batch. No new source command was issued, but the trial
+included ordinary-setting normalization, particularly the original 1 MOhm input
+to 50 Ohm before acquisition, and complete restoration afterward. It is not a
+zero-intervention control; loading or settling remains an unresolved inference.
+
+Actual evidence is `out/rf/linux-frozen-export-actual-01.toml`
+(`7383fe078c3a5ef6d6101b4d0dc54298fe8603de752fe626d77689433fb20fe9`).
+Numerical analysis is `out/rf/linux-frozen-export-analysis-01.toml`
+(`4dc930a25acc09eba775fd9be8a36557b449f5aeed16ebf67ed6df6f072a6836`),
+independently reviewed in `out/rf/linux-frozen-export-actual-independent-01.toml`
+(`c5dbacb91b7c9b7be15c08409b3e17f137b6edbe08b049c66f8eb7a106a2cd8c`).
+Stock epoch checks preserve the accepted process and twelve mapping rows;
+current stock byte, policy, UI, protected corpus and thermal evidence remain
+inherited rather than newly proven by those metadata checks.
+
+The original failed A1 remains failed, with fifty B/A2 slots missing. This
+diagnostic creates zero comparison slots and authorizes no native transition.
+The next bounded question is offline: what does the stock RAW dispatch actually
+promise about a stopped buffer and ASCII voltage conversion? Recovering that
+narrow contract may identify a software ambiguity; static code alone cannot
+assign a physical cause or correct the failed return control.
