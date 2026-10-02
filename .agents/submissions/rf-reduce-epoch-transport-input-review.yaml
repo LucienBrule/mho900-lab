@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.rf.reduce"
+reviewed_head: "sha256:28039f57a10cb8d35405e364d93f6b27c7391c99905ca62c25562cfb8279a2ff"
+observations: [{"upstream": "TASK.rf.acquire", "contract": "sha256:31855ddc62c999f6854ba79c19e38e1742ec0b6c7f4758ab502a4b0332f2c64e", "revision": "sha256:c57daac1d8d0de16ec87c5c3ca39341faf841dc6fc74be5d6217d3ee460f54c2", "inputs": "sha256:c6ef2162068ec9e9423eceb04c00896757a0738737585f51c3c9c6daa25b3bed"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-10-02T03:42:33.022974+00:00"
+rationale: "Reviewed acquisition prerequisite remedies retain both immutable zero-record stops and require impedance/host-transport GO before a fresh attempt. The 75-slot source/RAW/range/estimator/return-control contract remains unchanged, so the reduction contract is revalidated without treating preparation as measured evidence."
+evidence: {"estimator_controls": "Reviewed acquisition prerequisite remedies retain both immutable zero-record stops and require impedance/host-transport GO before a fresh attempt. The 75-slot source/RAW/range/estimator/return-control contract remains unchanged, so the reduction contract is revalidated without treating preparation as measured evidence.", "reduction": "Reviewed acquisition prerequisite remedies retain both immutable zero-record stops and require impedance/host-transport GO before a fresh attempt. The 75-slot source/RAW/range/estimator/return-control contract remains unchanged, so the reduction contract is revalidated without treating preparation as measured evidence.", "uncertainty": "Reviewed acquisition prerequisite remedies retain both immutable zero-record stops and require impedance/host-transport GO before a fresh attempt. The 75-slot source/RAW/range/estimator/return-control contract remains unchanged, so the reduction contract is revalidated without treating preparation as measured evidence.", "limitations": "Reviewed acquisition prerequisite remedies retain both immutable zero-record stops and require impedance/host-transport GO before a fresh attempt. The 75-slot source/RAW/range/estimator/return-control contract remains unchanged, so the reduction contract is revalidated without treating preparation as measured evidence."}
+successor: null
