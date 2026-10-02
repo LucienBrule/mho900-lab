@@ -1,0 +1,48 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.policy-comparison-preparation
+    title: Prepare and independently control the matched-policy RF controller
+    state: open
+    intent: Turn the reviewable arm proposal into frozen tested eligibility, reduction and transition controls.
+    requires: [TASK.rf.policy-filter-decision, TASK.rf.raw-ac-statistics-decision]
+    requirements:
+      - Freeze the proposed A1 stock, B derived, A2 stock schedule with five repeats at100,800,975,1000,100MHz per arm; use identical original-volts AC RMS, one default receive receipt per record and separate strict hard eligibility. Preserve all earlier byte sequences and protocols.
+      - Test full100k/count1/start1/stop100k/rate4G/250ps geometry, strict180mV extrema and360mV Vpp upper limits; allow only named low-floor range rejection or receive-stage band-peak-frequency/global-peak-frequency/energy-fraction failures under a separately frozen interpretation for every arm. Exact zero has no invented finite dB ratio and unavailable return ratios make the decision unassessable.
+      - Test all50 B-to-A pair comparisons at1GHz for positive or contrary1dB contrast; all comparisons must pass the same direction. Enforce0.3dB A2/A1 returns at100,800,975,1000, eacharm100MHz return and pairwise initial100MHz anchors; no drift correction, replacement slots, missing-arm inference or mixed fit/RMS metrics.
+      - Prepare a fresh configurable controller and independent transition verifier. Revalidate introduced native file ancestry, actual package path, hash, ownership, map geometry, boot/process identity, four fixed policy reads16bytes, signedAPK, options and protected logical corpus before each transition. Do not reuse the old recovery rollback path as a healthy-transition gate.
+      - Freeze one normal reboot per transition with no retransmission after ambiguous delivery; one bounded postboot adbd-root request only if needed for the established read-only observer, no remount or policy changes. Require changed bootID, fresh isolated lease, normal visible UI, strict preservation and more than1800seconds health-serviced warmup after each reboot. Do not begin a transition unless the remaining sequence and cleanup fit the03:56UTC deadline.
+      - Independently exercise altered-source/state/geometry/claim controls, UI/capture/lease/deadline failures and partial-run preservation. Use typed Python with no Any, frozen named Pydantic outcomes, strict type/lint/format checks; stock inputs and reusable receive/statistics modules remain unchanged. Commit and push preparation before physical execution.
+    acceptance: [A frozen tested controller supports one bounded healthy stock rollback and the declared comparison or records an exact preparation blocker.]
+    verification: [protocol, eligibility, estimator_controls, transition_controls, provenance, preservation]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stock-rollback
+    title: Observe the first verified physical stock rollback
+    state: open
+    intent: Establish an APK-backed stock policy baseline without changing options or calibration.
+    requires: [TASK.rf.policy-comparison-preparation]
+    requirements:
+      - Under confirmed unchanged bench conditions and a fresh healthy isolated capture, obtain the complete fresh derived baseline and revalidate the exact introduced native file before removal. Operator continuation after the concrete proposal authorizes this initial stock transition and final stock state; preserve the authorization context locally.
+      - Remove only the freshly verified introduced standalone file, then send exactly one normal reboot. Never retry an ambiguously delivered reboot or broaden to other files, firmware, entitlements, calibration, host security or wiring.
+      - Independently verify original APK-backed stock Auklet, absent derived mapping, stock digest, repeated17/17 observation within four fixed reads16bytes, new boot epoch, public identity/options and normal visible UI. Compare fresh logical content using only the established bandwidth-header CRC/time and172byte identity fallback allowances.
+      - Preserve success or negative partial outcome separately, stop on capture/transport/state/preservation ambiguity, and perform only known-safe ordinary cleanup. Record more than1800seconds postboot thermal control before A1 sampling. Commit and push the sealed transition result before proceeding to another software transition.
+    acceptance: [The first physical rollback produces a verified stock baseline or a bounded reproducible stop with durable evidence.]
+    verification: [baseline, transition, stock_witness, preservation, capture, final_state]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stock-rollback-decision
+    title: Evaluate stock rollback and release or hold the RF comparison
+    state: open
+    intent: Resolve the first physical transition before relying on stock as an experimental arm.
+    requires: [TASK.rf.stock-rollback]
+    requirements:
+      - Independently assess exact one-reboot delivery, new boot and stock mappings,17/17 witness, normal UI, logical preservation, fresh capture and thermal/deadline readiness. Success must not be inferred solely from connectivity.
+      - On success supply evidence to the original execution decision for the already proposed stock-derived-stock comparison, with finalstock explicit. On failure leave the original gate open and record the exact failure; no automatic native reinstatement or repeated reboot is admitted.
+      - Commit and push the conclusion before the next arm transition; preserve original protocol and specimen evidence and do not convert a completed preparation or rollback task into a positive RF result.
+    acceptance: [A supported go or hold disposition reconciles the stock baseline with the original RF gate.]
+    verification: [review, disposition, limits, next_step]
+    required_extensions: []
+    extensions: {}
