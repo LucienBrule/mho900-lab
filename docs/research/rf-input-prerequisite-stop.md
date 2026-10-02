@@ -44,3 +44,15 @@ controllers and this negative evidence remain immutable. A fresh attempt
 requires independently reviewed preparation, a reasoned GO, and a committed
 and pushed checkpoint. The 75-slot comparison, source power code, RAW sampling,
 range guards, estimator and return-control criteria remain unchanged.
+
+The bounded remedy decision is GO. The separate producer preparation is sealed
+with SHA-256 `2c35dcd76fc60bc1b093696c3f51789f3213a1bb39f4939a6fdadd07b3861b04`;
+independent readiness review is sealed with SHA-256
+`30b1035c581c7c27adb2195d952dc7799abde3916160075f983b9387eb2e493f`.
+Six producer and sixteen independent controls passed, including required
+50-ohm verification, command ordering, conditional restoration, unknown-token
+rejection and unchanged acquisition behavior. The fresh actual A1 root is
+`out/rf/policy-comparison-A1-impedance-20261002T034000Z`, with control manifest
+SHA-256 `d5debde9b13856dc10eba40d6064975cc545b4d2437a3cbaeebe9395201391e8`.
+No physical acceptance follows from that readiness review. Execution still
+requires fresh process, isolation, settings and receiver checks.
