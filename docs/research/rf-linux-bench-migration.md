@@ -300,3 +300,40 @@ The detailed integration design is `out/rf/linux-native-supervisor-design-01.tom
 reviewed by `out/rf/linux-native-supervisor-design-independent-01.toml`
 (`0f5ff8d09a34b2dea4c7f6be0ad8f252da3fafc11bfb6cf6e9189727571f2dd2`).
 No native transition follows from these offline results.
+
+The original stock arm completed once with all 25 RAW records preserved. Each
+record passes the unchanged range and receive checks. The five visit means,
+in commanded-frequency order, are 111.197, 100.762, 95.137, 90.834 and
+106.513 mV AC RMS. These are observed sample statistics under the stock policy;
+they do not establish calibrated source amplitude or analog bandwidth.
+
+The arm fails its original return control. The final versus initial 100 MHz
+mean is **-0.37378452327613054 dB**, outside the inclusive +/-0.3 dB limit.
+The final visit's fifth record has 86.803 mV AC RMS; its other four records
+have approximately 111.42--111.46 mV AC RMS. Independent calculation from all
+original samples reproduces the failure. The lower record has complete source,
+query and captured-response provenance and remains included. The evidence
+does not establish whether the change arose in the source, receiver or export
+path. No threshold change, record removal or retry is used to accept this arm.
+Consequently A1 is not accepted, B/A2 have no records, and the 75-record policy
+comparison remains unassessable.
+
+Actual evidence is `out/rf/linux-stock-arm-actual-01.toml`
+(`ecfdd871090bb765dab67dabedfad82cf79634167293f735cd1dad84166d6444`).
+The unchanged numerical interpretation is `out/rf/linux-stock-arm-analysis-01.toml`
+(`2bd4597d8d296b27447435f4dcb7ad7e2eaeac9db18343524eda2dcd3b05d4b8`).
+Independent completed review is `out/rf/linux-stock-arm-actual-independent-01.toml`
+(`972c5d16ff30ef1c32e9609a4db497456fe0273118b960d527924b35a9a24d17`).
+
+The capture retains 14,579 captured, 14,579 filter-received and zero
+kernel-dropped frames, with graceful recorder termination. Its two connections
+reconstruct exactly the 385-command SCPI schedule and the read-only ADB
+metadata checks; all 25 waveform replies match their saved bytes. Complete
+ordinary/export settings restore, all three stock metadata epochs match, and
+all owned helpers retire. The configured Linux isolation remains in place.
+This run inherits accepted stock byte/corpus/policy/UI and thermal evidence;
+it does not claim a new policy-memory observation or fresh backing-byte hash.
+
+Further work in this batch is file-only examination of the failed control and
+offline Linux supervisor composition. It does not authorize a native transition
+from this failed stock arm.
