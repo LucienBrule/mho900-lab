@@ -256,3 +256,27 @@ preparation adapts only the reviewed native-transition transport and host
 evidence to Linux. Neither preparation grants a native mutation: B and A2
 require accepted current inputs, separately admitted execution and the original
 4,800/2,400-second time reservations within the active shorter deadline.
+
+The original stock-arm preparation now passes independent review. It retains
+five visits at 100, 800, 975, 1000 and 100 MHz, with five fresh stopped RAW
+records per visit at 50 mV/div. The original built-in range veto and strict
+sample limits remain. Each visit has one source attempt and a distinct sealed
+receipt through the same SSH channel. Full twelve-row APK mapping checks and
+complete ordinary/export restoration remain required.
+
+Linux preparation is `out/rf/linux-stock-arm-preparation-01/linux.toml`
+(`4bcb1819bae92573b206276b5c55170a72e959ce841923caa33dbcc3c8bc92ec`);
+coordination is `out/rf/linux-stock-arm-coordination-preparation-01.toml`
+(`df8aaedfeba987b767ce24458f11794256eed9f9b433b7d301ca8012ce415abe`);
+concrete host/config validation is
+`out/rf/linux-stock-arm-preparation-01/root-inputs.toml`
+(`29dfad85323cfca087a9ac25f62c1a2a8a097770d7493792e30918b372b13c25`).
+Independent review is `out/rf/linux-stock-arm-preparation-independent-01.toml`
+(`2b3d8989633c19e5b4f8a3387c3ab5dbfd8b62f620cf95c695900f8b709d34ee`).
+
+The public RAW parser runs unchanged during acquisition. Default receive and
+comparison numerical interpretation run unchanged on the workstation after
+capture; saved records remain unaccepted until those receipts and independent
+actual review pass. The Linux layout is explicit and requires a reviewed
+projection before the historical three-arm directory reducer can consume it.
+No original comparison slot is claimed by preparation.
