@@ -57,3 +57,15 @@ launch: baseline, prechange, postboot and postwarmup. It also leaves future read
 output directories absent because their producer creates them exclusively. The
 controller and physical gates remain unchanged. The recorded negatives retain
 their original meaning and are not counted as completed stock transitions.
+
+The separate initial-stock layout adapter passed 25 offline controls and strict
+checking of its four typed Python files. Independent tests exercised all four
+prepared directories through the original query helper with a fake socket;
+missing and occupied directories still failed before any send. The adapter also
+rejects symlink/file outputs and prior run state. The prepared controller,
+configuration and complete frozen inventory are byte-identical to the previous
+attempt. The independent readiness review is sealed at
+`out/rf/transition-layout-independent-20261002T021900Z.toml`, SHA-256
+`5146b1972992340e64621a20c4edcefbd3a4c18fd526725bf81c32ce5e577377`.
+This initial-stock adapter pins that exact inventory; later arm configurations
+require their own reviewed layout preparation. Readiness is not a stock witness.
