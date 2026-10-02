@@ -1,0 +1,42 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.sparrow-liveness-preparation
+    title: Prepare one read-only Sparrow identity liveness observation
+    state: open
+    intent: Distinguish responsive stock application networking from the completed negative ADB handshake result.
+    requires: [TASK.rf.owned-transport-decision]
+    requirements:
+      - Preserve and independently review the completed V5 connection failure, including the full implementation wait, exact failure reply, peer TCP acknowledgement without ADB application response and proven owned server retirement before alias removal. Do not retry the handshake or infer a specimen daemon cause.
+      - Prepare a separate one-shot read-only SCPI identity observation using only the existing documented endpoint and exact *IDN? newline request. Require current isolated lease authority, fresh full capture, verified host isolation and explicitly bound host source address. Preserve raw request, response, timestamps and complete capture. No ADB server, source command, settings mutation, option query, broad service probe or RF record belongs to this diagnostic.
+      - Retain the raw capture and graceful recorder statistics through socket closure and verified known host restoration. No reconnect, retransmission at application level, second query or retry after uncertain framing. Independently review exact source and deterministic controls before execution. A historical camera image or absence of a current view is not a fresh UI witness.
+    acceptance: [One independently reviewed diagnostic is prepared or held within existing read-only bench authorization.]
+    verification: [prior_result, diagnostic, controls, authorization_boundary]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.sparrow-liveness-observation
+    title: Observe one captured stock Sparrow identity reply
+    state: open
+    intent: Answer application liveness without replacing the failed ADB epoch gate.
+    requires: [TASK.rf.sparrow-liveness-preparation]
+    requirements:
+      - Commit and push reviewed tasking and preparation before root executes exactly one isolated SCPI connection and one *IDN? request. Do not start ADB, touch controls, change scope settings or repeat a failed request.
+      - Seal the full raw request-response and capture with exact termination statistics and host restoration evidence. Report actual responsive identity, timeout or explicit stop without treating it as accepted native policy, process epoch or RF measurement.
+    acceptance: [A completed or explicitly stopped one-query observation has immutable evidence.]
+    verification: [request_response, capture, restoration]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.sparrow-liveness-decision
+    title: Evaluate application liveness and the exact next bench intervention
+    state: open
+    intent: Stop transport guesswork and locate the smallest justified physical continuation.
+    requires: [TASK.rf.sparrow-liveness-observation]
+    requirements:
+      - Distinguish successful application identity response from ADB service health and native epoch acceptance. Record available current UI witness or its absence. State what remains unknown and whether an additional normal reboot or specimen daemon action would be required; do not exercise an unadmitted state change.
+      - Commit and push the conclusion before further experiment admission. Preserve the frozen A1/B/A2 RF hypothesis and deadline. No liveness result waives the epoch gate or permits adding RF records, an ambiguous retry, extra reboot, persistent ADB setting change or speculative firmware action.
+    acceptance: [A reasoned diagnostic result and precise next bench question replace further blind reconnect attempts.]
+    verification: [interpretation, preservation, next_question]
+    required_extensions: []
+    extensions: {}
