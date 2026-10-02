@@ -280,3 +280,23 @@ capture; saved records remain unaccepted until those receipts and independent
 actual review pass. The Linux layout is explicit and requires a reviewed
 projection before the historical three-arm directory reducer can consume it.
 No original comparison slot is claimed by preparation.
+
+Offline native-boundary preparation preserves the original exact transaction,
+byte hashes, protected-corpus exceptions, fixed reader budget and time gates.
+It adds typed Linux authority and explicit remote shell completion framing.
+The reviewed result is a partial adapter with a precise integration blocker,
+not a runnable physical B/A2 controller. The acquisition supervisor's
+900-second limit cannot cover the 1,801-second native warm-up; carrier/lease
+health needs one narrowly bounded reboot phase, and owned DHCP plus live
+captured REQUEST/ACK authority must still be composed. Fresh postboot byte,
+policy, UI and corpus evidence remains required.
+
+The boundary is `out/rf/linux-native-adapter-preparation-01.toml`
+(`4ebcedf0fa3d4ff1a25fad5630a65b31c532edec438291e708abe194a4457735`),
+independently reviewed by `out/rf/linux-native-adapter-independent-01.toml`
+(`7efab62f18f01f5e3266c90f82cf804a33539f3a48840118a7047609758828af`).
+The detailed integration design is `out/rf/linux-native-supervisor-design-01.toml`
+(`b2bd855b61515f305a6b4053ac0dd87c0cc674a98e1888a2c78273ad368920a6`),
+reviewed by `out/rf/linux-native-supervisor-design-independent-01.toml`
+(`0f5ff8d09a34b2dea4c7f6be0ad8f252da3fafc11bfb6cf6e9189727571f2dd2`).
+No native transition follows from these offline results.
