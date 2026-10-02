@@ -72,3 +72,12 @@ SELinux enforcement. The bounded successor uses journal stderr and a standard
 service state directory, preserving the failed unit and host security policy.
 It must prove actual capture readiness and graceful closure while disconnected
 before a separate physical link checkpoint begins.
+
+The journal-backed successor reached tcpdump but exited with a savefile
+ownership error before capture. Its stop is sealed separately in
+`out/rf/linux-recorder-service-control-02.toml`; neither failed service was
+rerun. The next bounded control reuses the direct Python process-launch ancestry
+that already passed the loopback recorder test. Standard tcpdump retains its
+normal privilege handling; a timed supervisor records readiness, sends SIGINT,
+and preserves the actual capture and exit/drop statistics. This changes the
+launcher boundary without changing host security policy.

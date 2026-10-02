@@ -1,0 +1,16 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-recorder-direct-control
+    title: Test the proven direct process launcher on the disconnected bench Ethernet
+    state: open
+    intent: Reuse the working loopback recorder ancestry on the isolated Ethernet without changing service confinement.
+    requires: [TASK.rf.linux-recorder-service-control]
+    requirements:
+      - Preserve both failed service attempts. Use one fresh output and direct sudo namespace Python Popen of standard tcpdump matching the proven host loopback control. Do not change SELinux, firewall, capabilities policy or system security. Do not rerun either failed unit.
+      - Verify exact namespace ownership/interface and carrier zero before launch. Record supervisor and child PID/birth/argv/namespace plus actual pcap header and process health. Use complete packets with no filter. Stop through timed SIGINT; retain actual exit and drop statistics, immutable pcap and no remaining namespace helper.
+      - Independently review the actual disconnected capture. Only graceful exit and drop statistics with real header/alive evidence admit arming the separately defined fresh physical link checkpoint. No DHCP, specimen probe, cable cue, source control or reboot occurs in this control.
+    acceptance: [One directly launched Ethernet recorder passes graceful closure or an exact host-only stop is preserved.]
+    required_extensions: []
+    extensions: {}
+    verification: [capture, closure, independent_review]

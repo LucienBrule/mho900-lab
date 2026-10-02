@@ -1,0 +1,13 @@
+{
+  "protocol": "taskctl.receipt/alpha1",
+  "classification": "actor-assertion",
+  "task": "TASK.rf.linux-recorder-service-control",
+  "contract": "sha256:50abef0f37dffd36c79572aba67e5d2809c9e6abd1bdb2f384d2082bfdfe420e",
+  "actor": "mho900-lab-investigation",
+  "recorded_at": "2026-10-02T19:46:55.462436+00:00",
+  "evidence": {
+    "service_capture": "Fresh service control failed at tcpdump savefile ownership with exit1. Sealed out/rf/linux-recorder-service-control-02.toml 021fccf8f6f9b3f4be50a2740eef2778b8f2d6709365ba8b46f75c7a5fbcc1d2. No pcap or healthy armed recorder.",
+    "graceful_closure": "Exited failure1 before capture. No graceful exit/drop statistics claimed. MainPID0, empty namespace processes/listeners, carrier0 and SELinux enforcing retained. Failed service not rerun.",
+    "independent_review": "Independent HOST_CAPTURE_NOT_READY out/rf/linux-recorder-control02-independent-20261002T194700Z.toml caa5e526aa5af81834be8360f124aea4e06ff67876a452c07ac6dde8c6b3ee0b. Supports one deliberate direct sudo Python Popen boundary, matching proven loopback ancestry, only after separate admission; no physical cue until fresh real readiness."
+  }
+}
