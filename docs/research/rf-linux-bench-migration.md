@@ -81,3 +81,15 @@ that already passed the loopback recorder test. Standard tcpdump retains its
 normal privilege handling; a timed supervisor records readiness, sends SIGINT,
 and preserves the actual capture and exit/drop statistics. This changes the
 launcher boundary without changing host security policy.
+
+The direct Ethernet recorder control passed while disconnected: a valid 24-byte
+Ethernet PCAP header, witnessed live child/namespace readiness, timed SIGINT,
+exit zero and actual zero captured, filter-received and kernel-dropped packets.
+No namespace helper or listener remained. Independent review accepted only
+host recorder readiness (`out/rf/linux-recorder-direct-03.toml`,
+`98e1346583c288d5d0b792c55755717861e53095dbdc16d6288b2e6e33b33f67`;
+review `out/rf/linux-recorder-direct-independent-20261002T194900Z.toml`,
+`3dfe5d42bcd704c376407f4f2d5f807ea696efd35c5b26a42574eee3f040808c`).
+The generic launcher checks for statistics presence; actual drop counts remain
+an explicit review condition. Fresh caller preflight and runtime ownership are
+required before the separate physical cable cue.

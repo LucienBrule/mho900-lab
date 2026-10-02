@@ -1,0 +1,13 @@
+{
+  "protocol": "taskctl.receipt/alpha1",
+  "classification": "actor-assertion",
+  "task": "TASK.rf.linux-recorder-direct-control",
+  "contract": "sha256:b9a80be19b2c693c19ff64f74ee1cedd05076640d96d66f554ae3a474caeaf79",
+  "actor": "mho900-lab-investigation",
+  "recorded_at": "2026-10-02T19:49:50.425759+00:00",
+  "evidence": {
+    "capture": "Sealed out/rf/linux-recorder-direct-03.toml 98e1346583c288d5d0b792c55755717861e53095dbdc16d6288b2e6e33b33f67 preserves normal tcpdump directly launched, source exact argv, live child/supervisor birth ticks and namespace inode, complete24byte Ethernet pcapheader. Caller guarded recorded namespace/config/carrier0; no physical transition or DHCP.",
+    "closure": "Timed SIGINT completed exit0; actual stderr reports0captured/0filter-received/0kernel-dropped. SHA256704e5e5b3234433c01fcfd1b20a306e77e985038120492dc53965c3edd38a4ea. No remaining namespace processes/listeners. Failed services retained, no security changes.",
+    "independent_review": "GO_DISCONNECTED_HOST_RECORDER_CONTROL out/rf/linux-recorder-direct-independent-20261002T194900Z.toml 3dfe5d42bcd704c376407f4f2d5f807ea696efd35c5b26a42574eee3f040808c. Reviewer independently parsed header/hash/ready/closure. Generic launcher only checks statistics presence; future actual drop values require review. Fresh physical arming repeats current guards and records actual runtime argv before cable cue; no specimen/RF acceptance."
+  }
+}
