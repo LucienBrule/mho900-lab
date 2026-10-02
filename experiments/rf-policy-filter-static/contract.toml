@@ -1,0 +1,149 @@
+schema_version = 1
+evidence_kind = "fresh-exact-stock-static-decoding"
+stock_sha256 = "4e7eb0bb81b6bcc6923ceff75fd259d41be555dccc6867e53ed7ee2ea3b2894e"
+stock_size_bytes = 12453760
+stock_format = "ELF64 little-endian AArch64"
+stock_locator = "configurable --elf; original locator is official26.path in preserved three-way manifest"
+sample_rate_getter_value = 4000000000
+normal_acquire_mode_requirement = "getAcquireMode() != 3; driver substitutes high-resolution selector 11"
+normal_high_resolution_selector = 11
+comparison_enums = [17, 18]
+bench_impedance_declaration = "50 ohm external measurement geometry; live native impedance mapping is not proved here"
+native_scale_for_50mv_div = "unknown"
+live_sample_mode = "unknown"
+live_channel_mask = "unknown"
+physical_frequency_response = "not established"
+physical_policy_counterfactual = "not tested"
+coefficient_numeric_encoding = "raw little-endian 32-bit words; DSP interpretation not established"
+bench_question = "Under independently verified runtime selections, does an enum17-to-enum18 software policy change the sampled response through digital bank27-to-bank29 while the analog tuple remains equal?"
+
+[dispatch.update]
+function = "_Z26DrvChannel_UpdateBandLimitjb"
+function_address = 0x300d2c
+function_size = 4196
+function_sha256 = "2617bc1b5bc1421665061c35c873f9e48eea6cc9efb39c1dc22a9ca2ee9c59bf"
+table_address = 0x99aad8
+index_expression = "bandwidth_enum - 2"
+entry_encoding = "signed little-endian int32 displacement from table base"
+enum17_target = 0x301050
+enum18_target = 0x300e88
+enum17_normal_filter_immediate = 0x3010ac
+enum18_normal_filter_immediate = 0x300ee4
+
+[dispatch.set]
+function = "_Z23DrvChannel_SetBandLimitjjj"
+function_address = 0x3024ec
+function_size = 6348
+function_sha256 = "3159fc0ce21eed44bde3a4429ae3e92ad624c69f1e1497236f9f65f7932933d1"
+table_address = 0x99ab60
+index_expression = "bandwidth_enum - 2"
+entry_encoding = "signed little-endian int32 displacement from table base"
+enum17_target = 0x302a28
+enum18_target = 0x30282c
+enum17_normal_filter_immediate = 0x302b30
+enum18_normal_filter_immediate = 0x302934
+early_cache_dependencies = ["sample rate", "bandwidth enum", "high-resolution selector", "impedance"]
+early_return_site = 0x30266c
+scale_refresh_call = 0x303c3c
+offset_refresh_call = 0x303ce0
+offset_refresh_force_argument = true
+filter_cache_offset = 0x1d38
+enable_cache_global_offset = 0x1d30
+enable_cache_channel_offset = 0x1d31
+
+[analog]
+constructor = "_ZN16CCalibration_AfeC2Ev"
+constructor_address = 0x34cdec
+constructor_size = 872
+constructor_sha256 = "c862cdc1e56790e75c16c868146b00a7a9e5bd1a4cbc972d3b2f300e96c94d5f"
+afe_owner_offset = 0x242838
+tuple_afe_offset = 0x2868
+tuple_owner_offset = 0x2450a0
+channel_stride_bytes = 0x60
+tuple_stride_bytes = 12
+tuple_channel_count = 4
+enum17_row = 6
+enum18_row = 7
+enum17_constructor_default = [3, 3, 27]
+enum18_constructor_default = [3, 3, 27]
+enum17_owner_load_offsets = [0x2450e8, 0x2450ec, 0x2450f0]
+enum18_owner_load_offsets = [0x2450f4, 0x2450f8, 0x2450fc]
+live_tuple_identity = "not observed; constructor provenance does not exclude other runtime writers"
+loader = "_ZN16CCalibration_Afe23LoadAfeBandWidthCalDataEv"
+loader_address = 0x350e44
+loader_size = 376
+loader_sha256 = "e4924d58aa1d2c8ad48e34ccc7e7d1358a7311d669c69637b915a528f4b38127"
+loader_payload_start_afe_offset = 0x2728
+loader_payload_size_bytes = 320
+loader_payload_end_exclusive_afe_offset = 0x2868
+loader_supplied_payload_overlaps_tuple_array = false
+unexpanded_loader_callees = ["checked-stream load", "bandwidth-save helper"]
+tuple_wrapper = "_Z26DrvChannel_SetAfeBandLimitjiii"
+tuple_wrapper_sha256 = "1ace423d913a5c3468111d480409f068abfbb22432391d7df4f53285d31d68ca"
+tuple_cache_offsets = [0x1db8, 0x1dc8, 0x1dd8]
+tuple_cache_channel_stride = 4
+packer = "DevInOutAFE_SetHzFilter"
+packer_sha256 = "b420efcf067f8bd1f3fdccec5705378a11a70e8be6b8000cfd5032d5cd6528f7"
+register_address = 0x2e
+register_expression = "(old & 0xf900) | ((a & 3) << 6) | ((b & 3) << 9) | (c & 63)"
+retained_register_bits = [8, 11, 12, 13, 14, 15]
+default_tuple_inserted_register_bits = 0x6db
+analog_field_physical_meanings = "unknown"
+
+[[digital_banks]]
+bandwidth_enum = 17
+filter_id = 27
+table_entry_address = 0xb93940
+payload_address = 0xb92ab8
+word_count = 64
+byte_count = 256
+payload_sha256 = "d31bcee060aedb3ba8bedc7c6af8bcd0763a694e5aa95f1e27511b7b088ad63c"
+
+[[digital_banks]]
+bandwidth_enum = 18
+filter_id = 29
+table_entry_address = 0xb93970
+payload_address = 0xb92cb8
+word_count = 64
+byte_count = 256
+payload_sha256 = "ca725b18d57162d1a2df7fea43c06fbef1eb7ac735d13d2d9c195069fcf0b3db"
+
+[digital_consumer]
+function = "DevAcquireSPU_SetSecondFilter"
+function_address = 0x279200
+function_size = 540
+function_sha256 = "4a893667fd80a86473168e213e3e06d8d844386db0517496dfb04f8e64ed5f40"
+filter_table_address = 0xb936b8
+filter_table_entry_count = 48
+filter_table_stride_bytes = 24
+payload_pointer_offset = 8
+word_count_offset = 16
+payload_pointer_relocation = "R_AARCH64_RELATIVE (1027), addend resolved from exact ELF"
+sample_mode_1_consumer = "configDspCoef1"
+sample_mode_1_call = 0x279354
+sample_mode_2_consumer = "configDspCoef2"
+sample_mode_2_call = 0x2793cc
+sample_mode_4_consumer = "configDspCoef3"
+sample_mode_4_call = 0x2793fc
+channel_mask_test = "selected bit (mask >> channel) & 1 for modes1/2"
+sample_mode_2_phase = "runtime counter parity; counter and live phase not observed"
+driver_sample_mode_getter_call = 0x305f78
+driver_channel_mask_getter_call = 0x305f8c
+driver_consumer_call = 0x305fb8
+driver_additional_enable_dependency = "calibration-owner byte +0x245aac and supplied enable flag"
+consumer_enable_expression = "(supplied_enable & 1) & ~(calibration_flag & 1)"
+selected_cache_reaches_consumer = "not established; driver receives filter-ID argument"
+live_dsp_consumption = "not proved by static selected ID"
+
+[upper_api_limits]
+function = "_ZN12CApiVertical26ApiChannel_ConfigBandlimitEv"
+function_sha256 = "444daed70425c7a89a518d4c1d7d1655d04d7e0b824e9590c22c8140fb9edac0"
+full_requested_value = 1
+full_substitution = "API_GetBandwidth()"
+impedance_dependency = "virtual method slot +0x58; exact live mapping unresolved in this contract"
+scale_dependency = "API object +0x108; upper and driver scale storage must not be equated without mapping"
+bandwidth_cache_offset = 0x120
+bandwidth_cache_store_site = 0x3f9948
+bandwidth_cache_store_before_full_driver_enum_substitution = true
+cached_full_proves_driver_enum = false
+live_full_request_reaches_enum17_or_18 = "not established"
