@@ -1,0 +1,10 @@
+protocol: "taskctl.receipt/alpha1"
+classification: "actor-assertion"
+task: "TASK.rf.pinned-builder-decision"
+contract: "sha256:91980cd5eb748e4c55b0a2505bc9f3058b1d2f82233183548035ce344104ebb1"
+actor: "mho900-lab-investigation"
+recorded_at: "2026-10-02T17:32:51.481315+00:00"
+evidence:
+  independent_result: "GO exact concrete A1 from native-verified producerf19bb13d/independent671b2d76/actualCLI718cd295/control1dec9ed2/file-onlyconsumerd22d9697. Exact source selection and complete V5 reconstruction accepted. Prior negative0dde/2115 remains preserved, unexecuted. Earlier AST/file-pin assumption superseded explicitly, no original seal altered."
+  bindings: "Exact fresh run out/rf/policy-comparison-A1-pinned-20261002T173100Z only. Sessionefa2f356/frozen5c692181 and all23controlfiles bound. Accepted stable8474c3/actualreview3055/strictDecision8ce/currentArmReady1210-start3465-boot286dec12/17-17/1801s normalUI and protectedcorpus bind originalactualroot. Original recoveryREQUEST15/ACK16/86400expiry1791042890.762521 and completehistory6fieldlease321c108a replay. Original tasks and composition reconciled; runtimeexactepoch/lease/isolation/capture/readiness guards remain mandatory."
+  continuation: "GO one actual A1 execution after conclusion commit/push and ownership preflight. No wrongpreparedroot reuse, unchanged failedsession retry,extra manual reset/rootrestart.25A1slots under frozen75/source/electrical/numerical/deadline2026-10-03T01:38:03Z. Seal/independentlyreview actualrecorded run and cleanup,commit/push conclusion before B. B/A2 remain separately reviewed currentbindings/actualpredecessor/corpus/newlease/native lineage gates,one normalreboot each. No future arm or analog bandwidth claimed."
