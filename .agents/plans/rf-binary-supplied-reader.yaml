@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.binary-supplied-reader
+    title: Check a bounded binary receive core with supplied readers
+    state: open
+    intent: Remove line-delimited collection from the next readout proposal without contacting an instrument.
+    requires: [TASK.rf.raw-format-oracle-decision]
+    requirements:
+      - Bind the sealed supplied-byte oracle, primary guide and recovered stock profile. Work in a fresh ignored root only; preserve previous seals, public parsers, reducers and original measurements.
+      - Compose a strongly typed binary receive core with injected named read-demand and read-result abstractions only. No actual socket, SSH, ADB, serial, guest, physical controller, helper or endpoint backend is part of this task.
+      - Require explicit expected count, recovered header profile, suffix policy and deadline. Consume by declared byte lengths rather than line delimiters; retain exact partial bytes and demand/result records on success, EOF, failure, overdelivery, deadline or framing rejection. Stop without replay or an ambiguous retry.
+      - Independently verify meaningful arbitrary-fragmentation, embedded LF/NUL, malformed header, payload/count bounds, suffix, timeout, EOF, failure and partial-preservation controls. Explicit supplied time and suffix do not establish physical timing or actual device grammar.
+      - Preserve the exact remaining physical binary suffix and coefficient-prediction boundaries. A pure supplied-reader control is not a ready physical collector or stock execution. Stop and checkpoint before the current hard deadline at 2026-10-02T23:05:20Z even if a supported incomplete preparation is the result.
+    acceptance: [An independently checked supplied-reader core or exact unresolved preparation boundary is durable.]
+    required_extensions: []
+    extensions: {}
+    verification: [inputs, typed_core, controls, independent_review, boundaries]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.binary-supplied-reader-decision
+    title: Evaluate the binary receive control and seal the work window
+    state: open
+    intent: Leave precise next bench dependencies and an honest RF checkpoint.
+    requires: [TASK.rf.binary-supplied-reader]
+    requirements:
+      - Evaluate independently reviewed supplied-reader controls without claiming actual wire termination, hidden gain precision, physical timing or controller readiness.
+      - Preserve failed original A1 and all twenty diagnostic positions, with fifty missing B/A2 slots and no new physical or native-transition admission.
+      - Checkpoint by 2026-10-02T23:05:20Z with immutable evidence, known-safe last restored ordinary and isolated host state, no newly launched helpers, and a clean committed and pushed checkout. Record exactly what remains before a physical format comparison or credible RF response determination.
+    acceptance: [A clean pushed checkpoint and explicit next dependency are durable.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_review, physical_boundary, original_comparison, checkpoint]
