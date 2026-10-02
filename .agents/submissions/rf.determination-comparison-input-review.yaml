@@ -1,0 +1,39 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.rf.determination
+reviewed_head: sha256:4430d36da137a2aa0dccde0f7b86ae988b8608118b2c339f9dca9a8ee2fd4045
+observations:
+  - upstream: TASK.rf.reduce
+    contract: sha256:075538725ff36eaf32145f949d041abe833690da09b29f6f2b77176f43aeddea
+    revision: sha256:2db8830a7cd83fa20946972e5caa7ddb409012b84cb0077b7165cc2c91210dc7
+    inputs: sha256:c2ae8c572c6e4b0cab5fa2813c5768b02df5071f69c4a5cb7bf2843cae783df8
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-10-02T01:09:08.227076+00:00"
+rationale: >-
+  The admitted preparation and verified stock rollback are explicit prerequisites of
+  the unchanged stock-derived-stock question. Revalidate these semantic inputs
+  without asserting preparation completion, physical readiness or a go disposition.
+  This open task still requires its own original evidence and acceptance conditions.
+evidence:
+  finding: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+  claim_scope: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+  milestone_disposition: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+  continuation: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+successor: null

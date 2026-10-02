@@ -1,0 +1,39 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.rf.reduce
+reviewed_head: sha256:dedf38c4be3066d2a7bf34bc26028be9817d106e33f17680e59f5a304104f161
+observations:
+  - upstream: TASK.rf.acquire
+    contract: sha256:d2b68b1c630e4d14db07d29501267cd2dbea2d1ac61e74c538e158d7adb054c0
+    revision: sha256:0bad8984dbc2f1a6756bd2f433be09d15ec1a120da4f1fb41393e9e3ae5c4d28
+    inputs: sha256:869d3b967bdb1b090263c8f4aa8b433703deb9a82eaf0e9f124e000fdb045868
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-10-02T01:09:02.208828+00:00"
+rationale: >-
+  The admitted preparation and verified stock rollback are explicit prerequisites of
+  the unchanged stock-derived-stock question. Revalidate these semantic inputs
+  without asserting preparation completion, physical readiness or a go disposition.
+  This open task still requires its own original evidence and acceptance conditions.
+evidence:
+  estimator_controls: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+  reduction: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+  uncertainty: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+  limitations: >-
+    Reviewed the admitted plans rf-policy-comparison-preparation.yaml and
+    rf-policy-comparison-gate-revision.yaml against this task contract. The task
+    remains open; this reconciliation records dependency currency only. No physical
+    acquisition or positive RF conclusion is asserted.
+successor: null
