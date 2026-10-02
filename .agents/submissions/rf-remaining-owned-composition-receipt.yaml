@@ -1,0 +1,11 @@
+protocol: "taskctl.receipt/alpha1"
+classification: "actor-assertion"
+task: "TASK.rf.remaining-owned-composition"
+contract: "sha256:a52bf25aa18e5c608491834c9951b29a08b47c64d6790ab7de47dd416a56ffe1"
+actor: "mho900-lab-investigation"
+recorded_at: "2026-10-02T16:52:58.860243+00:00"
+evidence:
+  source: "Root native-verified producer out/rf/owned-remaining-preparation-20261002T164000Z.toml SHA-256 143b61213d33d60ee8495053ad3617a93c9023eb26b7b166aa55d77e660ab68a (19 artifacts,165387 bytes). Exact native deployment/removal and original introduced-file lineage preserved. Unbound templates only; no actual B/A2 controller or fabricated predecessor evidence."
+  owned_lifetime: "Exact V5 foreground ownership/liveness before retained CLI; one initial and postreboot bounded sequence, original UID-first conditional root and distinct postroot sequence. Single 180-second deadline starts before sole normal reboot and is not reset. Read-only startup witness plus health-serviced 60-second settling precedes one PNG; neither accepts UI. Scoped SCPI closure and retirement/reap/full endpoint absence precede alias removal; uncertainty holds isolation."
+  authority: "Typed preparation validates actual accepted preceding A1/B ArmReady and hashes before writes, independently recorded captured lease and separate native ancestry. RELEASE permitted only inside actual normal-reboot window before a paired new REQUEST/ACK; sent ACK or captured marker locks it. DECLINE always rejects. B uses qualified new-boot authority; A2 uses actual B postreboot authority. Four empty SCPI directories, absent reader outputs, two 16-byte observations and1801-second warmup retained."
+  controls: "Root native-verified independent out/rf/owned-remaining-independent-20261002T164100Z.toml SHA-256 ba0a8df6bdd4d14de0671e16fda5856a9570fb24c000d68298f83899f2e306eb (25 artifacts,122752 bytes). Ten producer controls,ten independent methods,strict four authored files/Ruff/format pass;14 retained callbacks,four wire callbacks and exact native block compare equal. Output overlap/accepted-arm-before-write findings fixed. 75 slots/numerics/deadline unchanged,no broad rerun/no specimen or host probes. Physical release remains pending exact actual bindings, stable review and reconciliation; the later verifier cache incident is preserved separately and is not waived by this preparation."
