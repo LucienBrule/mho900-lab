@@ -1,5 +1,9 @@
 # Matched software-policy RF comparison: readiness hold
 
+Historical hold recorded on 2026-10-01. The later
+[execution decision](rf-policy-comparison-go.md) supersedes the readiness status
+below; the original assessment is retained.
+
 2026-10-01. Offline preparation under `TASK.rf.execution-decision`.
 **Execution remains held at the initial stock rollback and its evaluation.**
 The controller preparation task is closed. Operator continuation accepted the concrete
