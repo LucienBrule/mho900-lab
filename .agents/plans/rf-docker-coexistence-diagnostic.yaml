@@ -1,0 +1,46 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.coexistence-diagnostic-preparation
+    title: Prepare one stopped diagnostic with a reversible host network fixture
+    state: open
+    intent: Coexist with the operator's VM networking while preserving isolated bench acquisition.
+    requires: [TASK.rf.host-isolation-decision]
+    requirements:
+      - Operator identified Docker as the host-network state change and explicitly directed coexistence and continued experiments. Preserve original diagnostic and stopped182200 evidence; no retry of a completed root. Prepare one fresh concrete root and independent source review before execution.
+      - Preserve enabled packet filtering, complete specific translation/rule anchor configuration, bootpd interface-specific configuration and unrelated VM services/processes. Capture exact initial IPv4/IPv6 forwarding and temporarily set only those values to zero before any scope address or contact. Disclose that unrelated VM forwarded traffic can pause. Never disable, flush or rewrite firewall/security policy, sharing, DHCP configuration, unrelated processes or external routes.
+      - Require read-only runtime proof of scope-interface identity, no bridge, correct local route after owned alias, no gateway/DNS, DHCP service excluded from scope interface and no applicable scope NAT/redirect path. Check forwarding zero and preserved relevant policy/configuration at serviced boundaries. Unexpected changes stop acquisition without repeated forced writes or an unchanged retry.
+      - Retain exactly one nominal100MHz/raw0 UART attempt and one fresh RUN-to-STOP RAW100k/count1/4G/100mVdiv record, declared strict abs0.36V/Vpp0.72V headroom and unchanged default receive interpretation. No comparison slot, native transition, reboot, root restart, protected material or wiring change.
+      - Preserve full ordinary/export restoration and three stock epoch checks. Close scoped transport, retire/reap owned ADB and prove full endpoint absence, remove/prove owned alias absent and stop owned DHCP/capture with drop statistics before restoring exact initial forwarding. Uncertain cleanup must HOLD isolation and never re-enable forwarding into an uncertain scope path. Independently review focused fixture positive/failure/restore controls and exact unchanged physical/numerical callbacks, pins and runtime import behavior.
+    acceptance: [One independently reviewed concrete diagnostic and host fixture is accepted or held without physical execution during preparation.]
+    required_extensions: []
+    extensions: {}
+    verification: [authority_and_sources, isolation_fixture, independent_controls, concrete_preparation]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.coexistence-diagnostic-acquire
+    title: Execute one stock waveform diagnostic under the restored isolation fixture
+    state: open
+    intent: Obtain coherent stock waveform evidence while preserving the operator's host configuration.
+    requires: [TASK.rf.coexistence-diagnostic-preparation]
+    requirements:
+      - Execute only the exact independently accepted fresh root before hard deadline2026-10-03T01:38:03Z and cleanup reserve. Verify positive ownership, current captured lease, stock epoch and runtime host fixture before contact. No duplicate helper, source retry or hidden predicate changes.
+      - Preserve one attempted source command and one RAW record or explicit abort, request/response/capture/settings/epoch evidence and continuous host-isolation checks. Full ordinary/export restore, owned transport endpoint absence, alias removal and helper closure must precede exact initial-forwarding restoration. Preserve uncertainty and HOLD on unresolved cleanup.
+      - Seal and independently review actual waveform or stop and exact final scope/host state. Commit and push conclusion before any next experiment. Preserve Docker, firewall, DHCP and unrelated host processes/configuration unchanged.
+    acceptance: [One completed or explicitly aborted diagnostic has immutable evidence and independently reviewed restoration or explicit HOLD.]
+    required_extensions: []
+    extensions: {}
+    verification: [run_seal, waveform, protocol_adherence, restoration]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.coexistence-diagnostic-decision
+    title: Evaluate waveform and admit an evidence-supported RF comparison
+    state: open
+    intent: Advance through actual data toward verification or falsification of the policy response.
+    requires: [TASK.rf.coexistence-diagnostic-acquire]
+    requirements:
+      - Assess exact original stopped samples, preambles, headroom, AC RMS and periodicity alongside unchanged default and separate diagnostic receive results. Missing or unusable samples remain unassessable, not RF disproof. Preserve prior failed roots and all75missing original comparison slots.
+      - If waveform supports a common range, draft and admit one new matched stock-derived-stock batch preserving frequency/return schedule, sampled RMS and original contrast criteria, source/cable/stock/protected invariants and one normal reboot per native transition. Declare the new common range and host coexistence fixture explicitly for all arms. Plan, inspect, expected-revision admission and commit/push before execution; independently review any changed eligibility boundary.
+      - Continue through the evidence-supported frontier to verified or contradicted engineering effect or a genuine external dependency or deadline. Do not claim calibrated continuous analog bandwidth from selected-point sampled RMS. Preserve exact known-safe state and positively owned cleanup.
+    acceptance: [An actual diagnostic finding and justified successor or exact terminal limitation are preserved.]
+    required_extensions: []
+    extensions: {}
+    verification: [finding, claim_scope, continuation]
