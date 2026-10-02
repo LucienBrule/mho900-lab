@@ -1,0 +1,7 @@
+protocol: "taskctl.receipt/alpha1"
+classification: "actor-assertion"
+task: "TASK.rf.confirmed-stock-preparation"
+contract: "sha256:0f8cee1fa574ea0039d09b6fb5482441b410208cbf77ef41fa4d1255f10fbafb"
+actor: "mho900-lab-investigation"
+recorded_at: "2026-10-02T15:52:21.731019+00:00"
+evidence: {"authority": "Operator explicitly confirms stayed powered on, normal UI, setup unchanged; approved normal cycle unused. Tasking4cc6609 pushed; deadline unchanged.", "source": "Fresh154800 control f2ec1c3053a48f8fec06d480d05e1741a33f0075b2610090a0e72a1a95993a48, observer ddec2077c1364288ff8410cd4f5e948975a9bc5be426db502b71bfd318ef292c. Pinned generator exact; only run literal/provenance/inventory changed, executable dependencies/helper/config byte-identical.", "controls": "Independent GO out/rf/stock-recovery-fresh-binding-independent-20261002T155000Z.toml SHA256011e4bcd32204b5c337d2603725787c675ce41a5231d96f789b14629b87d0c25 (9files65809bytes) root native verified. Prior27 independent plus18 producer controls, typing/lint reused. Fresh phases empty, cue absent, binding and deadline reserve verified.", "preservation": "Parent seal out/rf/confirmed-stock-preparation-20261002T154900Z.toml 7c0e60686ee00a4adcc7e360eb08c06cdfe36c50e8371ea6e2a5f2c2d1077057 (9files169780bytes) verified. Host-only baseline. No physical/controller action yet; expired run immutable. Explicit Shutdown/dark and separate start/report plus fresh lease required before management; stock/protected/UI/17-17/1801s warmup and owned cleanup gates unchanged. No RF result asserted."}
