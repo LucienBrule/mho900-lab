@@ -395,3 +395,21 @@ The committed PNG is byte-identical to the sealed artifact
 (`5b7895583cb3795f693e1d3312dd586d23ab7d3cc0fd2c8cdf906fc7095d891e`).
 It uses original coordinates and frozen statistics, with no fitting, FFT,
 resampling, normalization or eligibility change.
+
+The distinct paired-export preparation is now reviewed and pinned. Source
+inventory `out/rf/linux-frozen-export-preparation-01.toml` has digest
+`459e68e3e937645ac72f73057a3c703a6f7b7172d99bdc46a06cef4914c778a0`.
+Concrete host inputs `out/rf/linux-frozen-export-root-inputs-01.toml` have digest
+`3762a956a54f16a160046f6004da8fa0f48ed01bce340a3d694cc493a6761736`;
+independent preparation review
+`out/rf/linux-frozen-export-preparation-independent-01.toml` has digest
+`b3d7e18091799ce0e9f87967641c1c24650acbb5b6c4851b9079e22a11345805`.
+
+Host-only validation confirms the preserved isolation, no active bench helper,
+exact evidence/tool pins and sufficient bounded time. The source port remains
+closed. Twenty acquisitions retain forty original replies, with no acquisition
+or setting change between each stopped pair. Unequal pairs remain outcomes;
+geometry, framing, range, health or deadline failure stops and preserves the
+prefix. Original range guards and complete ordinary/export/run restoration
+remain required. Preparation grants no accepted waveform, policy comparison
+arm or physical cause.
