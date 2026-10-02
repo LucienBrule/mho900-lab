@@ -242,3 +242,17 @@ spectral bin is 100 MHz. These facts neither prove a calibrated source
 fundamental/amplitude nor measure analog bandwidth. The record remains a
 100 mV/div diagnostic, with zero original comparison slots. Independent
 actual evaluation determines the next separately admitted experiment.
+
+Independent completed review accepts the diagnostic and cleanup:
+`out/rf/linux-stopped-range-actual-independent-01.toml`
+(`5a07e523f7270d2e8fe44a5ae3712b2a1f8f7163ad72d2dd4a6e6c71039fb7c7`).
+All stored frames reconstruct exactly one SCPI and one read-only ADB connection,
+with both TCP FINs, no RST and no unexpected protocol or endpoint. The saved
+request/reply bytes match the complete reconstructed SCPI streams.
+
+The next batch prepares the original 25-record stock arm under 50 mV/div and
+its unchanged range/receive/freshness/return-control rules. A separate offline
+preparation adapts only the reviewed native-transition transport and host
+evidence to Linux. Neither preparation grants a native mutation: B and A2
+require accepted current inputs, separately admitted execution and the original
+4,800/2,400-second time reservations within the active shorter deadline.

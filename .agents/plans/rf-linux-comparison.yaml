@@ -1,0 +1,60 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stock-arm-preparation
+    title: Prepare the original stock RF arm on the split-host controller
+    state: open
+    intent: Reuse the proven Linux transport for the frozen first 25 comparison records.
+    requires: [TASK.rf.linux-stopped-range-decision]
+    requirements:
+      - Bind the accepted actual stopped diagnostic, unchanged default receive and independent review, current stock byte/corpus/UI/policy epoch, original frozen comparison contract and rehashed reuse map. The diagnostic contributes zero slots. Keep the active 23:05:20Z deadline and conservative Linux clock/lease/cleanup bounds.
+      - Adapt only the reviewed Linux SCPI/ADB ownership and Mac source receipt coordination to original A1 visits [100,800,975,1000,100]MHz with five fresh records per visit. One source attempt per visit through one supervised SSH channel; each exact frame/native source seal and visit/config/epoch receipt binds its five records. Never replay uncertain delivery, duplicate a record or silently skip a failed slot.
+      - Restore original 0.05V/div, 1us/div,100k/count1/4G stopped RAW ASCII, strict abs below0.18V/Vpp below0.36V and original builtin extrema veto. Reuse original qualifier/default receive/statistics/reducer unchanged. Preserve pre-write ordinary/export snapshots, actual normalization and full restoration plus exact accepted stock metadata epochs. Bind the existing serviced thermal history as inherited same-epoch evidence, never a new warm-up claim.
+      - Independently review focused changed multi-visit ordering/framing/lifetime/source provenance with supplied controls and a concrete host-only validated invocation. No native mutation, root/reboot, protected corpus modification, physical setup change or old Mac network controller. Freeze and commit/push preparation before one actual arm.
+    acceptance: [The exact original A1 arm is prepared and reviewed or its concrete preparation blocker is preserved without physical execution.]
+    required_extensions: []
+    extensions: {}
+    verification: [inputs, original_schedule, source_order, restoration, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-native-adapter-preparation
+    title: Prepare a Linux adapter for the reviewed reversible native transitions
+    state: open
+    intent: Preserve the original native transaction while replacing host-specific transport and evidence ownership.
+    requires: [TASK.rf.linux-stopped-range-decision]
+    requirements:
+      - Read and pin the exact original deploy/remove transaction, pure APK/native/maps/protected-corpus/reader/UI/warm-up/lease validators, current Linux ownership/tool/clock evidence and frozen RF contract. Reuse original stock and derived byte hashes, file metadata, introduction/removal lineage and declared corpus timestamp/CRC/log transition exceptions without widening them. Preparation contacts no specimen or source.
+      - Adapt only ordinary Linux foreground ADB ownership, discovery suppression, explicit remote completion markers, capture/DHCP namespace lifecycle, clock/lease authority and no-retry sequencing. Do not run Mac process/PF/socket adapters on Linux. Preserve one normal reboot per transition, UID-first at most one previously authorized conditional root attempt, one distinct post-root readiness sequence and fresh captured postboot REQUEST/ACK without gateway/DNS.
+      - Keep fixed16-byte O_RDONLY policy observations before and after each transition, full fresh APK/native/corpus/epoch checks, actual normal UI after60s serviced settle and exact1801s serviced warm-up. Require accepted current A1 before B, actual B introduction lineage/arm/postboot lease before A2, and original4800s B plus2400s final-stock reservations under the tighter deadline. No future evidence or acceptance may be fabricated.
+      - Independently review focused host/marker/ownership/lease/clock/budget boundaries and freeze supporting code/config templates. Supply a concrete future binding checklist and exact untested limits; this preparation does not authorize or execute native mutation, reboot, root request, DHCP, ADB, SCPI, physical setup or comparison slots. Actual B/A2 require separate inspected admitted tasking and current gates.
+    acceptance: [A reviewed bounded Linux transition adapter or its precise offline blocker is preserved for a separately admitted physical transition.]
+    required_extensions: []
+    extensions: {}
+    verification: [frozen_transaction, linux_adapter, unchanged_gates, controls, future_boundary]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stock-arm-acquisition
+    title: Execute one original 25-record stock RF arm
+    state: open
+    intent: Establish the first accepted stock comparison arm under original conditions.
+    requires: [TASK.rf.linux-stock-arm-preparation]
+    requirements:
+      - Execute the reviewed distinct A1 invocation once under fresh full capture and exact isolated namespace/lease/current stock epoch/deadline guards. Bind current accepted APK/native/corpus/UI/17-policy/serviced thermal evidence and read-only metadata epochs without claiming new fixed-reader or warm-up observations. No native/root/reboot or physical setup transition.
+      - Preserve all original A1 five-visit/five-record conditions and exact per-visit one-source receipts, preamble equality/count1/full RAW geometry, default receive and unchanged per-record qualification. Original builtin range veto remains; missing/failed/uncertain slots are preserved and never replaced. Record zero inferred calibrated RF fundamental/amplitude or analog bandwidth claims.
+      - Restore complete actual ordinary/export/run state when framing remains proven, retire owned SCPI/ADB before graceful recorder closure and drop statistics, preserve partial originals and precise failure/restoration limitations. Seal the entire actual arm and independent actual interpretation before any new experiment or native transition.
+    acceptance: [One original A1 arm or its exact stopped prefix is durably sealed without retry and with actual restoration/cleanup status.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_schedule, source_provenance, records, epoch, restoration_cleanup]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stock-arm-decision
+    title: Evaluate original stock RF records and admit the smallest supported continuation
+    state: open
+    intent: Use actual stock headroom and return controls to decide the next RF step.
+    requires: [TASK.rf.linux-stock-arm-acquisition]
+    requirements:
+      - Independently verify actual capture/request/response/source receipts, original25-slot schedule/50mV conditions/freshness, stock epoch/accepted byte and thermal lineage, unchanged default/comparison qualification and original within-arm return control. Distinguish accepted records from missing/failed prefixes and retain zero B/A2 provenance until actually acquired.
+      - Reconcile actual restoration/owned retirement/drop statistics and any transport or waveform uncertainty. If the original range or receive assumptions fail, record the exact bench or modeling question; do not relax numerical rules, change wiring or repeat the same source attempt merely to advance.
+      - Admit an explicitly inspected bounded native B/A2 continuation only if accepted A1, separately closed reviewed Linux native preparation, current lease/ownership and complete original4800s/2400s deadline reservations support it. Otherwise prepare the exact offline next step and state the blocking time or evidence boundary. No automatic native mutation follows from this decision.
+    acceptance: [The actual original stock arm or its precise limitation determines a concrete next RF question within the current authorization.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_review, qualification, controls_cleanup, bounded_continuation]
