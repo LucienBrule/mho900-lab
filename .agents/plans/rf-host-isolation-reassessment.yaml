@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.host-isolation-reassessment
+    title: Reassess changed host isolation after an operator state-change report
+    state: open
+    intent: Establish an actual safe host baseline without changing routing or security policy.
+    requires: [TASK.rf.stopped-range-decision]
+    requirements:
+      - Await an explicit operator report that the host networking state has changed. Do not infer this from silence or repeat unchanged physical attempts. Preserve the sealed diagnostic host stop and its independent reviews.
+      - Perform one fresh read-only host assessment with clock-derived timestamps. Positively identify the scope-facing hardware port and interface, addresses and bridge membership; capture default and segment routes, IPv4 and IPv6 forwarding, sharing preferences and services, DHCP listeners and relevant packet-filter NAT and redirection rules including applicable anchors. Do not contact the specimen or source, create an address or helper, change routes, forwarding, sharing, firewall or security controls, or stop unrelated processes.
+      - Require both forwarding values zero, no scope-interface bridge or sharing/NAT/external route and no unexpected management helper before a GO. Treat enabled packet filtering as a configuration to inspect, not a reason to disable security. Preserve uncertainty if the supplied rules cannot establish the scope-facing boundary. Record any remaining exact operator prerequisite.
+      - Seal the immutable host assessment, positively identify any retained project-owned helper and obtain independent supplied-file review. No waveform, epoch, policy, source-output or UI inference from host readiness.
+    acceptance: [One actual host assessment is independently accepted or held with explicit evidence and unchanged-host limits.]
+    required_extensions: []
+    extensions: {}
+    verification: [state_change, host_evidence, isolation_disposition, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.host-isolation-decision
+    title: Decide whether the changed host baseline supports a fresh diagnostic
+    state: open
+    intent: Reconcile host-state drift before admitting another bounded physical observation.
+    requires: [TASK.rf.host-isolation-reassessment]
+    requirements:
+      - Review exact current host evidence and independent findings against the closed diagnostic and original isolation guarantees. GO needs disabled forwarding and no scope-facing sharing, bridge, NAT or external-routing path; an enabled filter must never be disabled to obtain progress.
+      - If GO and deadline reserve supports execution, draft one fresh preparation-acquisition-decision batch for the unchanged one-record stopped waveform question. Reconcile any specific host predicate explicitly with no security-policy mutation, no outcome-driven waiver and no unreviewed physical controller. Plan, inspect, expected-revision admission and commit/push before execution. The completed182200 root is immutable and must never rerun.
+      - If uncertain or failed, record the exact external prerequisite and stop physical contact. Missing RF samples still provide no verification or disproof. Do not admit a matched comparison until actual coherent RAW evidence supports its common range.
+      - Preserve stock originals and protected material, unchanged cables and controls, no new reset/root restart/native transition for the diagnostic, and the hard deadline2026-10-03T01:38:03Z. Owned cleanup and final state must remain explicit.
+    acceptance: [An evidence-bound GO with a separately admitted successor or an explicit external limitation is preserved.]
+    required_extensions: []
+    extensions: {}
+    verification: [finding, gate_reconciliation, continuation]
