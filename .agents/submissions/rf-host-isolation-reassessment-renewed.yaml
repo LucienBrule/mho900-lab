@@ -1,0 +1,21 @@
+protocol: "tasking/core-draft-2"
+id: "TASK.rf.host-isolation-reassessment"
+title: "Reassess actual host isolation under renewed autonomous direction"
+state: "open"
+intent: "Establish an actual safe host baseline without changing routing or security policy."
+requires:
+  - "TASK.rf.stopped-range-decision"
+requirements:
+  - "The operator explicitly renewed autonomous continuation and directs a fresh host assessment without waiting for a presumed state-change report. Preserve the sealed diagnostic host stop and its independent reviews; do not infer a scope or cable transition or repeat a completed physical controller."
+  - "Perform one fresh read-only host assessment with clock-derived timestamps. Positively identify the scope-facing hardware port and interface, addresses and bridge membership; capture default and segment routes, IPv4 and IPv6 forwarding, sharing preferences and services, DHCP listeners and relevant packet-filter NAT and redirection rules including applicable anchors. Do not contact the specimen or source, create an address or helper, change routes, forwarding, sharing, firewall or security controls, or stop unrelated processes."
+  - "Require both forwarding values zero, no scope-interface bridge or sharing/NAT/external route and no unexpected management helper before a GO. Treat enabled packet filtering as a configuration to inspect, not a reason to disable security. Preserve uncertainty if the supplied rules cannot establish the scope-facing boundary. Record any remaining exact operator prerequisite."
+  - "Seal the immutable host assessment, positively identify any retained project-owned helper and obtain independent supplied-file review. No waveform, epoch, policy, source-output or UI inference from host readiness."
+acceptance:
+  - "One actual host assessment is independently accepted or held with explicit evidence and unchanged-host limits."
+required_extensions: []
+extensions: {}
+verification:
+  - "state_change"
+  - "host_evidence"
+  - "isolation_disposition"
+  - "independent_review"
