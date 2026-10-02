@@ -1,0 +1,35 @@
+schema_version = "mho-rf.host-network-coexistence/1"
+purpose = "Preserve isolated acquisition while retaining unrelated VM networking configuration"
+diagnostic_contract = "experiments/rf-stopped-range/contract.toml"
+deadline_utc = "2026-10-03T01:38:03Z"
+physical_operator_action_required = false
+new_scope_reset = false
+firewall_policy_writes = false
+dhcp_configuration_writes = false
+unrelated_process_stops = false
+external_routes_added = false
+
+[forwarding]
+keys = ["net.inet.ip.forwarding", "net.inet6.ip6.forwarding"]
+initial_values = "Read and preserve actual scalar values before any write"
+acquisition_values = [0, 0]
+set_attempts_per_key = 1
+unexpected_change = "Stop acquisition; no repeated forced write"
+checks = "Serviced execution boundaries; preserve actual coverage and timing"
+side_effect = "Unrelated forwarded VM traffic may pause while forwarding is disabled"
+
+[preserved_host_configuration]
+packet_filter = "Retain actual enabled state and rules; never disable or flush"
+translation_evidence = "Positively enumerate known anchors and query each specific child; reject command or embedded errors"
+dhcp_evidence = "Preserve daemon/configuration provenance and prove scope-interface exclusion; wildcard listener is not interface service proof"
+scope_segment = "No bridge, gateway, external DNS, applicable NAT, redirection or route to another network"
+runtime_drift = "Stop if required configuration or isolation changes"
+
+[restoration]
+ordinary_export_settings = "Restore exact initial snapshot while framing is healthy"
+owned_transport = "Close scoped socket; retire and reap owned server; prove complete endpoint absence"
+owned_address = "Remove and prove alias and fixture route absent"
+owned_helpers = "Stop owned DHCP maintenance and capture; preserve graceful exit and drop statistics"
+forwarding = "Restore exact captured initial scalar values after all preceding cleanup is proved"
+uncertain_cleanup = "Explicit HOLD; never re-enable forwarding into an uncertain scope path"
+final_claim = "Actual verified restoration or explicit unresolved state, never inferred from process exit zero"
