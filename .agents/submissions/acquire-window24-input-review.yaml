@@ -1,0 +1,19 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.rf.acquire
+reviewed_head: sha256:0bad8984dbc2f1a6756bd2f433be09d15ec1a120da4f1fb41393e9e3ae5c4d28
+observations:
+  - upstream: TASK.rf.execution-decision
+    contract: sha256:ebe4fba9b2648176ec41d3107579d8f55e1038e103c10f4d04d1a8e6ecc0fd1f
+    revision: sha256:3e8272561fe1e043b34fc2618259dd20008a9c81c50b8c3387b97b466d760150
+    inputs: sha256:9f1f70bba2680eae1692c799164d9a5abd5d2a8fda75b3fde058eb363cdb2224
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: "2026-10-02T01:51:43.317720+00:00"
+rationale: "Reviewed the timing-only renewed24hour prerequisites against the unchanged matched75slot stock-derived-stock comparison. Dependency currency is revalidated only; this task remains open and no captured lease, physical transition, execution go or RF finding is inferred."
+evidence:
+  run_seal: "Reviewed the timing-only renewed24hour prerequisites against the unchanged matched75slot stock-derived-stock comparison. Dependency currency is revalidated only; this task remains open and no captured lease, physical transition, execution go or RF finding is inferred. New tasking is .agents/plans/rf-window24.yaml; preparation is closed with independent controls, while lease and evaluation remain pending. All original acceptance conditions still apply."
+  arm_evidence: "Reviewed the timing-only renewed24hour prerequisites against the unchanged matched75slot stock-derived-stock comparison. Dependency currency is revalidated only; this task remains open and no captured lease, physical transition, execution go or RF finding is inferred. New tasking is .agents/plans/rf-window24.yaml; preparation is closed with independent controls, while lease and evaluation remain pending. All original acceptance conditions still apply."
+  protocol_adherence: "Reviewed the timing-only renewed24hour prerequisites against the unchanged matched75slot stock-derived-stock comparison. Dependency currency is revalidated only; this task remains open and no captured lease, physical transition, execution go or RF finding is inferred. New tasking is .agents/plans/rf-window24.yaml; preparation is closed with independent controls, while lease and evaluation remain pending. All original acceptance conditions still apply."
+  final_state: "Reviewed the timing-only renewed24hour prerequisites against the unchanged matched75slot stock-derived-stock comparison. Dependency currency is revalidated only; this task remains open and no captured lease, physical transition, execution go or RF finding is inferred. New tasking is .agents/plans/rf-window24.yaml; preparation is closed with independent controls, while lease and evaluation remain pending. All original acceptance conditions still apply."
+successor: null
