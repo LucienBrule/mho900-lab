@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.rf.determination"
+reviewed_head: "sha256:887df512b860d01a739586006f0d6554003c50f183f7c1b7c070b5a98aed9167"
+observations: [{"upstream": "TASK.rf.reduce", "contract": "sha256:075538725ff36eaf32145f949d041abe833690da09b29f6f2b77176f43aeddea", "revision": "sha256:2acba16cf6dda617866d258d728c42ba92dfd907b3d96eaab4eef76f823cd30a", "inputs": "sha256:9d1bbc79475ae052552291fa1ab639f2621e9a2460db205e92a2246ddc72ca00"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-10-02T17:07:05.878266+00:00"
+rationale: "Reconcile current reduction head upstream first. New actual stable-stock readiness and controlled metadata incident change evidence lineage, not the frozen falsifiable RF question. Preserve the original determination rules and deadline; no comparison result is currently asserted."
+evidence: {"finding": "Actual current stock readiness17/17 is independently accepted, but accepted RF records remain zero. Earlier failed prerequisites, one approved used manual cycle, both evidence inventories and cache cause remain part of the history.", "claim_scope": "Future determination concerns relative response of this fixed uncalibrated chain under verified stock/derived policies. Neither cached native enums,normal UI nor sampled RMS alone establish rated1GHz analog bandwidth or source fundamental amplitude.", "milestone_disposition": "RF response milestone stays open. Complete valid frozen inputs may yield positive,contrary or unresolved; missing/invalid inputs remain unassessable. No desired-outcome retries or criteria changes.", "continuation": "Accepted isolated-control snapshot/composition decisions, actual fresh A1 controller binding review and stable decision must precede RF. Then accepted A1,one original derived transition,accepted B,one final-stock transition and accepted A2; seal/review/commit/push between experiments. Restore known-safe stock/ordinary/host state at completion or2026-10-03T01:38:03Z."}
+successor: null

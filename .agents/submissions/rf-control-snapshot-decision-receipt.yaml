@@ -1,0 +1,10 @@
+protocol: "taskctl.receipt/alpha1"
+classification: "actor-assertion"
+task: "TASK.rf.control-snapshot-decision"
+contract: "sha256:07cc763c491c7f0b2b9d25fd7b883444bcb5bc25d1f7fe84cc8da946a4498cab"
+actor: "mho900-lab-investigation"
+recorded_at: "2026-10-02T17:13:56.723326+00:00"
+evidence:
+  independent_result: "GO bounded offline remedy,producer597536bb/independent630413c7 native-verified;seven owner/four independent focused controls and strict typing/Ruff. Actual readiness3055f764/Decision8ce6844b/ArmReadyccea53ab are separate evidence."
+  preservation: "All845 original entries and33 original controls unchanged. Full8474c3cb46f and exact33external00e01ca3 verify; historical845bfb9e72c correctly rejects extras. Both cache additions preserved. Exact pinned history,no-bytecode before imports,output containment; no generic exclusion or production raw root substitution."
+  continuation: "GO preparation only. RF requires accepted actual stable/current ArmReady,independently reviewed concrete fresh A1 controller,original input reconciliation and composition decision. Frozen75slots/source/electrical/numerical rules/deadline unchanged. No extra reset/contact in task. Commit/push before execution."

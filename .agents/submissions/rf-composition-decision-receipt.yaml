@@ -1,0 +1,10 @@
+protocol: "taskctl.receipt/alpha1"
+classification: "actor-assertion"
+task: "TASK.rf.composition-decision"
+contract: "sha256:e1d2cea19e2f1b22e04b1056fc0d5c480316f0851b83c79335549eedbb363ff0"
+actor: "mho900-lab-investigation"
+recorded_at: "2026-10-02T17:15:15.369705+00:00"
+evidence:
+  independent_result: "Revalidated exact preparation: newboot producerda50b859/independentc6e3f371; remaining-owned producer143b6121/independentba0a8df6; isolated snapshot producer597536bb/independent630413c7. All native-verified. Original845/full847/exact33/cache-history preserved; actual stock review3055f764/Decision8ce6844b and ArmReadyccea53ab accepted separately."
+  bindings: "Three exact current upstream observations bind revised owned reboot-window180s/readiness and isolated no-bytecode/external controls/history. Original actual stable root/full8474c3cb46f required, sixfieldlease321c108a unchanged, one V5 owned transport and no numerical/controller broadening. FutureB/A2 require actual preceding accepted arm/corpus/newlease/introduced-file lineage, never templates or oldfallback."
+  continuation: "GO preparation, not physical execution. Concrete freshA1 frozen request/controller independent binding review remains required before one run; originalacquire/reduce/determination reconciled upstream-first. Frozen75slots,electrical/source/numerical/deadline unchanged. No extra manual reset,unchanged failure retry or newrootrestart. Commit/push conclusions before physical execution."
