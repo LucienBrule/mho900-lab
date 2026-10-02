@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stock-raw-semantics-recovery
+    title: Recover the bounded stock RAW export and stopped-buffer contract
+    state: open
+    intent: Separate recovered readout semantics from unresolved physical acquisition variability.
+    requires: [TASK.rf.linux-frozen-export-decision]
+    requirements:
+      - Pin the preserved specimen stock APK and packaged native library against their accepted exact hashes before analysis. Preserve all original bytes and use a fresh ignored output root. Bind the failed original A1 and completed paired-export decision as distinct physical observations.
+      - Statically identify the SCPI RAW DATA and PREamble dispatch path and trace only the relevant stopped-state, buffer-selection, sample-count, interval and ASCII voltage-conversion boundaries. Use exact ELF addresses, symbol/string references, original instruction excerpts and tool provenance. Bound the recovery to this export path rather than whole acquisition or ADC reconstruction.
+      - Describe what STOP and count-one preamble do and do not establish about buffer ownership, generation, lifetime and snapshot consistency. Distinguish a direct decoded instruction or constant from an inferred call edge, indirect unresolved selector, asynchronous producer or physical device behavior. Do not invent a hardware generation counter or treat repeated equal replies as proof of every possible acquisition path.
+      - Independently review the narrow static witnesses against preserved bytes. Record unresolved dependencies and the exact smallest bench question they leave. No numerical correction, low-RMS exclusion, new fit, baseline acceptance, replacement comparison slot or cause assignment follows from this analysis.
+      - Work only on preserved files and existing offline tools inside the current authorization window. No SSH, ADB, SCPI, capture, DHCP, source serial, guest execution, native transaction, physical transition or original artifact mutation. Commit and push the recovery conclusion before another experiment.
+    acceptance: [The stock export path has a bounded independently checked contract or an exact unresolved static boundary.]
+    required_extensions: []
+    extensions: {}
+    verification: [inputs, dispatch, buffer_semantics, conversion, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stock-raw-semantics-decision
+    title: Evaluate stock readout coverage and the next RF bench question
+    state: open
+    intent: Choose a useful continuation from actual records and recovered export semantics.
+    requires: [TASK.rf.stock-raw-semantics-recovery]
+    requirements:
+      - Reconcile the static recovery with all original A1 records and all planned paired diagnostic positions, including every negative or missing outcome. Static code cannot turn the failed original return control into an accepted predecessor or identify source-versus-ADC behavior without evidence.
+      - State the narrowest next physical or offline question and its required independent observation, controlled intervention and falsification condition. Retain current policy, original seventy-five-slot comparison and all fifty missing B/A2 slots; no physical native transition or protocol amendment is granted by this decision.
+      - At the tighter current deadline preserve known-safe restored ordinary state, owned helper absence, immutable evidence and a clean pushed checkout. If the next question needs new hardware, wiring or an execution window outside current authority, record that exact dependency rather than speculate or extend this run.
+    acceptance: [An explicit evidence-supported next bench question or bounded offline continuation is durable.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_review, observed_vs_static, next_question, checkpoint]
