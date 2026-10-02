@@ -337,3 +337,23 @@ it does not claim a new policy-memory observation or fresh backing-byte hash.
 Further work in this batch is file-only examination of the failed control and
 offline Linux supervisor composition. It does not authorize a native transition
 from this failed stock arm.
+
+The offline transition lease/health composition now passes ten focused owner
+controls and four independent controls. It consumes a growing captured PCAP
+stream once and preserves the original lease proof classes. One 180-second
+reboot window may tolerate carrier loss before a fresh captured REQUEST/ACK;
+all other isolation, ownership, recorder, clock and deadline guards remain
+active. The captured ACK ends that exception immediately. A helper's sent-ACK
+log cannot establish lease authority, and RELEASE after ACK or any DECLINE
+stops the sequence.
+
+The composition is `out/rf/linux-transition-lease-composition-01.toml`
+(`ca027ef499b37af9440a35c6e4350cc381e66dc3d323af98b4072069024208e0`),
+reviewed by `out/rf/linux-transition-lease-independent-01.toml`
+(`723d198472bd5cf282ab81bb051e213b143b19766a8e079e45bb64953af9d143`).
+These are supplied-byte and supplied-observation controls. They neither collect
+runtime host state nor implement the complete packet allowlist. The strict
+original minimal ACK option set also rejects renewal-timer options emitted by
+the current DHCP service. That compatibility requirement must be resolved
+explicitly before actual transition integration; no captured timer-bearing
+ACK is silently promoted through this adapter.
