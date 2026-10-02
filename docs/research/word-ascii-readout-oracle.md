@@ -82,7 +82,7 @@ under those assumptions. Neither outcome independently identifies a hardware
 generation, proves unchanged hidden attributes, assigns a source-versus-ADC
 cause, or establishes calibrated analog bandwidth.
 
-Physical execution remains blocked by the missing length-framed receive path,
+Physical execution remains blocked by the missing physical length-framed receive path,
 unresolved actual binary suffix and exact-gain prediction boundary. The pure
 oracle allocates no physical comparison slots and admits no native transition.
 The preparation and decision tasks preserve those limits as an explicit next
@@ -105,3 +105,35 @@ the observed token is insufficient to infer that selection or a gain interval.
 The independent candidate review is
 `out/rf/raw-format-precision-independent-01.toml`
 (`ae612fab7e2dfb775245b759ffa1c0e4689291df7e609e45ce03ed5d8741984d`).
+
+## Supplied-reader receive control
+
+A separate offline core now composes the decoder with supplied readers and
+clocks. Named read demands specify the exact remaining byte count, phase and
+deadline. Named results retain data, EOF or failure. The core preserves every
+returned byte and its demand/result ledger, including partial bytes on a
+terminal failure. It stops on malformed headers, inconsistent counts, empty
+reads, overdelivery, exhausted read budgets or supplied-clock violations.
+Fragmented positive reads continue the same transaction; a terminal failure
+does not replay it.
+
+Completion means that the explicitly selected header, body and suffix profile
+was collected and accepted by the frozen decoder. It does not establish the
+absence of additional unread transport bytes or physical EOF. No extra probe
+is invented to establish that absence. Supplied timestamps check the model's
+deadline rule; they do not enforce a blocking socket timeout.
+
+There is no socket or instrument backend in this control. A future physical
+backend must translate actual partial I/O and timeout outcomes once into named
+results, enforce its real deadline, preserve the full termination evidence and
+close its owned connection. Actual suffix handling, coefficient prediction and
+the stopped bench protocol remain separately reviewed prerequisites.
+
+The receive core is sealed in `out/rf/binary-supplied-reader-01.toml`
+(`f23cb1c6a7586640f0c2050d1bc9f03c351256d2d1fe3ef2a11d16c81b441398`).
+Independent review is `out/rf/binary-supplied-reader-independent-01.toml`
+(`a8f828bcb5cea7d6881f21331ea20eeb624392acb89e57f68a0462f7b5c30e64`).
+Eight producer controls and seventeen independent methods pass, including
+100 deterministic uneven fragmentation patterns and the 100,000-point boundary.
+Strict typing, lint and formatting pass. The controls use byte-identical copies
+of the frozen oracle and do not modify its evidence or the public tooling.

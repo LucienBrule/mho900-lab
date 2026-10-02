@@ -11,6 +11,9 @@ repeatable sampled reception through the nominal 1.1 GHz source command, and an
 ordinary OFF → 250M → OFF control establishes reversible measurement sensitivity.
 The matched software-policy effect and calibrated analog bandwidth remain open.
 A complete emulator and independent instrument implementation remain longer-term research.
+The latest stock return control failed; the
+[Linux bench checkpoint](docs/research/rf-linux-bench-migration.md) preserves
+that outcome and the distinct paired-read diagnostic.
 
 - [Physical ordinary-option installation and persistence](docs/research/physical-ordinary-options.md)
 - [Physical D-capability deployment and independent reboot](docs/research/physical-d-capability.md)
@@ -20,6 +23,8 @@ A complete emulator and independent instrument implementation remain longer-term
 - [Fixed-frequency ordinary channel-limiter control](docs/research/rf-limiter-control.md)
 - [Unattended RF, statistics and policy-mechanism checkpoint](docs/research/rf-unattended-checkpoint.md)
 - [Matched-policy controller preparation and independent controls](docs/research/rf-policy-transition-preparation.md)
+- [Recovered stock waveform export contract](docs/research/stock-waveform-export.md)
+- [Supplied-byte WORD and ASCII readout oracle](docs/research/word-ascii-readout-oracle.md)
 - [Reusable bench-tool composition proposal](docs/research/bench-tooling-composition.md)
 - [Earlier guest entitlement checkpoint](docs/research/specimen-entitlement-checkpoint.md)
 - [Physical logical acquisition and software identity](docs/research/physical-specimen-logical-acquisition.md)

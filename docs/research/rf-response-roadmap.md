@@ -20,6 +20,24 @@ concrete proposed arm sequence, discriminator and exact missing conditions.
 Independent source/path characterization remains an additional requirement for
 a calibrated absolute-bandwidth claim.
 
+Checkpoint, 2026-10-02: the dedicated
+[Linux bench](rf-linux-bench-migration.md) completed the original 25-record stock
+arm with all records passing the unchanged range and receive checks. The arm's
+return control fails: final versus initial 100 MHz mean is -0.37378452327613054 dB,
+outside the inclusive +/-0.3 dB limit. A1 is not accepted; all fifty B/A2 slots
+remain missing and the matched policy-response comparison is unassessable.
+The distinct twenty-position paired diagnostic finds byte-identical exports
+within each stopped position, while RMS varies between positions. It does not
+repair A1 or establish a source, acquisition or readout cause.
+
+The [stock waveform contract](stock-waveform-export.md) and
+[supplied WORD/ASCII oracle](word-ascii-readout-oracle.md) now constrain that
+readout question. Independent host arithmetic and binary receive controls pass.
+A physical WORD/ASCII/WORD bracket still needs actual binary termination and
+coefficient-prediction evidence, plus its own reviewed collector and admission.
+The source/path reference remains an explicit bench question. These supporting
+results do not close the RF response milestone or change the frozen comparison.
+
 The subsequent [exact-stock filter recovery](rf-policy-filter-static.md) finds
 distinct digital selections for enums 17 and 18 under explicit 4 GSa/s normal
 inputs, with equal constructor AFE tuples. Its
