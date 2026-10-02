@@ -42,3 +42,18 @@ audit. The diagnostic seal is
 `c78a40653914d0e361d026e42f47f8b69454321bd672f785689c19fdf263d49c`.
 An empty cache in this later control does not reconstruct the earlier cache or
 prove that restarting the daemon resolves the error.
+
+A fresh attempt after the daemon control successfully connected and verified the
+existing root session. It collected the application, native mapping and protected
+logical archive, then stopped at the SCPI helper's local output-directory
+precondition. The generator had omitted required SCPI directories. A TCP
+connection had been opened, but the assertion preceded any request byte. No
+observer, native-file removal or reboot occurred. That separate negative is sealed
+at `out/rf/policy-initial-stock-recovery-20261002T021000Z.toml`, SHA-256
+`860a62448652fc792e5b4fe08665460012d0b04630e2bdb166eb33e2da3e8477`.
+
+The correction creates and checks all four empty SCPI output directories before
+launch: baseline, prechange, postboot and postwarmup. It also leaves future reader
+output directories absent because their producer creates them exclusively. The
+controller and physical gates remain unchanged. The recorded negatives retain
+their original meaning and are not counted as completed stock transitions.
