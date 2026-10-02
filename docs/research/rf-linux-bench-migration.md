@@ -40,3 +40,24 @@ operator Ethernet connection, then bounded lease and identity/transport checks.
 The existing RF coax path and stock application, native, option and calibration
 invariants remain unchanged. Moving the RF source's USB serial connection, if
 needed for unattended acquisition, is another explicit setup transition.
+
+The disconnected preparation passed its host-only control. A single loopback
+TCP connection returned the exact 24-byte request and closed both directions.
+The full capture contains ten complete frames; the recorder reported twenty
+filter-received packets, zero kernel drops and graceful exit zero. These counts
+have their own meanings and are not interchangeable. The management connection
+remained available, root firewall rules compared byte-for-byte equal, and SELinux
+remained enforcing. The prepared DHCP service was inactive.
+
+The namespace service is active but is not enabled for automatic boot. Its
+ownership record preserves the original NetworkManager and interface state.
+Teardown was reviewed in source and has not been exercised. Host clock domains
+were measured separately and must not be silently treated as synchronized.
+
+Preparation evidence is `out/rf/linux-bench-preparation-01.toml`
+(`0e672958ed89aa60c46907780ff06c6f58f46f7e7b8ac689ec2c9c9fcf3cac9d`,
+44 files). Independent review is
+`out/rf/linux-bench-independent-20261002T193500Z.toml`
+(`2ceb818ce4e712b400da4fdf162a17fae98a2fe4a81f623d77ac0643fb3a1e3a`,
+nine files). The accepted result is readiness for capture-first cable migration;
+specimen reachability and RF response remain untested on this host.

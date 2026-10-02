@@ -1,0 +1,15 @@
+{
+  "protocol": "taskctl.receipt/alpha1",
+  "classification": "actor-assertion",
+  "task": "TASK.rf.linux-bench-preparation",
+  "contract": "sha256:d97d103ac361a89a1fefef8fdc7486acf800a23470aeb8bb9b66b3b9e01d93bd",
+  "actor": "mho900-lab-investigation",
+  "recorded_at": "2026-10-02T19:37:31.282366+00:00",
+  "evidence": {
+    "host_baseline": "Timestamped baseline and exact physical NIC identity, management route, original profiles/flags, root firewall, forwarding and SELinux preserved in native-verified out/rf/linux-bench-preparation-01.toml 0e672958ed89aa60c46907780ff06c6f58f46f7e7b8ac689ec2c9c9fcf3cac9d (44 files/99470 bytes). Scope Ethernet operator-reported unplugged; actual carrier0.",
+    "isolated_namespace": "Actual namespace only loopback and owned physical Ethernet/private /30, no default/IPv6/management link, forwarding0, no processes/listeners. Standard ip/systemd ownership; original NM-managed/UP/config hash and namespace inode recorded. Unit active, autoboot disabled; reviewed teardown not exercised.",
+    "standard_tools": "Rocky repository tcpdump4.99.0/Python3.12.14 plus locked uv0.6.17 workspace staged. Official Google Linux ADB37.0.1 archive d230f13842f60f782a8645f9c813f8f845bf36089ea7289f28c48f17979313f1, executable a902be8f45c6c62e76c9efaf6947a0fa747c9cabd89a2ac8e0d16ecb30b3ed01. DNS-disabled MAC-bound24h dnsmasq syntax validated, inactive.",
+    "host_controls": "One standard loopback TCP echo, exact24B payload both directions/FINs;10 complete captured frames/20 filter-received/zero kernel drops/graceful0. Strict mypy and Ruff on small control source. Independent native-verified GO_HOST_ONLY_PREPARATION 2ceb818ce4e712b400da4fdf162a17fae98a2fe4a81f623d77ac0643fb3a1e3a (9 files/16278 bytes).",
+    "preserved_state": "Wi-Fi management retained, root firewall byte-identical, global forwarding0/0 and SELinuxEnforcing unchanged; unrelated storage untouched. Clock observation preserves approximately25s offset without changing time. No DHCP, ADB server or physical specimen contact. Mac branch/automation remains paused; no RF acceptance claimed."
+  }
+}
