@@ -39,3 +39,22 @@ attempt and controller is retained. A fresh execution requires independently
 reviewed concrete bindings and a committed and pushed GO. All waveform slots,
 source commands, epoch checks, restoration rules and numerical criteria remain
 governed by the original frozen comparison.
+
+The bounded transport decision is GO. Producer preparation is sealed with
+SHA-256 `fa850e64bc7b7baf67a1985534e4bc90e7ad08b2937d7f922af8b230bdd12026`,
+and independent concrete readiness review with SHA-256
+`9d51fccfae35091c4d84780325e3f94238be122f1bfef8b8f64954c4034797ea`.
+Seven producer and ten independent host-only controls passed. The matching
+completed-arm verifier passed 47 controls, including complete synthetic
+25-record witnesses for both original impedance states; its preparation seal is
+`29147ba0fc3199182fc540ed832187ee9e638244a7de3c37e6584b4678438961`.
+
+The fresh actual controller is prepared at
+`out/rf/policy-comparison-A1-transport-20261002T035700Z`, with control manifest
+SHA-256 `a1e300325925180b704cb6601be814b014fc4d9588ddfeacf663933c0a55b557`.
+The stable run label is an identity; actual preparation timestamps are recorded
+separately. The independently reviewed adapter replaces only the initial
+connection step and retains all 11 existing callback bodies, the original
+single epoch read, ordinary-setting remedy and measurement code. Acquisition
+tasking explicitly depends on this decision. Fresh runtime checks still apply;
+preparation and local transport readiness establish no physical RF result.
