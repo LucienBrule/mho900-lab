@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.rf.stopped-range-decision"
+reviewed_head: "sha256:d59de452c26caa1a946e9ca62bb890663eadcc2ebc473dfdcb32d80f6e04fc45"
+observations: [{"upstream": "TASK.rf.stopped-range-acquire", "contract": "sha256:f3fda9a1b2ab939ca79cff2770c52cdedbc075bad309152e29a411409d699545", "revision": "sha256:f0820c0c489ffe8b6a4afeb003094acd72493fc7d3df854f13c4337356d5ef03", "inputs": "sha256:2a500975f7c4f2557264404b602ee8c379387464263e38e4b88796304328c9ef"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-10-02T18:28:11.242402+00:00"
+rationale: "Explicitly assess closed host-prerequisite abort and sealed numerical missingdata; preserve limitation and exact externalhostquestion. NoRFobservation fabricated."
+evidence: {"finding": "No RAW/defaultreceive/diagnosticreceive/statistics/preamble record: actual06f63e03319def529cc041dd9fa9a556c6e6f71c238fd2e5dfcf530f2a368a8d firsthostforwardguardstop. Independentactual3011789c956be5cf66dd7613bdd91f82d2066419bc9bec139202ef972a244f24 and missingdata132ef1d3d6bfee7fbd8181b653c3cc79f72a72d2f26468549c8ce68f2812b6ce rootnativeverified. Findings agree zero waveforms, not a failed orcontrary RF effect.", "claim_scope": "Headroom/RMS/periodicity/source100MHz/policycontrast/absolute1GHz NOT ASSESSED. Original75missing unchanged; cannotselectcommonrange oradmitcomparativeacquisition fromno samples. No newepoch/UI/protected evidence. Default/custom preparedprofiles remain separate unchanged; no guardwaiver/retry. RF milestone remainsopen.", "continuation": "Exactexternalprerequisite: operatorrestorehostIPv4/IPv6forwarddisabled withscope/source/wiringcontrols unchanged. Recheck actualroutes/address/bridge/NAT/sharing/filterstate through read-only boundedtasking; anyPFdifference mustbeexplicitlyreconciled withoutdisablingsecuritycontrols. Noautomatic hostpolicychanges. Onlyafterfreshhostpass prepare/independentlyreview/admit/commit a newone-recorddiagnosticroot; preserved182200mustnotrerun. Deadline2026-10-03T01:38:03Z unchanged, noextrareset. No furtherphysicalrunadmittedbythisclosedfinding; awaitingactualhoststatechange."}
+successor: null
