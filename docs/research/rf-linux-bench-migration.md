@@ -196,3 +196,28 @@ sole source command and subsequent RAW acquisition. The existing diagnostic,
 headroom, interpretation and restoration rules remain fixed; this one record
 is not a slot in the 75-record comparison. The active three-hour work window
 ends at 2026-10-02 23:05:20 UTC, with cleanup reserve retained.
+
+The split-host diagnostic preparation passed independent review. The runnable
+Linux delegate uses an owned ordinary ADB server and device-bound SCPI socket;
+a single SSH channel carries explicit readiness and source completion receipts.
+The source remains on the workstation. Focused controls cover framing, loss
+without replay, deadline enforcement, directory ownership and child exit races.
+Two concrete preparation defects were corrected before physical execution: an
+import-only entrypoint and an absent barrier-directory creation step.
+
+Linux preparation is `out/rf/linux-stopped-range-preparation-01/linux.toml`
+(`fb7b378f748b644238af5890549c6b72dfaf0aefbf63e26066177b81a3eecec1`);
+coordination is `out/rf/linux-stopped-range-coordination-preparation-01.toml`
+(`b005b24efb812fce1a2782baef84e285c1e5a60010d9d6624921c373f4bb68a0`);
+concrete host/config validation is
+`out/rf/linux-stopped-range-preparation-01/root-inputs.toml`
+(`390ef420524055441339990ef95a951766a74c62a3d8ee25d0325a512286eab4`).
+Independent acceptance is
+`out/rf/linux-stopped-range-preparation-independent-01.toml`
+(`f33b4a8002062a243950a3b644ab165ddb861cae6d16ebf1c6afe3226223a18d`).
+
+This same-epoch diagnostic inherits the accepted stock byte/corpus/policy/UI
+evidence and rechecks process, boot and exact native mapping metadata three
+times. It does not freshly detect an in-place backing-byte change. Full fresh
+byte/corpus proofs remain required for later native transitions. No physical
+waveform or comparison acceptance follows from preparation.
