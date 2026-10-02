@@ -73,3 +73,30 @@ packet-health observation. It also owns a dedicated server for the entire
 isolated interval and requires its proven retirement before address removal.
 This is a distinct lifetime and complete-wait question, not an extension of
 the sealed failed attempt or permission to retry a failed epoch read.
+
+The V5 preparation passed independent review. Its producer seal is
+`out/rf/owned-transport-preparation-20261002T042800Z.toml`, SHA-256
+`e8e17e6bf0b46e387da9f72b32e5924ab6122ef9f3ae032d60a604a2f86852d7`.
+The independent seal is
+`out/rf/owned-transport-independent-20261002T042500Z.toml`, SHA-256
+`3dbbf9cbe9c3f47875ad4cc880ba795bd132eae509e1f3b3abd5f551a8ca64d7`.
+Twenty independent methods passed. The separate completed-arm verifier seal
+is `out/rf/policy-arm-verification-v5-evidence-20261002T043200Z.toml`,
+SHA-256 `684ff506d98e1d05fb35e9f02dc24d7419ca5e4728a7188a561408e09b00f5c2`;
+91 controls passed. A mandatory lifetime check rejects premature address
+removal, changed ownership, remaining sockets and teardown health failures.
+
+A local-only control under the actual supervisor privileges preserved the
+invoking account and demonstrated foreground localhost startup, termination,
+reap and all process/socket absence checks. It requested no peer connection
+or device inventory. Its seal is
+`out/rf/owned-server-root-loopback-20261002T042600Z.toml`, SHA-256
+`62cda0ca32011525300a7d64a68f43d256d058674dbed45c26da56a0478ac7d9`.
+The child disables USB and mDNS initialization through its own environment;
+no global host policy changes. An unsupported listener syntax and an offline
+freeze import-path failure remain preserved separate controls.
+
+The decision is GO for one fresh V5 A1 attempt. All original RF rules and
+three epoch reads remain unchanged. No specimen reboot or daemon restart
+is introduced. This decision establishes preparation readiness, not a
+successful handshake, accepted epoch or acquired waveform.
