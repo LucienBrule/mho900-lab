@@ -48,3 +48,28 @@ and the reason for peer silence remain separate hypotheses.
 track this host lifecycle and timing question. No specimen daemon restart,
 root request, extra reboot or numerical relaxation is admitted by them. All
 four stopped attempts remain immutable and no RF response claim follows.
+
+The separate host-route review is sealed at
+`out/rf/owned-server-route-independent-20261002T041800Z.toml`, SHA-256
+`4b6b29a5133b9e8d9a3ac289d254424d274354580e671a59c59391a2526673ea`.
+It confirms the lifecycle defect and distinguishes pending socket state from
+proved traffic delivery. Its typed check passed; two line-length diagnostics
+in the review tool are retained and do not alter the evidence.
+
+Offline implementation reconciliation is sealed at
+`out/rf/transport-reconciliation-20261002T041900Z.toml`, SHA-256
+`c4c7898bdf28204150a4e00dc5974a74ee7b9d45dceff268343b8a911106ab3f`.
+The pinned current host binary constructs a ten-second connection wait. The
+five-second subprocess limit therefore ended the client before that internal
+wait could complete, and killing the client did not terminate its separate
+server. The complete 310-byte host CNXN is byte-identical to the request in
+two earlier successful stock captures. Those positive controls received peer
+CNXN responses within milliseconds. The present silence supplies no basis
+for attributing failure to a changed handshake or checksum.
+
+The bounded successor keeps the twenty-second total readiness allowance and
+allocates up to twelve seconds to its sole connect command, with continued
+packet-health observation. It also owns a dedicated server for the entire
+isolated interval and requires its proven retirement before address removal.
+This is a distinct lifetime and complete-wait question, not an extension of
+the sealed failed attempt or permission to retry a failed epoch read.
