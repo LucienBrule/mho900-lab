@@ -15,6 +15,14 @@ and the isolation checks passed. The local ADB server's device list afterward
 also reported the isolated peer as offline. That host-side status does not
 establish the cause or prove a device reboot.
 
+Independent review is sealed at
+`out/rf/A1-epoch-stop-independent-20261002T034500Z.toml`, SHA-256
+`8e2b8d4e48471e8c73a81e5539160645c19957c0596bf4552880f2fc097ed322`.
+Its reconstruction found five TCP frames on the ADB endpoint, zero application
+payload and no frames on the SCPI endpoint. The legacy live label `SCPI TCP`
+covered both permitted management ports and is not evidence of a SCPI query.
+The empty failed epoch output establishes no new process, policy or RF witness.
+
 The existing controller requested a connection and immediately attempted its
 single metadata read. A successful connection command is insufficient evidence
 that the local transport is online. The proposed remedy disconnects only the
