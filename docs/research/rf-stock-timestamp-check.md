@@ -52,3 +52,20 @@ protected-content and visible-UI evidence, a serviced warmup exceeding 1,800
 seconds, and exactly one 16-byte stock policy observation. It contains no native
 replacement/removal or reboot action. Only independent acceptance of that linked
 evidence can release the original stock–derived–stock RF comparison.
+
+The continuation preparation passed 33 local test methods and 30 independent
+record controls. Nineteen retained health, transport, query, UI and observer
+lifetime callbacks are unchanged at the AST level. Eight altered configurations
+and nine altered partial-run event sequences were rejected. The 27 prepared
+control files were reproduced byte-for-byte by a second offline generation.
+Four newly authored Python modules passed strict type checking and formatting;
+the retained legacy executor is not represented as newly typed code.
+
+Preparation is sealed at
+`out/rf/stock-continuation-preparation-20261002T025000Z.toml`, SHA-256
+`d0904589216164234a2560d85d028bdb90e3a626766796e7fdc750c3a7c2ca6c`.
+Independent readiness review is sealed at
+`out/rf/timestamp-continuation-independent-20261002T023800Z.toml`, SHA-256
+`9cfcf09a95729c6997b6ce7d51b52c153f43ec8323b00e50945720c7cd863004`.
+This is permission to execute the admitted continuation subject to fresh runtime
+gates, not evidence that the stock arm has passed them.
