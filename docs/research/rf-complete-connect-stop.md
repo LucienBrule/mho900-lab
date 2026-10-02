@@ -40,3 +40,24 @@ The bounded diagnostic is tracked by `TASK.rf.sparrow-liveness-preparation`,
 Its exact source and independent review must be committed and pushed before
 execution. The original A1/B/A2 hypothesis, all five prerequisite-only stops
 and the hard deadline remain unchanged.
+
+The independent actual-run review is sealed at
+`out/rf/A1-fifth-stop-independent-20261002T044000Z.toml`, SHA-256
+`6ae481533e6eafbb8f913f1d52e571e95771e69a20d3943832b16f67e154b10f`:
+24 artifacts and 112,023 bytes. It confirms connect elapsed
+10.065821666 seconds, total helper elapsed 10.183961833 seconds, 29 TCP frames
+and zero peer ADB application bytes. The peer acknowledged the same complete
+CNXN request used by the preceding attempt. A host FIN and peer ACK occurred
+during contained server termination before address removal. The typed lifetime
+check validates the exact identity, SIGTERM, reap and all eleven original host
+probes; no HOLD or teardown health fault occurred.
+
+A bounded offline device-health assessment is sealed at
+`out/rf/device-health-assessment-20261002T044000Z.toml`, SHA-256
+`88b623bc3c94a56b343d1f5984694f40615c78c21a9c5d3354570d064a5898e8`.
+It extracts the preserved boot-image adbd from matching independent raw
+acquisition extents and identifies existing property-controlled startup and
+restart behavior. That is implementation evidence, not a live daemon hash,
+proof of a retained transport, or authorization to change a property.
+The current application liveness question has greater information value than
+further unchanged host connection attempts or speculative daemon surgery.
