@@ -221,3 +221,24 @@ evidence and rechecks process, boot and exact native mapping metadata three
 times. It does not freshly detect an in-place backing-byte change. Full fresh
 byte/corpus proofs remain required for later native transitions. No physical
 waveform or comparison acceptance follows from preparation.
+
+The one stopped acquisition completed with both controllers exiting zero. It
+preserved one exact source attempt and one 100,000-sample RAW ASCII record at
+4 GSa/s, acquisition count one and 100 mV/div. Original preambles match. The
+complete ordinary and export settings restored exactly, the three stock
+metadata epochs matched, and owned SCPI/ADB retirement completed before the
+recorder closed. Actual statistics are 1,651 captured, 1,651 filter-received
+and zero kernel-dropped packets. Root post-cleanup evidence shows no namespace
+helper and unchanged isolation; ordinary TCP TIME_WAIT is retained.
+
+Actual evidence is `out/rf/linux-stopped-range-actual-01.toml`
+(`d6cfba0479fa3b48e14216f558c42ad212d10e9a4e01be35b00edd4fcde302bd`).
+File-only numerical inspection is `out/rf/linux-stopped-range-analysis-01.toml`
+(`e83d460aa581a75a545d233997592e93a923f9d1d6a1c3d7afa3dae42ea993ff`).
+Both unchanged default and separate diagnostic receive profiles qualify the
+record. Samples span -134.12 to +131.44 mV, with 265.56 mVpp and
+111.42625005457596 mV demeaned population AC RMS. The strongest sampled
+spectral bin is 100 MHz. These facts neither prove a calibrated source
+fundamental/amplitude nor measure analog bandwidth. The record remains a
+100 mV/div diagnostic, with zero original comparison slots. Independent
+actual evaluation determines the next separately admitted experiment.
