@@ -1,0 +1,43 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.window24-preparation
+    title: Adapt the frozen RF controls to the renewed 24-hour authority
+    state: open
+    intent: Change timing and lease lifetime without changing comparison or preservation semantics.
+    requires: [TASK.rf.policy-comparison-preparation]
+    requirements:
+      - Preserve earlier frozen inputs and captures. Create separate preparation for the renewed24hour window ending2026-10-03T01:38:03Z and exactly86400second isolated leases. Never execute the earlier six-hour or three-hour configuration.
+      - Adapt and independently test lease proof, healthy transition and arm controllers; retain the matched75slot numerical protocol, strict guards, warmup greater than1800seconds, remaining-sequence reserves, exactly one normal reboot per transition and no ambiguous retries.
+      - Test matching REQUEST/ACK, lifetime, identity, absent gateway/DNS, deadline enforcement, source hashes and graceful capture closure. Keep typing and legacy-code claims accurate. Commit and push before physical execution.
+    acceptance: [A tested timing-only adaptation supports the renewed lease checkpoint or records an exact blocker.]
+    verification: [adaptation, controls, independent_review, provenance]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.lease24
+    title: Capture one isolated 24-hour scope lease
+    state: open
+    intent: Establish actual captured lease authority for the renewed comparison.
+    requires: [TASK.rf.window24-preparation]
+    requirements:
+      - Preserve host baseline and restoration information; verify the positively identified scope-facing interface, distinct default route, disabled forwarding and absence of NAT, InternetSharing or bridge path.
+      - Start fresh full LayerTwo capture before a single-client DHCP service offering86400seconds without gateway or DNS. Signal the operator to unplug and reconnect only Ethernet when ready; do not manufacture a client RELEASE or initiate management during this checkpoint.
+      - Retain actual scope REQUEST and ACK, assigned address/MAC, exact expiry and raw frames. Stop on unexpected routing or recorder failure; require graceful closure and drop statistics and independently verified lease proof. Seal and commit/push the conclusion.
+    acceptance: [A sealed captured24hour lease or bounded hold preserves isolation and specimen evidence.]
+    verification: [host_isolation, capture, negotiation, lease_proof, restoration]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.window24-decision
+    title: Evaluate the renewed lease and RF execution window
+    state: open
+    intent: Release the existing stock rollback only on verified timing and lease prerequisites.
+    requires: [TASK.rf.lease24]
+    requirements:
+      - Review independent controls and sealed REQUEST/ACK against renewed authority. The wider window changes only timing; no numerical protocol, specimen wiring, options or calibration amendment is implied.
+      - On supported go release the existing rollback and comparison gates. On failure retain a hold and record the exact bounded remedy. Commit/push before any native transition.
+    acceptance: [A supported go or hold resolves the renewed window without claiming an RF result.]
+    verification: [review, disposition, authorization, next_step]
+    required_extensions: []
+    extensions: {}
