@@ -488,3 +488,18 @@ The next bounded question is offline: what does the stock RAW dispatch actually
 promise about a stopped buffer and ASCII voltage conversion? Recovering that
 narrow contract may identify a software ambiguity; static code alone cannot
 assign a physical cause or correct the failed return control.
+
+
+The [bounded stock waveform export contract](stock-waveform-export.md) is now
+independently recovered from exact preserved APK/native bytes. Each selected
+RAW read performs processing/export setup and a device-stream transaction.
+Ordinary count one is a preamble default, not a hardware generation token.
+WORD preserves selected bytes; ASCII already applies single-precision vertical
+conversion and decimal formatting. The upstream driver/FPGA generation,
+ownership and atomic metadata binding remain unresolved.
+
+This supports an offline WORD framing/conversion oracle before any new bench
+attempt. A future stopped WORD--ASCII--WORD bracket could test representation
+agreement directly; it would still be separate device readout transactions.
+No such capture, native transition or new RF-policy conclusion follows from
+this recovery. The original failed return control and missing arms are retained.
