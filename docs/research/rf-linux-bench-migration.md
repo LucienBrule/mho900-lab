@@ -93,3 +93,34 @@ review `out/rf/linux-recorder-direct-independent-20261002T194900Z.toml`,
 The generic launcher checks for statistics presence; actual drop counts remain
 an explicit review condition. Fresh caller preflight and runtime ownership are
 required before the separate physical cable cue.
+
+The operator connected Ethernet to the dedicated bench port. Fresh carrier and
+recorder checks passed before the prepared DHCP service started. The capture
+contains a matching REQUEST/ACK for a private `/30` address, lease length
+86,400 seconds, and no router or DNS options. Independent inspection accepted
+that lease prefix before the sole ordinary TCP `*IDN?` transaction.
+
+That transaction returned `RIGOL TECHNOLOGIES`, `MHO984`, and software prefix
+`00.01.00`; the exact serial-bearing response remains private. This prefix does
+not identify a complete firmware release or the loaded native bandwidth policy.
+The final capture contains 44 complete frames: 11 DHCP, 19 IPv6 local control,
+four ARP and ten TCP. Independent reconstruction verified the six-byte request,
+50-byte response and complete TCP close. No extra application exchange or
+unexpected external destination appeared in this capture.
+
+The recorder and DHCP helper both exited zero. Recorder statistics were
+44 captured, 44 filter-received and zero kernel drops. No namespace process or
+listener remained; the ordinary TCP TIME_WAIT entry was recorded rather than
+claimed absent. The namespace remains configured and isolated, with forwarding
+disabled and no default route. The root namespace retains its management route.
+No ADB, native-policy, UI or RF acceptance follows from this checkpoint.
+
+Completed evidence is `out/rf/linux-link-02.toml`
+(`25a2df7e69ec135cbf63a4c8f808734cce51cb9ff03b001466b51a7abd8dcc02`).
+The immutable raw capture SHA-256 is
+`598ebf05693cb723d259a64fa167f8c581a136b9a8283b13d439cac71f08da00`.
+Independent completed review is
+`out/rf/linux-link-02-independent-20261002T200100Z.toml`
+(`23b76cc1776810c50424023975bcd73351b1b3e468f70eccb76ba8fc0d112fdb`).
+The raw timestamps belong to the recorded Linux host clock domain; they are not
+silently treated as synchronized workstation timestamps.

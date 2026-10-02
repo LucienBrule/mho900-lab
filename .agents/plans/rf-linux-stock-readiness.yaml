@@ -1,0 +1,45 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stock-readiness-preparation
+    title: Prepare one conventional Linux ADB stock-state observation
+    state: open
+    intent: Replace the stopped Mac transport while retaining the accepted specimen and RF invariants.
+    requires: [TASK.rf.linux-link-decision-v2]
+    requirements:
+      - Pin the accepted Linux link/lease/capture review and original stock-readiness inventory. Prepare a fresh output and ordinary foreground Linux ADB server with explicitly owned PID/birth/listen address inside the isolated namespace. Use the already evidenced specimen ADB endpoint, not discovery or scans. Disable avoidable automatic discovery through verified supported settings and record actual tool hashes/version and runtime argv.
+      - Prepare one bounded connect, UID-first read-only observation, boot/process and exact APK/native mapping/hash comparison, protected-content hash comparison and one current UI screenshot. Bind expected files and byte identities from preserved corpus evidence; do not treat the SCPI software prefix as firmware equality. No root restart, reboot, remount, daemon property or native/entitlement/calibration change is included. An insufficient UID is a concrete stop.
+      - Bind the existing fixed stock bandwidth observer only if its identity and current mappings are verified; no new helper is staged before these checks. Preserve its established bounded read budget and 17/17 interpretation. One read-only observation supplies current readiness evidence, not RF samples or a new warm-up claim.
+      - Review source, failure branches and actual resource lifetime independently before execution. Fresh full capture and exact namespace/carrier/no-forward/default checks are required. Retained lease validity must be evaluated in its explicit clock domain; do not start duplicate DHCP or infer a new lease. Gracefully retire the owned ADB/capture and retain actual drop statistics. Keep Mac controllers and old automation stopped.
+    acceptance: [One concrete bounded standard ADB observation is ready or a specific preparation limitation is preserved without physical execution.]
+    required_extensions: []
+    extensions: {}
+    verification: [pinned_inputs, standard_client, bounded_observation, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stock-readiness-observation
+    title: Observe the current stock epoch through one owned Linux ADB session
+    state: open
+    intent: Establish whether ordinary ADB can provide the stock evidence required for resumed RF acquisition.
+    requires: [TASK.rf.linux-stock-readiness-preparation]
+    requirements:
+      - Execute the reviewed fresh standard-client invocation once under actual namespace/capture/lease guards. No repeated failed connect or ambiguous command retry. Read UID first; insufficient access or a failed recorder/client stops without root restart or reboot.
+      - Preserve actual boot/process, APK/native map and hashes, protected-content hashes, normal UI screenshot and the bounded existing observer result if all preceding identity/mapping gates pass. Classify missing evidence honestly. No RF source command, waveform, ordinary setting change, native selection, entitlement, calibration or wiring transition is included.
+      - Retire the positively owned ADB server and capture with recorded graceful results/drop statistics. Preserve actual socket states without claiming TIME_WAIT absence. Keep the existing network namespace isolated; no external route or host security changes. Seal evidence independently of the link checkpoint and keep stock originals byte-identical.
+    acceptance: [One current stock-state observation is sealed or its exact failed prerequisite is preserved without broadening.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_session, stock_state, cleanup]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stock-readiness-decision
+    title: Evaluate Linux stock-state evidence before a single stopped RF diagnostic
+    state: open
+    intent: Choose the smallest useful continuation from actual standard transport and stock evidence.
+    requires: [TASK.rf.linux-stock-readiness-observation]
+    requirements:
+      - Independently review actual standard ADB, current epoch/mapping/protected content/UI/policy or concrete stop. Distinguish retained historical warm-up from a new observation and do not claim analog response or accepted comparison slots.
+      - If supported, prepare the smallest source-control integration and one stopped wider-range diagnostic while preserving the frozen matched-comparison rules. Prefer standard tools and reusable typed modules. Any RF-source USB relocation or power transition requires an explicit operator cue/confirmation; do not infer wiring. No source transition, comparison or native selection is admitted merely by this decision.
+      - Plan, inspect and admit a bounded successor before execution, then commit/push tasking. Retain the stopped Mac branch explicitly as superseded transport history rather than clearing immutable task state. The original RF deadline remains 2026-10-03T01:38:03Z unless renewed by the operator.
+    acceptance: [Actual Linux stock evidence or a concrete limitation supports a bounded next action.]
+    required_extensions: []
+    extensions: {}
+    verification: [review, claims, continuation]

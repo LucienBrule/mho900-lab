@@ -1,0 +1,24 @@
+{
+  "protocol": "taskctl.reconciliation/2",
+  "classification": "actor-assertion",
+  "task": "TASK.rf.linux-link-decision-v2",
+  "reviewed_head": "sha256:421bad5e12b4b09b8bbe3469f7ac8610be237a60b54ab89c060a6d1707f0c993",
+  "observations": [
+    {
+      "upstream": "TASK.rf.linux-link-checkpoint-v2",
+      "contract": "sha256:e5823b2df5228b511bc8a0622399b4ee9706ee03478a43de1768fd989c90973a",
+      "revision": "sha256:9bd5e8429df1073d13220ad81391f8a1d56c5b8c59f9f5b43d89255367d89fc7",
+      "inputs": "sha256:b563050989e0765c99665008eaef7857ca0013fedda4a0fea48af06124e329aa"
+    }
+  ],
+  "outcome": "revalidated",
+  "actor": "mho900-lab-investigation",
+  "occurred_at": "2026-10-02T20:00:56.334157+00:00",
+  "rationale": "The upstream contract now names the independently accepted direct recorder rather than failed service control. Review the exact revised and closed checkpoint: fresh explicit link, one24h/noGW/noDNS lease, sole ordinary IDN,44/44/0 capture/graceful helpers, retained namespace/TIME_WAIT. This supports conventional Linux stock-readiness preparation only; no RF/native/UI/ADB result. Stopped Mac controllers/automation remain stopped and their tasks retained as superseded transport history; original deadline unchanged.",
+  "evidence": {
+    "review": "Independent GO_LINK_AND_IDENTITY seal23b76cc1776810c50424023975bcd73351b1b3e468f70eccb76ba8fc0d112fdb binds actual25a2df7e...; independent lease21b5a2f0... precedes sole IDN.",
+    "claim_scope": "The upstream contract now names the independently accepted direct recorder rather than failed service control. Review the exact revised and closed checkpoint: fresh explicit link, one24h/noGW/noDNS lease, sole ordinary IDN,44/44/0 capture/graceful helpers, retained namespace/TIME_WAIT. This supports conventional Linux stock-readiness preparation only; no RF/native/UI/ADB result. Stopped Mac controllers/automation remain stopped and their tasks retained as superseded transport history; original deadline unchanged.",
+    "continuation": "Draft .agents/plans/rf-linux-stock-readiness.yaml supplies preparation, single read-only conventional ADB observation and explicit evaluation. No root restart/reboot, source command/wiring change or RF run is included. Plan/admission/commit before execution."
+  },
+  "successor": null
+}
