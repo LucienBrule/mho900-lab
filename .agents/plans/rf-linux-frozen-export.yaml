@@ -1,0 +1,46 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-frozen-export-preparation
+    title: Prepare paired RAW exports of twenty fixed-source stock acquisitions
+    state: open
+    intent: Distinguish repeat-read instability from acquisition variation after the failed stock return control.
+    requires: [TASK.rf.linux-stock-arm-decision]
+    requirements:
+      - Pin the complete failed original A1, unchanged numerical interpretation, independently reproduced descriptive forensic, accepted stock epoch and last actual 100 MHz/raw-zero source-command lineage. Preserve the original failure and all twenty-five records. These new diagnostic records are not comparison slots and cannot accept A1 or B.
+      - Create a distinct typed diagnostic schema and Linux delegate using the reviewed conventional SCPI socket, owned ADB metadata checks, recorder, isolation and full ordinary/export restoration boundaries. Remove the Mac UART/visit relay path entirely; do not fabricate a fresh source-complete envelope or open the RF source device. Source lineage is inherited command evidence, not a new physical frequency/amplitude acknowledgement.
+      - Prepare twenty fresh count-one stopped acquisitions at original 50 mV/div, 100000 points and 4 GSa/s. For each, perform one RUN/serviced wait/STOP, enforce STOP/rate/export geometry, and collect preamble/DATA-one/preamble/DATA-two/preamble with no RUN or settings write between the two DATA replies. Preserve exact original reply bytes. Pair inequality is a diagnostic outcome; framing, geometry, range, health or deadline failure stops without resend or replacement.
+      - Use one explicit at-most-900-second aggregate acquisition budget with separate cleanup reserve inside current authorization. Keep original range veto, no uncertain retries, full host/lease/current metadata gates, same-epoch inherited byte/policy/UI/thermal limitations, zero root/reboot/native/protected writes, complete restoration, owned helper retirement and graceful full capture/drop statistics. Supply focused offline controls and independent preparation review before specimen contact.
+      - Preparation may inspect only preserved files and host-only state. Do not contact the specimen, start capture/DHCP/ADB/SCPI/serial, mutate networking or physical state. Admit and commit/push preparation conclusions before actual execution.
+    acceptance: [A reviewed distinct paired-export diagnostic or its exact preparation blocker is durably pinned.]
+    required_extensions: []
+    extensions: {}
+    verification: [inputs, distinct_protocol, capture_pairs, bounded_ownership, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-frozen-export-acquisition
+    title: Acquire one fixed-source twenty-pair stock RAW diagnostic
+    state: open
+    intent: Observe frozen-read consistency without retuning the source or changing native policy.
+    requires: [TASK.rf.linux-frozen-export-preparation]
+    requirements:
+      - Execute the reviewed diagnostic once only after fresh host isolation, current lease/stock metadata, helper absence and deadline validation. Start fresh complete Layer Two capture before management. Keep existing wiring and source-command lineage; do not open or write the RF source, request root/reboot or mutate native selection.
+      - Retain all twenty planned acquisition positions and both exact original reply bytes per completed position, stop-state/rate/geometry/query/source-lineage/time receipts and full partial failure evidence. No replacement acquisition, selective exclusion, rerun or promotion into A1/B/A2. Restore complete ordinary/export/run state only with proven framing and preserve limits if restoration cannot complete.
+      - Retire only owned SCPI/ADB helpers before graceful recorder closure and capture/drop statistics. Seal actual raw evidence separately from A1 and earlier captures; independently verify request/reply reconstruction, epochs and cleanup before another experiment.
+    acceptance: [One actual twenty-pair diagnostic or its exact stopped prefix is preserved without retry.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_schedule, pair_provenance, stock_lineage, restoration_cleanup, immutable_evidence]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-frozen-export-decision
+    title: Evaluate paired-read consistency and fixed-source stock variability
+    state: open
+    intent: Narrow the failed return-control question without inventing a physical cause or accepting missing comparison arms.
+    requires: [TASK.rf.linux-frozen-export-acquisition]
+    requirements:
+      - Independently compare exact original paired response bytes and unchanged whole-record/default receive/comparison statistics for every supplied record. Report all planned positions, missing/partial pairs, every pair mismatch and the complete sampled RMS distribution. Do not introduce a low-RMS exclusion threshold, new fit or corrected baseline.
+      - Equal pairs establish repeatable readout only for those frozen acquisitions; differing pairs establish nominally stopped readout instability or hidden-state ambiguity, not a proven source/ADC cause. Variation between equal pairs remains upstream/acquisition ambiguity. Reconcile physical source/stock lineage, capture reconstruction and restoration; retain the failed original A1 and fifty missing B/A2 slots.
+      - State the exact next bench question or bounded offline continuation from actual evidence and remaining time. No native transition follows from this diagnostic. Preserve the tighter authorization deadline, known-safe ordinary/owned helper state and clean pushed checkpoint; do not extend the window or silently modify the frozen seventy-five-slot comparison.
+    acceptance: [The paired diagnostic determines an explicit next research boundary without overstating physical fidelity.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_review, pair_consistency, distribution, original_comparison_boundary, next_action]

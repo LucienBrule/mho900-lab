@@ -357,3 +357,26 @@ original minimal ACK option set also rejects renewal-timer options emitted by
 the current DHCP service. That compatibility requirement must be resolved
 explicitly before actual transition integration; no captured timer-bearing
 ACK is silently promoted through this adapter.
+
+Separate file-only inspection partitions three original 100 MHz records into
+100 consecutive 1,000-sample blocks each (250 ns per block). The lower final
+record's block RMS spans 86.039--87.793 mV, entirely below the reference final
+record's minimum 111.405 mV. None of its blocks is constant or empty, while its
+146.033 mV absolute peak exceeds the reference's 136.140 mV. Independent scalar
+recomputation reproduces all 300 blocks. This describes a change across the
+sampled record; it does not establish a source, ADC, filtering or export cause.
+
+Forensic evidence is `out/rf/linux-stock-control-forensic-01.toml`
+(`923febb8ac42dcc23be84bb68d50855a2b5408b425d20283ea5383261b5b2329`),
+reviewed by `out/rf/linux-stock-control-forensic-independent-01.toml`
+(`8401b7b68e5b9524feaf88c12b615f7767f69f1449fbee494a605e75a26e69fc`).
+
+The next proposed diagnostic asks a different question from the failed arm:
+with the existing 100 MHz command held and no source writes, do two RAW exports
+of each frozen acquisition agree, and does RMS vary between fresh acquisitions?
+Twenty fresh acquisitions with paired exports would distinguish repeat-read
+inconsistency from variation between acquisition results. Equal pairs would
+establish repeatability for those reads only; differing pairs would reveal
+nominally stopped readout or hidden-state ambiguity. Neither result alone
+would identify an analog cause. This separately tasked diagnostic has no
+replacement comparison slots and cannot accept the failed A1.
