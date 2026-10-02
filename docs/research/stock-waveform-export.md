@@ -88,6 +88,11 @@ transactions and rounded metadata still limit what that result could establish.
 Its binary framing, prediction bounds, preservation and restoration must be
 prepared before execution; no such physical run is asserted here.
 
+The [supplied-byte WORD/ASCII oracle](word-ascii-readout-oracle.md) now checks
+the recovered conversion with independent host controls. It records the exact
+binary receive and rounded-coefficient boundaries still required before that
+bench question can be executed.
+
 
 The bounded recovery is sealed in `out/rf/stock-raw-semantics-01.toml`
 (`e9749822f4666bfa5e36817946a489c85ec1170ce384462ec2a2ac10f806a38f`).
