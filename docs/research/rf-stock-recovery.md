@@ -1,0 +1,15 @@
+# One stock power-cycle recovery
+
+The operator authorized one additional manual power cycle after reporting that the current normal UI displays RF on CH1. That is a current visual operator observation. It does not bind a native process epoch, prove the selected policy or supply an exported waveform. No prior result established a dead channel.
+
+The preceding software sequence was a reversible derived native-library selection, preliminary fixed-policy RF measurements, removal of only the introduced standalone native override, and one normal ADB reboot. The new boot used the original APK-backed native library and later passed the stock 17/17, normal-UI, protected-content and greater-than-1,800-second warm-up checks. No full stock firmware or storage image was flashed in that rollback.
+
+The first matched-comparison attempt stopped because the restarted scope reported CH1 at 1 MΩ while the measurement required 50 Ω. Later attempts stopped at the ADB verification path. A separate one-query SCPI diagnostic received the unchanged physical identity. All five stopped comparison attempts collected zero waveform records; the stock-versus-derived 1 GHz comparison remains pending.
+
+This recovery asks whether one fresh ordinary stock boot restores an accepted ADB session and a verifiable stock epoch while preserving protected material. It changes no native selection, source setting, firmware, entitlement, calibration or wiring. Preparation, observation and evaluation are separate tasks. Reviewed preparation is committed and pushed before root arms a new full capture and the existing isolated 24-hour lease responder.
+
+The operator transition is explicit: first normal power-button shutdown, followed by confirmation that the display is dark; then a recorded power-on-ready cue, followed by one normal start and confirmation. A new matching DHCP REQUEST/ACK must occur after the power-on-ready cue. It may arrive before the operator’s start-confirmation message. Neither packet activity nor silence substitutes for physical confirmation. The old lease’s release is allowed only in the explicit pre-ACK transition window.
+
+Management begins only after the physical confirmations and new lease evidence are present. The existing owned foreground ADB lifetime is retained, with one bounded initial connection. The original bounded postboot root setup is available only after a UID check establishes its need for the existing observer; it introduces no persistent property or remount change. Further uncertainty stops this experiment without another power cycle or connection retry.
+
+Acceptance requires a changed boot identity, fresh process epoch, exact stock APK/native mapping and hashes, stock 17/17 witness, current normal UI, unchanged protected content and more than 1,800 seconds of serviced warm-up. The recorder must terminate gracefully with retained drop statistics, and owned transport helpers must retire before temporary host addressing is removed. A successful recovery supplies new stock readiness only. The original 75-slot RF protocol and deadline remain unchanged.
