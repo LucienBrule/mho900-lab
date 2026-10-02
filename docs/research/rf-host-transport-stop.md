@@ -30,3 +30,15 @@ hypothesis. A distinct frozen baseline attempt retains all original mapping,
 visible UI, protected-content, read-budget, single-reboot and thermal gates.
 The RF execution decision remains closed to execution until that successor
 produces independently verified stock evidence.
+
+The subsequent host-only control recorded the same direct subnet route and an
+empty scope-interface neighbor cache. It verified the dedicated local ADB daemon's
+ownership and empty transport list, then restarted that daemon once. No scope
+connection or management command was issued during the control. Its full capture
+contains 15 stored frames; the recorder exited gracefully with zero reported
+kernel drops, and the temporary address was removed before the final isolation
+audit. The diagnostic seal is
+`out/rf/host-transport-diagnostic-20261002T021000Z.toml`, SHA-256
+`c78a40653914d0e361d026e42f47f8b69454321bd672f785689c19fdf263d49c`.
+An empty cache in this later control does not reconstruct the earlier cache or
+prove that restarting the daemon resolves the error.
