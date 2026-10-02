@@ -19,6 +19,7 @@ A complete emulator and independent instrument implementation remain longer-term
 - [Complete raw-qualified current-policy RF survey](docs/research/rf-raw-qualified-survey.md)
 - [Fixed-frequency ordinary channel-limiter control](docs/research/rf-limiter-control.md)
 - [Unattended RF, statistics and policy-mechanism checkpoint](docs/research/rf-unattended-checkpoint.md)
+- [Matched-policy controller preparation and independent controls](docs/research/rf-policy-transition-preparation.md)
 - [Reusable bench-tool composition proposal](docs/research/bench-tooling-composition.md)
 - [Earlier guest entitlement checkpoint](docs/research/specimen-entitlement-checkpoint.md)
 - [Physical logical acquisition and software identity](docs/research/physical-specimen-logical-acquisition.md)

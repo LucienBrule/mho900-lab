@@ -1,0 +1,60 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.rf.policy-comparison-preparation
+contract: sha256:c8ce45470c0fa69a9e6d5f9ef1468cf18e401f8296061efa8e4995aa74c92dde
+actor: mho900-lab-investigation
+recorded_at: '2026-10-02T01:30:57Z'
+evidence:
+  protocol: >-
+    experiments/rf-policy-comparison/contract.toml freezes A1/B/A2 and five
+    repeats at100/800/975/1000/100MHz, common original-volts population AC RMS,
+    no drift correction or replacement slots. docs/research/rf-policy-transition-preparation.md
+    records the prepared healthy transition and acquisition handoff; physical
+    rollback and comparative RF acquisition have not occurred.
+  eligibility: >-
+    The frozen qualifier reparses original100k/count1/RAW/ASCII geometry,
+    start1/stop100k/memory100k, observed4G and250ps tolerance1e-8, finite values,
+    exclusive180mV extrema/360mV Vpp limits and the unchanged default receive
+    receipt. Only named low-floor or receive-stage allowlist failures are
+    interpreted as weak eligibility. Exact constant zero remains zero; varying
+    underflow rejects. Numerical evidence manifest27305259dc6fff315400cbcfb4113ee091b3aa69c514d3c280f9a98b5e80b612
+    retains45 controls and the unchanged archived-file/public-statistics witness.
+  estimator_controls: >-
+    Independent numerical review d50b76b534407803c3b2ccfd9dfb2b2c6d14b820421a575d63ba9be1e30cad86
+    retains19 separate numerical controls, including outlier, zero, missing and
+    return failures. The directory adapter e80054b20769effbba5c22e6ba6ef1d32068fcda1de12e433deffc8a70c00186
+    passes18 controls. A complete explicitly synthetic75-record matched-sine
+    fixture yields unresolved with15 groups,10 passed return controls,50 primary
+    pairs and100 secondary pairs. Missing actual records remain missing. No
+    physical association, acquisition freshness or analog-bandwidth claim is made.
+  transition_controls: >-
+    Final healthy-transition evidence6c701e331e847ebe9e77c38acab2141152159f381abdec964072af6c2f82dfec
+    retains70 controls and exact reviewed legacy adaptation. It requires fresh
+    introduced-file/package/hash/owner/maps/PID/start/boot/options/logical state,
+    independent16-byte policy observations before and after, bound visible UI,
+    one no-retry reboot, changed boot, fresh six-hour isolated ACK and more than
+    1800seconds serviced warmup. Reserves7200/4800/2400seconds cover all remaining
+    stages and cleanup within03:56:09UTC. Acquisition preparation b99ce7de9132137d203261b9ded5568ddb3a0d99bdad77927cafc85e2d7f62de
+    passes22 controls; independent followup3f8cb8de02088ceda342be5cf9f4d6fc97f546b17c62e2c9068081387f542bcc
+    and final freeze reviewa38316d8be2862abd58cff65d6949f909698abd24c276d6015b23c176ebeec18
+    verify mapping/epoch/event-format/frozen-lease corrections. This is offline
+    readiness, not an executed transition or independent whole-wire proof.
+  provenance: >-
+    Consolidated private checkpoint out/rf/policy-preparation-20261002T005609Z.toml
+    SHA256da23b0d7790febf2a411eff0b6fcaf8b100e071dd8c6d44443aa14eb9b24d76d
+    binds42 artifacts, source/report/contract and subordinate manifests,
+    host-only audit, runtime versions, exact captured prior-lease verification
+    and the prepared initial-stock control inventory. Original TOML/JSONL/PCAP
+    evidence is preserved without fabricated event history. New typed adapters,
+    frozen models and gates pass strict mypy/Ruff/format; retained legacy executor
+    callbacks are explicitly outside that typing claim. Sources and private
+    configuration are preserved separately. An unused empty-config preparation
+    failure is recorded; the distinct corrected preparation remains unexecuted.
+  preservation: >-
+    Stock APK/native originals, observer bytes and all eight public waveform/RF
+    library sources are unchanged. Numerical48-entry inventory reverified;
+    reducer1037-entry authored inventory independently rehashed including13
+    link-text entries, with two unbound Python bytecode files recorded separately.
+    Native recursive-file seals were separately verified. No physical scope,
+    guest or source UART operation occurred. Stock rollback and its evaluation
+    remain open pending fresh bench conditions and the full-sequence time gate.

@@ -1,0 +1,118 @@
+schema_version = 1
+classification = "frozen supplied-record eligibility and engineering comparison"
+physical_execution_authorized = false
+arms = ["A1", "B", "A2"]
+arm_labels = ["stock", "derived", "stock"]
+visits_frequency_hz = [100000000, 800000000, 975000000, 1000000000, 100000000]
+repeats_per_visit = 5
+scheduled_slots = 75
+slot_identity = "arm, visit index, repeat index"
+waveform_hash_uniqueness_required = false
+fresh_acquisition_proof = "independent RUN/STOP/query sequences and captures; not inferred from waveform hashes"
+method = "unwindowed-demeaned-population"
+voltage_units = "original decoded binary64 ASCII volts"
+constant_semantics = "exact equality of decoded binary64 samples; ordinary decimal rounding retained"
+receive_profile_sha256 = "25401a53b0b9b9a14581f740b5d8cf665ccfb2b37c962d925c77b46389409358"
+default_receive_changed = false
+public_statistics_changed = false
+fit_amplitude_used_for_primary = false
+anchor_correction_applied = false
+missing_or_invalid_slot_disposition = "unassessable"
+
+[hard_eligibility]
+points = 100000
+acquisition_count = 1
+memory_points = 100000
+start = 1
+stop = 100000
+actual_sample_rate_hz = 4000000000.0
+x_increment_s = 2.5e-10
+rate_relative_tolerance = 1e-8
+required_interval_relative_tolerance = 1e-8
+maximum_abs_voltage_v_exclusive = 0.18
+maximum_vpp_v_exclusive = 0.36
+finite_original_volts = true
+raw_mode_required = true
+ascii_volts_required = true
+same_rules_for_every_arm = true
+unrepresentable_statistics_disposition = "comparison-rejected"
+
+[receive_interpretation]
+qualified_outcome = "received"
+low_floor_outcome = "below-receive-floor"
+low_floor_required_stage = "range"
+low_floor_required_code = "vpp-range"
+low_floor_vpp_minimum_inclusive_v = 0.0
+low_floor_vpp_maximum_inclusive_v = 0.005
+low_floor_requires_all_hard_checks = true
+weak_outcome = "weak-receive-rejected"
+weak_required_stage = "receive"
+weak_allowed_codes = ["band-peak-frequency", "global-peak-frequency", "energy-fraction"]
+all_other_receive_rejections_permitted = false
+carrier_identity_from_weak_record = false
+positive_ac_from_exact_constant = false
+
+[primary]
+visit = 4
+command_frequency_hz = 1000000000
+b_records = 5
+a_records = 10
+pair_count = 50
+minimum_contrast_db = 1.0
+minimum_rms_ratio = 1.1220184543019633
+positive = "every B/A1 and B/A2 pair has ratio at least10**(1/20)"
+contrary = "every A1/B and A2/B pair has ratio at least10**(1/20)"
+intermediate_disposition = "unresolved"
+failed_or_unavailable_control_disposition = "unassessable"
+zero_both_pair = "both-zero; unavailable dB; neither direction passes"
+positive_vs_zero_pair = "named positive-versus-zero; no finite dB invented"
+finite_db_calculation = "20*(log10(numerator)-log10(denominator))"
+secondary_visits = [2, 3]
+secondary_cannot_replace_primary = true
+
+[return_controls]
+maximum_abs_return_db_inclusive = 0.3
+inclusive_binary64_rms_ratio_expression = "1/(10**(.3/20)) <= numerator_mean/denominator_mean <= 10**(.3/20)"
+a2_over_a1_visits = [1, 2, 3, 4]
+within_arm_return_numerator_visit = 5
+within_arm_return_denominator_visit = 1
+within_arm_returns = ["A1", "B", "A2"]
+initial_100mhz_pairs = ["B/A1", "A2/A1", "A2/B"]
+control_count = 10
+metric = "arithmetic mean of five eligible original-volts AC RMS values"
+zero_numerator_or_denominator = "unassessable zero-ratio-unavailable; omitted finite ratio_db"
+final_100mhz_cross_arm_additional_gate = false
+population_sd_interpretation = "descriptive dispersion of five supplied records; not confidence intervals"
+unrepresentable_group_statistics_disposition = "unassessable"
+
+[cli]
+schema_version = "mho-rf.policy-comparison-eligibility/1"
+command = "comparison_cli.py"
+flags = ["--arm", "--visit", "--repeat", "--preamble-before", "--data", "--preamble-after", "--actual-rate-hz", "--memory-points", "--start", "--stop", "--command-frequency-hz"]
+eligible_result = "comparison-eligible"
+rejected_result = "comparison-rejected"
+eligible_exit_code = 0
+rejected_exit_code = 1
+root_hashes = ["preamble_before_sha256", "waveform_sha256", "preamble_after_sha256"]
+nested_receive = "unchanged mho-rf.receive-inspection/1 receipt"
+nested_statistics = "unchanged mho-rf.raw-ac-inspection/1 receipt when statistics are available"
+physical_policy_arm_proven = false
+carrier_identity_proven = false
+calibrated_amplitude_proven = false
+final_group_decision_proven = false
+
+[[frozen_sources]]
+path = "out/rf/policy-comparison-tools/comparison_models.py"
+sha256 = "6a41b6a85759dfa237a4a42dffc166505a08dd0f48f6432494857caa06190d2c"
+
+[[frozen_sources]]
+path = "out/rf/policy-comparison-tools/comparison_qualifier.py"
+sha256 = "70e02667464aa36f49d50ace46f4a22684b85d4e47c2ac19e4701420118b18b8"
+
+[[frozen_sources]]
+path = "out/rf/policy-comparison-tools/comparison_decision.py"
+sha256 = "cb7278df8926365a3c2904dc74e06dfc33026341915b8364cd978207b568456c"
+
+[[frozen_sources]]
+path = "out/rf/policy-comparison-tools/comparison_cli.py"
+sha256 = "277e25401687913c3bf9b14e277283f3e91b8d7148ed48c21a7ece7ea96bd64f"

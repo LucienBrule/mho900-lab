@@ -1,10 +1,20 @@
 # Matched software-policy RF comparison: readiness hold
 
 2026-10-01. Offline preparation under `TASK.rf.execution-decision`.
-**Hold: this proposal is reviewable, but it is not an admitted physical
-controller or permission to change the instrument.** The execution task stays
-open. The completed fixed-policy survey and ordinary-limiter control are
-supporting evidence, not the missing stock/derived comparison.
+**Execution remains held at the initial stock rollback and its evaluation.**
+The controller preparation task is closed. Operator continuation accepted the concrete
+stock → derived → stock proposal, including its initial rollback and final stock
+state. The preparation, rollback and evaluation batch is admitted and committed.
+The original execution task stays open until those readiness conditions pass.
+The completed fixed-policy survey and ordinary-limiter control are supporting
+evidence; the comparative samples remain to be acquired.
+
+The [comparison preparation](rf-policy-comparison-preparation.md) records the
+typed numerical controls and independent software-observation gates. Preparation
+fixtures and historical observer inputs do not establish a current physical arm.
+The [controller preparation](rf-policy-transition-preparation.md) records the
+tested healthy transition, captured-lease and acquisition handoff. Its frozen
+inputs do not establish an executed rollback.
 
 ## What is now resolved
 
@@ -48,8 +58,8 @@ at this gain, or the policy may affect a different path.
 
 ## Candidate acquisition and decision rules
 
-These are proposed engineering discriminators, chosen before comparative data.
-They must be frozen with tested controls in the execution contract before use.
+These engineering discriminators are frozen in the numerical contract, with
+tested controls established before comparative data.
 The prior single-policy records are exploratory support, not A1/B/A2 samples.
 
 For each arm, visit 100, 800, 975 and 1000 MHz, then return to 100 MHz. Retain five
@@ -138,18 +148,18 @@ calibration stops this protocol rather than being silently corrected.
 
 ## Conditions still missing
 
-- Operator acceptance of the exact initial stock rollback, derived deployment,
-  final stock rollback, normal reboots, bounded native-policy observation and
-  chosen final stock state. The fixed-policy unattended window did not include
-  these operations.
-- A controller implementing this new arm sequence, condition interpretation,
-  postboot preservation checks, numerical decisions and stop/cleanup behavior;
-  independent controls and tasking admission before execution.
+- The still-unexecuted initial stock rollback and its independent evaluation.
+  The controller preparation is closed with explicit offline evidence; the
+  bounded rollback tasking remains open.
 - Fresh specimen state and UI/thermal witnesses at the physical gate. Connectivity
   alone cannot establish that the intended native arm is loaded.
+- Enough time for all three transitions, their full warmup intervals, comparison
+  records and cleanup before the authorized window ends. An elapsed budget cannot
+  waive a warmup or authorize a partial software transition.
 
 The next smallest physical action is **a separately captured verified stock
-rollback and postboot baseline**, once its procedure is accepted. It should
+rollback and postboot baseline**, once fresh bench conditions and the complete
+remaining time reserve are established. It should
 resolve whether the actual unit returns to original APK-backed policy without
 changing protected content. That is higher-value than another same-policy RF
 sweep. Failure closes that bounded transition question and preserves the
