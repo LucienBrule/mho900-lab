@@ -164,8 +164,9 @@ The single screenshot shows the normal scope UI with CH1 active. Its displayed
 100 MHz measurement is supplementary and does not qualify a RAW waveform.
 No source command, RF sample, root restart, reboot or new warm-up occurred.
 
-The coordinator result remains `stopped`, exit one: a process ownership read
-raced with the observer's normal exit. The preserved observer was reaped with
+The coordinator result remains `stopped`, exit one: a process ownership lookup found no executable for
+the observer that was subsequently reaped with exit zero. The preserved evidence
+is consistent with an exit race; scheduler timing is not independently proved. The preserved observer was reaped with
 exit zero, and its guest reader and owned ADB server retired with exit zero.
 Cleanup reported no issue. The recorder closed gracefully with 34,485 captured,
 34,485 filter-received and zero kernel-dropped packets. The namespace remains
@@ -179,3 +180,19 @@ Raw capture SHA-256 is
 Screenshot SHA-256 is
 `92140d7bd853a010343d719ef4af62ee3354e75e22f2c27a4ec1c9cce9b9cfe1`.
 Independent evaluation of the completed evidence is the next decision boundary.
+
+Independent actual review accepts the stock evidence without repeating the run:
+`out/rf/linux-stock-actual-independent-01.toml`
+(`1291ea4a27b80d93afb441a2ea31aba19e668853c666621b51ef5aa0866586e0`).
+Its complete capture scan found only one private ADB connection, with both TCP
+FINs and no other protocol or destination. Recorded server exit and socket
+absence are direct evidence; SIGINT is the pinned conditional cleanup path,
+not a separately recorded signal event.
+
+The next bounded batch prepares one stopped 100 MHz stock waveform diagnostic.
+It keeps the existing source serial connection on the workstation and uses
+ordinary Linux sockets for scope SCPI. Explicit run-bound receipts order the
+sole source command and subsequent RAW acquisition. The existing diagnostic,
+headroom, interpretation and restoration rules remain fixed; this one record
+is not a slot in the 75-record comparison. The active three-hour work window
+ends at 2026-10-02 23:05:20 UTC, with cleanup reserve retained.

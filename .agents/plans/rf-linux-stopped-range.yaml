@@ -1,0 +1,45 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stopped-range-preparation
+    title: Prepare one split-host stopped stock waveform diagnostic
+    state: open
+    intent: Reuse the existing diagnostic with Mac source control and conventional isolated Linux SCPI.
+    requires: [TASK.rf.linux-stock-readiness-decision]
+    requirements:
+      - Bind actual sealed accepted Linux stock UID 0, boot/process/maps/APK/native/corpus/UI and fixed 17/17 evidence plus independent review. Bind existing stopped-range contract and accepted Linux namespace/lease/tool/clock evidence. Refuse placeholder or historical acceptance. Keep effective operator deadline 2026-10-02T23:05:20Z with conservative Linux clock-domain limit and complete cleanup reserve.
+      - Prepare a fresh distinct diagnostic controller using ordinary Linux Python sockets in the existing namespace and exactly one local Mac factory-point-once invocation. Preserve exact predecessor ordinary/export snapshot, electrical settings, stopped RAW schedule and restoration; no new TCP stack or serial bridge. Fixed two-host scope-ready/source-complete receipts must bind run identity, one 100MHz/raw0 frame, native sealed source evidence and no-retry order. Loss after source intent is uncertain and never replayed.
+      - Retain one 100k RAW ASCII count1 record at 4 GSa/s, 0.1 V/div after fresh RUN then STOP, equal preambles, existing strict headroom abs < 0.36 V and Vpp < 0.72 V. Save bytes first; builtins remain supplementary without pre-record veto. Reuse unchanged public parser/statistics/default receive and separate diagnostic profile. No original comparison slot is replaced or admitted.
+      - Independently review only changed coordination/socket/lifetime/clock boundaries with focused offline controls and exact reuse/diff pins. Preserve three read-only epochs and complete ordinary/export restoration including original impedance/run state. No root/reboot/native/protected/source USB relocation/wiring transition. Owned socket/server retirement before graceful recorder close/drop statistics; ambiguity fails closed.
+    acceptance: [A concrete independently reviewed one-record diagnostic is ready or its exact preparation blocker is preserved without physical execution.]
+    required_extensions: []
+    extensions: {}
+    verification: [pinned_inputs, source_barrier, one_record, restoration, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stopped-range-acquisition
+    title: Acquire one stopped 100 MHz wider-range stock record
+    state: open
+    intent: Obtain coherent RAW data without changing the frozen comparison rules.
+    requires: [TASK.rf.linux-stopped-range-preparation]
+    requirements:
+      - Execute the reviewed fresh invocation once under full capture, exact namespace/lease/clock guards and current stock epoch. Preserve complete ordinary/export snapshots before any setting/source write. Execute one validated Mac factory-point-once 100MHz/raw0 attempt only after scope-ready, then consume its sealed completion once. No replay on transport ambiguity or timeout.
+      - Acquire exactly one fresh stopped 100k RAW ASCII record at 4 GSa/s,count1, 0.1 V/div with equal preambles, exact FIFT/DC/1x/zero/FULL path and supplementary builtins. Preserve all raw/partial inputs and unchanged default receive interpretation plus separately pinned diagnostic result. This is not an A1 or original comparison slot.
+      - Preserve before/after/restored boot/process/library epoch and actual complete ordinary/export restoration while framing is healthy. Retire positively owned SCPI and ADB before graceful capture closure with recorded drop statistics. Any framing/helper/socket/retirement/restoration uncertainty is a bounded negative; keep isolation and never broaden commands, records, USB/wiring or firmware changes.
+    acceptance: [One diagnostic record and its actual restoration/cleanup evidence are sealed, or the exact stopped prerequisite is sealed without retry.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_source, raw_record, stock_epoch, restoration, cleanup]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-stopped-range-decision
+    title: Evaluate the stopped stock waveform and choose a bounded successor
+    state: open
+    intent: Resolve coherent sampled waveform/headroom before proposing further RF work.
+    requires: [TASK.rf.linux-stopped-range-acquisition]
+    requirements:
+      - Independently verify actual source framing/one-attempt evidence, capture/namespace/lease/epochs, full RAW geometry/preambles/count1, original parser/statistics and strict diagnostic headroom. Retain default receive rejection and separate diagnostic profile distinctly. Verify actual ordinary/export restoration and owned retirement/drop statistics or exact limitation.
+      - Explain sampled periodicity, original-volts AC RMS/headroom and any commanded-frequency mismatch using existing numerical interpretation. Do not equate a transport-complete source write, builtin reading or sampled peak with device acknowledgement, calibrated RF fundamental/amplitude or analog bandwidth. Claim zero accepted original comparison slots.
+      - Preserve all historical stopped Mac/Linux evidence. Continue only through an explicitly inspected/admitted bounded successor supported by the actual diagnostic outcome and remaining operator deadline. No automatic extra record/source retry, wider range, attenuation/wiring transition, reboot/native transition or 75-slot comparison is authorized by this decision.
+    acceptance: [Actual diagnostic evidence or its precise limitation supports the smallest concrete next question.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_review, numerical_interpretation, cleanup, bounded_continuation]
