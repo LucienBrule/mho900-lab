@@ -1,0 +1,25 @@
+{
+  "protocol": "taskctl.reconciliation/2",
+  "classification": "actor-assertion",
+  "task": "TASK.rf.linux-link-checkpoint-v2",
+  "reviewed_head": "sha256:5db0807aa34873288e6e404bebb3eac6855746a302393bdf21fc1eb4355510cd",
+  "observations": [
+    {
+      "upstream": "TASK.rf.linux-recorder-direct-control",
+      "contract": "sha256:b9a80be19b2c693c19ff64f74ee1cedd05076640d96d66f554ae3a474caeaf79",
+      "revision": "sha256:513b76d4660f9ca7f2fb2a13792069d53e7a574a1ed07d6061561d5576fe7284",
+      "inputs": "sha256:16d48c556192b95bba4e57165dd3b8d447465837d7e4fa9f28d25e35728398d2"
+    }
+  ],
+  "outcome": "revalidated",
+  "actor": "mho900-lab-investigation",
+  "occurred_at": "2026-10-02T19:50:52.306924+00:00",
+  "rationale": "The revised open checkpoint now depends on the independently passed direct recorder control. Bind its exact closed semantic input. The fresh passive recorder was armed after upstream closure and tasking push, before this dependency observation was recorded; preserve that sequencing gap explicitly. No cable cue, DHCP or management occurred. Reviewed actual arming confirms exact namespace/PIDs/argv, carrier0, no listeners, full pcapheader and enforcing host policy. This reconciliation grants no specimen or RF acceptance.",
+  "evidence": {
+    "capture_and_transition": "The revised open checkpoint now depends on the independently passed direct recorder control. Bind its exact closed semantic input. The fresh passive recorder was armed after upstream closure and tasking push, before this dependency observation was recorded; preserve that sequencing gap explicitly. No cable cue, DHCP or management occurred. Reviewed actual arming confirms exact namespace/PIDs/argv, carrier0, no listeners, full pcapheader and enforcing host policy. This reconciliation grants no specimen or RF acceptance.",
+    "lease": "Prepared DHCP remains off; no lease or physical cable transition claimed.",
+    "identity": "No SCPI contact or identity response claimed.",
+    "cleanup": "Actual fresh recorder remains active under1800second supervisor; rawcapture not sealed until graceful closure/drop-stat inspection. This is dependency readiness reconciliation, not checkpoint closure."
+  },
+  "successor": null
+}
