@@ -437,3 +437,11 @@ root request with uncertain client completion retains that uncertainty and
 requires distinct captured lease, changed boot and UID readiness evidence;
 the request is never repeated. Synthetic controls establish this sequencing,
 not its physical behavior.
+
+The composition decision retains two independent barriers to a physical B
+transition: the original A1 return control failed, and the full-sequence time
+reserve no longer fits. The paired-export diagnostic is a separate causal
+question and supplies no comparison slots. Its numerical and wire review
+comes next. Future transition execution requires a concrete reviewed backend,
+accepted predecessor evidence and a new sufficient execution window; none is
+created by accepting the offline library.
