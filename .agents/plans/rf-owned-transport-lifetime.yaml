@@ -1,0 +1,30 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.owned-transport-preparation
+    title: Prepare owned host transport lifetime and a complete bounded connect observation
+    state: open
+    intent: Resolve the host reconnect lifecycle defect before observing the remaining ADB handshake ambiguity.
+    requires: [TASK.rf.transport-deregistration-decision]
+    requirements:
+      - Preserve and independently review the fourth prerequisite-only stop and subsequent host-only route-stop. Separate TCP acknowledgement from ADB acceptance and interface restoration from an owned process attempting reconnection through the normal host route. Record that the exact owned server was terminated and no external reachability was proved.
+      - Inspect the pinned current ADB connect implementation and its command wait. Compare exact host CNXN bytes against earlier accepted stock captures. Preserve the existing twenty-second total readiness deadline, but prepare a separately stated connect command bound sufficient to observe the implementation wait, without retrying connect or any failed metadata read.
+      - Prepare explicit ownership of the dedicated host-only ADB server. Start it only after isolated host address and route checks; refuse foreign listeners or ambiguous ownership; preserve process identity and evidence. Terminate and prove disappearance of the owned server and its sockets before removing the isolated address, including failures. Do not change global host policy, routing, ordinary ADB servers or specimen daemon state. If teardown cannot be proved, hold isolation and report rather than exposing automatic reconnect to the normal route.
+      - Preserve V4 and prepare a separate minimal executor and completed-arm verifier adaptation with deterministic fake and loopback-only lifecycle controls. Retain exact peer absence and unique DEVICE gates, the single unchanged metadata read, policy and mapping checks, lease and packet guards, original impedance and restoration, every RF numerical rule and the fixed source schedule. Independently review the actual fresh preparation. No specimen contact belongs to preparation.
+    acceptance: [The owned host lifetime and complete bounded connect question is prepared or held with explicit evidence.]
+    verification: [stop_evidence, implementation, lifecycle_controls, concrete_review]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.owned-transport-decision
+    title: Evaluate owned host lifetime before one fresh RF arm attempt
+    state: open
+    intent: Resolve the host cleanup stop and distinguish a bounded connect observation from blind retries.
+    requires: [TASK.rf.owned-transport-preparation]
+    requirements:
+      - Record GO or HOLD from the actual stop, current binary timing, byte-identical earlier successful CNXN requests, deterministic lifecycle controls and independent concrete review. Do not infer a device daemon cause or accepted epoch from host transport readiness. Require owned server teardown before alias removal.
+      - Commit and push conclusions, tasking and decision before execution. Preserve all four prerequisite-only attempts and unchanged matched 75-slot RF contract and hard deadline 2026-10-03T01:38:03Z. No new physical reboot, root request, daemon restart, metadata retry, settings or firmware change belongs to this remedy. Treat failure of this complete bounded handshake question as a new decision event.
+    acceptance: [A reasoned owned-lifetime GO or HOLD resolves preparation readiness.]
+    verification: [decision, preservation, execution_boundary]
+    required_extensions: []
+    extensions: {}
