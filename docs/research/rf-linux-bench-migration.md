@@ -380,3 +380,18 @@ establish repeatability for those reads only; differing pairs would reveal
 nominally stopped readout or hidden-state ambiguity. Neither result alone
 would identify an analog cause. This separately tasked diagnostic has no
 replacement comparison slots and cannot accept the failed A1.
+
+The figure below shows the first 1,000 original samples from the three inspected
+records, with common time/voltage axes and no phase alignment. Its lower panel
+renders the sealed 100-block RMS sequences. The lower record retains periodic
+edges and comparable peaks while its plateaus and RMS differ; the figure is
+descriptive and does not assign a physical cause.
+
+![Original 100 MHz RAW snippets and fixed-block RMS](figures/stock-return-control.png)
+
+Figure provenance is `out/rf/linux-stock-control-figure-01.toml`
+(`dc44bb456aa8defa40ab8cbd499943aa1d2a3f9e474939641ef5897204c7d311`).
+The committed PNG is byte-identical to the sealed artifact
+(`5b7895583cb3795f693e1d3312dd586d23ab7d3cc0fd2c8cdf906fc7095d891e`).
+It uses original coordinates and frozen statistics, with no fitting, FFT,
+resampling, normalization or eligibility change.
