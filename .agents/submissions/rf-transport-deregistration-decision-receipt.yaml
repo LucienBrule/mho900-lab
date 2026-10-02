@@ -1,0 +1,7 @@
+protocol: "taskctl.receipt/alpha1"
+classification: "actor-assertion"
+task: "TASK.rf.transport-deregistration-decision"
+contract: "sha256:59030aebd10b1f5a7eb568964f42b9b3be9e613044f19faac8bf3ff7ff3bb0e0"
+actor: "mho900-lab-investigation"
+recorded_at: "2026-10-02T04:09:43.398443+00:00"
+evidence: {"decision": "GO for one fresh V4 A1 at out/rf/policy-comparison-A1-deregistration-20261002T040000Z; independently reviewed6b0322c2da03e717f0d62035ac208cb37d679b8b9b7e557987e670a90ba9ff05 nativeverified. Local exactpeer ABSENT before sole connect, unique DEVICE afterward within unchanged20secondtotal; unchanged single fresh epoch gate follows. Actualpreparedcontrolc3745e82a3937f9e857c5f17a4f7153ac9e80eb5a9870fa6f41e601152f6cf06; no physical success inferred.", "preservation": "All three negative attempts/raw/independent seals retained. CompletedarmV4 verifier8ba347e54f2d647307be29ac0ba2fa81fe490dee22c2c960fa183cc6efc4494c nativeverified;59controls pass. No numerical/SCPI/source/epoch/impedance relaxation; frozen75slotcontracte1c0d43d4c06d0ff8c89e119859ae401bf33355a2a950e31335ccbb56bcfd11f remains. No daemonrestart/rootrequest/reboot belongs to remedy.", "execution_boundary": "Commit and push conclusion/preparation/GO before root executes sole fresh controller. Current actual postboot86400secondlease and harddeadline2026-10-03T01:38:03Z unchanged. No active duplicate controller or helper at checked04:08UTC. Any failed gate stops, no ambiguous metadata/waveform retry. Local transport cause remains hypothesis until actualtest."}
