@@ -1,0 +1,59 @@
+schema_version = "mho-rf.stopped-range-diagnostic/1"
+purpose = "Resolve waveform, periodicity and display headroom before a new matched comparison"
+predecessor = "experiments/rf-policy-comparison/contract.toml"
+original_comparison_slots_replaced = 0
+records = 1
+source_attempts = 1
+source_frequency_hz = 100000000
+source_raw_power_code = 0
+source_device_acknowledgement_expected = false
+source_frequency_physically_proven_before_acquisition = false
+automatic_retry = false
+deadline_utc = "2026-10-03T01:38:03Z"
+
+[acquisition]
+arm = "stock diagnostic; not A1 slot"
+channel = 1
+impedance_ohm = 50
+coupling = "DC"
+probe_ratio = 1
+offset_v = 0
+bandwidth = "FULL"
+scale_v_div = 0.1
+timebase_s_div = 0.000001
+memory_points = 100000
+sample_rate_hz = 4000000000
+sample_interval_s = 0.00000000025
+geometry_relative_tolerance = 0.00000001
+mode = "RAW"
+format = "ASCII volts"
+start = 1
+stop = 100000
+fresh_run_stop = true
+preambles_equal = true
+settle_run_s = 5
+record_run_s = 1
+
+[diagnostic]
+samples_finite = true
+maximum_abs_voltage_v_exclusive = 0.36
+maximum_vpp_v_exclusive = 0.72
+display_half_span_v = 0.4
+minimum_headroom_fraction = 0.1
+builtin_readings = "Supplementary; no pre-record range veto or waveform substitution"
+default_receive_profile = "Unchanged; preserve any rejection"
+diagnostic_receive_profile = "Separately pinned, explicit wider voltage bounds; never original comparison eligibility"
+primary_statistics = "Original-volts demeaned population AC RMS"
+claims = "Sampled waveform and periodicity only; no calibrated source fundamental or analog bandwidth"
+
+[restoration]
+ordinary_snapshot = "Complete actual initial settings, including impedance and acquisition run state"
+export_snapshot = "Complete actual initial waveform-export settings"
+while_framing_healthy = true
+native_changes = 0
+reboots = 0
+root_restarts = 0
+protected_corpus_writes = 0
+wiring_changes = 0
+host_isolation = "No gateway, DNS, forwarding, NAT, sharing or bridge; remove owned address after owned transport retirement"
+capture = "Full L2, graceful exit and retained drop statistics"
