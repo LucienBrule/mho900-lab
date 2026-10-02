@@ -1,0 +1,31 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.impedance-preparation
+    title: Prepare captured restoration of the required RF input impedance
+    state: open
+    intent: Resolve the observed high-impedance prerequisite without changing the frozen RF experiment.
+    requires: [TASK.rf.execution-decision]
+    requirements:
+      - Preserve and independently verify the sealed A1 prerequisite stop, including original query bytes, no source or settings writes, zero waveform records, graceful recorder statistics and host restoration.
+      - Preserve previous controllers. Prepare a separate minimal normalization variant accepting only the observed OMEG or required FIFT starting impedance, setting FIFT once when needed and verifying the unchanged frozen electrical and acquisition preconditions before any source or waveform operation.
+      - Preserve the actual pre-normalization snapshot. Restore OMEG only if that was the captured original state and framing remains healthy; retain existing full settings/export restoration checks and no ambiguous retries.
+      - Keep the 75 slots, source commands, raw sampling, numerical guards, policy/epoch checks and deadline unchanged. Validate pure positive and negative normalization/restoration controls, exact source differences, frozen dependencies and a fresh concrete A1 preparation through independent offline review. No physical operation belongs to this task.
+    acceptance: [The bounded impedance remedy is independently prepared or a hold is recorded.]
+    verification: [stop_evidence, adaptation, controls, concrete_review]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.impedance-decision
+    title: Evaluate the input-impedance remedy before resuming RF acquisition
+    state: open
+    intent: Distinguish an ordinary prerequisite correction from alteration of the RF hypothesis.
+    requires: [TASK.rf.impedance-preparation]
+    requirements:
+      - Inspect the actual prerequisite-stop conclusion, independent review, normalization/restoration change and prepared evidence bindings. State whether the already-authorized ordinary 50-ohm selection supports a fresh A1 attempt without weakening a measurement guard.
+      - Record GO or HOLD with exact evidence. A GO requires the prerequisite stop to have contained no source/settings writes or waveform record, unchanged policy/source/numerical semantics and a complete known-safe restore path. Preserve the stop rather than relabel it as a completed arm.
+      - Commit and push the conclusion and tasking before any fresh physical execution. The subsequent acquisition remains governed by TASK.rf.acquire and the frozen comparison contract; no added wiring, option, calibration or firmware intervention is authorized.
+    acceptance: [A reasoned GO or HOLD resolves the sole ordinary-impedance remedy.]
+    verification: [decision, preservation, execution_boundary]
+    required_extensions: []
+    extensions: {}
