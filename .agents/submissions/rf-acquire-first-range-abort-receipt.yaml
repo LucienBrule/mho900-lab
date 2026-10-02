@@ -1,0 +1,40 @@
+protocol: taskctl.receipt/alpha1
+classification: actor-assertion
+task: TASK.rf.acquire
+contract: sha256:f8316717644c699416a25e35d8c11da9120903e5cbc12243532828d7e6678022
+actor: mho900-lab-investigation
+recorded_at: '2026-10-02T17:48:00+00:00'
+evidence:
+  run_seal: >-
+    Explicitly aborted sole A1 run out/rf/policy-comparison-A1-pinned-20261002T173100Z.
+    Native manifest a325ff2670905fcf2973b72e547ed0ac8be7c4b80bbd82e1927253ab2b1ca9d7
+    binds 401 files. Independent review manifest
+    52994c91bcbc6ee51cb4df39b282d47f1d9aa2d317cb87861e44e1db979bd208
+    binds 18 files and verifies raw/control inventories, wire transcript and cleanup.
+    Root independently native-verified that review and current host manifest.
+  arm_evidence: >-
+    Initial epoch matches previously accepted stock process 1210/start3465/new boot
+    286dec12-2418-46c0-9d2a-8d69217a95d0 and exact stock APK/native mappings.
+    This establishes continuity with accepted stock17/17 readiness, not a fresh policy-byte read.
+    No after/restored epoch read was reached. Zero waveform records; B/A2 not executed.
+    No native selection, reboot, root restart or protected-corpus write occurred.
+  protocol_adherence: >-
+    Exactly one nominal100MHz/raw-power0 source attempt accepted nine bytes at the
+    host driver with no device acknowledgement. After verified ordinary acquisition
+    normalization and five-second RUN wait, sequential built-ins returned frequency
+    1.1111E+07, VPP0.34393, VRMS0.083215, VMAX0.18643, VMIN-0.19478.
+    VMIN first failed the unchanged strict +/-0.18V guard; VMAX also exceeds it.
+    Stop preceded acquisition-begin and every RAW/preamble query. All75 slots unavailable.
+    No retry, guard change, substitute record or inference of actual carrier/clipping.
+  final_state: >-
+    Full pre-normalization ordinary and six waveform-export values restored exactly
+    while framing remained healthy, including OMEG/0.05Vdiv/2us/10k/500MSas.
+    Source remains last nominal100MHz/raw0 attempt; actual output unconfirmed.
+    Capture736captured/736received/0reported drops; recorder and lease helper exited0.
+    Owned ADB reaped-15 and four process/socket absence checks precede alias removal.
+    Host preferences identical. Current host-restoration manifest
+    deeea2c42312bf51f82f1a8cb8847a84d2d0919591765a6aac56749884e549ab
+    native-verifies no owned helpers/alias, default route on separate interface,
+    both forwarding settings0, no scope bridge and unchanged disabled PF.
+    Physical work holds; close acquisition as aborted, reduce missing data and
+    determine unassessable. No final native-state proof or analog-bandwidth claim.

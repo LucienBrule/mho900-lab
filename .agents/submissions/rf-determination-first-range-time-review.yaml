@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.rf.determination"
+reviewed_head: "sha256:1c89e383d3e026327ef20a0fb10ab796033d38005299e300e81ceba3dcffdd9c"
+observations: [{"upstream":"TASK.rf.reduce","contract":"sha256:075538725ff36eaf32145f949d041abe833690da09b29f6f2b77176f43aeddea","revision":"sha256:85372afc62149217f2a439360b594cbaf752149e8205c0515627f820f6d599d0","inputs":"sha256:9d1bbc79475ae052552291fa1ab639f2621e9a2460db205e92a2246ddc72ca00"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-10-02T17:49:47+00:00"
+rationale: "Timing correction: five earlier first-range-abort submissions used manually estimated actor timestamps, some ahead of the wall clock. Preserve originals and their native history. Actual closure/review/evaluation actions occurred within the sampled UTC interval 2026-10-02T17:44:45Z through 2026-10-02T17:48:45Z; individual event times were not sampled. This clock-derived later review is authoritative for the correction. Evidence and experiment conclusions are unchanged."
+evidence: {"finding":"Unassessable zero-record comparison; independent52994c91 and reduction1289560b unchanged.","claim_scope":"Absolute1GHz NOT ASSESSED, no CH1 failure inference.","milestone_disposition":"RF milestone still requires bounded follow-up; closed experiment is not positive completion.","continuation":"Offline bad8a859 one wider-range RAW proposal remains unexecuted awaiting operator decision. Prior manually entered actor timestamps corrected, no new physical authority."}
+successor: null

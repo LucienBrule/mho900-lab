@@ -1,0 +1,23 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.rf.reduce
+reviewed_head: sha256:2acba16cf6dda617866d258d728c42ba92dfd907b3d96eaab4eef76f823cd30a
+observations:
+  - upstream: TASK.rf.acquire
+    contract: sha256:f8316717644c699416a25e35d8c11da9120903e5cbc12243532828d7e6678022
+    revision: sha256:52cda1bb751770226a41b7a9f1c33b9d5880e33557998f36e2fcd11181b4afe5
+    inputs: sha256:05166f2364b7c7ee3dc8b0873ef6ce64970a23cf07c0993070197a2dd2ed3f44
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: '2026-10-02T17:49:00+00:00'
+rationale: >-
+  Acquisition closed as an independently verified explicit abort with zero RAW records.
+  Reduction acceptance explicitly permits determining that inputs cannot answer the
+  declared question. Preserve frozen estimator and controls; evaluate an empty actual
+  record set rather than substituting noncoherent built-ins or synthetic records.
+evidence:
+  estimator_controls: Reuse unchanged 45 owner and 19 independent controls; verify retained inventories and exact helper hashes before empty-set evaluation.
+  reduction: Raw a325ff26 and independent52994c91 establish zero actual records and no B/A2. All75 slots missing; no AC estimates or arm ratios exist.
+  uncertainty: Sequential extrema and frequency replies do not constitute one waveform or establish carrier, clipping, calibrated amplitude or policy effect.
+  limitations: No relaxed guard, replaced slot, retry, new physical contact or positive analog-bandwidth claim is authorized by this review.
+successor: null

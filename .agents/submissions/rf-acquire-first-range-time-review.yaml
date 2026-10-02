@@ -1,0 +1,11 @@
+protocol: "taskctl.reconciliation/2"
+classification: "actor-assertion"
+task: "TASK.rf.acquire"
+reviewed_head: "sha256:52cda1bb751770226a41b7a9f1c33b9d5880e33557998f36e2fcd11181b4afe5"
+observations: [{"upstream":"TASK.rf.execution-decision","contract":"sha256:862cb07d131cd8c5118c3a2c776622ef39747b9865e8ab6eb7b758d76cf01042","revision":"sha256:7a5778e52a9fdded1e18aa43967f5aa8c098ab96e663775bda99cd87cf677ebd","inputs":"sha256:5daf9b6eade984ca751873fc4ee64be540c64bde15f992a68ad55ee510207769"},{"upstream":"TASK.rf.owned-transport-decision","contract":"sha256:943a1dc05a54124e767f1e29bceeb44b9d605ef3069cf4940ce613d0e1509325","revision":"sha256:c321a023b46558cc2c4032d238ad47a9125bd3aa3c06e155297747bdd0b0832b","inputs":"sha256:0cfe22d77b2d475802a804d27a4972a94ed3e6b67e23548eee72392b69157c31"}]
+outcome: "revalidated"
+actor: "mho900-lab-investigation"
+occurred_at: "2026-10-02T17:49:33+00:00"
+rationale: "Timing correction: five earlier first-range-abort submissions used manually estimated actor timestamps, some ahead of the wall clock. Preserve originals and their native history. Actual closure/review/evaluation actions occurred within the sampled UTC interval 2026-10-02T17:44:45Z through 2026-10-02T17:48:45Z; individual event times were not sampled. This clock-derived later review is authoritative for the correction. Evidence and experiment conclusions are unchanged."
+evidence: {"run_seal":"Raw a325 and independent52994c91 remain unchanged; conclusions bind these seals, not manually entered actor timestamps.","arm_evidence":"Initial accepted stock epoch only; zero RAW/no B/A2/no final epoch observation.","protocol_adherence":"Explicit guard abort, no altered hypothesis or retry. Original submission timestamp is corrected by this later actor review.","final_state":"Full recorded settings/export and host restored; deee current host proof. No physical actions in this review."}
+successor: null

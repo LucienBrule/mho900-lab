@@ -1,0 +1,19 @@
+protocol: taskctl.reconciliation/2
+classification: actor-assertion
+task: TASK.rf.determination
+reviewed_head: sha256:0b1f33d73080abd51f72d11c9044104278433e6fc23e5d5634700eb9a81d61ef
+observations:
+  - upstream: TASK.rf.reduce
+    contract: sha256:075538725ff36eaf32145f949d041abe833690da09b29f6f2b77176f43aeddea
+    revision: sha256:12cd1a5e8043be821ca21a05dd3bd9871c351c148950ecdc74be7438e9d93741
+    inputs: sha256:9d1bbc79475ae052552291fa1ab639f2621e9a2460db205e92a2246ddc72ca00
+outcome: revalidated
+actor: mho900-lab-investigation
+occurred_at: '2026-10-02T17:55:00+00:00'
+rationale: Explicitly evaluate the closed zero-record reduction and missing controls; task acceptance permits an unassessable finding and exact smallest follow-up.
+evidence:
+  finding: Native reduction1289560b returns unassessable with75missing; independent52994c91 proves first-range abort before RAW.
+  claim_scope: No RF contrast or absolute1GHz assessment; no carrier, clipping or channel-failure inference from noncoherent built-ins.
+  milestone_disposition: RF-response milestone requires bounded follow-up; closing the experiment is not positive milestone completion.
+  continuation: Offline proposalbad8a859 describes one wider-range stopped RAW question. No retry, guard relaxation, B transition or physical diagnostic authorized here; operator decision and separate admission required.
+successor: null

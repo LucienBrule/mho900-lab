@@ -1,5 +1,10 @@
 # Matched-policy numerical preparation
 
+The first actual comparison attempt is closed as an
+[explicit range-guard abort](rf-policy-comparison-first-range-stop.md), with zero
+RAW records. The frozen numerical contract remains unchanged; RF response has
+not been determined.
+
 This preparation freezes supplied-record eligibility and a 75-slot numerical decision for the [matched software-policy proposal](rf-policy-comparison-readiness.md). It is an offline composition of the existing waveform, receive and original RAW AC-statistics libraries. It does not establish the specimen's loaded software arm, acquisition freshness, capture health or permission to execute a transition. The machine-readable numerical contract is [contract.toml](../../experiments/rf-policy-comparison/contract.toml).
 
 The scheduled numerical slots are A1 stock, B derived and A2 stock, each with five repeats at 100, 800, 975 and 1000 MHz followed by a second 100 MHz visit. The initial and final 100 MHz groups remain distinct by visit index. Exactly 75 unique arm/visit/repeat slots are required. Missing, duplicate, unplanned or rejected slots produce an unassessable decision; the helper does not infer a missing arm or replace failed records. Identical waveform hashes are permitted, including legitimate repeated constants. Fresh RUN/STOP and query-sequence evidence belongs to the independent controller and captured management streams.
