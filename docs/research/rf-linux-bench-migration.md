@@ -413,3 +413,27 @@ geometry, framing, range, health or deadline failure stops and preserves the
 prefix. Original range guards and complete ordinary/export/run restoration
 remain required. Preparation grants no accepted waveform, policy comparison
 arm or physical cause.
+
+The offline native lifecycle composition is complete and independently reviewed.
+`out/rf/linux-native-supervisor-composition-01.toml`
+(`370013e8a8e89b4d4a10b7df592b1f4f45114b5059eadd897a6c89632493ecbb`)
+preserves the original native transaction and foreground callback bodies while
+adding named phase evidence, durable partial results, reader retirement,
+captured-lease gating, startup/UI and thermal sequencing. Fourteen focused
+controls pass, independently reproduced in
+`out/rf/linux-native-supervisor-independent-02.toml`
+(`e73c7aaf75911beb2a391e234b3fcbc4d0e34334162ae35b9a6ac40fe5425831`).
+
+This is executable composition with a supplied executor and a file-only CLI.
+The actual foreground owner, packet/namespace collectors, full snapshot/UI
+collectors and independent cleanup proofs remain integration work. Existing
+DHCP renewal-timer options still require an explicit compatibility decision.
+No device backend, accepted future arm or physical transition is created.
+The failed original A1 and elapsed complete-sequence reserve both bar B in
+this window.
+
+Missing framed exec or transfer completion stops without replay. A reboot or
+root request with uncertain client completion retains that uncertainty and
+requires distinct captured lease, changed boot and UID readiness evidence;
+the request is never repeated. Synthetic controls establish this sequencing,
+not its physical behavior.
