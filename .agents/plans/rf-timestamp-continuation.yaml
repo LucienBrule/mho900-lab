@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.timestamp-preparation
+    title: Correct the existing eight-byte timestamp preservation check
+    state: open
+    intent: Preserve the original calibration contract while fixing a mis-sized time-field comparator.
+    requires: [TASK.rf.stock-baseline-layout]
+    requirements:
+      - Preserve the partial stock transition and independently pin the stock checked-stream writer, existing record inspector and actual archive delta. Prove the timestamp extent from implementation rather than accepting an unexplained changed byte.
+      - Correct only the comparator for the already established eight-byte time field at file bytes12 through19 and its dependent header CRC. Retain exact header version/length fields, payloadCRC, byte-identical320byte coefficients, protected inventory/licenses and existing172byte fallback allowance. No calibration or specimen file write is admitted.
+      - Prepare a distinct read-only stock continuation tied to the actual postboot process and verified captured86400second lease. It may read baseline state, observe visible UI, service greater1800seconds warmup and run one16byte stock observer; it must contain no native transition or reboot action.
+      - Verify physical gates, observer lifetime, current process binding, local output layout, lease/deadline reserves and graceful recorder handling with bounded offline controls and independent review. Commit and push preparation before any continuation contact.
+    acceptance: [Pinned time-field evidence and tested unchanged preservation intent support one read-only stock continuation or a hold.]
+    verification: [time_extent, delta, preservation_controls, continuation, independent_review]
+    required_extensions: []
+    extensions: {}
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stock-continuation
+    title: Verify and warm the existing stock process without another transition
+    state: open
+    intent: Complete stock-arm evidence after the preserved single-reboot partial result.
+    requires: [TASK.rf.timestamp-preparation]
+    requirements:
+      - Start a fresh full healthy isolated capture with the actual captured postboot86400second lease and deadline2026-10-03T01:38:03Z. Verify the already selected original APK-backed stock library and exact process/boot epoch from the partial transition; stop on drift rather than redefine the arm.
+      - Revalidate identity/options, protected logical corpus using only the statically established time-field correction, normal visible UI and greater1800seconds serviced warmup. No native replacement/removal, additional reboot, calibration action, entitlement change or new physical wiring is permitted.
+      - Run exactly one stock cached-policy observation with four fixed reads16bytes, independently verify repeated17/17 with original APK geometry and stable process lifetime, and bind the result to preserved transition provenance rather than claim a new transition.
+      - Independently verify capture and protected-state evidence, restore only owned temporary host state, seal and commit/push the conclusion before releasing RF acquisition. Preserve any negative outcome without broadening the experiment.
+    acceptance: [Verified warm stock-arm evidence or a bounded stop resolves the sole read-only continuation.]
+    verification: [baseline, epoch, stock_witness, preservation, capture, final_state]
+    required_extensions: []
+    extensions: {}
