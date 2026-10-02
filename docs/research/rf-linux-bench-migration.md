@@ -154,3 +154,28 @@ Independent preparation review is
 These seals establish readiness for one observation, not current specimen or RF
 acceptance. The RF source remains on its existing workstation serial connection;
 no USB relocation is required for the proposed continuation.
+
+The one Linux observation reached ADB with UID 0 and completed the stock checks.
+The actual APK and embedded native bytes matched the preserved stock hashes;
+the original boot/process and load mapping remained in place. All 32 accepted
+corpus files matched before and after. The existing reader returned stock raw
+and effective bandwidth values `17/17` within its fixed 16-byte read budget.
+The single screenshot shows the normal scope UI with CH1 active. Its displayed
+100 MHz measurement is supplementary and does not qualify a RAW waveform.
+No source command, RF sample, root restart, reboot or new warm-up occurred.
+
+The coordinator result remains `stopped`, exit one: a process ownership read
+raced with the observer's normal exit. The preserved observer was reaped with
+exit zero, and its guest reader and owned ADB server retired with exit zero.
+Cleanup reported no issue. The recorder closed gracefully with 34,485 captured,
+34,485 filter-received and zero kernel-dropped packets. The namespace remains
+isolated. This distinction is retained rather than relabeling the supervisor
+result or repeating the physical observation.
+
+Actual evidence is `out/rf/linux-stock-actual-01.toml`
+(`b72b6ceb13b8c7cc0986fbac2b97b54ba3a22ced622e0c87babcfa3a0f65bf27`).
+Raw capture SHA-256 is
+`3758fd84612b3fa8a0c5f10b8c900e63307d6352d3c545ed1d559ad7b539fbd7`.
+Screenshot SHA-256 is
+`92140d7bd853a010343d719ef4af62ee3354e75e22f2c27a4ec1c9cce9b9cfe1`.
+Independent evaluation of the completed evidence is the next decision boundary.
