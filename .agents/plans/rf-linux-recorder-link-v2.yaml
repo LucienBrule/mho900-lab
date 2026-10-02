@@ -1,0 +1,46 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-recorder-service-control
+    title: Validate journal-backed standard Linux recorder service while Ethernet is disconnected
+    state: open
+    intent: Resolve the witnessed pre-exec stderr failure with one changed service-output boundary.
+    requires: [TASK.rf.linux-link-decision]
+    requirements:
+      - Preserve the failed unit and immutable failure seal. Use one fresh unit and standard systemd StateDirectory for pcap with default journal stderr, the owned network namespace and normal tcpdump. Do not change SELinux, firewall, host security or management networking.
+      - Require positively owned namespace and interface, no carrier, no specimen traffic or DHCP and no existing helper. Record actual PID, argv, namespace inode and healthy complete pcap header before stopping the recorder through SIGINT. Preserve journal exit/drop statistics and the immutable pcap. No physical cable cue, SCPI, ADB, source control or reboot is included.
+      - Independently review actual start and graceful closure. A failed control stops this hypothesis without arbitrary repeat. Success permits only the separately admitted fresh capture-first physical link checkpoint. Mac work and automation stay paused.
+    acceptance: [One corrected service capture has a witnessed graceful exit and drop statistics or one concrete host-only failure is sealed.]
+    required_extensions: []
+    extensions: {}
+    verification: [service_capture, graceful_closure, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-link-checkpoint-v2
+    title: Introduce the specimen Ethernet link under a fresh Linux capture
+    state: open
+    intent: Establish one isolated lease and identity witness using the prepared standard Linux network.
+    requires: [TASK.rf.linux-recorder-service-control]
+    requirements:
+      - Verify the recorded namespace ownership, exact wired interface, no management link/default route/forwarding and unchanged management availability. Start one fresh full Layer Two tcpdump capture with complete packets, no restrictive filter, durable raw output and recorded systemd unit/PID ownership before cueing any cable transition. Preserve separate host and workstation clock domains and a bounded lifetime with graceful SIGINT termination.
+      - Require explicit operator confirmation that only the scope Ethernet was connected to the dedicated bench port. Do not infer the physical transition from packets or silence. Preserve the RF coax, scope power, USB-B and RF source connections. No scope reboot, firmware, entitlement, calibration or RF setting/measurement is included.
+      - DHCP remains inactive until that confirmation and healthy capture. Then run only the prepared namespace-bound DNS-disabled MAC-bound24h DHCP service with no router/DNS options. Require a new matching captured REQUEST/ACK before management, and preserve actual assigned address, MAC, options and timestamps. Unexpected external/update behavior or recorder failure stops the checkpoint.
+      - After the new lease is independently checked, use one ordinary Python TCP socket connection inside the namespace to the previously established SCPI port5555. Send exactly one *IDN? newline, retain raw request/response and pcap, enforce bounded framing/time and no ambiguous retry, then stop management. No ADB, Web Control, option query, USB interaction or port/service scan is included.
+      - Preserve actual capture closure/drop statistics, DHCP/helper ownership and cleanup, namespace state and immutable raw evidence before review. A prepared or armed capture is not physical reachability or RF qualification. Keep the Mac branch and old RF automation paused.
+    acceptance: [One explicit link/lease/identity checkpoint is preserved or a concrete prerequisite or stop is recorded without broadening the experiment.]
+    required_extensions: []
+    extensions: {}
+    verification: [capture_and_transition, lease, identity, cleanup]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.linux-link-decision-v2
+    title: Evaluate Linux link evidence and choose the next bounded acquisition preparation
+    state: open
+    intent: Advance from standard transport proof to the smallest useful RF continuation.
+    requires: [TASK.rf.linux-link-checkpoint-v2]
+    requirements:
+      - Independently inspect actual raw capture, DHCP negotiation/options, one raw SCPI identity and recorder/helper closure or exact stop. Preserve clock translation bounds and distinguish host readiness, specimen reachability and unmeasured RF response.
+      - If standard transport is supported, draft the smallest conventional ADB/epoch and RF-source integration preparation needed for one stopped waveform, preserving original application/native/protected corpus and existing RF comparison evidence. Any USB source relocation is an explicit operator wiring transition. No automatic reboot, broad retry, protected writes or old-controller resumption is admitted by this decision.
+      - Plan and inspect any successor mutation, admit against the expected revision and commit/push tasking before execution. Close or retain the stopped Mac branch through explicit taskctl disposition rather than rewriting immutable evidence. Respect the current RF time boundary unless the operator renews it.
+    acceptance: [Actual standard transport evidence or an exact limitation supports a bounded next action.]
+    required_extensions: []
+    extensions: {}
+    verification: [review, claim_scope, continuation]

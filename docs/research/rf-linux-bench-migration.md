@@ -61,3 +61,14 @@ Preparation evidence is `out/rf/linux-bench-preparation-01.toml`
 (`2ceb818ce4e712b400da4fdf162a17fae98a2fe4a81f623d77ac0643fb3a1e3a`,
 nine files). The accepted result is readiness for capture-first cable migration;
 specimen reachability and RF response remain untested on this host.
+
+The first transient recorder service stopped at systemd's `STDERR` setup
+(`222/STDERR`) before tcpdump executed. No capture, DHCP, cable transition or
+SCPI exchange occurred. The independently reviewed stop is preserved in
+`out/rf/linux-link-01-armed.toml` and
+`out/rf/linux-link-01-stop-independent-20261002T194100Z.toml`.
+The path-context evidence does not distinguish ordinary permissions from
+SELinux enforcement. The bounded successor uses journal stderr and a standard
+service state directory, preserving the failed unit and host security policy.
+It must prove actual capture readiness and graceful closure while disconnected
+before a separate physical link checkpoint begins.
