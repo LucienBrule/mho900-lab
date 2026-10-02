@@ -1,0 +1,69 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stopped-range-preparation
+    title: Prepare one stopped RAW range diagnostic from the preserved stock controller
+    state: open
+    intent: Resolve the initial waveform and headroom ambiguity before proposing a new comparison protocol.
+    requires: [TASK.rf.determination]
+    requirements:
+      - Preserve the sealed failed A1 and unchanged75-slot contract. User continuation authorizes a separate one-record diagnostic, not relaxation or reuse of prior comparison records.
+      - Prepare a fresh explicitly pinned successor using reviewed owned capture/isolation/lease/ADB/epoch/restoration modules. Exact stock epoch and valid isolated lease must be revalidated at runtime. No reboot, root restart, native, protected-corpus or wiring change.
+      - Use one nominal100MHz/raw-power0 UART attempt without retry, then one RUN-to-STOP RAW acquisition at100mVdiv,50ohm/DC/1x/zero/FULL,1usdiv/100k/4GSa. Preserve all raw bytes and equal preambles before interpreting waveform. Built-ins are supplementary, not a substitute or pre-acquisition range veto. Require finite samples, exact geometry and declared diagnostic headroom of strict +/-0.36V/Vpp0.72V. Any failure is retained and evaluated without automatic retry.
+      - Restore the complete initial ordinary/export snapshot while framing healthy, including impedance and trigger run state. Preserve after/restored epoch checks, graceful capture/drop statistics, owned server absence before address removal. No controller runs during preparation.
+      - Independently review exact source diff, runtime pins and fresh concrete control. Use focused offline controls for diagnostic schedule/range, malformed or incomplete RAW, stopped-state/export geometry, and restoration/owned transport order. Keep strict typed authored adapters and documented unchanged legacy boundaries.
+    acceptance: [A single diagnostic controller and exact bindings are independently accepted or held with preserved negative evidence.]
+    required_extensions: []
+    extensions: {}
+    verification: [source_binding, diagnostic_contract, independent_controls, concrete_preparation]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stopped-range-acquire
+    title: Acquire one stopped stock RAW diagnostic and restore the bench
+    state: open
+    intent: Observe actual samples at adequate display range without claiming a comparative RF result.
+    requires: [TASK.rf.stopped-range-preparation]
+    requirements:
+      - Execute only the independently accepted fresh diagnostic under renewed operator continuation and original hard deadline2026-10-03T01:38:03Z. Check positive ownership and absence of duplicate helpers before launch.
+      - Preserve one source attempt and one RAW record or explicit abort, request/response bytes, capture and settings/epoch metadata. No retries, additional points, hidden guard changes, native transition or physical wiring action.
+      - Restore exact ordinary/export and host isolation, retire owned helpers with graceful recorder/drop statistics, seal actual evidence separately and obtain independent review. Commit and push the conclusion before any successor experiment.
+    acceptance: [One completed or explicitly aborted diagnostic has immutable evidence and recorded final state.]
+    required_extensions: []
+    extensions: {}
+    verification: [run_seal, waveform, protocol_adherence, restoration]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.stopped-range-decision
+    title: Evaluate stopped waveform and admit the smallest RF comparison continuation
+    state: open
+    intent: Advance toward verification or falsification using waveform evidence rather than running-scope built-ins.
+    requires: [TASK.rf.stopped-range-acquire]
+    requirements:
+      - Reparse exact stopped RAW data and preambles. Report waveform headroom, sampled AC RMS, periodicity/spectrum and default receive qualification with limits. Source spectral quality and calibrated amplitude remain unproved.
+      - Decide whether the discrepancy is resolved enough for a newly declared matched comparison or needs a distinct bounded question. Missing or rejected data remains unassessable, not disproof of1GHz enablement.
+      - If supported, admit one bounded successor comparison batch with the same schedule and original numerical contrast criteria but explicitly justified common display range and hard headroom criteria for every arm. Preserve original protocol/negative outcome, source/cable/stock-native/protected-corpus invariants and one normal reboot per native transition. Plan, inspect, expected-revision admission and commit/push before execution. No physical-state expansion beyond current authorization and deadline.
+      - Stop with an honest determination when evidence verifies or contradicts the declared engineering effect; do not claim continuous calibrated bandwidth from selected-point sampled RMS. If next observation requires new wiring or physical adjustment, record exact operator action rather than guessing.
+    acceptance: [An explicit diagnostic finding and justified continuation or terminal limitation are preserved.]
+    required_extensions: []
+    extensions: {}
+    verification: [finding, claim_scope, continuation]
+roadmaps:
+  - kind: roadmap
+    protocol: tasking/planning-draft-2
+    disposition: active
+    acceptance: [RF policy response is demonstrated or contradicted within stated measurement limits, or the exact external dependency is recorded.]
+    id: ROADMAP.rf-verification-continuation
+    title: Resolve RF acquisition ambiguity and determine the capability-policy effect
+    intent: Continue from preserved negative evidence toward a verified or contradicted measured engineering effect.
+    tasks: [TASK.rf.stopped-range-preparation, TASK.rf.stopped-range-acquire, TASK.rf.stopped-range-decision]
+    required_extensions: []
+    extensions: {}
+epics:
+  - kind: epic
+    protocol: tasking/planning-draft-2
+    disposition: active
+    acceptance: [One independently reviewed stopped diagnostic resolves or preserves the waveform ambiguity and its next question.]
+    id: EPIC.rf-stopped-range
+    title: One stopped stock waveform diagnostic
+    scope: Prepare, acquire and evaluate one wider-range record without replacing missing matched-comparison slots.
+    tasks: [TASK.rf.stopped-range-preparation, TASK.rf.stopped-range-acquire, TASK.rf.stopped-range-decision]
+    required_extensions: []
+    extensions: {}
