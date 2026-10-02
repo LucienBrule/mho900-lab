@@ -20,6 +20,16 @@ gracefully. The temporary host address was removed and the isolation checks
 passed afterward. The source was not commanded by this attempt; no native
 selection, reboot, option installation or calibration action occurred.
 
+Independent reconstruction verified the sole SCPI flow as exactly the 26
+initial read-only queries. The review is sealed at
+`out/rf/A1-impedance-stop-independent-20261002T033300Z.toml`, SHA-256
+`19e3bff87a762c80cc4eb58980ea3aa6833270529f1a8f8350b9a137897e9fab`.
+The before-query process snapshot matched the accepted stock epoch and mapping;
+this attempt did not take another memory-policy observation or a post-stop
+process snapshot. The evidence establishes that the controller issued no
+experimental writes, rather than proving universal absence of device-side
+state changes.
+
 The next bounded question is whether the already-authorized ordinary 50-ohm
 selection can be included in the captured normalization and restoration path.
 The proposed variant must accept only `OMEG` or `FIFT` as its starting
