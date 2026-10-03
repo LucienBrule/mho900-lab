@@ -102,3 +102,17 @@ receives only its output argument. Pure checks exercise the actual pinned Click
 commands with their physical callbacks replaced by recording spies. The original
 preparation remains immutable; a fresh run identity and exact amended source
 pin precede another launch. This checkpoint supplies no software or RF result.
+
+The corrected collector armed its capture and reached an ADB connection. It
+then stopped because bootstrap servicing had consumed the capture prefix before
+the lifecycle decoder was constructed. That decoder received later packet bytes
+where it required a PCAP header. No policy read, native change or RF source
+command followed. The captured connection is preserved; this is a host stream
+handoff failure rather than evidence that ADB was unavailable.
+
+The second stopped run, `out/rf/descending-native-current-stopped-02.toml`,
+retains twelve captured frames, zero reported kernel drops and graceful recorder
+and DHCP exits. Owned ADB retirement precedes DHCP and capture retirement; a
+fresh host check records no remaining namespace processes or listeners. The
+handoff remedy gives the lifecycle its own forward capture cursor while retaining
+the outer wire validator's independent cursor and all packet acceptance rules.
