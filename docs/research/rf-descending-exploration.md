@@ -127,3 +127,21 @@ unreadable or linked paths, command failures and malformed replies remain errors
 The exact observation bytes must stay unchanged across the current check and
 native transition. No policy setting is changed. No native policy reader or RF
 source command occurred in this stopped run; owned helpers again retired.
+
+The fourth collector passed the fresh stock software snapshot and then rejected
+normal ADB transfer progress printed on stderr, despite a zero return code.
+The policy-reader file had been transferred, but no reader was launched. Its
+private stage is quarantined. The stopped inventory,
+`out/rf/descending-native-current-stopped-04.toml`, retains the original stop and
+retirement uncertainty: the original ADB wait status was not recorded. Later
+process and active-endpoint absence do not supply that missing exit status.
+Recorded capture and DHCP owners were subsequently closed gracefully, with
+29,992 captured frames and zero reported kernel drops.
+
+The remedy recognizes only the exact successful single-file transfer diagnostic,
+bound to the source path and byte count. Owner, mode, size and byte roundtrip
+checks still precede reader execution. Owned-server retirement now records the
+actual wait result first and, after a proved zero exit, observes socket closure
+for at most five seconds while servicing the remaining capture and lease owners.
+A fresh collector identity and pinned runtime precede execution. No native
+selection or RF source command occurred in the fourth stopped run.
