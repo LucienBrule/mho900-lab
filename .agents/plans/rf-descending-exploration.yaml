@@ -1,0 +1,46 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-preparation
+    title: Prepare an exploratory six GHz descending stock and derived sweep
+    state: open
+    intent: Answer the operator's broad reception question without substituting a calibrated bandwidth claim.
+    requires: [TASK.rf.binary-supplied-reader-decision]
+    requirements:
+      - Preserve the failed original matched comparison and all previous survey evidence. This is a distinct exploratory experiment authorized by the operator; no new record fills the original seventy-five comparison slots or changes their acceptance rules.
+      - Freeze an existing-coax CH1 fifty-ohm, DC, one-times, zero-offset, FULL, normal acquisition profile with original ordinary/export restoration. Start the descending sweep at nominal six GHz in each verified stock or derived software arm, followed by a finite descending list including one GHz and eight hundred MHz. Use raw source power zero, at most one exact factory command per scheduled visit, validate all frames offline including the receiver's CR delimiter exclusion, and preserve one hundred MHz return commands and every weak, constant, partial or negative result.
+      - Use complete original RAW ASCII volts, adjacent preambles, reported sample interval and whole-record AC RMS. Require complete finite correctly framed records and no overload; do not require a command-frequency peak or minimum amplitude above Nyquist. Report commanded frequency separately from sampled components and predicted aliases under the reported sample clock. No uncalibrated absolute bandwidth or patch-causality claim follows from this exploratory survey.
+      - Reuse the isolated Linux namespace and conventional SCPI/ADB sockets with fresh full capture, recorded ownership, no external route, gateway, DNS, forwarding or duplicate helpers. Scope and source remain on the existing wiring. Pin source serial identity, exact stock and derived byte provenance, current software epoch, protected corpus and the existing bounded policy reader. Native selection uses only the established reversible standalone library mechanism and one normal reboot per transition; preserve the stock APK and protected options/calibration. Prepare conditional root readiness, captured lease renewal and graceful recorder/drop/owned-helper retirement before execution.
+      - Prepare a finite run budget and explicit known-safe stock rollback/restoration reserve. Do not borrow expired authorization timestamps or original A1/B/A2 admission. Perform focused host-only controls and independent preparation review. Preparation may inspect preserved files and Linux host state but does not contact the specimen, start physical controllers or write the source. Commit and push the preparation conclusion before contact.
+    acceptance: [A bounded exploratory descending protocol and executable preparation or an exact implementation blocker is preserved.]
+    required_extensions: []
+    extensions: {}
+    verification: [protocol, source_frames, aliased_observation, software_transition, ownership_cleanup, independent_review]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-acquisition
+    title: Acquire the authorized descending sweep in stock and derived configurations
+    state: open
+    intent: Observe the sampled chain over a broad source range under both software selections.
+    requires: [TASK.rf.descending-preparation]
+    requirements:
+      - Execute the reviewed finite sweep only after fresh Linux isolation, exact source identity, current software selection and healthy full capture checks. Retain every original source request/result, acquisition transition, waveform response and preamble. A weak or constant valid waveform is an outcome, not a retry or stop condition. Framing, overload, identity, protected-material, lease or ownership failures stop with partial evidence preserved.
+      - Seal and commit/push the stock conclusion before the derived native transition. Execute only the reviewed reversible native selection and normal reboot, prove the selected mapping and capability values in the new epoch, then run the same descending source list and acquisition settings. Do not flash an image, alter entitlement/calibration, change wiring or introduce external routing.
+      - Preserve bounded failure cleanup, the planned source return, complete ordinary/export/run restoration and final known-safe stock software selection. Retire positively identified owned helpers, terminate capture gracefully and preserve drop statistics. Seal each actual arm separately and commit/push conclusions between experiments; never replay an ambiguous command or fabricate missing evidence.
+    acceptance: [Actual stock and derived descending records or their exact stopped prefixes are sealed with restoration limits explicit.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_schedule, source_scope_transcripts, arm_provenance, partial_outcomes, restoration, capture_seals]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-decision
+    title: Evaluate broad reception and software-arm response differences
+    state: open
+    intent: Report what the descending exploratory sweep establishes and what needs a narrower follow-up.
+    requires: [TASK.rf.descending-acquisition]
+    requirements:
+      - Independently reduce every preserved record using the same whole-record metric and report all visits, weak/constant/partial outcomes, actual sample rate, relevant folded-frequency expectations and descriptive arm differences. Do not compare fitted peak directly with RMS, discard inconvenient records or assume source amplitude is flat.
+      - Distinguish sampled reception, alias observations, software configuration evidence and conditional arm contrast from physical fundamental identification, causal patch benefit and calibrated analog bandwidth. Preserve original failed matched comparison status and exact remaining uncertainties.
+      - Publish a concise source-relative report with artifact seals and next smallest useful question. Verify known-safe restoration, helper retirement, taskctl currency and a clean pushed checkout. No further physical experiment is implicitly admitted by this decision.
+    acceptance: [The operator receives a direct evidence-backed stock versus derived descending result or exact blocker without inflated bandwidth claims.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_reduction, complete_records, interpretation, restoration_limits, next_question]
