@@ -541,3 +541,17 @@ is retained for export. The numerical inventories are:
   (`c5ea84fcd4d08d526860419f3c0467e5d6786fd20abaad1aa8a4c74286c3f14d`).
 - Execution and full spectral table: `out/rf/descending-derived-rf-reduction-execution-01.toml`
   (`ba60bb9d9d30651cf00f7b59ceebc06a1fc237265459c1b38a3ad80efa20c216`).
+
+The fresh stock-return entry is now admitted. It explicitly enters the
+isolated Linux namespace and supplies both coordinator arguments. The
+complete binding is sealed as `5487b678b87a4d0c2275fb2daa4ea9f02ed2f4acc82ad766798761b73d90eac7`;
+the independent file review is
+`c16fe0346cfe88dbefa18256385bdbb40d5bf08f5922cb233795859b419d8baa`.
+Host staging and static validation are sealed as
+`58f770a8858f0ee4308199c2b21c24be4c36f7f2d647c90fcb09b3f87d4a7c37`.
+The recorded reserve exceeds the required 3120 seconds, with no prior
+namespace owner or TCP socket and forwarding disabled. The only executable
+change is the finite restoration health deadline; removal, one normal
+reboot, protected corpus, policy observations and serviced warm-up remain
+unchanged. These are preparation facts. Actual restoration requires its
+own completed evidence and independent review.
