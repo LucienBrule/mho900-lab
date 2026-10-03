@@ -227,3 +227,24 @@ binds the three stock metadata checks, checks restoration and recorded helper
 retirement, and independently recomputes every RAW scalar and group statistic.
 The stock metadata checks preserve the admitted process and mappings; they do
 not constitute a new backing-file hash acquisition at every RF record.
+
+The first derived launch stopped during host bootstrap, before ADB startup or
+any native change, reboot or source command. A dynamically constructed health
+model retained the earlier deadline cap. Its capture and DHCP owners were
+identified by PID, birth, arguments and namespace, then retired through pidfds.
+Their recorded child closures and the empty capture's zero drop statistics are
+preserved. The original supervisor wait statuses are unavailable and remain
+explicitly unknown. The stopped inventory is
+`out/rf/descending-native-derived-stopped-01.toml`
+(`e788da610c6433661bdeee813f8d427487896fa2c2178e235a659fe1b463da39`).
+
+A separately admitted correction changes only that deadline validation bound
+and binds a fresh run identity. Pure controls construct the exact concrete
+health model with labelled synthetic owners; the original rejects the selected
+deadline and the corrected model accepts it. Other guards and warm-up and
+restoration reserves remain unchanged. Independent review
+`out/rf/descending-health-cap-independent-01.toml`
+(`338d014f5e3135f803ce9a891fb64872fef78f4d71832240cfff05e4feb39584`)
+accepts the fresh configuration and host-only validation. It acknowledges the
+late constructor check missed by the earlier conditional preparation review.
+This correction supplies no physical derived result.
