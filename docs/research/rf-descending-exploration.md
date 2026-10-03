@@ -145,3 +145,18 @@ actual wait result first and, after a proved zero exit, observes socket closure
 for at most five seconds while servicing the remaining capture and lease owners.
 A fresh collector identity and pinned runtime precede execution. No native
 selection or RF source command occurred in the fourth stopped run.
+
+The fifth collector ran the stock policy reader and reached the unchanged
+fixed-size observation validator. Independent replay establishes stock raw and
+effective selection 17/17 in the same process and boot epoch. Its lifecycle
+archive contains the five expected files as `./argv`, `./pid`, `./start.stat`,
+`./go` and `./exit`. The collector's generic corpus reader preserved those
+prefixes while its lifecycle membership check expected bare names. The raw
+archive is preserved in `out/rf/descending-native-current-stopped-05.toml`.
+
+The reader exited zero, its process absence and helper removal were recorded,
+and owned server, DHCP and capture retirement completed. No UI witness, final
+snapshot, native selection or RF source command followed. A separate lifecycle
+archive parser now handles that exact flat archive grammar; protected-corpus
+member naming and all reader identity, argument, exit and absence checks remain
+unchanged. This resolves a host evidence-format seam, not a stock policy failure.
