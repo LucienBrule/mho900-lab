@@ -278,3 +278,31 @@ and observation of the already-introduced derived selection. It has no native
 transaction or reboot route. It retains a bounded observation period, full
 software and corpus checks, serviced warm-up and final stock restoration.
 It cannot turn the interrupted transition into a completed result.
+
+Independent review of the complete stopped capture confirms nine checksum-valid
+local reports: five link-local and four unspecified IPv6 sources. All other
+frames pass the existing classifier. It also reconstructs one reboot service
+request followed by a fresh paired 86,400-second DHCP lease, with no gateway or
+DNS options and no later release or decline. Review inventory
+`out/rf/descending-derived02-stop-independent-01.toml`
+(`a7476fcb2b4ac7c5d71e8d56631618755c5be9487b07f193b09c25f565989da5`)
+preserves the interrupted command and missing software acceptance.
+
+The separate postboot fixture accepts only those witnessed report structures,
+checks their lengths and checksums, and rejects unrelated extensions. Its
+controller has no native transaction route and rejects normal reboot requests.
+Independent preparation review
+`out/rf/descending-postboot-independent-preparation-01.toml`
+(`e7222e40da173e51873d31d8e4f2df94b18e08b9f4b0046d066cd92455eacabe`)
+accepts the actual packet controls, copied configuration pins and the host-only
+validation. Fresh binding inventory
+`out/rf/descending-postboot-bindings-01.toml`
+(`6648103d9accaacc719f9ffe839d5a02b0a80d80f77bf7bf8ccfde3b79d9ac3c`)
+retains the current lease and original introduction lineage. It supplies no
+future process, UI or policy result.
+
+This present-state observation has its own 3,000-second cap and requires 6,320
+seconds remaining at entry. While it runs, 4,320 seconds remain reserved for
+the unchanged survey, final stock restoration and cleanup. The original
+deployment and restoration limits remain unchanged. The observation does not
+retry the interrupted native transition.
