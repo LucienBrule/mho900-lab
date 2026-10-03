@@ -574,3 +574,15 @@ warm-up. The still-unused conditional UID-first root sequence remains
 limited to one attempt. The finite 05:20 UTC deadline is unchanged. The
 interrupted transition remains a stopped result even if this separate
 observation later proves current stock readiness.
+
+The spectral observations also distinguish the useful lower-frequency
+response from the weak high-frequency records. Across 100 MHz through
+1.4 GHz, every retained record in both arms has its strongest non-DC
+sampled bin near the commanded frequency. At the commanded 1 GHz point,
+all six strongest bins are 1000.04 MHz; the bin spacing is 40 kHz. From
+1.6 GHz upward, the strongest bins instead lie at 75 or 100 MHz and the
+whole-record RMS is approximately 1 mV. Those weak records remain in the
+comparison, but they do not establish a received carrier at the commanded
+frequency. The lower-frequency bin agreement supports the observed
+response comparison while retaining the separate source-qualification
+limit.
