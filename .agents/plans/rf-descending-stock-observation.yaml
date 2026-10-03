@@ -1,0 +1,45 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-stock-observation-preparation
+    title: Prepare one settled stock observation after the completed removal
+    state: open
+    intent: Distinguish an early process-readiness stop from the settled stock software state.
+    requires: [TASK.rf.descending-stock-invocation-decision]
+    requirements:
+      - Preserve and independently review the completed stopped final-stock02 run, removal intent/completion, exactly one normal reboot, new captured REQUEST-ACK, UID2000 and failed first pidof. Preserve partial client outcomes and recorder drop statistics. Do not assert a stock process, UI, policy or successful original transition from the stopped prefix.
+      - Create a separate narrowly changed stock-only successor of the accepted postboot observer. Bind the stopped removal authority, original introduction, protected baseline, previous policy file and the new captured lease. Retain complete stock APK and packaged-native mapping, sidecar absence, status/corpus validation, one UID-first connection and at most one still-unused conditional root with a distinct postroot readiness sequence.
+      - Observe only the present settled stock boot with no deployment, removal, reboot, reset, settings, RF, entitlement or calibration action. Require boot differs from the prior derived epoch, 60-second serviced settling, 1801-second serviced warm-up, two reviewed normal UI witnesses, fixed16 stock17-17 and final same-epoch preservation. Keep the finite05:20UTC cap,3000 native maximum and120 cleanup. Replace the obsolete future-RF-plus-rollback reserve with at least2400 seconds for this observation.
+      - Run focused positive and negative supplied-file controls for wrong removal/lease/arm/cap/reserve and one-shot lifecycle restrictions, plus strict types and formatting. Freeze the complete binding, completed-input reader and host-only staging/pin/namespace validation without contacting the specimen. Preserve earlier artifacts unchanged.
+    acceptance: [A concrete finite stock-only observation or an explicit preparation blocker is preserved.]
+    required_extensions: []
+    extensions: {}
+    verification: [stopped_authority, stock_binding, negative_controls, host_static]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-stock-observation-admission
+    title: Evaluate the settled stock observation boundary
+    state: open
+    intent: Admit one deliberate stock observation without repeating the interrupted transition.
+    requires: [TASK.rf.descending-stock-observation-preparation]
+    requirements:
+      - Independently verify exact stopped-removal and new lease authority, source deltas, unchanged stock/corpus/policy/UI/closure validators, and absence of mutation or reboot routes in the observer. Preserve partial outcomes and interpretation limits.
+      - Require a fresh host record with zero prior namespace owners or TCP sockets, forwarding disabled, only the isolated connected route and at least2400 seconds before05:20. Commit and push the concrete conclusion before execution. No new deadline extension, reset or automatic retry is admitted.
+      - Admit only one fresh stock observation with conditional UID-first root at most once because the earlier sequence stopped before that operation. Actual evidence and determination remain a distinct task; no preparation receipt claims physical completion.
+    acceptance: [One stock-only observation or a clear stopped boundary is admitted.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_binding, reserve_isolation, one_observation, limits]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-stock-observation-actual
+    title: Observe and evaluate the settled stock software state
+    state: open
+    intent: Complete stock restoration verification without another physical transition.
+    requires: [TASK.rf.descending-stock-observation-admission]
+    requirements:
+      - Execute exactly one admitted owned observer and preserve the raw capture, command/results, snapshots, UI tokens, policy samples, serviced timing and no-retry partial outcomes. No reset, sidecar mutation or RF acquisition.
+      - Gracefully retire all positively owned helpers, preserve complete drop counters, owner and socket absence and retained isolation. Seal actual files separately and require independent completed-only review of stock mapping, protected corpus, policy17-17, new epoch, normal UI and1801 warm-up.
+      - Record success or the actual stopped question. Do not retrofit the stopped final-stock02 into a completed transition. Commit and push the conclusion before closing the original descending acquisition and decision with restoration limits and the next smallest bench question.
+    acceptance: [The settled stock state or its exact bounded failure is recorded with independent review.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_prefix, stock_semantics, independent_review, closure_limits]

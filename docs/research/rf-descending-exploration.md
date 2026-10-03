@@ -555,3 +555,22 @@ change is the finite restoration health deadline; removal, one normal
 reboot, protected corpus, policy observations and serviced warm-up remain
 unchanged. These are preparation facts. Actual restoration requires its
 own completed evidence and independent review.
+
+The final-stock02 transition stopped at its first postboot Sparrow PID
+query. Its sealed prefix records removal of the introduced sidecar, one
+normal reboot, renewed DHCP and UID 2000; `pidof` returned a remote exit
+status of 1. No conditional-root attempt followed, and no reboot was
+repeated. Complete stopped evidence is sealed as
+`6c8706a7f89af8eca8ff86909aa092d3d4b7beea40ccfa0f21357311363b2872`.
+A separate host-only closure record,
+`6263769eda78197bd00c207e4859c32b4fd66596678419b7cfc617d9589eadca`,
+records no namespace owners or TCP sockets and forwarding disabled.
+
+A bounded successor will observe the settled stock boot without another
+native-file change or reboot. It must bind the actual stopped-removal and
+new lease evidence, discover the new process once, and verify the existing
+stock mapping, protected corpus, normal UI, policy 17/17 and serviced
+warm-up. The still-unused conditional UID-first root sequence remains
+limited to one attempt. The finite 05:20 UTC deadline is unchanged. The
+interrupted transition remains a stopped result even if this separate
+observation later proves current stock readiness.
