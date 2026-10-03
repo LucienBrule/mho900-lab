@@ -558,7 +558,7 @@ own completed evidence and independent review.
 
 The final-stock02 transition stopped at its first postboot Sparrow PID
 query. Its sealed prefix records removal of the introduced sidecar, one
-normal reboot, renewed DHCP and UID 2000; `pidof` returned a remote exit
+transmitted normal-reboot request, renewed DHCP and UID 2000; `pidof` returned a remote exit
 status of 1. No conditional-root attempt followed, and no reboot was
 repeated. Complete stopped evidence is sealed as
 `6c8706a7f89af8eca8ff86909aa092d3d4b7beea40ccfa0f21357311363b2872`.
@@ -586,3 +586,13 @@ comparison, but they do not establish a received carrier at the commanded
 frequency. The lower-frequency bin agreement supports the observed
 response comparison while retaining the separate source-qualification
 limit.
+
+The completed independent stop review is sealed as
+`9a134edcff7fa7a365d7e4f3fe9d30d4b2b2688057e42a3fa83af5183531d9c9`.
+It verifies exact removal and absence, the newly captured 86400-second
+lease with no gateway or DNS, complete wire framing, zero final drops and
+owned closure. The reboot client outcome remains -15; the transmitted
+request and later DHCP response establish neither a changed boot ID nor
+stock application readiness. The separate observer must supply those
+missing facts. Its external stopped authority is sealed as
+`5a14055202337f83123211f3200837f70a4a58f54782e7067198703b974cfc3b`.
