@@ -1,0 +1,31 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-lease-binding-preparation
+    title: Bind the RF controller to the witnessed renewed lease
+    state: open
+    intent: Correct a pre-execution constructor mismatch without repeating physical work.
+    requires: [TASK.rf.descending-ui-observation]
+    requirements:
+      - Preserve concrete RF1ee7 and timing83e3 unchanged. Record the independent constructor rejection before any RF endpoint or owner was started; preserve the exact original captured lease and accepted current software authorities separately.
+      - Create fresh concrete RF and final-stock bindings. Replace only the stale exact controller lease-expiry guard with1791079286.969554 and rebind stale Mac lease metadata to the actual original REQUEST-ACK wrapper; do not relax to arbitrary expiry or fabricate renewal. Retain all finite expiry, equality, provenance and reserve guards.
+      - Use finite future-execution deadline2026-10-03T05:00:00Z, twenty minutes beyond the previous local boundary to preserve RF, independent review and stock restoration reserve during this host-only remedy. Update only future RF/Mac/stock clock caps and dependent paths/hashes. Completed observation04:40 proofs and all earlier artifacts remain immutable.
+      - Keep the24-frequency three-record protocol, source encoding, numerical/settings/epoch/corpus/UI checks, acquisition1200 and native3000 caps, serviced1801 warm-up, one final normal reboot, exact introduced-file removal and graceful cleanup unchanged. Test current-expiry acceptance and rejection of old/malformed or mismatched expiry; inspect complete normalized source deltas and all constructors before host-only validation.
+    acceptance: [The exact current-lease and finite-clock remedy is concretely reviewable.]
+    required_extensions: []
+    extensions: {}
+    verification: [stale_constructor, exact_authorities, source_delta_controls, concrete_bindings]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-lease-binding-decision
+    title: Evaluate the concrete lease binding and remaining descent
+    state: open
+    intent: Execute the unchanged RF survey only after complete concrete validation.
+    requires: [TASK.rf.descending-lease-binding-preparation]
+    requirements:
+      - Independently verify every complete concrete inventory, current accepted18/18 software epoch and selected artifacts, distinct original introduction/renewal archive, all constructor acceptance, negative expiry controls and exact normalized source/metadata deltas.
+      - Root must verify complete host upload bytes, static input/namespace checks, absence of existing owned helpers and at least4800seconds before the finite05:00 cap. Commit and push conclusions and tasking before the single derived descent. A blocked preflight is not a physical RF retry.
+      - Preserve the completed stock descent and original failed75-slot comparison separately. Require final known-safe stock selection and source100MHz/saved ordinary state, with actual capture and retirement evidence; no new firmware, entitlement, calibration, wiring or external route.
+    acceptance: [An exact executable unchanged descent boundary or explicit restoration-only stop is recorded.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_concrete, host_static, reserve_and_execution, restoration_boundary]
