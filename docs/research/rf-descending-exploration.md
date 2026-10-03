@@ -341,3 +341,24 @@ accepts the partial software snapshot and cleanup. It confirms the token arrived
 98.1807559 seconds after capture closure, and holds derived RF admission.
 The final host audit includes its own transient process context; socket absence
 and owned-helper retirement do not imply that every namespace PID was absent.
+
+The successor preparation changes three modules and preserves 27 other module
+bytes. It adds a strict elapsed-time check before reading a late token. Two
+fully consumed review windows plus settling and warm-up would exceed the
+unchanged observation cap; the longer window cannot override that cap.
+Independent preparation inventory
+`out/rf/descending-postboot-independent-preparation-02.toml`
+(`76fb67bc79b12ab30d74a5b1cef1476b44c834092b29818d2b8ab6ceed9afda6`)
+verifies the injected timing controls, 50 concrete copied pins and host-only
+static validation. Concrete binding inventory
+`out/rf/descending-postboot-bindings-02.toml`
+(`3a7eb4537cc5284490e90b0ff5708a607996d69cbd293ff8fd3de760e971549e`)
+contains no future acceptance.
+
+The remaining RF and stock-restoration builders keep separate authorities:
+current software, UI and policy must come from an accepted new observation;
+introduction and captured lease authority remain the original interrupted
+transition. The finite timing extension changes three RF clock constants and
+the native clock cap with dependent hashes. The frequency schedule, record
+count, source commands, ordinary settings, final stock transaction and
+warm-up requirements remain unchanged.
