@@ -1,0 +1,58 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-ui-coordination-preparation
+    title: Prepare the bounded screenshot review successor
+    state: open
+    intent: Separate the timed-out observation from a new present-state question.
+    requires: [TASK.rf.descending-postboot-preparation-decision]
+    requirements:
+      - Preserve the stopped postboot observation and late screenshot token separately; independently verify graceful closure, statistics and partial snapshot. The late token is not controller acceptance.
+      - Prepare a fresh postboot-only observation with a 600-second serviced UI wait and strict final deadline check. Keep token freshness90, exact epoch/image binding, own3000 cap, settle60 and serviced1801 warm-up. No native transaction, reboot or source command.
+      - Use finite coordination deadline2026-10-03T04:40:00Z, extending the prior local boundary twenty minutes only for review and preservation. Update exact native, RF and stock clock caps/pins; retain all software, corpus, capture, isolation, survey and restoration semantics/reserves.
+      - Prepare dual-archive future RF/rollback bindings from accepted new observation and original interrupted introduction/captured lease. Do not invent future acceptance or complete the old transition.
+    acceptance: [A concrete bounded successor and stopped prefix are reviewable.]
+    required_extensions: []
+    extensions: {}
+    verification: [stopped_prefix, ui_controls, clock_and_source_diff, future_bindings]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-ui-coordination-decision
+    title: Review the screenshot coordination remedy
+    state: open
+    intent: Admit a fresh observation only after the previous one is retired.
+    requires: [TASK.rf.descending-ui-coordination-preparation, TASK.rf.descending-postboot-observation-decision]
+    requirements:
+      - Independently inspect exact serviced wait, late-token rejection, freshness, no transaction/reboot route, unchanged snapshot/policy and cleanup semantics.
+      - Inspect concrete inputs, retired ownership, finite clock changes and sufficient6320 initial reserve. Commit and push before execution. Preparation supplies no future acceptance.
+    acceptance: [The exact fresh observation boundary or stop is recorded.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_preparation, retired_ownership, concrete_boundary]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-ui-observation
+    title: Observe current derived state under the reviewed screenshot window
+    state: open
+    intent: Establish current state without repeating deployment or reboot.
+    requires: [TASK.rf.descending-ui-coordination-decision]
+    requirements:
+      - Run the accepted fresh postboot-only controller once under full capture and existing isolation. One UID-first readiness sequence and at most conditional root; no alternate retry, introduction, removal, reboot or source command.
+      - Require exact derived bytes/maps, stock APK/protected corpus, reviewed fresh UI, settle60 and serviced1801 warm-up, fixed16-byte18/18 read and final preservation. Preserve command/health chronology.
+      - Seal completed or stopped actual evidence after owned server/DHCP/capture retirement with drop statistics/socket absence. Keep both stopped observations and original introduction distinct.
+    acceptance: [Actual current proof or a reproducible stopped prefix is sealed.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_chronology, software_and_corpus, ui_and_policy, serviced_warmup, retirement]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-ui-observation-decision
+    title: Evaluate derived proof and bind the remaining descent
+    state: open
+    intent: Continue the unchanged survey only from accepted actual evidence.
+    requires: [TASK.rf.descending-ui-observation]
+    requirements:
+      - Independently verify actual same-epoch software/corpus/UI/policy/warm-up/capture/cleanup; never promote earlier interrupted controllers to completed transitions.
+      - If accepted with sufficient reserve, bind unchanged24-frequency three-record survey and final stock restoration to new observation plus original exact introduction/lease. Keep one final normal reboot, original3000 stockcap/fullproof/serviced1801 warm-up.
+      - Commit/push conclusion before RF. Otherwise perform only independently reviewed known-safe restoration and report exact missing proofs.
+    acceptance: [An accepted derived survey boundary or precise restoration question is recorded.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_actual_review, dual_lineage, rf_and_rollback_bindings, reserve]
