@@ -176,3 +176,54 @@ extends that selected budget by one hour after the collector remedies. Per-leg
 durations, the 1,801-second serviced warm-up, single-reboot rule, 7,320-second
 pre-deployment reserve and captured lease expiry remain unchanged. Earlier
 fixtures and stopped runs remain immutable.
+
+## Completed stock survey
+
+The stock arm completed all twenty-four source visits and seventy-two records,
+with three records per visit and no retries. Every record is finite, correctly
+framed and within the planned headroom; none is missing, partial or invalid.
+The reported sample rate is 4 GSa/s throughout. The source's final planned
+command is 100 MHz, and the saved ordinary, export and run settings were restored.
+The capture contains 41,179 frames, matching its final received count with zero
+reported kernel drops. Recorded owned helpers exited and the isolated namespace
+retains only its connected bench route, with no active management sockets.
+
+The following values are whole-record population AC RMS, averaged across the
+three records. They describe the source, cable and sampled instrument chain.
+
+| Source command | Stock mean AC RMS | Largest sampled bin |
+| --- | ---: | ---: |
+| 6 GHz | 0.902 mV | 100 MHz |
+| 1.6 GHz | 1.055 mV | 75 MHz |
+| 1.4 GHz | 2.000 mV | 1,400.04 MHz |
+| 1.2 GHz | 29.970 mV | 1,200.04 MHz |
+| 1.1 GHz | 66.294 mV | 1,100.04 MHz |
+| 1 GHz | 89.943 mV | 1,000.04 MHz |
+| 800 MHz | 99.363 mV | 800 MHz |
+| 100 MHz | 110.316 mV | 100 MHz |
+
+This establishes substantial sampled reception at the nominal 1 GHz command
+under stock selection. The higher commands retain small residual responses;
+from 6 GHz through 1.6 GHz, the largest bins are near 75 or 100 MHz, rather than
+the hypothetical carrier or its principal alias. The 6 GHz record therefore
+does not establish reception of a physical 6 GHz fundamental. A serial write
+does not independently verify the source's RF output. These data also do not
+establish a calibrated analog bandwidth or a derived-selection benefit.
+
+The immutable actual inventory is `out/rf/descending-stock03-actual-01.toml`
+(`8c48d9710d332c58a694421702f4401b7960efd10288b8593c209691ba7af12c`).
+The separately sealed numerical inventory is
+`out/rf/descending-stock03-analysis-01.toml`
+(`2abc07db9e6b774102442580104c2afee23a6aa6c3d3db16cdfa3dbf6599922a`),
+with every planned position and original-voltage result retained. The complete
+frequency table and execution witness are preserved in
+`out/rf/descending-stock03-reduction-execution-01.toml`
+(`694905d44fa278deecb5724481d0231506820ecd7a8c7308ed3d085a849db07d`).
+The independent acquisition review is
+`out/rf/descending-stock03-actual-independent-01.toml`
+(`346c4ac197f935bcdc1b1a18291c4258c9e3bde3f39d10ad00d18d77ff8c1a57`).
+It reconstructs all 1,469 SCPI requests and their responses from the capture,
+binds the three stock metadata checks, checks restoration and recorded helper
+retirement, and independently recomputes every RAW scalar and group statistic.
+The stock metadata checks preserve the admitted process and mappings; they do
+not constitute a new backing-file hash acquisition at every RF record.
