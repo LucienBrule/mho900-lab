@@ -308,7 +308,7 @@ deployment and restoration limits remain unchanged. The observation does not
 retry the interrupted native transition.
 
 The first separate postboot observation stopped at its 90-second screenshot
-review deadline. Root subsequently viewed the normal UI and wrote a token,
+review deadline. The reviewer subsequently viewed the normal UI and wrote a token,
 but that token arrived after controller closure and is not acceptance for the
 stopped run. Its settled software snapshot and serviced 60-second interval
 are retained; the 1,801-second warm-up, fixed policy observation and derived
@@ -362,3 +362,32 @@ transition. The finite timing extension changes three RF clock constants and
 the native clock cap with dependent hashes. The frequency schedule, record
 count, source commands, ordinary settings, final stock transaction and
 warm-up requirements remain unchanged.
+
+The fresh present-state observation completed. Its complete inventory is
+`out/rf/descending-postboot-actual-02.toml`
+(`7489986e061716bdc7611638470c4540e7f527bbfeb3afab4eb31adb35ff9be9`),
+with independent review
+`out/rf/descending-postboot-actual-independent-02.toml`
+(`748a75e5479393f87876d79dfa301fdc73734bca8d3d1f234c5134c292651467`).
+Three snapshots preserve the expected derived native mapping, stock APK and
+protected corpus in one process and boot epoch. Both screens were reviewed
+within their windows. The serviced warm-up exceeded 1,801 seconds; the final
+fixed 16-byte observation reads raw/effective bandwidth 18/18. The observation
+introduced no library, reboot or source command.
+
+The capture contains 115,885 complete frames, matching the recorder's received
+count, with zero reported kernel drops. All management streams are contiguous
+and close in both directions. The 68 numbered CLI operations and 36 snapshot
+SCPI queries are retained. Owned ADB, DHCP and capture processes close with
+exit zero; the final host observation retains only the isolated connected
+route, disabled forwarding and no management sockets.
+
+An offline review-reader defect was corrected before actual review: it had
+mistaken the three-process bootstrap observation for retirement. The fresh
+reader distinguishes bootstrap, managed and retired phases, checks exact
+ownership, and requires recorded successful server retirement before accepting
+the final three-process subset. Independent supplied-data controls pass. Its
+archive timestamp boundary retains whole-second precision; packet closure
+and complete retirement are checked separately. The physical controller was
+unchanged. This accepted observation permits the unchanged derived descent;
+the original interrupted introduction remains a separate historical event.
