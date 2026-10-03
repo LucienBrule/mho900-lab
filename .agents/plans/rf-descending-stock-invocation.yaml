@@ -1,0 +1,32 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-stock-invocation-preparation
+    title: Prepare a fresh stock-return invocation inside the bench namespace
+    state: open
+    intent: Correct an unambiguous host bootstrap stop while preserving all completed RF evidence.
+    requires: [TASK.rf.descending-lease-binding-decision]
+    requirements:
+      - Preserve the final-stock01 argument and namespace preflight failures and original output without reuse. Inspect pinned bootstrap ordering and actual stopped artifacts to establish that capture, DHCP, ADB, removal and reboot did not begin.
+      - Create a fresh final-stock02 runtime config with a fresh run identity from the accepted source02 config and a finite restoration cap05:20UTC. Update only the future native health-clock maximum and dependent clock/config pins to1791004744.9212754; completed RF and previous05:00 artifacts remain immutable. Preserve every runtime pin, original introduction-removal authority, protected corpus, exact lease, finite future clock, one reboot, conditional UID-root sequence, fixed16 policy, UI and1801 warmup requirements.
+      - Use the explicit sudo ip netns exec mho-bench entry with CONFIG_PATH and fresh OUTPUT. Stage only the fresh config and perform constructor/pin/namespace checks; do not enter the physical backend before the decision is committed and pushed. Update completed-run reader and collector identities without broadening their semantics.
+    acceptance:
+      - A complete narrowly changed fresh stock-return binding is reviewable.
+    required_extensions: []
+    extensions: {}
+    verification: [stopped_bootstrap, exact_config_delta, reader_binding, host_static]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-stock-invocation-decision
+    title: Evaluate the fresh stock-return invocation
+    state: open
+    intent: Restore the known stock selection through the unchanged admitted transition.
+    requires: [TASK.rf.descending-stock-invocation-preparation]
+    requirements:
+      - Independently verify the stopped-bootstrap interpretation, exact run-identity and future-clock-only deltas and unchanged full native runtime, reader, transaction and authority pins. Do not turn a preflight stop into physical success or a hidden retry.
+      - Require fresh host namespace-owner absence and at least3120 seconds before the finite05:20 restoration deadline. Commit and push the concrete result before one final-stock02 transition. Keep final-stock01 immutable and unused for future execution.
+      - Execute only the previously admitted exact introduced-sidecar removal and one normal reboot. Require new captured REQUEST-ACK, exact stock APK and native mapping, protected corpus, normal UI, fixed16 stock17-17 policy after1801 serviced warmup, source100 and saved ordinary state, and graceful owned closure. Actual completion and RF determination remain in the original acquisition and decision tasks.
+    acceptance:
+      - A fresh unchanged restoration boundary or explicit stopped outcome is recorded.
+    required_extensions: []
+    extensions: {}
+    verification: [independent_binding, host_namespace_reserve, one_transition, restoration_limits]

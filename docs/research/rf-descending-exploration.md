@@ -449,3 +449,27 @@ no TCP sockets before the stock return. It supplements the original immutable
 collection; it does not rewrite its capture or claim a new specimen query.
 The next action is the admitted exact introduced-library removal and normal
 stock reboot, followed by the unchanged stability and policy checks.
+
+The full derived acquisition independently passes the frozen protocol, wire
+and retirement readers. Review inventory
+`out/rf/descending-derived-rf-actual-independent-01.toml`
+(`168478ede0d1aa500c8a9a2d611cf7d5a77c5848056f1eaba3507049baf444ff`)
+validates all 72 records, 24 commands, three unchanged metadata epochs, the
+complete SCPI sequence and paired stream closure. Numerical reduction and
+the paired response table are sealed separately.
+
+The first stock-return invocation then stopped in host argument parsing; the
+corrected argument invocation stopped at the namespace inode check before
+bootstrap could spawn capture, DHCP or ADB. The original stopped output
+contains only its isolation hold marker. No introduced library was removed
+and no reboot occurred. The preserved inventory is
+`out/rf/descending-final-stock-preflight-stopped-01.toml`
+(`f78de410976880a331b525fe2472d84d9c1a66610ad0a9cdffb58b0d23fed92a`).
+
+The bounded correction gives the unchanged stock return a fresh run identity
+and explicitly enters the existing bench namespace before invoking its
+coordinator with both required arguments. A finite 05:20 UTC restoration cap
+retains the original transition and warm-up reserve while this host-only
+correction is reviewed. Only future native clock bounds and their dependent
+pins may change; both completed RF passes and their earlier caps stay
+immutable. This is a corrected host entry, with no physical retry to conceal.
