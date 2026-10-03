@@ -391,3 +391,20 @@ archive timestamp boundary retains whole-second precision; packet closure
 and complete retirement are checked separately. The physical controller was
 unchanged. This accepted observation permits the unchanged derived descent;
 the original interrupted introduction remains a separate historical event.
+
+Concrete RF preflight then rejected a stale exact lease-expiry literal in the
+inherited controller. The new configuration binds the actual post-reboot
+24-hour lease, but the constructor still required the earlier lease value.
+Independent concrete review
+`out/rf/descending-concrete-independent-01.toml`
+(`35808d947a5c946d178218203bd0df0969f200f6c492635b759c4deb9e64c405`)
+preserves that rejection and separately accepts the final-stock file
+composition. The unused host uploads are preserved; no derived RF acquisition
+started from them.
+
+A bounded remedy admits the exact witnessed expiry and matching Mac metadata,
+with a future completion cap of 05:00 UTC to preserve review and stock-return
+time. It retains the same source schedule, acquisition settings, record count,
+measurement, 1,801-second stock warm-up and 3,000-second native leg cap. Earlier
+captures, completed observation and failed preflight remain immutable. Fresh
+complete concrete and host-only validation are required before execution.
