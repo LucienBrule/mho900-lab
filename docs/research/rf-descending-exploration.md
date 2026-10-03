@@ -1,5 +1,21 @@
 # Six GHz descending exploratory response
 
+Both descending passes completed: 24 commanded frequencies and three retained
+RAW records at every point in each software arm, for 144 records. The derived
+selection shows a stronger measured response around 1–1.4 GHz. At 1 GHz,
+whole-record AC RMS is 89.94 mV under stock and 104.84 mV under derived
+software, a 16.56% increase. Both arms contain a strongest sampled component
+near 1 GHz; the observation is not a binary stock cutoff at 800 MHz.
+
+From 1.6 GHz upward, the records are weak and their strongest sampled
+components are at 75 or 100 MHz. The 6 GHz command does not establish reception
+of a 6 GHz carrier. The paired measurements show a sampled response difference
+between the two software passes, with source level, source spectrum
+and chronological drift still unqualified. They do not establish calibrated
+analog bandwidth. The complete table and interpretation are retained below;
+the [comparison CSV](rf-descending-stock-derived.csv) contains the numerical
+values and descriptive population standard deviations.
+
 The operator requested a broad descending survey under the original and derived
 software selections. This is a new exploratory experiment. The earlier failed
 stock return control and the missing original comparison arms remain preserved.
@@ -610,3 +626,49 @@ bootstrap/managed/retired role sequence in a separately sealed consumer,
 A preserved inherited audit assumption was superseded without changing
 runtime behavior or any recorded experiment. Current stock acceptance
 still requires the fresh observation and its independent actual review.
+
+## Completed stock restoration and determination
+
+The separate settled-stock observation completed and passed independent review.
+Three complete snapshots retain the same new stock boot and application epoch,
+the original signed APK and APK-backed stock native library, absence of the
+introduced standalone library, and the required protected-file and option-state
+checks. The one bounded reader opened the current process read-only, consumed
+16 bytes in four reads and returned stock capability values 17/17 twice.
+Both original UI images were reviewed as normal, without a prompt or spinner.
+The recorded settling interval exceeds 60 seconds and the serviced warm-up
+exceeds 1800 seconds. This observation made no native-file change, reboot,
+source command, acquisition-setting change or RF acquisition.
+
+The completed observation is sealed as
+`out/rf/descending-stock-observation-actual-01.toml`
+(`0dd6d6c5540387c3a8c7617565159277100e0013179b2037bbf559013bfb975a`).
+Its independent completed-input review is
+`out/rf/descending-stock-observation-actual-independent-01.toml`
+(`7eb96b7a757f97dfde573d1f21ab8f4dc90d845536d4168c64433b19872028ec`),
+and the resulting external stock admission is
+`out/rf/descending-stock-observation01-stock-admission.toml`
+(`05aded0c15f07cbe1f0acd669089944ef4e0d9d915ce7d8d1e37dda5817a8f10`).
+The fresh capture contains 93,232 captured and filter-received frames with zero
+reported kernel drops. Capture, DHCP, reader and owned management processes
+closed gracefully. The separate final host inventory,
+`33f14768ec524d43d80985f69ffb727b54c16030fd2000afda8c252f93b1fa42`,
+confirms no namespace owners or TCP sockets, forwarding disabled and the sole
+private connected route retained.
+
+The preceding derived RF pass independently verified exact restoration of the
+saved ordinary settings, all waveform-export operands and the running state.
+Its final source visit completed the planned 100 MHz factory frame. That remains
+a transport-complete command, without a device acknowledgment, level or PLL-lock
+measurement. The subsequent stock observation verifies current stock software
+and normal UI; it does not supply fresh post-reboot readbacks of every ordinary
+or export setting. The interrupted final-stock02 transition retains its original
+stopped disposition. The separate successful observation does not rewrite it.
+
+The descending survey is complete. It shows a graded sampled-response difference
+between the two software passes, most clearly around 1–1.4 GHz. Stock already
+retains substantial sampled content near 1 GHz. The useful next question is
+whether a narrower, interleaved stock–derived–stock comparison around
+900 MHz–1.2 GHz reproduces the difference when source level and spectral content
+are independently qualified. That would address temporal drift and strengthen
+attribution. No further physical experiment is admitted by this determination.
