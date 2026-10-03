@@ -596,3 +596,17 @@ request and later DHCP response establish neither a changed boot ID nor
 stock application readiness. The separate observer must supply those
 missing facts. Its external stopped authority is sealed as
 `5a14055202337f83123211f3200837f70a4a58f54782e7067198703b974cfc3b`.
+
+The settled-stock observer is concretely admitted. Its binding is
+`43a26fa26c25995d58406d5249133ce1d1b30dd083e63ad436686f9168c31160`,
+with independent preparation review
+`87d9c2c07c1cadce630a3fe9750c8d5f4748cbed25c5fd1a192c2fa7df45a9ab`.
+Host staging and static authority validation are sealed as
+`b950c9b8983a3eb0c248c312321499aeddefb7b7111e2cf76ff71458bfb41320`;
+the measured reserve exceeds 2400 seconds and no prior namespace owner or
+TCP socket is present. The completed-input audit uses the accepted
+bootstrap/managed/retired role sequence in a separately sealed consumer,
+`732bdd556b5cc0371054fbffb584570af04edbc674c48b8a4e183b0e3f0a2b76`.
+A preserved inherited audit assumption was superseded without changing
+runtime behavior or any recorded experiment. Current stock acceptance
+still requires the fresh observation and its independent actual review.
