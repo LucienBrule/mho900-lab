@@ -1,0 +1,58 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-postboot-preparation
+    title: Classify the captured local boot report and prepare postboot observation
+    state: open
+    intent: Preserve the interrupted transition and recover only its missing observation boundary.
+    requires: [TASK.rf.descending-health-deadline-decision]
+    requirements:
+      - Preserve the stopped derived transition, exact introduction and rename lineage, attempted single normal reboot, server wait, positive helper retirement and immutable full capture with drop statistics. Establish the actual offending frame and captured post-reboot DHCP pair independently; do not call the stopped lifecycle complete.
+      - Permit only the witnessed peer-origin link-local IPv6 multicast-listener report with its exact Hop-by-Hop Router Alert structure, bounded declared lengths, local multicast destination and validated terminal ICMPv6 message. Preserve existing IPv4, foreign-origin, nonlocal destination and other unexpected-protocol rejection. Test the actual frame and meaningful malformed or broadened negative controls.
+      - Prepare a separate postboot-only observation controller with no native transaction or reboot route, anchored to the stopped introduction, previous stock software and protected baseline, actual reboot lease and finite deadline. Require one bounded UID-first connection, at most the existing conditional root request, changed boot, exact derived mapping and bytes, stock APK, protected corpus, status, ordinary UI, serviced settling and 1801-second warm-up, fixed16-byte 18/18 observation and final snapshot. Preserve bounded ownership and graceful closure.
+      - Keep the original interrupted transition separate. The new observation has its own bounded 3000-second cap, because its question is the present postboot state; it cannot retry deployment or reset the specimen. Admit no RF records until its actual evidence is independently accepted. Preserve enough remaining time for the unchanged survey and final stock restoration before the existing finite deadline.
+    acceptance: [A concrete strictly bounded observation fixture and actual stopped evidence are reviewable.]
+    required_extensions: []
+    extensions: {}
+    verification: [stopped_evidence, packet_classification, narrow_controls, concrete_bindings, restoration_reserve]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-postboot-preparation-decision
+    title: Review the postboot-only observation boundary
+    state: open
+    intent: Admit missing derived observations without repeating the native transition.
+    requires: [TASK.rf.descending-postboot-preparation]
+    requirements:
+      - Independently review the immutable stopped capture, exact local report semantics, captured DHCP authority, introduction ownership, source difference, actual frame and negative controls, typed concrete bindings and absence of deployment or reboot in the new controller.
+      - Proceed only with a clear present-state question, verified helper retirement, no duplicate controller and sufficient reserve for final stock restoration. Preserve the old interruption and its missing proofs. Otherwise record a narrow safe restoration question rather than inventing policy or epoch acceptance.
+    acceptance: [A conditional concrete execution boundary or precise stop is recorded.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_review, unchanged_physical_scope, execution_boundary]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-postboot-observation
+    title: Observe the current derived boot without another native transition
+    state: open
+    intent: Establish the exact current derived software and policy before RF acquisition.
+    requires: [TASK.rf.descending-postboot-preparation-decision]
+    requirements:
+      - Execute only the accepted fresh postboot-only controller, once, under full capture and existing isolated Linux namespace. No native introduction, deletion, normal reboot, source command or alternative readiness retry belongs to this task.
+      - Preserve the actual connection, UID and conditional-root chronology, changed boot and process, complete mapping and backing bytes, protected corpus and stock APK, root-reviewed fresh UI, serviced settle and greater-than1800-second warm-up, fixed16-byte policy observation and final same-epoch preservation.
+      - Preserve actual partial outcomes, no-retry command intents, recorder and DHCP closure, drop statistics, server wait and socket absence. Stop on unexplained evidence and retain known introduction lineage for the final authorized stock restoration.
+    acceptance: [Actual present derived state is established or a reproducible stopped prefix is sealed.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_chronology, native_and_corpus, ui_and_policy, serviced_warmup, owned_retirement]
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-postboot-observation-decision
+    title: Evaluate current derived proof for the unchanged descending survey
+    state: open
+    intent: Continue only from accepted actual software evidence and preserve final restoration.
+    requires: [TASK.rf.descending-postboot-observation]
+    requirements:
+      - Independently verify the complete actual observation and captured lease authority, relating the new epoch to the stopped introduction while retaining its incomplete transition status. Current proof must not be represented as successful completion of the interrupted controller.
+      - If accepted, bind the unchanged 24-frequency, three-record descending survey and final stock rollback to the new actual observation plus the original exact introduction lineage. Preserve identical numerical treatment, weak or zero records, source100MHz cleanup, saved ordinary settings and one final stock reboot with its original verification and warm-up requirements.
+      - Commit and push the conclusion before the next experiment. If acceptance or remaining reserve fails, record exact restoration limits and perform only an independently reviewed known-safe restoration within existing authorization.
+    acceptance: [The actual derived survey boundary or exact remaining question is recorded.]
+    required_extensions: []
+    extensions: {}
+    verification: [independent_actual_review, truthful_lineage, survey_and_rollback_bindings, remaining_reserve]
