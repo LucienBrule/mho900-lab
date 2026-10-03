@@ -1,0 +1,17 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-transfer-retirement
+    title: Recognize the exact successful helper transfer and bounded socket retirement
+    state: open
+    intent: Correct observed host CLI assumptions while preserving exact helper bytes and cleanup evidence.
+    requires: [TASK.rf.descending-policy-file-observation]
+    requirements:
+      - Preserve current04 stopped evidence and known-owner root cleanup. Its stock snapshot passed; the ADB push returned zero with a one-file progress diagnostic that the collector rejected because stderr was nonempty. No reader launch, native change or RF source command followed. Preserve original server exit-status uncertainty, later process/listener/active-peer absence, zero-drop graceful capture and DHCP closure, and the unlaunched staged helper residue.
+      - Accept only a successful zero-return transfer with the exact single-file, zero-skipped progress diagnostic bound to its source and byte count, rejecting other diagnostics or failure. Keep mandatory remote file owner/mode/size and exact round-trip hash before reader launch. Do not replay the stopped push or reuse its stage path.
+      - Record actual owned-server wait status before checking retirement and allow a finite five-second observation-only drain of its TCP closure. Preserve zero exit, listener and active-peer absence requirements, reader lifecycle requirements and TIME_WAIT distinction. Do not start a replacement server, relax nonzero exit status or contact a peer during retirement.
+      - Validate only supplied diagnostics and process observations, independently review exact amended runtime and fresh collector bindings, commit and push before execution. The stopped unlaunched helper is quarantined; any later removal requires exact provenance, owner and byte verification, not guessed cleanup.
+    acceptance: [Successful transfer diagnostics and bounded retirement are represented without weakening exact helper or endpoint checks.]
+    required_extensions: []
+    extensions: {}
+    verification: [actual_failure, transfer_contract, retirement_contract, independent_review]
