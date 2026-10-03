@@ -306,3 +306,38 @@ seconds remaining at entry. While it runs, 4,320 seconds remain reserved for
 the unchanged survey, final stock restoration and cleanup. The original
 deployment and restoration limits remain unchanged. The observation does not
 retry the interrupted native transition.
+
+The first separate postboot observation stopped at its 90-second screenshot
+review deadline. Root subsequently viewed the normal UI and wrote a token,
+but that token arrived after controller closure and is not acceptance for the
+stopped run. Its settled software snapshot and serviced 60-second interval
+are retained; the 1,801-second warm-up, fixed policy observation and derived
+RF records are absent. The source remained at 100 MHz, with no native
+transaction or reboot in this observation.
+
+The complete stopped inventory is
+`out/rf/descending-postboot-stopped-01.toml`
+(`caca230d4bf5c0b59d54bcf0ea5fecb16406df0f839f645a4572532a8a3de33d`).
+The capture reports 37,683 captured and received packets with zero kernel
+drops. Owned server, DHCP and capture closure receipts report exit zero;
+the final namespace observation has no management socket or owned helper.
+The late review is preserved separately in
+`out/rf/descending-postboot-stop-note-01.toml`
+(`33653dfc225177dce81ad520c3e00589e0d66f677d384740f799df726d78bee3`).
+
+A newly admitted coordination batch permits one fresh present-state
+observation with a 600-second serviced screenshot-review window, retaining
+90-second token freshness and the 3,000-second observation cap. It extends
+the local finite completion boundary from 04:20 to 04:40 UTC on October 3,
+2026 to preserve time for review and final stock restoration. Full software,
+protected-corpus, warm-up, policy, isolation and RF requirements remain.
+This successor cannot introduce or remove a native library, reboot the
+instrument, change the source, or retroactively complete a stopped run.
+
+Independent stopped-observation review
+`out/rf/descending-postboot-stopped-independent-01.toml`
+(`77fbf629fcb11f5a280438fde16d9f97a7cf9d5fcacf9d5a9c94f27f8742b90b`)
+accepts the partial software snapshot and cleanup. It confirms the token arrived
+98.1807559 seconds after capture closure, and holds derived RF admission.
+The final host audit includes its own transient process context; socket absence
+and owned-helper retirement do not imply that every namespace PID was absent.
