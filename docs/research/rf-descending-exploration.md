@@ -116,3 +116,14 @@ and DHCP exits. Owned ADB retirement precedes DHCP and capture retirement; a
 fresh host check records no remaining namespace processes or listeners. The
 handoff remedy gives the lifecycle its own forward capture cursor while retaining
 the outer wire validator's independent cursor and all packet acceptance rules.
+
+The next collector reached UID zero and retained current package, maps, APK and
+full protected-corpus bytes, then stopped on a literal missing-file result for
+the expected enforcement-status path. Its stopped seal is
+`out/rf/descending-native-current-stopped-03.toml`. The subsequent narrow
+observation distinguishes a readable zero, a readable one and confirmed path
+absence. Absence does not establish that enforcement is disabled. Existing
+unreadable or linked paths, command failures and malformed replies remain errors.
+The exact observation bytes must stay unchanged across the current check and
+native transition. No policy setting is changed. No native policy reader or RF
+source command occurred in this stopped run; owned helpers again retired.
