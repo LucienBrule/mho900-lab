@@ -248,3 +248,33 @@ restoration reserves remain unchanged. Independent review
 accepts the fresh configuration and host-only validation. It acknowledges the
 late constructor check missed by the earlier conditional preparation review.
 This correction supplies no physical derived result.
+
+## Interrupted derived boot observation
+
+The second derived transition recorded the exact sidecar introduction and issued
+one normal reboot request. Its boot observation stopped on a peer-origin IPv6
+packet whose base Next Header is Hop-by-Hop, rather than directly ICMPv6. The
+retained packet decodes as a link-local multicast-listener report. This is a
+capture-classification limitation; it is not evidence of external reachability
+or a failed RF channel. [RFC 3810](https://www.rfc-editor.org/rfc/rfc3810.html)
+describes the Hop-by-Hop Router Alert used by these local reports.
+
+The reboot CLI was interrupted with recorded return code -15 and remains
+unproven as a completed command. Postboot software, UI, policy and RF acceptance
+are absent. The capture does retain subsequent DHCP traffic; its independent
+interpretation and a fresh current-epoch check are separate requirements.
+The owned ADB server was reaped with exit zero. The four remaining capture and
+DHCP owners were positively identified and gracefully retired; child closures
+are zero, while original supervisor wait statuses are explicitly unavailable.
+The final capture reports 87,160 captured and received packets with zero kernel
+drops. Host observations retain only the isolated connected route, forwarding
+disabled and no remaining namespace processes or sockets.
+
+The complete stopped inventory is
+`out/rf/descending-native-derived-stopped-02.toml`
+(`3b526cdfa84cbe0fed1b3bddf36f9b0c29b6d4b694eb6a563a23ebe760f27681`).
+Separately admitted postboot tasking permits a narrowly classified local report
+and observation of the already-introduced derived selection. It has no native
+transaction or reboot route. It retains a bounded observation period, full
+software and corpus checks, serviced warm-up and final stock restoration.
+It cannot turn the interrupted transition into a completed result.
