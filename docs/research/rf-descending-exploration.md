@@ -427,3 +427,25 @@ existing controller owners, and the recorded preflight retains 4,962.68 seconds
 against the required 4,800-second reserve. This accepts the file composition
 and host preparation for one unchanged derived descent and final stock return;
 it does not assert either future physical outcome.
+
+The derived descent completed its producer boundary with 72 RAW records and
+24 finalized source commands. The last planned command is 100 MHz. The scope
+restoration receipt reports exact saved ordinary and export settings; the
+source parent, remote coordinator and owned server exit with status zero.
+The separate completed inventory is
+`out/rf/descending-derived-rf-actual-01.toml`
+(`e9ca174d28179c27f7bd2ae0c16029471736dcc9cc9b15e1b24c3a05f159ef66`),
+covering 83,797 files and 349,299,120 bytes. Its lossless archive hashes to
+`60a9d6c55ddeb692127de2ccc6f602875fc354576578cfc45542731459d5117e`.
+The recorder stores 41,324 frames, matching its received count, with zero
+reported kernel drops. Independent full protocol review and numerical
+interpretation follow separately.
+
+A fresh host-only closure inventory,
+`out/rf/descending-derived-rf-host-closure-01.toml`
+(`7a09854fac5f0d562d2668f9f468fd081e82c9086c34fcb96a3e01e10dae8e96`),
+records disabled IPv4 and IPv6 forwarding, no remaining namespace owners and
+no TCP sockets before the stock return. It supplements the original immutable
+collection; it does not rewrite its capture or claim a new specimen query.
+The next action is the admitted exact introduced-library removal and normal
+stock reboot, followed by the unchanged stability and policy checks.
