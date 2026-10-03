@@ -1,0 +1,24 @@
+schema_version = "mho-rf.public-paired-survey/1"
+commanded_points = 24
+records_per_point_per_arm = 3
+records_total = 144
+sample_rate_hz = 4000000000
+public_csv_normalization = "LF line endings; numerical values unchanged from sealed CSV export"
+metric = "whole-record demeaned population AC RMS"
+chronological_arms = ["stock", "derived"]
+original_comparison_slots_allocated = 0
+physical_source_fundamental_qualified = false
+calibrated_bandwidth_claimed = false
+causal_attribution_claimed = false
+
+[[public_artifacts]]
+path = "docs/research/rf-descending-stock-derived.csv"
+sha256 = "8b169b71dbf09fb8c38a7de46327f93358bc59524b004096be30c2b3606aa5e7"
+
+[[public_artifacts]]
+path = "docs/research/figures/rf-descending-stock-derived.png"
+sha256 = "2b6baeeedd1e32ee552cffccc5a3d6758d284331e05c7255addba0bf444e7bd3"
+
+[[public_artifacts]]
+path = "docs/research/figures/rf-descending-stock-derived.svg"
+sha256 = "3690bd98884f696f068141d9629d728bdf50bcb00ff13bf34d5da42a80e74017"

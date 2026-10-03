@@ -473,3 +473,71 @@ retains the original transition and warm-up reserve while this host-only
 correction is reviewed. Only future native clock bounds and their dependent
 pins may change; both completed RF passes and their earlier caps stay
 immutable. This is a corrected host entry, with no physical retry to conceal.
+
+The completed paired survey retains every planned point: 24 frequencies and
+three records per frequency in each arm. The table below gives the observed
+whole-record demeaned population AC RMS in mV. The ratio is derived/stock.
+All records report 4 GSa/s; no original 75-slot comparison slots are filled.
+
+![Stock and derived sampled AC RMS](figures/rf-descending-stock-derived.png)
+
+| Command MHz | Stock mean mV | Derived mean mV | Ratio | Records per arm |
+|---:|---:|---:|---:|---:|
+| 6000 | 0.902369 | 0.920555 | 1.020154 | 3 / 3 |
+| 5500 | 0.909966 | 0.923179 | 1.014520 | 3 / 3 |
+| 5000 | 0.911328 | 0.930458 | 1.020991 | 3 / 3 |
+| 4500 | 0.926476 | 0.949237 | 1.024568 | 3 / 3 |
+| 4000 | 0.922817 | 1.000055 | 1.083698 | 3 / 3 |
+| 3600 | 0.942262 | 0.995587 | 1.056592 | 3 / 3 |
+| 3200 | 0.967895 | 0.978298 | 1.010748 | 3 / 3 |
+| 3000 | 0.947096 | 0.975415 | 1.029901 | 3 / 3 |
+| 2500 | 0.933650 | 0.993106 | 1.063681 | 3 / 3 |
+| 2000 | 0.955494 | 0.973869 | 1.019230 | 3 / 3 |
+| 1800 | 1.038845 | 1.024863 | 0.986540 | 3 / 3 |
+| 1600 | 1.054964 | 1.080586 | 1.024287 | 3 / 3 |
+| 1400 | 2.000270 | 10.937937 | 5.468232 | 3 / 3 |
+| 1200 | 29.969565 | 63.191009 | 2.108506 | 3 / 3 |
+| 1100 | 66.294129 | 97.485228 | 1.470496 | 3 / 3 |
+| 1000 | 89.942540 | 104.838933 | 1.165621 | 3 / 3 |
+| 950 | 96.364989 | 104.798956 | 1.087521 | 3 / 3 |
+| 900 | 99.655792 | 103.689537 | 1.040477 | 3 / 3 |
+| 850 | 101.366683 | 102.876896 | 1.014899 | 3 / 3 |
+| 800 | 99.362605 | 99.982388 | 1.006238 | 3 / 3 |
+| 700 | 98.069136 | 98.317026 | 1.002528 | 3 / 3 |
+| 600 | 94.291666 | 94.705686 | 1.004391 | 3 / 3 |
+| 400 | 94.712194 | 96.615430 | 1.020095 | 3 / 3 |
+| 100 | 110.315759 | 111.126231 | 1.007347 | 3 / 3 |
+
+At 800 MHz, the means differ by 0.62%; at 1 GHz the derived mean is 16.56%
+higher, at 1.1 GHz 47.05% higher, and at 1.2 GHz 110.85% higher. Below
+800 MHz the arms are close; their separation grows around the stock
+response decline. This is useful evidence of an observed response change
+associated with the two software selections under the same commanded
+source sequence and acquisition settings.
+
+At the commanded 6 GHz point both sampled RMS means are below 1 mV,
+and the strongest sampled component in both arms is 100 MHz. This does
+not establish reception of a 6 GHz carrier. A hypothetical 6 GHz sinusoid
+at the reported sample rate would fold to 2 GHz; harmonics and other
+content remain ambiguous above the 2 GHz Nyquist boundary.
+
+These are two chronological exploratory passes. Source level and spectral
+quality are unqualified, whole-record RMS includes all sampled content,
+and three-record population SD does not establish independence. The
+results support a selective response difference; they establish neither
+calibrated analog bandwidth nor a causal attribution that excludes source
+drift. The final stock return is a restoration check, without a third RF
+pass. The incomplete frozen A1/B/A2 comparison remains distinct.
+
+The [comparison CSV](rf-descending-stock-derived.csv) preserves all means,
+population SDs, counts, differences and ratios. The [SVG figure](figures/rf-descending-stock-derived.svg)
+is retained for export. The numerical inventories are:
+
+- Derived reduction: `out/rf/descending-derived-rf-analysis-01.toml`
+  (`6d70abed7be8c1dc7cee747ada7e77590e242deaf64314e9782078cf6d0acbb4`).
+- Matched comparison: `out/rf/descending-stock-derived-comparison-01.toml`
+  (`8f55c2fc7920ff61350e75562e21eed45f54886c797fa3de2ae6091a8ac7cb16`).
+- Figure: `out/rf/descending-stock-derived-figure-01.toml`
+  (`c5ea84fcd4d08d526860419f3c0467e5d6786fd20abaad1aa8a4c74286c3f14d`).
+- Execution and full spectral table: `out/rf/descending-derived-rf-reduction-execution-01.toml`
+  (`ba60bb9d9d30651cf00f7b59ceebc06a1fc237265459c1b38a3ad80efa20c216`).
