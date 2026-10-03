@@ -86,3 +86,19 @@ records or substitution of fitted peak amplitude for RMS. Arm differences are
 descriptive until source/path and temporal repeatability support attribution.
 This survey can reveal where a narrower follow-up is useful. It does not by
 itself establish a calibrated analog bandwidth or a physical six GHz waveform.
+
+## Recorder invocation checkpoint
+
+The first current-software collector launch stopped before contact. Its outer
+supervisor supplied the recorder duration as a positional argument; the pinned
+recorder requires `--duration`. Click rejected that command before its callback,
+so no capture, DHCP helper, ADB server, specimen connection or source write
+started. A subsequent host-only check found no namespace processes or listeners.
+The stopped run is preserved separately as
+`out/rf/descending-native-current-stopped-01.toml`.
+
+The narrow remedy adds the required recorder option. The DHCP wrapper still
+receives only its output argument. Pure checks exercise the actual pinned Click
+commands with their physical callbacks replaced by recording spies. The original
+preparation remains immutable; a fresh run identity and exact amended source
+pin precede another launch. This checkpoint supplies no software or RF result.
