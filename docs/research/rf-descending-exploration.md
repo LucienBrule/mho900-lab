@@ -160,3 +160,19 @@ snapshot, native selection or RF source command followed. A separate lifecycle
 archive parser now handles that exact flat archive grammar; protected-corpus
 member naming and all reader identity, argument, exit and absence checks remain
 unchanged. This resolves a host evidence-format seam, not a stock policy failure.
+
+The fresh current-software run then completed. Before and final snapshots retain
+the exact stock signed APK, APK-backed native mapping, process and boot epoch,
+identity/status replies and complete protected corpus. Two fixed-size samples
+establish raw and effective stock selection 17/17. The reviewed screenshot shows
+the normal oscilloscope UI. The capture contains 60,321 frames, matching final
+capture statistics with zero reported kernel drops, and owned helpers retired
+with recorded zero exits. This establishes the current stock software state;
+it contains no descending RF records.
+
+The two-arm survey retains a finite completion budget and the full reserves for
+both native transitions and final stock restoration. A separate timing fixture
+extends that selected budget by one hour after the collector remedies. Per-leg
+durations, the 1,801-second serviced warm-up, single-reboot rule, 7,320-second
+pre-deployment reserve and captured lease expiry remain unchanged. Earlier
+fixtures and stopped runs remain immutable.
