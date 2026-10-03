@@ -1,0 +1,16 @@
+contract: taskctl.seed/alpha1
+tasks:
+  - protocol: tasking/core-draft-2
+    id: TASK.rf.descending-policy-file-observation
+    title: Record the absent enforcement file without changing specimen policy
+    state: open
+    intent: Preserve actual policy-file availability while removing an unsupported collector assumption.
+    requires: [TASK.rf.descending-pcap-handoff]
+    requirements:
+      - "Preserve current-03 stopped evidence: UID0 and stock package/corpus reads precede a literal missing-file error at /sys/fs/selinux/enforce. Keep capture statistics and ordered helper retirement. No policy reader, native transition or source command occurred."
+      - Amend only the read-only enforcement-file observation to distinguish a readable zero or one from confirmed path absence. Reject unreadable existing files, symlinks, malformed values and failed commands. Absence is an observation, not a claim that policy is disabled. Preserve exact before/after comparison and make no policy change.
+      - Use supplied-file controls and independent review, bind exact new runtime hashes to a fresh collector identity, and commit and push before execution. Preserve all prior seals and specimen originals.
+    acceptance: [The collector represents observed enforcement-file absence without weakening unchanged-state verification.]
+    required_extensions: []
+    extensions: {}
+    verification: [observed_absence, read_only_states, unchanged_comparison, independent_review]
