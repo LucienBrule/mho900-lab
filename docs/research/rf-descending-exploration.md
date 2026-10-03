@@ -408,3 +408,22 @@ time. It retains the same source schedule, acquisition settings, record count,
 measurement, 1,801-second stock warm-up and 3,000-second native leg cap. Earlier
 captures, completed observation and failed preflight remain immutable. Fresh
 complete concrete and host-only validation are required before execution.
+
+The exact lease remedy passed independent concrete review before execution.
+The fresh preparation inventory is
+`out/rf/descending-lease-remedy-01.toml`
+(`6a767c02fe4c8fa166486b1650997988e867c45952378746b884119a03a6ae66`),
+with independent review
+`out/rf/descending-lease-remedy-independent-01.toml`
+(`c4bfaa4e1ec88a811a138bb175e02552ea080cfc3e2ee156cd135363e052ea67`).
+Every other executable module remains byte-identical; complete constructors,
+source deltas, dependent pins and four positive/negative control methods pass.
+
+The complete host upload and static check inventory is
+`out/rf/descending-lease-host-staging-01.toml`
+(`c59a8278a48f7ae7addf6d373e38290d505338d0e607e66cadb649f8471e4cae`).
+All 29 RF and 51 native upload files match. The isolated namespace has no
+existing controller owners, and the recorded preflight retains 4,962.68 seconds
+against the required 4,800-second reserve. This accepts the file composition
+and host preparation for one unchanged derived descent and final stock return;
+it does not assert either future physical outcome.
